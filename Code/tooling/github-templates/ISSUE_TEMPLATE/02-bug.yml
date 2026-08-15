@@ -1,0 +1,101 @@
+name: "🐛 Bug"
+description: "Un comportement observé qui diffère du comportement attendu"
+title: "[bug] "
+labels: ["type:fix"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        > **Toute correction de bug commence par un test qui reproduit le bug.**
+        > Si tu ne sais pas écrire ce test, tu n'as pas encore compris le bug.
+
+  - type: dropdown
+    id: env
+    attributes:
+      label: Environnement
+      options:
+        - "local"
+        - "preview (PR)"
+        - "staging"
+        - "production"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Surface
+      options:
+        - "Mobile — Android"
+        - "Mobile — iOS"
+        - "API"
+        - "Web"
+        - "Admin"
+        - "CI / outillage"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: langue
+    attributes:
+      label: Langue active
+      description: "Le RTL arabe est la source n°1 de bugs d'affichage — ne pas oublier de préciser."
+      options:
+        - "Français (LTR)"
+        - "العربية (RTL)"
+        - "Les deux"
+    validations:
+      required: true
+
+  - type: textarea
+    id: attendu-observe
+    attributes:
+      label: Attendu / Observé
+      value: |
+        **Attendu :**
+
+        **Observé :**
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Étapes de reproduction
+      value: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+
+  - type: input
+    id: request-id
+    attributes:
+      label: requestId
+      description: "Présent dans toute réponse d'erreur de l'API. C'est ce qui permet de retrouver la trace serveur."
+      placeholder: "01J8K2M4N5P6Q7R8S9T0"
+
+  - type: input
+    id: appareil
+    attributes:
+      label: Appareil / version
+      placeholder: "Samsung A14 · Android 13 · APK 1.0.3 · réseau 3G"
+
+  - type: dropdown
+    id: gravite
+    attributes:
+      label: Gravité
+      options:
+        - "Bloquant — le parcours cœur est cassé (recherche → fiche → appel)"
+        - "Majeur — une fonctionnalité est inutilisable, contournement possible"
+        - "Mineur — gêne visuelle ou cas limite"
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / captures
+      description: "⚠️ **Anonymise avant de coller** : aucun numéro de téléphone réel, aucun OTP, aucun token, aucune image de CIN."
+      render: shell

@@ -1,0 +1,65 @@
+name: "🧭 Décision à trancher (futur ADR)"
+description: "Un choix structurant qui bloque du travail et doit être arbitré avant de coder"
+title: "[décision] "
+labels: ["type:docs", "needs-decision"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        > Une décision structurante prise sans trace écrite sera re-débattue dans trois semaines.
+        > Cette issue se ferme en produisant un ADR dans
+        > `Code/docs/01-architecture-decision-records/`.
+
+  - type: textarea
+    id: contexte
+    attributes:
+      label: Contexte
+      description: "Quelle situation force ce choix maintenant ?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: options
+    attributes:
+      label: Options envisagées
+      description: "Au moins deux. Une option unique n'est pas une décision, c'est une annonce."
+      value: |
+        ### Option A —
+        **Pour :**
+        **Contre :**
+
+        ### Option B —
+        **Pour :**
+        **Contre :**
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact technique
+      description: "Ce qui change dans le code selon l'option retenue. Y compris le coût d'un retour en arrière."
+    validations:
+      required: true
+
+  - type: textarea
+    id: bloque
+    attributes:
+      label: Ce qui est bloqué par cette décision
+      description: "Issues et tâches qui ne peuvent pas démarrer tant que ce n'est pas tranché."
+      placeholder: "#42 (BE-33 passerelle de paiement), #43 (BE-34 crédits)"
+
+  - type: input
+    id: echeance
+    attributes:
+      label: Échéance
+      description: "Après cette date, le blocage coûte plus cher que le mauvais choix."
+      placeholder: "2026-08-29 (avant le sprint S2)"
+    validations:
+      required: true
+
+  - type: input
+    id: recommandation
+    attributes:
+      label: Recommandation
+      description: "Ce que tu proposes, et en une phrase pourquoi."

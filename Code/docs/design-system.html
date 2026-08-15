@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sanaya — Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Kufi+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root[data-theme="light"] {
+      --c-background: #FCFCFA;
+      --c-surface: #FFFFFF;
+      --c-surface-raised: #FFFFFF;
+      --c-surface-sunken: #F3F2ED;
+      --c-border: #E9ECF0;
+      --c-border-strong: #D3D7DE;
+      --c-text-primary: #141A24;
+      --c-text-secondary: #525C6B;
+      --c-text-muted: #78818F;
+      --c-text-inverse: #FFFFFF;
+      --c-accent: #3B6FE0;
+      --c-accent-hover: #2A57C4;
+      --c-accent-subtle: #EEF3FD;
+      --c-on-accent: #FFFFFF;
+      --c-verified: #1E7F4C;
+      --c-verified-subtle: #E8F6EE;
+      --c-pending: #A9640A;
+      --c-pending-subtle: #FEF5E6;
+      --c-destructive: #D93B3B;
+      --c-destructive-subtle: #FDECEC;
+      --c-rating: #C77800;
+      --c-sponsored: #A9640A;
+      --c-whatsapp: #128C7E;
+  --shadow-sm: 0 1px 2px rgba(20,26,36,.06);
+  --shadow-md: 0 4px 12px rgba(20,26,36,.08);
+  --shadow-lg: 0 12px 32px rgba(20,26,36,.12);
+}
+:root[data-theme="dark"] {
+      --c-background: #0A0D12;
+      --c-surface: #141A24;
+      --c-surface-raised: #1F2733;
+      --c-surface-sunken: #11161F;
+      --c-border: #1F2733;
+      --c-border-strong: #343D4B;
+      --c-text-primary: #FCFCFA;
+      --c-text-secondary: #A8B0BD;
+      --c-text-muted: #78818F;
+      --c-text-inverse: #141A24;
+      --c-accent: #6690E8;
+      --c-accent-hover: #95B4F0;
+      --c-accent-subtle: #1A2440;
+      --c-on-accent: #0A0D12;
+      --c-verified: #3FBF7F;
+      --c-verified-subtle: #0F2A1C;
+      --c-pending: #E8A72B;
+      --c-pending-subtle: #2E2210;
+      --c-destructive: #F26D6D;
+      --c-destructive-subtle: #2E1414;
+      --c-rating: #F5A623;
+      --c-sponsored: #E8A72B;
+      --c-whatsapp: #25D366;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.4);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.5);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,.6);
+}
+:root{
+  --s-xxs:2px; --s-xs:4px; --s-sm:8px; --s-md:12px; --s-lg:16px; --s-xl:24px; --s-2xl:32px; --s-3xl:48px;
+  --r-sm:6px; --r-md:10px; --r-lg:14px; --r-xl:20px; --r-pill:999px;
+  --touch:48px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html[dir="rtl"] body{font-family:'Noto Kufi Arabic','Manrope',sans-serif}
+body{
+  font-family:'Manrope',system-ui,sans-serif;
+  background:var(--c-background); color:var(--c-text-primary);
+  font-size:15px; line-height:1.47; -webkit-font-smoothing:antialiased;
+  transition:background .2s, color .2s;
+}
+.wrap{max-width:1120px;margin:0 auto;padding:var(--s-xl) var(--s-lg) 96px}
+header.top{
+  position:sticky;top:0;z-index:20;background:var(--c-surface);
+  border-bottom:1px solid var(--c-border);
+  padding:var(--s-md) var(--s-lg);display:flex;align-items:center;gap:var(--s-md);flex-wrap:wrap;
+}
+.logo{width:32px;height:32px;border-radius:var(--r-md);background:var(--c-accent);color:var(--c-on-accent);
+  display:grid;place-items:center;font-weight:800;font-size:17px;flex:none}
+.brandname{font-weight:800;font-size:17px;letter-spacing:-.02em}
+.brandsub{color:var(--c-text-muted);font-size:13px}
+.spacer{flex:1}
+.toggle{
+  border:1px solid var(--c-border-strong);background:var(--c-surface);color:var(--c-text-primary);
+  border-radius:var(--r-pill);padding:8px 14px;font:600 13px/1 'Manrope',sans-serif;cursor:pointer;
+  min-height:36px;
+}
+.toggle:hover{background:var(--c-surface-sunken)}
+section{margin-top:var(--s-3xl)}
+h2.sec{font-size:22px;font-weight:700;letter-spacing:-.01em;margin-bottom:var(--s-xs)}
+p.sec{color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--s-lg);max-width:70ch}
+h3.sub{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--c-text-muted);margin:var(--s-xl) 0 var(--s-md)}
+.grid{display:grid;gap:var(--s-md)}
+.g-swatch{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.g-two{grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:var(--s-lg)}
+.card{background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--r-lg);
+  box-shadow:var(--shadow-sm);overflow:hidden}
+.pad{padding:var(--s-lg)}
+.sw{border:1px solid var(--c-border);border-radius:var(--r-md);overflow:hidden;background:var(--c-surface)}
+.sw .chip{height:56px}
+.sw .meta{padding:8px 10px;font-size:11px;line-height:1.35}
+.sw .meta b{display:block;font-size:12px;font-weight:600}
+.sw .meta code{color:var(--c-text-muted);font-family:ui-monospace,monospace;font-size:11px}
+/* boutons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:var(--touch);padding:0 20px;border-radius:var(--r-md);
+  font:600 15px/1 'Manrope',sans-serif;border:1px solid transparent;cursor:pointer;
+  transition:background .12s,border-color .12s}
+.btn-primary{background:var(--c-accent);color:var(--c-on-accent)}
+.btn-primary:hover{background:var(--c-accent-hover)}
+.btn-secondary{background:var(--c-surface);color:var(--c-text-primary);border-color:var(--c-border-strong)}
+.btn-secondary:hover{background:var(--c-surface-sunken)}
+.btn-ghost{background:transparent;color:var(--c-accent)}
+.btn-ghost:hover{background:var(--c-accent-subtle)}
+.btn-wa{background:var(--c-whatsapp);color:#fff}
+.btn-danger{background:transparent;color:var(--c-destructive);border-color:var(--c-destructive)}
+.btn-sm{min-height:36px;padding:0 14px;font-size:13px;border-radius:var(--r-sm)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;gap:var(--s-md);flex-wrap:wrap;align-items:center}
+/* badges */
+.badge{display:inline-flex;align-items:center;gap:5px;border-radius:var(--r-pill);
+  padding:4px 10px;font:600 12px/1.3 'Manrope',sans-serif}
+.b-verified{background:var(--c-verified-subtle);color:var(--c-verified)}
+.b-pending{background:var(--c-pending-subtle);color:var(--c-pending)}
+.b-danger{background:var(--c-destructive-subtle);color:var(--c-destructive)}
+.b-sponsored{background:var(--c-pending-subtle);color:var(--c-pending)}
+.b-neutral{background:var(--c-surface-sunken);color:var(--c-text-secondary)}
+/* champs */
+.field{display:block;margin-bottom:var(--s-md)}
+.field label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+.field input,.field select{width:100%;min-height:var(--touch);padding:0 14px;font:400 15px 'Manrope',sans-serif;
+  background:var(--c-surface);color:var(--c-text-primary);
+  border:1px solid var(--c-border-strong);border-radius:var(--r-md);outline:none}
+.field input:focus,.field select:focus{border-color:var(--c-accent);box-shadow:0 0 0 3px var(--c-accent-subtle)}
+.field .err{color:var(--c-destructive);font-size:12px;margin-top:5px;font-weight:600}
+.field.invalid input{border-color:var(--c-destructive)}
+/* carte artisan */
+.pcard{display:flex;gap:var(--s-md);padding:var(--s-md);background:var(--c-surface);
+  border:1px solid var(--c-border);border-radius:var(--r-lg);box-shadow:var(--shadow-sm)}
+.pcard .ava{width:64px;height:64px;border-radius:var(--r-md);flex:none;
+  background:linear-gradient(135deg,var(--c-accent),var(--c-accent-hover));
+  color:var(--c-on-accent);display:grid;place-items:center;font-weight:800;font-size:22px}
+.pcard .body{flex:1;min-width:0}
+.pcard .name{font-weight:700;font-size:16px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.pcard .meta{color:var(--c-text-secondary);font-size:13px;margin-top:3px}
+.pcard .foot{display:flex;align-items:center;gap:var(--s-md);margin-top:10px;flex-wrap:wrap}
+.stars{color:var(--c-rating);font-size:14px;letter-spacing:1px}
+.price{font-weight:700;font-size:14px}
+.price span{font-weight:400;color:var(--c-text-muted);font-size:12px}
+/* etats */
+.state{text-align:center;padding:var(--s-2xl) var(--s-lg)}
+.state .ico{width:52px;height:52px;border-radius:var(--r-pill);margin:0 auto var(--s-md);
+  display:grid;place-items:center;font-size:24px;background:var(--c-surface-sunken)}
+.state h4{font-size:16px;font-weight:700;margin-bottom:6px}
+.state p{color:var(--c-text-secondary);font-size:14px;margin-bottom:var(--s-lg)}
+/* skeleton */
+.sk{background:var(--c-surface-sunken);border-radius:var(--r-sm);animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+/* type */
+.t-display{font-size:36px;line-height:42px;font-weight:800;letter-spacing:-.02em}
+.t-h1{font-size:28px;line-height:34px;font-weight:800;letter-spacing:-.02em}
+.t-h2{font-size:22px;line-height:28px;font-weight:700;letter-spacing:-.01em}
+.t-h3{font-size:18px;line-height:24px;font-weight:700}
+.t-body{font-size:15px;line-height:22px}
+.t-small{font-size:13px;line-height:18px;color:var(--c-text-secondary)}
+.t-caption{font-size:11px;line-height:14px;font-weight:600;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--c-text-muted)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:start;font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+  color:var(--c-text-muted);padding:10px var(--s-md);border-bottom:1px solid var(--c-border);font-weight:600}
+td{padding:12px var(--s-md);border-bottom:1px solid var(--c-border)}
+tr:last-child td{border-bottom:none}
+code.k{font-family:ui-monospace,monospace;font-size:12px;background:var(--c-surface-sunken);
+  padding:2px 6px;border-radius:4px}
+.note{border-inline-start:3px solid var(--c-accent);background:var(--c-accent-subtle);
+  padding:var(--s-md) var(--s-lg);border-radius:0 var(--r-md) var(--r-md) 0;font-size:14px}
+.note.warn{border-color:var(--c-pending);background:var(--c-pending-subtle)}
+.bar{height:8px;background:var(--c-surface-sunken);border-radius:var(--r-pill);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--c-accent);border-radius:var(--r-pill)}
+.spacescale{display:flex;align-items:flex-end;gap:var(--s-md);flex-wrap:wrap}
+.spacescale div{text-align:center}
+.spacescale i{display:block;background:var(--c-accent);border-radius:3px;margin-bottom:6px}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="logo">S</div>
+  <div>
+    <div class="brandname">Sanaya — Design System</div>
+    <div class="brandsub">v1.0 · généré depuis <code class="k">packages/design-tokens/tokens.json</code></div>
+  </div>
+  <div class="spacer"></div>
+  <button class="toggle" id="theme">🌙 Sombre</button>
+  <button class="toggle" id="dir">ع Arabe / RTL</button>
+</header>
+
+<div class="wrap">
+
+<div class="note" style="margin-top:var(--s-xl)">
+  <strong>Source unique de vérité.</strong> Toutes les valeurs de cette page proviennent de
+  <code class="k">tokens.json</code>. Elles sont générées en TypeScript (preset Tailwind) pour le web
+  et en Dart (<code class="k">ThemeExtension</code>) pour Flutter via <code class="k">pnpm tokens:build</code>.
+  Ne jamais écrire une couleur ou une taille en dur dans un composant.
+</div>
+
+<section>
+  <h2 class="sec">1. Couleurs sémantiques</h2>
+  <p class="sec">On ne manipule jamais la palette brute dans un composant : on utilise un <em>rôle</em>.
+  C'est ce qui rend le basculement clair/sombre gratuit et garantit les contrastes.</p>
+  <h3 class="sub">Rôles</h3>
+  <div class="grid g-swatch" id="swatches"></div>
+</section>
+
+<section>
+  <h2 class="sec">2. Typographie</h2>
+  <p class="sec">Manrope en latin, Noto Kufi Arabic en arabe — la substitution est automatique selon la locale.
+  Aucune taille en dur : passer par l'échelle.</p>
+  <div class="card pad">
+    <div class="t-caption">caption · 11/14 · 600</div>
+    <div class="t-display" style="margin-top:var(--s-md)">Trouve ton artisan</div>
+    <div class="t-h1">Plombiers à Sousse</div>
+    <div class="t-h2">Artisans vérifiés près de chez toi</div>
+    <div class="t-h3">Karim Ben Salah — Plomberie</div>
+    <div class="t-body" style="margin-top:var(--s-sm)">Corps de texte 15/22. Le confort de lecture prime sur la densité : la cible utilise majoritairement un téléphone Android d'entrée de gamme, souvent en extérieur.</div>
+    <div class="t-small" style="margin-top:var(--s-xs)">Texte secondaire 13/18 — métadonnées, aides à la saisie.</div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">3. Espacements &amp; rayons</h2>
+  <p class="sec">Échelle en base 4. La cible tactile minimale est de <strong>48 px</strong> — non négociable :
+  l'artisan consulte l'application sur un chantier, parfois avec des gants ou un écran sale.</p>
+  <div class="card pad">
+    <div class="spacescale">
+      <div><i style="width:2px;height:2px"></i><code class="k">xxs 2</code></div>
+      <div><i style="width:4px;height:4px"></i><code class="k">xs 4</code></div>
+      <div><i style="width:8px;height:8px"></i><code class="k">sm 8</code></div>
+      <div><i style="width:12px;height:12px"></i><code class="k">md 12</code></div>
+      <div><i style="width:16px;height:16px"></i><code class="k">lg 16</code></div>
+      <div><i style="width:24px;height:24px"></i><code class="k">xl 24</code></div>
+      <div><i style="width:32px;height:32px"></i><code class="k">2xl 32</code></div>
+      <div><i style="width:48px;height:48px"></i><code class="k">3xl 48</code></div>
+    </div>
+    <div class="row" style="margin-top:var(--s-xl)">
+      <div style="width:64px;height:44px;background:var(--c-accent-subtle);border:1px solid var(--c-accent);border-radius:var(--r-sm);display:grid;place-items:center;font-size:11px">sm 6</div>
+      <div style="width:64px;height:44px;background:var(--c-accent-subtle);border:1px solid var(--c-accent);border-radius:var(--r-md);display:grid;place-items:center;font-size:11px">md 10</div>
+      <div style="width:64px;height:44px;background:var(--c-accent-subtle);border:1px solid var(--c-accent);border-radius:var(--r-lg);display:grid;place-items:center;font-size:11px">lg 14</div>
+      <div style="width:64px;height:44px;background:var(--c-accent-subtle);border:1px solid var(--c-accent);border-radius:var(--r-xl);display:grid;place-items:center;font-size:11px">xl 20</div>
+      <div style="width:88px;height:44px;background:var(--c-accent-subtle);border:1px solid var(--c-accent);border-radius:var(--r-pill);display:grid;place-items:center;font-size:11px">pill</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">4. Boutons</h2>
+  <p class="sec">Hauteur minimale 48 px partout. « Appeler » est l'action primaire du produit :
+  elle ne partage jamais son niveau visuel avec une autre action sur le même écran.</p>
+  <div class="card pad">
+    <div class="row">
+      <button class="btn btn-primary">📞 <span>Appeler l'artisan</span></button>
+      <button class="btn btn-wa">💬 <span>WhatsApp</span></button>
+      <button class="btn btn-secondary">Voir le profil</button>
+      <button class="btn btn-ghost">Ajouter aux favoris</button>
+      <button class="btn btn-danger btn-sm">Signaler</button>
+      <button class="btn btn-primary" disabled>Publier le profil</button>
+    </div>
+    <div class="note warn" style="margin-top:var(--s-lg)">
+      <strong>Guard-rail.</strong> Tout clic sur « Appeler » ou « WhatsApp » doit poster un
+      <code class="k">ContactEvent</code> <em>avant</em> d'ouvrir le lien natif (principe P9).
+      Sans cette trace, l'abonnement Pro est invendable.
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">5. Badges &amp; statuts</h2>
+  <p class="sec">Le badge « Vérifié » atteste de l'identité (CIN), <strong>jamais</strong> du plan payant — voir ADR-002.
+  Un emplacement sponsorisé est toujours étiqueté explicitement.</p>
+  <div class="card pad">
+    <div class="row">
+      <span class="badge b-verified">✓ Vérifié</span>
+      <span class="badge b-pending">⏳ En attente</span>
+      <span class="badge b-danger">✕ Rejeté</span>
+      <span class="badge b-sponsored">★ Sponsorisé</span>
+      <span class="badge b-neutral">Disponible aujourd'hui</span>
+      <span class="badge b-neutral">Sousse · Khezama</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">6. Champs de saisie</h2>
+  <div class="grid g-two">
+    <div class="card pad">
+      <label class="field"><span>Numéro de téléphone</span>
+        <input type="tel" placeholder="+216 22 123 456" value="+216 22 123 456"></label>
+      <label class="field"><span>Service recherché</span>
+        <select><option>Plomberie</option><option>Électricité</option><option>Peinture</option><option>Climatisation</option></select></label>
+      <div class="field invalid"><label>Code de vérification</label>
+        <input value="1234" inputmode="numeric">
+        <div class="err">Code incorrect — il vous reste 2 tentatives</div></div>
+    </div>
+    <div class="card pad">
+      <h3 class="sub" style="margin-top:0">Complétude du profil</h3>
+      <div class="row" style="justify-content:space-between;margin-bottom:8px">
+        <span class="t-small">Profil artisan</span><strong style="font-size:14px">72 %</strong>
+      </div>
+      <div class="bar"><i style="width:72%"></i></div>
+      <p class="t-small" style="margin-top:var(--s-md)">Il manque : 2 photos de réalisations, la zone de couverture, un tarif indicatif.</p>
+      <p class="t-small" style="margin-top:var(--s-sm)"><strong>Publication possible à partir de 60 %.</strong></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">7. Carte artisan</h2>
+  <p class="sec">Le composant le plus vu du produit. Il doit répondre en un coup d'œil à : qui, où, quelle note, à partir de combien, et est-il vérifié.</p>
+  <div class="grid g-two">
+    <div class="pcard">
+      <div class="ava">KB</div>
+      <div class="body">
+        <div class="name">Karim Ben Salah <span class="badge b-verified">✓ Vérifié</span></div>
+        <div class="meta">Plomberie · Sousse, Khezama · 2,4 km</div>
+        <div class="foot">
+          <span class="stars">★★★★★ <span style="color:var(--c-text-secondary);font-size:13px">4,8 (63)</span></span>
+          <span class="price">à partir de 40 <span>TND</span></span>
+        </div>
+      </div>
+    </div>
+    <div class="pcard" style="border-color:var(--c-pending)">
+      <div class="ava" style="background:linear-gradient(135deg,var(--c-pending),var(--c-accent-hover))">HF</div>
+      <div class="body">
+        <div class="name">Hédi Ferjani <span class="badge b-sponsored">★ Sponsorisé</span></div>
+        <div class="meta">Peinture · Monastir · 6,1 km</div>
+        <div class="foot">
+          <span class="stars">★★★★☆ <span style="color:var(--c-text-secondary);font-size:13px">4,2 (18)</span></span>
+          <span class="price">à partir de 25 <span>TND</span></span>
+        </div>
+      </div>
+    </div>
+    <div class="pcard">
+      <div class="ava sk" style="background:var(--c-surface-sunken)"></div>
+      <div class="body">
+        <div class="sk" style="height:16px;width:60%"></div>
+        <div class="sk" style="height:12px;width:40%;margin-top:8px"></div>
+        <div class="sk" style="height:12px;width:75%;margin-top:12px"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">8. États vides, erreur, hors ligne</h2>
+  <p class="sec">Trois écrans que l'on oublie systématiquement, et qui décident pourtant de la
+  perception de qualité sur un réseau tunisien en 3G. Aucun écran blanc, jamais.</p>
+  <div class="grid g-two">
+    <div class="card"><div class="state">
+      <div class="ico">🔍</div><h4>Aucun artisan trouvé</h4>
+      <p>Aucun plombier disponible à Mahdia pour ces filtres.</p>
+      <button class="btn btn-secondary btn-sm">Élargir au gouvernorat</button>
+    </div></div>
+    <div class="card"><div class="state">
+      <div class="ico" style="background:var(--c-destructive-subtle)">⚠️</div><h4>Connexion perdue</h4>
+      <p>Impossible de charger les résultats. Vérifie ta connexion.</p>
+      <button class="btn btn-primary btn-sm">Réessayer</button>
+    </div></div>
+    <div class="card"><div class="state">
+      <div class="ico" style="background:var(--c-pending-subtle)">📡</div><h4>Mode hors ligne</h4>
+      <p>Tu consultes des résultats enregistrés. Ils seront actualisés au retour du réseau.</p>
+      <button class="btn btn-ghost btn-sm">Compris</button>
+    </div></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">9. Tableau back-office</h2>
+  <div class="card">
+    <table>
+      <thead><tr><th>Artisan</th><th>Moyen</th><th>Montant</th><th>Statut</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td>Karim Ben Salah — Pack Pro trimestriel</td><td>Virement bancaire</td><td>135,000 TND</td><td><span class="badge b-pending">À valider</span></td><td><button class="btn btn-ghost btn-sm">Valider →</button></td></tr>
+        <tr><td>Ahmed Jlassi — Pack Pro mensuel</td><td>En ligne (Konnect)</td><td>45,000 TND</td><td><span class="badge b-verified">Payé</span></td><td><button class="btn btn-ghost btn-sm">Voir facture</button></td></tr>
+        <tr><td>Nizar Chaabane — 25 crédits Boost</td><td>Espèces (agent)</td><td>22,500 TND</td><td><span class="badge b-verified">Payé</span></td><td><button class="btn btn-ghost btn-sm">Voir facture</button></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">10. Règles d'usage — à relire avant chaque PR</h2>
+  <div class="card pad">
+    <ul style="padding-inline-start:20px;display:grid;gap:10px;font-size:14px">
+      <li><strong>Zéro valeur en dur.</strong> <code class="k">AppColors.accent</code> / <code class="k">bg-accent</code>, jamais <code class="k">#3B6FE0</code>.</li>
+      <li><strong>Zéro chaîne en dur.</strong> Toute clé ajoutée existe en <code class="k">fr.json</code> <em>et</em> <code class="k">ar.json</code>.</li>
+      <li><strong>Propriétés logiques uniquement.</strong> <code class="k">ms-/me-/ps-/pe-</code> sur le web, <code class="k">EdgeInsetsDirectional</code> en Flutter. Jamais <code class="k">ml-</code> ni <code class="k">EdgeInsets.only(left:)</code> — ça casse en arabe.</li>
+      <li><strong>Cible tactile ≥ 48 px</strong> sur toute action.</li>
+      <li><strong>Badges :</strong> le texte utilise la teinte <code class="k">-500</code> sur le fond <code class="k">-subtle</code>, à 12 px minimum en 600. En dessous, remonter à la teinte <code class="k">-600</code>.</li>
+      <li><strong>Trois états obligatoires</strong> par écran de données : <em>loading</em> (skeleton, pas spinner), <em>empty</em>, <em>error</em>.</li>
+      <li><strong>Contraste :</strong> AA (4,5:1) pour le texte, 3:1 pour les éléments graphiques — vérifié en clair <em>et</em> en sombre.</li>
+    </ul>
+  </div>
+</section>
+
+</div>
+
+<script>
+const SEM = {"light": {"background": "#FCFCFA", "surface": "#FFFFFF", "surface-raised": "#FFFFFF", "surface-sunken": "#F3F2ED", "border": "#E9ECF0", "border-strong": "#D3D7DE", "text-primary": "#141A24", "text-secondary": "#525C6B", "text-muted": "#78818F", "text-inverse": "#FFFFFF", "accent": "#3B6FE0", "accent-hover": "#2A57C4", "accent-subtle": "#EEF3FD", "on-accent": "#FFFFFF", "verified": "#1E7F4C", "verified-subtle": "#E8F6EE", "pending": "#A9640A", "pending-subtle": "#FEF5E6", "destructive": "#D93B3B", "destructive-subtle": "#FDECEC", "rating": "#C77800", "sponsored": "#A9640A", "whatsapp": "#128C7E"}, "dark": {"background": "#0A0D12", "surface": "#141A24", "surface-raised": "#1F2733", "surface-sunken": "#11161F", "border": "#1F2733", "border-strong": "#343D4B", "text-primary": "#FCFCFA", "text-secondary": "#A8B0BD", "text-muted": "#78818F", "text-inverse": "#141A24", "accent": "#6690E8", "accent-hover": "#95B4F0", "accent-subtle": "#1A2440", "on-accent": "#0A0D12", "verified": "#3FBF7F", "verified-subtle": "#0F2A1C", "pending": "#E8A72B", "pending-subtle": "#2E2210", "destructive": "#F26D6D", "destructive-subtle": "#2E1414", "rating": "#F5A623", "sponsored": "#E8A72B", "whatsapp": "#25D366"}};
+const groups = [
+  ['Fonds & surfaces', ['background','surface','surface-raised','surface-sunken','border','border-strong']],
+  ['Texte', ['text-primary','text-secondary','text-muted','text-inverse']],
+  ['Accent', ['accent','accent-hover','accent-subtle','on-accent']],
+  ['Statuts', ['verified','verified-subtle','pending','pending-subtle','destructive','destructive-subtle']],
+  ['Spécifiques produit', ['rating','sponsored','whatsapp']],
+];
+function renderSwatches(){
+  const theme = document.documentElement.dataset.theme;
+  const vals = SEM[theme];
+  const host = document.getElementById('swatches');
+  host.innerHTML = '';
+  for (const [title, keys] of groups){
+    const h = document.createElement('h3');
+    h.className = 'sub'; h.textContent = title;
+    h.style.gridColumn = '1 / -1'; h.style.margin = 'var(--s-lg) 0 0';
+    host.appendChild(h);
+    for (const k of keys){
+      const el = document.createElement('div');
+      el.className = 'sw';
+      el.innerHTML = '<div class="chip" style="background:'+vals[k]+'"></div>'+
+        '<div class="meta"><b>'+k+'</b><code>'+vals[k]+'</code></div>';
+      host.appendChild(el);
+    }
+  }
+}
+document.getElementById('theme').addEventListener('click', (e)=>{
+  const r = document.documentElement;
+  const next = r.dataset.theme === 'light' ? 'dark' : 'light';
+  r.dataset.theme = next;
+  e.target.textContent = next === 'light' ? '🌙 Sombre' : '☀️ Clair';
+  renderSwatches();
+});
+document.getElementById('dir').addEventListener('click', (e)=>{
+  const r = document.documentElement;
+  const rtl = r.dir === 'rtl';
+  r.dir = rtl ? 'ltr' : 'rtl';
+  r.lang = rtl ? 'fr' : 'ar';
+  e.target.textContent = rtl ? 'ع Arabe / RTL' : 'FR Français / LTR';
+});
+renderSwatches();
+</script>
+</body>
+</html>

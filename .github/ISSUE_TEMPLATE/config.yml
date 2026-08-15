@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📋 Le backlog du sprint
+    url: https://github.com/dallel5-git/plateforme-artisans/blob/main/backlog/TODO.md
+    about: "Avant de créer une issue, vérifie qu'elle n'y est pas déjà. Les IDs (SO-xx, BE-xx, FM-xx) viennent de là."
+  - name: 🧠 Mémoire projet & guard-rails
+    url: https://github.com/dallel5-git/plateforme-artisans/blob/main/CLAUDE.md
+    about: "Les invariants, les interdits absolus et les conventions. À lire avant d'écrire du code."
+  - name: 📐 Décisions d'architecture (ADR)
+    url: https://github.com/dallel5-git/plateforme-artisans/tree/main/Code/docs/01-architecture-decision-records
+    about: "Les ADR priment sur le cadrage v1.0. En cas de contradiction, l'ADR gagne."
+  - name: 💬 Slack
+    url: https://artisants.slack.com
+    about: "Question rapide, blocage, daily. Une décision prise en DM n'existe pas — reporte-la dans le canal concerné."
