@@ -1,0 +1,1077 @@
+[
+  {
+    "id": "SO-01",
+    "title": "[SO-01] Initialiser le monorepo pnpm + Turborepo",
+    "milestone": "M0 — Socle & Contrat",
+    "labels": [
+      "type:chore",
+      "lot:socle",
+      "prio:P0",
+      "sprint:S1",
+      "size:S"
+    ],
+    "assignee": "oussama",
+    "estimate": 2,
+    "deps": [],
+    "body": "> **ID backlog** `SO-01` · **Estimation** 2 h\n\n## Contexte\n\nTout le reste en dépend. Un monorepo mal câblé au jour 1 se paie en frictions quotidiennes pendant tout le projet (résolutions de dépendances, tâches qui ne se cachent pas, configs dupliquées).\n\n## Périmètre\n\n- [ ] `pnpm-workspace.yaml` : `apps/*`, `packages/*`\n- [ ] `turbo.json` : pipelines `build`, `lint`, `typecheck`, `test` avec dépendances explicites\n- [ ] `packages/tsconfig` : `base.json`, `node.json`, `nextjs.json`\n- [ ] `packages/eslint-config` : `base.js` + règle `no-restricted-imports` inter-modules\n- [ ] Prettier + `.editorconfig` à la racine\n\n## Hors périmètre (volontairement)\n\n- La configuration Flutter (`analysis_options.yaml`) — elle arrive avec FM-01\n\n## Critères d'acceptation\n\n- [ ] `pnpm install` réussit sur un clone propre\n- [ ] `pnpm lint` et `pnpm typecheck` passent sur un dépôt encore vide de métier\n- [ ] Un import de `@repo/core/src/*/internal/*` est **refusé par ESLint**\n\n## Références\n\nUS-T-01 · cadrage §4 · CLAUDE.md §2 (P1)\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "SO-02",
+    "title": "[SO-02] Docker Compose : PostgreSQL 16 + Redis 7",
+    "milestone": "M0 — Socle & Contrat",
+    "labels": [
+      "type:chore",
+      "lot:socle",
+      "prio:P0",
+      "sprint:S1",
+      "size:S"
+    ],
+    "assignee": "chayma",
+    "estimate": 1.5,
+    "deps": [],
+    "body": "> **ID backlog** `SO-02` · **Estimation** 1.5 h\n\n## Contexte\n\nL'environnement de développement doit être reproductible en une commande. Trois extensions PostgreSQL sont nécessaires et faciles à oublier : sans elles, les migrations de BE-02 échoueront de façon obscure.\n\n## Périmètre\n\n- [ ] `tooling/docker/docker-compose.dev.yml` : PostgreSQL 16 + Redis 7\n- [ ] `tooling/docker/postgres/init.sql` : `CREATE EXTENSION` pour `unaccent`, `pg_trgm`, `postgis`\n- [ ] Volumes nommés pour la persistance\n- [ ] Scripts `db:up`, `db:down`, `db:reset` dans le `package.json` racine\n\n## Critères d'acceptation\n\n- [ ] `pnpm db:up` démarre les deux services et ils répondent\n- [ ] `SELECT extname FROM pg_extension;` retourne bien `unaccent`, `pg_trgm`, `postgis`\n- [ ] `pnpm db:reset` remet une base propre sans intervention manuelle\n\n## Références\n\nUS-T-01 · cadrage §2.1\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "SO-03",
+    "title": "[SO-03] Bootstrap apps/api : Fastify 5 + Zod + OpenAPI",
+    "milestone": "M0 — Socle & Contrat",
+    "labels": [
+      "type:feat",
+      "lot:socle",
+      "lot:backend",
+      "prio:P0",
+      "sprint:S1",
+      "contrat-api",
+      "size:M"
+    ],
+    "assignee": "oussama",
+    "estimate": 2.5,
+    "deps": [
+      "SO-01"
+    ],
+    "body": "> **ID backlog** `SO-03` · **Estimation** 2.5 h · **Dépend de** `SO-01`\n\n## Contexte\n\nC'est le remplaçant du serveur tRPC du cadrage (voir ADR-001). Le point clé est `fastify-type-provider-zod` : il fait que les schémas Zod valident les entrées **et** produisent le document OpenAPI, sans qu'on écrive quoi que ce soit deux fois.\n\n## Périmètre\n\n- [ ] `apps/api/src/server.ts` : bootstrap + arrêt propre (graceful shutdown)\n- [ ] Plugins : `@fastify/cors`, `@fastify/helmet`, `fastify-type-provider-zod`, `@fastify/swagger` + UI\n- [ ] Logger `pino` avec `requestId` injecté dans chaque log et chaque réponse\n- [ ] `GET /v1/health` : vérifie réellement PostgreSQL et Redis, pas juste `{ok:true}`\n- [ ] Script `api:contract` qui écrit `contracts/openapi.json`\n\n## Hors périmètre (volontairement)\n\n- Les routes métier — elles arrivent au fil de M1\n\n## Critères d'acceptation\n\n- [ ] `GET /v1/health` renvoie `200 {\"status\":\"ok\",\"db\":\"up\",\"redis\":\"up\"}`\n- [ ] Couper PostgreSQL fait passer `/v1/health` en `503` (et non en 200 mensonger)\n- [ ] `GET /docs` affiche le Swagger\n- [ ] `pnpm api:contract` écrit un `openapi.json` valide\n\n## 🚧 Guard-rails\n\n- `contracts/openapi.json` est **généré** — jamais édité à la main\n\n## Références\n\nADR-001 §3.1 · US-T-01\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "SO-04",
+    "title": "[SO-04] Générateur de design tokens : un JSON → TypeScript et Dart",
+    "milestone": "M0 — Socle & Contrat",
+    "labels": [
+      "type:chore",
+      "lot:design",
+      "prio:P0",
+      "sprint:S1",
+      "size:S"
+    ],
+    "assignee": "chayma",
+    "estimate": 2,
+    "deps": [
+      "SO-01"
+    ],
+    "body": "> **ID backlog** `SO-04` · **Estimation** 2 h · **Dépend de** `SO-01`\n\n## Contexte\n\nAvec Flutter, le web et le mobile ne peuvent plus partager de code de style. Le seul moyen de garder une identité visuelle cohérente est de générer les deux cibles depuis une source unique. Sans ça, les couleurs divergent en trois semaines.\n\n## Périmètre\n\n- [ ] `packages/design-tokens/tokens.json` — la source unique (déjà extrait de la maquette)\n- [ ] `tooling/scripts/build-tokens.mjs` — résout les alias `{color.brand.500}` et écrit les cibles\n- [ ] Cibles TS : `colors.ts`, `spacing.ts`, `typography.ts`, `tailwind-preset.js`\n- [ ] Cibles Dart : `app_colors.dart` (`ThemeExtension`), `app_spacing.dart`, `app_text.dart`\n- [ ] Mode `--check` pour la CI\n\n## Hors périmètre (volontairement)\n\n- Les composants eux-mêmes (FM-04)\n\n## Critères d'acceptation\n\n- [ ] `pnpm tokens:build` régénère les 7 fichiers\n- [ ] `pnpm tokens:build --check` **échoue** si un fichier généré est périmé\n- [ ] Les fichiers générés portent un bandeau « NE PAS ÉDITER À LA MAIN »\n- [ ] Le thème sombre est présent dans les deux cibles\n\n## Références\n\nADR-001 §3.3 · `Code/docs/design-system.html`\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "SO-05",
+    "title": "[SO-05] Squelette i18n FR/AR + contrôle de parité des clés",
+    "milestone": "M0 — Socle & Contrat",
+    "labels": [
+      "type:chore",
+      "lot:design",
+      "domaine:catalog",
+      "prio:P0",
+      "sprint:S1",
+      "rtl-ar",
+      "size:S"
+    ],
+    "assignee": "chayma",
+    "estimate": 1,
+    "deps": [
+      "SO-01"
+    ],
+    "body": "> **ID backlog** `SO-05` · **Estimation** 1 h · **Dépend de** `SO-01`\n\n## Contexte\n\nLe bilingue n'est pas rétrofittable proprement (principe P7). Le piège classique : on ajoute une clé en français, on oublie l'arabe, et on découvre les trous trois semaines plus tard sur un écran de démo. Le contrôle de parité rend l'oubli impossible.\n\n## Périmètre\n\n- [ ] `packages/i18n/src/locales/fr.json` et `ar.json`\n- [ ] Helpers de formatage : dates, nombres, TND, direction RTL\n- [ ] Script `i18n:check` : compare récursivement les jeux de clés\n- [ ] Branchement du script dans la CI\n\n## Hors périmètre (volontairement)\n\n- Le contenu des traductions — il se remplit au fil des écrans\n\n## Critères d'acceptation\n\n- [ ] Ajouter une clé dans `fr.json` sans son équivalent arabe fait **échouer** `pnpm i18n:check`\n- [ ] Le message d'erreur liste les clés manquantes, par fichier\n\n## Références\n\nUS-T-04 · CLAUDE.md §2 (P7)\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "SO-06",
+    "title": "[SO-06] CI GitHub Actions : lint, typecheck, test, contrat",
+    "milestone": "M0 — Socle & Contrat",
+    "labels": [
+      "type:chore",
+      "lot:socle",
+      "prio:P0",
+      "sprint:S1",
+      "size:S"
+    ],
+    "assignee": "oussama",
+    "estimate": 2,
+    "deps": [
+      "SO-01"
+    ],
+    "body": "> **ID backlog** `SO-06` · **Estimation** 2 h · **Dépend de** `SO-01`\n\n## Contexte\n\nLa CI est ce qui rend la règle « `main` est toujours déployable » réelle plutôt que déclarative. Elle doit rester sous 5 minutes, sinon elle sera contournée.\n\n## Périmètre\n\n- [ ] `.github/workflows/ci.yml` : `lint`, `typecheck`, `test`, `api:contract --check`, `tokens:build --check`, `i18n:check`\n- [ ] Services PostgreSQL + Redis pour les tests d'intégration\n- [ ] Cache Turborepo et cache du store pnpm\n- [ ] `flutter analyze` + `dart format --set-exit-if-changed` (activés à partir de FM-01)\n\n## Hors périmètre (volontairement)\n\n- Le déploiement — voir OPS-01 (S2)\n\n## Critères d'acceptation\n\n- [ ] La CI est verte sur une PR blanche en **moins de 5 minutes**\n- [ ] Un `openapi.json` périmé fait **échouer** la CI\n- [ ] Une clé i18n manquante en arabe fait **échouer** la CI\n\n## Références\n\nUS-T-05\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "SO-07",
+    "title": "[SO-07] Protéger main, templates de PR/issues, CODEOWNERS",
+    "milestone": "M0 — Socle & Contrat",
+    "labels": [
+      "type:chore",
+      "lot:socle",
+      "prio:P0",
+      "sprint:S1",
+      "size:S"
+    ],
+    "assignee": "oussama",
+    "estimate": 0.5,
+    "deps": [
+      "SO-06"
+    ],
+    "body": "> **ID backlog** `SO-07` · **Estimation** 0.5 h · **Dépend de** `SO-06`\n\n## Contexte\n\nÀ deux développeurs, la tentation de pousser directement sur `main` est forte et le coût invisible — jusqu'au jour où une régression passe sans relecture. La protection de branche transforme une bonne intention en contrainte.\n\n## Périmètre\n\n- [ ] Règle de protection sur `main` : push direct interdit, 1 approbation, CI verte, squash-merge\n- [ ] `.github/pull_request_template.md`\n- [ ] `.github/ISSUE_TEMPLATE/` : tâche, bug, décision\n- [ ] `.github/CODEOWNERS` — **remplacer `@CHAYMA-HANDLE` par le vrai identifiant**\n- [ ] `.gitattributes` pour les fichiers générés\n- [ ] `.env.example` avec des valeurs factices\n\n## Critères d'acceptation\n\n- [ ] Un `git push origin main` est **refusé**, y compris pour le lead\n- [ ] Ouvrir une PR pré-remplit la checklist\n- [ ] Une PR touchant `packages/db/` demande automatiquement la revue de Chayma\n\n## Références\n\nPOLITIQUE-PROJET.md §3.3 et §4\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-01",
+    "title": "[BE-01] Schéma Prisma — sous-ensemble MVP (19 modèles)",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:feat",
+      "lot:backend",
+      "prio:P0",
+      "sprint:S1",
+      "size:M"
+    ],
+    "assignee": "chayma",
+    "estimate": 3,
+    "deps": [
+      "SO-02"
+    ],
+    "body": "> **ID backlog** `BE-01` · **Estimation** 3 h · **Dépend de** `SO-02`\n\n## Contexte\n\nLe schéma est la source unique de vérité du projet (principe P4). Le cadrage en contient la version complète (§2.2, ~50 modèles) ; on n'en implémente que le sous-ensemble du parcours cœur, **sans dévier des noms ni des enums** — pour que la suite s'ajoute sans migration de renommage.\n\n## Périmètre\n\n- [ ] `User`, `Session`, `OtpCode`\n- [ ] `Governorate`, `Delegation`, `Category`\n- [ ] `ProviderProfile`, `ProviderCategory`, `ServiceOffering`, `CoverageArea`\n- [ ] `MediaAsset`, `PortfolioItem`\n- [ ] `ContactEvent`, `ProfileView`\n- [ ] `Review`, `Favorite`\n- [ ] `Plan`, `AppSetting`, `AuditLog`\n- [ ] Politiques de suppression du cadrage §2.5 : `Cascade` / `Restrict` / `SetNull` / soft delete\n\n## Hors périmètre (volontairement)\n\n- `VerificationRequest`, `Subscription`, `Boost`, `Payment`, `Advertiser`, `ServiceRequest` — modélisés en S2+\n\n## Critères d'acceptation\n\n- [ ] `prisma migrate dev` passe sur une base vierge\n- [ ] `prisma generate` produit les types\n- [ ] Les enums sont **identiques** à ceux du cadrage §2.2 (noms et valeurs)\n- [ ] Aucune donnée comptable en `onDelete: Cascade`\n\n## 🚧 Guard-rails\n\n- Chayma est **seule propriétaire** de `schema.prisma` en S1 (CODEOWNERS)\n\n## Références\n\ncadrage §2.2 et §2.5\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-02",
+    "title": "[BE-02] Migration SQL manuelle : contraintes et index essentiels",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:feat",
+      "lot:backend",
+      "prio:P0",
+      "sprint:S1",
+      "securite",
+      "size:S"
+    ],
+    "assignee": "chayma",
+    "estimate": 1,
+    "deps": [
+      "BE-01"
+    ],
+    "body": "> **ID backlog** `BE-02` · **Estimation** 1 h · **Dépend de** `BE-01`\n\n## Contexte\n\nPrisma ne sait pas exprimer les `CHECK`, les index partiels ni les triggers. Or ce sont eux qui garantissent l'intégrité même si le code applicatif se trompe. Une contrainte en base est un filet ; une validation applicative est une intention.\n\n## Périmètre\n\n- [ ] `CHECK` : note entre 1 et 5, cohérence `price_min <= price_max`\n- [ ] Index unique partiel : une seule catégorie principale par prestataire\n- [ ] Index partiel `ranking_score DESC WHERE publication_status='PUBLISHED'` (le cas 95 % du temps)\n- [ ] Trigger `prevent_self_review` : un artisan ne peut pas évaluer son propre profil\n\n## Hors périmètre (volontairement)\n\n- Index GIN trigram FR/AR — voir BE-42 (S2), non bloquant sur 30 artisans\n\n## Critères d'acceptation\n\n- [ ] `INSERT` d'un avis à 6 étoiles → **rejeté par la base**, pas seulement par l'application\n- [ ] Un artisan qui tente de s'auto-évaluer déclenche l'exception du trigger\n- [ ] La migration est rejouable après un `prisma migrate reset`\n\n## Références\n\ncadrage §2.3 · CLAUDE.md §3.2\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-03",
+    "title": "[BE-03] Seed du référentiel : gouvernorats, délégations du Sahel, catégories FR/AR",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:feat",
+      "lot:backend",
+      "domaine:catalog",
+      "prio:P0",
+      "sprint:S1",
+      "rtl-ar",
+      "size:S"
+    ],
+    "assignee": "chayma",
+    "estimate": 2,
+    "deps": [
+      "BE-01"
+    ],
+    "body": "> **ID backlog** `BE-03` · **Estimation** 2 h · **Dépend de** `BE-01`\n\n## Contexte\n\nSans référentiel géographique, aucune recherche n'est possible. Le lancement vise le Sahel : on charge les 24 gouvernorats (pour ne pas bloquer une extension) mais seulement les délégations de Sousse, Monastir et Mahdia.\n\n## Périmètre\n\n- [ ] 24 gouvernorats avec libellés FR et AR\n- [ ] Toutes les délégations de Sousse, Monastir, Mahdia\n- [ ] Arbre de catégories : Plomberie, Électricité, Peinture, Climatisation, Menuiserie, Maçonnerie, Serrurerie, Jardinage, Nettoyage… avec sous-catégories\n- [ ] Chaque catégorie : `slug`, `nameFr`, `nameAr`, icône\n- [ ] `Plan` : uniquement `FREE` en S1\n- [ ] `AppSetting` : les poids du ranking (w1…w7) avec leurs valeurs par défaut\n\n## Hors périmètre (volontairement)\n\n- Les délégations des autres gouvernorats — à charger quand l'expansion arrive\n\n## Critères d'acceptation\n\n- [ ] `pnpm db:seed` est **idempotent** : deux exécutions donnent le même état, sans doublon\n- [ ] Chaque catégorie a un libellé arabe réel, pas un copier-coller du français\n- [ ] Les poids du ranking sont lisibles depuis `AppSetting`, pas codés en dur\n\n## Références\n\nUS-T-02 · Annexe A du cadrage\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-04",
+    "title": "[BE-04] Seed de démonstration : 30 artisans du Sahel",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:feat",
+      "lot:backend",
+      "prio:P0",
+      "sprint:S1",
+      "size:S"
+    ],
+    "assignee": "chayma",
+    "estimate": 2,
+    "deps": [
+      "BE-03"
+    ],
+    "body": "> **ID backlog** `BE-04` · **Estimation** 2 h · **Dépend de** `BE-03`\n\n## Contexte\n\nImpossible de développer une recherche, un ranking ou une fiche sans données crédibles. Ce jeu sert aussi de support de recette (GATE 1 et GATE 2) et de démo pour la tournée terrain.\n\n## Périmètre\n\n- [ ] 30 profils répartis sur Sousse / Monastir / Mahdia, catégories variées\n- [ ] 20 marqués `isVerified` — c'est le contournement du KYC en S1, et cela correspond au « Label de Confiance » du plan de lancement\n- [ ] Notes variées et réalistes, dont un artisan à 1 seul avis 5★ (cas test du lissage bayésien)\n- [ ] Prestations tarifées en millimes, zones de couverture, photos (URL publiques)\n- [ ] Quelques `ContactEvent` et `Review` historiques pour alimenter les stats\n\n## Hors périmètre (volontairement)\n\n- Les vraies données d'artisans — la collecte terrain est un chantier parallèle, non bloquant\n\n## Critères d'acceptation\n\n- [ ] « plombier · Sousse » retourne **au moins 5 résultats** crédibles\n- [ ] Les noms et libellés sont plausibles en contexte tunisien\n- [ ] Le jeu contient au moins un cas piège : artisan gratuit vérifié complet vs artisan non vérifié\n\n## Références\n\nUS-T-02\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-05",
+    "title": "[BE-05] Couche repositories : la seule qui parle à Prisma",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:feat",
+      "lot:backend",
+      "prio:P0",
+      "sprint:S1",
+      "size:M"
+    ],
+    "assignee": "chayma",
+    "estimate": 2.5,
+    "deps": [
+      "BE-01"
+    ],
+    "body": "> **ID backlog** `BE-05` · **Estimation** 2.5 h · **Dépend de** `BE-01`\n\n## Contexte\n\nSans cette frontière, des appels Prisma finissent dans les routes, puis la logique d'accès aux données se disperse et devient impossible à optimiser. C'est aussi ce qui permet de tester `packages/core` sans base.\n\n## Périmètre\n\n- [ ] `packages/db/src/repositories/` : un fichier par agrégat\n- [ ] `select` explicites — jamais l'entité complète renvoyée\n- [ ] Helper générique de pagination par curseur (encodage opaque, stable à l'insertion)\n- [ ] Helper de transaction\n- [ ] Règle ESLint interdisant `prisma.` hors de `packages/db`\n\n## Critères d'acceptation\n\n- [ ] Aucun `prisma.` n'existe en dehors de `packages/db` — vérifié par le lint\n- [ ] La pagination reste stable si une ligne est insérée entre deux pages\n- [ ] Tous les `findMany` publics filtrent `deletedAt: null`\n\n## Références\n\nCLAUDE.md §2 (P5)\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-06",
+    "title": "[BE-06] Normalisation des numéros tunisiens (+216)",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:feat",
+      "lot:backend",
+      "domaine:auth",
+      "prio:P0",
+      "sprint:S1",
+      "size:S"
+    ],
+    "assignee": "oussama",
+    "estimate": 1,
+    "deps": [
+      "SO-01"
+    ],
+    "body": "> **ID backlog** `BE-06` · **Estimation** 1 h · **Dépend de** `SO-01`\n\n## Contexte\n\nLe numéro de téléphone est l'identifiant principal des utilisateurs (marché *phone-first*). Les formats de saisie varient énormément. Sans normalisation **avant** écriture ET avant la recherche d'unicité, on crée des comptes en double invisibles.\n\n## Périmètre\n\n- [ ] `packages/utils/src/phone-tn.ts` : `normalizePhoneTn(input): string | null`\n- [ ] Accepte : `22123456`, `22 123 456`, `+216 22 123 456`, `0021622123456`, `216-22-123-456`\n- [ ] Rejette : longueur invalide, préfixe opérateur inexistant, caractères non numériques\n- [ ] `formatPhoneTnDisplay()` pour l'affichage\n\n## Critères d'acceptation\n\n- [ ] 12 cas de test passent, dont **4 formats invalides explicitement rejetés**\n- [ ] La sortie est toujours `+216XXXXXXXX` ou `null` — jamais une chaîne partiellement nettoyée\n\n## Références\n\nUS-C-02\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-07",
+    "title": "[BE-07] OTP : génération, hachage argon2, TTL et tentatives",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:feat",
+      "lot:backend",
+      "domaine:auth",
+      "prio:P0",
+      "sprint:S1",
+      "securite",
+      "size:S"
+    ],
+    "assignee": "oussama",
+    "estimate": 2,
+    "deps": [
+      "BE-01"
+    ],
+    "body": "> **ID backlog** `BE-07` · **Estimation** 2 h · **Dépend de** `BE-01`\n\n## Contexte\n\nL'OTP est le seul facteur d'authentification du produit. Un OTP stocké en clair ou loggé, c'est la compromission de tous les comptes.\n\n## Périmètre\n\n- [ ] Génération de 6 chiffres cryptographiquement sûre\n- [ ] Hachage **argon2** avant stockage — jamais l'OTP en clair en base\n- [ ] TTL 5 minutes, 3 tentatives maximum, invalidation à l'usage\n- [ ] `OtpPurpose` : `LOGIN`, `PHONE_CHANGE`\n\n## Hors périmètre (volontairement)\n\n- L'envoi du SMS lui-même — voir BE-08\n\n## Critères d'acceptation\n\n- [ ] L'OTP n'apparaît **jamais** en clair, ni en base ni dans les logs\n- [ ] La 4ᵉ tentative renvoie `OTP_TOO_MANY_ATTEMPTS`\n- [ ] Un OTP expiré ou déjà consommé est refusé\n- [ ] Le code n'est jamais renvoyé dans une réponse d'API\n\n## 🚧 Guard-rails\n\n- Ne jamais logger l'OTP, même en développement — utiliser le canal `console` de BE-08\n\n## Références\n\nUS-C-02 · Annexe B du cadrage\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-08",
+    "title": "[BE-08] Adaptateur SMS derrière une interface SmsProvider",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:feat",
+      "lot:backend",
+      "domaine:auth",
+      "prio:P0",
+      "sprint:S1",
+      "size:S"
+    ],
+    "assignee": "oussama",
+    "estimate": 0.5,
+    "deps": [
+      "SO-03"
+    ],
+    "body": "> **ID backlog** `BE-08` · **Estimation** 0.5 h · **Dépend de** `SO-03`\n\n## Contexte\n\nLe compte chez l'agrégateur SMS n'est pas ouvert, et son ouverture est une démarche administrative de plusieurs jours. Une interface avec une implémentation `console` débloque tout le développement sans attendre.\n\n## Périmètre\n\n- [ ] Interface `SmsProvider { send(to, message): Promise<void> }`\n- [ ] Implémentation `console` : écrit l'OTP dans le log serveur en développement\n- [ ] Point d'extension prêt pour Twilio (implémentation en S2)\n- [ ] Sélection par variable d'environnement `SMS_PROVIDER`\n\n## Hors périmètre (volontairement)\n\n- L'implémentation Twilio et la bascule automatique en cas d'échec — S2\n\n## Critères d'acceptation\n\n- [ ] En développement, l'OTP s'affiche dans le log serveur et permet de se connecter\n- [ ] Changer `SMS_PROVIDER` ne demande de modifier **aucun** code métier\n\n## Références\n\nUS-C-02 · ADR-003 §4\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-09",
+    "title": "[BE-09] JWT : access court + refresh rotatif avec détection de rejeu",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:feat",
+      "lot:backend",
+      "domaine:auth",
+      "prio:P0",
+      "sprint:S1",
+      "securite",
+      "size:M"
+    ],
+    "assignee": "oussama",
+    "estimate": 3,
+    "deps": [
+      "BE-01"
+    ],
+    "body": "> **ID backlog** `BE-09` · **Estimation** 3 h · **Dépend de** `BE-01`\n\n## Contexte\n\nUn refresh token volé sur un téléphone perdu doit pouvoir être neutralisé. La rotation avec détection de réutilisation est la seule mécanique qui le permet sans session serveur complète.\n\n## Périmètre\n\n- [ ] Access token 15 minutes, refresh token 30 jours\n- [ ] Rotation : chaque usage d'un refresh en émet un nouveau et invalide l'ancien\n- [ ] **Détection de rejeu** : réutiliser un refresh déjà consommé révoque toute la famille de sessions\n- [ ] `Session` en base, révocable individuellement\n- [ ] Rôles portés par le token : `CLIENT`, `PROVIDER`, `ADMIN`, `MODERATOR`\n\n## Hors périmètre (volontairement)\n\n- La 2FA des comptes internes — S3, avec le back-office\n\n## Critères d'acceptation\n\n- [ ] Rejouer un ancien refresh token révoque **toutes** les sessions de la famille\n- [ ] Un access token expiré renvoie `401` avec un code distinct de « token invalide »\n- [ ] La déconnexion révoque effectivement la session côté serveur\n\n## Références\n\nUS-C-02 · Annexe B du cadrage\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-10",
+    "title": "[BE-10] Routes d'authentification",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:feat",
+      "lot:backend",
+      "domaine:auth",
+      "prio:P0",
+      "sprint:S1",
+      "contrat-api",
+      "securite",
+      "size:S"
+    ],
+    "assignee": "oussama",
+    "estimate": 2,
+    "deps": [
+      "BE-07",
+      "BE-09"
+    ],
+    "body": "> **ID backlog** `BE-10` · **Estimation** 2 h · **Dépend de** `BE-07`, `BE-09`\n\n## Contexte\n\nLe premier parcours complet de l'API. Point d'attention majeur : ne jamais révéler si un numéro est déjà inscrit — sinon l'endpoint devient un outil d'énumération de la base d'utilisateurs.\n\n## Périmètre\n\n- [ ] `POST /v1/auth/otp/request` — normalise le numéro, génère, envoie\n- [ ] `POST /v1/auth/otp/verify` — vérifie, crée l'utilisateur si nouveau, émet les tokens\n- [ ] `POST /v1/auth/refresh`\n- [ ] `POST /v1/auth/logout`\n- [ ] `GET /v1/auth/me` — profil + rôles\n\n## Critères d'acceptation\n\n- [ ] Le parcours complet passe en `curl`, de la demande d'OTP au `GET /me`\n- [ ] `otp/request` renvoie **la même réponse** que le numéro existe ou non\n- [ ] Aucun numéro, OTP ni token n'apparaît dans les logs\n- [ ] `contracts/openapi.json` est régénéré et commité\n\n## Références\n\nUS-C-02, US-P-01\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-11",
+    "title": "[BE-11] Rate limiting Redis par téléphone et par IP",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:feat",
+      "lot:backend",
+      "prio:P0",
+      "sprint:S1",
+      "securite",
+      "size:S"
+    ],
+    "assignee": "oussama",
+    "estimate": 1.5,
+    "deps": [
+      "SO-02"
+    ],
+    "body": "> **ID backlog** `BE-11` · **Estimation** 1.5 h · **Dépend de** `SO-02`\n\n## Contexte\n\nLe modèle freemium se fait attaquer par le volume : demandes d'OTP en masse (coût SMS réel), gonflage artificiel des contacts, faux avis. Sans limitation, les statistiques vendues aux artisans deviennent du bruit (principe P10).\n\n## Périmètre\n\n- [ ] OTP : 5 par heure, par numéro **et** par IP\n- [ ] Contacts : 30 par jour et par utilisateur\n- [ ] Réponse `429` avec en-tête `Retry-After`\n- [ ] Compteurs dans Redis avec expiration\n\n## Hors périmètre (volontairement)\n\n- Les limites sur les avis et les uploads — arrivent avec BE-22 et BE-20\n\n## Critères d'acceptation\n\n- [ ] La 6ᵉ demande d'OTP en une heure renvoie `429` + `Retry-After`\n- [ ] Limiter par IP **et** par numéro : changer de numéro depuis la même IP ne contourne pas\n- [ ] Les compteurs expirent bien (pas de fuite mémoire Redis)\n\n## Références\n\nCLAUDE.md §2 (P10) · Annexe B\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-12",
+    "title": "[BE-12] RBAC centralisé dans packages/core/policies",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:feat",
+      "lot:backend",
+      "domaine:auth",
+      "prio:P0",
+      "sprint:S1",
+      "securite",
+      "size:S"
+    ],
+    "assignee": "oussama",
+    "estimate": 2,
+    "deps": [
+      "BE-09"
+    ],
+    "body": "> **ID backlog** `BE-12` · **Estimation** 2 h · **Dépend de** `BE-09`\n\n## Contexte\n\nLes autorisations dispersées dans les routes deviennent impossibles à auditer. Centralisées dans `core/policies`, elles sont testables sans serveur et lisibles d'un coup d'œil.\n\n## Périmètre\n\n- [ ] `packages/core/policies/` : fonctions pures `can(user, action, resource)`\n- [ ] preHandlers Fastify `requireAuth` et `requireRole(...)`\n- [ ] Règles : un client ne modifie que ses avis ; un artisan que son profil ; un admin tout\n\n## Critères d'acceptation\n\n- [ ] Une route protégée sans en-tête d'autorisation renvoie `401`\n- [ ] Un rôle insuffisant renvoie `403`\n- [ ] Les policies sont testées **sans base ni serveur**\n- [ ] Aucune autorisation vérifiée uniquement côté client\n\n## Références\n\nAnnexe B du cadrage · CLAUDE.md §2 (P3)\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-13",
+    "title": "[BE-13] Erreurs normalisées, codes et requestId",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:feat",
+      "lot:backend",
+      "prio:P0",
+      "sprint:S1",
+      "size:S"
+    ],
+    "assignee": "oussama",
+    "estimate": 1,
+    "deps": [
+      "SO-03"
+    ],
+    "body": "> **ID backlog** `BE-13` · **Estimation** 1 h · **Dépend de** `SO-03`\n\n## Contexte\n\nLe client mobile doit pouvoir traduire une erreur en arabe sans parser un message anglais. D'où la séparation : un `code` stable et machine, un `message` destiné au développeur, et un `requestId` pour retrouver la trace serveur.\n\n## Périmètre\n\n- [ ] `packages/core/errors/` : classes d'erreur typées\n- [ ] `packages/constants/error-codes.ts` : le catalogue des codes\n- [ ] Handler global : `{ error: { code, message, details }, requestId }`\n- [ ] Aucune stack trace exposée en production\n\n## Hors périmètre (volontairement)\n\n- Le branchement Sentry — reporté en S2 (OPS-03)\n\n## Critères d'acceptation\n\n- [ ] Toute erreur renvoie la forme normalisée avec un `requestId` exploitable\n- [ ] Une erreur interne en production ne fuite ni stack, ni requête SQL, ni chemin de fichier\n- [ ] Le client peut afficher un message traduit à partir du seul `code`\n\n## Références\n\nCLAUDE.md §4.3\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-14",
+    "title": "[BE-14] Catalogue : catégories, gouvernorats, délégations",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:feat",
+      "lot:backend",
+      "domaine:catalog",
+      "prio:P0",
+      "sprint:S1",
+      "contrat-api",
+      "size:S"
+    ],
+    "assignee": "chayma",
+    "estimate": 1.5,
+    "deps": [
+      "BE-03"
+    ],
+    "body": "> **ID backlog** `BE-14` · **Estimation** 1.5 h · **Dépend de** `BE-03`\n\n## Contexte\n\nCes données sont appelées au démarrage de chaque session mobile et ne changent quasiment jamais : elles doivent être servies depuis un cache, pas depuis la base.\n\n## Périmètre\n\n- [ ] `GET /v1/categories` — arbre complet, libellés FR et AR\n- [ ] `GET /v1/governorates`\n- [ ] `GET /v1/governorates/:id/delegations`\n- [ ] Cache Redis 1 heure, invalidé au seed\n\n## Critères d'acceptation\n\n- [ ] Réponses en moins de 50 ms en cache chaud\n- [ ] Les deux libellés (FR et AR) sont renvoyés — le client choisit selon sa locale\n- [ ] L'arbre de catégories est renvoyé en une seule requête, pas en N+1\n\n## Références\n\nUS-C-01\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-15",
+    "title": "[BE-15] ⭐ Algorithme de ranking : score explicable et note bayésienne",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:feat",
+      "lot:backend",
+      "domaine:search",
+      "prio:P0",
+      "sprint:S1",
+      "binome",
+      "size:M"
+    ],
+    "assignee": "binome",
+    "estimate": 4,
+    "deps": [
+      "BE-01"
+    ],
+    "body": "> **ID backlog** `BE-15` · **Estimation** 4 h · **Dépend de** `BE-01`\n\n## Contexte\n\n**Le cœur du produit.** Le classement conditionne directement le chiffre d'affaires : c'est lui qui détermine quel artisan est vu, donc contacté, donc prêt à payer. Il doit être explicable (un artisan qui appelle doit obtenir une réponse), paramétrable (sans redéploiement) et auditable (testable sans base).\n\n**À faire en binôme** : une erreur ici est coûteuse à détecter et se paie en revenus.\n\n## Périmètre\n\n- [ ] Pertinence géographique : 1.0 délégation exacte · 0.6 gouvernorat · 0.3 limitrophe\n- [ ] **Note bayésienne** : `(C·m + Σnotes) / (C + n)` avec C ≈ 8\n- [ ] Confiance : badge vérifié = 1, sinon 0\n- [ ] Complétude : `completionScore / 100`\n- [ ] Réactivité : basée sur `lastActiveAt` et `availabilityStatus`\n- [ ] Facteur de plan : `Plan.rankingBoostFactor` (1.0 gratuit, 1.3 Pro)\n- [ ] Pénalité de signalements\n- [ ] **Rotation équitable** : à score égal (± 2 %), l'ordre tourne — pour ne pas figer la 1ʳᵉ position\n- [ ] Poids `w1…w7` lus depuis `AppSetting`, jamais codés en dur\n\n## Hors périmètre (volontairement)\n\n- Les boosts : ce sont des **emplacements séparés** en tête de liste, étiquetés « Sponsorisé ». Ils n'entrent **pas** dans `rankingScore` (S4).\n\n## Critères d'acceptation\n\n- [ ] **≥ 12 tests unitaires**, sans base ni réseau\n- [ ] Test bayésien : un artisan à 1 seul avis 5★ ne devance **pas** un artisan à 80 avis / 4,7★\n- [ ] 🔒 **Test de non-régression ADR-002** : un artisan *gratuit, vérifié, profil à 100 %* obtient un score **supérieur** à un artisan *Pro non vérifié, incomplet*, à géo et réputation égales\n- [ ] Changer un poids dans `AppSetting` change l'ordre sans redéploiement\n- [ ] Chaque score peut être décomposé terme à terme (mode debug)\n\n## 🚧 Guard-rails\n\n- **Timeboxé à 4 h.** Au-delà : version simplifiée (géo + bayésien + vérifié) et création de `BE-15b`.\n- Aucun code ne lit `subscription.status` pour décider du badge (ADR-002)\n\n## Références\n\nAnnexe A du cadrage · ADR-002 §5\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-16",
+    "title": "[BE-16] Recherche d'artisans : filtres, tri et pagination par curseur",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:feat",
+      "lot:backend",
+      "domaine:search",
+      "prio:P0",
+      "sprint:S1",
+      "contrat-api",
+      "size:M"
+    ],
+    "assignee": "oussama",
+    "estimate": 3,
+    "deps": [
+      "BE-15",
+      "BE-05"
+    ],
+    "body": "> **ID backlog** `BE-16` · **Estimation** 3 h · **Dépend de** `BE-15`, `BE-05`\n\n## Contexte\n\nL'écran le plus utilisé du produit. La pagination par curseur (et non par offset) est imposée par le principe P5 : sur un réseau tunisien en 3G, un offset devient instable dès qu'un artisan est ajouté entre deux pages.\n\n## Périmètre\n\n- [ ] `GET /v1/providers/search`\n- [ ] Filtres : catégorie × gouvernorat × délégation × vérifié × note minimale × disponibilité\n- [ ] Tri par `rankingScore` calculé (BE-15)\n- [ ] Pagination par curseur : `?cursor=&limit=20` → `{ items, nextCursor }`\n- [ ] Mode debug exposant `score` et `matchReason` par item\n\n## Hors périmètre (volontairement)\n\n- La recherche plein texte — l'index GIN trigram arrive en S2 (BE-42)\n\n## Critères d'acceptation\n\n- [ ] Retourne `{ items, nextCursor }` — jamais un tableau nu\n- [ ] Réponse en moins de 200 ms sur le jeu de démonstration\n- [ ] Aucun numéro de téléphone dans la réponse\n- [ ] Un filtre vide ne renvoie pas la base entière : `limit` par défaut à 20, plafonné à 50\n\n## Références\n\nUS-C-01, US-C-03\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-17",
+    "title": "[BE-17] Fiche artisan publique — sans le numéro de téléphone",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:feat",
+      "lot:backend",
+      "domaine:providers",
+      "prio:P0",
+      "sprint:S1",
+      "contrat-api",
+      "securite",
+      "size:S"
+    ],
+    "assignee": "oussama",
+    "estimate": 2,
+    "deps": [
+      "BE-05"
+    ],
+    "body": "> **ID backlog** `BE-17` · **Estimation** 2 h · **Dépend de** `BE-05`\n\n## Contexte\n\nLe numéro de téléphone est l'actif qu'on monétise : il ne doit **jamais** être dans la réponse de la fiche, sinon un script le récupère en masse sans jamais générer de `ContactEvent`. Il est révélé uniquement par `POST /contact-events` (BE-21).\n\n## Périmètre\n\n- [ ] `GET /v1/providers/:slug`\n- [ ] Profil, catégories, zones de couverture, prestations tarifées, galerie\n- [ ] Agrégats d'avis : moyenne, nombre, répartition par étoile\n- [ ] Badge `isVerified`, statut de disponibilité, `completionScore`\n\n## Hors périmètre (volontairement)\n\n- Le numéro de téléphone — révélé exclusivement par BE-21\n\n## Critères d'acceptation\n\n- [ ] Un `curl` sur la fiche ne contient **aucun** numéro de téléphone\n- [ ] Une fiche non publiée renvoie `404`, pas `403` (ne pas révéler son existence)\n- [ ] Les prestations sont renvoyées en millimes avec un `displayPrice` déjà formaté\n\n## Références\n\nUS-C-04 · CLAUDE.md §2 (P8)\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-18",
+    "title": "[BE-18] Liste des avis d'un artisan",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:feat",
+      "lot:backend",
+      "domaine:reviews",
+      "prio:P0",
+      "sprint:S1",
+      "contrat-api",
+      "size:S"
+    ],
+    "assignee": "oussama",
+    "estimate": 1,
+    "deps": [
+      "BE-05"
+    ],
+    "body": "> **ID backlog** `BE-18` · **Estimation** 1 h · **Dépend de** `BE-05`\n\n## Contexte\n\nLes avis sont ce qui brise la méfiance identifiée comme faille n°2 du marché. Ils doivent être paginés séparément de la fiche : une fiche à 200 avis ne doit pas peser 400 ko sur une connexion 3G.\n\n## Périmètre\n\n- [ ] `GET /v1/providers/:slug/reviews` — curseur, tri par date décroissante\n- [ ] Auteur affiché de façon anonymisée si le compte est supprimé\n- [ ] Réponse de l'artisan incluse si elle existe\n\n## Hors périmètre (volontairement)\n\n- Les sous-notes détaillées (ponctualité / qualité / rapport qualité-prix) — 🟠 P1\n\n## Critères d'acceptation\n\n- [ ] Pagination stable même si un avis est ajouté entre deux pages\n- [ ] Les avis d'un utilisateur supprimé apparaissent en « Utilisateur supprimé », pas effacés\n\n## Références\n\nUS-C-07\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-19",
+    "title": "[BE-19] Onboarding artisan : profil, catégories, zones, complétude",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:feat",
+      "lot:backend",
+      "domaine:providers",
+      "prio:P1",
+      "sprint:S1",
+      "contrat-api",
+      "size:M"
+    ],
+    "assignee": "chayma",
+    "estimate": 2.5,
+    "deps": [
+      "BE-12"
+    ],
+    "body": "> **ID backlog** `BE-19` · **Estimation** 2.5 h · **Dépend de** `BE-12`\n\n## Contexte\n\nLe `completionScore` est le moteur d'activation de l'artisan : c'est lui qui le pousse à finir son profil, et il pèse dans le ranking.\n\n🟠 **P1** : l'écran mobile qui consomme cette API (`FM-11`) est lui aussi P1. Livrer une API que personne n'appelle cette semaine serait du gaspillage.\n\n## Périmètre\n\n- [ ] `POST /v1/providers/me` et `PATCH /v1/providers/me`\n- [ ] `PUT /v1/providers/me/categories` (avec `isPrimary`)\n- [ ] `PUT /v1/providers/me/coverage-areas`\n- [ ] Calcul du `completionScore` dans `packages/core` — fonction pure, testée\n\n## Hors périmètre (volontairement)\n\n- Les prestations tarifées et la galerie — S2\n- L'upload de photos — BE-20\n\n## Critères d'acceptation\n\n- [ ] Le `completionScore` est recalculé à chaque écriture\n- [ ] La publication est refusée sous 60 %, avec **la liste explicite des champs manquants**\n- [ ] Un artisan ne peut modifier que son propre profil (403 sinon)\n\n## Références\n\nUS-P-02 → US-P-04\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-20",
+    "title": "[BE-20] Upload de médias : URL pré-signées et variantes WebP",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:feat",
+      "lot:backend",
+      "domaine:providers",
+      "prio:P1",
+      "sprint:S1",
+      "size:M"
+    ],
+    "assignee": "chayma",
+    "estimate": 2.5,
+    "deps": [
+      "BE-12"
+    ],
+    "body": "> **ID backlog** `BE-20` · **Estimation** 2.5 h · **Dépend de** `BE-12`\n\n## Contexte\n\n🟠 **P1 — reporté par défaut en S2.** Les photos du jeu de démonstration suffisent pour la recette S1, et cette tâche demande d'ouvrir un compte Cloudflare R2.\n\n## Périmètre\n\n- [ ] `POST /v1/media/presign` — bucket **public** uniquement\n- [ ] Traitement `sharp` : variantes WebP (thumb, card, full)\n- [ ] `PortfolioItem` rattaché au profil\n\n## Hors périmètre (volontairement)\n\n- Le bucket privé KYC — c'est M4, avec des exigences bien plus lourdes (chiffrement, URL 5 min, purge, journal d'accès)\n\n## Critères d'acceptation\n\n- [ ] Une image de 4 Mo est servie en moins de 150 ko en WebP\n- [ ] Le bucket `private-kyc` n'est **pas** touché par cette tâche\n\n## Références\n\nUS-P-06\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-21",
+    "title": "[BE-21] ⭐ ContactEvent : l'unité de valeur du produit",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:feat",
+      "lot:backend",
+      "domaine:contact",
+      "prio:P0",
+      "sprint:S1",
+      "binome",
+      "contrat-api",
+      "securite",
+      "size:M"
+    ],
+    "assignee": "binome",
+    "estimate": 3,
+    "deps": [
+      "BE-11",
+      "BE-12"
+    ],
+    "body": "> **ID backlog** `BE-21` · **Estimation** 3 h · **Dépend de** `BE-11`, `BE-12`\n\n## Contexte\n\n**Sans cette route, il n'y a rien à vendre à l'artisan.** Le modèle économique repose entièrement sur la capacité à prouver « la plateforme t'a apporté 14 contacts ce mois-ci ». Si le comptage est faux ou gonflable, l'abonnement Pro est indéfendable (principes P9 et P10).\n\n**À faire en binôme.**\n\n## Périmètre\n\n- [ ] `POST /v1/contact-events` — canal `PHONE` ou `WHATSAPP`\n- [ ] **C'est cette route qui révèle le numéro de téléphone** dans sa réponse\n- [ ] Déduplication : deux clics du même utilisateur sur le même artisan en 30 min = 1 seul événement\n- [ ] Empreinte de session (hash) pour la déduplication anonyme\n- [ ] Rate limiting (BE-11)\n- [ ] Incrément de l'agrégat `DailyProviderStat` **dans la même transaction**\n\n## Hors périmètre (volontairement)\n\n- La confirmation « l'intervention a-t-elle eu lieu ? » — dépend de l'ADR-005 (annuaire ou marketplace)\n\n## Critères d'acceptation\n\n- [ ] Deux clics en 5 minutes produisent **un seul** `ContactEvent`\n- [ ] La réponse contient le numéro de téléphone révélé\n- [ ] L'événement est visible immédiatement dans les statistiques de l'artisan\n- [ ] L'agrégat et l'événement sont écrits atomiquement (pas d'incohérence en cas d'échec)\n- [ ] Un utilisateur non authentifié peut contacter (empreinte de session) mais est rate-limité par IP\n\n## Références\n\nUS-C-05, US-C-06 · CLAUDE.md §2 (P9, P10)\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-22",
+    "title": "[BE-22] Dépôt d'avis rattaché à un contact réel",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:feat",
+      "lot:backend",
+      "domaine:reviews",
+      "prio:P0",
+      "sprint:S1",
+      "contrat-api",
+      "securite",
+      "size:M"
+    ],
+    "assignee": "oussama",
+    "estimate": 2.5,
+    "deps": [
+      "BE-21"
+    ],
+    "body": "> **ID backlog** `BE-22` · **Estimation** 2.5 h · **Dépend de** `BE-21`\n\n## Contexte\n\nLe garde-fou anti-faux-avis du produit : un avis exige un `ContactEvent` correspondant. C'est ce qui distingue Sanaya d'un groupe Facebook où n'importe qui note n'importe qui.\n\n## Périmètre\n\n- [ ] `POST /v1/providers/:id/reviews`\n- [ ] Relation 1-1 **unique** avec un `ContactEvent` de l'auteur\n- [ ] Recalcul de `ratingAvg` et `ratingCount` **dans la même transaction**\n- [ ] Un seul avis par `ContactEvent`\n\n## Hors périmètre (volontairement)\n\n- La modération a posteriori — M4\n- Les sous-notes détaillées — 🟠 P1\n\n## Critères d'acceptation\n\n- [ ] Déposer un avis sans contact préalable renvoie `403 REVIEW_REQUIRES_CONTACT`\n- [ ] S'auto-évaluer est **rejeté par le trigger SQL**, pas seulement par l'application\n- [ ] `ratingAvg` est exact après 10 avis concurrents (test de concurrence)\n- [ ] Un second avis sur le même `ContactEvent` est refusé\n\n## Références\n\nUS-C-07 · cadrage §2.3\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-23",
+    "title": "[BE-23] Traçage des vues de profil et agrégat journalier",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:feat",
+      "lot:backend",
+      "domaine:analytics",
+      "prio:P0",
+      "sprint:S1",
+      "size:S"
+    ],
+    "assignee": "chayma",
+    "estimate": 1.5,
+    "deps": [
+      "BE-21"
+    ],
+    "body": "> **ID backlog** `BE-23` · **Estimation** 1.5 h · **Dépend de** `BE-21`\n\n## Contexte\n\nLe ratio vue → contact est l'indicateur qui dit à l'artisan si son profil convertit. Si on ne le trace pas dès le jour 1, on ne pourra pas le reconstituer plus tard — c'est de la donnée définitivement perdue.\n\n## Périmètre\n\n- [ ] `POST /v1/profile-views`\n- [ ] Déduplication par empreinte de session sur 24 h\n- [ ] Upsert quotidien sur `DailyProviderStat`\n\n## Hors périmètre (volontairement)\n\n- L'exposition de ces chiffres à l'artisan — BE-24 (🟠 P1)\n\n## Critères d'acceptation\n\n- [ ] Une vue est comptée une seule fois par session et par jour\n- [ ] L'agrégat journalier est cohérent avec le nombre d'événements bruts\n\n## Références\n\nCLAUDE.md §2 (P9)\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-24",
+    "title": "[BE-24] Tableau de bord statistiques de l'artisan (API)",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:feat",
+      "lot:backend",
+      "domaine:analytics",
+      "prio:P1",
+      "sprint:S1",
+      "contrat-api",
+      "size:S"
+    ],
+    "assignee": "chayma",
+    "estimate": 2,
+    "deps": [
+      "BE-23"
+    ],
+    "body": "> **ID backlog** `BE-24` · **Estimation** 2 h · **Dépend de** `BE-23`\n\n## Contexte\n\nC'est **l'argument de vente du Pack Pro**. 🟠 P1 en S1 : la donnée est déjà collectée par BE-23, on ne perd rien à exposer l'écran en S2.\n\n## Périmètre\n\n- [ ] `GET /v1/providers/me/stats`\n- [ ] Vues, contacts, ratio vue → contact, position moyenne en recherche\n- [ ] Série journalière sur 30 jours, directement exploitable par un graphe\n\n## Critères d'acceptation\n\n- [ ] Les chiffres correspondent aux événements bruts\n- [ ] La série est renvoyée avec les jours à zéro (pas de trous, sinon le graphe ment)\n\n## Références\n\nUS-P-12\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-25",
+    "title": "[BE-25] Favoris",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:feat",
+      "lot:backend",
+      "domaine:providers",
+      "prio:P1",
+      "sprint:S1",
+      "size:S"
+    ],
+    "assignee": "oussama",
+    "estimate": 1,
+    "deps": [
+      "BE-12"
+    ],
+    "body": "> **ID backlog** `BE-25` · **Estimation** 1 h · **Dépend de** `BE-12`\n\n## Contexte\n\n🟠 P1. Fonctionnalité de confort : elle améliore la rétention mais ne fait pas partie du parcours cœur.\n\n## Périmètre\n\n- [ ] `PUT /v1/favorites/:providerId` (idempotent)\n- [ ] `DELETE /v1/favorites/:providerId`\n- [ ] `GET /v1/favorites` paginé\n\n## Critères d'acceptation\n\n- [ ] Ajouter deux fois le même favori ne crée pas de doublon (clé primaire composite)\n\n## Références\n\nUS-C-08\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-26",
+    "title": "[BE-26] ⭐ Publier le contrat OpenAPI et générer les clients",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:chore",
+      "lot:backend",
+      "prio:P0",
+      "sprint:S1",
+      "contrat-api",
+      "gate",
+      "size:M"
+    ],
+    "assignee": "oussama",
+    "estimate": 2.5,
+    "deps": [
+      "BE-16",
+      "BE-17",
+      "BE-21",
+      "BE-22"
+    ],
+    "body": "> **ID backlog** `BE-26` · **Estimation** 2.5 h · **Dépend de** `BE-16`, `BE-17`, `BE-21`, `BE-22`\n\n## Contexte\n\nC'est le remplaçant du garde-fou que tRPC offrait gratuitement (ADR-001). Sans le contrôle `--check` en CI, le contrat dérive silencieusement et le client Dart casse sans prévenir.\n\n## Périmètre\n\n- [ ] `pnpm api:contract` → `contracts/openapi.json` (OpenAPI 3.1)\n- [ ] `pnpm api:contract --check` → échoue si le fichier commité est périmé\n- [ ] `pnpm mobile:client` → `openapi-generator` (dart-dio) vers `apps/mobile/lib/core/api/generated/`\n- [ ] `pnpm web:client` → `openapi-typescript` (prêt pour S2, non utilisé cette semaine)\n- [ ] Les deux contrôles branchés dans la CI\n\n## Critères d'acceptation\n\n- [ ] `contracts/openapi.json` est commité et à jour\n- [ ] Modifier un schéma Zod sans régénérer fait **échouer la CI**\n- [ ] Le client Dart se génère sans erreur et compile\n- [ ] Aucun `openapi.json` n'a été édité à la main\n\n## 🚧 Guard-rails\n\n- `contracts/openapi.json` est **généré** — toute PR qui le modifie porte le label `contrat-api` et prévient l'autre dev avant le merge\n\n## Références\n\nADR-001 §3.2\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-27",
+    "title": "[BE-27] 🚦 GATE 1 — recette backend",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:test",
+      "lot:backend",
+      "prio:P0",
+      "sprint:S1",
+      "gate",
+      "binome",
+      "size:S"
+    ],
+    "assignee": "binome",
+    "estimate": 0.75,
+    "deps": [
+      "BE-26"
+    ],
+    "body": "> **ID backlog** `BE-27` · **Estimation** 0.75 h · **Dépend de** `BE-26`\n\n## Contexte\n\nPorte de sprint bloquante. **Si un seul point échoue, on ne démarre pas Flutter.** Démarrer le mobile sur une API instable coûte deux fois : une fois pour l'écrire, une fois pour la reprendre.\n\n## Périmètre\n\n- [ ] Exécuter les 8 appels `curl` du parcours cœur, dans l'ordre, sans intervention manuelle en base\n- [ ] Vérifier le contrat et la génération des deux clients\n- [ ] Vérifier l'absence de données sensibles dans les logs\n\n## Critères d'acceptation\n\n- [ ] 1. `POST /v1/auth/otp/request` → 200, OTP dans le log\n- [ ] 2. `POST /v1/auth/otp/verify` → access + refresh\n- [ ] 3. `GET /v1/categories` → arbre FR/AR\n- [ ] 4. `GET /v1/providers/search?category=plomberie&governorate=sousse` → ≥ 5 items + `nextCursor`\n- [ ] 5. `GET /v1/providers/:slug` → fiche **sans téléphone**\n- [ ] 6. `POST /v1/contact-events` → 200 + téléphone révélé\n- [ ] 7. `POST /v1/providers/:id/reviews` → `ratingAvg` recalculé\n- [ ] 8. `GET /v1/auth/me` → profil + rôles\n- [ ] ✅ `api:contract --check` vert · client Dart généré\n- [ ] ✅ Aucun téléphone / OTP / token dans les logs\n- [ ] ✅ `pnpm test` vert, dont le garde-fou ADR-002\n\n## Références\n\nPLAN-MVP-SEMAINE-1.md §6.4\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-01",
+    "title": "[FM-01] Bootstrap Flutter : go_router, Riverpod, thème généré",
+    "milestone": "M2 — App Mobile MVP",
+    "labels": [
+      "type:chore",
+      "lot:mobile",
+      "prio:P0",
+      "sprint:S1",
+      "first-dart",
+      "size:M"
+    ],
+    "assignee": "chayma",
+    "estimate": 3,
+    "deps": [
+      "SO-04"
+    ],
+    "body": "> **ID backlog** `FM-01` · **Estimation** 3 h · **Dépend de** `SO-04`\n\n## Contexte\n\nPremière ligne de Dart du projet. Lire **ADR-001** avant de commencer : le cadrage v1.0 dit « Expo / React Native », c'est obsolète.\n\n## Périmètre\n\n- [ ] Flutter 3.24+, structure `lib/{app,core,features}` — **par feature, pas par type**\n- [ ] `go_router` : groupes de routes `(auth)`, `(client)`, `(pro)`\n- [ ] Riverpod 2 : `ProviderScope` racine\n- [ ] `ThemeData` construit depuis `app_colors.dart` / `app_spacing.dart` **générés** (SO-04)\n- [ ] Polices Manrope (latin) + Noto Kufi Arabic (arabe)\n- [ ] `analysis_options.yaml` : `flutter_lints` + `very_good_analysis`\n\n## Critères d'acceptation\n\n- [ ] `flutter run` affiche un écran d'accueil aux couleurs Sanaya\n- [ ] `flutter analyze` : **zéro warning**\n- [ ] Le thème sombre fonctionne\n- [ ] Aucune couleur ni taille écrite en dur dans le code\n\n## Références\n\nADR-001 §3.4 · `Code/apps/mobile/CLAUDE.md`\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-02",
+    "title": "[FM-02] ⭐ Couche réseau : client Dio/Retrofit généré + intercepteurs",
+    "milestone": "M2 — App Mobile MVP",
+    "labels": [
+      "type:feat",
+      "lot:mobile",
+      "prio:P0",
+      "sprint:S1",
+      "binome",
+      "securite",
+      "size:M"
+    ],
+    "assignee": "binome",
+    "estimate": 4,
+    "deps": [
+      "BE-26"
+    ],
+    "body": "> **ID backlog** `FM-02` · **Estimation** 4 h · **Dépend de** `BE-26`\n\n## Contexte\n\n**Tout le reste de l'app en dépend.** C'est aussi la meilleure occasion pour Oussama de prendre Dart en main — d'où le binôme, qui règle au passage le risque « une seule personne sait faire du mobile » identifié dans l'ADR-001 §4.2.\n\n## Périmètre\n\n- [ ] Client généré depuis `contracts/openapi.json` — jamais écrit à la main\n- [ ] Intercepteur JWT + **refresh rotatif transparent** (une seule tentative concurrente)\n- [ ] Retry ×2 avec backoff, sur les `GET` idempotents **uniquement**\n- [ ] Détection hors ligne + bandeau global non bloquant\n- [ ] `flutter_secure_storage` pour le refresh token\n- [ ] Timeouts : 10 s connect, 20 s receive\n- [ ] Mapping des erreurs API (`code`) vers des exceptions Dart typées\n\n## Critères d'acceptation\n\n- [ ] **Zéro appel HTTP écrit à la main** dans tout le projet\n- [ ] Un access token expiré déclenche un refresh transparent, sans déconnecter l'utilisateur\n- [ ] Deux requêtes simultanées avec un token expiré ne déclenchent qu'**un seul** refresh\n- [ ] Le refresh token n'est **jamais** en `SharedPreferences`\n- [ ] Couper le réseau affiche le bandeau hors ligne sans crasher\n\n## 🚧 Guard-rails\n\n- Aucune règle métier en Dart : si le mobile a besoin d'un calcul, l'API le renvoie\n\n## Références\n\nADR-001 §3.2 · CLAUDE.md\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-03",
+    "title": "[FM-03] i18n FR/AR avec slang, RTL global et miroir des icônes",
+    "milestone": "M2 — App Mobile MVP",
+    "labels": [
+      "type:feat",
+      "lot:mobile",
+      "prio:P0",
+      "sprint:S1",
+      "rtl-ar",
+      "first-dart",
+      "size:M"
+    ],
+    "assignee": "oussama",
+    "estimate": 2.5,
+    "deps": [
+      "SO-05"
+    ],
+    "body": "> **ID backlog** `FM-03` · **Estimation** 2.5 h · **Dépend de** `SO-05`\n\n## Contexte\n\nLe RTL n'est pas un thème qu'on active à la fin : c'est une contrainte de mise en page qui doit être vraie dès le premier widget. Rétrofiter le RTL en fin de sprint signifie reprendre tous les écrans.\n\n## Périmètre\n\n- [ ] `slang` généré depuis `packages/i18n/src/locales/*.json`\n- [ ] `Directionality` piloté au niveau de `MaterialApp`, jamais par écran\n- [ ] Sélection automatique de la police selon la locale\n- [ ] Miroir des icônes directionnelles (chevrons, flèches de retour)\n- [ ] Persistance du choix de langue\n\n## Critères d'acceptation\n\n- [ ] Changer la langue fait basculer **toute l'app** en RTL sans redémarrage\n- [ ] Les icônes de navigation sont miroitées en arabe\n- [ ] Les dates et les montants TND sont formatés selon la locale\n- [ ] Aucune chaîne affichée n'est écrite en dur\n\n## 🚧 Guard-rails\n\n- `EdgeInsetsDirectional` et `AlignmentDirectional` obligatoires — jamais `EdgeInsets.only(left:)`\n\n## Références\n\nCLAUDE.md §2 (P7)\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-04",
+    "title": "[FM-04] Widgets du design system",
+    "milestone": "M2 — App Mobile MVP",
+    "labels": [
+      "type:feat",
+      "lot:mobile",
+      "lot:design",
+      "prio:P0",
+      "sprint:S1",
+      "rtl-ar",
+      "first-dart",
+      "size:M"
+    ],
+    "assignee": "oussama",
+    "estimate": 4,
+    "deps": [
+      "FM-01"
+    ],
+    "body": "> **ID backlog** `FM-04` · **Estimation** 4 h · **Dépend de** `FM-01`\n\n## Contexte\n\nConstruire ces widgets d'abord évite que chaque écran réinvente son bouton et sa carte. C'est aussi le meilleur endroit pour imposer une fois pour toutes la cible tactile de 48 px et les trois états de chargement.\n\n## Périmètre\n\n- [ ] `AppButton` (primary / secondary / ghost / whatsapp / danger), hauteur min 48 px\n- [ ] `AppTextField`, `AppCard`\n- [ ] `ProviderCard` — le composant le plus vu du produit\n- [ ] `RatingStars`, `VerifiedBadge`\n- [ ] `AppSkeleton`, `EmptyState`, `ErrorState`, `OfflineBanner`\n\n## Critères d'acceptation\n\n- [ ] Tous `const` là où c'est possible (perf de rebuild sur Android d'entrée de gamme)\n- [ ] Aucune couleur, taille ou rayon en dur — tout vient des tokens générés\n- [ ] Chaque widget rendu correctement en **FR et en AR** (captures dans la PR)\n- [ ] Contraste AA vérifié en thème clair et sombre\n\n## Références\n\n`Code/docs/design-system.html`\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-05",
+    "title": "[FM-05] Parcours d'authentification OTP",
+    "milestone": "M2 — App Mobile MVP",
+    "labels": [
+      "type:feat",
+      "lot:mobile",
+      "domaine:auth",
+      "prio:P0",
+      "sprint:S1",
+      "rtl-ar",
+      "size:M"
+    ],
+    "assignee": "oussama",
+    "estimate": 3.5,
+    "deps": [
+      "BE-10",
+      "FM-02"
+    ],
+    "body": "> **ID backlog** `FM-05` · **Estimation** 3.5 h · **Dépend de** `BE-10`, `FM-02`\n\n## Contexte\n\nPremier contact de l'utilisateur avec le produit. Sur un marché *phone-first* où beaucoup d'artisans sont peu à l'aise avec l'écrit, chaque friction ici est un utilisateur perdu.\n\n## Périmètre\n\n- [ ] Écran de sélection de rôle (client / artisan)\n- [ ] Saisie du téléphone avec masque `+216`\n- [ ] Saisie de l'OTP à 6 cases, avancement automatique, collage supporté\n- [ ] Renvoi du code avec compte à rebours de 60 s\n- [ ] Session persistée, restaurée au démarrage\n\n## Critères d'acceptation\n\n- [ ] Fermer et rouvrir l'app conserve la session\n- [ ] Les messages d'erreur sont traduits en FR **et** en AR\n- [ ] Le compte à rebours de renvoi survit à une rotation d'écran\n- [ ] Un code invalide affiche le nombre de tentatives restantes\n\n## Références\n\nUS-C-02, US-P-01\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-06",
+    "title": "[FM-06] Écran d'accueil client : recherche et catégories",
+    "milestone": "M2 — App Mobile MVP",
+    "labels": [
+      "type:feat",
+      "lot:mobile",
+      "domaine:catalog",
+      "prio:P0",
+      "sprint:S1",
+      "rtl-ar",
+      "size:M"
+    ],
+    "assignee": "chayma",
+    "estimate": 3,
+    "deps": [
+      "BE-14"
+    ],
+    "body": "> **ID backlog** `FM-06` · **Estimation** 3 h · **Dépend de** `BE-14`\n\n## Contexte\n\nLe point d'entrée. Les catégories doivent être visuelles (icônes larges, contrastes forts) : la cible inclut des artisans peu à l'aise avec le texte, et des clients pressés.\n\n## Périmètre\n\n- [ ] Barre de recherche : service + localisation\n- [ ] Grille de catégories avec icônes, **chargée depuis l'API** (BE-14)\n- [ ] Détection ou sélection du gouvernorat, mémorisée\n- [ ] État de chargement en skeleton\n\n## Hors périmètre (volontairement)\n\n- La géolocalisation GPS précise — S2 ; le gouvernorat suffit en S1\n\n## Critères d'acceptation\n\n- [ ] Les catégories viennent de l'API, jamais d'une liste codée en dur\n- [ ] Le gouvernorat choisi est mémorisé entre deux lancements\n- [ ] Rendu correct en arabe (grille inversée)\n\n## Références\n\nUS-C-01\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-07",
+    "title": "[FM-07] ⭐ Résultats de recherche : pagination, filtres et cache disque",
+    "milestone": "M2 — App Mobile MVP",
+    "labels": [
+      "type:feat",
+      "lot:mobile",
+      "domaine:search",
+      "prio:P0",
+      "sprint:S1",
+      "rtl-ar",
+      "size:L"
+    ],
+    "assignee": "chayma",
+    "estimate": 4.5,
+    "deps": [
+      "BE-16"
+    ],
+    "body": "> **ID backlog** `FM-07` · **Estimation** 4.5 h · **Dépend de** `BE-16`\n\n## Contexte\n\nL'écran qui doit être irréprochable sur un Android d'entrée de gamme en 3G : c'est précisément l'argument qui a justifié la bascule vers Flutter (ADR-001).\n\n## Périmètre\n\n- [ ] `ListView.builder` — jamais `Column` + `map`\n- [ ] Pagination par curseur, chargement à l'approche du bas\n- [ ] Panneau de filtres : catégorie, zone, vérifié, note minimale, disponibilité\n- [ ] **Cache disque** des résultats et des fiches consultées\n- [ ] États : skeleton, vide (avec action « élargir au gouvernorat »), erreur (avec « Réessayer »)\n\n## Critères d'acceptation\n\n- [ ] Défilement fluide (60 fps) sur émulateur bridé en CPU\n- [ ] Les résultats restent consultables **en mode avion**\n- [ ] L'état vide propose une action utile, pas seulement un message\n- [ ] Aucun écran blanc sur erreur réseau\n\n## Références\n\nUS-C-01, US-C-03 · CLAUDE.md §2 (P5)\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-08",
+    "title": "[FM-08] Fiche artisan",
+    "milestone": "M2 — App Mobile MVP",
+    "labels": [
+      "type:feat",
+      "lot:mobile",
+      "domaine:providers",
+      "prio:P0",
+      "sprint:S1",
+      "rtl-ar",
+      "size:M"
+    ],
+    "assignee": "oussama",
+    "estimate": 4,
+    "deps": [
+      "BE-17"
+    ],
+    "body": "> **ID backlog** `FM-08` · **Estimation** 4 h · **Dépend de** `BE-17`\n\n## Contexte\n\nL'écran de décision : c'est ici que le client choisit d'appeler ou non. Tout ce qui réduit l'incertitude (photos, avis, badge, tarif indicatif) augmente le taux de contact — donc la valeur vendue à l'artisan.\n\n## Périmètre\n\n- [ ] Galerie avec `cached_network_image` et placeholders\n- [ ] Prestations tarifées, zones de couverture, disponibilité\n- [ ] Badge vérifié, note moyenne, liste d'avis (paginée)\n- [ ] Boutons de contact en barre fixe basse (toujours atteignables)\n\n## Hors périmètre (volontairement)\n\n- L'action de contact elle-même — FM-09\n\n## Critères d'acceptation\n\n- [ ] Aucun écran blanc en cas d'erreur réseau : `ErrorState` avec « Réessayer »\n- [ ] Les images se chargent progressivement sans faire sauter la mise en page\n- [ ] Rendu vérifié en arabe\n\n## Références\n\nUS-C-04\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-09",
+    "title": "[FM-09] ⭐⭐ Contact téléphone / WhatsApp avec traçage et file hors ligne",
+    "milestone": "M2 — App Mobile MVP",
+    "labels": [
+      "type:feat",
+      "lot:mobile",
+      "domaine:contact",
+      "prio:P0",
+      "sprint:S1",
+      "rtl-ar",
+      "size:M"
+    ],
+    "assignee": "chayma",
+    "estimate": 3.5,
+    "deps": [
+      "BE-21"
+    ],
+    "body": "> **ID backlog** `FM-09` · **Estimation** 3.5 h · **Dépend de** `BE-21`\n\n## Contexte\n\n**La fonctionnalité la plus critique de l'application.** Elle porte à la fois la valeur pour le client (joindre l'artisan) et la valeur pour le modèle économique (prouver le lead). Les deux doivent tenir même quand le réseau lâche.\n\n## Périmètre\n\n- [ ] Bouton « Appeler » → `POST /v1/contact-events` → `launchUrl('tel:+216…')`\n- [ ] Bouton « WhatsApp » → `POST /v1/contact-events` → `https://wa.me/216…?text=…` **pré-rempli dans la langue active**\n- [ ] **File locale persistante** : si l'API échoue, l'événement est stocké et renvoyé au retour du réseau\n- [ ] Le lien natif s'ouvre **même si l'appel API échoue** — on ne bloque jamais l'utilisateur\n\n## Critères d'acceptation\n\n- [ ] Le `ContactEvent` est posté **avant** l'ouverture du lien (principe P9)\n- [ ] En mode avion : le composeur s'ouvre quand même, et l'événement part au retour du réseau\n- [ ] Le message WhatsApp est pré-rempli en français ou en arabe selon la locale\n- [ ] Deux clics rapprochés ne créent qu'un seul événement (déduplication serveur BE-21)\n\n## 🚧 Guard-rails\n\n- Sans cette trace, l'abonnement Pro est invendable. Ne jamais ouvrir le lien sans tenter l'événement d'abord.\n\n## Références\n\nUS-C-05, US-C-06 · CLAUDE.md §2 (P9)\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-10",
+    "title": "[FM-10] Dépôt d'avis après contact",
+    "milestone": "M2 — App Mobile MVP",
+    "labels": [
+      "type:feat",
+      "lot:mobile",
+      "domaine:reviews",
+      "prio:P0",
+      "sprint:S1",
+      "rtl-ar",
+      "size:M"
+    ],
+    "assignee": "oussama",
+    "estimate": 2.5,
+    "deps": [
+      "BE-22"
+    ],
+    "body": "> **ID backlog** `FM-10` · **Estimation** 2.5 h · **Dépend de** `BE-22`\n\n## Contexte\n\nBoucle la valeur : le contact génère l'avis, l'avis alimente la réputation, la réputation alimente le ranking, le ranking génère le contact suivant.\n\n## Périmètre\n\n- [ ] Formulaire : note en étoiles + commentaire\n- [ ] Accessible **uniquement** si un `ContactEvent` existe\n- [ ] Invitation à laisser un avis après un contact (non intrusive)\n\n## Hors périmètre (volontairement)\n\n- Les sous-notes détaillées — 🟠 P1\n\n## Critères d'acceptation\n\n- [ ] Sans contact préalable, le formulaire n'est pas proposé — et l'API renvoie `403` si on force\n- [ ] Après envoi, la note moyenne de la fiche se met à jour immédiatement\n\n## Références\n\nUS-C-07\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-11",
+    "title": "[FM-11] Espace Pro : assistant d'onboarding artisan",
+    "milestone": "M2 — App Mobile MVP",
+    "labels": [
+      "type:feat",
+      "lot:mobile",
+      "domaine:providers",
+      "prio:P1",
+      "sprint:S1",
+      "rtl-ar",
+      "size:L"
+    ],
+    "assignee": "chayma",
+    "estimate": 5,
+    "deps": [
+      "BE-19"
+    ],
+    "body": "> **ID backlog** `FM-11` · **Estimation** 5 h · **Dépend de** `BE-19`\n\n## Contexte\n\n🟠 **P1 — premier élément de l'amortisseur.** Sans lui, les artisans de la seed suffisent pour la recette S1 ; on livre une app **client seulement**.\n\n## Périmètre\n\n- [ ] Assistant en étapes : profil → catégories → zones → tarifs → photos\n- [ ] Barre de complétude mise à jour en direct\n- [ ] Sauvegarde à chaque étape (reprise possible)\n\n## Critères d'acceptation\n\n- [ ] La barre de complétude reflète le `completionScore` renvoyé par l'API\n- [ ] La publication est bloquée sous 60 % avec la liste explicite des manques\n\n## Références\n\nUS-P-02 → US-P-05\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-12",
+    "title": "[FM-12] Espace Pro : tableau de bord statistiques",
+    "milestone": "M2 — App Mobile MVP",
+    "labels": [
+      "type:feat",
+      "lot:mobile",
+      "domaine:analytics",
+      "prio:P1",
+      "sprint:S1",
+      "size:M"
+    ],
+    "assignee": "chayma",
+    "estimate": 3,
+    "deps": [
+      "BE-24"
+    ],
+    "body": "> **ID backlog** `FM-12` · **Estimation** 3 h · **Dépend de** `BE-24`\n\n## Contexte\n\n🟠 P1. C'est l'écran qui vendra le Pack Pro, mais il n'y a rien à vendre en S1.\n\n## Périmètre\n\n- [ ] Vues, contacts, ratio vue → contact\n- [ ] Courbe sur 30 jours\n- [ ] Comparaison au mois précédent\n\n## Critères d'acceptation\n\n- [ ] Les chiffres correspondent exactement à `GET /v1/providers/me/stats`\n\n## Références\n\nUS-P-12\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-13",
+    "title": "[FM-13] Favoris et réglages",
+    "milestone": "M2 — App Mobile MVP",
+    "labels": [
+      "type:feat",
+      "lot:mobile",
+      "prio:P1",
+      "sprint:S1",
+      "size:S"
+    ],
+    "assignee": "oussama",
+    "estimate": 2,
+    "deps": [
+      "BE-25"
+    ],
+    "body": "> **ID backlog** `FM-13` · **Estimation** 2 h · **Dépend de** `BE-25`\n\n## Contexte\n\n🟠 P1. Confort et rétention.\n\n## Périmètre\n\n- [ ] Liste des favoris\n- [ ] Réglages : langue, déconnexion, mentions légales\n\n## Critères d'acceptation\n\n- [ ] Changer la langue depuis les réglages bascule immédiatement l'interface\n\n## Références\n\nUS-C-08\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-14",
+    "title": "[FM-14] Build Android signé et APK de test",
+    "milestone": "M2 — App Mobile MVP",
+    "labels": [
+      "type:chore",
+      "lot:mobile",
+      "prio:P0",
+      "sprint:S1",
+      "size:S"
+    ],
+    "assignee": "chayma",
+    "estimate": 2,
+    "deps": [
+      "FM-09"
+    ],
+    "body": "> **ID backlog** `FM-14` · **Estimation** 2 h · **Dépend de** `FM-09`\n\n## Contexte\n\n**Le seul livrable utilisateur du sprint.** ⚠️ Le keystore doit être généré **dès J1** : sa perte empêche définitivement toute mise à jour de l'application, et découvrir un problème de signature le dimanche soir fait rater la livraison.\n\n## Périmètre\n\n- [ ] Keystore de release généré et **sauvegardé hors du dépôt**\n- [ ] Configuration de signature Gradle via variables d'environnement\n- [ ] Build release, minification activée\n- [ ] APK distribuable aux beta-testeurs du Sahel\n\n## Hors périmètre (volontairement)\n\n- La publication sur le Play Store — S3\n\n## Critères d'acceptation\n\n- [ ] L'APK s'installe sur un Android **non-développeur**\n- [ ] Le parcours cœur passe de bout en bout sur l'appareil\n- [ ] Aucun secret n'est présent dans l'APK (vérifié par `strings`)\n- [ ] Le keystore est sauvegardé dans un coffre, hors du dépôt\n\n## 🚧 Guard-rails\n\n- ⚠️ Faire un build de bout en bout **dès J5**, même sur une app à moitié vide.\n\n## Références\n\nPLAN-MVP-SEMAINE-1.md §7\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "QA-01",
+    "title": "[QA-01] Tests d'intégration API sur base jetable",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:test",
+      "lot:backend",
+      "prio:P0",
+      "sprint:S1",
+      "size:S"
+    ],
+    "assignee": "oussama",
+    "estimate": 2,
+    "deps": [
+      "BE-22"
+    ],
+    "body": "> **ID backlog** `QA-01` · **Estimation** 2 h · **Dépend de** `BE-22`\n\n## Contexte\n\nLes tests unitaires de `packages/core` ne touchent pas la base — c'est voulu. Mais les contraintes SQL, les triggers et les transactions ne se testent que contre une vraie PostgreSQL.\n\n## Périmètre\n\n- [ ] Base de test jetable via Docker, réinitialisée entre les suites\n- [ ] Couverture de toutes les routes qui **écrivent** : auth, contact-events, reviews, onboarding\n- [ ] Test de concurrence sur le recalcul de `ratingAvg`\n\n## Critères d'acceptation\n\n- [ ] Chaque route qui écrit a au moins un test du cas passant **et** un test du cas d'erreur\n- [ ] Le trigger anti-auto-avis est testé au niveau base\n- [ ] Les tests tournent en CI en moins de 3 minutes\n\n## Références\n\nPOLITIQUE-PROJET.md §6\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "QA-03",
+    "title": "[QA-03] 🚦 GATE 2 — recette de fin de sprint sur Android réel",
+    "milestone": "M2 — App Mobile MVP",
+    "labels": [
+      "type:test",
+      "lot:mobile",
+      "prio:P0",
+      "sprint:S1",
+      "gate",
+      "binome",
+      "rtl-ar",
+      "size:S"
+    ],
+    "assignee": "binome",
+    "estimate": 1,
+    "deps": [
+      "FM-14"
+    ],
+    "body": "> **ID backlog** `QA-03` · **Estimation** 1 h · **Dépend de** `FM-14`\n\n## Contexte\n\nLa recette se fait sur un **vrai téléphone bas de gamme en 3G bridé**, pas sur l'émulateur de la machine de développement. C'est la seule façon de valider les deux promesses qui ont justifié Flutter et la file hors ligne.\n\n## Périmètre\n\n- [ ] Exécuter les 15 scénarios, en français **puis** en arabe\n- [ ] Sur un Android d'entrée de gamme réel, réseau bridé en 3G\n- [ ] Consigner les résultats dans l'issue\n\n## Critères d'acceptation\n\n- [ ] 1. Installer l'APK sur un Android non-développeur\n- [ ] 2. Recherche « Plombier · Sousse » → ≥ 5 résultats classés\n- [ ] 3. Filtre « Vérifié uniquement »\n- [ ] 4. Ouvrir une fiche → galerie, tarifs, zones, avis\n- [ ] 5. Clic « Appeler » → composeur avec le bon numéro\n- [ ] 6. Le `ContactEvent` est enregistré\n- [ ] 7. WhatsApp → message pré-rempli **dans la langue active**\n- [ ] 8. Connexion OTP de bout en bout\n- [ ] 9. Avis après contact → la note moyenne se met à jour\n- [ ] 10. Avis **sans** contact → refusé\n- [ ] 11. Bascule en arabe → aucune casse, RTL correct\n- [ ] 12. Mode avion → résultats en cache, message clair, pas d'écran blanc\n- [ ] 13. **Appeler hors ligne** → composeur ouvert, événement envoyé au retour du réseau\n- [ ] 14. **Défilement fluide** sur Android d'entrée de gamme\n- [ ] 15. Aucune donnée sensible dans les logs serveur\n\n## Références\n\nPLAN-MVP-SEMAINE-1.md §11\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "EP-WEB",
+    "title": "[ÉPIQUE EP-WEB] apps/web — vitrine SEO et acquisition",
+    "milestone": "M3 — Web SEO & Acquisition",
+    "labels": [
+      "lot:web",
+      "prio:P0",
+      "sprint:S2",
+      "type:epic"
+    ],
+    "assignee": null,
+    "estimate": 0,
+    "deps": [],
+    "body": "> **ID backlog** `EP-WEB`\n\n## Contexte\n\n**Priorité n°1 du sprint S2.** Reporté de S1 par l'ADR-003. Le backend expose déjà tout le nécessaire : ce lot n'est que de la consommation d'API (~35 h). C'est ce qui remplace les groupes Facebook dans les résultats Google (principe P6).\n\n## Contient\n\n- [ ] `FW-01` Bootstrap Next.js 15 + Tailwind v4 + preset tokens (2 h)\n- [ ] `FW-02` Routing `[locale]` FR/AR, `dir` global, `hreflang` (2,5 h)\n- [ ] `FW-03` Client `openapi-fetch` + TanStack Query + cookie httpOnly (2 h)\n- [ ] `FW-04` Primitives UI shadcn/Radix (3,5 h)\n- [ ] `FW-05` Home : héro, recherche, catégories populaires (3 h)\n- [ ] `FW-06` ⭐ `/[locale]/[gouvernorat]/[service]` en **SSG + ISR** (4 h)\n- [ ] `FW-07` Liste + `ProviderCard` + curseur (3 h)\n- [ ] `FW-08` Fiche artisan + **JSON-LD LocalBusiness / AggregateRating** (4 h)\n- [ ] `FW-09` Contact tracé → `tel:` / `wa.me` (2,5 h)\n- [ ] `FW-10` Auth OTP web (3 h)\n- [ ] `FW-11` Formulaire d'avis (2 h)\n- [ ] `FW-12` `sitemap.xml` + `robots.txt` dynamiques (2 h)\n- [ ] `FW-13` Onboarding artisan sur le web (4 h)\n- [ ] `FW-15` Perf : Lighthouse ≥ 90 en 3G (2 h)\n- [ ] `QA-02` Playwright : recherche → fiche → contact (2 h)\n\n## Critères d'acceptation\n\n- [ ] Décomposée en issues au démarrage du sprint concerné\n- [ ] Chaque issue fille respecte la Definition of Ready\n\n## Références\n\nADR-003 · CLAUDE.md §2 (P6) · `Code/apps/web/CLAUDE.md`\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "EP-KYC",
+    "title": "[ÉPIQUE EP-KYC] Vérification d'identité (CIN) et conformité INPDP",
+    "milestone": "M4 — Confiance & Back-office",
+    "labels": [
+      "lot:backend",
+      "domaine:moderation",
+      "prio:P0",
+      "sprint:S2",
+      "securite",
+      "type:epic"
+    ],
+    "assignee": null,
+    "estimate": 0,
+    "deps": [],
+    "body": "> **ID backlog** `EP-KYC`\n\n## Contexte\n\nLa CIN est une donnée personnelle **sensible** au sens de la loi organique n°2004-63. C'est le lot le plus exigeant du projet sur le plan juridique. En S1, `isVerified` est posé à la main sur 20 artisans — ce contournement n'est pas tenable au-delà de la phase de test terrain.\n\n## Contient\n\n- [ ] `BE-30` Bucket privé chiffré (SSE), URL signées **5 minutes**, journal d'accès dans `AuditLog`\n- [ ] `BE-30b` Upload depuis le mobile avec compression préalable\n- [ ] `BE-30c` Purge automatique des images à J+X après décision\n- [ ] `BE-31` File de vérification côté back-office : approuver / rejeter / demander un complément\n- [ ] `BE-41` Export et suppression des données personnelles (US-C-13) — **obligation légale**\n- [ ] `DOC-01` **Déclaration INPDP** — démarche administrative, jalon bloquant avant production\n\n## Critères d'acceptation\n\n- [ ] Décomposée en issues au démarrage du sprint concerné\n- [ ] Chaque issue fille respecte la Definition of Ready\n\n## Références\n\nAnnexe B du cadrage · ADR-002 · maquette « File de vérification CIN »\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "EP-ADMIN",
+    "title": "[ÉPIQUE EP-ADMIN] Back-office de modération",
+    "milestone": "M4 — Confiance & Back-office",
+    "labels": [
+      "lot:admin",
+      "domaine:moderation",
+      "prio:P0",
+      "sprint:S2",
+      "type:epic"
+    ],
+    "assignee": null,
+    "estimate": 0,
+    "deps": [],
+    "body": "> **ID backlog** `EP-ADMIN`\n\n## Contexte\n\nEn S1, Prisma Studio sert de contournement. Il ne passe pas l'échelle et n'offre aucune traçabilité des décisions de modération.\n\n## Contient\n\n- [ ] `FW-20` Bootstrap `apps/admin` (Next.js séparé, `X-Robots-Tag: noindex`, CSP stricte)\n- [ ] Comptes internes avec **2FA obligatoire**\n- [ ] File de vérification CIN\n- [ ] Modération des avis et signalements (`BE-40`)\n- [ ] Gestion des comptes artisans\n- [ ] Réglage des poids du ranking depuis `AppSetting` (US-A-09)\n- [ ] Tableau de bord de pilotage\n\n## Critères d'acceptation\n\n- [ ] Décomposée en issues au démarrage du sprint concerné\n- [ ] Chaque issue fille respecte la Definition of Ready\n\n## Références\n\nUS-A-* du cadrage · maquettes back-office\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "EP-BILLING",
+    "title": "[ÉPIQUE EP-BILLING] Monétisation : plans, abonnements, crédits, boosts",
+    "milestone": "M5 — Monétisation",
+    "labels": [
+      "lot:backend",
+      "domaine:billing",
+      "prio:P0",
+      "sprint:S3+",
+      "needs-decision",
+      "type:epic"
+    ],
+    "assignee": null,
+    "estimate": 0,
+    "deps": [],
+    "body": "> **ID backlog** `EP-BILLING`\n\n## Contexte\n\n⛔ **Bloqué** tant que l'ADR-004 (moyens de paiement) n'est pas tranché. La question 2 du cadrage reste ouverte : répartition espèces / virement / en ligne, équipe terrain, prélèvement récurrent. Chacune de ces réponses change la modélisation.\n\n## Contient\n\n- [ ] `BE-32` Plans, abonnements, cycle de vie, période de grâce\n- [ ] `BE-33` Passerelle de paiement derrière l'interface `PaymentGateway` (Konnect / Paymee / Flouci)\n- [ ] `BE-34` Portefeuille de crédits, transactions **immuables**\n- [ ] `BE-35` Boosts — emplacements sponsorisés **hors ranking**, étiquetés explicitement\n- [ ] Facturation et réconciliation\n- [ ] `DOC-04` **ADR-004 — moyens de paiement** (préalable bloquant)\n\n## Critères d'acceptation\n\n- [ ] Décomposée en issues au démarrage du sprint concerné\n- [ ] Chaque issue fille respecte la Definition of Ready\n\n## Références\n\ncadrage §6 question 2 · Annexe A (le boost ne modifie pas le score)\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "EP-VOCAL",
+    "title": "[ÉPIQUE EP-VOCAL] Recherche vocale en derja + RAG",
+    "milestone": "M6 — Différenciation & Lancement",
+    "labels": [
+      "lot:backend",
+      "lot:mobile",
+      "domaine:search",
+      "prio:P0",
+      "sprint:S3+",
+      "type:epic"
+    ],
+    "assignee": null,
+    "estimate": 0,
+    "deps": [],
+    "body": "> **ID backlog** `EP-VOCAL`\n\n## Contexte\n\n**La fonctionnalité différenciante** du document de stratégie. La majorité des artisans tunisiens ne sont pas à l'aise pour taper de longs textes : le client appuie sur un bouton et dit *« 3andi fuite fil lavabo mta3 el coujina »*. Le système transcrit, extrait le métier et le degré d'urgence, et structure la demande.\n\nElle mérite un sprint dédié, pas un reste de semaine.\n\n## Contient\n\n- [ ] Enregistrement et compression audio côté mobile\n- [ ] Transcription derja → texte (évaluer les moteurs disponibles pour l'arabe tunisien)\n- [ ] Pipeline RAG : extraction du métier, de la zone et de l'urgence\n- [ ] Restitution structurée à l'artisan\n- [ ] Repli manuel si la transcription échoue — jamais de cul-de-sac\n\n## Critères d'acceptation\n\n- [ ] Décomposée en issues au démarrage du sprint concerné\n- [ ] Chaque issue fille respecte la Definition of Ready\n\n## Références\n\n`strategie_plateforme_artisans.md` §3.B\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "EP-DURCISSEMENT",
+    "title": "[ÉPIQUE EP-DURCISSEMENT] Durcissement, observabilité et préparation au lancement",
+    "milestone": "M6 — Différenciation & Lancement",
+    "labels": [
+      "lot:socle",
+      "prio:P0",
+      "sprint:S3+",
+      "securite",
+      "type:epic"
+    ],
+    "assignee": null,
+    "estimate": 0,
+    "deps": [],
+    "body": "> **ID backlog** `EP-DURCISSEMENT`\n\n## Contexte\n\nCe qui sépare une application qui marche d'une application qu'on peut exploiter.\n\n## Contient\n\n- [ ] `BE-36` Worker BullMQ : agrégats, expirations, digest hebdomadaire (nécessaire au-delà de ~500 artisans)\n- [ ] `BE-42` Index GIN trigram FR/AR pour la recherche plein texte\n- [ ] `FM-20` Notifications push (Firebase)\n- [ ] `FM-21` Build et publication iOS\n- [ ] `OPS-01` Déploiement staging et production, migrations avant déploiement\n- [ ] `OPS-02` Sauvegardes PITR + **restauration testée trimestriellement**\n- [ ] `OPS-03` Observabilité : Sentry, logs, PostHog\n- [ ] E2E Maestro sur le parcours cœur mobile\n- [ ] `DOC-05` **ADR-005 — annuaire ou place de marché ?** (question 3 du cadrage)\n\n## Critères d'acceptation\n\n- [ ] Décomposée en issues au démarrage du sprint concerné\n- [ ] Chaque issue fille respecte la Definition of Ready\n\n## Références\n\nAnnexe B et D du cadrage\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  }
+]

@@ -1,0 +1,61 @@
+# =============================================================================
+# CODEOWNERS — Sanaya
+#
+# Ce fichier n'est PAS de la bureaucratie : c'est le principal outil anti-conflit
+# du projet. Il désigne, pour chaque répertoire, qui est automatiquement demandé
+# en revue — et donc, implicitement, qui écrit dedans par défaut.
+#
+# Règle d'équipe : si tu dois modifier un fichier dont tu n'es pas propriétaire,
+# tu le signales dans Slack AVANT de commencer, pas au moment de la PR.
+#
+# ⚠️ À FAIRE : remplacer @CHAYMA-HANDLE par le vrai identifiant GitHub de Chayma,
+#    puis l'inviter au dépôt en écriture. Tant que ce n'est pas fait, les demandes
+#    de revue automatiques ne partiront pas.
+# =============================================================================
+
+# Par défaut : le lead
+*                                       @dallel5-git
+
+# --- Socle & outillage — Oussama --------------------------------------------
+/.github/                               @dallel5-git
+/Code/turbo.json                        @dallel5-git
+/Code/pnpm-workspace.yaml               @dallel5-git
+/Code/packages/tsconfig/                @dallel5-git
+/Code/packages/eslint-config/           @dallel5-git
+/Code/tooling/                          @dallel5-git
+
+# --- Backend : auth, sécurité, transport — Oussama ---------------------------
+/Code/apps/api/                         @dallel5-git
+/Code/packages/auth/                    @dallel5-git
+/Code/packages/validators/              @dallel5-git
+
+# --- Données & domaine — Chayma ---------------------------------------------
+# Chayma est SEULE propriétaire du schéma Prisma en S1. C'est la règle qui évite
+# le conflit le plus douloureux du projet : deux migrations concurrentes.
+/Code/packages/db/                      @CHAYMA-HANDLE
+/Code/packages/db/prisma/schema.prisma  @CHAYMA-HANDLE
+/Code/packages/core/                    @CHAYMA-HANDLE @dallel5-git
+
+# --- Design system & i18n — les deux ----------------------------------------
+/Code/packages/design-tokens/           @dallel5-git @CHAYMA-HANDLE
+/Code/packages/i18n/                    @dallel5-git @CHAYMA-HANDLE
+
+# --- Mobile Flutter — les deux (S1 : tout le monde dessus) ------------------
+/Code/apps/mobile/                      @dallel5-git @CHAYMA-HANDLE
+/Code/apps/mobile/lib/core/api/         @CHAYMA-HANDLE
+/Code/apps/mobile/lib/core/theme/       @dallel5-git
+/Code/apps/mobile/lib/features/         @dallel5-git @CHAYMA-HANDLE
+
+# --- Web (S2) ---------------------------------------------------------------
+/Code/apps/web/                         @dallel5-git
+/Code/apps/admin/                       @dallel5-git
+
+# --- Le contrat d'API : revue OBLIGATOIRE des deux --------------------------
+# Un changement ici invalide le client Dart ET le futur client web.
+# Personne ne le merge seul.
+/Code/contracts/                        @dallel5-git @CHAYMA-HANDLE
+
+# --- Décisions & mémoire projet : revue du lead, sans exception -------------
+/CLAUDE.md                              @dallel5-git
+/Code/docs/01-architecture-decision-records/  @dallel5-git
+/Code/docs/POLITIQUE-PROJET.md          @dallel5-git

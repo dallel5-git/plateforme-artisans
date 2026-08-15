@@ -1,0 +1,101 @@
+name: "🔧 Tâche"
+description: "Une unité de travail issue du backlog (SO-xx, BE-xx, FM-xx, FW-xx, QA-xx)"
+title: "[ID] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        > Une tâche n'entre en `Ready` que si sa **Definition of Ready** est remplie
+        > (`Code/docs/POLITIQUE-PROJET.md` §5). Si tu ne peux pas remplir les critères
+        > d'acceptation de façon **observable**, la tâche n'est pas prête — c'est un `spike`.
+
+  - type: input
+    id: backlog-id
+    attributes:
+      label: ID de backlog
+      description: "Doit exister dans backlog/TODO.md. C'est ce qui relie le code au plan."
+      placeholder: "BE-15"
+    validations:
+      required: true
+
+  - type: textarea
+    id: contexte
+    attributes:
+      label: Contexte
+      description: "Pourquoi cette tâche existe. Le *quoi* est dans le titre, ici on écrit le *pourquoi*."
+      placeholder: |
+        Le classement conditionne directement le chiffre d'affaires : il doit être
+        explicable, paramétrable et auditable.
+    validations:
+      required: true
+
+  - type: textarea
+    id: perimetre
+    attributes:
+      label: Périmètre
+      description: "Ce qui est fait dans cette issue, sous forme de cases à cocher."
+      value: |
+        - [ ]
+        - [ ]
+        - [ ]
+    validations:
+      required: true
+
+  - type: textarea
+    id: hors-perimetre
+    attributes:
+      label: Hors périmètre (volontairement)
+      description: "Ce qu'on ne fait PAS ici. Évite les débats en revue et le glissement de portée."
+      placeholder: |
+        - Les boosts (emplacements sponsorisés) — ils n'entrent pas dans le rankingScore
+        - Le réglage fin des poids depuis le back-office (BE-31, S3)
+
+  - type: textarea
+    id: acceptation
+    attributes:
+      label: Critères d'acceptation
+      description: "**Observables**, pas « ça marche ». Un tiers doit pouvoir les vérifier sans toi."
+      value: |
+        - [ ]
+        - [ ]
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: guardrails
+    attributes:
+      label: Guard-rails applicables
+      description: "Cocher ceux qui concernent cette tâche. Ils seront re-vérifiés en revue de PR."
+      options:
+        - label: "Aucune donnée sensible loggée (téléphone, OTP, CIN, token, mot de passe)"
+        - label: "Aucune règle métier hors de `packages/core`"
+        - label: "Pagination par curseur sur toute liste"
+        - label: "Chaînes i18n ajoutées en **FR et AR**"
+        - label: "Rendu vérifié en arabe / RTL"
+        - label: "Modifie `contracts/openapi.json` → régénérer les clients et prévenir l'autre dev"
+        - label: "Montants en millimes (entier), jamais de float"
+        - label: "Le badge `isVerified` ne dépend jamais de l'abonnement (ADR-002)"
+
+  - type: input
+    id: estimation
+    attributes:
+      label: Estimation (heures)
+      description: "Max 8 h. Au-delà, découper. Une tâche en binôme compte double en heures-homme."
+      placeholder: "4"
+    validations:
+      required: true
+
+  - type: input
+    id: dependances
+    attributes:
+      label: Dépend de
+      description: "Numéros d'issues ou IDs de backlog. Ne pas démarrer tant qu'elles ne sont pas fermées."
+      placeholder: "#12, #14"
+
+  - type: input
+    id: references
+    attributes:
+      label: Références
+      description: "User stories du cadrage, section du plan, ADR."
+      placeholder: "US-C-01, Annexe A du cadrage, ADR-001 §3.2"
