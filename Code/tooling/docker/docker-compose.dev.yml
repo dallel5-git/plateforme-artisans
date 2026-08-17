@@ -1,0 +1,45 @@
+name: sanaya
+
+services:
+  postgres:
+    # postgres:16 seul n'embarque pas PostGIS (contrairement à unaccent/pg_trgm/pgcrypto/citext,
+    # qui sont des modules contrib standard). postgis/postgis est un sur-ensemble officiel de
+    # l'image Postgres 16 avec PostGIS pré-installé.
+    image: postgis/postgis:16-3.5
+    container_name: sanaya-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-sanaya}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-sanaya_dev_password}
+      POSTGRES_DB: ${POSTGRES_DB:-sanaya}
+    ports:
+      - '${POSTGRES_PORT:-5432}:5432'
+    volumes:
+      - sanaya-postgres-data:/var/lib/postgresql/data
+      # Exécuté une seule fois, à la création du volume (mécanisme standard de l'image postgres).
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER:-sanaya} -d ${POSTGRES_DB:-sanaya}']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: sanaya-redis
+    restart: unless-stopped
+    ports:
+      - '${REDIS_PORT:-6379}:6379'
+    volumes:
+      - sanaya-redis-data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  sanaya-postgres-data:
+    name: sanaya-postgres-data
+  sanaya-redis-data:
+    name: sanaya-redis-data
