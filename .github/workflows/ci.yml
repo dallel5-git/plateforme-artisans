@@ -1,0 +1,110 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: Code
+
+jobs:
+  static-checks:
+    name: lint · typecheck · format · contrat · tokens
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      # Valeurs factices — apps/api/src/env.ts exige des URL valides même sans base
+      # vivante : générer le contrat OpenAPI ne fait aucune I/O réseau au boot.
+      DATABASE_URL: postgresql://sanaya:sanaya_dev_password@localhost:5432/sanaya
+      REDIS_URL: redis://localhost:6379
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: Code/pnpm-lock.yaml
+
+      - name: Cache Turborepo
+        uses: actions/cache@v4
+        with:
+          path: Code/.turbo
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm format:check
+      - run: pnpm api:contract:check
+      - run: pnpm tokens:build:check
+
+      # TODO(SO-05) : activer `pnpm i18n:check` une fois le squelette i18n FR/AR
+      # (packages/i18n/src/locales/{fr,ar}/*.json + tooling/scripts/i18n-check.mjs) mergé sur main.
+      # TODO(FM-01) : ajouter un job `flutter analyze` + `dart format --set-exit-if-changed`
+      # une fois apps/mobile bootstrapé en Flutter (ADR-001) — cf. POLITIQUE-PROJET.md §3.3/§6.
+
+  test:
+    name: test (PostgreSQL + Redis)
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    services:
+      postgres:
+        image: postgis/postgis:16-3.5
+        env:
+          POSTGRES_USER: sanaya
+          POSTGRES_PASSWORD: sanaya_dev_password
+          POSTGRES_DB: sanaya
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U sanaya -d sanaya"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql://sanaya:sanaya_dev_password@localhost:5432/sanaya
+      REDIS_URL: redis://localhost:6379
+      NODE_ENV: test
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: Code/pnpm-lock.yaml
+
+      - name: Cache Turborepo
+        uses: actions/cache@v4
+        with:
+          path: Code/.turbo
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test
