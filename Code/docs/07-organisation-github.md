@@ -508,6 +508,9 @@ main                                   protégée · 1 approbation · CI verte �
 └── chore/SO-06-cache-turborepo
 ```
 
+- **Seul Oussama merge sur `main`.** Ouvrir, relire, approuver : tout le monde. Cliquer sur « Merge » :
+  personne d'autre, y compris Claude même quand il a un accès `gh` en écriture. Voir
+  `POLITIQUE-PROJET.md` §3.3.
 - Format : `<type>/<ID>-<slug>`. **L'ID est obligatoire** — c'est ce qui relie le code au plan.
 - **Durée de vie ≤ 2 jours.** Au-delà, la tâche était trop grosse : on découpe.
 - Rebase sur `main` avant d'ouvrir la PR. Pas de merge commit dans une branche de feature.
@@ -538,6 +541,8 @@ main                                   protégée · 1 approbation · CI verte �
    (`BE-19`+`FM-11`, puis `BE-24`+`FM-12`, puis `BE-20`, puis `BE-25`+`FM-13`). Pas au troisième
    jalon manqué : au premier.
 5. **Si `main` est rouge, c'est la priorité n°1 des deux**, avant toute autre tâche.
+6. **Seul Oussama merge sur `main`.** Une PR prête (CI verte, approuvée) attend son tour — elle ne se
+   fusionne pas toute seule, même par celui qui l'a ouverte.
 
 ---
 
