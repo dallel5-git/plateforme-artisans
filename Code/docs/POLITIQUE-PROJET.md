@@ -167,10 +167,28 @@ BE-03 — Authentification OTP SMS
 | E2E web | Playwright | parcours recherche → fiche → contact | ✅ 1 parcours minimum |
 | E2E mobile | Maestro | parcours OTP → recherche → contact | ⚠️ à partir de la semaine 2 |
 
-**Règles :**
-- Aucun seuil de couverture chiffré imposé — un pourcentage se triche. En revanche : **toute correction de bug commence par un test qui reproduit le bug**.
-- Aucun test désactivé (`.skip`, `@Skip`) sans un `// TODO(<ID>)` et une ligne dans le backlog.
-- Les tests de `packages/core` ne touchent **jamais** la base ni le réseau. S'ils en ont besoin, c'est que la logique est mal placée.
+**Règles — opposables en revue, vérifiées par la CI (ADR-006) :**
+
+1. **Tout changement de comportement s'accompagne d'un test.** Cas passant **et** au moins un cas
+   d'erreur. Sont exemptés : documentation, fichiers générés, renommage pur, formatage, montée de
+   version sans changement d'appel, configuration d'outillage. **L'exemption se déclare** en cochant
+   la case dédiée dans la PR — elle ne se suppose pas. Le contrôle `Tests exigés` refuse le merge
+   sinon.
+2. **Toute correction de bug commence par un test qui reproduit le bug**, dans cet ordre : écrire le
+   test → **le voir échouer** → corriger → committer les deux ensemble. Un test écrit après la
+   correction ne prouve rien : on ne l'a jamais vu rouge. Le test porte `// régression #<issue>`.
+3. **Les tests marqués `🔒 NON-RÉGRESSION` ne se suppriment pas.** Ils encodent une décision d'ADR,
+   pas un détail d'implémentation. Les retirer exige un ADR qui annule la décision d'origine **et**
+   la revue des deux développeurs. La CI compte ces marqueurs et bloque s'il en manque.
+4. **Aucun seuil de couverture chiffré** — un pourcentage se triche : on atteint 80 % en testant les
+   getters pendant que le ranking reste à découvert. On exige des tests **sur ce qui change**, pas
+   un ratio global.
+5. Aucun test désactivé (`.skip`, `@Skip`) sans un `// TODO(<ID>)` et une ligne dans le backlog.
+6. Les tests de `packages/core` ne touchent **jamais** la base ni le réseau. S'ils en ont besoin,
+   c'est que la logique est mal placée.
+
+> En revue, la bonne question n'est pas « y a-t-il un test ? » mais
+> **« si je casse cette ligne, est-ce que ce test devient rouge ? »**
 
 **Outillage bloquant en CI :** ESLint (dont `no-restricted-imports` inter-modules), `tsc --noEmit`,
 Prettier, `flutter analyze`, `dart format --set-exit-if-changed`, `api:contract --check`.

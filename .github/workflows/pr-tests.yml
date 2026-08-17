@@ -1,0 +1,135 @@
+# =============================================================================
+# Sanaya — « Où est le test ? »
+#
+# Applique la RÈGLE 1 de l'ADR-006 : toute PR qui modifie un comportement
+# observable ajoute ou modifie au moins un test.
+#
+# Ce contrôle ne juge pas la QUALITÉ du test — aucune machine ne sait le faire.
+# Il rend seulement l'absence de test VISIBLE et DÉLIBÉRÉE : pour merger sans
+# test, il faut cocher une case et écrire pourquoi. C'est tout l'objectif.
+#
+# La question en revue n'est pas « y a-t-il un test ? » mais
+# « si je casse cette ligne, est-ce que ce test devient rouge ? » (ADR-006 §5.3)
+# =============================================================================
+name: Tests exigés
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited, ready_for_review]
+    branches: [main, develop]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  ou-est-le-test:
+    name: Où est le test ?
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Analyse du diff
+        id: diff
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          CHANGES=$(git diff --name-only "$BASE".."$HEAD")
+          echo "--- Fichiers modifiés ---"
+          echo "$CHANGES"
+          echo "-------------------------"
+
+          # --- Ce qui est EXEMPTÉ (ADR-006 §2, règle 1) --------------------
+          # Documentation, backlog, ADR         → pas de comportement
+          # Fichiers GÉNÉRÉS                    → on ne teste pas un générateur ici
+          # Outillage, CI, Docker               → son test, c'est qu'elle tourne
+          # Migrations Prisma                   → testées via les tests d'intégration
+          SOURCE=$(echo "$CHANGES" | grep -vE '(\.md$|^backlog/|^Code/docs/|\.github/|^Code/tooling/|\.ya?ml$|^Code/contracts/openapi\.json$|\.g\.dart$|\.freezed\.dart$|\.gr\.dart$|/generated/|^Code/packages/design-tokens/src/|tailwind-preset\.js$|app_(colors|spacing|text)\.dart$|Dockerfile|docker-compose|\.gitignore$|\.gitattributes$|^Code/packages/db/prisma/migrations/)' || true)
+
+          # --- Ce qui COMPTE comme un test ---------------------------------
+          TESTS=$(echo "$CHANGES" | grep -E '(\.test\.ts$|\.test\.tsx$|\.spec\.ts$|_test\.dart$|^Code/.*/tests?/|\.e2e\.ts$|\.maestro\.ya?ml$)' || true)
+
+          NB_SOURCE=$(echo "$SOURCE" | grep -c . || true)
+          NB_TESTS=$(echo "$TESTS" | grep -c . || true)
+
+          echo "source=$NB_SOURCE" >> "$GITHUB_OUTPUT"
+          echo "tests=$NB_TESTS"   >> "$GITHUB_OUTPUT"
+          {
+            echo "liste_source<<EOF"
+            echo "$SOURCE" | head -20
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Verdict
+        env:
+          NB_SOURCE: ${{ steps.diff.outputs.source }}
+          NB_TESTS: ${{ steps.diff.outputs.tests }}
+          LISTE: ${{ steps.diff.outputs.liste_source }}
+          CORPS: ${{ github.event.pull_request.body }}
+          TITRE: ${{ github.event.pull_request.title }}
+        run: |
+          # Aucun fichier de code touché → rien à exiger.
+          if [ "$NB_SOURCE" -eq 0 ]; then
+            echo "✅ Aucun fichier de code modifié (documentation, backlog, outillage ou fichiers générés)."
+            exit 0
+          fi
+
+          # Au moins un test touché → la règle est respectée.
+          if [ "$NB_TESTS" -gt 0 ]; then
+            echo "✅ $NB_TESTS fichier(s) de test modifié(s) pour $NB_SOURCE fichier(s) de code."
+            echo ""
+            echo "Rappel au relecteur — la bonne question n'est pas « y a-t-il un test ? »"
+            echo "mais « si je casse cette ligne, est-ce que ce test devient rouge ? » (ADR-006 §5.3)"
+            exit 0
+          fi
+
+          # Exemption DÉCLARÉE dans la description de la PR.
+          # Elle se coche, elle ne se suppose pas (ADR-006 §2, règle 1).
+          if echo "$CORPS" | grep -qiE '^\s*-?\s*\[x\]\s*(aucun test|pas de test|exemption)'; then
+            echo "⚠️  Exemption de test DÉCLARÉE dans la description de la PR."
+            echo ""
+            echo "Le relecteur doit vérifier qu'elle est justifiée. Motifs recevables (ADR-006 §2) :"
+            echo "  · documentation, commentaires, ADR, backlog"
+            echo "  · fichiers générés"
+            echo "  · renommage pur, formatage"
+            echo "  · montée de version sans changement d'appel"
+            echo "  · configuration d'outillage"
+            echo ""
+            echo "« Je n'ai pas eu le temps » n'en est pas un. C'est ce qu'on coupe en dernier."
+            exit 0
+          fi
+
+          # --- Refus -------------------------------------------------------
+          echo "::error::$NB_SOURCE fichier(s) de code modifié(s), aucun test ajouté ni modifié."
+          {
+            echo "## ❌ Où est le test ?"
+            echo ""
+            echo "Cette PR modifie **$NB_SOURCE fichier(s) de code** sans toucher un seul test."
+            echo ""
+            echo '```'
+            echo "$LISTE"
+            echo '```'
+            echo ""
+            echo "### Deux issues"
+            echo ""
+            echo "**1. Ajoute le test** — cas passant **et** au moins un cas d'erreur."
+            echo "   Si c'est une correction de bug : le test doit **échouer avant** le correctif."
+            echo "   Un test écrit après ne prouve rien, on ne l'a jamais vu rouge (ADR-006 §2, règle 2)."
+            echo ""
+            echo "**2. Déclare l'exemption** — coche dans la description de la PR :"
+            echo '   `- [x] Aucun test nécessaire — motif : …`'
+            echo ""
+            echo "Motifs recevables : documentation · fichiers générés · renommage pur · formatage ·"
+            echo "montée de version sans changement d'appel · configuration d'outillage."
+            echo ""
+            echo "> Le sprint a 3 % de marge. L'amortisseur, ce sont les fonctionnalités 🟠 P1 —"
+            echo "> **pas les tests.** Une fonctionnalité coupée se rattrape en S2 ; une régression"
+            echo "> silencieuse sur le \`ContactEvent\` se paie en crédibilité auprès du premier"
+            echo "> artisan qui a payé. (ADR-006 §5.2)"
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit 1

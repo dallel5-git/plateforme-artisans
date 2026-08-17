@@ -56,7 +56,8 @@ apps/web (Next.js 15)     apps/admin (Next.js 15)     apps/mobile (Flutter 3.24)
 ```
 
 **Modular monolith, pas de microservices.** Un seul serveur d'API découpé en modules métier étanches :
-`auth`, `catalog`, `providers`, `search`, `reviews`, `billing`, `ads`, `moderation`, `analytics`.
+`auth`, `catalog`, `providers`, `search`, `contacts`, `reviews`, `billing`, `moderation`, `analytics`.
+(`ads` — régie publicitaire B2B — s'ajoutera en S4+ : zéro annonceur au jour 1.)
 
 ---
 

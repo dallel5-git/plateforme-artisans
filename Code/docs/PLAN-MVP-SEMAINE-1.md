@@ -28,7 +28,7 @@ d'arbitrage de la semaine.
 | **Marge** | **~3 %, c'est-à-dire aucune** |
 
 Il faut le dire clairement : **il n'y a pas de marge**, et 8 h effectives par jour pendant 7 jours
-consécutifs est déjà une hypothèse optimiste. Le seul amortisseur réel est la liste 🟠 P1 (~15 h) :
+consécutifs est déjà une hypothèse optimiste. Le seul amortisseur réel est la liste 🟠 P1 (~18 h) :
 **au premier jalon manqué, on y coupe — pas au troisième.** Dans l'ordre : `BE-19` + `FM-11`
 (espace Pro), puis `BE-24` + `FM-12` (stats), puis `BE-20` (médias), puis `BE-25` + `FM-13` (favoris).
 
@@ -289,7 +289,7 @@ volumineux.**
 | Le RTL casse la mise en page en fin de semaine | Élevée | Moyen | Vérifier en AR **à chaque écran, le jour même** — pas en J7. `EdgeInsetsDirectional` obligatoire. |
 | Le contrat d'API bouge après GATE 1 | Moyenne | Élevé | Message dans `#développement-du-backend` **avant** le merge, et régénération immédiate du client Dart. Aucune exception. |
 | Le week-end n'est pas travaillé | — | Élevé | Couper tout le bloc 🟠 P1 et laisser GATE 2 glisser au lundi. **Décision lundi matin.** |
-| **Il n'y a pas de marge (3 %)** | Certaine | Élevé | Le seul amortisseur est la liste 🟠 P1 (~15 h). Au **premier** jalon manqué, on y coupe — pas au troisième. Et 8 h effectives × 7 jours consécutifs est déjà optimiste. |
+| **Il n'y a pas de marge (3 %)** | Certaine | Élevé | Le seul amortisseur est la liste 🟠 P1 (~18 h). Au **premier** jalon manqué, on y coupe — pas au troisième. Et 8 h effectives × 7 jours consécutifs est déjà optimiste. |
 
 ---
 
