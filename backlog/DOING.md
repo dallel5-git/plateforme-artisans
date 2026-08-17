@@ -15,7 +15,7 @@ _Sprint S1 · dernière mise à jour : 2026-08-17_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `SO-07` | Protection de `main`, CODEOWNERS, modèle de PR | 2026-08-17 | `chore/SO-07-branch-protection-codeowners` | En revue (PR #66) — `gh api` bloqué sur SO-06 → main |
+| `SO-07` | CODEOWNERS + docs git flow develop/main (ADR-004) + protection des branches | 2026-08-17 | `chore/SO-07-branch-protection-codeowners` | En revue (PR #66) — `gh api` bloqué : sync develop d'abord |
 
 ## En binôme
 
@@ -29,7 +29,7 @@ _Sprint S1 · dernière mise à jour : 2026-08-17_
 
 | ID | Bloqué par | Depuis | Qui débloque | Action attendue |
 |---|---|---|---|---|
-| `SO-07` | SO-06 pas encore sur `main` → le workflow CI absent → `gh api` branch-protection échouera | 2026-08-17 | Merger PR #65 (SO-06) | Une fois SO-06 mergé, lancer `gh api repos/dallel5-git/plateforme-artisans/branches/main/protection ...` |
+| `SO-07` | (1) Merger PR #67 (`main → develop`) pour sync → (2) Merger PR #66 → (3) `gh api` protection sur `develop` ET `main` | 2026-08-17 | Oussama | Étapes dans l'ordre |
 | `BE-08` | Compte SMS non ouvert chez le fournisseur | — | Oussama | Adaptateur `console` en attendant — **non bloquant pour le développement**. Lancer la démarche J1. |
 | `BE-33` | Question 2 du cadrage non tranchée (moyens de paiement) | 2026-08-15 | Oussama | Rédiger ADR-003 avant S2 |
 | `BE-38` | Question 3 du cadrage non tranchée (annuaire ou marketplace) | 2026-08-15 | Oussama | Rédiger ADR-004 avant S2 |

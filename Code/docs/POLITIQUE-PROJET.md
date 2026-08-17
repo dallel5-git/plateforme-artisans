@@ -1,6 +1,6 @@
 # Politique de projet — Sanaya
 
-> Version 1.0 — 2026-08-15
+> Version 1.1 — 2026-08-17 (ADR-004 : git flow develop/main)
 > S'applique à : Oussama Dallel (lead), DEV-1, DEV-2.
 > Cette politique prime sur les habitudes individuelles. Elle se modifie par PR, pas par message Slack.
 
@@ -10,7 +10,7 @@
 
 1. **Le code écrit sans trace de décision sera réécrit.** Toute décision structurante → un ADR dans `Code/docs/01-architecture-decision-records/`.
 2. **On ne code que ce qui est dans le backlog du sprint.** Une bonne idée hors périmètre est une ligne dans `backlog/TODO.md`, pas un commit.
-3. **`main` est toujours déployable.** Si `main` est rouge, c'est la priorité n°1 de toute l'équipe, avant toute autre tâche.
+3. **`develop` est toujours verte — c'est la branche d'intégration (staging).** Si `develop` est rouge, c'est la priorité n°1 de toute l'équipe. `main` ne reçoit que des releases validées depuis `develop`.
 4. **La revue de code n'est pas optionnelle**, même à deux, même sous pression. Une PR non relue est une dette contractée sans en connaître le taux.
 5. **Le silence n'est pas un accord.** Une PR sans réponse sous 4 h ouvrées se relance en Slack.
 6. **On mesure avant d'optimiser**, et on trace avant de monétiser (principe P9).
@@ -24,7 +24,7 @@
 | Product / Tech lead | Oussama Dallel | Arbitrage de périmètre, validation des ADR, priorisation du backlog |
 | DEV-1 | à assigner | Voir `PLAN-MVP-SEMAINE-1.md` |
 | DEV-2 | à assigner | Voir `PLAN-MVP-SEMAINE-1.md` |
-| Astreinte `main` rouge | rotation quotidienne | Répare la CI avant toute autre tâche |
+| Astreinte `develop` rouge | rotation quotidienne | Répare la CI avant toute autre tâche |
 | Gardien du contrat d'API | rotation hebdomadaire | Vérifie qu'aucune PR ne casse `contracts/openapi.json` sans version |
 
 **Pair-programmer IA** : chaque développeur travaille avec Claude en local. Le fichier `CLAUDE.md`
@@ -38,17 +38,20 @@ correction de guard-rail bénéficie immédiatement aux deux postes.
 ### 3.1 Branches
 
 ```
-main                    protégée · déployable · squash-merge uniquement
-├── feat/BE-03-auth-otp
-├── feat/FW-07-search-page
-├── fix/BE-11-phone-normalization
-└── chore/CI-02-turbo-cache
+main                    protégée · production · merge depuis develop uniquement (Oussama)
+└── develop             protégée · staging · squash-merge · cible de toutes les features
+    ├── feat/BE-03-auth-otp
+    ├── feat/FW-07-search-page
+    ├── fix/BE-11-phone-normalization
+    └── chore/CI-02-turbo-cache
 ```
 
+- **Toutes les branches de feature ciblent `develop`**, jamais `main` directement.
+- `main` ne reçoit que des PRs `develop → main`, créées par Oussama pour chaque release de production.
 - Format : `<type>/<ID-tâche>-<slug-court>`. **L'ID du backlog est obligatoire** — c'est ce qui relie le code au plan.
 - Types : `feat` · `fix` · `chore` · `refactor` · `docs` · `test` · `perf`
 - Durée de vie d'une branche : **≤ 2 jours**. Au-delà, on découpe la tâche.
-- On rebase sur `main` avant d'ouvrir la PR. Pas de merge commit dans une branche de feature.
+- On rebase sur `develop` avant d'ouvrir la PR. Pas de merge commit dans une branche de feature.
 
 ### 3.2 Commits — Conventional Commits
 
@@ -70,18 +73,24 @@ refactor(core): extraire le calcul bayésien du ranking dans une fonction pure
 Scopes autorisés : `auth` `catalog` `providers` `search` `contacts` `reviews` `billing` `ads`
 `moderation` `analytics` `db` `api` `web` `admin` `mobile` `ci` `docs` `design-tokens`
 
-### 3.3 Protection de `main`
+### 3.3 Protection de `develop` et `main`
+
+#### `develop` — branche d'intégration (staging)
+
+- Push direct **interdit**.
+- 1 approbation obligatoire.
+- CI verte obligatoire : `lint` + `typecheck` + `test` + `api:contract --check`.
+- Squash-merge uniquement. La branche est supprimée après merge.
+- **Tout collaborateur avec droit d'écriture peut merger une PR vers `develop`**, dès qu'elle est prête
+  (CI verte, 1 approbation, description complète). Claude prépare la PR jusqu'à « prête à merger » puis
+  **attend** — il ne clique jamais sur Merge (voir `CLAUDE.md` §3.5).
+
+#### `main` — branche de production
 
 - Push direct **interdit**, y compris pour le lead.
-- 1 approbation obligatoire.
-- CI verte obligatoire : `lint` + `typecheck` + `test` + `api:contract --check` + `flutter analyze`.
-- Squash-merge uniquement. Le titre de la PR devient le message de commit.
-- La branche est supprimée après merge.
-- **Tout collaborateur avec droit d'écriture sur le dépôt peut merger une PR sur `main`**, dès qu'elle
-  est « prête à merger » (CI verte, 1 approbation, description complète) — DEV-1 et DEV-2 ne dépendent
-  plus du lead pour merger. Claude (agent IA) reste une exception : même authentifié avec un droit
-  d'écriture technique sur le dépôt, il prépare la PR jusqu'à l'état « prête à merger » puis
-  **attend** — il ne clique jamais sur Merge (voir `CLAUDE.md` §3.5).
+- Seul `develop → main` est autorisé, exclusivement par **Oussama Dallel**.
+- Aucune feature ne cible `main` directement — sans exception.
+- Le merge `develop → main` déclenche le déploiement en production.
 
 ---
 
@@ -150,7 +159,7 @@ BE-03 — Authentification OTP SMS
 
 ### Definition of Done — une tâche n'est finie que si
 
-- [ ] Le code est mergé sur `main`, CI verte
+- [ ] Le code est mergé sur `develop`, CI verte (le déploiement en production se fait via `develop → main` par Oussama)
 - [ ] Les critères d'acceptation sont vérifiés **manuellement** par l'auteur
 - [ ] Les tests couvrent le cas passant **et** au moins un cas d'erreur
 - [ ] Le contrat d'API est régénéré si nécessaire
@@ -247,9 +256,9 @@ Règle : **une décision prise en DM n'existe pas.** Elle est reportée dans le 
 | Env | Branche | Base | Déploiement | Données |
 |---|---|---|---|---|
 | `local` | — | Docker (PG16 + Redis) | `pnpm dev` | Seed + jeu de démo |
-| `preview` | toute PR | base éphémère | automatique | Seed |
-| `staging` | `main` | base dédiée | automatique au merge | Anonymisées |
-| `production` | tag `v*` | base managée + PITR | **manuel, validé par le lead** | Réelles |
+| `preview` | toute PR vers `develop` | base éphémère | automatique | Seed |
+| `staging` | `develop` | base dédiée | automatique au merge dans `develop` | Anonymisées |
+| `production` | `main` (alimenté depuis `develop`) | base managée + PITR | **merge `develop → main` par Oussama** | Réelles |
 
 - Les migrations tournent **avant** le déploiement applicatif, jamais après.
 - Toute migration destructive (drop de colonne, changement de type) suit le motif **expand → migrate → contract** en 3 déploiements. Jamais en une fois.

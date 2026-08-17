@@ -112,13 +112,14 @@ Oussama**, ne pas contourner.
 
 - ❌ **Aucun code ne doit lire `subscription.status` pour décider de l'affichage du badge `isVerified`.** Le badge atteste de l'identité, jamais du plan payant. Test de non-régression obligatoire dans `packages/core/tests/ranking.test.ts`.
 
-### 3.5 Fusion sur `main`
+### 3.5 Fusion — règle de branchement
 
-- ❌ **Je ne merge jamais une PR sur `main` moi-même** — même si la CI est verte, même si j'ai un accès
-  `gh` en écriture, même si on me le demande en cours de session. Tout collaborateur humain avec droit
-  d'écriture (Oussama ou Chayma) peut cliquer sur « Merge » dès la PR prête (`POLITIQUE-PROJET.md`
-  §3.3), mais moi jamais, sans exception. Mon rôle s'arrête à : ouvrir la PR, la préparer jusqu'à l'état
-  prêt à merger (CI verte, description complète, guard-rails cochés), puis attendre.
+- **Toutes les branches de feature ciblent `develop`** (phase de staging) — jamais `main` directement.
+- `main` = production. Il ne reçoit que des PRs `develop → main`, exclusivement par **Oussama Dallel**.
+- ❌ **Je ne merge jamais une PR moi-même**, ni vers `develop`, ni vers `main` — même si la CI est verte,
+  même si j'ai un accès `gh` en écriture. Mon rôle s'arrête à : ouvrir la PR ciblant `develop`, la
+  préparer jusqu'à l'état prêt à merger (CI verte, description complète, guard-rails cochés), puis
+  attendre. Voir `POLITIQUE-PROJET.md` §3.3.
 
 ### 3.6 Périmètre
 
@@ -212,8 +213,8 @@ semaine, et je te propose un découpage avant d'écrire du code.
 
 ### Ce que je ne ferai pas, même avec ton accord
 
-- **Merger une PR sur `main`** — voir §3.5. Ouvrir/préparer la PR, oui ; cliquer sur Merge, jamais,
-  même si un collaborateur humain le peut.
+- **Merger une PR** — ni vers `develop`, ni vers `main`. Ouvrir/préparer la PR (ciblant `develop`), oui ;
+  cliquer sur Merge, jamais (voir §3.5), même si un collaborateur humain le peut.
 
 ### Ce que je ne ferai pas sans ton accord explicite
 
@@ -259,6 +260,7 @@ Reste  : rate-limit par IP à brancher (créé BE-03b dans TODO)
 | 2026-08-15 | Sprint 1 = **MVP mobile en 7 jours** : socle + backend à deux (J1→J4 matin), puis **les 2 devs sur Flutter** (J4 pm→J7) | ADR-003 |
 | 2026-08-15 | **`apps/web` reporté au sprint S2.** Livrer web et mobile en parallèle avec 2 devs demandait 159 h-homme pour 112 disponibles | ADR-003 |
 | 2026-08-15 | Périmètre coupé du MVP : KYC upload, paiements, boosts, régie pub, back-office, push, `ServiceRequest`, recherche vocale | `PLAN-MVP-SEMAINE-1.md` §3 |
+| 2026-08-17 | **Git flow `develop`/`main`** : les features mergent dans `develop` (staging) ; `develop → main` = release de production déclenchée par Oussama | ADR-004 |
 
 > **Règle** : toute nouvelle ligne ici doit pointer vers un ADR ou un document. Une décision sans trace
 > écrite sera re-débattue dans trois semaines.

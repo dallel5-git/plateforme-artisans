@@ -502,18 +502,19 @@ existe pour qu'ils n'arrivent pas.
 ## 4.4 Règles de branche et de PR
 
 ```
-main                                   protégée · 1 approbation · CI verte · squash-merge
-├── feat/BE-15-ranking-bayesien
-├── fix/BE-11-normalisation-telephone
-└── chore/SO-06-cache-turborepo
+main                                   protégée · production · merge depuis develop uniquement (Oussama)
+└── develop                            protégée · staging · 1 approbation · CI verte · squash-merge
+    ├── feat/BE-15-ranking-bayesien
+    ├── fix/BE-11-normalisation-telephone
+    └── chore/SO-06-cache-turborepo
 ```
 
-- **Tout collaborateur avec droit d'écriture merge sur `main`** dès que la PR est prête (CI verte,
-  1 approbation). Seul Claude ne clique jamais sur « Merge », même quand il a un accès `gh` en
-  écriture. Voir `POLITIQUE-PROJET.md` §3.3.
+- **Tout collaborateur avec droit d'écriture merge vers `develop`** dès que la PR est prête (CI verte,
+  1 approbation). Seul Oussama fait le merge `develop → main` (release de production). Seul Claude ne
+  clique jamais sur « Merge », même vers `develop`. Voir `POLITIQUE-PROJET.md` §3.3.
 - Format : `<type>/<ID>-<slug>`. **L'ID est obligatoire** — c'est ce qui relie le code au plan.
 - **Durée de vie ≤ 2 jours.** Au-delà, la tâche était trop grosse : on découpe.
-- Rebase sur `main` avant d'ouvrir la PR. Pas de merge commit dans une branche de feature.
+- Rebase sur `develop` avant d'ouvrir la PR. Pas de merge commit dans une branche de feature.
 - **Diff < 400 lignes** hors fichiers générés. Au-delà de 800, la PR est refusée et découpée : la
   qualité de revue s'effondre passé ce seuil, ce n'est pas une question de bonne volonté.
 - **Revue sous 4 h ouvrées.** À deux, une PR en attente bloque 50 % de l'équipe.
@@ -540,9 +541,10 @@ main                                   protégée · 1 approbation · CI verte �
 4. **Au premier jalon manqué, on coupe dans la liste 🟠 P1** — dans l'ordre écrit
    (`BE-19`+`FM-11`, puis `BE-24`+`FM-12`, puis `BE-20`, puis `BE-25`+`FM-13`). Pas au troisième
    jalon manqué : au premier.
-5. **Si `main` est rouge, c'est la priorité n°1 des deux**, avant toute autre tâche.
-6. **Tout collaborateur avec droit d'écriture merge sur `main`**, dès qu'une PR est prête (CI verte,
-   approuvée) — pas besoin d'attendre Oussama. Claude reste la seule exception : il ne merge jamais.
+5. **Si `develop` est rouge, c'est la priorité n°1 des deux**, avant toute autre tâche.
+6. **Tout collaborateur avec droit d'écriture merge vers `develop`**, dès qu'une PR est prête (CI verte,
+   approuvée) — pas besoin d'attendre Oussama. Seul Oussama fait le merge `develop → main`.
+   Claude reste la seule exception pour tout merge : il ne clique jamais sur Merge.
 
 ---
 
