@@ -15,7 +15,7 @@ _Sprint S1 · dernière mise à jour : 2026-08-17_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `SO-05` | Squelette i18n FR/AR + parité des clés | 2026-08-17 | `chore/SO-05-i18n-fr-ar-parity` | En cours (exécutée par Oussama) |
+| `SO-07` | Protection de `main`, CODEOWNERS, modèle de PR | 2026-08-17 | `chore/SO-07-branch-protection-codeowners` | En revue — `gh api` bloqué sur SO-06 → main |
 
 ## En binôme
 
@@ -29,6 +29,7 @@ _Sprint S1 · dernière mise à jour : 2026-08-17_
 
 | ID | Bloqué par | Depuis | Qui débloque | Action attendue |
 |---|---|---|---|---|
+| `SO-07` | SO-06 pas encore sur `main` → le workflow CI absent → `gh api` branch-protection échouera | 2026-08-17 | Merger PR #65 (SO-06) | Une fois SO-06 mergé, lancer `gh api repos/dallel5-git/plateforme-artisans/branches/main/protection ...` |
 | `BE-08` | Compte SMS non ouvert chez le fournisseur | — | Oussama | Adaptateur `console` en attendant — **non bloquant pour le développement**. Lancer la démarche J1. |
 | `BE-33` | Question 2 du cadrage non tranchée (moyens de paiement) | 2026-08-15 | Oussama | Rédiger ADR-003 avant S2 |
 | `BE-38` | Question 3 du cadrage non tranchée (annuaire ou marketplace) | 2026-08-15 | Oussama | Rédiger ADR-004 avant S2 |
