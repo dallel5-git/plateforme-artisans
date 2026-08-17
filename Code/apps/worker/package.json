@@ -1,0 +1,6 @@
+{
+  "name": "worker",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Worker BullMQ — agrégats différés, expirations (S2+)."
+}

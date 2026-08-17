@@ -1,0 +1,34 @@
+# Dépendances et builds
+node_modules
+.turbo
+.next
+dist
+coverage
+
+# Lockfile — jamais reformaté à la main (cf. .gitattributes)
+pnpm-lock.yaml
+
+# Contrat d'API — généré par `pnpm api:contract` (ADR-001)
+contracts/openapi.json
+
+# Design tokens générés — régénérés par `pnpm tokens:build` (cf. tokens.json)
+packages/design-tokens/src/colors.ts
+packages/design-tokens/src/spacing.ts
+packages/design-tokens/src/typography.ts
+packages/design-tokens/tailwind-preset.js
+
+# Mobile Flutter — formaté par `dart format`, pas par Prettier
+apps/mobile
+
+# Docs et Markdown rédigés à la main (tableaux, prose FR/AR soignée) — hors périmètre
+# SO-01, décision de les faire passer sous Prettier à prendre séparément
+docs/
+tooling/github-templates/
+**/*.md
+
+# Généré par tooling/scripts/issues-data.py — jamais édité à la main (07-organisation-github.md §3.5)
+tooling/scripts/github-issues.json
+
+# Source de vérité éditée à la main avec alignement de colonnes volontaire (cf. son
+# propre $meta.note) — Prettier casserait la lisibilité sans changer la sémantique
+packages/design-tokens/tokens.json

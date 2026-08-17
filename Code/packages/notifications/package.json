@@ -1,0 +1,6 @@
+{
+  "name": "@repo/notifications",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Adaptateurs SMS (interface SmsProvider, console en S1) et push (S2+)."
+}

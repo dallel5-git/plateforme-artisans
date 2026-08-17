@@ -221,10 +221,7 @@ ${Object.entries(t.spacing)
 
 abstract final class AppRadius {
 ${Object.entries(t.radius)
-  .map(
-    ([k, v]) =>
-      `  static const Radius ${dartName(k)} = Radius.circular(${px(v).toFixed(1)});`,
-  )
+  .map(([k, v]) => `  static const Radius ${dartName(k)} = Radius.circular(${px(v).toFixed(1)});`)
   .join('\n')}
 }
 

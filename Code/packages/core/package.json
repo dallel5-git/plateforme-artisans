@@ -1,0 +1,6 @@
+{
+  "name": "@repo/core",
+  "version": "0.0.0",
+  "private": true,
+  "description": "⭐ Le vrai actif (CLAUDE.md §1) : ranking, policies, éligibilité, règles métier pures. Zéro dépendance HTTP/React (P3)."
+}
