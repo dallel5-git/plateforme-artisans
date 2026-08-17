@@ -1,0 +1,384 @@
+# =============================================================================
+# Sanaya — Intégration continue
+#
+# Applique l'ADR-006 : aucun changement de comportement sans test, aucun bug
+# sans test de non-régression.
+#
+# Budget : < 5 min. Au-delà de 10 min, la CI cesse d'être un filet et devient
+# un péage — on la contournera. C'est un budget, pas un souhait.
+#
+# Jobs :
+#   garde-fous   secrets, tests désactivés, tests 🔒 supprimés, console.log
+#   qualite-ts   lint · typecheck · contrat · i18n · tokens
+#   tests-ts     vitest, avec une VRAIE PostgreSQL 16 + Redis 7 jetables
+#   mobile       flutter analyze (zéro warning) · flutter test
+#   verdict      agrège tout — c'est LUI qu'on met en required status check
+# =============================================================================
+name: CI
+
+on:
+  pull_request:
+    branches: [main, develop]
+  push:
+    branches: [main, develop]
+
+# Une nouvelle poussée annule la précédente sur la même branche : on ne paie
+# pas deux fois pour un état qui n'existe plus.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: '22'
+  PNPM_VERSION: '9'
+  FLUTTER_VERSION: '3.24.0'
+  TURBO_TELEMETRY_DISABLED: '1'
+
+jobs:
+  # ===========================================================================
+  # 1. GARDE-FOUS — les contrôles qui ne coûtent rien et attrapent le pire.
+  #    Volontairement en premier et sans dépendance : échouer ici doit être
+  #    immédiat, pas après 4 minutes de build.
+  # ===========================================================================
+  garde-fous:
+    name: Garde-rails
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # --- Secrets ---------------------------------------------------------
+      # Un secret commité est un secret RÉVOQUÉ (POLITIQUE-PROJET.md §7.1).
+      # Le retirer du diff ne suffit pas : il faut le changer.
+      - name: Aucun fichier .env commité
+        run: |
+          if git ls-files | grep -E '(^|/)\.env($|\.)' | grep -v '\.env\.example$'; then
+            echo "::error::Un fichier .env est commité. Seul .env.example est autorisé."
+            echo "Un secret commité est un secret RÉVOQUÉ : change-le, ne te contente pas de le retirer."
+            exit 1
+          fi
+
+      - name: Aucun secret évident dans le diff
+        if: github.event_name == 'pull_request'
+        run: |
+          BASE="${{ github.event.pull_request.base.sha }}"
+          HEAD="${{ github.event.pull_request.head.sha }}"
+          # Motifs à haute valeur, faible bruit. On cible les clés réelles,
+          # pas les mots « password » ou « secret » qui apparaissent partout
+          # légitimement (noms de variables, commentaires, schémas Zod).
+          PATTERNS='(sk_live_|pk_live_|AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*PRIVATE KEY-----|postgres(ql)?://[^ \"'"'"']*:[^ \"'"'"']*@|eyJhbGciOi[A-Za-z0-9_-]{20,})'
+          if git diff "$BASE".."$HEAD" -- . ':(exclude)*.md' | grep -nE "^\+" | grep -qE "$PATTERNS"; then
+            echo "::error::Un secret potentiel apparaît dans le diff (clé API, clé privée, URL de base avec mot de passe, ou JWT)."
+            git diff "$BASE".."$HEAD" -- . ':(exclude)*.md' | grep -nE "^\+" | grep -E "$PATTERNS" | head -5
+            exit 1
+          fi
+
+      # --- Tests désactivés ------------------------------------------------
+      # Un test désactivé sans ID est une dette invisible (POLITIQUE §6).
+      - name: Aucun test désactivé sans TODO(<ID>)
+        run: |
+          FAIL=0
+          # TypeScript / Vitest
+          while IFS= read -r line; do
+            [ -z "$line" ] && continue
+            FILE="${line%%:*}"; NUM=$(echo "$line" | cut -d: -f2)
+            CONTEXT=$(sed -n "$((NUM>2?NUM-2:1)),${NUM}p" "$FILE")
+            if ! echo "$CONTEXT" | grep -qE 'TODO\([A-Z]{2,3}-[0-9]+[a-z]?\)'; then
+              echo "::error file=$FILE,line=$NUM::Test désactivé sans TODO(<ID>) ni ligne dans le backlog."
+              FAIL=1
+            fi
+          done < <(grep -rnE '\b(describe|it|test)\.(skip|todo)\b' \
+                     --include='*.ts' --include='*.tsx' Code/ 2>/dev/null || true)
+          # Dart
+          while IFS= read -r line; do
+            [ -z "$line" ] && continue
+            FILE="${line%%:*}"; NUM=$(echo "$line" | cut -d: -f2)
+            CONTEXT=$(sed -n "$((NUM>2?NUM-2:1)),${NUM}p" "$FILE")
+            if ! echo "$CONTEXT" | grep -qE 'TODO\([A-Z]{2,3}-[0-9]+[a-z]?\)'; then
+              echo "::error file=$FILE,line=$NUM::Test Dart désactivé (@Skip) sans TODO(<ID>)."
+              FAIL=1
+            fi
+          done < <(grep -rn '@Skip' --include='*.dart' Code/ 2>/dev/null || true)
+          exit $FAIL
+
+      # --- Tests protégés --------------------------------------------------
+      # Un test marqué 🔒 encode une DÉCISION (un ADR), pas un détail
+      # d'implémentation. Le supprimer exige un ADR qui l'annule.
+      - name: Aucun test 🔒 supprimé sans ADR
+        if: github.event_name == 'pull_request'
+        run: |
+          BASE="${{ github.event.pull_request.base.sha }}"
+          HEAD="${{ github.event.pull_request.head.sha }}"
+          # Compté UNIQUEMENT dans les fichiers de test : sinon une simple
+          # reformulation de l'ADR-006, qui cite le marqueur, ferait chuter le
+          # total et bloquerait une PR de documentation.
+          CIBLES=("*.test.ts" "*.test.tsx" "*.spec.ts" "*_test.dart")
+          AVANT=$(git grep -c '🔒 NON-RÉGRESSION' "$BASE" -- "${CIBLES[@]}" 2>/dev/null | awk -F: '{s+=$NF} END {print s+0}')
+          APRES=$(git grep -c '🔒 NON-RÉGRESSION' "$HEAD" -- "${CIBLES[@]}" 2>/dev/null | awk -F: '{s+=$NF} END {print s+0}')
+          echo "Tests protégés — avant : $AVANT · après : $APRES"
+          if [ "$APRES" -lt "$AVANT" ]; then
+            echo "::error::$((AVANT - APRES)) test(s) de non-régression protégé(s) ont disparu."
+            echo "Ces tests encodent une décision d'ADR. Les supprimer exige un ADR qui l'annule,"
+            echo "et la revue des DEUX développeurs. Voir ADR-006 §2 règle 3."
+            exit 1
+          fi
+
+      # --- Logs ------------------------------------------------------------
+      # apps/api utilise le logger Fastify (request.log), jamais console.
+      # Un console.log est le chemin le plus court vers un téléphone ou un OTP
+      # dans les logs de production (P8).
+      - name: Aucun console.log dans apps/api
+        run: |
+          if grep -rnE '(^|[^.\w])console\.(log|debug|info)\s*\(' \
+               --include='*.ts' Code/apps/api/src 2>/dev/null; then
+            echo "::error::console.* interdit dans apps/api — utiliser request.log (pino)."
+            echo "C'est le chemin le plus court vers un téléphone ou un OTP dans les logs (P8)."
+            exit 1
+          fi
+
+  # ===========================================================================
+  # 2. QUALITÉ TypeScript — lint, types, et les trois contrats générés.
+  # ===========================================================================
+  qualite-ts:
+    name: Lint · types · contrats
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: Code
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with: { version: '${{ env.PNPM_VERSION }}' }
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '${{ env.NODE_VERSION }}'
+          cache: pnpm
+          cache-dependency-path: Code/pnpm-lock.yaml
+
+      - name: Cache Turborepo
+        uses: actions/cache@v4
+        with:
+          path: Code/.turbo
+          key: turbo-${{ runner.os }}-${{ github.sha }}
+          restore-keys: turbo-${{ runner.os }}-
+
+      - run: pnpm install --frozen-lockfile
+
+      # `no-restricted-imports` fait respecter P1 (modules étanches).
+      # Sans cette contrainte automatisée, la modularité se dégrade en 3 mois.
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      # P2 : le contrat est GÉNÉRÉ, jamais documenté à la main.
+      # Ce contrôle remplace le garde-fou que tRPC offrait gratuitement (ADR-001).
+      - name: Le contrat d'API commité est à jour
+        run: pnpm api:contract --check
+
+      # P7 : bilingue dès le jour 1. Une clé FR sans son AR casse l'app en arabe.
+      - name: Parité des clés i18n FR/AR
+        run: pnpm i18n:check
+
+      # Les tokens générés (TS + Dart) doivent suivre tokens.json.
+      - name: Les design tokens générés sont à jour
+        run: |
+          pnpm tokens:build
+          if ! git diff --quiet; then
+            echo "::error::Les fichiers de tokens générés sont périmés."
+            echo "Lance 'pnpm tokens:build' et commite le résultat."
+            git diff --stat
+            exit 1
+          fi
+
+  # ===========================================================================
+  # 3. TESTS TypeScript — unitaires (core, sans base) + intégration (vraie PG).
+  #
+  #    On teste contre une VRAIE PostgreSQL, pas un mock : les CHECK, les index
+  #    partiels et le trigger prevent_self_review sont du SQL. Un mock ne les
+  #    exécute pas, donc ne prouve rien (BE-02).
+  # ===========================================================================
+  tests-ts:
+    name: Tests (Vitest + PostgreSQL + Redis)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: Code
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: sanaya
+          POSTGRES_PASSWORD: sanaya_test
+          POSTGRES_DB: sanaya_test
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U sanaya"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      redis:
+        image: redis:7
+        ports: ['6379:6379']
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DATABASE_URL: postgresql://sanaya:sanaya_test@localhost:5432/sanaya_test
+      REDIS_URL: redis://localhost:6379
+      NODE_ENV: test
+      # Valeurs factices : la CI ne doit JAMAIS avoir besoin d'un vrai secret
+      # pour faire tourner les tests.
+      JWT_SECRET: test-only-not-a-real-secret-000000000000
+      OTP_PEPPER: test-only-pepper
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with: { version: '${{ env.PNPM_VERSION }}' }
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '${{ env.NODE_VERSION }}'
+          cache: pnpm
+          cache-dependency-path: Code/pnpm-lock.yaml
+
+      - run: pnpm install --frozen-lockfile
+
+      # Les extensions viennent AVANT les migrations : unaccent et pg_trgm sont
+      # utilisées par les index de recherche FR/AR.
+      - name: Extensions PostgreSQL
+        run: |
+          PGPASSWORD=sanaya_test psql -h localhost -U sanaya -d sanaya_test \
+            -c 'CREATE EXTENSION IF NOT EXISTS unaccent;' \
+            -c 'CREATE EXTENSION IF NOT EXISTS pg_trgm;'
+
+      - name: Migrations
+        run: pnpm db:migrate:deploy
+
+      - name: Tests
+        run: pnpm test -- --reporter=default --reporter=junit --outputFile=../test-results/vitest.xml
+
+      # Le rapport reste consultable même quand les tests échouent — c'est
+      # justement là qu'on en a besoin.
+      - name: Rapport de test
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rapport-vitest
+          path: test-results/
+          retention-days: 7
+          if-no-files-found: ignore
+
+  # ===========================================================================
+  # 4. MOBILE Flutter — zéro warning toléré (lots/CLAUDE-mobile.md).
+  #
+  #    `if: hashFiles(...)` : le job se saute proprement tant qu'apps/mobile
+  #    n'existe pas (avant J4 du sprint S1). Il ne bloque pas, il n'échoue pas.
+  # ===========================================================================
+  mobile:
+    name: Flutter — analyse & tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: apps/mobile existe-t-il ?
+        id: check
+        run: |
+          if [ -f Code/apps/mobile/pubspec.yaml ]; then
+            echo "existe=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "existe=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::apps/mobile n'existe pas encore (FM-01, J4 du sprint S1) — job sauté."
+          fi
+
+      - uses: subosito/flutter-action@v2
+        if: steps.check.outputs.existe == 'true'
+        with:
+          flutter-version: '${{ env.FLUTTER_VERSION }}'
+          channel: stable
+          cache: true
+
+      - name: Dépendances
+        if: steps.check.outputs.existe == 'true'
+        working-directory: Code/apps/mobile
+        run: flutter pub get
+
+      - name: Formatage
+        if: steps.check.outputs.existe == 'true'
+        working-directory: Code/apps/mobile
+        run: dart format --set-exit-if-changed .
+
+      # Les fichiers générés (freezed, retrofit, slang) doivent être commités
+      # ET à jour. S'ils divergent, le client Dart ne correspond plus au contrat.
+      - name: Les fichiers générés sont à jour
+        if: steps.check.outputs.existe == 'true'
+        working-directory: Code/apps/mobile
+        run: |
+          dart run build_runner build --delete-conflicting-outputs
+          if ! git diff --quiet; then
+            echo "::error::Fichiers générés périmés (freezed / retrofit / slang)."
+            echo "Lance : dart run build_runner build --delete-conflicting-outputs"
+            git diff --stat
+            exit 1
+          fi
+
+      # Zéro warning. Pas « peu de warnings ».
+      - name: Analyse statique
+        if: steps.check.outputs.existe == 'true'
+        working-directory: Code/apps/mobile
+        run: flutter analyze --fatal-infos --fatal-warnings
+
+      - name: Tests
+        if: steps.check.outputs.existe == 'true'
+        working-directory: Code/apps/mobile
+        run: flutter test --reporter expanded
+
+  # ===========================================================================
+  # 5. VERDICT — un seul check à exiger dans la protection de branche.
+  #
+  #    Pourquoi : si on exige les 4 jobs individuellement, ajouter un job plus
+  #    tard oblige à modifier la protection de branche, et on oublie. Ici, on
+  #    exige « verdict » une fois pour toutes.
+  #
+  #    `always()` + test explicite des résultats : sans ça, un job SAUTÉ
+  #    compterait comme un succès et le verdict serait vert à tort.
+  # ===========================================================================
+  verdict:
+    name: Verdict
+    if: always()
+    needs: [garde-fous, qualite-ts, tests-ts, mobile]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Tous les contrôles sont-ils passés ?
+        run: |
+          echo "garde-fous : ${{ needs.garde-fous.result }}"
+          echo "qualite-ts : ${{ needs.qualite-ts.result }}"
+          echo "tests-ts   : ${{ needs.tests-ts.result }}"
+          echo "mobile     : ${{ needs.mobile.result }}"
+          for r in "${{ needs.garde-fous.result }}" \
+                   "${{ needs.qualite-ts.result }}" \
+                   "${{ needs.tests-ts.result }}" \
+                   "${{ needs.mobile.result }}"; do
+            if [ "$r" != "success" ] && [ "$r" != "skipped" ]; then
+              echo "::error::CI rouge. C'est la priorité n°1 de toute l'équipe (POLITIQUE-PROJET.md §1.3)."
+              exit 1
+            fi
+          done
+          echo "✅ Tous les contrôles sont verts."

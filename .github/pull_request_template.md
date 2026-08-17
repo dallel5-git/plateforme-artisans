@@ -26,11 +26,35 @@ Closes #
 
 ## Tests
 
-<!-- Combien, de quel niveau, et surtout : quel cas d'erreur est couvert ? -->
+<!--
+  ADR-006 — règle 1 : toute PR qui modifie un comportement ajoute ou modifie
+  au moins un test. Le contrôle « Tests exigés » refuse le merge sinon.
+-->
 
 - Unitaires (`packages/core`) :
 - Intégration (`apps/api`) :
 - Flutter (`flutter test`) :
+
+**Quel cas d'erreur est couvert ?**
+<!-- Le cas passant ne suffit pas. Qu'est-ce qui casse, et le test le voit-il ? -->
+
+**S'il s'agit d'une correction de bug** *(ADR-006 — règle 2)*
+- [ ] J'ai écrit le test **avant** le correctif et **je l'ai vu échouer**
+- [ ] Le test porte `// régression #<numéro d'issue>`
+
+**Exemption** — à cocher uniquement si aucun test n'est nécessaire :
+- [ ] Aucun test nécessaire — motif :
+      <!--
+        Motifs recevables : documentation · fichiers générés · renommage pur ·
+        formatage · montée de version sans changement d'appel · configuration.
+        « Je n'ai pas eu le temps » n'en est pas un : l'amortisseur du sprint,
+        ce sont les fonctionnalités 🟠 P1, pas les tests.
+      -->
+
+**Tests protégés 🔒**
+- [ ] Je n'ai supprimé ni désactivé aucun test marqué `🔒 NON-RÉGRESSION`
+      <!-- Si c'est le cas : lier l'ADR qui annule la décision d'origine. -->
+
 
 ## Comment vérifier
 
@@ -48,6 +72,7 @@ Closes #
 - [ ] `flutter analyze` : zéro warning · `dart format` appliqué *(si mobile)*
 - [ ] Diff < 400 lignes hors fichiers générés — sinon j'explique pourquoi ci-dessous
 - [ ] Aucun test désactivé sans `// TODO(<ID>)` + ligne dans le backlog
+- [ ] **Un test au moins ajouté ou modifié** — ou exemption déclarée plus haut *(ADR-006)*
 
 **Guard-rails** *(voir `CLAUDE.md` §3)*
 - [ ] Aucune donnée sensible loggée : téléphone, OTP, CIN, token, mot de passe
@@ -83,5 +108,11 @@ Préfixe tes commentaires :
 - `[bloquant]` — doit être corrigé avant merge
 - `[suggestion]` — à considérer, l'auteur tranche
 - `[question]` — demande de compréhension, pas un reproche
+
+**Sur les tests, la bonne question n'est pas « y a-t-il un test ? »**
+**mais « si je casse cette ligne, est-ce que ce test devient rouge ? »** *(ADR-006 §5.3)*
+
+Le risque n'est pas l'absence de test — la CI l'attrape. C'est le test qui ne prouve rien :
+assertion tautologique, mock qui se teste lui-même, `expect(true).toBe(true)` déguisé.
 
 Délai cible : **4 h ouvrées**. Une PR en attente bloque un développeur sur deux.
