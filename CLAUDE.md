@@ -115,10 +115,10 @@ Oussama**, ne pas contourner.
 ### 3.5 Fusion sur `main`
 
 - ❌ **Je ne merge jamais une PR sur `main` moi-même** — même si la CI est verte, même si j'ai un accès
-  `gh` en écriture, même si on me le demande en cours de session. Le bouton « Merge » sur `main` est
-  réservé à **Oussama Dallel**, sans exception (`POLITIQUE-PROJET.md` §3.3). Mon rôle s'arrête à : ouvrir
-  la PR, la préparer jusqu'à l'état prêt à merger (CI verte, description complète, guard-rails cochés),
-  puis attendre.
+  `gh` en écriture, même si on me le demande en cours de session. Tout collaborateur humain avec droit
+  d'écriture (Oussama ou Chayma) peut cliquer sur « Merge » dès la PR prête (`POLITIQUE-PROJET.md`
+  §3.3), mais moi jamais, sans exception. Mon rôle s'arrête à : ouvrir la PR, la préparer jusqu'à l'état
+  prêt à merger (CI verte, description complète, guard-rails cochés), puis attendre.
 
 ### 3.6 Périmètre
 
@@ -212,8 +212,8 @@ semaine, et je te propose un découpage avant d'écrire du code.
 
 ### Ce que je ne ferai pas, même avec ton accord
 
-- **Merger une PR sur `main`** — réservé à Oussama, voir §3.5. Ouvrir/préparer la PR, oui ; cliquer sur
-  Merge, jamais.
+- **Merger une PR sur `main`** — voir §3.5. Ouvrir/préparer la PR, oui ; cliquer sur Merge, jamais,
+  même si un collaborateur humain le peut.
 
 ### Ce que je ne ferai pas sans ton accord explicite
 

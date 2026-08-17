@@ -7,10 +7,6 @@
 #
 # Règle d'équipe : si tu dois modifier un fichier dont tu n'es pas propriétaire,
 # tu le signales dans Slack AVANT de commencer, pas au moment de la PR.
-#
-# ⚠️ À FAIRE : remplacer yoyo2-hub par le vrai identifiant GitHub de Chayma,
-#    puis l'inviter au dépôt en écriture. Tant que ce n'est pas fait, les demandes
-#    de revue automatiques ne partiront pas.
 # =============================================================================
 
 # Par défaut : le lead
@@ -32,19 +28,19 @@
 # --- Données & domaine — Chayma ---------------------------------------------
 # Chayma est SEULE propriétaire du schéma Prisma en S1. C'est la règle qui évite
 # le conflit le plus douloureux du projet : deux migrations concurrentes.
-/Code/packages/db/                      yoyo2-hub
-/Code/packages/db/prisma/schema.prisma  yoyo2-hub
-/Code/packages/core/                    yoyo2-hub @dallel5-git
+/Code/packages/db/                      @yoyo2-hub
+/Code/packages/db/prisma/schema.prisma  @yoyo2-hub
+/Code/packages/core/                    @yoyo2-hub @dallel5-git
 
 # --- Design system & i18n — les deux ----------------------------------------
-/Code/packages/design-tokens/           @dallel5-git yoyo2-hub
-/Code/packages/i18n/                    @dallel5-git yoyo2-hub
+/Code/packages/design-tokens/           @dallel5-git @yoyo2-hub
+/Code/packages/i18n/                    @dallel5-git @yoyo2-hub
 
 # --- Mobile Flutter — les deux (S1 : tout le monde dessus) ------------------
-/Code/apps/mobile/                      @dallel5-git yoyo2-hub
-/Code/apps/mobile/lib/core/api/         yoyo2-hub
+/Code/apps/mobile/                      @dallel5-git @yoyo2-hub
+/Code/apps/mobile/lib/core/api/         @yoyo2-hub
 /Code/apps/mobile/lib/core/theme/       @dallel5-git
-/Code/apps/mobile/lib/features/         @dallel5-git yoyo2-hub
+/Code/apps/mobile/lib/features/         @dallel5-git @yoyo2-hub
 
 # --- Web (S2) ---------------------------------------------------------------
 /Code/apps/web/                         @dallel5-git
@@ -53,7 +49,7 @@
 # --- Le contrat d'API : revue OBLIGATOIRE des deux --------------------------
 # Un changement ici invalide le client Dart ET le futur client web.
 # Personne ne le merge seul.
-/Code/contracts/                        @dallel5-git yoyo2-hub
+/Code/contracts/                        @dallel5-git @yoyo2-hub
 
 # --- Décisions & mémoire projet : revue du lead, sans exception -------------
 /CLAUDE.md                              @dallel5-git
