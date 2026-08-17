@@ -1,0 +1,6 @@
+{
+  "name": "@repo/i18n",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Catalogues FR/AR neutres (fr.json/ar.json), consommés par i18next (web) et slang (mobile) — SO-05."
+}

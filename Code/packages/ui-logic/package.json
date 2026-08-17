@@ -1,0 +1,6 @@
+{
+  "name": "@repo/ui-logic",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Hooks headless web/admin — réduit au web uniquement depuis l'ADR-001 (le mobile est en Flutter/Riverpod)."
+}

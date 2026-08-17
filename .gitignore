@@ -1,0 +1,32 @@
+# Dépendances
+node_modules/
+.pnpm-store/
+
+# Builds
+dist/
+.next/
+.turbo/
+coverage/
+build/
+
+# Secrets — jamais commités (POLITIQUE-PROJET.md §7.1)
+.env
+.env.local
+.env.*.local
+
+# Éditeurs / OS
+.DS_Store
+*.swp
+.vscode/*
+!.vscode/extensions.json
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Mobile Flutter (arrive avec FM-01)
+apps/mobile/.dart_tool/
+apps/mobile/build/
+apps/mobile/.flutter-plugins
+apps/mobile/.flutter-plugins-dependencies

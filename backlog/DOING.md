@@ -3,13 +3,13 @@
 > ⚠️ **Maximum 2 tâches par développeur.** Si vous en avez 3, vous n'en finissez aucune.
 > Mise à jour obligatoire **en fin de chaque journée**.
 
-_Sprint S1 · dernière mise à jour : 2026-08-15 (sprint non démarré)_
+_Sprint S1 · dernière mise à jour : 2026-08-17_
 
 ## DEV-1
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| — | _rien en cours_ | | | |
+| `SO-01` | Monorepo pnpm + Turborepo | 2026-08-17 | `chore/SO-01-monorepo-pnpm-turborepo` | En cours |
 
 ## DEV-2
 

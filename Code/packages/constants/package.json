@@ -1,0 +1,6 @@
+{
+  "name": "@repo/constants",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Constantes partagées : codes d'erreur (error-codes.ts), énumérations stables du domaine."
+}

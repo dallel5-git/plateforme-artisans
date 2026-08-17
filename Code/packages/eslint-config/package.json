@@ -1,0 +1,20 @@
+{
+  "name": "@repo/eslint-config",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Configurations ESLint partagées : base.js (Node/TS). next.js et react-native.js arrivent avec SO-03/FW-01 et FM-01.",
+  "files": [
+    "base.js",
+    "next.js",
+    "react-native.js"
+  ],
+  "dependencies": {
+    "@eslint/js": "10.0.1",
+    "eslint-config-prettier": "10.1.8",
+    "typescript-eslint": "8.67.0"
+  },
+  "peerDependencies": {
+    "eslint": "^10.0.0"
+  }
+}

@@ -20,7 +20,6 @@
 
 | ID | Tâche | Prio | Qui | Est. | Dépend de | US |
 |---|---|---|---|---|---|---|
-| `SO-01` | Monorepo pnpm + Turborepo, tsconfig/eslint/prettier partagés | 🔴 | DEV-1 | 2 h | — | US-T-01 |
 | `SO-02` | Docker : PostgreSQL 16 (`unaccent`, `pg_trgm`, `postgis`) + Redis 7 | 🔴 | DEV-2 | 1,5 h | — | US-T-01 |
 | `SO-03` | Bootstrap `apps/api` : Fastify 5 + Zod provider + Swagger + pino + requestId | 🔴 | DEV-1 | 2,5 h | SO-01 | US-T-01 |
 | `SO-04` | Générateur de design tokens : `tokens.json` → TS (preset Tailwind) **et** Dart | 🔴 | DEV-2 | 2 h | SO-01 | US-T-03 |

@@ -1,0 +1,6 @@
+packages:
+  - 'apps/*'
+  - 'packages/*'
+  # apps/mobile est un projet Flutter/Dart (ADR-001) : il n'a pas de package.json
+  # et ne fait jamais partie du workspace pnpm. Propriété de FM-01.
+  - '!apps/mobile'
