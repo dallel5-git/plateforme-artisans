@@ -113,7 +113,20 @@ importers:
         specifier: 8.67.0
         version: 8.67.0(eslint@10.8.1)(typescript@5.9.3)
 
-  packages/i18n: {}
+  packages/i18n:
+    devDependencies:
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@repo/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      eslint:
+        specifier: 10.8.1
+        version: 10.8.1
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
 
   packages/notifications: {}
 
