@@ -77,6 +77,13 @@ Scopes autorisés : `auth` `catalog` `providers` `search` `contacts` `reviews` `
 - CI verte obligatoire : `lint` + `typecheck` + `test` + `api:contract --check` + `flutter analyze`.
 - Squash-merge uniquement. Le titre de la PR devient le message de commit.
 - La branche est supprimée après merge.
+- **Seul Oussama Dallel (lead) merge une PR sur `main`.** N'importe qui peut ouvrir une PR, la relire,
+  l'approuver — mais le bouton « Merge » sur `main` est réservé au lead, sans exception et sans besoin
+  de le redemander à chaque fois. DEV-1, DEV-2 et Claude (agent IA, même authentifié avec un droit
+  d'écriture technique sur le dépôt) préparent la PR jusqu'à l'état « prête à merger » (CI verte, 1
+  approbation, description complète) puis **attendent** — ils ne cliquent jamais sur Merge. À configurer
+  en miroir dans GitHub : Settings → Branches → règle sur `main` → « Restrict who can push to matching
+  branches » limité à `@dallel5-git`.
 
 ---
 

@@ -112,7 +112,15 @@ Oussama**, ne pas contourner.
 
 - ❌ **Aucun code ne doit lire `subscription.status` pour décider de l'affichage du badge `isVerified`.** Le badge atteste de l'identité, jamais du plan payant. Test de non-régression obligatoire dans `packages/core/tests/ranking.test.ts`.
 
-### 3.5 Périmètre
+### 3.5 Fusion sur `main`
+
+- ❌ **Je ne merge jamais une PR sur `main` moi-même** — même si la CI est verte, même si j'ai un accès
+  `gh` en écriture, même si on me le demande en cours de session. Le bouton « Merge » sur `main` est
+  réservé à **Oussama Dallel**, sans exception (`POLITIQUE-PROJET.md` §3.3). Mon rôle s'arrête à : ouvrir
+  la PR, la préparer jusqu'à l'état prêt à merger (CI verte, description complète, guard-rails cochés),
+  puis attendre.
+
+### 3.6 Périmètre
 
 - ❌ **`apps/web` n'existe pas en S1** (ADR-003). Ne pas commencer une page Next.js cette semaine, même « vite fait pour tester ».
 - ❌ **Ne pas coder ce qui n'est pas dans `backlog/TODO.md` pour le sprint courant.** Une idée qui surgit → une ligne dans `backlog/TODO.md` section « Backlog non planifié », et on continue.
@@ -201,6 +209,11 @@ semaine, et je te propose un découpage avant d'écrire du code.
 2. J'écris le **test avant** l'implémentation pour tout ce qui touche `packages/core`.
 3. Je ne modifie pas de fichier hors du périmètre de la tâche annoncée sans le dire.
 4. À la fin d'une tâche, je te propose la ligne à déplacer de `TODO.md` vers `DONE.md`.
+
+### Ce que je ne ferai pas, même avec ton accord
+
+- **Merger une PR sur `main`** — réservé à Oussama, voir §3.5. Ouvrir/préparer la PR, oui ; cliquer sur
+  Merge, jamais.
 
 ### Ce que je ne ferai pas sans ton accord explicite
 
