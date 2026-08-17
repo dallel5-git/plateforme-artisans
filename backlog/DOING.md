@@ -9,13 +9,13 @@ _Sprint S1 · dernière mise à jour : 2026-08-17_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| — | _rien en cours_ | | | |
+| `SO-03` | Bootstrap `apps/api` : Fastify 5 + Zod + OpenAPI | 2026-08-17 | `feat/SO-03-bootstrap-api-fastify` | En cours |
 
 ## DEV-2
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `SO-02` | Docker Compose : PostgreSQL 16 + Redis 7 | 2026-08-17 | `chore/SO-02-docker-postgres-redis` | En cours (exécutée par Oussama) |
+| — | _rien en cours_ | | | |
 
 ## En binôme
 
