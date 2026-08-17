@@ -25,9 +25,15 @@ jobs:
       DATABASE_URL: postgresql://sanaya:sanaya_dev_password@localhost:5432/sanaya
       REDIS_URL: redis://localhost:6379
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: pnpm/action-setup@v4
+        with:
+          # pnpm/action-setup lit package.json à la racine du dépôt, pas dans Code/
+          # (`defaults.run.working-directory` ne s'applique qu'aux étapes `run:`) —
+          # on épingle donc explicitement la version, alignée sur le champ
+          # `packageManager` de Code/package.json.
+          version: 11.22.0
 
       - uses: actions/setup-node@v4
         with:
@@ -88,9 +94,15 @@ jobs:
       REDIS_URL: redis://localhost:6379
       NODE_ENV: test
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: pnpm/action-setup@v4
+        with:
+          # pnpm/action-setup lit package.json à la racine du dépôt, pas dans Code/
+          # (`defaults.run.working-directory` ne s'applique qu'aux étapes `run:`) —
+          # on épingle donc explicitement la version, alignée sur le champ
+          # `packageManager` de Code/package.json.
+          version: 11.22.0
 
       - uses: actions/setup-node@v4
         with:
