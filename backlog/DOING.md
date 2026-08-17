@@ -9,14 +9,13 @@ _Sprint S1 · dernière mise à jour : 2026-08-17_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `SO-03` | Bootstrap `apps/api` : Fastify 5 + Zod + OpenAPI | 2026-08-17 | `feat/SO-03-bootstrap-api-fastify` | En cours |
-| `SO-06` | CI : lint + typecheck + test + `api:contract --check` | 2026-08-17 | `chore/SO-06-ci-lint-typecheck-test-contract` | En revue (PR #65, CI verte) |
+| — | _rien en cours_ | | | |
 
 ## DEV-2
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `SO-04` | Générateur de design tokens : `tokens.json` → TS **et** Dart | 2026-08-17 | `chore/SO-04-design-tokens-generator` | En revue (PR #62) |
+| `SO-05` | Squelette i18n FR/AR + parité des clés | 2026-08-17 | `chore/SO-05-i18n-fr-ar-parity` | En cours (exécutée par Oussama) |
 
 ## En binôme
 

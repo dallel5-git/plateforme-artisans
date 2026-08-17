@@ -2,5 +2,16 @@
   "name": "@repo/i18n",
   "version": "0.0.0",
   "private": true,
-  "description": "Catalogues FR/AR neutres (fr.json/ar.json), consommés par i18next (web) et slang (mobile) — SO-05."
+  "description": "Catalogues FR/AR par namespace, contrôle de parité (i18n:check) et helpers de formatage — consommés par i18next (web, S2) et slang (mobile, FM-03).",
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/tsconfig": "workspace:*",
+    "eslint": "10.8.1",
+    "typescript": "5.9.3"
+  }
 }
