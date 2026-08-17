@@ -9,13 +9,13 @@ _Sprint S1 · dernière mise à jour : 2026-08-17_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `SO-01` | Monorepo pnpm + Turborepo | 2026-08-17 | `chore/SO-01-monorepo-pnpm-turborepo` | En cours |
+| — | _rien en cours_ | | | |
 
 ## DEV-2
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| — | _rien en cours_ | | | |
+| `SO-02` | Docker Compose : PostgreSQL 16 + Redis 7 | 2026-08-17 | `chore/SO-02-docker-postgres-redis` | En cours (exécutée par Oussama) |
 
 ## En binôme
 

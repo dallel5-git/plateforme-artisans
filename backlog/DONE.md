@@ -24,7 +24,7 @@
 
 | ID | Tâche | Qui | PR | Terminé le |
 |---|---|---|---|---|
-| _(à remplir au fil de la semaine)_ | | | | |
+| `SO-01` | Monorepo pnpm + Turborepo | Oussama | #59 | 2026-08-17 |
 
 ---
 
@@ -33,7 +33,7 @@
 | Métrique | Valeur |
 |---|---|
 | Tâches 🔴 P0 planifiées | 43 |
-| Tâches 🔴 P0 terminées | 0 |
+| Tâches 🔴 P0 terminées | 1 |
 | Tâches 🟠 P1 terminées | 0 / 7 *(l'amortisseur : 18 h)* |
 | Heures-homme 🔴 P0 estimées / consommées | 109 h / 0 h *(capacité 112 h)* |
 
