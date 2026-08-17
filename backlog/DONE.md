@@ -29,6 +29,7 @@
 | `SO-03` | Bootstrap `apps/api` : Fastify 5 + Zod + OpenAPI | Oussama | #61 | 2026-08-17 |
 | `SO-04` | Générateur de design tokens : `tokens.json` → TS et Dart | Chayma | #62 | 2026-08-17 |
 | `SO-06` | CI GitHub Actions : lint, typecheck, test, contrat, tokens | Oussama | #65 | 2026-08-17 |
+| `BE-01` | Schéma Prisma — sous-ensemble MVP (19 modèles) | Oussama | #68 | 2026-08-18 |
 
 ---
 
