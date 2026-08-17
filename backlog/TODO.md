@@ -20,7 +20,6 @@
 
 | ID | Tâche | Prio | Qui | Est. | Dépend de | US |
 |---|---|---|---|---|---|---|
-| `SO-03` | Bootstrap `apps/api` : Fastify 5 + Zod provider + Swagger + pino + requestId | 🔴 | DEV-1 | 2,5 h | SO-01 | US-T-01 |
 | `SO-04` | Générateur de design tokens : `tokens.json` → TS (preset Tailwind) **et** Dart | 🔴 | DEV-2 | 2 h | SO-01 | US-T-03 |
 | `SO-05` | Squelette i18n FR/AR + `i18n:check` (parité des clés) | 🔴 | DEV-2 | 1 h | SO-01 | US-T-04 |
 | `SO-06` | CI : lint + typecheck + test + `api:contract --check` | 🔴 | DEV-1 | 2 h | SO-01 | US-T-05 |
