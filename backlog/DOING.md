@@ -15,7 +15,7 @@ _Sprint S1 · dernière mise à jour : 2026-08-17_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `SO-04` | Générateur de design tokens : `tokens.json` → TS **et** Dart | 2026-08-17 | `chore/SO-04-design-tokens-generator` | En cours |
+| `SO-04` | Générateur de design tokens : `tokens.json` → TS **et** Dart | 2026-08-17 | `chore/SO-04-design-tokens-generator` | En revue (PR #62) |
 
 ## En binôme
 
