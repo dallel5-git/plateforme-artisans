@@ -20,7 +20,6 @@
 
 | ID | Tâche | Prio | Qui | Est. | Dépend de | US |
 |---|---|---|---|---|---|---|
-| `SO-06` | CI : lint + typecheck + test + `api:contract --check` | 🔴 | DEV-1 | 2 h | SO-01 | US-T-05 |
 | `SO-07` | Protection de `main`, modèle de PR, `.env.example`, CODEOWNERS | 🔴 | DEV-1 | 0,5 h | SO-06 | US-T-05 |
 
 ## LOT BACKEND — J2 → J4 matin · ~53 h (P0) + 5,5 h (P1)

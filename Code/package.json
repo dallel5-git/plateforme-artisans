@@ -19,8 +19,10 @@
     "db:down": "docker compose -f tooling/docker/docker-compose.dev.yml --env-file ../.env down",
     "db:reset": "bash tooling/scripts/reset-db.sh",
     "api:contract": "turbo run api:contract",
+    "api:contract:check": "turbo run api:contract -- --check",
     "i18n:check": "node tooling/scripts/i18n-check.mjs",
-    "tokens:build": "node tooling/scripts/build-tokens.mjs"
+    "tokens:build": "node tooling/scripts/build-tokens.mjs",
+    "tokens:build:check": "node tooling/scripts/build-tokens.mjs --check"
   },
   "devDependencies": {
     "prettier": "3.9.6",
