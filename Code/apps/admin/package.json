@@ -1,0 +1,6 @@
+{
+  "name": "admin",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Back-office de modération, Next.js séparé (S3)."
+}

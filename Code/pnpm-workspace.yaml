@@ -1,0 +1,10 @@
+packages:
+  - 'apps/*'
+  - 'packages/*'
+  # apps/mobile est un projet Flutter/Dart (ADR-001) : il n'a pas de package.json
+  # et ne fait jamais partie du workspace pnpm. Propriété de FM-01.
+  - '!apps/mobile'
+allowBuilds:
+  # esbuild (dépendance de tsx) télécharge le binaire natif de sa plateforme au postinstall —
+  # script légitime, nécessaire pour que `tsx` fonctionne.
+  esbuild: true

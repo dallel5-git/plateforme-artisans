@@ -1,0 +1,6 @@
+{
+  "name": "@repo/storage",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Cloudflare R2 (S3-compatible) : bucket public-media et bucket privé private-kyc, URLs pré-signées."
+}

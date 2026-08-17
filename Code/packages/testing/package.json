@@ -1,0 +1,6 @@
+{
+  "name": "@repo/testing",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Utilitaires de test partagés : fixtures, helpers Vitest, base de test jetable."
+}

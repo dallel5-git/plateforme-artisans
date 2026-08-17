@@ -77,6 +77,11 @@ Scopes autorisés : `auth` `catalog` `providers` `search` `contacts` `reviews` `
 - CI verte obligatoire : `lint` + `typecheck` + `test` + `api:contract --check` + `flutter analyze`.
 - Squash-merge uniquement. Le titre de la PR devient le message de commit.
 - La branche est supprimée après merge.
+- **Tout collaborateur avec droit d'écriture sur le dépôt peut merger une PR sur `main`**, dès qu'elle
+  est « prête à merger » (CI verte, 1 approbation, description complète) — DEV-1 et DEV-2 ne dépendent
+  plus du lead pour merger. Claude (agent IA) reste une exception : même authentifié avec un droit
+  d'écriture technique sur le dépôt, il prépare la PR jusqu'à l'état « prête à merger » puis
+  **attend** — il ne clique jamais sur Merge (voir `CLAUDE.md` §3.5).
 
 ---
 

@@ -1,0 +1,6 @@
+{
+  "name": "@repo/auth",
+  "version": "0.0.0",
+  "private": true,
+  "description": "OTP, JWT rotatif, sessions révocables — logique d'authentification (BE-06 à BE-13)."
+}

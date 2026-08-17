@@ -7,11 +7,6 @@
 #
 # Règle d'équipe : si tu dois modifier un fichier dont tu n'es pas propriétaire,
 # tu le signales dans Slack AVANT de commencer, pas au moment de la PR.
-#
-# ⚠️ Un identifiant DOIT être préfixé par « @ ». Sans le @, GitHub ignore la
-#    règle SILENCIEUSEMENT : aucune erreur levée, aucune demande de revue
-#    envoyée. C'est le piège classique de ce fichier. Vérifier via l'onglet
-#    « Owners » d'une PR qui touche le chemin concerné.
 # =============================================================================
 
 # Par défaut : le lead

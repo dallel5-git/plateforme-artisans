@@ -1,0 +1,30 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
+    },
+    "lint": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "typecheck": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "outputs": ["coverage/**"],
+      "env": ["DATABASE_URL", "REDIS_URL"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "api:contract": {
+      "cache": false,
+      "env": ["DATABASE_URL", "REDIS_URL"]
+    }
+  }
+}

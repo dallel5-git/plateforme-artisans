@@ -1,0 +1,6 @@
+{
+  "name": "@repo/payments",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Passerelle de paiement derrière PaymentGateway (Konnect/Paymee/Flouci) — bloqué par ADR-004, hors périmètre S1."
+}

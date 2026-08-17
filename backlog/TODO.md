@@ -20,12 +20,6 @@
 
 | ID | Tâche | Prio | Qui | Est. | Dépend de | US |
 |---|---|---|---|---|---|---|
-| `SO-01` | Monorepo pnpm + Turborepo, tsconfig/eslint/prettier partagés | 🔴 | DEV-1 | 2 h | — | US-T-01 |
-| `SO-02` | Docker : PostgreSQL 16 (`unaccent`, `pg_trgm`, `postgis`) + Redis 7 | 🔴 | DEV-2 | 1,5 h | — | US-T-01 |
-| `SO-03` | Bootstrap `apps/api` : Fastify 5 + Zod provider + Swagger + pino + requestId | 🔴 | DEV-1 | 2,5 h | SO-01 | US-T-01 |
-| `SO-04` | Générateur de design tokens : `tokens.json` → TS (preset Tailwind) **et** Dart | 🔴 | DEV-2 | 2 h | SO-01 | US-T-03 |
-| `SO-05` | Squelette i18n FR/AR + `i18n:check` (parité des clés) | 🔴 | DEV-2 | 1 h | SO-01 | US-T-04 |
-| `SO-06` | CI : lint + typecheck + test + `api:contract --check` | 🔴 | DEV-1 | 2 h | SO-01 | US-T-05 |
 | `SO-07` | Protection de `main`, modèle de PR, `.env.example`, CODEOWNERS | 🔴 | DEV-1 | 0,5 h | SO-06 | US-T-05 |
 
 ## LOT BACKEND — J2 → J4 matin · ~53 h (P0) + 5,5 h (P1)
