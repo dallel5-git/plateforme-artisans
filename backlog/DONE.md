@@ -26,6 +26,7 @@
 |---|---|---|---|---|
 | `SO-01` | Monorepo pnpm + Turborepo | Oussama | #59 | 2026-08-17 |
 | `SO-02` | Docker Compose : PostgreSQL 16 + Redis 7 | Oussama | #60 | 2026-08-17 |
+| `SO-03` | Bootstrap `apps/api` : Fastify 5 + Zod + OpenAPI | Oussama | #61 | 2026-08-17 |
 
 ---
 
@@ -34,7 +35,7 @@
 | Métrique | Valeur |
 |---|---|
 | Tâches 🔴 P0 planifiées | 43 |
-| Tâches 🔴 P0 terminées | 2 |
+| Tâches 🔴 P0 terminées | 3 |
 | Tâches 🟠 P1 terminées | 0 / 7 *(l'amortisseur : 18 h)* |
 | Heures-homme 🔴 P0 estimées / consommées | 109 h / 0 h *(capacité 112 h)* |
 

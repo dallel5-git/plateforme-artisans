@@ -9,13 +9,13 @@ _Sprint S1 · dernière mise à jour : 2026-08-17_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `SO-03` | Bootstrap `apps/api` : Fastify 5 + Zod + OpenAPI | 2026-08-17 | `feat/SO-03-bootstrap-api-fastify` | En cours |
+| — | _rien en cours_ | | | |
 
 ## DEV-2
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| — | _rien en cours_ | | | |
+| `SO-05` | Squelette i18n FR/AR + parité des clés | 2026-08-17 | `chore/SO-05-i18n-fr-ar-parity` | En cours (exécutée par Oussama) |
 
 ## En binôme
 
