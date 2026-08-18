@@ -151,4 +151,4 @@ _Toute idée surgie en cours de sprint atterrit ici, avec un ID, et n'est jamais
 
 | ID | Tâche | Ajoutée le | Par |
 |---|---|---|---|
-| — | — | — | — |
+| `BE-02b` | Harnais de test d'intégration Vitest + Postgres jetable (`@repo/testing/db-test-utils`) pour couvrir les contraintes/triggers DB de BE-02, aujourd'hui vérifiées manuellement via `psql` (voir PR #69) | 2026-08-18 | Oussama |
