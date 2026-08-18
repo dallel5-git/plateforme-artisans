@@ -9,7 +9,7 @@ _Sprint S1 · dernière mise à jour : 2026-08-17_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `BE-06` | `phone-tn.ts` — normalisation `+216XXXXXXXX` | 2026-08-19 | `feat/BE-06-phone-tn` | PR ouverte, CI attendue verte — en revue |
+| `BE-06` | `phone-tn.ts` — normalisation `+216XXXXXXXX` | 2026-08-19 | `feat/BE-06-phone-tn` | PR #73 ouverte — en attente de CI/revue |
 
 ## DEV-2
 
