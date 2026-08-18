@@ -1,6 +1,7 @@
 // BE-03 : seed du référentiel (géographie, catégories, plan FREE, poids de ranking).
 // Idempotent — chaque étape upsert sur une clé naturelle, rejouable sans doublon.
-// `dev-fixtures.ts` (30 artisans démo du Sahel) est BE-04, pas encore appelé ici.
+// Référentiel-only, safe pour tout environnement (y compris production). Les fixtures de
+// démo (`dev-fixtures.ts`, BE-04) ne sont JAMAIS chargées ici — voir `seed-dev.ts`.
 import { PrismaClient } from '@prisma/client';
 import { seedGovernorates } from './governorates.js';
 import { seedDelegations } from './delegations.js';

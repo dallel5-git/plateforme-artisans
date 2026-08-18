@@ -20,6 +20,7 @@
     "db:reset": "bash tooling/scripts/reset-db.sh",
     "db:migrate": "pnpm --filter @repo/db migrate:dev",
     "db:seed": "pnpm --filter @repo/db seed",
+    "db:seed:dev": "pnpm --filter @repo/db seed:dev",
     "db:studio": "pnpm --filter @repo/db studio",
     "api:contract": "turbo run api:contract",
     "api:contract:check": "turbo run api:contract -- --check",
