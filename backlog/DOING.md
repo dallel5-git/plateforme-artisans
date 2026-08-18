@@ -17,7 +17,8 @@ _Sprint S1 · dernière mise à jour : 2026-08-17_
 |---|---|---|---|---|
 | `SO-07` | Protection de `main`, CODEOWNERS, modèle de PR | 2026-08-17 | `chore/SO-07-branch-protection-codeowners` | En revue (PR #66) — `gh api` bloqué sur SO-06 → main |
 | `BE-01` | Schéma Prisma — sous-ensemble MVP (19 modèles) | 2026-08-18 | `feat/BE-01-schema-prisma-mvp` | Repris par Oussama, Chayma absente. PR #68 ouverte (non mergée), Chayma en reviewer (CODEOWNERS) dès son retour. |
-| `BE-02` | Migration SQL manuelle : contraintes et index essentiels | 2026-08-18 | `feat/BE-02-migration-sql-contraintes` (empilée sur BE-01) | Repris par Oussama, Chayma absente. CHECK notes/prix, index unique partiel catégorie principale, index profils publiés, trigger anti-auto-avis. Les 5 critères d'acceptation vérifiés manuellement en transaction annulée (`ROLLBACK`). Rejoue proprement après `migrate reset`. PR à ouvrir sur `feat/BE-01-schema-prisma-mvp` en attendant le merge de #68. |
+| `BE-02` | Migration SQL manuelle : contraintes et index essentiels | 2026-08-18 | `feat/BE-02-migration-sql-contraintes` (empilée sur BE-01) | Repris par Oussama, Chayma absente. PR #69 ouverte (non mergée). |
+| `BE-03` | Seed du référentiel : gouvernorats, délégations du Sahel, catégories FR/AR | 2026-08-18 | `feat/BE-03-seed-referentiel` (empilée sur BE-02) | Repris par Oussama, Chayma absente. 24 gouvernorats, 43 délégations Sahel (17 Sousse + 13 Monastir + 13 Mahdia, données croisées Wikipédia FR/AR), 36 catégories FR/AR réelles, plan FREE, poids de ranking dans `AppSetting`. Idempotence vérifiée (2 exécutions, mêmes comptages) + `reset-db.sh` testé de bout en bout (volumes → migrate → seed). PR à ouvrir sur `feat/BE-02-migration-sql-contraintes` en attendant les merges en amont. |
 
 ## En binôme
 
