@@ -8,3 +8,9 @@ allowBuilds:
   # esbuild (dépendance de tsx) télécharge le binaire natif de sa plateforme au postinstall —
   # script légitime, nécessaire pour que `tsx` fonctionne.
   esbuild: true
+  # prisma / @prisma/client / @prisma/engines téléchargent au postinstall les binaires natifs
+  # du moteur de requête Prisma (query-engine) pour la plateforme courante — script légitime,
+  # nécessaire pour `prisma generate`/`migrate`/`studio` (BE-01).
+  '@prisma/client': true
+  '@prisma/engines': true
+  prisma: true

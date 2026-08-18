@@ -2,5 +2,30 @@
   "name": "@repo/db",
   "version": "0.0.0",
   "private": true,
-  "description": "Prisma 6 / PostgreSQL 16 — la seule couche qui parle à Prisma (P4). Repositories, schéma, migrations."
+  "type": "module",
+  "description": "Prisma 6 / PostgreSQL 16 — la seule couche qui parle à Prisma (P4). Repositories, schéma, migrations.",
+  "prisma": {
+    "schema": "prisma/schema.prisma"
+  },
+  "scripts": {
+    "postinstall": "node scripts/sync-env.mjs",
+    "generate": "prisma generate",
+    "migrate:dev": "prisma migrate dev",
+    "migrate:deploy": "prisma migrate deploy",
+    "migrate:reset": "prisma migrate reset",
+    "studio": "prisma studio",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@prisma/client": "6.19.3"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/tsconfig": "workspace:*",
+    "eslint": "10.8.1",
+    "prisma": "6.19.3",
+    "tsx": "4.23.12",
+    "typescript": "5.9.3"
+  }
 }

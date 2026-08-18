@@ -1,0 +1,590 @@
+// =====================================================================
+//  schema.prisma — Plateforme de mise en relation Clients ⇄ Artisans
+//  Base : PostgreSQL 16 | ORM : Prisma
+//  Convention : modèles PascalCase, tables snake_case via @@map
+//
+//  Sous-ensemble MVP S1 (BE-01, issue #51) : 19 modèles extraits du cadrage
+//  technique §2.2 sans déviation de noms/types/enums, pour que le reste du
+//  schéma s'ajoute en S2+ sans migration de renommage.
+// =====================================================================
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions", "fullTextSearchPostgres", "relationJoins"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  directUrl  = env("DIRECT_DATABASE_URL")
+  extensions = [pgcrypto, unaccent, pg_trgm, postgis, citext]
+}
+
+// =====================================================================
+//  ENUMS
+// =====================================================================
+
+enum UserRole {
+  CLIENT
+  PROVIDER
+  MODERATOR
+  SUPPORT
+  SALES
+  FINANCE
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum UserStatus {
+  PENDING_VERIFICATION
+  ACTIVE
+  SUSPENDED
+  DELETED
+}
+
+enum Locale {
+  FR
+  AR
+  EN
+}
+
+enum ProviderPublicationStatus {
+  DRAFT
+  PUBLISHED
+  HIDDEN        // masqué par l'artisan (mode vacances)
+  SUSPENDED     // masqué par l'admin
+}
+
+enum AvailabilityStatus {
+  AVAILABLE
+  BUSY
+  ON_HOLIDAY
+}
+
+enum VerificationStatus {
+  NOT_SUBMITTED
+  PENDING
+  MORE_INFO_REQUIRED
+  APPROVED
+  REJECTED
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+  DOCUMENT
+}
+
+enum ModerationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  HIDDEN
+}
+
+enum PriceUnit {
+  FIXED         // forfait
+  HOUR
+  DAY
+  SQUARE_METER
+  LINEAR_METER
+  ON_QUOTE      // sur devis
+}
+
+enum ContactChannel {
+  PHONE_CALL
+  WHATSAPP
+  IN_APP_MESSAGE
+}
+
+enum ReviewStatus {
+  PENDING
+  PUBLISHED
+  FLAGGED
+  HIDDEN
+  REMOVED
+}
+
+enum OtpPurpose {
+  SIGNUP
+  LOGIN
+  PHONE_CHANGE
+  PASSWORD_RESET
+}
+
+// =====================================================================
+//  IDENTITÉ & AUTHENTIFICATION
+// =====================================================================
+
+model User {
+  id             String     @id @default(uuid()) @db.Uuid
+  phone          String     @unique @db.VarChar(20)   // format E.164 : +216XXXXXXXX
+  phoneVerifiedAt DateTime?
+  email          String?    @unique @db.Citext
+  emailVerifiedAt DateTime?
+  passwordHash   String?    @db.VarChar(255)          // Argon2id — optionnel (auth OTP)
+  firstName      String?    @db.VarChar(80)
+  lastName       String?    @db.VarChar(80)
+  avatarMediaId  String?    @db.Uuid
+  roles          UserRole[] @default([CLIENT])
+  status         UserStatus @default(PENDING_VERIFICATION)
+  locale         Locale     @default(FR)
+  twoFactorSecret String?   @db.VarChar(255)
+  lastLoginAt    DateTime?
+  acceptedTermsVersion String? @db.VarChar(20)
+  acceptedTermsAt      DateTime?
+  marketingOptIn Boolean    @default(false)
+  deletedAt      DateTime?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  avatar             MediaAsset?          @relation("UserAvatar", fields: [avatarMediaId], references: [id], onDelete: SetNull)
+  providerProfile    ProviderProfile?
+  sessions           Session[]
+  otpCodes           OtpCode[]
+  favorites          Favorite[]
+  reviewsWritten     Review[]             @relation("ClientReviews")
+  contactEvents      ContactEvent[]       @relation("ClientContacts")
+  profileViews       ProfileView[]        @relation("ViewerViews")
+  uploadedMedia      MediaAsset[]         @relation("MediaUploader")
+
+  // --- Relations d'administration (acteur = compte interne) ---
+  auditLogs             AuditLog[]             @relation("AuditActor")
+  reviewsModerated      Review[]               @relation("ReviewModerator")
+
+  @@index([status])
+  @@index([createdAt])
+  @@index([deletedAt])
+  @@map("users")
+}
+
+model Session {
+  id             String   @id @default(uuid()) @db.Uuid
+  userId         String   @db.Uuid
+  refreshTokenHash String @unique @db.VarChar(255)
+  userAgent      String?  @db.VarChar(400)
+  ipHash         String?  @db.VarChar(64)
+  deviceLabel    String?  @db.VarChar(120)
+  expiresAt      DateTime
+  revokedAt      DateTime?
+  createdAt      DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, revokedAt])
+  @@index([expiresAt])
+  @@map("sessions")
+}
+
+model OtpCode {
+  id         String     @id @default(uuid()) @db.Uuid
+  userId     String?    @db.Uuid
+  phone      String     @db.VarChar(20)
+  codeHash   String     @db.VarChar(255)
+  purpose    OtpPurpose
+  attempts   Int        @default(0)
+  maxAttempts Int       @default(3)
+  expiresAt  DateTime
+  consumedAt DateTime?
+  ipHash     String?    @db.VarChar(64)
+  createdAt  DateTime   @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([phone, purpose, createdAt])
+  @@index([expiresAt])
+  @@map("otp_codes")
+}
+
+// =====================================================================
+//  RÉFÉRENTIELS : GÉOGRAPHIE & CATÉGORIES
+// =====================================================================
+
+model Governorate {
+  id        String   @id @default(uuid()) @db.Uuid
+  code      String   @unique @db.VarChar(10)   // ex: TN-11
+  nameFr    String   @db.VarChar(80)
+  nameAr    String   @db.VarChar(80)
+  slug      String   @unique @db.VarChar(80)
+  latitude  Decimal? @db.Decimal(9, 6)
+  longitude Decimal? @db.Decimal(9, 6)
+  isActive  Boolean  @default(true)
+  sortOrder Int      @default(0)
+
+  delegations      Delegation[]
+  providers        ProviderProfile[]   @relation("ProviderBaseGovernorate")
+  coverageAreas    CoverageArea[]
+
+  @@index([isActive])
+  @@map("governorates")
+}
+
+model Delegation {
+  id            String   @id @default(uuid()) @db.Uuid
+  governorateId String   @db.Uuid
+  code          String?  @db.VarChar(20)
+  nameFr        String   @db.VarChar(120)
+  nameAr        String   @db.VarChar(120)
+  slug          String   @db.VarChar(120)
+  postalCode    String?  @db.VarChar(10)
+  latitude      Decimal? @db.Decimal(9, 6)
+  longitude     Decimal? @db.Decimal(9, 6)
+  isActive      Boolean  @default(true)
+
+  governorate     Governorate       @relation(fields: [governorateId], references: [id], onDelete: Restrict)
+  providers       ProviderProfile[] @relation("ProviderBaseDelegation")
+  coverageAreas   CoverageArea[]
+
+  @@unique([governorateId, slug])
+  @@index([governorateId, isActive])
+  @@map("delegations")
+}
+
+model Category {
+  id          String    @id @default(uuid()) @db.Uuid
+  parentId    String?   @db.Uuid
+  slug        String    @unique @db.VarChar(80)
+  nameFr      String    @db.VarChar(120)
+  nameAr      String    @db.VarChar(120)
+  descriptionFr String? @db.Text
+  descriptionAr String? @db.Text
+  iconKey     String?   @db.VarChar(60)
+  colorHex    String?   @db.VarChar(7)
+  isActive    Boolean   @default(true)
+  sortOrder   Int       @default(0)
+  seoTitleFr  String?   @db.VarChar(180)
+  seoTitleAr  String?   @db.VarChar(180)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  parent           Category?           @relation("CategoryTree", fields: [parentId], references: [id], onDelete: Restrict)
+  children         Category[]          @relation("CategoryTree")
+  providerLinks    ProviderCategory[]
+  serviceOfferings ServiceOffering[]
+  portfolioItems   PortfolioItem[]
+  contactEvents    ContactEvent[]
+
+  @@index([parentId, isActive, sortOrder])
+  @@map("categories")
+}
+
+// =====================================================================
+//  PROFIL PRESTATAIRE
+// =====================================================================
+
+model ProviderProfile {
+  id                 String   @id @default(uuid()) @db.Uuid
+  userId             String   @unique @db.Uuid
+  slug               String   @unique @db.VarChar(140)
+  businessName       String   @db.VarChar(140)
+  headline           String?  @db.VarChar(160)
+  bio                String?  @db.Text
+  yearsExperience    Int?
+  whatsappPhone      String?  @db.VarChar(20)
+  publicPhone        String?  @db.VarChar(20)
+  spokenLanguages    Locale[] @default([FR, AR])
+
+  baseGovernorateId  String   @db.Uuid
+  baseDelegationId   String?  @db.Uuid
+  latitude           Decimal? @db.Decimal(9, 6)
+  longitude          Decimal? @db.Decimal(9, 6)
+
+  publicationStatus  ProviderPublicationStatus @default(DRAFT)
+  availabilityStatus AvailabilityStatus        @default(AVAILABLE)
+  availableAgainAt   DateTime?
+  acceptsEmergency   Boolean  @default(false)
+  workingHours       Json?    // { mon: [{from:"08:00",to:"18:00"}], ... }
+
+  verificationStatus VerificationStatus @default(NOT_SUBMITTED)
+  isVerified         Boolean  @default(false)
+  verifiedAt         DateTime?
+
+  // --- Agrégats dénormalisés (maintenus par transaction/trigger) ---
+  ratingAvg          Decimal  @default(0) @db.Decimal(3, 2)
+  ratingCount        Int      @default(0)
+  reviewCountByStar  Json?    // { "1": 0, "2": 1, ... }
+  totalProfileViews  Int      @default(0)
+  totalContacts      Int      @default(0)
+  completionScore    Int      @default(0)   // 0-100
+  rankingScore       Decimal  @default(0) @db.Decimal(10, 4)
+  lastActiveAt       DateTime?
+
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  user              User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  baseGovernorate   Governorate           @relation("ProviderBaseGovernorate", fields: [baseGovernorateId], references: [id], onDelete: Restrict)
+  baseDelegation    Delegation?           @relation("ProviderBaseDelegation", fields: [baseDelegationId], references: [id], onDelete: SetNull)
+
+  categories        ProviderCategory[]
+  offerings         ServiceOffering[]
+  coverageAreas     CoverageArea[]
+  portfolio         PortfolioItem[]
+  reviews           Review[]
+  contactEvents     ContactEvent[]
+  profileViews      ProfileView[]
+  favoritedBy       Favorite[]
+
+  @@index([publicationStatus, verificationStatus])
+  @@index([baseGovernorateId, publicationStatus])
+  @@index([baseDelegationId])
+  @@index([rankingScore(sort: Desc)])
+  @@index([ratingAvg(sort: Desc), ratingCount(sort: Desc)])
+  @@map("provider_profiles")
+}
+
+model ProviderCategory {
+  providerId      String   @db.Uuid
+  categoryId      String   @db.Uuid
+  isPrimary       Boolean  @default(false)
+  yearsExperience Int?
+  createdAt       DateTime @default(now())
+
+  provider ProviderProfile @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  category Category        @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+
+  @@id([providerId, categoryId])
+  @@index([categoryId])
+  @@map("provider_categories")
+}
+
+model ServiceOffering {
+  id           String    @id @default(uuid()) @db.Uuid
+  providerId   String    @db.Uuid
+  categoryId   String    @db.Uuid
+  titleFr      String    @db.VarChar(160)
+  titleAr      String?   @db.VarChar(160)
+  description  String?   @db.Text
+  priceMin     Decimal?  @db.Decimal(10, 3)   // TND, 3 décimales (millimes)
+  priceMax     Decimal?  @db.Decimal(10, 3)
+  priceUnit    PriceUnit @default(FIXED)
+  isNegotiable Boolean   @default(true)
+  sortOrder    Int       @default(0)
+  isActive     Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  provider ProviderProfile @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  category Category        @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+
+  @@index([providerId, isActive])
+  @@index([categoryId, priceMin])
+  @@map("service_offerings")
+}
+
+model CoverageArea {
+  id            String   @id @default(uuid()) @db.Uuid
+  providerId    String   @db.Uuid
+  governorateId String   @db.Uuid
+  delegationId  String?  @db.Uuid          // null = tout le gouvernorat
+  travelFee     Decimal? @db.Decimal(10, 3)
+  createdAt     DateTime @default(now())
+
+  provider    ProviderProfile @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  governorate Governorate     @relation(fields: [governorateId], references: [id], onDelete: Restrict)
+  delegation  Delegation?     @relation(fields: [delegationId], references: [id], onDelete: Cascade)
+
+  @@unique([providerId, governorateId, delegationId])
+  @@index([governorateId, delegationId])
+  @@map("coverage_areas")
+}
+
+// =====================================================================
+//  MÉDIAS & GALERIE
+// =====================================================================
+
+model MediaAsset {
+  id               String           @id @default(uuid()) @db.Uuid
+  uploadedById     String?          @db.Uuid
+  bucket           String           @db.VarChar(60)      // public-media | private-kyc
+  storageKey       String           @unique @db.VarChar(400)
+  publicUrl        String?          @db.VarChar(600)
+  type             MediaType        @default(IMAGE)
+  mimeType         String           @db.VarChar(80)
+  sizeBytes        Int
+  width            Int?
+  height           Int?
+  blurhash         String?          @db.VarChar(64)
+  checksumSha256   String?          @db.VarChar(64)
+  isPrivate        Boolean          @default(false)
+  moderationStatus ModerationStatus @default(PENDING)
+  purgeAfter       DateTime?        // rétention automatique (CIN)
+  createdAt        DateTime         @default(now())
+
+  uploadedBy            User?                  @relation("MediaUploader", fields: [uploadedById], references: [id], onDelete: SetNull)
+  userAvatars           User[]                 @relation("UserAvatar")
+  portfolioItems        PortfolioItem[]
+
+  @@index([moderationStatus])
+  @@index([purgeAfter])
+  @@map("media_assets")
+}
+
+model PortfolioItem {
+  id          String           @id @default(uuid()) @db.Uuid
+  providerId  String           @db.Uuid
+  mediaId     String           @db.Uuid
+  categoryId  String?          @db.Uuid
+  caption     String?          @db.VarChar(300)
+  sortOrder   Int              @default(0)
+  status      ModerationStatus @default(APPROVED)
+  createdAt   DateTime         @default(now())
+
+  provider ProviderProfile @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  media    MediaAsset      @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  category Category?       @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+  @@index([providerId, status, sortOrder])
+  @@map("portfolio_items")
+}
+
+// =====================================================================
+//  MISE EN RELATION & TRAÇABILITÉ
+// =====================================================================
+
+model ContactEvent {
+  id           String         @id @default(uuid()) @db.Uuid
+  providerId   String         @db.Uuid
+  clientId     String?        @db.Uuid          // null si visiteur anonyme
+  categoryId   String?        @db.Uuid
+  channel      ContactChannel
+  sourceScreen String?        @db.VarChar(60)   // search | profile | boost | ad | seo_page
+  sessionHash  String?        @db.VarChar(64)
+  ipHash       String?        @db.VarChar(64)
+  isSuspicious Boolean        @default(false)
+  createdAt    DateTime       @default(now())
+
+  provider ProviderProfile @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  client   User?           @relation("ClientContacts", fields: [clientId], references: [id], onDelete: SetNull)
+  category Category?       @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  review   Review?
+
+  @@index([providerId, createdAt(sort: Desc)])
+  @@index([clientId, createdAt(sort: Desc)])
+  @@index([createdAt])
+  @@map("contact_events")
+}
+
+model ProfileView {
+  id          String   @id @default(uuid()) @db.Uuid
+  providerId  String   @db.Uuid
+  viewerId    String?  @db.Uuid
+  sessionHash String   @db.VarChar(64)
+  viewDate    DateTime @db.Date          // clé de déduplication journalière
+  source      String?  @db.VarChar(60)
+  isBot       Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  provider ProviderProfile @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  viewer   User?           @relation("ViewerViews", fields: [viewerId], references: [id], onDelete: SetNull)
+
+  @@unique([providerId, sessionHash, viewDate])
+  @@index([providerId, viewDate])
+  @@map("profile_views")
+}
+
+model Review {
+  id              String       @id @default(uuid()) @db.Uuid
+  providerId      String       @db.Uuid
+  clientId        String       @db.Uuid
+  contactEventId  String?      @unique @db.Uuid     // présent => "Avis certifié"
+  rating          Int                                // 1..5, contrainte CHECK
+  ratingPunctuality Int?
+  ratingQuality     Int?
+  ratingValue       Int?
+  comment         String?      @db.VarChar(1000)
+  status          ReviewStatus @default(PENDING)
+  isVerifiedContact Boolean    @default(false)
+  moderatedById   String?      @db.Uuid
+  moderatedAt     DateTime?
+  moderationReason String?     @db.VarChar(400)
+  editableUntil   DateTime?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  provider     ProviderProfile @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  client       User            @relation("ClientReviews", fields: [clientId], references: [id], onDelete: Cascade)
+  contactEvent ContactEvent?   @relation(fields: [contactEventId], references: [id], onDelete: SetNull)
+  moderatedBy  User?           @relation("ReviewModerator", fields: [moderatedById], references: [id], onDelete: SetNull)
+
+  @@index([providerId, status, createdAt(sort: Desc)])
+  @@index([clientId, createdAt(sort: Desc)])
+  @@index([status, createdAt])
+  @@map("reviews")
+}
+
+model Favorite {
+  userId     String   @db.Uuid
+  providerId String   @db.Uuid
+  createdAt  DateTime @default(now())
+
+  user     User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  provider ProviderProfile @relation(fields: [providerId], references: [id], onDelete: Cascade)
+
+  @@id([userId, providerId])
+  @@index([providerId])
+  @@map("favorites")
+}
+
+// =====================================================================
+//  MONÉTISATION (référentiel seul — Subscription/Payment/Boost en S2+)
+// =====================================================================
+
+model Plan {
+  id               String   @id @default(uuid()) @db.Uuid
+  code             String   @unique @db.VarChar(40)      // FREE | PRO_MONTHLY | PRO_QUARTERLY | PRO_YEARLY
+  nameFr           String   @db.VarChar(80)
+  nameAr           String   @db.VarChar(80)
+  descriptionFr    String?  @db.Text
+  price            Decimal  @db.Decimal(10, 3)           // TND
+  billingPeriodDays Int
+  maxCategories    Int      @default(3)
+  maxCoverageAreas Int      @default(1)
+  maxPortfolioItems Int     @default(5)
+  grantsVerifiedBadge Boolean @default(false)
+  rankingBoostFactor Decimal @default(1.0) @db.Decimal(4, 2)
+  instantLeadAccess Boolean  @default(false)
+  advancedStats    Boolean   @default(false)
+  welcomeCredits   Int       @default(0)
+  features         Json?
+  isActive         Boolean   @default(true)
+  sortOrder        Int       @default(0)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  @@index([isActive, sortOrder])
+  @@map("plans")
+}
+
+// =====================================================================
+//  ADMINISTRATION : AUDIT, PARAMÈTRES
+// =====================================================================
+
+model AuditLog {
+  id         String   @id @default(uuid()) @db.Uuid
+  actorId    String?  @db.Uuid
+  action     String   @db.VarChar(80)      // provider.verify.approve, payment.validate...
+  entityType String   @db.VarChar(60)
+  entityId   String?  @db.Uuid
+  before     Json?
+  after      Json?
+  ipHash     String?  @db.VarChar(64)
+  userAgent  String?  @db.VarChar(400)
+  createdAt  DateTime @default(now())
+
+  actor User? @relation("AuditActor", fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([entityType, entityId, createdAt(sort: Desc)])
+  @@index([actorId, createdAt(sort: Desc)])
+  @@map("audit_logs")
+}
+
+model AppSetting {
+  key         String   @id @db.VarChar(80)
+  value       Json
+  description String?  @db.VarChar(300)
+  updatedById String?  @db.Uuid
+  updatedAt   DateTime @updatedAt
+
+  @@map("app_settings")
+}
