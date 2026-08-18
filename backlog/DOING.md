@@ -16,6 +16,7 @@ _Sprint S1 · dernière mise à jour : 2026-08-17_
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
 | `SO-07` | Protection de `main`, CODEOWNERS, modèle de PR | 2026-08-17 | `chore/SO-07-branch-protection-codeowners` | En revue (PR #66) — `gh api` bloqué sur SO-06 → main |
+| `BE-01` | Schéma Prisma — sous-ensemble MVP (19 modèles) | 2026-08-18 | `feat/BE-01-schema-prisma-mvp` | Repris par Oussama, Chayma absente. Schéma + migration `init` écrits et vérifiés sur base vierge, `pnpm typecheck`/`pnpm lint` verts. PR à ouvrir, Chayma en reviewer (CODEOWNERS) dès son retour. |
 
 ## En binôme
 
