@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 # Réinitialise l'environnement Docker de développement (Postgres + Redis) : supprime les volumes
 # nommés puis relance jusqu'à ce que les deux services soient healthy, applique les migrations
-# et charge le référentiel (BE-01, BE-03).
+# et charge le référentiel + les 30 artisans de démonstration (BE-01, BE-03, BE-04).
 #
-# TODO(BE-04): chaîner le seed de démo (30 artisans du Sahel) une fois dev-fixtures.ts écrit.
+# Ce script est explicitement local/dev — `db:seed:dev` charge des données FICTIVES et ne doit
+# jamais être pointé vers une base partagée (staging/prod utilisent `db:seed`, référentiel seul).
 set -euo pipefail
 
 cd "$(dirname "$0")/../.." # -> Code/
@@ -19,7 +20,7 @@ echo "→ Redémarrage propre (attente des healthchecks)..."
 echo "→ Application des migrations..."
 pnpm --filter @repo/db migrate:deploy
 
-echo "→ Chargement du référentiel (géographie, catégories, plan, poids de ranking)..."
-pnpm db:seed
+echo "→ Chargement du référentiel + des artisans de démonstration..."
+pnpm db:seed:dev
 
-echo "✓ Base de données réinitialisée, migrée et seedée."
+echo "✓ Base de données réinitialisée, migrée et seedée (référentiel + démo)."
