@@ -28,11 +28,6 @@
 
 | ID | Tâche | Prio | Qui | Est. | Dépend de | US |
 |---|---|---|---|---|---|---|
-| `BE-01` | Schéma Prisma — sous-ensemble MVP (19 modèles) | 🔴 | DEV-2 | 3 h | SO-02 | §2.2 |
-| `BE-02` | Migration SQL — **essentiel** : CHECK notes, index unique partiel, index `PUBLISHED`, trigger anti-auto-avis | 🔴 | DEV-2 | 1 h | BE-01 | §2.3 |
-| `BE-03` | Seed : 24 gouvernorats + délégations **du Sahel** + arbre de catégories FR/AR (idempotent) | 🔴 | DEV-2 | 2 h | BE-01 | US-T-02 |
-| `BE-04` | Seed démo : 30 artisans du Sahel, dont 20 vérifiés | 🔴 | DEV-2 | 2 h | BE-03 | US-T-02 |
-| `BE-05` | Repositories — la **seule** couche qui parle à Prisma, curseur générique | 🔴 | DEV-2 | 2,5 h | BE-01 | P5 |
 
 ### Auth & sécurité — DEV-1
 
@@ -148,4 +143,4 @@ _Toute idée surgie en cours de sprint atterrit ici, avec un ID, et n'est jamais
 
 | ID | Tâche | Ajoutée le | Par |
 |---|---|---|---|
-| — | — | — | — |
+| `BE-02b` | Harnais de test d'intégration Vitest + Postgres jetable (`@repo/testing/db-test-utils`) pour couvrir les contraintes/triggers DB de BE-02, aujourd'hui vérifiées manuellement via `psql` (voir PR #69) | 2026-08-18 | Oussama |

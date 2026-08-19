@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 # Réinitialise l'environnement Docker de développement (Postgres + Redis) : supprime les volumes
-# nommés puis relance jusqu'à ce que les deux services soient healthy.
+# nommés puis relance jusqu'à ce que les deux services soient healthy, applique les migrations
+# et charge le référentiel + les 30 artisans de démonstration (BE-01, BE-03, BE-04).
 #
-# TODO(BE-01): chaîner `prisma migrate reset` une fois le schéma Prisma disponible.
-# TODO(BE-03, BE-04): chaîner le seed (référentiel géo + démo) une fois les scripts disponibles.
+# Ce script est explicitement local/dev — `db:seed:dev` charge des données FICTIVES et ne doit
+# jamais être pointé vers une base partagée (staging/prod utilisent `db:seed`, référentiel seul).
 set -euo pipefail
 
 cd "$(dirname "$0")/../.." # -> Code/
@@ -16,4 +17,10 @@ echo "→ Suppression des volumes existants..."
 echo "→ Redémarrage propre (attente des healthchecks)..."
 "${COMPOSE[@]}" up -d --wait
 
-echo "✓ Base de données réinitialisée (Postgres + Redis prêts)."
+echo "→ Application des migrations..."
+pnpm --filter @repo/db migrate:deploy
+
+echo "→ Chargement du référentiel + des artisans de démonstration..."
+pnpm db:seed:dev
+
+echo "✓ Base de données réinitialisée, migrée et seedée (référentiel + démo)."

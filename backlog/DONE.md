@@ -33,6 +33,11 @@
 | `BE-06` | `phone-tn.ts` — normalisation `+216XXXXXXXX` | Claude | #73 | 2026-08-19 |
 | `SO-07` | CODEOWNERS + docs git flow develop/main (ADR-004) + protection des branches | Oussama / Claude | #74 | 2026-08-19 |
 | `BE-07` | OTP : génération, hachage argon2, TTL et tentatives (+ logique pure de session, portion BE-09) | Claude | #76 | 2026-08-19 |
+| `BE-08` | Adaptateur SMS derrière une interface `SmsProvider` | Claude | #77 | 2026-08-19 |
+| `BE-02` | Migration SQL manuelle : contraintes et index essentiels | Oussama | #69 (revue) → atterrit sur `develop` via la PR de réconciliation BE-05 | 2026-08-19 |
+| `BE-03` | Seed du référentiel : gouvernorats, délégations du Sahel, catégories FR/AR | Oussama | #70 (revue) → idem | 2026-08-19 |
+| `BE-04` | Seed de démonstration : 30 artisans du Sahel | Oussama | #71 (revue) → idem | 2026-08-19 |
+| `BE-05` | Repositories — la seule couche qui parle à Prisma, curseur générique | Oussama | #72 (revue) → idem | 2026-08-19 |
 
 ---
 

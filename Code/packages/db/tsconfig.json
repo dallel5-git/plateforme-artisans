@@ -3,8 +3,8 @@
   "extends": "@repo/tsconfig/node.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "rootDir": "src",
+    "rootDir": ".",
     "noEmit": true
   },
-  "include": ["src"]
+  "include": ["src", "prisma/seed", "tests"]
 }
