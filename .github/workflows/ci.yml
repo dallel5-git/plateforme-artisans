@@ -50,6 +50,9 @@ jobs:
             ${{ runner.os }}-turbo-
 
       - run: pnpm install --frozen-lockfile
+      # @prisma/client n'exporte les enums/types du schéma qu'après `generate` — sans cette
+      # étape, `pnpm typecheck` échoue dès que packages/db/src importe un type généré (BE-05).
+      - run: pnpm --filter @repo/db generate
 
       - run: pnpm lint
       - run: pnpm typecheck
@@ -119,4 +122,5 @@ jobs:
             ${{ runner.os }}-turbo-
 
       - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @repo/db generate
       - run: pnpm test
