@@ -17,6 +17,8 @@
     "@fastify/helmet": "13.1.0",
     "@fastify/swagger": "9.8.1",
     "@fastify/swagger-ui": "6.1.1",
+    "@repo/constants": "workspace:*",
+    "@repo/core": "workspace:*",
     "fastify": "5.12.0",
     "fastify-type-provider-zod": "7.0.0",
     "ioredis": "6.0.0",

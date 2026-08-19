@@ -10,6 +10,7 @@ import {
 } from 'fastify-type-provider-zod';
 
 import { env } from './env.js';
+import { registerErrorHandler } from './plugins/error-handler.js';
 import { registerSwagger } from './plugins/swagger.js';
 import { healthRoutes } from './routes/health.js';
 
@@ -30,6 +31,7 @@ export async function buildServer() {
 
   app.setValidatorCompiler(validatorCompiler);
   app.setSerializerCompiler(serializerCompiler);
+  registerErrorHandler(app);
 
   // requestId : déjà dans chaque ligne de log (pino via `logger: true`) ; ce hook l'ajoute aussi
   // à chaque réponse, pour la corrélation client ↔ logs serveur.
