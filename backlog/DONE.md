@@ -32,6 +32,7 @@
 | `BE-01` | Schéma Prisma — sous-ensemble MVP (19 modèles) | Oussama | #68 | 2026-08-18 |
 | `BE-06` | `phone-tn.ts` — normalisation `+216XXXXXXXX` | Claude | #73 | 2026-08-19 |
 | `SO-07` | CODEOWNERS + docs git flow develop/main (ADR-004) + protection des branches | Oussama / Claude | #74 | 2026-08-19 |
+| `BE-07` | OTP : génération, hachage argon2, TTL et tentatives (+ logique pure de session, portion BE-09) | Claude | #76 | 2026-08-19 |
 
 ---
 

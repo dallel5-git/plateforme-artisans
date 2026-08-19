@@ -9,7 +9,7 @@ _Sprint S1 · dernière mise à jour : 2026-08-17_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `BE-07` | OTP : génération, hachage argon2, TTL et tentatives | 2026-08-19 | `feat/BE-07-otp` | PR ouverte vers `develop` — en attente de CI/revue |
+| `BE-08` | Adaptateur SMS derrière une interface `SmsProvider` | 2026-08-19 | `feat/BE-08-sms-provider` | PR ouverte vers `develop` — en attente de CI/revue |
 
 ## DEV-2
 
@@ -29,7 +29,6 @@ _Sprint S1 · dernière mise à jour : 2026-08-17_
 
 | ID | Bloqué par | Depuis | Qui débloque | Action attendue |
 |---|---|---|---|---|
-| `BE-08` | Compte SMS non ouvert chez le fournisseur | — | Oussama | Adaptateur `console` en attendant — **non bloquant pour le développement**. Lancer la démarche J1. |
 | `BE-33` | Question 2 du cadrage non tranchée (moyens de paiement) | 2026-08-15 | Oussama | Rédiger ADR-003 avant S2 |
 | `BE-38` | Question 3 du cadrage non tranchée (annuaire ou marketplace) | 2026-08-15 | Oussama | Rédiger un ADR avant S2 — **numéro à revoir : ADR-004 est pris par le git flow `develop`/`main` (2026-08-19), utiliser ADR-005** |
 
