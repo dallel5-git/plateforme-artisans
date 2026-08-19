@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "description": "Prisma 6 / PostgreSQL 16 — la seule couche qui parle à Prisma (P4). Repositories, schéma, migrations.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "prisma": {
     "schema": "prisma/schema.prisma",
     "seed": "tsx prisma/seed/index.ts"
