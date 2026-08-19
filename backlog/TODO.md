@@ -38,9 +38,8 @@
 
 | ID | Tâche | Prio | Qui | Est. | Dépend de | US |
 |---|---|---|---|---|---|---|
-| `BE-07` | OTP : hash argon2, TTL 5 min, 3 tentatives | 🔴 | DEV-1 | 2 h | BE-01 | US-C-02 |
 | `BE-08` | Adaptateur SMS — **`console` seul en S1**, interface prête pour Twilio | 🔴 | DEV-1 | 0,5 h | SO-03 | US-C-02 |
-| `BE-09` | JWT access 15 min + **refresh rotatif**, sessions révocables, détection de rejeu | 🔴 | DEV-1 | 3 h | BE-01 | US-C-02 |
+| `BE-09` | JWT access 15 min + **refresh rotatif**, sessions révocables, détection de rejeu — ⚠️ `packages/core/src/auth/session.ts` (logique pure de rotation/rejeu) déjà livré par BE-07 pour débloquer `auth-session.test.ts` (spec partagée) ; reste : signature JWT réelle, persistance session, routes | 🔴 | DEV-1 | 3 h | BE-01 | US-C-02 |
 | `BE-10` | Routes auth (`otp/request`, `otp/verify`, `refresh`, `logout`, `me`) | 🔴 | DEV-1 | 2 h | BE-07, BE-09 | US-C-02 |
 | `BE-11` | Rate limiting Redis — **OTP + contacts**, par téléphone **et** IP | 🔴 | DEV-1 | 1,5 h | SO-02 | P10 |
 | `BE-12` | RBAC centralisé `core/policies` + preHandlers | 🔴 | DEV-1 | 2 h | BE-09 | Annexe B |

@@ -9,13 +9,13 @@ _Sprint S1 · dernière mise à jour : 2026-08-17_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| — | _rien en cours_ | | | |
+| `BE-07` | OTP : génération, hachage argon2, TTL et tentatives | 2026-08-19 | `feat/BE-07-otp` | PR ouverte vers `develop` — en attente de CI/revue |
 
 ## DEV-2
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `SO-07` | CODEOWNERS + docs git flow develop/main (ADR-004) + protection des branches | 2026-08-17 | `chore/SO-07-align-main-develop` | Le commit ADR-004 n'avait jamais atteint `main`/`develop` (resté sur la branche source). PR #74 ouverte vers `develop`, CI verte, protection `develop`+`main` déjà appliquée via `gh api` — en attente du clic Merge |
+| — | _rien en cours_ | | | |
 
 ## En binôme
 

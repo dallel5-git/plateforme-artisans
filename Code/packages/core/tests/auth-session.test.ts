@@ -15,7 +15,7 @@ import {
   isSessionExpired,
   ACCESS_TTL_MINUTES,
   REFRESH_TTL_DAYS,
-} from '../src/auth/session';
+} from '../src/auth/session.js';
 
 const T0 = new Date('2026-08-20T10:00:00.000Z');
 const apres = (ms: number) => new Date(T0.getTime() + ms);
@@ -133,7 +133,7 @@ describe('BE-09 — expiration du refresh', () => {
 
 describe('BE-07 — OTP (P8, P10)', () => {
   it("n'est jamais stocké ni renvoyé en clair", async () => {
-    const { hashOtp, verifyOtp } = await import('../src/auth/otp');
+    const { hashOtp, verifyOtp } = await import('../src/auth/otp.js');
     const hash = await hashOtp('123456');
 
     expect(hash).not.toContain('123456');
@@ -142,21 +142,21 @@ describe('BE-07 — OTP (P8, P10)', () => {
   });
 
   it('refuse à la 4ᵉ tentative', async () => {
-    const { canAttemptOtp } = await import('../src/auth/otp');
+    const { canAttemptOtp } = await import('../src/auth/otp.js');
 
     expect(canAttemptOtp({ attempts: 2, maxAttempts: 3 })).toBe(true);
     expect(canAttemptOtp({ attempts: 3, maxAttempts: 3 })).toBe(false);
   });
 
   it('expire après 5 minutes', async () => {
-    const { isOtpExpired } = await import('../src/auth/otp');
+    const { isOtpExpired } = await import('../src/auth/otp.js');
 
     expect(isOtpExpired({ createdAt: T0, now: apres(4 * 60_000) })).toBe(false);
     expect(isOtpExpired({ createdAt: T0, now: apres(6 * 60_000) })).toBe(true);
   });
 
   it("la réponse d'otp/request ne révèle jamais si le numéro existe (anti-énumération)", async () => {
-    const { buildOtpRequestResponse } = await import('../src/auth/otp');
+    const { buildOtpRequestResponse } = await import('../src/auth/otp.js');
 
     const existant = buildOtpRequestResponse({ userExists: true });
     const inconnu = buildOtpRequestResponse({ userExists: false });

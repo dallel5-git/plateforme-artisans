@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@repo/tsconfig/node.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": ".",
+    "noEmit": true
+  },
+  "include": ["src", "tests"],
+  "exclude": ["node_modules", "dist", "tests/ranking.test.ts", "tests/contacts.test.ts"]
+}
