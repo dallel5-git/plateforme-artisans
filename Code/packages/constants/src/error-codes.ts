@@ -1,0 +1,3 @@
+export const OTP_TOO_MANY_ATTEMPTS = 'OTP_TOO_MANY_ATTEMPTS';
+export const OTP_EXPIRED = 'OTP_EXPIRED';
+export const OTP_INVALID = 'OTP_INVALID';

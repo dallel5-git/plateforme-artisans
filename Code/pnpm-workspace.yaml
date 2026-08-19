@@ -14,6 +14,9 @@ allowBuilds:
   '@prisma/client': true
   '@prisma/engines': true
   prisma: true
+  # argon2 (node-argon2) télécharge/compile son binaire natif au postinstall — script légitime,
+  # nécessaire pour le hachage Argon2id de l'OTP (BE-07).
+  argon2: true
 minimumReleaseAgeExclude:
   - '@vitest/expect@4.1.11'
   - '@vitest/mocker@4.1.11'
