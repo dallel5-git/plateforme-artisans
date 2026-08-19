@@ -13,6 +13,10 @@ export {
   isSessionExpired,
   rotateRefreshToken,
   detectRefreshReplay,
+  hashRefreshToken,
   ACCESS_TTL_MINUTES,
   REFRESH_TTL_DAYS,
 } from './auth/session.js';
+
+export { signAccessToken, verifyAccessToken } from './auth/jwt.js';
+export type { AccessTokenClaims, VerifyAccessTokenResult } from './auth/jwt.js';

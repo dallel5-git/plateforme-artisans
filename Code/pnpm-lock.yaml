@@ -94,9 +94,15 @@ importers:
 
   packages/core:
     dependencies:
+      '@repo/db':
+        specifier: workspace:*
+        version: link:../db
       argon2:
         specifier: 0.44.0
         version: 0.44.0
+      jose:
+        specifier: 6.1.1
+        version: 6.1.1
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
@@ -1155,6 +1161,9 @@ packages:
   jiti@2.7.0:
     resolution: {integrity: sha512-AC/7JofJvZGrrneWNaEnJeOLUx+JlGt7tNa0wZiRPT4MY1wmfKjt2+6O2p2uz2+skll8OZZmJMNqeke7kKbNgQ==}
     hasBin: true
+
+  jose@6.1.1:
+    resolution: {integrity: sha512-GWSqjfOPf4cWOkBzw5THBjtGPhXKqYnfRBzh4Ni+ArTrQQ9unvmsA3oFLqaYKoKe5sjWmGu5wVKg9Ft1i+LQfg==}
 
   joycon@3.1.1:
     resolution: {integrity: sha512-34wB/Y7MW7bzjKRjUKTa46I2Z7eV62Rkhva+KkopW7Qvv/OSWBqvkSY7vusOPrNuZcUG3tApvdVgNB8POj3SPw==}
@@ -2632,6 +2641,8 @@ snapshots:
   isexe@2.0.0: {}
 
   jiti@2.7.0: {}
+
+  jose@6.1.1: {}
 
   joycon@3.1.1: {}
 
