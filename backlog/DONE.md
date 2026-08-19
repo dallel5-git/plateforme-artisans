@@ -38,6 +38,8 @@
 | `BE-03` | Seed du référentiel : gouvernorats, délégations du Sahel, catégories FR/AR | Oussama | #70 (revue) → idem | 2026-08-19 |
 | `BE-04` | Seed de démonstration : 30 artisans du Sahel | Oussama | #71 (revue) → idem | 2026-08-19 |
 | `BE-05` | Repositories — la seule couche qui parle à Prisma, curseur générique | Oussama | #72 (revue) → idem | 2026-08-19 |
+| `BE-09` | JWT : access court + refresh rotatif avec détection de rejeu | Claude | #79 | 2026-08-19 |
+| `BE-13` | Erreurs normalisées + codes + `requestId` | Claude | #80 | 2026-08-19 |
 
 ---
 
@@ -46,9 +48,9 @@
 | Métrique | Valeur |
 |---|---|
 | Tâches 🔴 P0 planifiées | 43 |
-| Tâches 🔴 P0 terminées | 5 |
+| Tâches 🔴 P0 terminées | 7 |
 | Tâches 🟠 P1 terminées | 0 / 7 *(l'amortisseur : 18 h)* |
-| Heures-homme 🔴 P0 estimées / consommées | 109 h / 0 h *(capacité 112 h)* |
+| Heures-homme 🔴 P0 estimées / consommées | 109 h / 3 h *(capacité 112 h)* |
 
 > Mettre à jour ce compteur **au daily**. C'est le seul indicateur qui dira mercredi si le périmètre
 > tient — et mercredi est le dernier jour où couper coûte encore peu.

@@ -9,9 +9,7 @@ _Sprint S1 · dernière mise à jour : 2026-08-17_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `BE-09` | JWT : access court + refresh rotatif avec détection de rejeu | 2026-08-19 | `feat/BE-09-jwt` | PR #79 (CI verte) empilée sur PR #78 (CI verte aussi) — merger #78 avant #79 |
-| `BE-13` | Erreurs normalisées + codes + `requestId` — prérequis bloquant de BE-10 | 2026-08-19 | `feat/BE-13-erreurs-normalisees` | PR #80 (CI en cours) — empilée sur `feat/BE-09-jwt` (PR #79, non mergée) |
-| `BE-10` | Routes auth — découpée en 4 PRs atomiques (10a `me`, 10b `otp/request`, 10c `otp/verify`, 10d `refresh`+`logout`) | 2026-08-19 | `feat/BE-10a-auth-me` (+ suivantes) | 10a : PR #81 (CI en cours) — empilée sur `feat/BE-13-erreurs-normalisees` (PR #80, non mergée). *Note : 3 tâches DEV-1 en DOING (limite normale 2), mais BE-09/BE-13/BE-10 forment une seule pile de PRs empilées en attente de merge, pas 3 chantiers actifs en parallèle.* |
+| `BE-10` | Routes auth — découpée en 4 PRs atomiques (10a `me`, 10b `otp/request`, 10c `otp/verify`, 10d `refresh`+`logout`) | 2026-08-19 | `feat/BE-10a-auth-me` (+ suivantes) | 10a : PR #82 (CI en cours), cible `develop` — BE-09 et BE-13 sont mergées, plus aucun blocage de dépendance |
 
 ## DEV-2
 
