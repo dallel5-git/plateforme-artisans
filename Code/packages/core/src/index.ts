@@ -20,3 +20,7 @@ export {
 
 export { signAccessToken, verifyAccessToken } from './auth/jwt.js';
 export type { AccessTokenClaims, VerifyAccessTokenResult } from './auth/jwt.js';
+
+export { DomainError } from './errors/domain-error.js';
+export { ERROR_HTTP_STATUS } from './errors/codes.js';
+export type { ErrorCode } from './errors/codes.js';

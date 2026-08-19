@@ -4,12 +4,16 @@
   "private": true,
   "type": "module",
   "description": "⭐ Le vrai actif (CLAUDE.md §1) : ranking, policies, éligibilité, règles métier pures. Zéro dépendance HTTP/React (P3).",
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "scripts": {
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "lint": "eslint .",
     "test": "vitest run"
   },
   "dependencies": {
+    "@repo/constants": "workspace:*",
     "@repo/db": "workspace:*",
     "argon2": "0.44.0",
     "jose": "6.1.1"

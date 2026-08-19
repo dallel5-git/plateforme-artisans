@@ -34,6 +34,12 @@ importers:
       '@fastify/swagger-ui':
         specifier: 6.1.1
         version: 6.1.1
+      '@repo/constants':
+        specifier: workspace:*
+        version: link:../../packages/constants
+      '@repo/core':
+        specifier: workspace:*
+        version: link:../../packages/core
       fastify:
         specifier: 5.12.0
         version: 5.12.0
@@ -94,6 +100,9 @@ importers:
 
   packages/core:
     dependencies:
+      '@repo/constants':
+        specifier: workspace:*
+        version: link:../constants
       '@repo/db':
         specifier: workspace:*
         version: link:../db
