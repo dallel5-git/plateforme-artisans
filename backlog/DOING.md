@@ -10,7 +10,7 @@ _Sprint S1 · dernière mise à jour : 2026-08-17_
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
 | `BE-09` | JWT : access court + refresh rotatif avec détection de rejeu | 2026-08-19 | `feat/BE-09-jwt` | PR #79 (CI verte) empilée sur PR #78 (CI verte aussi) — merger #78 avant #79 |
-| `BE-13` | Erreurs normalisées + codes + `requestId` — prérequis bloquant de BE-10 | 2026-08-19 | `feat/BE-13-erreurs-normalisees` | Empilée sur `feat/BE-09-jwt` (non mergée) |
+| `BE-13` | Erreurs normalisées + codes + `requestId` — prérequis bloquant de BE-10 | 2026-08-19 | `feat/BE-13-erreurs-normalisees` | PR #80 (CI en cours) — empilée sur `feat/BE-09-jwt` (PR #79, non mergée) |
 
 ## DEV-2
 
