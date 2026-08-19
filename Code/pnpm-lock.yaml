@@ -43,6 +43,12 @@ importers:
       '@repo/db':
         specifier: workspace:*
         version: link:../../packages/db
+      '@repo/notifications':
+        specifier: workspace:*
+        version: link:../../packages/notifications
+      '@repo/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@repo/validators':
         specifier: workspace:*
         version: link:../../packages/validators
