@@ -2,5 +2,18 @@
   "name": "@repo/utils",
   "version": "0.0.0",
   "private": true,
-  "description": "Utilitaires purs partagés : currency.ts (millimes), phone-tn.ts (+216), slugify.ts."
+  "type": "module",
+  "description": "Utilitaires purs partagés : currency.ts (millimes), phone-tn.ts (+216), slugify.ts.",
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "lint": "eslint .",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/tsconfig": "workspace:*",
+    "eslint": "10.8.1",
+    "typescript": "5.9.3",
+    "vitest": "4.1.11"
+  }
 }

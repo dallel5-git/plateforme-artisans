@@ -38,7 +38,6 @@
 
 | ID | Tâche | Prio | Qui | Est. | Dépend de | US |
 |---|---|---|---|---|---|---|
-| `BE-06` | `phone-tn.ts` — normalisation `+216XXXXXXXX` (tous formats) | 🔴 | DEV-1 | 1 h | SO-01 | US-C-02 |
 | `BE-07` | OTP : hash argon2, TTL 5 min, 3 tentatives | 🔴 | DEV-1 | 2 h | BE-01 | US-C-02 |
 | `BE-08` | Adaptateur SMS — **`console` seul en S1**, interface prête pour Twilio | 🔴 | DEV-1 | 0,5 h | SO-03 | US-C-02 |
 | `BE-09` | JWT access 15 min + **refresh rotatif**, sessions révocables, détection de rejeu | 🔴 | DEV-1 | 3 h | BE-01 | US-C-02 |
