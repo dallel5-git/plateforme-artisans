@@ -2,5 +2,12 @@
   "name": "@repo/validators",
   "version": "0.0.0",
   "private": true,
-  "description": "Schémas Zod — source unique de vérité (P4), valide les entrées API et génère le contrat OpenAPI (ADR-001)."
+  "type": "module",
+  "description": "Schémas Zod — source unique de vérité (P4), valide les entrées API et génère le contrat OpenAPI (ADR-001).",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "zod": "4.4.3"
+  }
 }
