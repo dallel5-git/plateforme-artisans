@@ -9,7 +9,7 @@ _Sprint S1 · dernière mise à jour : 2026-08-17_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `BE-08` | Adaptateur SMS derrière une interface `SmsProvider` | 2026-08-19 | `feat/BE-08-sms-provider` | PR ouverte vers `develop` — en attente de CI/revue |
+| `BE-09` | JWT : access court + refresh rotatif avec détection de rejeu | 2026-08-19 | `feat/BE-09-jwt` | PR ouverte vers `develop` — dépend de `chore/merge-be05-repositories` (PR #78, en attente de merge) |
 
 ## DEV-2
 
