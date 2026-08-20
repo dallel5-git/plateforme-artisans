@@ -45,7 +45,7 @@ export async function authRoutes(app: FastifyInstance): Promise<void> {
     {
       schema: {
         description:
-          "Demande un code OTP par SMS. Réponse identique, que le numéro existe déjà ou non (anti-énumération).",
+          'Demande un code OTP par SMS. Réponse identique, que le numéro existe déjà ou non (anti-énumération).',
         body: otpRequestSchema,
         response: { 200: otpRequestResponseSchema },
       },
