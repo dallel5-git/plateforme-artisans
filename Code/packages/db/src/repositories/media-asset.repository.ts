@@ -68,6 +68,23 @@ export async function findMediaAssetById(
   return db.mediaAsset.findUnique({ where: { id }, select });
 }
 
+/**
+ * BE-17 : hydratation par lots pour la galerie de la fiche publique (évite le N+1 de
+ * `findMediaAssetById` par `PortfolioItem`). Filtre `moderationStatus: 'APPROVED'` — distinct de
+ * `PortfolioItem.status` (déjà filtré côté `listPortfolioItems`) : un média déclassé après coup
+ * ne doit pas fuiter dans la galerie même si son `PortfolioItem` reste `APPROVED`.
+ */
+export async function findMediaAssetsByIds(
+  ids: string[],
+  db: DbClient = prisma,
+): Promise<MediaAsset[]> {
+  if (ids.length === 0) return [];
+  return db.mediaAsset.findMany({
+    where: { id: { in: ids }, moderationStatus: 'APPROVED' },
+    select,
+  });
+}
+
 export async function approveMediaAsset(id: string, db: DbClient = prisma): Promise<void> {
   await db.mediaAsset.update({
     where: { id },
