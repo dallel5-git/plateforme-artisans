@@ -1,6 +1,7 @@
 import { INTERNAL_ERROR, NOT_FOUND, VALIDATION_ERROR } from '@repo/constants';
 import {
   buildPublicProviderProfile,
+  buildReviewAuthorDisplayName,
   buildSearchSeed,
   DomainError,
   InvalidSearchCursorError,
@@ -22,18 +23,24 @@ import {
   findGovernoratesByIds,
   findMediaAssetsByIds,
   findProviderProfileBySlug,
+  InvalidCursorError,
   listCoverageAreas,
   listPortfolioItems,
   listProviderCategories,
+  listPublishedReviewsForProvider,
   listServiceOfferings,
   searchProviderProfiles,
+  type PublicReviewListItem,
   type SearchCandidate,
 } from '@repo/db';
 import {
   providerPublicProfileSchema,
+  providerReviewListResponseSchema,
+  providerReviewsQuerySchema,
   providerSearchQuerySchema,
   providerSearchResponseSchema,
   providerSlugParamsSchema,
+  type ProviderReviewsQuery,
   type ProviderSearchQuery,
 } from '@repo/validators';
 import type { FastifyInstance } from 'fastify';
@@ -192,6 +199,38 @@ async function loadPublicProfile(slug: string) {
   });
 }
 
+function toReviewListItem(review: PublicReviewListItem) {
+  return {
+    id: review.id,
+    rating: review.rating,
+    comment: review.comment,
+    isVerifiedContact: review.isVerifiedContact,
+    createdAt: review.createdAt,
+    authorDisplayName: buildReviewAuthorDisplayName(review.client),
+  };
+}
+
+// BE-18 : liste des avis publiés d'un artisan. Même garde `requirePublishedProfile` que
+// `loadPublicProfile` (BE-17) : un slug inexistant et un profil non publié doivent rester
+// indistinguables (404 dans les deux cas) — sinon cette page fuiterait l'existence d'un profil
+// non publié (200 vide) alors que la fiche elle-même 404. `InvalidCursorError` (@repo/db) est
+// mappé en VALIDATION_ERROR, même geste que `paginateOrThrow` pour `InvalidSearchCursorError`
+// côté recherche — deux mécanismes de curseur distincts.
+async function loadReviewsPage(slug: string, query: ProviderReviewsQuery) {
+  const profile = requirePublishedProfile(await findProviderProfileBySlug(slug));
+  try {
+    const page = await listPublishedReviewsForProvider(profile.id, query);
+    return { items: page.items.map(toReviewListItem), nextCursor: page.nextCursor };
+  } catch (error) {
+    if (error instanceof InvalidCursorError) {
+      throw new DomainError(VALIDATION_ERROR, 'Curseur de pagination invalide', {
+        field: 'cursor',
+      });
+    }
+    throw error;
+  }
+}
+
 export async function providersRoutes(app: FastifyInstance): Promise<void> {
   const typedApp = app.withTypeProvider<ZodTypeProvider>();
 
@@ -233,5 +272,22 @@ export async function providersRoutes(app: FastifyInstance): Promise<void> {
       },
     },
     async (request) => loadPublicProfile(request.params.slug),
+  );
+
+  typedApp.get(
+    '/providers/:slug/reviews',
+    {
+      // public : liste d'avis publiée, aucune authentification requise (BE-18).
+      schema: {
+        description:
+          'Avis PUBLISHED d’un artisan, triés par date décroissante, pagination par curseur. ' +
+          'Nom de l’auteur anonymisé ("Utilisateur supprimé") si le compte a été supprimé. ' +
+          'Sous-notes et réponse de l’artisan hors périmètre (voir backlog).',
+        params: providerSlugParamsSchema,
+        querystring: providerReviewsQuerySchema,
+        response: { 200: providerReviewListResponseSchema },
+      },
+    },
+    async (request) => loadReviewsPage(request.params.slug, request.query),
   );
 }
