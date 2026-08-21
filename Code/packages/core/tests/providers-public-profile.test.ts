@@ -54,6 +54,7 @@ function buildProfile(overrides: Partial<ProviderProfile> = {}): ProviderProfile
     lastActiveAt: null,
     createdAt: new Date('2026-01-01'),
     updatedAt: new Date('2026-01-01'),
+    reviewCountByStar: null,
     ...overrides,
   };
 }
