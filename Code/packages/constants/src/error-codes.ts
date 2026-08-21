@@ -12,3 +12,6 @@ export const VALIDATION_ERROR = 'VALIDATION_ERROR';
 export const NOT_FOUND = 'NOT_FOUND';
 export const UNAUTHORIZED = 'UNAUTHORIZED';
 export const INTERNAL_ERROR = 'INTERNAL_ERROR';
+
+// BE-11 : rate limiting (OTP, puis contacts via BE-21).
+export const RATE_LIMIT_EXCEEDED = 'RATE_LIMIT_EXCEEDED';

@@ -33,7 +33,6 @@
 
 | ID | Tâche | Prio | Qui | Est. | Dépend de | US |
 |---|---|---|---|---|---|---|
-| `BE-11` | Rate limiting Redis — **OTP + contacts**, par téléphone **et** IP | 🔴 | DEV-1 | 1,5 h | SO-02 | P10 |
 | `BE-12` | RBAC centralisé `core/policies` + preHandlers | 🔴 | DEV-1 | 2 h | BE-09 | Annexe B |
 
 ### Métier & API

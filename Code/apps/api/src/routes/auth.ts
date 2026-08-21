@@ -44,6 +44,8 @@ import {
 } from '@repo/db';
 import { createSmsProvider } from '@repo/notifications';
 import { normalizePhoneTn } from '@repo/utils';
+
+import { enforceOtpRequestRateLimit } from '../plugins/rate-limit.js';
 import {
   logoutRequestSchema,
   logoutResponseSchema,
@@ -151,19 +153,19 @@ export async function authRoutes(app: FastifyInstance): Promise<void> {
     },
   );
 
-  // Pas de rate-limit ici (périmètre dédié de BE-11, pas une dépendance déclarée de BE-10).
   typedApp.post(
     '/auth/otp/request',
     {
       schema: {
         description:
-          'Demande un code OTP par SMS. Réponse identique, que le numéro existe déjà ou non (anti-énumération).',
+          'Demande un code OTP par SMS. Réponse identique, que le numéro existe déjà ou non (anti-énumération). Rate-limit : 5/h par numéro et par IP.',
         body: otpRequestSchema,
         response: { 200: otpRequestResponseSchema },
       },
     },
     async (request) => {
       const phone = requireNormalizedPhone(request.body.phone);
+      await enforceOtpRequestRateLimit(phone, request.ip);
       const existingUser = await findUserByPhone(phone);
       const purpose: OtpPurpose = existingUser ? 'LOGIN' : 'SIGNUP';
       const code = generateOtp();
