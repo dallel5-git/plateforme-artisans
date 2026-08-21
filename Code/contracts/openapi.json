@@ -993,6 +993,267 @@
           }
         }
       }
+    },
+    "/v1/providers/search": {
+      "get": {
+        "description": "Recherche d’artisans : catégorie/gouvernorat/délégation/vérifié/note/disponibilité, tri par score de ranking calculé, pagination par curseur. Mode debug via ?debug=true.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "in": "query",
+            "name": "category",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "in": "query",
+            "name": "governorate",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "in": "query",
+            "name": "delegation",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "true",
+                "false"
+              ]
+            },
+            "in": "query",
+            "name": "verified",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 5
+            },
+            "in": "query",
+            "name": "minRating",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "AVAILABLE",
+                "BUSY",
+                "ON_HOLIDAY"
+              ]
+            },
+            "in": "query",
+            "name": "availability",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "cursor",
+            "required": false
+          },
+          {
+            "schema": {
+              "default": 20,
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            },
+            "in": "query",
+            "name": "limit",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "true",
+                "false"
+              ]
+            },
+            "in": "query",
+            "name": "debug",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "slug": {
+                            "type": "string"
+                          },
+                          "businessName": {
+                            "type": "string"
+                          },
+                          "headline": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "isVerified": {
+                            "type": "boolean"
+                          },
+                          "ratingAvg": {
+                            "type": "number"
+                          },
+                          "ratingCount": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          "completionScore": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          "availabilityStatus": {
+                            "type": "string",
+                            "enum": [
+                              "AVAILABLE",
+                              "BUSY",
+                              "ON_HOLIDAY"
+                            ]
+                          },
+                          "categories": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "slug": {
+                                  "type": "string"
+                                },
+                                "nameFr": {
+                                  "type": "string"
+                                },
+                                "nameAr": {
+                                  "type": "string"
+                                },
+                                "isPrimary": {
+                                  "type": "boolean"
+                                }
+                              },
+                              "required": [
+                                "slug",
+                                "nameFr",
+                                "nameAr",
+                                "isPrimary"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "score": {
+                            "type": "number"
+                          },
+                          "matchReason": {
+                            "type": "object",
+                            "properties": {
+                              "geo": {
+                                "type": "number"
+                              },
+                              "rating": {
+                                "type": "number"
+                              },
+                              "trust": {
+                                "type": "number"
+                              },
+                              "completion": {
+                                "type": "number"
+                              },
+                              "responsiveness": {
+                                "type": "number"
+                              },
+                              "plan": {
+                                "type": "number"
+                              },
+                              "penalty": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "geo",
+                              "rating",
+                              "trust",
+                              "completion",
+                              "responsiveness",
+                              "plan",
+                              "penalty"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "slug",
+                          "businessName",
+                          "headline",
+                          "isVerified",
+                          "ratingAvg",
+                          "ratingCount",
+                          "completionScore",
+                          "availabilityStatus",
+                          "categories"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "nextCursor": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "nextCursor"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
