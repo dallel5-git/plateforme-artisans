@@ -39,6 +39,16 @@ export async function listRootCategories(db: DbClient = prisma): Promise<Categor
   });
 }
 
+// BE-14 : tout l'arbre en une seule requête, assemblé côté core (`buildCategoryTree`) — évite le
+// N+1 de `listRootCategories` + N × `listChildCategories`.
+export async function listAllActiveCategories(db: DbClient = prisma): Promise<Category[]> {
+  return db.category.findMany({
+    where: { isActive: true },
+    select,
+    orderBy: { sortOrder: 'asc' },
+  });
+}
+
 export async function listChildCategories(
   parentId: string,
   db: DbClient = prisma,

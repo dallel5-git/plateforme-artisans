@@ -1,7 +1,7 @@
 import fastifySwagger from '@fastify/swagger';
 import fastifySwaggerUi from '@fastify/swagger-ui';
 import type { FastifyInstance } from 'fastify';
-import { jsonSchemaTransform } from 'fastify-type-provider-zod';
+import { jsonSchemaTransform, jsonSchemaTransformObject } from 'fastify-type-provider-zod';
 
 export async function registerSwagger(app: FastifyInstance): Promise<void> {
   await app.register(fastifySwagger, {
@@ -15,6 +15,10 @@ export async function registerSwagger(app: FastifyInstance): Promise<void> {
       },
     },
     transform: jsonSchemaTransform,
+    // BE-14 : requis pour que les schémas récursifs (`categoryTreeNodeSchema`, enregistrés via
+    // `z.globalRegistry`) se résolvent en `$ref` vers `components.schemas` plutôt qu'un `$ref`
+    // sans définition.
+    transformObject: jsonSchemaTransformObject,
   });
 
   await app.register(fastifySwaggerUi, {
