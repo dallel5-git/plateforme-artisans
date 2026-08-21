@@ -40,3 +40,13 @@ export type { Action, OwnedResource } from './policies/rbac.js';
 export { buildCategoryTree } from './catalog/category-tree.js';
 export type { CategoryTreeNode } from './catalog/category-tree.js';
 export { CATALOG_CACHE_TTL_SECONDS } from './catalog/constants.js';
+
+export { computeRankingScore, parseRankingWeights } from './search/ranking.js';
+export type {
+  GeoMatch,
+  RankingBreakdown,
+  RankingInput,
+  RankingRotation,
+  RankingScoreResult,
+  RankingWeights,
+} from './search/ranking.js';
