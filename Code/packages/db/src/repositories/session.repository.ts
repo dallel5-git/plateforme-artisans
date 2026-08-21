@@ -47,6 +47,34 @@ export async function findSessionByRefreshTokenHash(
   return db.session.findUnique({ where: { refreshTokenHash }, select: publicSelect });
 }
 
+export interface SessionWithHash extends PublicSession {
+  refreshTokenHash: string;
+}
+
+/**
+ * BE-10d : seule exception délibérée au principe ci-dessus — `detectRefreshReplay` (BE-09) a
+ * besoin de comparer le hash présenté au hash courant pour décider ROTATE/REVOKE_FAMILY. La
+ * valeur reste strictement server-side (jamais renvoyée dans une réponse HTTP).
+ */
+export async function findSessionById(
+  id: string,
+  db: DbClient = prisma,
+): Promise<SessionWithHash | null> {
+  return db.session.findUnique({
+    where: { id },
+    select: { ...publicSelect, refreshTokenHash: true },
+  });
+}
+
+/** Rotation en place (BE-10d) : la ligne — donc la « famille » — persiste, seul le hash change. */
+export async function rotateSessionToken(
+  id: string,
+  input: { refreshTokenHash: string; expiresAt: Date },
+  db: DbClient = prisma,
+): Promise<void> {
+  await db.session.update({ where: { id }, data: input, select: { id: true } });
+}
+
 export async function listActiveSessionsForUser(
   userId: string,
   db: DbClient = prisma,
