@@ -8,9 +8,15 @@ importers:
 
   .:
     devDependencies:
+      ioredis:
+        specifier: 6.0.0
+        version: 6.0.0
       prettier:
         specifier: 3.9.6
         version: 3.9.6
+      tsx:
+        specifier: 4.23.12
+        version: 4.23.12
       turbo:
         specifier: 2.10.10
         version: 2.10.10

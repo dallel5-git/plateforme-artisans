@@ -19,7 +19,7 @@
     "db:down": "docker compose -f tooling/docker/docker-compose.dev.yml --env-file ../.env down",
     "db:reset": "bash tooling/scripts/reset-db.sh",
     "db:migrate": "pnpm --filter @repo/db migrate:dev",
-    "db:seed": "pnpm --filter @repo/db seed",
+    "db:seed": "pnpm --filter @repo/db seed && tsx --env-file-if-exists=../.env tooling/scripts/flush-catalog-cache.ts",
     "db:seed:dev": "pnpm --filter @repo/db seed:dev",
     "db:studio": "pnpm --filter @repo/db studio",
     "api:contract": "turbo run api:contract",
@@ -29,7 +29,9 @@
     "tokens:build:check": "node tooling/scripts/build-tokens.mjs --check"
   },
   "devDependencies": {
+    "ioredis": "6.0.0",
     "prettier": "3.9.6",
+    "tsx": "4.23.12",
     "turbo": "2.10.10",
     "typescript": "5.9.3"
   }
