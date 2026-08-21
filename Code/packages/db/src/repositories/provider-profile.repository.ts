@@ -239,11 +239,13 @@ export interface SearchProviderProfilesFilters {
  * le seed, quelques centaines par gouvernorat au réalisme). À revoir avant toute croissance à
  * grande échelle (score persistable + pagination DB-side).
  */
-export async function searchProviderProfiles(
+// Extraite en fonction pure (testable sans Postgres, même esprit que `pagination.ts`/
+// `pagination.test.ts` dans ce même paquet) : construire le `where` Prisma est une pure
+// transformation de données, indépendante de toute exécution de requête.
+export function buildSearchWhereClause(
   filters: SearchProviderProfilesFilters,
-  db: DbClient = prisma,
-): Promise<SearchCandidate[]> {
-  const where: Prisma.ProviderProfileWhereInput = {
+): Prisma.ProviderProfileWhereInput {
+  return {
     publicationStatus: 'PUBLISHED',
     ...(filters.categoryId ? { categories: { some: { categoryId: filters.categoryId } } } : {}),
     ...(filters.verified ? { isVerified: true } : {}),
@@ -258,8 +260,16 @@ export async function searchProviderProfiles(
       },
     },
   };
+}
 
-  const rows = await db.providerProfile.findMany({ where, select: searchCandidateSelect });
+export async function searchProviderProfiles(
+  filters: SearchProviderProfilesFilters,
+  db: DbClient = prisma,
+): Promise<SearchCandidate[]> {
+  const rows = await db.providerProfile.findMany({
+    where: buildSearchWhereClause(filters),
+    select: searchCandidateSelect,
+  });
   return rows.map(toSearchCandidate);
 }
 
