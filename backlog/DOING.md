@@ -16,6 +16,7 @@ _Sprint S1 · dernière mise à jour : 2026-08-21_
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
 | `BE-14a` | Cache-aside Redis générique (`getOrSetCache`) — infra, sans surface API | 2026-08-21 | `feat/BE-14a-cache-infra` | PR #88 ouverte (CI en cours) |
+| `BE-14b` | `GET /v1/categories` — arbre complet FR/AR, une seule requête, exception P5 documentée | 2026-08-21 | `feat/BE-14b-categories` | PR #89 ouverte (empilée sur #88, CI en cours) |
 
 ## En binôme
 
