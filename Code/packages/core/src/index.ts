@@ -83,3 +83,9 @@ export type { OfferingPriceInput } from './providers/pricing.js';
 
 export { parseReviewCountByStar, buildReviewAggregate } from './reviews/aggregate.js';
 export type { ReviewStarBreakdown, ReviewAggregate } from './reviews/aggregate.js';
+
+export {
+  buildReviewAuthorDisplayName,
+  DEFAULT_REVIEW_AUTHOR_NAME,
+} from './reviews/display-name.js';
+export type { ReviewAuthorNameInput } from './reviews/display-name.js';
