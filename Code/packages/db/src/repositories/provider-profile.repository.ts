@@ -319,6 +319,34 @@ export async function listProviderCategories(
   return db.providerCategory.findMany({ where: { providerId }, select: categoryLinkSelect });
 }
 
+export interface ProviderCategoryReplaceInput {
+  categoryId: string;
+  isPrimary: boolean;
+  yearsExperience?: number;
+}
+
+/**
+ * BE-19c : remplace tout le set de catégories d'un coup (`PUT`, sémantique de remplacement) —
+ * supprime puis recrée, plutôt qu'un upsert incrémental, pour ne jamais heurter l'index partiel
+ * unique `isPrimary` (BE-02) en cours de route (voir le commentaire sur `setProviderCategory`).
+ * Transaction-agnostique comme le reste du repository : à appeler avec le `tx` de
+ * `withTransaction` (@repo/db) depuis la route, avec `updateProviderProfile` pour le
+ * `completionScore`, dans la même transaction.
+ */
+export async function replaceProviderCategories(
+  providerId: string,
+  categories: ProviderCategoryReplaceInput[],
+  db: DbClient = prisma,
+): Promise<ProviderCategoryLink[]> {
+  await db.providerCategory.deleteMany({ where: { providerId } });
+  if (categories.length > 0) {
+    await db.providerCategory.createMany({
+      data: categories.map((category) => ({ providerId, ...category })),
+    });
+  }
+  return listProviderCategories(providerId, db);
+}
+
 /** L'index unique partiel (BE-02) garantit une seule catégorie principale : si `isPrimary` est
  *  posé ici sur une deuxième catégorie sans retirer l'ancienne, la contrainte rejette l'écriture
  *  — c'est voulu, c'est le filet, pas une pré-validation à dupliquer ici. */
@@ -456,6 +484,32 @@ export async function listCoverageAreas(
     select: coverageAreaSelect,
   });
   return rows.map(toCoverageArea);
+}
+
+export interface CoverageAreaReplaceInput {
+  governorateId: string;
+  delegationId?: string;
+  travelFee?: number;
+}
+
+/**
+ * BE-19d : remplace tout le set de zones d'un coup (`PUT`), même logique que
+ * `replaceProviderCategories` (BE-19c) — supprime puis recrée, transaction-agnostique (à
+ * appeler avec le `tx` de `withTransaction` depuis la route, avec `updateProviderProfile` pour
+ * le `completionScore`, dans la même transaction).
+ */
+export async function replaceCoverageAreas(
+  providerId: string,
+  areas: CoverageAreaReplaceInput[],
+  db: DbClient = prisma,
+): Promise<CoverageArea[]> {
+  await db.coverageArea.deleteMany({ where: { providerId } });
+  if (areas.length > 0) {
+    await db.coverageArea.createMany({
+      data: areas.map((area) => ({ providerId, ...area })),
+    });
+  }
+  return listCoverageAreas(providerId, db);
 }
 
 export async function addCoverageArea(

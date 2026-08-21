@@ -10,6 +10,8 @@ import {
 import {
   calculateCompletionScore,
   DomainError,
+  FREE_PLAN_MAX_CATEGORIES,
+  FREE_PLAN_MAX_GOVERNORATES,
   hashRefreshToken,
   MIN_PUBLICATION_COMPLETION_SCORE,
   REFRESH_TTL_DAYS,
@@ -24,13 +26,20 @@ import {
   findUserById,
   listCoverageAreas,
   listProviderCategories,
+  replaceCoverageAreas,
+  replaceProviderCategories,
   updateProviderProfile,
+  withTransaction,
   type ProviderProfileOwnerView,
 } from '@repo/db';
 import { normalizePhoneTn, slugify } from '@repo/utils';
 import {
   createProviderMeResponseSchema,
   createProviderMeSchema,
+  putProviderCategoriesResponseSchema,
+  putProviderCategoriesSchema,
+  putProviderCoverageAreasResponseSchema,
+  putProviderCoverageAreasSchema,
   updateProviderMeResponseSchema,
   updateProviderMeSchema,
 } from '@repo/validators';
@@ -236,6 +245,118 @@ export async function providerRoutes(app: FastifyInstance): Promise<void> {
       });
 
       return requireOwnProfile(request.user.sub);
+    },
+  );
+
+  typedApp.put(
+    '/providers/me/categories',
+    {
+      preHandler: [app.requireRole('PROVIDER')],
+      schema: {
+        description:
+          'Remplace tout le set de catégories de l’artisan authentifié (une seule ' +
+          `catégorie principale, exactement un \`isPrimary: true\`). Limite du plan FREE : ` +
+          `${FREE_PLAN_MAX_CATEGORIES} catégories. \`completionScore\` recalculé.`,
+        body: putProviderCategoriesSchema,
+        response: { 200: putProviderCategoriesResponseSchema },
+      },
+    },
+    async (request) => {
+      if (!request.user) {
+        throw new DomainError(UNAUTHORIZED, 'Non authentifié');
+      }
+
+      const { categories } = request.body;
+      if (categories.length > FREE_PLAN_MAX_CATEGORIES) {
+        throw new DomainError(
+          VALIDATION_ERROR,
+          `Maximum ${FREE_PLAN_MAX_CATEGORIES} catégories en offre gratuite`,
+          { limit: FREE_PLAN_MAX_CATEGORIES, field: 'categories' },
+        );
+      }
+
+      const current = await requireOwnProfile(request.user.sub);
+      const user = await findUserById(request.user.sub);
+      if (!user) {
+        throw new DomainError(UNAUTHORIZED, 'Utilisateur introuvable');
+      }
+
+      const coverageAreas = await listCoverageAreas(current.id);
+
+      const { score } = calculateCompletionScore({
+        phoneVerified: user.phoneVerifiedAt !== null,
+        bio: current.bio,
+        headline: current.headline,
+        yearsExperience: current.yearsExperience,
+        hasContactPhone: Boolean(current.whatsappPhone || current.publicPhone),
+        categoryCount: categories.length,
+        coverageAreaCount: coverageAreas.length,
+      });
+
+      const updatedCategories = await withTransaction(async (tx) => {
+        const links = await replaceProviderCategories(current.id, categories, tx);
+        await updateProviderProfile(current.id, { completionScore: score }, tx);
+        return links;
+      });
+
+      return { categories: updatedCategories, completionScore: score };
+    },
+  );
+
+  typedApp.put(
+    '/providers/me/coverage-areas',
+    {
+      preHandler: [app.requireRole('PROVIDER')],
+      schema: {
+        description:
+          "Remplace tout le set de zones d'intervention de l'artisan authentifié. " +
+          `\`delegationId\` absent = tout le gouvernorat. Limite du plan FREE : ` +
+          `${FREE_PLAN_MAX_GOVERNORATES} gouvernorat distinct (plusieurs délégations du même ` +
+          'gouvernorat ne comptent qu\'une fois). `completionScore` recalculé.',
+        body: putProviderCoverageAreasSchema,
+        response: { 200: putProviderCoverageAreasResponseSchema },
+      },
+    },
+    async (request) => {
+      if (!request.user) {
+        throw new DomainError(UNAUTHORIZED, 'Non authentifié');
+      }
+
+      const { coverageAreas } = request.body;
+      const distinctGovernorates = new Set(coverageAreas.map((area) => area.governorateId)).size;
+      if (distinctGovernorates > FREE_PLAN_MAX_GOVERNORATES) {
+        throw new DomainError(
+          VALIDATION_ERROR,
+          `Maximum ${FREE_PLAN_MAX_GOVERNORATES} gouvernorat en offre gratuite`,
+          { limit: FREE_PLAN_MAX_GOVERNORATES, field: 'coverageAreas' },
+        );
+      }
+
+      const current = await requireOwnProfile(request.user.sub);
+      const user = await findUserById(request.user.sub);
+      if (!user) {
+        throw new DomainError(UNAUTHORIZED, 'Utilisateur introuvable');
+      }
+
+      const categories = await listProviderCategories(current.id);
+
+      const { score } = calculateCompletionScore({
+        phoneVerified: user.phoneVerifiedAt !== null,
+        bio: current.bio,
+        headline: current.headline,
+        yearsExperience: current.yearsExperience,
+        hasContactPhone: Boolean(current.whatsappPhone || current.publicPhone),
+        categoryCount: categories.length,
+        coverageAreaCount: coverageAreas.length,
+      });
+
+      const updatedCoverageAreas = await withTransaction(async (tx) => {
+        const areas = await replaceCoverageAreas(current.id, coverageAreas, tx);
+        await updateProviderProfile(current.id, { completionScore: score }, tx);
+        return areas;
+      });
+
+      return { coverageAreas: updatedCoverageAreas, completionScore: score };
     },
   );
 }
