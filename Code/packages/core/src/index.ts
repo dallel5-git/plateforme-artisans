@@ -66,3 +66,20 @@ export {
   InvalidSearchCursorError,
 } from './search/query-builder.js';
 export type { NormalizedSearchFilters, PaginatedResult } from './search/query-builder.js';
+
+export { requirePublishedProfile, buildPublicProviderProfile } from './providers/public-profile.js';
+export type {
+  NameRef,
+  PublicProviderCategory,
+  PublicServiceOffering,
+  PublicCoverageArea,
+  PublicGalleryItem,
+  PublicProviderProfile,
+  PublicProviderProfileInput,
+} from './providers/public-profile.js';
+
+export { formatDisplayPrice } from './providers/pricing.js';
+export type { OfferingPriceInput } from './providers/pricing.js';
+
+export { parseReviewCountByStar, buildReviewAggregate } from './reviews/aggregate.js';
+export type { ReviewStarBreakdown, ReviewAggregate } from './reviews/aggregate.js';
