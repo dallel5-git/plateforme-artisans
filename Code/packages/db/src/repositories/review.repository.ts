@@ -62,18 +62,50 @@ export async function findReviewById(
   return db.review.findUnique({ where: { id }, select: publicSelect });
 }
 
+// BE-18 : sélection dédiée à la liste publique d'avis d'un artisan — distincte de `publicSelect`
+// (partagé par `createReview`/`findReviewById`, non modifié ici). Inclut le nom du client : lu
+// tel quel, `softDeleteUser` (user.repository.ts) l'a déjà anonymisé en 'Utilisateur'/'supprimé'
+// à la suppression du compte — aucune logique de lecture supplémentaire n'est nécessaire ici,
+// voir `buildReviewAuthorDisplayName` (packages/core, BE-18a) pour l'assemblage en chaîne
+// affichable. Omet volontairement les sous-notes (ratingPunctuality/Quality/Value — différées,
+// 🟠 P1) et tout identifiant interne (providerId/clientId/contactEventId/status), qui n'ont pas
+// leur place dans une réponse publique.
+const reviewListSelect = {
+  id: true,
+  rating: true,
+  comment: true,
+  isVerifiedContact: true,
+  createdAt: true,
+  client: { select: { firstName: true, lastName: true } },
+} as const;
+
+export interface PublicReviewListItem {
+  id: string;
+  rating: number;
+  comment: string | null;
+  isVerifiedContact: boolean;
+  createdAt: Date;
+  client: { firstName: string | null; lastName: string | null };
+}
+
+/**
+ * BE-18 : avis PUBLISHED d'un artisan, triés par date de création décroissante, pagination par
+ * curseur — stable à l'insertion entre deux pages lues (buildKeysetWhere/buildKeysetOrderBy,
+ * pagination.ts, non modifiés ici). Aucun appelant avant BE-18 (stub posé par BE-05) : le
+ * `select` est élargi ici même plutôt que dupliqué dans une seconde fonction.
+ */
 export async function listPublishedReviewsForProvider(
   providerId: string,
   options: { cursor?: string; limit?: number } = {},
   db: DbClient = prisma,
-): Promise<PaginatedResult<PublicReview>> {
+): Promise<PaginatedResult<PublicReviewListItem>> {
   const limit = resolveLimit(options.limit);
   const keysetWhere = buildKeysetWhere('createdAt', 'desc', options.cursor);
   const baseWhere = { providerId, status: 'PUBLISHED' as const };
 
   const rows = await db.review.findMany({
     where: keysetWhere ? { ...baseWhere, ...keysetWhere } : baseWhere,
-    select: publicSelect,
+    select: reviewListSelect,
     orderBy: buildKeysetOrderBy('createdAt', 'desc'),
     take: limit + 1,
   });
