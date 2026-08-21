@@ -133,7 +133,7 @@ export async function authRoutes(app: FastifyInstance): Promise<void> {
   typedApp.get(
     '/auth/me',
     {
-      preHandler: [app.authenticate],
+      preHandler: [app.requireAuth],
       schema: {
         description: "Profil de l'utilisateur authentifié, rôles inclus.",
         response: { 200: meResponseSchema },

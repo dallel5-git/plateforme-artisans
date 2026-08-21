@@ -9,7 +9,7 @@ _Sprint S1 · dernière mise à jour : 2026-08-17_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `BE-11` | Rate limiting Redis — OTP (5/h) + primitif contacts (30/j), par téléphone et IP | 2026-08-21 | `feat/BE-11-rate-limiting` | PR #86 (CI en cours). Vérifié en curl : 6ᵉ demande OTP → 429 + Retry-After, changer de numéro depuis la même IP reste bloqué. |
+| `BE-12` | RBAC centralisé `packages/core/policies` + preHandlers `requireAuth`/`requireRole` | 2026-08-21 | `feat/BE-12-rbac` | — |
 
 ## DEV-2
 

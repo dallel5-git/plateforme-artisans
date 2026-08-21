@@ -15,3 +15,6 @@ export const INTERNAL_ERROR = 'INTERNAL_ERROR';
 
 // BE-11 : rate limiting (OTP, puis contacts via BE-21).
 export const RATE_LIMIT_EXCEEDED = 'RATE_LIMIT_EXCEEDED';
+
+// BE-12 : RBAC — authentifié mais rôle/propriété insuffisants (distinct de UNAUTHORIZED, 401).
+export const FORBIDDEN = 'FORBIDDEN';

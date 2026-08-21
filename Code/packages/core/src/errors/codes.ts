@@ -17,4 +17,5 @@ export const ERROR_HTTP_STATUS: Record<ErrorCode, number> = {
   [errorCodes.UNAUTHORIZED]: 401,
   [errorCodes.INTERNAL_ERROR]: 500,
   [errorCodes.RATE_LIMIT_EXCEEDED]: 429,
+  [errorCodes.FORBIDDEN]: 403,
 };
