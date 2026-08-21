@@ -3,6 +3,9 @@
 // nécessaires (P1/P4). Un consommateur qui a besoin d'appeler Prisma directement s'est trompé
 // de couche.
 export { withTransaction } from './transaction.js';
+// BE-18 : nécessaire pour que la route capture un curseur malformé (400 VALIDATION_ERROR),
+// même geste que `InvalidSearchCursorError` (@repo/core) côté recherche.
+export { InvalidCursorError } from './pagination.js';
 export type { DbClient, PaginatedResult } from './types.js';
 export type {
   UserRole,
