@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "description": "Utilitaires purs partagés : currency.ts (millimes), phone-tn.ts (+216), slugify.ts.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "scripts": {
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "lint": "eslint .",

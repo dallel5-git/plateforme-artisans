@@ -9,7 +9,7 @@ _Sprint S1 · dernière mise à jour : 2026-08-17_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `BE-10` | Routes auth — découpée en 4 PRs atomiques (10a `me`, 10b `otp/request`, 10c `otp/verify`, 10d `refresh`+`logout`) | 2026-08-19 | `feat/BE-10a-auth-me` (+ suivantes) | 10a : PR #82 (CI en cours), cible `develop` — BE-09 et BE-13 sont mergées, plus aucun blocage de dépendance |
+| `BE-10` | Routes auth — découpée en 4 PRs atomiques (10a `me`, 10b `otp/request`, 10c `otp/verify`, 10d `refresh`+`logout`) | 2026-08-19 | `feat/BE-10a-auth-me` (+ suivantes) | 10a : PR #82 (CI verte). 10b (`otp/request`) : PR #83 (CI en cours), empilée sur #82. Toutes ciblent `develop`. |
 
 ## DEV-2
 

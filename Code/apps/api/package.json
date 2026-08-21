@@ -21,6 +21,8 @@
     "@repo/constants": "workspace:*",
     "@repo/core": "workspace:*",
     "@repo/db": "workspace:*",
+    "@repo/notifications": "workspace:*",
+    "@repo/utils": "workspace:*",
     "@repo/validators": "workspace:*",
     "fastify": "5.12.0",
     "fastify-type-provider-zod": "7.0.0",

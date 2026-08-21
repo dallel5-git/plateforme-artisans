@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "description": "Adaptateurs SMS (interface SmsProvider, console en S1) et push (S2+).",
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "scripts": {
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "lint": "eslint .",
