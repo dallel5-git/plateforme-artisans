@@ -33,10 +33,8 @@
 
 | ID | Tâche | Prio | Qui | Est. | Dépend de | US |
 |---|---|---|---|---|---|---|
-| `BE-10` | Routes auth (`otp/request`, `otp/verify`, `refresh`, `logout`, `me`) | 🔴 | DEV-1 | 2 h | BE-07, BE-09, BE-13 | US-C-02 |
 | `BE-11` | Rate limiting Redis — **OTP + contacts**, par téléphone **et** IP | 🔴 | DEV-1 | 1,5 h | SO-02 | P10 |
 | `BE-12` | RBAC centralisé `core/policies` + preHandlers | 🔴 | DEV-1 | 2 h | BE-09 | Annexe B |
-| `BE-13` | Erreurs normalisées + codes + `requestId` (**Sentry → S2**) | 🔴 | DEV-1 | 1 h | SO-03 | §4 |
 
 ### Métier & API
 

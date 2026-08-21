@@ -10,8 +10,10 @@ import {
 } from 'fastify-type-provider-zod';
 
 import { env } from './env.js';
+import { registerAuthenticate } from './plugins/authenticate.js';
 import { registerErrorHandler } from './plugins/error-handler.js';
 import { registerSwagger } from './plugins/swagger.js';
+import { authRoutes } from './routes/auth.js';
 import { healthRoutes } from './routes/health.js';
 
 export async function buildServer() {
@@ -32,6 +34,7 @@ export async function buildServer() {
   app.setValidatorCompiler(validatorCompiler);
   app.setSerializerCompiler(serializerCompiler);
   registerErrorHandler(app);
+  registerAuthenticate(app);
 
   // requestId : déjà dans chaque ligne de log (pino via `logger: true`) ; ce hook l'ajoute aussi
   // à chaque réponse, pour la corrélation client ↔ logs serveur.
@@ -53,6 +56,7 @@ export async function buildServer() {
 
   await registerSwagger(app);
   await app.register(healthRoutes, { prefix: '/v1' });
+  await app.register(authRoutes, { prefix: '/v1' });
 
   return app;
 }
