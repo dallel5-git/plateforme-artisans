@@ -156,6 +156,113 @@ export async function listProviderProfiles(
   return buildPage(rows.map(toProfile), limit, (row) => row.rankingScore);
 }
 
+// BE-16 : sélection dédiée à la recherche — distincte de `profileSelect` (relations
+// nécessaires au score : couverture géo + catégories ; champs non pertinents pour une carte de
+// résultat — bio, workingHours... — omis). `listProviderProfiles` (BE-05, ci-dessus) reste tel
+// quel : sa stratégie de tri/pagination DB-side sur `rankingScore` (jamais peuplé, aucun worker
+// ne l'écrit) est incompatible avec un tri calculé en mémoire (packages/core/src/search/scoring.ts)
+// et elle n'a aucun appelant à ce jour — pas à BE-16 de la corriger.
+const searchCandidateSelect = {
+  id: true,
+  slug: true,
+  businessName: true,
+  headline: true,
+  isVerified: true,
+  ratingAvg: true,
+  ratingCount: true,
+  completionScore: true,
+  availabilityStatus: true,
+  lastActiveAt: true,
+  coverageAreas: { select: { governorateId: true, delegationId: true } },
+  categories: {
+    select: {
+      isPrimary: true,
+      category: { select: { slug: true, nameFr: true, nameAr: true } },
+    },
+  },
+} as const;
+
+type RawSearchCandidate = Prisma.ProviderProfileGetPayload<{
+  select: typeof searchCandidateSelect;
+}>;
+
+export interface SearchCandidate {
+  id: string;
+  slug: string;
+  businessName: string;
+  headline: string | null;
+  isVerified: boolean;
+  ratingAvg: number;
+  ratingCount: number;
+  completionScore: number;
+  availabilityStatus: AvailabilityStatus;
+  lastActiveAt: Date | null;
+  coverageAreas: Array<{ governorateId: string; delegationId: string | null }>;
+  categories: Array<{ isPrimary: boolean; slug: string; nameFr: string; nameAr: string }>;
+}
+
+function toSearchCandidate(row: RawSearchCandidate): SearchCandidate {
+  return {
+    id: row.id,
+    slug: row.slug,
+    businessName: row.businessName,
+    headline: row.headline,
+    isVerified: row.isVerified,
+    ratingAvg: row.ratingAvg.toNumber(),
+    ratingCount: row.ratingCount,
+    completionScore: row.completionScore,
+    availabilityStatus: row.availabilityStatus,
+    lastActiveAt: row.lastActiveAt,
+    coverageAreas: row.coverageAreas,
+    categories: row.categories.map((c) => ({
+      isPrimary: c.isPrimary,
+      slug: c.category.slug,
+      nameFr: c.category.nameFr,
+      nameAr: c.category.nameAr,
+    })),
+  };
+}
+
+export interface SearchProviderProfilesFilters {
+  categoryId?: string;
+  governorateId: string;
+  delegationId?: string;
+  verified?: boolean;
+  minRating?: number;
+  availabilityStatus?: AvailabilityStatus;
+}
+
+/**
+ * BE-16 : renvoie TOUS les candidats correspondants, sans pagination DB-side — le tri par score
+ * de ranking est calculé en mémoire (packages/core/src/search/scoring.ts), pas persisté ici.
+ * Compromis MVP explicite et documenté : acceptable à l'échelle Sahel-launch (~30 artisans dans
+ * le seed, quelques centaines par gouvernorat au réalisme). À revoir avant toute croissance à
+ * grande échelle (score persistable + pagination DB-side).
+ */
+export async function searchProviderProfiles(
+  filters: SearchProviderProfilesFilters,
+  db: DbClient = prisma,
+): Promise<SearchCandidate[]> {
+  const where: Prisma.ProviderProfileWhereInput = {
+    publicationStatus: 'PUBLISHED',
+    ...(filters.categoryId ? { categories: { some: { categoryId: filters.categoryId } } } : {}),
+    ...(filters.verified ? { isVerified: true } : {}),
+    ...(filters.minRating !== undefined ? { ratingAvg: { gte: filters.minRating } } : {}),
+    ...(filters.availabilityStatus ? { availabilityStatus: filters.availabilityStatus } : {}),
+    coverageAreas: {
+      some: {
+        governorateId: filters.governorateId,
+        ...(filters.delegationId
+          ? { OR: [{ delegationId: null }, { delegationId: filters.delegationId }] }
+          : {}),
+      },
+    },
+  };
+
+  const rows = await db.providerProfile.findMany({ where, select: searchCandidateSelect });
+  return rows.map(toSearchCandidate);
+}
+
 export interface CreateProviderProfileInput {
   userId: string;
   slug: string;
