@@ -93,6 +93,20 @@ export async function findGovernorateBySlug(
   return row ? toGovernorate(row) : null;
 }
 
+// BE-17 : hydratation par lots pour la fiche publique (zones de couverture) — même style que
+// `findCategoriesByIds` (category.repository.ts).
+export async function findGovernoratesByIds(
+  ids: string[],
+  db: DbClient = prisma,
+): Promise<Governorate[]> {
+  if (ids.length === 0) return [];
+  const rows = await db.governorate.findMany({
+    where: { id: { in: ids }, isActive: true },
+    select: governorateSelect,
+  });
+  return rows.map(toGovernorate);
+}
+
 // BE-14 : existence check pour `GET /governorates/:id/delegations` — `listActiveDelegationsByGovernorate`
 // seul ne distingue pas un gouvernorat inconnu d'un gouvernorat réel sans délégation active.
 export async function findGovernorateById(
@@ -128,4 +142,18 @@ export async function findDelegationBySlug(
     select: delegationSelect,
   });
   return row ? toDelegation(row) : null;
+}
+
+// BE-17 : hydratation par lots pour la fiche publique (zones de couverture) — même style que
+// `findCategoriesByIds` (category.repository.ts).
+export async function findDelegationsByIds(
+  ids: string[],
+  db: DbClient = prisma,
+): Promise<Delegation[]> {
+  if (ids.length === 0) return [];
+  const rows = await db.delegation.findMany({
+    where: { id: { in: ids }, isActive: true },
+    select: delegationSelect,
+  });
+  return rows.map(toDelegation);
 }

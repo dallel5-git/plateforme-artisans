@@ -17,7 +17,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { registerErrorHandler } from '../src/plugins/error-handler.js';
 import { registerRequireAuth } from '../src/plugins/require-auth.js';
 import { registerRequireRole } from '../src/plugins/require-role.js';
-import { providerRoutes } from '../src/routes/providers.js';
+import { providersRoutes } from '../src/routes/providers.js';
 
 async function buildTestApp() {
   const app = Fastify().withTypeProvider<ZodTypeProvider>();
@@ -26,7 +26,7 @@ async function buildTestApp() {
   registerErrorHandler(app);
   registerRequireAuth(app);
   registerRequireRole(app);
-  await app.register(providerRoutes, { prefix: '/v1' });
+  await app.register(providersRoutes, { prefix: '/v1' });
   return app;
 }
 

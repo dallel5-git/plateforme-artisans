@@ -7,5 +7,5 @@
     "noEmit": true
   },
   "include": ["src", "tests"],
-  "exclude": ["node_modules", "dist", "tests/ranking.test.ts", "tests/contacts.test.ts"]
+  "exclude": ["node_modules", "dist", "tests/contacts.test.ts"]
 }

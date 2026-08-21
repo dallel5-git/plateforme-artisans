@@ -3,19 +3,24 @@
 // back-office (US-A-09). Le cadrage ne fixe aucune valeur numérique par défaut (seulement
 // C≈8 pour le lissage bayésien) : les poids ci-dessous sont un point de départ raisonnable,
 // pas une décision produit figée.
+//
+// BE-15 : les clés correspondent 1:1 aux champs de `RankingWeights`
+// (packages/core/src/search/ranking.ts), validées à la lecture par `parseRankingWeights`.
+// `C` (lissage bayésien) n'est volontairement PAS stocké ici : c'est une constante interne à
+// `computeRankingScore`, jamais reçue en paramètre — la garder dans ce JSON la rendrait
+// « éditable » depuis le futur back-office sans jamais rien changer.
 import type { PrismaClient } from '@prisma/client';
 
 export const RANKING_WEIGHTS_KEY = 'ranking.weights';
 
 const RANKING_WEIGHTS_VALUE = {
-  w1_pertinenceGeo: 0.35,
-  w2_qualiteReputation: 0.25,
-  w3_confiance: 0.15,
-  w4_completudeProfil: 0.1,
-  w5_reactivite: 0.05,
-  w6_facteurPlan: 0.1,
-  w7_penaliteSignalements: 0.2,
-  bayesianC: 8,
+  w1Geo: 0.35,
+  w2Rating: 0.25,
+  w3Trust: 0.15,
+  w4Completion: 0.1,
+  w5Responsiveness: 0.05,
+  w6Plan: 0.1,
+  w7Penalty: 0.2,
 };
 
 export async function seedAppSettings(prisma: PrismaClient): Promise<void> {

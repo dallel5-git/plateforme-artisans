@@ -46,6 +46,11 @@
 | `BE-10d` | `POST /v1/auth/refresh` + `POST /v1/auth/logout` — rotation, détection de rejeu | Claude | #85 | 2026-08-21 |
 | `BE-10` | Routes d'authentification — parcours complet `otp/request`→`otp/verify`→`me`→`refresh`→`logout` (4 PRs atomiques ci-dessus) | Claude | #82–#85 | 2026-08-21 |
 | `BE-11` | Rate limiting Redis — OTP (5/h) + primitif contacts (30/j), par téléphone et IP | Claude | #86 | 2026-08-21 |
+| `BE-14a` | Cache-aside Redis générique (`getOrSetCache`), infra sans surface API | Claude | #88 | 2026-08-21 |
+| `BE-14b` | `GET /v1/categories` — arbre complet FR/AR, une seule requête, exception P5 documentée | Claude | #89 | 2026-08-21 |
+| `BE-14c` | `GET /v1/governorates` + `GET /v1/governorates/:id/delegations` (404 si id inconnu) | Claude | #90 | 2026-08-21 |
+| `BE-14d` | Invalidation cache catalogue au seed (`tooling/scripts/flush-catalog-cache.ts`) | Claude | #91 | 2026-08-21 |
+| `BE-14` | Catalogue (catégories / gouvernorats / délégations) + cache Redis — parcours complet (4 PRs atomiques ci-dessus) | Claude | #88–#91 | 2026-08-21 |
 
 ---
 
@@ -54,7 +59,7 @@
 | Métrique | Valeur |
 |---|---|
 | Tâches 🔴 P0 planifiées | 43 |
-| Tâches 🔴 P0 terminées | 18 |
+| Tâches 🔴 P0 terminées | 19 |
 | Tâches 🟠 P1 terminées | 0 / 7 *(l'amortisseur : 18 h)* |
 | Heures-homme 🔴 P0 estimées / consommées | 109 h / 3 h *(capacité 112 h)* |
 

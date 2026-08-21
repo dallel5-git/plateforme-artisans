@@ -38,9 +38,7 @@
 
 | ID | Tâche | Prio | Qui | Est. | Dépend de | US |
 |---|---|---|---|---|---|---|
-| `BE-15` | ⭐ **Ranking** — géo, bayésien (C=8), confiance, complétude, réactivité, plan, pénalités, rotation ±2 %. **≥12 tests** | 🔴 | **binôme** | 4 h *(8 h-h)* | BE-01 | Annexe A |
 | `BE-16` | `GET /providers/search` — filtres + tri + **curseur** | 🔴 | DEV-1 | 3 h | BE-15, BE-05 | US-C-01/03 |
-| `BE-17` | `GET /providers/:slug` — **sans téléphone** | 🔴 | DEV-1 | 2 h | BE-05 | US-C-04 |
 | `BE-18` | `GET /providers/:slug/reviews` paginé | 🔴 | DEV-1 | 1 h | BE-05 | US-C-07 |
 | `BE-19a` | Onboarding artisan — `packages/core` : fonction pure `calculateCompletionScore` + tests | 🟠 | DEV-2 | 0,5 h | BE-12 | US-P-02→04 |
 | `BE-19b` | Onboarding artisan — `POST`/`PATCH /v1/providers/me` : création, promotion de rôle, complétude, garde de publication | 🟠 | DEV-2 | 1 h | BE-19a | US-P-02→04 |

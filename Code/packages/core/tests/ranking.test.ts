@@ -16,7 +16,11 @@
  *     mal placée (POLITIQUE-PROJET.md §6).
  */
 import { describe, it, expect } from 'vitest';
-import { computeRankingScore, type RankingInput, type RankingWeights } from '../src/search/ranking';
+import {
+  computeRankingScore,
+  type RankingInput,
+  type RankingWeights,
+} from '../src/search/ranking.js';
 
 // Poids de référence. En production ils sont lus depuis AppSetting — c'est
 // précisément pour ça qu'on les INJECTE ici plutôt que de les importer.

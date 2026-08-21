@@ -15,20 +15,17 @@ _Sprint S1 · dernière mise à jour : 2026-08-21_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `BE-14a` | Cache-aside Redis générique (`getOrSetCache`) — infra, sans surface API | 2026-08-21 | `feat/BE-14a-cache-infra` | PR #88 ouverte (CI en cours) |
-| `BE-14b` | `GET /v1/categories` — arbre complet FR/AR, une seule requête, exception P5 documentée | 2026-08-21 | `feat/BE-14b-categories` | PR #89 ouverte (empilée sur #88, CI en cours) |
-| `BE-14c` | `GET /v1/governorates` + `/:id/delegations` — 404 si id inconnu | 2026-08-21 | `feat/BE-14c-governorates` | PR #90 ouverte (empilée sur #88/#89, CI en cours) |
-| `BE-14d` | Invalidation cache catalogue au seed (`tooling/scripts/flush-catalog-cache.ts`) | 2026-08-21 | `feat/BE-14d-seed-cache-invalidation` | PR #91 ouverte (empilée sur #88/#89/#90, CI en cours) — **dernière sous-tâche, clôt #52 une fois les 4 mergées dans l'ordre** |
-| `BE-19a` | Onboarding artisan — `packages/core` : fonction pure `calculateCompletionScore` + tests | 2026-08-21 | `feat/BE-19a-completion-score` | PR #93 ouverte (CI en cours) — première des 4 sous-tâches de BE-19 (issue #23) |
-| `BE-19b` | Onboarding artisan — `POST`/`PATCH /v1/providers/me` : création, promotion de rôle, complétude, garde de publication | 2026-08-21 | `feat/BE-19b-provider-me-profile` | PR #97 ouverte (empilée sur #93, CI en cours) |
-| `BE-19c` | Onboarding artisan — `PUT /v1/providers/me/categories` : remplacement atomique, `isPrimary`, quota FREE | 2026-08-21 | `feat/BE-19c-provider-categories` | PR #98 ouverte (empilée sur #97, CI en cours) |
-| `BE-19d` | Onboarding artisan — `PUT /v1/providers/me/coverage-areas` : remplacement atomique, quota FREE | 2026-08-21 | `feat/BE-19d-provider-coverage-areas` | PR #99 ouverte (empilée sur #98, CI en cours) — **dernière sous-tâche, clôt #23 une fois les 4 mergées dans l'ordre** |
+| `BE-17` | `GET /providers/:slug` — **sans téléphone** | 2026-08-21 | `feat/BE-17c-public-profile-route` | 3 PRs atomiques (core → repository → route, découpage BE-16a/b/c) : #100 (core, CI en cours), #101 (repository, CI en cours), #102 (route + contrat, CI en cours). |
+| `BE-19a` | Onboarding artisan — `packages/core` : fonction pure `calculateCompletionScore` + tests | 2026-08-21 | `feat/BE-19a-completion-score` | PR #93 ouverte (CI en cours) — première des 4 sous-tâches de BE-19 (issue #23). Contient les commits mergés de #97/#98/#99 (voir ci-dessous) + une réconciliation avec `develop` (conflits réels avec BE-17 sur `providers.ts`/`provider.ts` : deux ajouts disjoints au même fichier, résolus en combinant les deux). |
+| `BE-19b` | Onboarding artisan — `POST`/`PATCH /v1/providers/me` : création, promotion de rôle, complétude, garde de publication | 2026-08-21 | `feat/BE-19b-provider-me-profile` | PR #97 **mergée** dans `feat/BE-19a-completion-score` |
+| `BE-19c` | Onboarding artisan — `PUT /v1/providers/me/categories` : remplacement atomique, `isPrimary`, quota FREE | 2026-08-21 | `feat/BE-19c-provider-categories` | PR #98 **mergée** dans `feat/BE-19a-completion-score` |
+| `BE-19d` | Onboarding artisan — `PUT /v1/providers/me/coverage-areas` : remplacement atomique, quota FREE | 2026-08-21 | `feat/BE-19d-provider-coverage-areas` | PR #99 **mergée** dans `feat/BE-19a-completion-score` — **dernière sous-tâche, clôt #23 une fois #93 mergée dans `develop`** |
 
 ## En binôme
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| — | _rien en cours_ | | | |
+| `BE-15` | ⭐ Ranking — géo, bayésien (C=8), confiance, complétude, réactivité, plan, pénalités, rotation ±2 % | 2026-08-21 | `feat/BE-15-ranking-algorithm` | PR #92 ouverte (CI en cours). 18/18 tests pré-écrits + 3 additifs, 🔒 garde-fou ADR-002 vert. |
 
 ---
 

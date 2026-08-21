@@ -17,7 +17,7 @@ import { registerSwagger } from './plugins/swagger.js';
 import { authRoutes } from './routes/auth.js';
 import { catalogRoutes } from './routes/catalog.js';
 import { healthRoutes } from './routes/health.js';
-import { providerRoutes } from './routes/providers.js';
+import { providersRoutes } from './routes/providers.js';
 
 export async function buildServer() {
   const app = Fastify({
@@ -62,7 +62,7 @@ export async function buildServer() {
   await app.register(healthRoutes, { prefix: '/v1' });
   await app.register(authRoutes, { prefix: '/v1' });
   await app.register(catalogRoutes, { prefix: '/v1' });
-  await app.register(providerRoutes, { prefix: '/v1' });
+  await app.register(providersRoutes, { prefix: '/v1' });
 
   return app;
 }

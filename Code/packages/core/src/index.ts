@@ -49,3 +49,52 @@ export {
 export type { CompletionScoreInput, CompletionScoreResult } from './providers/completion-score.js';
 
 export { FREE_PLAN_MAX_CATEGORIES, FREE_PLAN_MAX_GOVERNORATES } from './billing/plan-limits.js';
+
+export { computeRankingScore, fnv1aHash, parseRankingWeights } from './search/ranking.js';
+export type {
+  GeoMatch,
+  RankingBreakdown,
+  RankingInput,
+  RankingRotation,
+  RankingScoreResult,
+  RankingWeights,
+} from './search/ranking.js';
+
+export {
+  deriveGeoMatch,
+  deriveResponsivenessScore,
+  scoreCandidates,
+  DEFAULT_PENALTY_SCORE,
+  DEFAULT_PLAN_BOOST_FACTOR,
+} from './search/scoring.js';
+export type { CandidateForScoring, ScoredCandidate } from './search/scoring.js';
+
+export {
+  buildSearchSeed,
+  paginateScoredResults,
+  InvalidSearchCursorError,
+} from './search/query-builder.js';
+export type { NormalizedSearchFilters, PaginatedResult } from './search/query-builder.js';
+
+export { requirePublishedProfile, buildPublicProviderProfile } from './providers/public-profile.js';
+export type {
+  NameRef,
+  PublicProviderCategory,
+  PublicServiceOffering,
+  PublicCoverageArea,
+  PublicGalleryItem,
+  PublicProviderProfile,
+  PublicProviderProfileInput,
+} from './providers/public-profile.js';
+
+export { formatDisplayPrice } from './providers/pricing.js';
+export type { OfferingPriceInput } from './providers/pricing.js';
+
+export { parseReviewCountByStar, buildReviewAggregate } from './reviews/aggregate.js';
+export type { ReviewStarBreakdown, ReviewAggregate } from './reviews/aggregate.js';
+
+export {
+  buildReviewAuthorDisplayName,
+  DEFAULT_REVIEW_AUTHOR_NAME,
+} from './reviews/display-name.js';
+export type { ReviewAuthorNameInput } from './reviews/display-name.js';

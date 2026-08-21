@@ -994,6 +994,843 @@
         }
       }
     },
+    "/v1/providers/search": {
+      "get": {
+        "description": "Recherche d’artisans : catégorie/gouvernorat/délégation/vérifié/note/disponibilité, tri par score de ranking calculé, pagination par curseur. Mode debug via ?debug=true.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "in": "query",
+            "name": "category",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "in": "query",
+            "name": "governorate",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "in": "query",
+            "name": "delegation",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "true",
+                "false"
+              ]
+            },
+            "in": "query",
+            "name": "verified",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 5
+            },
+            "in": "query",
+            "name": "minRating",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "AVAILABLE",
+                "BUSY",
+                "ON_HOLIDAY"
+              ]
+            },
+            "in": "query",
+            "name": "availability",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "cursor",
+            "required": false
+          },
+          {
+            "schema": {
+              "default": 20,
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            },
+            "in": "query",
+            "name": "limit",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "true",
+                "false"
+              ]
+            },
+            "in": "query",
+            "name": "debug",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "slug": {
+                            "type": "string"
+                          },
+                          "businessName": {
+                            "type": "string"
+                          },
+                          "headline": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "isVerified": {
+                            "type": "boolean"
+                          },
+                          "ratingAvg": {
+                            "type": "number"
+                          },
+                          "ratingCount": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          "completionScore": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          "availabilityStatus": {
+                            "type": "string",
+                            "enum": [
+                              "AVAILABLE",
+                              "BUSY",
+                              "ON_HOLIDAY"
+                            ]
+                          },
+                          "categories": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "slug": {
+                                  "type": "string"
+                                },
+                                "nameFr": {
+                                  "type": "string"
+                                },
+                                "nameAr": {
+                                  "type": "string"
+                                },
+                                "isPrimary": {
+                                  "type": "boolean"
+                                }
+                              },
+                              "required": [
+                                "slug",
+                                "nameFr",
+                                "nameAr",
+                                "isPrimary"
+                              ],
+                              "additionalProperties": false
+                            }
+                          },
+                          "score": {
+                            "type": "number"
+                          },
+                          "matchReason": {
+                            "type": "object",
+                            "properties": {
+                              "geo": {
+                                "type": "number"
+                              },
+                              "rating": {
+                                "type": "number"
+                              },
+                              "trust": {
+                                "type": "number"
+                              },
+                              "completion": {
+                                "type": "number"
+                              },
+                              "responsiveness": {
+                                "type": "number"
+                              },
+                              "plan": {
+                                "type": "number"
+                              },
+                              "penalty": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "geo",
+                              "rating",
+                              "trust",
+                              "completion",
+                              "responsiveness",
+                              "plan",
+                              "penalty"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "slug",
+                          "businessName",
+                          "headline",
+                          "isVerified",
+                          "ratingAvg",
+                          "ratingCount",
+                          "completionScore",
+                          "availabilityStatus",
+                          "categories"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "nextCursor": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "nextCursor"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/providers/{slug}": {
+      "get": {
+        "description": "Fiche artisan publique — profil, catégories, offres tarifées, zones de couverture, galerie, agrégat d’avis. Jamais de numéro de téléphone (voir POST /contact-events, BE-21).",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "in": "path",
+            "name": "slug",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "slug": {
+                      "type": "string"
+                    },
+                    "businessName": {
+                      "type": "string"
+                    },
+                    "headline": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "bio": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "yearsExperience": {
+                      "anyOf": [
+                        {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "spokenLanguages": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "FR",
+                          "AR",
+                          "EN"
+                        ]
+                      }
+                    },
+                    "baseGovernorate": {
+                      "type": "object",
+                      "properties": {
+                        "slug": {
+                          "type": "string"
+                        },
+                        "nameFr": {
+                          "type": "string"
+                        },
+                        "nameAr": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "slug",
+                        "nameFr",
+                        "nameAr"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "baseDelegation": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "slug": {
+                              "type": "string"
+                            },
+                            "nameFr": {
+                              "type": "string"
+                            },
+                            "nameAr": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "slug",
+                            "nameFr",
+                            "nameAr"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "latitude": {
+                      "anyOf": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "longitude": {
+                      "anyOf": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "isVerified": {
+                      "type": "boolean"
+                    },
+                    "availabilityStatus": {
+                      "type": "string",
+                      "enum": [
+                        "AVAILABLE",
+                        "BUSY",
+                        "ON_HOLIDAY"
+                      ]
+                    },
+                    "availableAgainAt": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "acceptsEmergency": {
+                      "type": "boolean"
+                    },
+                    "completionScore": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    "categories": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "slug": {
+                            "type": "string"
+                          },
+                          "nameFr": {
+                            "type": "string"
+                          },
+                          "nameAr": {
+                            "type": "string"
+                          },
+                          "isPrimary": {
+                            "type": "boolean"
+                          },
+                          "yearsExperience": {
+                            "anyOf": [
+                              {
+                                "type": "integer",
+                                "minimum": -9007199254740991,
+                                "maximum": 9007199254740991
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          }
+                        },
+                        "required": [
+                          "slug",
+                          "nameFr",
+                          "nameAr",
+                          "isPrimary",
+                          "yearsExperience"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "offerings": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "category": {
+                            "type": "object",
+                            "properties": {
+                              "slug": {
+                                "type": "string"
+                              },
+                              "nameFr": {
+                                "type": "string"
+                              },
+                              "nameAr": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "slug",
+                              "nameFr",
+                              "nameAr"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "titleFr": {
+                            "type": "string"
+                          },
+                          "titleAr": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "description": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "priceMin": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "priceMax": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "priceUnit": {
+                            "type": "string",
+                            "enum": [
+                              "FIXED",
+                              "HOUR",
+                              "DAY",
+                              "SQUARE_METER",
+                              "LINEAR_METER",
+                              "ON_QUOTE"
+                            ]
+                          },
+                          "isNegotiable": {
+                            "type": "boolean"
+                          },
+                          "displayPrice": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "category",
+                          "titleFr",
+                          "titleAr",
+                          "description",
+                          "priceMin",
+                          "priceMax",
+                          "priceUnit",
+                          "isNegotiable",
+                          "displayPrice"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "coverageAreas": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "governorate": {
+                            "type": "object",
+                            "properties": {
+                              "slug": {
+                                "type": "string"
+                              },
+                              "nameFr": {
+                                "type": "string"
+                              },
+                              "nameAr": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "slug",
+                              "nameFr",
+                              "nameAr"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "delegation": {
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "slug": {
+                                    "type": "string"
+                                  },
+                                  "nameFr": {
+                                    "type": "string"
+                                  },
+                                  "nameAr": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "slug",
+                                  "nameFr",
+                                  "nameAr"
+                                ],
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "travelFee": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          }
+                        },
+                        "required": [
+                          "governorate",
+                          "delegation",
+                          "travelFee"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "gallery": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "url": {
+                            "type": "string"
+                          },
+                          "width": {
+                            "anyOf": [
+                              {
+                                "type": "integer",
+                                "minimum": -9007199254740991,
+                                "maximum": 9007199254740991
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "height": {
+                            "anyOf": [
+                              {
+                                "type": "integer",
+                                "minimum": -9007199254740991,
+                                "maximum": 9007199254740991
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "blurhash": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "caption": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "category": {
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "slug": {
+                                    "type": "string"
+                                  },
+                                  "nameFr": {
+                                    "type": "string"
+                                  },
+                                  "nameAr": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "slug",
+                                  "nameFr",
+                                  "nameAr"
+                                ],
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "url",
+                          "width",
+                          "height",
+                          "blurhash",
+                          "caption",
+                          "category"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "reviewAggregate": {
+                      "type": "object",
+                      "properties": {
+                        "average": {
+                          "type": "number"
+                        },
+                        "count": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "breakdown": {
+                          "type": "object",
+                          "properties": {
+                            "1": {
+                              "type": "integer",
+                              "minimum": 0,
+                              "maximum": 9007199254740991
+                            },
+                            "2": {
+                              "type": "integer",
+                              "minimum": 0,
+                              "maximum": 9007199254740991
+                            },
+                            "3": {
+                              "type": "integer",
+                              "minimum": 0,
+                              "maximum": 9007199254740991
+                            },
+                            "4": {
+                              "type": "integer",
+                              "minimum": 0,
+                              "maximum": 9007199254740991
+                            },
+                            "5": {
+                              "type": "integer",
+                              "minimum": 0,
+                              "maximum": 9007199254740991
+                            }
+                          },
+                          "required": [
+                            "1",
+                            "2",
+                            "3",
+                            "4",
+                            "5"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "required": [
+                        "average",
+                        "count",
+                        "breakdown"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "slug",
+                    "businessName",
+                    "headline",
+                    "bio",
+                    "yearsExperience",
+                    "spokenLanguages",
+                    "baseGovernorate",
+                    "baseDelegation",
+                    "latitude",
+                    "longitude",
+                    "isVerified",
+                    "availabilityStatus",
+                    "availableAgainAt",
+                    "acceptsEmergency",
+                    "completionScore",
+                    "categories",
+                    "offerings",
+                    "coverageAreas",
+                    "gallery",
+                    "reviewAggregate"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/providers/me": {
       "post": {
         "description": "Crée le profil artisan de l'utilisateur authentifié. Le promeut PROVIDER s'il ne l'est pas déjà (US-P-01 : devenir prestataire sans créer un second compte) et émet un nouveau couple de tokens reflétant ce rôle.",
