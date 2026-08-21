@@ -9,7 +9,8 @@ _Sprint S1 · dernière mise à jour : 2026-08-21_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `BE-12` | RBAC centralisé `packages/core/policies` + preHandlers `requireAuth`/`requireRole` | 2026-08-21 | `feat/BE-12-rbac` | PR #87 (CI en cours). `requireAuth` renommé depuis `authenticate` (BE-10a), vérifié en curl sans régression. |
+| `BE-12` | RBAC centralisé `packages/core/policies` + preHandlers `requireAuth`/`requireRole` | 2026-08-21 | `feat/BE-12-rbac` | PR #87 (CI en cours). `requireAuth` renommé depuis `authenticate` (BE-10a), vérifié en curl sans régression. ⚠️ ligne à vérifier : PR #87 semble déjà mergée sur `develop`, à confirmer et déplacer vers DONE.md. |
+| `BE-16` | `GET /v1/providers/search` — filtres + tri (score calculé) + pagination curseur | 2026-08-21 | `feat/BE-16c-search-route` | 3 PRs atomiques : #94 (scoring/pagination, mergée), #95 (repository, mergée), #96 (route, CI en cours) — clôt #53 une fois #96 mergée. GATE 1 vérifié manuellement (≥5 items triés, <200ms, pagination sans doublon/trou). |
 
 ## DEV-2
 
@@ -21,7 +22,7 @@ _Sprint S1 · dernière mise à jour : 2026-08-21_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `BE-15` | ⭐ Ranking — géo, bayésien (C=8), confiance, complétude, réactivité, plan, pénalités, rotation ±2 % | 2026-08-21 | `feat/BE-15-ranking-algorithm` | PR #92 ouverte (CI en cours). 18/18 tests pré-écrits + 3 additifs, 🔒 garde-fou ADR-002 vert. |
+| — | _rien en cours (BE-15 mergée, #92)_ | | | |
 
 ---
 

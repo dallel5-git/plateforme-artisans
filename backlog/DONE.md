@@ -51,6 +51,9 @@
 | `BE-14c` | `GET /v1/governorates` + `GET /v1/governorates/:id/delegations` (404 si id inconnu) | Claude | #90 | 2026-08-21 |
 | `BE-14d` | Invalidation cache catalogue au seed (`tooling/scripts/flush-catalog-cache.ts`) | Claude | #91 | 2026-08-21 |
 | `BE-14` | Catalogue (catégories / gouvernorats / délégations) + cache Redis — parcours complet (4 PRs atomiques ci-dessus) | Claude | #88–#91 | 2026-08-21 |
+| `BE-15` | ⭐ Ranking — géo, bayésien (C=8), confiance, complétude, réactivité, plan, pénalités, rotation ±2 % (18 tests pré-écrits + 3 additifs, 🔒 garde-fou ADR-002) | Claude | #92 | 2026-08-21 |
+| `BE-16a` | Scoring et pagination en mémoire pour la recherche (`packages/core/src/search/`) | Claude | #94 | 2026-08-21 |
+| `BE-16b` | `searchProviderProfiles` — candidats de recherche + `buildSearchWhereClause` testé | Claude | #95 | 2026-08-21 |
 
 ---
 
@@ -59,9 +62,9 @@
 | Métrique | Valeur |
 |---|---|
 | Tâches 🔴 P0 planifiées | 43 |
-| Tâches 🔴 P0 terminées | 19 |
+| Tâches 🔴 P0 terminées | 20 |
 | Tâches 🟠 P1 terminées | 0 / 7 *(l'amortisseur : 18 h)* |
-| Heures-homme 🔴 P0 estimées / consommées | 109 h / 3 h *(capacité 112 h)* |
+| Heures-homme 🔴 P0 estimées / consommées | 109 h / 11 h *(capacité 112 h — BE-15 compte double, binôme)* |
 
 > Mettre à jour ce compteur **au daily**. C'est le seul indicateur qui dira mercredi si le périmètre
 > tient — et mercredi est le dernier jour où couper coûte encore peu.
