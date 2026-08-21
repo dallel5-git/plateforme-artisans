@@ -486,6 +486,32 @@ export async function listCoverageAreas(
   return rows.map(toCoverageArea);
 }
 
+export interface CoverageAreaReplaceInput {
+  governorateId: string;
+  delegationId?: string;
+  travelFee?: number;
+}
+
+/**
+ * BE-19d : remplace tout le set de zones d'un coup (`PUT`), même logique que
+ * `replaceProviderCategories` (BE-19c) — supprime puis recrée, transaction-agnostique (à
+ * appeler avec le `tx` de `withTransaction` depuis la route, avec `updateProviderProfile` pour
+ * le `completionScore`, dans la même transaction).
+ */
+export async function replaceCoverageAreas(
+  providerId: string,
+  areas: CoverageAreaReplaceInput[],
+  db: DbClient = prisma,
+): Promise<CoverageArea[]> {
+  await db.coverageArea.deleteMany({ where: { providerId } });
+  if (areas.length > 0) {
+    await db.coverageArea.createMany({
+      data: areas.map((area) => ({ providerId, ...area })),
+    });
+  }
+  return listCoverageAreas(providerId, db);
+}
+
 export async function addCoverageArea(
   providerId: string,
   governorateId: string,
