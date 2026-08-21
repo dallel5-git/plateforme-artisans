@@ -1,10 +1,12 @@
 import { INTERNAL_ERROR, NOT_FOUND, VALIDATION_ERROR } from '@repo/constants';
 import {
+  buildPublicProviderProfile,
   buildSearchSeed,
   DomainError,
   InvalidSearchCursorError,
   paginateScoredResults,
   parseRankingWeights,
+  requirePublishedProfile,
   scoreCandidates,
   type NormalizedSearchFilters,
   type RankingWeights,
@@ -12,15 +14,26 @@ import {
 } from '@repo/core';
 import {
   findAppSetting,
+  findCategoriesByIds,
   findCategoryBySlug,
   findDelegationBySlug,
+  findDelegationsByIds,
   findGovernorateBySlug,
+  findGovernoratesByIds,
+  findMediaAssetsByIds,
+  findProviderProfileBySlug,
+  listCoverageAreas,
+  listPortfolioItems,
+  listProviderCategories,
+  listServiceOfferings,
   searchProviderProfiles,
   type SearchCandidate,
 } from '@repo/db';
 import {
+  providerPublicProfileSchema,
   providerSearchQuerySchema,
   providerSearchResponseSchema,
+  providerSlugParamsSchema,
   type ProviderSearchQuery,
 } from '@repo/validators';
 import type { FastifyInstance } from 'fastify';
@@ -126,6 +139,59 @@ function toResultItem(scored: ScoredCandidate<SearchCandidate>, debug: boolean) 
   };
 }
 
+// BE-17 : assemblage de la fiche publique. `requirePublishedProfile` (@repo/core) garantit le
+// 404 (jamais 403) sur un profil non PUBLISHED — pas de `if` métier ici. Les hydratations par
+// lots (BE-17b) évitent le N+1 sur catégories/gouvernorats/délégations/médias.
+async function loadPublicProfile(slug: string) {
+  const profile = requirePublishedProfile(await findProviderProfileBySlug(slug));
+
+  const [categoryLinks, offerings, coverageAreas, portfolioItems] = await Promise.all([
+    listProviderCategories(profile.id),
+    listServiceOfferings(profile.id),
+    listCoverageAreas(profile.id),
+    listPortfolioItems(profile.id),
+  ]);
+
+  const categoryIds = [
+    ...new Set([
+      ...categoryLinks.map((c) => c.categoryId),
+      ...offerings.map((o) => o.categoryId),
+      ...portfolioItems.flatMap((p) => (p.categoryId ? [p.categoryId] : [])),
+    ]),
+  ];
+  const governorateIds = [
+    ...new Set([profile.baseGovernorateId, ...coverageAreas.map((a) => a.governorateId)]),
+  ];
+  const delegationIds = [
+    ...new Set(
+      [profile.baseDelegationId, ...coverageAreas.map((a) => a.delegationId)].flatMap((id) =>
+        id ? [id] : [],
+      ),
+    ),
+  ];
+  const mediaIds = portfolioItems.map((p) => p.mediaId);
+
+  const [categories, governorates, delegations, media] = await Promise.all([
+    findCategoriesByIds(categoryIds),
+    findGovernoratesByIds(governorateIds),
+    findDelegationsByIds(delegationIds),
+    findMediaAssetsByIds(mediaIds),
+  ]);
+
+  return buildPublicProviderProfile({
+    profile,
+    categoryLinks,
+    categoriesById: new Map(categories.map((c) => [c.id, c])),
+    offerings,
+    coverageAreas,
+    governoratesById: new Map(governorates.map((g) => [g.id, g])),
+    delegationsById: new Map(delegations.map((d) => [d.id, d])),
+    portfolioItems,
+    mediaById: new Map(media.map((m) => [m.id, m])),
+    reviewCountByStarRaw: profile.reviewCountByStar,
+  });
+}
+
 export async function providersRoutes(app: FastifyInstance): Promise<void> {
   const typedApp = app.withTypeProvider<ZodTypeProvider>();
 
@@ -153,5 +219,19 @@ export async function providersRoutes(app: FastifyInstance): Promise<void> {
         nextCursor: page.nextCursor,
       };
     },
+  );
+
+  typedApp.get(
+    '/providers/:slug',
+    {
+      // public : fiche artisan publique, aucune authentification requise (BE-17).
+      schema: {
+        description:
+          'Fiche artisan publique — profil, catégories, offres tarifées, zones de couverture, galerie, agrégat d’avis. Jamais de numéro de téléphone (voir POST /contact-events, BE-21).',
+        params: providerSlugParamsSchema,
+        response: { 200: providerPublicProfileSchema },
+      },
+    },
+    async (request) => loadPublicProfile(request.params.slug),
   );
 }
