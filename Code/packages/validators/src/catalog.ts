@@ -33,3 +33,39 @@ z.globalRegistry.add(categoryTreeNodeSchema, { id: 'CategoryTreeNode' });
 export const categoriesResponseSchema = z.object({
   categories: z.array(categoryTreeNodeSchema),
 });
+
+// Référentiel géo figé (BE-03/BE-05) : mêmes deux libellés que les catégories.
+export const governorateSchema = z.object({
+  id: z.uuid(),
+  code: z.string(),
+  nameFr: z.string(),
+  nameAr: z.string(),
+  slug: z.string(),
+  latitude: z.number().nullable(),
+  longitude: z.number().nullable(),
+  sortOrder: z.number().int(),
+});
+
+export const governoratesResponseSchema = z.object({
+  governorates: z.array(governorateSchema),
+});
+
+export const delegationSchema = z.object({
+  id: z.uuid(),
+  governorateId: z.uuid(),
+  code: z.string().nullable(),
+  nameFr: z.string(),
+  nameAr: z.string(),
+  slug: z.string(),
+  postalCode: z.string().nullable(),
+  latitude: z.number().nullable(),
+  longitude: z.number().nullable(),
+});
+
+export const delegationsResponseSchema = z.object({
+  delegations: z.array(delegationSchema),
+});
+
+export const governorateIdParamsSchema = z.object({
+  id: z.uuid(),
+});
