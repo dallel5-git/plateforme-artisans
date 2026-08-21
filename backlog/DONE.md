@@ -51,6 +51,10 @@
 | `BE-14c` | `GET /v1/governorates` + `GET /v1/governorates/:id/delegations` (404 si id inconnu) | Claude | #90 | 2026-08-21 |
 | `BE-14d` | Invalidation cache catalogue au seed (`tooling/scripts/flush-catalog-cache.ts`) | Claude | #91 | 2026-08-21 |
 | `BE-14` | Catalogue (catégories / gouvernorats / délégations) + cache Redis — parcours complet (4 PRs atomiques ci-dessus) | Claude | #88–#91 | 2026-08-21 |
+| `BE-17a` | Règles pures fiche publique (publicationStatus, displayPrice, agrégat d'avis) | Claude | #100 | 2026-08-21 |
+| `BE-17b` | `findGovernoratesByIds`/`findDelegationsByIds`/`findMediaAssetsByIds` — hydratation par lots | Claude | #101 | 2026-08-21 |
+| `BE-17c` | `GET /v1/providers/:slug` — fiche publique, jamais de téléphone (404 si non publié) | Claude | #102 | 2026-08-21 |
+| `BE-17` | Fiche artisan publique — sans le numéro de téléphone — parcours complet (3 PRs atomiques ci-dessus) | Claude | #100–#102 | 2026-08-21 |
 
 ---
 
