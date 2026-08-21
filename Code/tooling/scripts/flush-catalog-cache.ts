@@ -37,7 +37,11 @@ async function main(): Promise<void> {
     return;
   }
 
-  const redis = new Redis(url, { maxRetriesPerRequest: 1, connectTimeout: 2000, lazyConnect: true });
+  const redis = new Redis(url, {
+    maxRetriesPerRequest: 1,
+    connectTimeout: 2000,
+    lazyConnect: true,
+  });
   try {
     await redis.connect();
     const deleted = await flushCatalogCache(redis);
