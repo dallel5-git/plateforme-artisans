@@ -113,6 +113,36 @@ export async function findProviderProfileBySlug(
   return row ? toProfile(row) : null;
 }
 
+const ownerProfileSelect = { ...profileSelect, whatsappPhone: true, publicPhone: true } as const;
+
+type RawOwnerProfile = Prisma.ProviderProfileGetPayload<{ select: typeof ownerProfileSelect }>;
+
+export interface ProviderProfileOwnerView extends ProviderProfile {
+  whatsappPhone: string | null;
+  publicPhone: string | null;
+}
+
+function toOwnerProfile(row: RawOwnerProfile): ProviderProfileOwnerView {
+  return { ...toProfile(row), whatsappPhone: row.whatsappPhone, publicPhone: row.publicPhone };
+}
+
+/**
+ * BE-19 : vue privée du propriétaire sur son propre profil — inclut `whatsappPhone`/
+ * `publicPhone`, contrairement à `findProviderProfileById`/`findProviderProfileBySlug` (P8).
+ * Distincte de `revealProviderContactPhone` (réservée au flux `ContactEvent` tracé, BE-21) :
+ * ici l'appelant est toujours le propriétaire (`request.user.sub === userId`), jamais un tiers.
+ */
+export async function findProviderProfileByUserId(
+  userId: string,
+  db: DbClient = prisma,
+): Promise<ProviderProfileOwnerView | null> {
+  const row = await db.providerProfile.findUnique({
+    where: { userId },
+    select: ownerProfileSelect,
+  });
+  return row ? toOwnerProfile(row) : null;
+}
+
 /** Réservé au flux ContactEvent tracé (BE-21) — jamais depuis une liste ou une page SEO. */
 export async function revealProviderContactPhone(
   id: string,
@@ -170,6 +200,7 @@ export interface CreateProviderProfileInput {
   baseDelegationId?: string;
   latitude?: number;
   longitude?: number;
+  completionScore?: number;
 }
 
 export async function createProviderProfile(
@@ -191,6 +222,10 @@ export interface UpdateProviderProfileInput {
   availabilityStatus?: AvailabilityStatus;
   availableAgainAt?: Date | null;
   acceptsEmergency?: boolean;
+  // BE-19 : forme libre par artisan, non validée ici — `unknown` côté API publique, comme
+  // `AppSetting.value` (voir `app-setting.repository.ts`). Prisma exige `InputJsonValue` en
+  // écriture, casté au point d'appel juste en dessous.
+  workingHours?: unknown;
   completionScore?: number;
 }
 
@@ -199,9 +234,15 @@ export async function updateProviderProfile(
   input: UpdateProviderProfileInput,
   db: DbClient = prisma,
 ): Promise<ProviderProfile> {
+  const { workingHours, ...rest } = input;
   const row = await db.providerProfile.update({
     where: { id },
-    data: input,
+    data: {
+      ...rest,
+      ...(workingHours !== undefined
+        ? { workingHours: workingHours as Prisma.InputJsonValue }
+        : {}),
+    },
     select: profileSelect,
   });
   return toProfile(row);

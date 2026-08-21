@@ -92,6 +92,23 @@ export async function touchLastLogin(id: string, db: DbClient = prisma): Promise
 }
 
 /**
+ * BE-19 : promotion CLIENT → PROVIDER (`POST /v1/providers/me`), sans créer de second compte
+ * (`US-P-01`). L'appelant vérifie déjà que le rôle est absent avant d'appeler cette fonction —
+ * `push` ne déduplique pas, la réappeler pour un rôle déjà présent créerait un doublon.
+ */
+export async function addUserRole(
+  id: string,
+  role: UserRole,
+  db: DbClient = prisma,
+): Promise<PublicUser> {
+  return db.user.update({
+    where: { id },
+    data: { roles: { push: role } },
+    select: publicSelect,
+  });
+}
+
+/**
  * Soft delete + anonymisation (CLAUDE.md §3.2) : le téléphone est haché (jamais réutilisable
  * tel quel), le nom devient « Utilisateur supprimé ». Les avis restent publiés anonymement
  * (aucune cascade sur `Review.clientId`, cf. politique de suppression §2.5 du cadrage).
