@@ -33,7 +33,6 @@
 
 | ID | Tâche | Prio | Qui | Est. | Dépend de | US |
 |---|---|---|---|---|---|---|
-| `BE-12` | RBAC centralisé `core/policies` + preHandlers | 🔴 | DEV-1 | 2 h | BE-09 | Annexe B |
 
 ### Métier & API
 

@@ -33,3 +33,6 @@ export {
   CONTACT_EVENT_WINDOW_SECONDS,
 } from './policies/quotas.js';
 export type { RateLimitVerdict } from './policies/quotas.js';
+
+export { can } from './policies/rbac.js';
+export type { Action, OwnedResource } from './policies/rbac.js';

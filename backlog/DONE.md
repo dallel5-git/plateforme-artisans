@@ -45,6 +45,7 @@
 | `BE-10c` | `POST /v1/auth/otp/verify` — création de compte, tokens | Claude | #84 | 2026-08-21 |
 | `BE-10d` | `POST /v1/auth/refresh` + `POST /v1/auth/logout` — rotation, détection de rejeu | Claude | #85 | 2026-08-21 |
 | `BE-10` | Routes d'authentification — parcours complet `otp/request`→`otp/verify`→`me`→`refresh`→`logout` (4 PRs atomiques ci-dessus) | Claude | #82–#85 | 2026-08-21 |
+| `BE-11` | Rate limiting Redis — OTP (5/h) + primitif contacts (30/j), par téléphone et IP | Claude | #86 | 2026-08-21 |
 
 ---
 
@@ -53,7 +54,7 @@
 | Métrique | Valeur |
 |---|---|
 | Tâches 🔴 P0 planifiées | 43 |
-| Tâches 🔴 P0 terminées | 17 |
+| Tâches 🔴 P0 terminées | 18 |
 | Tâches 🟠 P1 terminées | 0 / 7 *(l'amortisseur : 18 h)* |
 | Heures-homme 🔴 P0 estimées / consommées | 109 h / 3 h *(capacité 112 h)* |
 

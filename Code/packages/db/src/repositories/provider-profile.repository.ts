@@ -22,6 +22,10 @@ import type { PaginatedResult } from '../pagination.js';
 
 const profileSelect = {
   id: true,
+  // BE-12 : nécessaire à `can()` (RBAC, "un artisan ne modifie que son profil") — un futur
+  // schéma de réponse Zod (BE-17/19) doit rester explicite et ne pas le ré-exposer publiquement
+  // sans le vouloir : ce type interne n'est pas la forme de la réponse HTTP.
+  userId: true,
   slug: true,
   businessName: true,
   headline: true,
@@ -54,6 +58,7 @@ type RawProfile = Prisma.ProviderProfileGetPayload<{ select: typeof profileSelec
 
 export interface ProviderProfile {
   id: string;
+  userId: string;
   slug: string;
   businessName: string;
   headline: string | null;

@@ -1,5 +1,5 @@
 /**
- * BE-10a — `GET /v1/auth/me` + preHandler `authenticate`.
+ * BE-10a — `GET /v1/auth/me` + preHandler `requireAuth` (BE-12, renommé depuis `authenticate`).
  *
  * App de test minimale (pas `buildServer()`) : évite toute dépendance à Postgres/Redis
  * (`env.ts`, `checkPostgres`/`checkRedis`) pour un test qui ne porte que sur le routage
@@ -13,7 +13,7 @@ import {
   type ZodTypeProvider,
 } from 'fastify-type-provider-zod';
 import { describe, expect, it } from 'vitest';
-import { registerAuthenticate } from '../src/plugins/authenticate.js';
+import { registerRequireAuth } from '../src/plugins/require-auth.js';
 import { registerErrorHandler } from '../src/plugins/error-handler.js';
 import { authRoutes } from '../src/routes/auth.js';
 
@@ -22,7 +22,7 @@ async function buildTestApp() {
   app.setValidatorCompiler(validatorCompiler);
   app.setSerializerCompiler(serializerCompiler);
   registerErrorHandler(app);
-  registerAuthenticate(app);
+  registerRequireAuth(app);
   await app.register(authRoutes, { prefix: '/v1' });
   return app;
 }
