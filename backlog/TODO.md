@@ -38,7 +38,6 @@
 
 | ID | Tâche | Prio | Qui | Est. | Dépend de | US |
 |---|---|---|---|---|---|---|
-| `BE-14` | Catalogue (catégories / gouvernorats / délégations) + cache Redis | 🔴 | DEV-2 | 1,5 h | BE-03 | US-C-01 |
 | `BE-15` | ⭐ **Ranking** — géo, bayésien (C=8), confiance, complétude, réactivité, plan, pénalités, rotation ±2 %. **≥12 tests** | 🔴 | **binôme** | 4 h *(8 h-h)* | BE-01 | Annexe A |
 | `BE-16` | `GET /providers/search` — filtres + tri + **curseur** | 🔴 | DEV-1 | 3 h | BE-15, BE-05 | US-C-01/03 |
 | `BE-17` | `GET /providers/:slug` — **sans téléphone** | 🔴 | DEV-1 | 2 h | BE-05 | US-C-04 |
