@@ -10,6 +10,7 @@ import {
 import {
   calculateCompletionScore,
   DomainError,
+  FREE_PLAN_MAX_CATEGORIES,
   hashRefreshToken,
   MIN_PUBLICATION_COMPLETION_SCORE,
   REFRESH_TTL_DAYS,
@@ -24,13 +25,17 @@ import {
   findUserById,
   listCoverageAreas,
   listProviderCategories,
+  replaceProviderCategories,
   updateProviderProfile,
+  withTransaction,
   type ProviderProfileOwnerView,
 } from '@repo/db';
 import { normalizePhoneTn, slugify } from '@repo/utils';
 import {
   createProviderMeResponseSchema,
   createProviderMeSchema,
+  putProviderCategoriesResponseSchema,
+  putProviderCategoriesSchema,
   updateProviderMeResponseSchema,
   updateProviderMeSchema,
 } from '@repo/validators';
@@ -236,6 +241,61 @@ export async function providerRoutes(app: FastifyInstance): Promise<void> {
       });
 
       return requireOwnProfile(request.user.sub);
+    },
+  );
+
+  typedApp.put(
+    '/providers/me/categories',
+    {
+      preHandler: [app.requireRole('PROVIDER')],
+      schema: {
+        description:
+          'Remplace tout le set de catégories de l’artisan authentifié (une seule ' +
+          `catégorie principale, exactement un \`isPrimary: true\`). Limite du plan FREE : ` +
+          `${FREE_PLAN_MAX_CATEGORIES} catégories. \`completionScore\` recalculé.`,
+        body: putProviderCategoriesSchema,
+        response: { 200: putProviderCategoriesResponseSchema },
+      },
+    },
+    async (request) => {
+      if (!request.user) {
+        throw new DomainError(UNAUTHORIZED, 'Non authentifié');
+      }
+
+      const { categories } = request.body;
+      if (categories.length > FREE_PLAN_MAX_CATEGORIES) {
+        throw new DomainError(
+          VALIDATION_ERROR,
+          `Maximum ${FREE_PLAN_MAX_CATEGORIES} catégories en offre gratuite`,
+          { limit: FREE_PLAN_MAX_CATEGORIES, field: 'categories' },
+        );
+      }
+
+      const current = await requireOwnProfile(request.user.sub);
+      const user = await findUserById(request.user.sub);
+      if (!user) {
+        throw new DomainError(UNAUTHORIZED, 'Utilisateur introuvable');
+      }
+
+      const coverageAreas = await listCoverageAreas(current.id);
+
+      const { score } = calculateCompletionScore({
+        phoneVerified: user.phoneVerifiedAt !== null,
+        bio: current.bio,
+        headline: current.headline,
+        yearsExperience: current.yearsExperience,
+        hasContactPhone: Boolean(current.whatsappPhone || current.publicPhone),
+        categoryCount: categories.length,
+        coverageAreaCount: coverageAreas.length,
+      });
+
+      const updatedCategories = await withTransaction(async (tx) => {
+        const links = await replaceProviderCategories(current.id, categories, tx);
+        await updateProviderProfile(current.id, { completionScore: score }, tx);
+        return links;
+      });
+
+      return { categories: updatedCategories, completionScore: score };
     },
   );
 }

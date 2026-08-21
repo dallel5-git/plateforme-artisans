@@ -1661,6 +1661,110 @@
           }
         }
       }
+    },
+    "/v1/providers/me/categories": {
+      "put": {
+        "description": "Remplace tout le set de catégories de l’artisan authentifié (une seule catégorie principale, exactement un `isPrimary: true`). Limite du plan FREE : 3 catégories. `completionScore` recalculé.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "categories": {
+                    "maxItems": 8,
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "categoryId": {
+                          "type": "string",
+                          "format": "uuid",
+                          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                        },
+                        "isPrimary": {
+                          "type": "boolean"
+                        },
+                        "yearsExperience": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 80
+                        }
+                      },
+                      "required": [
+                        "categoryId",
+                        "isPrimary"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "categories"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "categories": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "categoryId": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "isPrimary": {
+                            "type": "boolean"
+                          },
+                          "yearsExperience": {
+                            "anyOf": [
+                              {
+                                "type": "integer",
+                                "minimum": -9007199254740991,
+                                "maximum": 9007199254740991
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          }
+                        },
+                        "required": [
+                          "categoryId",
+                          "isPrimary",
+                          "yearsExperience"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "completionScore": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    }
+                  },
+                  "required": [
+                    "categories",
+                    "completionScore"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

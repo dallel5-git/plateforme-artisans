@@ -47,3 +47,5 @@ export {
   MIN_PUBLICATION_COMPLETION_SCORE,
 } from './providers/completion-score.js';
 export type { CompletionScoreInput, CompletionScoreResult } from './providers/completion-score.js';
+
+export { FREE_PLAN_MAX_CATEGORIES, FREE_PLAN_MAX_GOVERNORATES } from './billing/plan-limits.js';
