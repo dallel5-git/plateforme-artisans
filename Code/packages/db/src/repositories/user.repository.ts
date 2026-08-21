@@ -59,6 +59,8 @@ export interface CreateUserInput {
   email?: string;
   roles?: UserRole[];
   locale?: Locale;
+  phoneVerifiedAt?: Date;
+  status?: UserStatus;
 }
 
 export async function createUser(

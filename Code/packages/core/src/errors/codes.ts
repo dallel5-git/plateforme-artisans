@@ -11,6 +11,7 @@ export const ERROR_HTTP_STATUS: Record<ErrorCode, number> = {
   [errorCodes.ACCESS_TOKEN_EXPIRED]: 401,
   [errorCodes.ACCESS_TOKEN_INVALID]: 401,
   [errorCodes.REFRESH_TOKEN_REUSED]: 401,
+  [errorCodes.REFRESH_TOKEN_INVALID]: 401,
   [errorCodes.VALIDATION_ERROR]: 400,
   [errorCodes.NOT_FOUND]: 404,
   [errorCodes.UNAUTHORIZED]: 401,
