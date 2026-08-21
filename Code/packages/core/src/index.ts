@@ -36,3 +36,7 @@ export type { RateLimitVerdict } from './policies/quotas.js';
 
 export { can } from './policies/rbac.js';
 export type { Action, OwnedResource } from './policies/rbac.js';
+
+export { buildCategoryTree } from './catalog/category-tree.js';
+export type { CategoryTreeNode } from './catalog/category-tree.js';
+export { CATALOG_CACHE_TTL_SECONDS } from './catalog/constants.js';
