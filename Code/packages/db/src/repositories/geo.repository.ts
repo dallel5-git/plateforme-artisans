@@ -93,6 +93,19 @@ export async function findGovernorateBySlug(
   return row ? toGovernorate(row) : null;
 }
 
+// BE-14 : existence check pour `GET /governorates/:id/delegations` — `listActiveDelegationsByGovernorate`
+// seul ne distingue pas un gouvernorat inconnu d'un gouvernorat réel sans délégation active.
+export async function findGovernorateById(
+  id: string,
+  db: DbClient = prisma,
+): Promise<Governorate | null> {
+  const row = await db.governorate.findFirst({
+    where: { id, isActive: true },
+    select: governorateSelect,
+  });
+  return row ? toGovernorate(row) : null;
+}
+
 export async function listActiveDelegationsByGovernorate(
   governorateId: string,
   db: DbClient = prisma,
