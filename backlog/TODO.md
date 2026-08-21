@@ -39,7 +39,6 @@
 | ID | Tâche | Prio | Qui | Est. | Dépend de | US |
 |---|---|---|---|---|---|---|
 | `BE-16` | `GET /providers/search` — filtres + tri + **curseur** | 🔴 | DEV-1 | 3 h | BE-15, BE-05 | US-C-01/03 |
-| `BE-18` | `GET /providers/:slug/reviews` paginé | 🔴 | DEV-1 | 1 h | BE-05 | US-C-07 |
 | `BE-19a` | Onboarding artisan — `packages/core` : fonction pure `calculateCompletionScore` + tests | 🟠 | DEV-2 | 0,5 h | BE-12 | US-P-02→04 |
 | `BE-19b` | Onboarding artisan — `POST`/`PATCH /v1/providers/me` : création, promotion de rôle, complétude, garde de publication | 🟠 | DEV-2 | 1 h | BE-19a | US-P-02→04 |
 | `BE-19c` | Onboarding artisan — `PUT /v1/providers/me/categories` : remplacement atomique, `isPrimary`, quota FREE | 🟠 | DEV-2 | 0,5 h | BE-19b | US-P-02→04 |
@@ -139,3 +138,4 @@ _Toute idée surgie en cours de sprint atterrit ici, avec un ID, et n'est jamais
 | ID | Tâche | Ajoutée le | Par |
 |---|---|---|---|
 | `BE-02b` | Harnais de test d'intégration Vitest + Postgres jetable (`@repo/testing/db-test-utils`) pour couvrir les contraintes/triggers DB de BE-02, aujourd'hui vérifiées manuellement via `psql` (voir PR #69) | 2026-08-18 | Oussama |
+| `BE-22b` | Réponse de l'artisan à un avis — migration Prisma (colonne ou modèle `ReviewReply`) + `POST` d'écriture. Aucun champ/modèle n'existe aujourd'hui ; BE-18 (`GET /providers/:slug/reviews`) livre sans ce champ faute de donnée à exposer. Nécessaire avant que FM-08/FM-10 (mobile) n'aient besoin d'afficher une réponse artisan | 2026-08-21 | Claude |
