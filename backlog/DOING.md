@@ -15,7 +15,7 @@ _Sprint S1 · dernière mise à jour : 2026-08-21_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| — | _rien en cours (BE-14a–d mergées, #88–#91)_ | | | |
+| `BE-17` | `GET /providers/:slug` — **sans téléphone** | 2026-08-21 | `feat/BE-17c-public-profile-route` | 3 PRs atomiques (core → repository → route, découpage BE-16a/b/c) : #100 (core, CI en cours), #101 (repository, CI en cours), #102 (route + contrat, CI en cours). |
 
 ## En binôme
 

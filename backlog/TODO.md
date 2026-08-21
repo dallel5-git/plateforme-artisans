@@ -39,7 +39,6 @@
 | ID | Tâche | Prio | Qui | Est. | Dépend de | US |
 |---|---|---|---|---|---|---|
 | `BE-16` | `GET /providers/search` — filtres + tri + **curseur** | 🔴 | DEV-1 | 3 h | BE-15, BE-05 | US-C-01/03 |
-| `BE-17` | `GET /providers/:slug` — **sans téléphone** | 🔴 | DEV-1 | 2 h | BE-05 | US-C-04 |
 | `BE-18` | `GET /providers/:slug/reviews` paginé | 🔴 | DEV-1 | 1 h | BE-05 | US-C-07 |
 | `BE-19` | Onboarding artisan — **réduit** : profil + catégories + zones + `completionScore` | 🟠 | DEV-2 | 2,5 h | BE-12 | US-P-02→04 |
 | `BE-21` | ⭐ `POST /contact-events` — dédup 30 min, empreinte de session, révélation du numéro, agrégat transactionnel | 🔴 | **binôme** | 3 h *(6 h-h)* | BE-11, BE-12 | US-C-05/06 |
