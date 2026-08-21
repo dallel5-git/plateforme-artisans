@@ -3,7 +3,7 @@
 > ⚠️ **Maximum 2 tâches par développeur.** Si vous en avez 3, vous n'en finissez aucune.
 > Mise à jour obligatoire **en fin de chaque journée**.
 
-_Sprint S1 · dernière mise à jour : 2026-08-17_
+_Sprint S1 · dernière mise à jour : 2026-08-21_
 
 ## DEV-1
 
@@ -15,7 +15,7 @@ _Sprint S1 · dernière mise à jour : 2026-08-17_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| — | _rien en cours_ | | | |
+| `BE-14a` | Cache-aside Redis générique (`getOrSetCache`) — infra, sans surface API | 2026-08-21 | `feat/BE-14a-cache-infra` | PR #88 ouverte (CI en cours) |
 
 ## En binôme
 
