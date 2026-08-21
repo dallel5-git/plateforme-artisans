@@ -4,18 +4,23 @@ import {
   OTP_EXPIRED,
   OTP_INVALID,
   OTP_TOO_MANY_ATTEMPTS,
+  REFRESH_TOKEN_INVALID,
+  REFRESH_TOKEN_REUSED,
   UNAUTHORIZED,
   VALIDATION_ERROR,
 } from '@repo/constants';
 import {
   buildOtpRequestResponse,
   canAttemptOtp,
+  detectRefreshReplay,
   DomainError,
   generateOtp,
   hashOtp,
   hashRefreshToken,
+  isSessionExpired,
   OTP_TTL_MINUTES,
   REFRESH_TTL_DAYS,
+  rotateRefreshToken,
   signAccessToken,
   verifyOtp,
 } from '@repo/core';
@@ -25,21 +30,30 @@ import {
   createSession,
   createUser,
   findActiveOtpForVerification,
+  findSessionById,
   findUserById,
   findUserByPhone,
   incrementOtpAttempts,
+  revokeAllSessionsForUser,
+  revokeSession,
+  rotateSessionToken,
   touchLastLogin,
   type OtpPurpose,
   type PublicUser,
+  type SessionWithHash,
 } from '@repo/db';
 import { createSmsProvider } from '@repo/notifications';
 import { normalizePhoneTn } from '@repo/utils';
 import {
+  logoutRequestSchema,
+  logoutResponseSchema,
   meResponseSchema,
   otpRequestResponseSchema,
   otpRequestSchema,
   otpVerifyResponseSchema,
   otpVerifySchema,
+  refreshRequestSchema,
+  refreshResponseSchema,
 } from '@repo/validators';
 import type { FastifyInstance, FastifyRequest } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
@@ -50,6 +64,48 @@ function requireNormalizedPhone(phone: string): string {
     throw new DomainError(VALIDATION_ERROR, 'Numéro de téléphone invalide', { field: 'phone' });
   }
   return normalized;
+}
+
+// Le refresh token est opaque côté client : `${session.id}.${tokenId}`. `session.id` sert de
+// `familyId` (BE-09 `detectRefreshReplay`) — toujours résolvable même après rotation, sans JWT
+// ni migration Prisma supplémentaire (décision de conception BE-10).
+function parseRefreshToken(token: string): { sessionId: string; tokenId: string } {
+  const separatorIndex = token.indexOf('.');
+  if (separatorIndex === -1) {
+    throw new DomainError(REFRESH_TOKEN_INVALID, 'Refresh token malformé');
+  }
+  return {
+    sessionId: token.slice(0, separatorIndex),
+    tokenId: token.slice(separatorIndex + 1),
+  };
+}
+
+/** Décide ROTATE/REVOKE_FAMILY/REJECT (BE-09) et applique la rotation en base. */
+async function rotateSession(session: SessionWithHash, presentedTokenId: string): Promise<string> {
+  const verdict = detectRefreshReplay({
+    presentedTokenId: hashRefreshToken(presentedTokenId),
+    familyId: session.id,
+    currentTokenId: session.refreshTokenHash,
+    familyRevokedAt: session.revokedAt,
+  });
+
+  if (verdict.action !== 'ROTATE') {
+    if (verdict.action === 'REVOKE_FAMILY') {
+      await revokeAllSessionsForUser(session.userId);
+    }
+    throw new DomainError(REFRESH_TOKEN_REUSED, 'Refresh token déjà utilisé ou session révoquée');
+  }
+
+  const { newTokenId } = rotateRefreshToken({
+    currentTokenId: presentedTokenId,
+    familyId: session.id,
+    now: new Date(),
+  });
+  await rotateSessionToken(session.id, {
+    refreshTokenHash: hashRefreshToken(newTokenId),
+    expiresAt: new Date(Date.now() + REFRESH_TTL_DAYS * 24 * 60 * 60_000),
+  });
+  return newTokenId;
 }
 
 async function issueSession(user: PublicUser, request: FastifyRequest) {
@@ -161,6 +217,55 @@ export async function authRoutes(app: FastifyInstance): Promise<void> {
       // `touchLastLogin` ne renvoie rien (BE-05) — on reflète la mise à jour sans requête
       // supplémentaire plutôt que de répondre un `lastLoginAt` déjà périmé.
       return issueSession({ ...user, lastLoginAt: new Date() }, request);
+    },
+  );
+
+  typedApp.post(
+    '/auth/refresh',
+    {
+      schema: {
+        description:
+          'Fait tourner le refresh token. Un rejeu révoque toute la famille de sessions.',
+        body: refreshRequestSchema,
+        response: { 200: refreshResponseSchema },
+      },
+    },
+    async (request) => {
+      const { sessionId, tokenId } = parseRefreshToken(request.body.refreshToken);
+      const session = await findSessionById(sessionId);
+      if (!session || isSessionExpired({ expiresAt: session.expiresAt, now: new Date() })) {
+        throw new DomainError(REFRESH_TOKEN_INVALID, 'Refresh token invalide ou expiré');
+      }
+
+      const newTokenId = await rotateSession(session, tokenId);
+      const user = await findUserById(session.userId);
+      if (!user) {
+        throw new DomainError(REFRESH_TOKEN_INVALID, 'Utilisateur introuvable');
+      }
+
+      return {
+        accessToken: await signAccessToken({ sub: user.id, role: user.roles[0] ?? 'CLIENT' }),
+        refreshToken: `${session.id}.${newTokenId}`,
+      };
+    },
+  );
+
+  typedApp.post(
+    '/auth/logout',
+    {
+      schema: {
+        description: 'Révoque la session associée au refresh token présenté. Idempotent.',
+        body: logoutRequestSchema,
+        response: { 200: logoutResponseSchema },
+      },
+    },
+    async (request) => {
+      const { sessionId } = parseRefreshToken(request.body.refreshToken);
+      const session = await findSessionById(sessionId);
+      if (session) {
+        await revokeSession(sessionId);
+      }
+      return { status: 'ok' as const };
     },
   );
 }
