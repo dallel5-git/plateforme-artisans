@@ -41,7 +41,7 @@ export { buildCategoryTree } from './catalog/category-tree.js';
 export type { CategoryTreeNode } from './catalog/category-tree.js';
 export { CATALOG_CACHE_TTL_SECONDS } from './catalog/constants.js';
 
-export { computeRankingScore, parseRankingWeights } from './search/ranking.js';
+export { computeRankingScore, fnv1aHash, parseRankingWeights } from './search/ranking.js';
 export type {
   GeoMatch,
   RankingBreakdown,
@@ -50,3 +50,19 @@ export type {
   RankingScoreResult,
   RankingWeights,
 } from './search/ranking.js';
+
+export {
+  deriveGeoMatch,
+  deriveResponsivenessScore,
+  scoreCandidates,
+  DEFAULT_PENALTY_SCORE,
+  DEFAULT_PLAN_BOOST_FACTOR,
+} from './search/scoring.js';
+export type { CandidateForScoring, ScoredCandidate } from './search/scoring.js';
+
+export {
+  buildSearchSeed,
+  paginateScoredResults,
+  InvalidSearchCursorError,
+} from './search/query-builder.js';
+export type { NormalizedSearchFilters, PaginatedResult } from './search/query-builder.js';

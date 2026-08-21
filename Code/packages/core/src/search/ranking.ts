@@ -91,8 +91,11 @@ const ROTATION_AMPLITUDE = 0.02;
 /**
  * Hash FNV-1a 32 bits — déterministe, sans dépendance externe. Sert uniquement à dériver un
  * décalage de rotation reproductible ; ce n'est PAS une fonction cryptographique.
+ *
+ * Exporté (BE-16) : réutilisé tel quel par `query-builder.ts` pour dériver une graine de
+ * rotation stable par recherche, plutôt que de dupliquer l'algorithme.
  */
-function fnv1aHash(value: string): number {
+export function fnv1aHash(value: string): number {
   let hash = 0x811c9dc5; // offset basis FNV-1a 32 bits
   for (let i = 0; i < value.length; i++) {
     hash ^= value.charCodeAt(i);
