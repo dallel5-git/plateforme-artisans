@@ -52,6 +52,10 @@ const profileSelect = {
   lastActiveAt: true,
   createdAt: true,
   updatedAt: true,
+  // BE-17 : répartition par étoile de l'agrégat d'avis (dénormalisée, recalculée en
+  // transaction par BE-22 à l'écriture d'un avis) — lue telle quelle par la fiche publique,
+  // parsée côté `packages/core` (`parseReviewCountByStar`, `Json?` reste `unknown` ici).
+  reviewCountByStar: true,
 } as const;
 
 type RawProfile = Prisma.ProviderProfileGetPayload<{ select: typeof profileSelect }>;
@@ -85,6 +89,7 @@ export interface ProviderProfile {
   lastActiveAt: Date | null;
   createdAt: Date;
   updatedAt: Date;
+  reviewCountByStar: unknown;
 }
 
 function toProfile(row: RawProfile): ProviderProfile {
