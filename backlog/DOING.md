@@ -15,16 +15,13 @@ _Sprint S1 · dernière mise à jour : 2026-08-21_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `BE-14a` | Cache-aside Redis générique (`getOrSetCache`) — infra, sans surface API | 2026-08-21 | `feat/BE-14a-cache-infra` | PR #88 ouverte (CI en cours) |
-| `BE-14b` | `GET /v1/categories` — arbre complet FR/AR, une seule requête, exception P5 documentée | 2026-08-21 | `feat/BE-14b-categories` | PR #89 ouverte (empilée sur #88, CI en cours) |
-| `BE-14c` | `GET /v1/governorates` + `/:id/delegations` — 404 si id inconnu | 2026-08-21 | `feat/BE-14c-governorates` | PR #90 ouverte (empilée sur #88/#89, CI en cours) |
-| `BE-14d` | Invalidation cache catalogue au seed (`tooling/scripts/flush-catalog-cache.ts`) | 2026-08-21 | `feat/BE-14d-seed-cache-invalidation` | PR #91 ouverte (empilée sur #88/#89/#90, CI en cours) — **dernière sous-tâche, clôt #52 une fois les 4 mergées dans l'ordre** |
+| — | _rien en cours (BE-14a–d mergées, #88–#91)_ | | | |
 
 ## En binôme
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| — | _rien en cours_ | | | |
+| `BE-15` | ⭐ Ranking — géo, bayésien (C=8), confiance, complétude, réactivité, plan, pénalités, rotation ±2 % | 2026-08-21 | `feat/BE-15-ranking-algorithm` | `packages/core/tests/ranking.test.ts` (spec pré-écrite, 18 tests) trouvé déjà en place — implémentation de `computeRankingScore` en cours |
 
 ---
 
