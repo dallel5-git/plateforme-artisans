@@ -21,7 +21,7 @@ _Sprint S1 · dernière mise à jour : 2026-08-21_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `BE-15` | ⭐ Ranking — géo, bayésien (C=8), confiance, complétude, réactivité, plan, pénalités, rotation ±2 % | 2026-08-21 | `feat/BE-15-ranking-algorithm` | `packages/core/tests/ranking.test.ts` (spec pré-écrite, 18 tests) trouvé déjà en place — implémentation de `computeRankingScore` en cours |
+| `BE-15` | ⭐ Ranking — géo, bayésien (C=8), confiance, complétude, réactivité, plan, pénalités, rotation ±2 % | 2026-08-21 | `feat/BE-15-ranking-algorithm` | PR #92 ouverte (CI en cours). 18/18 tests pré-écrits + 3 additifs, 🔒 garde-fou ADR-002 vert. |
 
 ---
 
