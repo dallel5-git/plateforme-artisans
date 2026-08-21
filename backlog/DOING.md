@@ -19,6 +19,7 @@ _Sprint S1 · dernière mise à jour : 2026-08-21_
 | `BE-14b` | `GET /v1/categories` — arbre complet FR/AR, une seule requête, exception P5 documentée | 2026-08-21 | `feat/BE-14b-categories` | PR #89 ouverte (empilée sur #88, CI en cours) |
 | `BE-14c` | `GET /v1/governorates` + `/:id/delegations` — 404 si id inconnu | 2026-08-21 | `feat/BE-14c-governorates` | PR #90 ouverte (empilée sur #88/#89, CI en cours) |
 | `BE-14d` | Invalidation cache catalogue au seed (`tooling/scripts/flush-catalog-cache.ts`) | 2026-08-21 | `feat/BE-14d-seed-cache-invalidation` | PR #91 ouverte (empilée sur #88/#89/#90, CI en cours) — **dernière sous-tâche, clôt #52 une fois les 4 mergées dans l'ordre** |
+| `BE-19a` | Onboarding artisan — `packages/core` : fonction pure `calculateCompletionScore` + tests | 2026-08-21 | `feat/BE-19a-completion-score` | Code + tests verts localement (11/11), prêt pour PR — première des 4 sous-tâches de BE-19 (issue #23) |
 
 ## En binôme
 

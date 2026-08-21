@@ -40,3 +40,10 @@ export type { Action, OwnedResource } from './policies/rbac.js';
 export { buildCategoryTree } from './catalog/category-tree.js';
 export type { CategoryTreeNode } from './catalog/category-tree.js';
 export { CATALOG_CACHE_TTL_SECONDS } from './catalog/constants.js';
+
+export {
+  calculateCompletionScore,
+  MIN_BIO_LENGTH,
+  MIN_PUBLICATION_COMPLETION_SCORE,
+} from './providers/completion-score.js';
+export type { CompletionScoreInput, CompletionScoreResult } from './providers/completion-score.js';

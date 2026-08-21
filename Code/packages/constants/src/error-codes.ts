@@ -18,3 +18,8 @@ export const RATE_LIMIT_EXCEEDED = 'RATE_LIMIT_EXCEEDED';
 
 // BE-12 : RBAC — authentifié mais rôle/propriété insuffisants (distinct de UNAUTHORIZED, 401).
 export const FORBIDDEN = 'FORBIDDEN';
+
+// BE-19 : onboarding artisan.
+export const PROVIDER_PROFILE_NOT_FOUND = 'PROVIDER_PROFILE_NOT_FOUND';
+export const PROVIDER_PROFILE_ALREADY_EXISTS = 'PROVIDER_PROFILE_ALREADY_EXISTS';
+export const PROVIDER_PROFILE_INCOMPLETE = 'PROVIDER_PROFILE_INCOMPLETE';
