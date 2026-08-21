@@ -8,6 +8,9 @@ import { hasZodFastifySchemaValidationErrors } from 'fastify-type-provider-zod';
 export function registerErrorHandler(app: FastifyInstance): void {
   app.setErrorHandler((error, request, reply) => {
     if (error instanceof DomainError) {
+      for (const [name, value] of Object.entries(error.headers ?? {})) {
+        reply.header(name, value);
+      }
       reply.code(error.httpStatus).send({
         error: { code: error.code, message: error.message, details: error.details ?? {} },
         requestId: request.id,

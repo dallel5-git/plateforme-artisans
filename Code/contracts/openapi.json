@@ -255,7 +255,7 @@
     },
     "/v1/auth/otp/request": {
       "post": {
-        "description": "Demande un code OTP par SMS. Réponse identique, que le numéro existe déjà ou non (anti-énumération).",
+        "description": "Demande un code OTP par SMS. Réponse identique, que le numéro existe déjà ou non (anti-énumération). Rate-limit : 5/h par numéro et par IP.",
         "requestBody": {
           "required": true,
           "content": {

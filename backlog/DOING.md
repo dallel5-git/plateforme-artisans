@@ -9,7 +9,7 @@ _Sprint S1 · dernière mise à jour : 2026-08-17_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `BE-10` | Routes auth — découpée en 4 PRs atomiques (10a `me`, 10b `otp/request`, 10c `otp/verify`, 10d `refresh`+`logout`) | 2026-08-19 | `feat/BE-10a-auth-me` (+ suivantes) | Les 4 PRs sont ouvertes et empilées : 10a #82, 10b #83, 10c #84, 10d #85 (CI en cours). Parcours complet vérifié en curl (`otp/request`→`otp/verify`→`me`→`refresh`→`logout`, y compris rejeu 🔒). Toutes ciblent `develop`, aucune mergée. |
+| `BE-11` | Rate limiting Redis — OTP (5/h) + primitif contacts (30/j), par téléphone et IP | 2026-08-21 | `feat/BE-11-rate-limiting` | PR #86 (CI en cours). Vérifié en curl : 6ᵉ demande OTP → 429 + Retry-After, changer de numéro depuis la même IP reste bloqué. |
 
 ## DEV-2
 

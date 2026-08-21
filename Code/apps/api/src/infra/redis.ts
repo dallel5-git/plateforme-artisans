@@ -26,3 +26,21 @@ export async function checkRedis(): Promise<boolean> {
 export function closeRedis(): void {
   redis.disconnect();
 }
+
+/**
+ * BE-11 : compteur fenêtre-fixe pour le rate limiting. `INCR` puis `EXPIRE` défensif si la clé
+ * n'a pas (ou plus) de TTL — couvre le premier appel (clé neuve) et tout état anormal, garantit
+ * qu'aucune clé `ratelimit:*` ne reste sans expiration (pas de fuite mémoire Redis).
+ */
+export async function incrementWithExpiry(
+  key: string,
+  windowSeconds: number,
+): Promise<{ count: number; ttlSeconds: number }> {
+  const count = await redis.incr(key);
+  let ttlSeconds = await redis.ttl(key);
+  if (ttlSeconds < 0) {
+    await redis.expire(key, windowSeconds);
+    ttlSeconds = windowSeconds;
+  }
+  return { count, ttlSeconds };
+}
