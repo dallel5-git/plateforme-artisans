@@ -8,7 +8,7 @@
  */
 import { signAccessToken } from '@repo/core';
 import Fastify from 'fastify';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { registerErrorHandler } from '../src/plugins/error-handler.js';
 import { registerRequireRole } from '../src/plugins/require-role.js';
 
@@ -21,6 +21,13 @@ async function buildTestApp() {
 }
 
 describe('BE-12 — requireRole', () => {
+  // `signAccessToken`/`verifyAccessToken` lisent `process.env.JWT_ACCESS_SECRET` directement
+  // (hors du `env.ts` Zod-validé) — la CI ne le fournit pas globalement (voir `jwt.test.ts`,
+  // BE-09, même convention `vi.stubEnv`).
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
   it('refuse une requête sans token (401 ACCESS_TOKEN_INVALID)', async () => {
     const app = await buildTestApp();
     const response = await app.inject({ method: 'GET', url: '/admin-only' });
@@ -30,6 +37,7 @@ describe('BE-12 — requireRole', () => {
   });
 
   it('refuse un rôle insuffisant (403 FORBIDDEN) — critère d’acceptation BE-12', async () => {
+    vi.stubEnv('JWT_ACCESS_SECRET', 'secret-de-test-suffisamment-long');
     const app = await buildTestApp();
     const token = await signAccessToken({ sub: 'u1', role: 'CLIENT' });
     const response = await app.inject({
@@ -43,6 +51,7 @@ describe('BE-12 — requireRole', () => {
   });
 
   it('autorise un rôle suffisant', async () => {
+    vi.stubEnv('JWT_ACCESS_SECRET', 'secret-de-test-suffisamment-long');
     const app = await buildTestApp();
     const token = await signAccessToken({ sub: 'admin-1', role: 'ADMIN' });
     const response = await app.inject({
