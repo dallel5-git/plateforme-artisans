@@ -20,7 +20,7 @@ _Sprint S1 · dernière mise à jour : 2026-08-21_
 | `BE-14c` | `GET /v1/governorates` + `/:id/delegations` — 404 si id inconnu | 2026-08-21 | `feat/BE-14c-governorates` | PR #90 ouverte (empilée sur #88/#89, CI en cours) |
 | `BE-14d` | Invalidation cache catalogue au seed (`tooling/scripts/flush-catalog-cache.ts`) | 2026-08-21 | `feat/BE-14d-seed-cache-invalidation` | PR #91 ouverte (empilée sur #88/#89/#90, CI en cours) — **dernière sous-tâche, clôt #52 une fois les 4 mergées dans l'ordre** |
 | `BE-19a` | Onboarding artisan — `packages/core` : fonction pure `calculateCompletionScore` + tests | 2026-08-21 | `feat/BE-19a-completion-score` | PR #93 ouverte (CI en cours) — première des 4 sous-tâches de BE-19 (issue #23) |
-| `BE-19b` | Onboarding artisan — `POST`/`PATCH /v1/providers/me` : création, promotion de rôle, complétude, garde de publication | 2026-08-21 | `feat/BE-19b-provider-me-profile` | Code + tests verts localement, contrat régénéré, prêt pour PR — empilée sur #93 |
+| `BE-19b` | Onboarding artisan — `POST`/`PATCH /v1/providers/me` : création, promotion de rôle, complétude, garde de publication | 2026-08-21 | `feat/BE-19b-provider-me-profile` | PR #97 ouverte (empilée sur #93, CI en cours) |
 
 ## En binôme
 
