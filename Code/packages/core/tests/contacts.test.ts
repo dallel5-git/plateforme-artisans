@@ -19,7 +19,7 @@ import {
   buildSessionFingerprint,
   buildWhatsAppMessage,
   DEDUP_WINDOW_MINUTES,
-} from '../src/contacts';
+} from '../src/contacts/index.js';
 
 const T0 = new Date('2026-08-20T10:00:00.000Z');
 const minutes = (n: number) => new Date(T0.getTime() + n * 60_000);
@@ -205,7 +205,7 @@ describe('BE-21 — message WhatsApp pré-rempli', () => {
 
 describe('BE-21 — révélation du numéro (P8)', () => {
   it("le numéro n'est jamais présent dans une entrée de journal", async () => {
-    const { buildContactEventLog } = await import('../src/contacts');
+    const { buildContactEventLog } = await import('../src/contacts/index.js');
     const log = buildContactEventLog({
       providerId: 'p1',
       channel: 'PHONE',

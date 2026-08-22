@@ -98,3 +98,19 @@ export {
   DEFAULT_REVIEW_AUTHOR_NAME,
 } from './reviews/display-name.js';
 export type { ReviewAuthorNameInput } from './reviews/display-name.js';
+
+export {
+  shouldDeduplicate,
+  DEDUP_WINDOW_MINUTES,
+  buildSessionFingerprint,
+  hashIp,
+  buildWhatsAppMessage,
+  buildContactEventLog,
+} from './contacts/index.js';
+export type {
+  ContactChannel as CoreContactChannel,
+  ShouldDeduplicateInput,
+  BuildSessionFingerprintInput,
+  BuildWhatsAppMessageInput,
+  BuildContactEventLogInput,
+} from './contacts/index.js';
