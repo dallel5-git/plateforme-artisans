@@ -461,6 +461,7 @@ model ContactEvent {
 
   @@index([providerId, createdAt(sort: Desc)])
   @@index([clientId, createdAt(sort: Desc)])
+  @@index([sessionHash, createdAt(sort: Desc)])
   @@index([createdAt])
   @@map("contact_events")
 }
