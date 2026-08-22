@@ -403,17 +403,46 @@ export async function incrementProviderStats(
   });
 }
 
-export async function recomputeRatingAggregate(
+/**
+ * BE-22 : verrouille explicitement la ligne `provider_profiles`, AVANT tout `INSERT` dans
+ * `reviews` — premier appel de la transaction, sans exception. Sans ce verrou, deux dépôts d'avis
+ * concurrents sur le même artisan produiraient des `UPDATE` (recomputeRatingAggregate) qui se
+ * bloquent l'un l'autre en aval, et Postgres ne garantit pas explicitement qu'un `UPDATE`
+ * débloqué-puis-repris réévalue ses sous-requêtes (portant sur `reviews`, une autre table) sur un
+ * instantané frais — seule la réévaluation du `WHERE` sur la ligne cible elle-même est
+ * documentée. Verrouiller en premier élimine cette ambiguïté : le blocage éventuel n'a lieu qu'à
+ * cette étape, jamais sur les instructions suivantes (voir recomputeRatingAggregate ci-dessous).
+ */
+export async function lockProviderProfileForReviewWrite(
   id: string,
-  ratingAvg: number,
-  ratingCount: number,
   db: DbClient = prisma,
 ): Promise<void> {
-  await db.providerProfile.update({
-    where: { id },
-    data: { ratingAvg, ratingCount },
-    select: { id: true },
-  });
+  await db.$queryRaw`SELECT id FROM "provider_profiles" WHERE id = ${id}::uuid FOR UPDATE`;
+}
+
+/**
+ * BE-22 : recalcule ratingAvg/ratingCount/reviewCountByStar par une requête SQL unique et fraîche
+ * (jamais bloquée-puis-reprise elle-même — voir lockProviderProfileForReviewWrite, à appeler
+ * avant l'INSERT dans reviews qui précède cet appel) plutôt que d'écrire aveuglément des valeurs
+ * précalculées côté application (l'ancienne signature acceptait ratingAvg/ratingCount en
+ * paramètres — remplacée ici, zéro appelant existant avant BE-22, aucune régression). Filtre sur
+ * status = 'PUBLISHED' : exclut par construction les avis PENDING/FLAGGED qu'un futur ticket de
+ * filtrage anti-spam pourra réintroduire, sans changement nécessaire ici.
+ */
+export async function recomputeRatingAggregate(id: string, db: DbClient = prisma): Promise<void> {
+  await db.$executeRaw`
+    UPDATE "provider_profiles" SET
+      "ratingAvg" = COALESCE((SELECT AVG(rating)::numeric(3,2) FROM "reviews" WHERE "providerId" = ${id}::uuid AND status = 'PUBLISHED'), 0),
+      "ratingCount" = (SELECT COUNT(*)::int FROM "reviews" WHERE "providerId" = ${id}::uuid AND status = 'PUBLISHED'),
+      "reviewCountByStar" = (SELECT jsonb_build_object(
+        '1', COUNT(*) FILTER (WHERE rating = 1),
+        '2', COUNT(*) FILTER (WHERE rating = 2),
+        '3', COUNT(*) FILTER (WHERE rating = 3),
+        '4', COUNT(*) FILTER (WHERE rating = 4),
+        '5', COUNT(*) FILTER (WHERE rating = 5)
+      ) FROM "reviews" WHERE "providerId" = ${id}::uuid AND status = 'PUBLISHED')
+    WHERE id = ${id}::uuid
+  `;
 }
 
 // =====================================================================
