@@ -104,6 +104,14 @@ export {
 export type { ReviewAuthorNameInput } from './reviews/display-name.js';
 
 export {
+  buildReviewEligibilityWindow,
+  isContactEventEligibleForReview,
+  REVIEW_MIN_CONTACT_AGE_HOURS,
+  REVIEW_MAX_CONTACT_AGE_DAYS,
+} from './reviews/eligibility.js';
+export type { ReviewEligibilityWindow } from './reviews/eligibility.js';
+
+export {
   shouldDeduplicate,
   DEDUP_WINDOW_MINUTES,
   buildSessionFingerprint,
