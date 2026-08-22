@@ -3,3 +3,5 @@
 // avec une lecture depuis `Plan`/`Subscription` plutôt que ces constantes en dur.
 export const FREE_PLAN_MAX_CATEGORIES = 3;
 export const FREE_PLAN_MAX_GOVERNORATES = 1;
+// BE-20d : miroir de `Plan.maxPortfolioItems` (US-P-04) — 30 en Pack Pro, hors périmètre S1.
+export const FREE_PLAN_MAX_PORTFOLIO_ITEMS = 5;
