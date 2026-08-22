@@ -135,6 +135,29 @@ export const putProviderCoverageAreasResponseSchema = z.object({
 });
 
 // =====================================================================
+//  BE-20d : galerie de l'artisan (`POST`/`DELETE /v1/providers/me/portfolio`)
+// =====================================================================
+
+export const attachPortfolioItemSchema = z.object({
+  mediaId: z.uuid(),
+  categoryId: z.uuid().optional(),
+  caption: z.string().max(300).optional(),
+});
+export type AttachPortfolioItemInput = z.infer<typeof attachPortfolioItemSchema>;
+
+export const portfolioItemResponseSchema = z.object({
+  id: z.uuid(),
+  mediaId: z.uuid(),
+  categoryId: z.uuid().nullable(),
+  caption: z.string().nullable(),
+  sortOrder: z.number().int(),
+});
+
+export const portfolioItemIdParamsSchema = z.object({
+  id: z.uuid(),
+});
+
+// =====================================================================
 //  BE-17 : fiche artisan publique (`GET /v1/providers/:slug`)
 // =====================================================================
 
