@@ -24,6 +24,10 @@ export const PROVIDER_PROFILE_NOT_FOUND = 'PROVIDER_PROFILE_NOT_FOUND';
 export const PROVIDER_PROFILE_ALREADY_EXISTS = 'PROVIDER_PROFILE_ALREADY_EXISTS';
 export const PROVIDER_PROFILE_INCOMPLETE = 'PROVIDER_PROFILE_INCOMPLETE';
 
+// BE-20 : upload de médias.
+export const MEDIA_UNSUPPORTED_TYPE = 'MEDIA_UNSUPPORTED_TYPE';
+export const MEDIA_TOO_LARGE = 'MEDIA_TOO_LARGE';
+
 // BE-21 : révélation du numéro — aucune contrainte DB ne garantit qu'un artisan a rempli le
 // champ correspondant au canal demandé (whatsappPhone/publicPhone sont tous deux nullable).
 export const PROVIDER_CONTACT_CHANNEL_UNAVAILABLE = 'PROVIDER_CONTACT_CHANNEL_UNAVAILABLE';
