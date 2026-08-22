@@ -106,6 +106,12 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
       - run: pnpm mobile:client:check
+      # `mobile:client:check` régénère dans un dossier TEMPORAIRE pour le diff — il ne lance
+      # jamais `pub get` dans `apps/mobile/lib/core/api/generated/` lui-même. Sans ça,
+      # `dart analyze` ci-dessous n'a pas de `.dart_tool/package_config.json` et résout les
+      # paquets au hasard plutôt que via `pubspec.lock` committé.
+      - run: dart pub get
+        working-directory: Code/apps/mobile/lib/core/api/generated
       # `dart analyze` sort en code non-zéro dès qu'il y a des WARNINGS, pas seulement des
       # erreurs — le générateur en produit toujours (imports défensifs non utilisés, cf.
       # description de la PR). On échoue seulement s'il y a une vraie ligne "error -".
