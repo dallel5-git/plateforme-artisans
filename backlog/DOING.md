@@ -16,7 +16,7 @@ _Sprint S1 · dernière mise à jour : 2026-08-22_
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
 | `BE-18` | `GET /providers/:slug/reviews` paginé | 2026-08-21 | `feat/BE-18c-provider-reviews-route` | 3 PRs atomiques (core → repository → route, découpage BE-16a/b/c) : #103 (core, mergée), #104 (repository, CI verte), #105 (route + contrat, CI en cours). |
-| `BE-20` | Upload de médias : URL pré-signées et variantes WebP (issue #24) — 4 PRs atomiques empilées | 2026-08-22 | `feat/BE-20a-storage-infra` → `…b` → `…c` → `…d` | 4/4 sous-tâches codées, 4 PRs ouvertes empilées : #106 (a, CI verte) ← #110 (b) ← #112 (c) ← #113 (d). b/c/d n'ont pas de CI automatique tant que leur branche de base n'est pas mergée (le workflow ne CI que les PR ciblant `develop`/`main` — même comportement déjà observé pour BE-19b/c/d) ; vérifiées localement (`typecheck`/`lint`/`test`/`format`/`api:contract --check`, tous verts). En attente de revue/merge par Oussama, dans l'ordre a→b→c→d. |
+| `BE-23` | `POST /v1/profile-views` + `DailyProviderStat` (dédup 24 h, issue #27) | 2026-08-22 | `feat/BE-23a-profile-view-db` → `…b` → `…c` | Démarré : 3 PRs atomiques prévues (db → core/validators → route). `DailyProviderStat` n'existe pas encore en base — nouveau modèle + migration manuelle (pas de Postgres local). |
 
 ## En binôme
 

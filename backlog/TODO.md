@@ -41,7 +41,6 @@
 | `BE-16` | `GET /providers/search` — filtres + tri + **curseur** | 🔴 | DEV-1 | 3 h | BE-15, BE-05 | US-C-01/03 |
 | `BE-21` | ⭐ `POST /contact-events` — dédup 30 min, empreinte de session, révélation du numéro, agrégat transactionnel | 🔴 | **binôme** | 3 h *(6 h-h)* | BE-11, BE-12 | US-C-05/06 |
 | `BE-22` | `POST /providers/:id/reviews` — rattaché à un `ContactEvent`, agrégats en transaction | 🔴 | DEV-1 | 2,5 h | BE-21 | US-C-07 |
-| `BE-23` | `POST /profile-views` + `DailyProviderStat` (dédup 24 h) | 🔴 | DEV-2 | 1,5 h | BE-21 | P9 |
 | `BE-26` | ⭐ Contrat : `api:contract` + `mobile:client` (dart-dio) + `web:client` prêt pour S2 | 🔴 | DEV-1 | 2,5 h | toutes | ADR-001 |
 | `BE-27` | 🚦 **GATE 1** — recette backend en `curl` (8 appels) | 🔴 | binôme | 0,75 h *(1,5 h-h)* | BE-26 | — |
 | `BE-24` | `GET /providers/me/stats` — vues, contacts, ratio, série 30 j | 🟠 | DEV-2 | 2 h | BE-23 | US-P-12 |
