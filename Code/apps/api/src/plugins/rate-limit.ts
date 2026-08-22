@@ -2,6 +2,8 @@ import { createHash } from 'node:crypto';
 
 import { RATE_LIMIT_EXCEEDED } from '@repo/constants';
 import {
+  CONTACT_EVENT_LIMIT,
+  CONTACT_EVENT_WINDOW_SECONDS,
   DomainError,
   evaluateRateLimit,
   OTP_REQUEST_LIMIT,
@@ -68,6 +70,35 @@ export async function enforceOtpRequestRateLimit(phone: string, ip: string): Pro
   ]);
 
   const failing = [phoneVerdict, ipVerdict].filter((verdict) => !verdict.allowed);
+  if (failing.length > 0) {
+    rejectWithRetryAfter(Math.max(...failing.map((verdict) => verdict.retryAfterSeconds)));
+  }
+}
+
+/**
+ * BE-21 : 30 contacts par jour, par identité ET par IP indépendamment — même patron que
+ * `enforceOtpRequestRateLimit`. `identityKey` est le `sub` du token pour un utilisateur
+ * authentifié, sinon l'empreinte de session (déjà un hash, P8) : jamais l'IP en clair dans
+ * la clé Redis.
+ */
+export async function enforceContactEventRateLimit(input: {
+  identityKey: string;
+  ip: string;
+}): Promise<void> {
+  const [identityVerdict, ipVerdict] = await Promise.all([
+    checkRateLimit({
+      key: `ratelimit:contact:identity:${input.identityKey}`,
+      limit: CONTACT_EVENT_LIMIT,
+      windowSeconds: CONTACT_EVENT_WINDOW_SECONDS,
+    }),
+    checkRateLimit({
+      key: `ratelimit:contact:ip:${hashIp(input.ip)}`,
+      limit: CONTACT_EVENT_LIMIT,
+      windowSeconds: CONTACT_EVENT_WINDOW_SECONDS,
+    }),
+  ]);
+
+  const failing = [identityVerdict, ipVerdict].filter((verdict) => !verdict.allowed);
   if (failing.length > 0) {
     rejectWithRetryAfter(Math.max(...failing.map((verdict) => verdict.retryAfterSeconds)));
   }

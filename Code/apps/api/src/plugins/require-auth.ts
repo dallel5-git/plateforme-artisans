@@ -8,6 +8,7 @@ declare module 'fastify' {
   }
   interface FastifyInstance {
     requireAuth: (request: FastifyRequest, reply: FastifyReply) => Promise<void>;
+    tryAuth: (request: FastifyRequest, reply: FastifyReply) => Promise<void>;
   }
 }
 
@@ -39,6 +40,18 @@ export async function verifyRequest(request: FastifyRequest): Promise<AccessToke
 // une route publique doit rester lisible sans avoir à chercher une exception ailleurs).
 export function registerRequireAuth(app: FastifyInstance): void {
   app.decorate('requireAuth', async (request: FastifyRequest) => {
+    request.user = await verifyRequest(request);
+  });
+
+  // BE-21 : première route à accepter authentifié ET anonyme (contact-events). En-tête absent
+  // → anonyme, on continue sans lever d'erreur. En-tête présent mais invalide/expiré → on lève
+  // quand même (comme requireAuth) : un client qui a tenté de s'authentifier a probablement un
+  // bug (token périmé) — le dégrader silencieusement en anonyme fragmenterait son historique de
+  // contacts entre son compte et une empreinte de session jetable, sans jamais le signaler.
+  app.decorate('tryAuth', async (request: FastifyRequest) => {
+    if (!request.headers.authorization) {
+      return;
+    }
     request.user = await verifyRequest(request);
   });
 }
