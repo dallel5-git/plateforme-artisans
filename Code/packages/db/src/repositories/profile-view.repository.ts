@@ -41,6 +41,20 @@ export interface CreateProfileViewResult {
   isNew: boolean;
 }
 
+// Isolée de `createProfileView` pour rester testable sans base (ADR-006 règle 1 : le harnais
+// Vitest+Postgres est différé, BE-02b) — construit directement une
+// `Prisma.PrismaClientKnownRequestError`, aucune I/O. Si quelqu'un élargit un jour la contrainte
+// unique de `ProfileView` (ex. ajout d'une colonne) sans mettre à jour ce contrôle, ce test devient
+// rouge : un vrai conflit de dédup serait alors traité comme une erreur inattendue (relancée),
+// au lieu du retour silencieux `{ isNew: false }` attendu par le critère d'acceptation BE-23.
+export function isSessionHashConflict(error: unknown): boolean {
+  return (
+    error instanceof Prisma.PrismaClientKnownRequestError &&
+    error.code === 'P2002' &&
+    ((error.meta?.target as string[] | undefined)?.includes('sessionHash') ?? false)
+  );
+}
+
 /**
  * Tente de créer la ligne `ProfileView` du jour pour cette empreinte de session. `isNew: false`
  * (sans erreur) si une vue existe déjà pour ce (providerId, sessionHash, viewDate) — critère
@@ -54,11 +68,7 @@ export async function createProfileView(
     const view = await db.profileView.create({ data: input, select });
     return { view, isNew: true };
   } catch (error) {
-    if (
-      error instanceof Prisma.PrismaClientKnownRequestError &&
-      error.code === 'P2002' &&
-      (error.meta?.target as string[] | undefined)?.includes('sessionHash')
-    ) {
+    if (isSessionHashConflict(error)) {
       return { view: null, isNew: false };
     }
     throw error;
