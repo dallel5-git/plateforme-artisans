@@ -65,6 +65,46 @@ jobs:
       # TODO(FM-01) : ajouter un job `flutter analyze` + `dart format --set-exit-if-changed`
       # une fois apps/mobile bootstrapé en Flutter (ADR-001) — cf. POLITIQUE-PROJET.md §3.3/§6.
 
+  mobile-client-check:
+    name: contrat → client Dart (mobile:client)
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      DATABASE_URL: postgresql://sanaya:sanaya_dev_password@localhost:5432/sanaya
+      REDIS_URL: redis://localhost:6379
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.22.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: Code/pnpm-lock.yaml
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - uses: dart-lang/setup-dart@v1
+
+      - name: Cache Turborepo
+        uses: actions/cache@v4
+        with:
+          path: Code/.turbo
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm mobile:client:check
+      - run: dart analyze
+        working-directory: Code/apps/mobile/lib/core/api/generated
+
   test:
     name: test (PostgreSQL + Redis)
     runs-on: ubuntu-latest
