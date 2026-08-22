@@ -91,3 +91,15 @@ export function buildProviderStats(
 
   return { totals: { ...totals, viewToContactRatio }, series };
 }
+
+// AC BE-24 : « série journalière sur 30 jours ». `to` reste l'instant réel (pas tronqué à
+// minuit) pour que les repositories capturent les événements du jour courant jusqu'à maintenant ;
+// `buildProviderStats` se charge lui-même de tronquer aux bornes de jour calendaire UTC.
+export const PROVIDER_STATS_WINDOW_DAYS = 30;
+
+export function resolveProviderStatsRange(now: Date): ProviderStatsRange {
+  const from = new Date(
+    resolveViewDate(now).getTime() - (PROVIDER_STATS_WINDOW_DAYS - 1) * ONE_DAY_MS,
+  );
+  return { from, to: now };
+}

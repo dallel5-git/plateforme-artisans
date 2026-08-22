@@ -2,7 +2,11 @@
 // `provider-stats.ts` (CLAUDE.md §6, POLITIQUE-PROJET.md §6). Zéro I/O : `dailyStats` et
 // `contactTimestamps` sont déjà résolus par l'appelant (repositories `@repo/db`, BE-24a).
 import { describe, expect, it } from 'vitest';
-import { buildProviderStats } from '../../src/analytics/provider-stats.js';
+import {
+  buildProviderStats,
+  PROVIDER_STATS_WINDOW_DAYS,
+  resolveProviderStatsRange,
+} from '../../src/analytics/provider-stats.js';
 
 const RANGE = {
   from: new Date('2026-08-01T00:00:00.000Z'),
@@ -80,5 +84,23 @@ describe('buildProviderStats', () => {
     const result = buildProviderStats([], [], RANGE);
 
     expect(result.totals.viewToContactRatio).toBe(0);
+  });
+});
+
+describe('resolveProviderStatsRange', () => {
+  it("couvre exactement les 30 derniers jours, aujourd'hui inclus (AC BE-24 : « série sur 30 jours »)", () => {
+    const now = new Date('2026-08-22T14:32:00.000Z');
+
+    const range = resolveProviderStatsRange(now);
+
+    expect(range.to).toBe(now);
+    expect(range.from.toISOString()).toBe('2026-07-24T00:00:00.000Z');
+    expect(buildProviderStats([], [], range).series).toHaveLength(PROVIDER_STATS_WINDOW_DAYS);
+  });
+
+  it('`from` reste calé sur minuit UTC même si `now` a une heure quelconque', () => {
+    const range = resolveProviderStatsRange(new Date('2026-08-22T23:59:59.999Z'));
+
+    expect(range.from.toISOString().endsWith('T00:00:00.000Z')).toBe(true);
   });
 });

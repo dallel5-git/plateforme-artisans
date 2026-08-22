@@ -140,7 +140,12 @@ export type {
   FavoriteListItem,
 } from './favorites/list-item.js';
 
-export { resolveViewDate, buildProviderStats } from './analytics/index.js';
+export {
+  resolveViewDate,
+  buildProviderStats,
+  PROVIDER_STATS_WINDOW_DAYS,
+  resolveProviderStatsRange,
+} from './analytics/index.js';
 export type {
   ProviderStats,
   ProviderStatsDailyInput,
