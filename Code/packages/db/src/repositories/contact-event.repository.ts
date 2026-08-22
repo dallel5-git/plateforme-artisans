@@ -61,6 +61,28 @@ export async function findRecentContactEvent(
   });
 }
 
+export interface RecentContactEventByFingerprint {
+  id: string;
+  providerId: string;
+  channel: ContactChannel;
+  createdAt: Date;
+}
+
+/** Dernier ContactEvent pour cette empreinte de session, tous prestataires confondus — c'est
+ *  `shouldDeduplicate` (@repo/core) qui tranche si le `providerId` retourné correspond à la
+ *  requête en cours. Seule voie de dédup pour un visiteur anonyme (pas de `clientId`, BE-21). */
+export async function findRecentContactEventByFingerprint(
+  sessionHash: string,
+  since: Date,
+  db: DbClient = prisma,
+): Promise<RecentContactEventByFingerprint | null> {
+  return db.contactEvent.findFirst({
+    where: { sessionHash, createdAt: { gte: since } },
+    select: { id: true, providerId: true, channel: true, createdAt: true },
+    orderBy: { createdAt: 'desc' },
+  });
+}
+
 export async function listContactEventsForProvider(
   providerId: string,
   options: { cursor?: string; limit?: number } = {},
