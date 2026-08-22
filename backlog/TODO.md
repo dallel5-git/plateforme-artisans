@@ -44,7 +44,6 @@
 | `BE-26` | ⭐ Contrat : `api:contract` + `mobile:client` (dart-dio) + `web:client` prêt pour S2 | 🔴 | DEV-1 | 2,5 h | toutes | ADR-001 |
 | `BE-27` | 🚦 **GATE 1** — recette backend en `curl` (8 appels) | 🔴 | binôme | 0,75 h *(1,5 h-h)* | BE-26 | — |
 | `BE-24` | `GET /providers/me/stats` — vues, contacts, ratio, série 30 j | 🟠 | DEV-2 | 2 h | BE-23 | US-P-12 |
-| `BE-25` | Favoris (`PUT`/`DELETE`/`GET /favorites`) | 🟠 | DEV-1 | 1 h | BE-12 | US-C-08 |
 
 ## LOT MOBILE — Flutter · J4 pm → J7 · **les 2 devs** · ~43 h (P0) + 10 h (P1)
 
