@@ -59,6 +59,7 @@ jobs:
       - run: pnpm format:check
       - run: pnpm api:contract:check
       - run: pnpm tokens:build:check
+      - run: pnpm web:client:check
 
       # TODO(SO-05) : activer `pnpm i18n:check` une fois le squelette i18n FR/AR
       # (packages/i18n/src/locales/{fr,ar}/*.json + tooling/scripts/i18n-check.mjs) mergé sur main.

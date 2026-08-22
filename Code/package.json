@@ -26,10 +26,13 @@
     "api:contract:check": "turbo run api:contract -- --check",
     "i18n:check": "node tooling/scripts/i18n-check.mjs",
     "tokens:build": "node tooling/scripts/build-tokens.mjs",
-    "tokens:build:check": "node tooling/scripts/build-tokens.mjs --check"
+    "tokens:build:check": "node tooling/scripts/build-tokens.mjs --check",
+    "web:client": "node tooling/scripts/web-client.mjs",
+    "web:client:check": "node tooling/scripts/web-client.mjs --check"
   },
   "devDependencies": {
     "ioredis": "6.0.0",
+    "openapi-typescript": "7.13.0",
     "prettier": "3.9.6",
     "tsx": "4.23.12",
     "turbo": "2.10.10",
