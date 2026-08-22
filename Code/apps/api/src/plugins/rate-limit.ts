@@ -6,6 +6,8 @@ import {
   CONTACT_EVENT_WINDOW_SECONDS,
   DomainError,
   evaluateRateLimit,
+  FAVORITE_LIMIT,
+  FAVORITE_WINDOW_SECONDS,
   OTP_REQUEST_LIMIT,
   OTP_REQUEST_WINDOW_SECONDS,
   REVIEW_LIMIT,
@@ -113,5 +115,15 @@ export async function enforceReviewRateLimit(userId: string): Promise<void> {
     key: `ratelimit:review:identity:${userId}`,
     limit: REVIEW_LIMIT,
     windowSeconds: REVIEW_WINDOW_SECONDS,
+  });
+}
+
+/** BE-25 : 60 ajouts/retraits de favori par jour, par utilisateur — même schéma que
+ *  `enforceReviewRateLimit` (toujours authentifié, pas de volet IP). */
+export async function enforceFavoriteRateLimit(userId: string): Promise<void> {
+  await enforceRateLimit({
+    key: `ratelimit:favorite:identity:${userId}`,
+    limit: FAVORITE_LIMIT,
+    windowSeconds: FAVORITE_WINDOW_SECONDS,
   });
 }
