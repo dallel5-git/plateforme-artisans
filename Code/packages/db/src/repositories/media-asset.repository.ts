@@ -92,3 +92,26 @@ export async function approveMediaAsset(id: string, db: DbClient = prisma): Prom
     select: { id: true },
   });
 }
+
+export interface FinalizeMediaAssetInput {
+  publicUrl: string;
+  width: number;
+  height: number;
+}
+
+// BE-20c : la variante `full` téléversée sur R2 remplace l'original comme représentation
+// publique du `MediaAsset` (voir plan BE-20 : un seul `storageKey`/`publicUrl` par ligne, pas de
+// colonnes de variantes). `moderationStatus: 'APPROVED'` direct — aucune file de modération
+// n'existe encore (BE-31/BE-40, hors périmètre S1) ; `PENDING` par défaut rendrait la photo
+// invisible pour toujours (`findMediaAssetsByIds` filtre `APPROVED`).
+export async function finalizeMediaAsset(
+  id: string,
+  input: FinalizeMediaAssetInput,
+  db: DbClient = prisma,
+): Promise<void> {
+  await db.mediaAsset.update({
+    where: { id },
+    data: { ...input, moderationStatus: 'APPROVED' },
+    select: { id: true },
+  });
+}

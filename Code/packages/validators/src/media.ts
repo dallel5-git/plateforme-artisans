@@ -17,3 +17,17 @@ export const presignMediaResponseSchema = z.object({
   uploadUrl: z.string(),
   expiresAt: z.date(),
 });
+
+export const mediaIdParamsSchema = z.object({
+  id: z.uuid(),
+});
+
+export const processMediaResponseSchema = z.object({
+  id: z.uuid(),
+  publicUrl: z.string(),
+  thumbUrl: z.string(),
+  cardUrl: z.string(),
+  fullUrl: z.string(),
+  width: z.number().int().positive(),
+  height: z.number().int().positive(),
+});
