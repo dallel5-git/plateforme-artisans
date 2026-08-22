@@ -23,3 +23,7 @@ export const FORBIDDEN = 'FORBIDDEN';
 export const PROVIDER_PROFILE_NOT_FOUND = 'PROVIDER_PROFILE_NOT_FOUND';
 export const PROVIDER_PROFILE_ALREADY_EXISTS = 'PROVIDER_PROFILE_ALREADY_EXISTS';
 export const PROVIDER_PROFILE_INCOMPLETE = 'PROVIDER_PROFILE_INCOMPLETE';
+
+// BE-21 : révélation du numéro — aucune contrainte DB ne garantit qu'un artisan a rempli le
+// champ correspondant au canal demandé (whatsappPhone/publicPhone sont tous deux nullable).
+export const PROVIDER_CONTACT_CHANNEL_UNAVAILABLE = 'PROVIDER_CONTACT_CHANNEL_UNAVAILABLE';
