@@ -3,7 +3,7 @@
 > ⚠️ **Maximum 2 tâches par développeur.** Si vous en avez 3, vous n'en finissez aucune.
 > Mise à jour obligatoire **en fin de chaque journée**.
 
-_Sprint S1 · dernière mise à jour : 2026-08-21_
+_Sprint S1 · dernière mise à jour : 2026-08-22_
 
 ## DEV-1
 
@@ -16,7 +16,7 @@ _Sprint S1 · dernière mise à jour : 2026-08-21_
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
 | `BE-18` | `GET /providers/:slug/reviews` paginé | 2026-08-21 | `feat/BE-18c-provider-reviews-route` | 3 PRs atomiques (core → repository → route, découpage BE-16a/b/c) : #103 (core, mergée), #104 (repository, CI verte), #105 (route + contrat, CI en cours). |
-| `BE-20a` | Médias — `packages/storage` : client R2, presign, pipeline sharp (variantes WebP) | 2026-08-22 | `feat/BE-20a-storage-infra` | PR #106 ouverte (CI en cours) — première des 4 sous-tâches de BE-20 (issue #24). |
+| `BE-20b` | Médias — `POST /v1/media/presign` | 2026-08-22 | `feat/BE-20b-media-presign` | PR #110 ouverte (empilée sur #106, CI en cours) — 2e des 4 sous-tâches de BE-20 (issue #24). BE-20a (#106) terminé, CI verte, en attente de merge par Oussama. |
 
 ## En binôme
 
