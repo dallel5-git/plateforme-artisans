@@ -60,6 +60,11 @@
 | `BE-19c` | Onboarding artisan — `PUT /v1/providers/me/categories` | Claude | #98 | 2026-08-22 |
 | `BE-19d` | Onboarding artisan — `PUT /v1/providers/me/coverage-areas` | Claude | #99 | 2026-08-22 |
 | `BE-19` | Onboarding artisan : profil, catégories, zones, complétude — parcours complet (4 PRs atomiques ci-dessus, empilées sur #93) | Claude | #93/#97-#99 | 2026-08-22 |
+| `BE-20a` | Médias — `packages/storage` : client R2, presign, pipeline sharp (variantes WebP) | Claude | #106 | 2026-08-22 |
+| `BE-20b` | Médias — `POST /v1/media/presign` | Claude | #110 | 2026-08-22 |
+| `BE-20c` | Médias — `POST /v1/media/:id/process` (téléchargement + variantes + upload R2) | Claude | #112 | 2026-08-22 |
+| `BE-20d` | Médias — `POST`/`DELETE /v1/providers/me/portfolio` (rattachement au profil, quota FREE) | Claude | #113 | 2026-08-22 |
+| `BE-20` | Upload de médias : URL pré-signées et variantes WebP — parcours complet (4 PRs atomiques ci-dessus, empilées sur #106) | Claude | #106/#110/#112/#113 | 2026-08-22 |
 
 ---
 
