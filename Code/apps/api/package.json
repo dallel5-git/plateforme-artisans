@@ -22,6 +22,7 @@
     "@repo/core": "workspace:*",
     "@repo/db": "workspace:*",
     "@repo/notifications": "workspace:*",
+    "@repo/storage": "workspace:*",
     "@repo/utils": "workspace:*",
     "@repo/validators": "workspace:*",
     "fastify": "5.12.0",

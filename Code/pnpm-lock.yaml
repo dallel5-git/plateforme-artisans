@@ -52,6 +52,9 @@ importers:
       '@repo/notifications':
         specifier: workspace:*
         version: link:../../packages/notifications
+      '@repo/storage':
+        specifier: workspace:*
+        version: link:../../packages/storage
       '@repo/utils':
         specifier: workspace:*
         version: link:../../packages/utils
