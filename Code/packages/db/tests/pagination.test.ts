@@ -94,6 +94,32 @@ describe('buildKeysetOrderBy', () => {
   });
 });
 
+// BE-25b : `Favorite` n'a pas de colonne `id` (clé composite `(userId, providerId)`) —
+// `idField` permet d'utiliser `providerId` comme départage-tri sans dupliquer ces fonctions.
+describe('buildKeysetWhere / buildKeysetOrderBy — idField personnalisé', () => {
+  it('buildKeysetWhere utilise idField au lieu de "id" dans le départage', () => {
+    const cursor = encodeCursor(10, 'provider-5');
+    expect(buildKeysetWhere('createdAt', 'desc', cursor, 'providerId')).toEqual({
+      OR: [{ createdAt: { lt: 10 } }, { createdAt: 10, providerId: { gt: 'provider-5' } }],
+    });
+  });
+
+  it('buildKeysetOrderBy trie par idField au lieu de "id"', () => {
+    expect(buildKeysetOrderBy('createdAt', 'desc', 'providerId')).toEqual([
+      { createdAt: 'desc' },
+      { providerId: 'asc' },
+    ]);
+  });
+
+  it('sans idField, le comportement par défaut ("id") est inchangé', () => {
+    const cursor = encodeCursor(10, 'id-5');
+    expect(buildKeysetWhere('createdAt', 'desc', cursor)).toEqual({
+      OR: [{ createdAt: { lt: 10 } }, { createdAt: 10, id: { gt: 'id-5' } }],
+    });
+    expect(buildKeysetOrderBy('createdAt', 'desc')).toEqual([{ createdAt: 'desc' }, { id: 'asc' }]);
+  });
+});
+
 describe('buildPage', () => {
   const rows = (n: number) => Array.from({ length: n }, (_, i) => ({ id: `id-${i}`, sort: i }));
 
@@ -114,5 +140,20 @@ describe('buildPage', () => {
     const page = buildPage(rows(0), 5, (r) => r.sort);
     expect(page.items).toHaveLength(0);
     expect(page.nextCursor).toBeNull();
+  });
+
+  it('getId personnalisé (BE-25b : ligne sans colonne id) sert au curseur suivant', () => {
+    const favoriteRows = [
+      { providerId: 'p-0', sort: 0 },
+      { providerId: 'p-1', sort: 1 },
+    ];
+    const page = buildPage(
+      favoriteRows,
+      1,
+      (r) => r.sort,
+      (r) => r.providerId,
+    );
+    expect(page.items).toEqual([{ providerId: 'p-0', sort: 0 }]);
+    expect(page.nextCursor).toBe(encodeCursor(0, 'p-0'));
   });
 });
