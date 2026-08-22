@@ -83,6 +83,33 @@ export async function findRecentContactEventByFingerprint(
   });
 }
 
+export interface EligibleContactEventForReview {
+  id: string;
+  createdAt: Date;
+}
+
+/** BE-22 : le seul ContactEvent qu'un avis peut cibler pour ce (provider, client) — pas encore
+ *  lié à un Review (`review: null`), et dans la fenêtre d'éligibilité (US-C-06, calculée par
+ *  `@repo/core`, jamais ici). La fenêtre est appliquée dans le `WHERE`, pas après coup : sinon le
+ *  contact le plus récent mais inéligible masquerait un contact plus ancien réellement éligible. */
+export async function findEligibleContactEventForReview(
+  providerId: string,
+  clientId: string,
+  window: { earliestEligible: Date; latestEligible: Date },
+  db: DbClient = prisma,
+): Promise<EligibleContactEventForReview | null> {
+  return db.contactEvent.findFirst({
+    where: {
+      providerId,
+      clientId,
+      review: null,
+      createdAt: { gt: window.earliestEligible, lt: window.latestEligible },
+    },
+    select: { id: true, createdAt: true },
+    orderBy: { createdAt: 'desc' },
+  });
+}
+
 export async function listContactEventsForProvider(
   providerId: string,
   options: { cursor?: string; limit?: number } = {},
