@@ -296,6 +296,24 @@ function generateInto(outputDir) {
     rmSync(tmpSpecPath, { force: true });
   }
 
+  // Ce package n'est pas une lib publiée indépendamment (consommateurs multiples, résolution
+  // de versions à leur discrétion) — c'est un artefact de build interne, vendu tel quel
+  // (généré ici, committé, jamais régénéré par un consommateur). `pubspec.lock` doit donc être
+  // committé et non ignoré (contrairement à la recommandation par défaut du générateur pour un
+  // package "library") : sans lui, `dart pub get` résout les versions indépendamment à chaque
+  // exécution, et un `built_value`/`built_value_generator` plus récent en CI qu'en local peut
+  // produire un code différent de ce qui a été vérifié ici — observé en pratique (CI a résolu
+  // une version dont le générateur produit des `@override` invalides que `dart analyze` refuse).
+  const gitignorePath = join(outputDir, '.gitignore');
+  if (existsSync(gitignorePath)) {
+    const gitignore = readFileSync(gitignorePath, 'utf8');
+    writeFileSync(
+      gitignorePath,
+      gitignore.replace(/^# Don't commit pubspec lock file[\s\S]*?\npubspec\.lock\n/m, ''),
+      'utf8',
+    );
+  }
+
   dedupeGeneratedEnums(outputDir);
   fixMissingNestedBuilderConversions(outputDir);
 
@@ -311,7 +329,9 @@ function generateInto(outputDir) {
 // ---------------------------------------------------------------------------
 // Artefacts de build locaux et non déterministes (chemins/horodatages), déjà exclus par le
 // .gitignore que le générateur écrit lui-même dans le package — jamais comparés ni committés.
-const IGNORED_TOP_LEVEL_ENTRIES = new Set(['.dart_tool', 'build', '.packages', 'pubspec.lock']);
+// `pubspec.lock` n'en fait volontairement PAS partie : il est committé (voir generateInto) et
+// doit donc être comparé comme le reste — une dérive de version doit faire échouer `--check`.
+const IGNORED_TOP_LEVEL_ENTRIES = new Set(['.dart_tool', 'build', '.packages']);
 
 function listFilesRecursive(dir, base = dir) {
   const out = [];
