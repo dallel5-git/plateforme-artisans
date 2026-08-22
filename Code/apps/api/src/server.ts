@@ -16,6 +16,7 @@ import { registerRequireRole } from './plugins/require-role.js';
 import { registerSwagger } from './plugins/swagger.js';
 import { authRoutes } from './routes/auth.js';
 import { catalogRoutes } from './routes/catalog.js';
+import { contactsRoutes } from './routes/contacts.js';
 import { healthRoutes } from './routes/health.js';
 import { providersRoutes } from './routes/providers.js';
 
@@ -63,6 +64,7 @@ export async function buildServer() {
   await app.register(authRoutes, { prefix: '/v1' });
   await app.register(catalogRoutes, { prefix: '/v1' });
   await app.register(providersRoutes, { prefix: '/v1' });
+  await app.register(contactsRoutes, { prefix: '/v1' });
 
   return app;
 }
