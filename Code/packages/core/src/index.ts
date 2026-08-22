@@ -41,6 +41,15 @@ export { buildCategoryTree } from './catalog/category-tree.js';
 export type { CategoryTreeNode } from './catalog/category-tree.js';
 export { CATALOG_CACHE_TTL_SECONDS } from './catalog/constants.js';
 
+export {
+  calculateCompletionScore,
+  MIN_BIO_LENGTH,
+  MIN_PUBLICATION_COMPLETION_SCORE,
+} from './providers/completion-score.js';
+export type { CompletionScoreInput, CompletionScoreResult } from './providers/completion-score.js';
+
+export { FREE_PLAN_MAX_CATEGORIES, FREE_PLAN_MAX_GOVERNORATES } from './billing/plan-limits.js';
+
 export { computeRankingScore, fnv1aHash, parseRankingWeights } from './search/ranking.js';
 export type {
   GeoMatch,

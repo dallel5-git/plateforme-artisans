@@ -18,4 +18,7 @@ export const ERROR_HTTP_STATUS: Record<ErrorCode, number> = {
   [errorCodes.INTERNAL_ERROR]: 500,
   [errorCodes.RATE_LIMIT_EXCEEDED]: 429,
   [errorCodes.FORBIDDEN]: 403,
+  [errorCodes.PROVIDER_PROFILE_NOT_FOUND]: 404,
+  [errorCodes.PROVIDER_PROFILE_ALREADY_EXISTS]: 409,
+  [errorCodes.PROVIDER_PROFILE_INCOMPLETE]: 403,
 };

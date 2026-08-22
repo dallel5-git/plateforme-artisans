@@ -16,6 +16,10 @@ _Sprint S1 · dernière mise à jour : 2026-08-21_
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
 | `BE-18` | `GET /providers/:slug/reviews` paginé | 2026-08-21 | `feat/BE-18c-provider-reviews-route` | 3 PRs atomiques (core → repository → route, découpage BE-16a/b/c) : #103 (core, mergée), #104 (repository, CI verte), #105 (route + contrat, CI en cours). |
+| `BE-19a` | Onboarding artisan — `packages/core` : fonction pure `calculateCompletionScore` + tests | 2026-08-21 | `feat/BE-19a-completion-score` | PR #93 ouverte (CI en cours) — première des 4 sous-tâches de BE-19 (issue #23). Contient les commits mergés de #97/#98/#99 + deux réconciliations avec `develop` (BE-17 puis BE-18, tous deux touchant `providers.ts`/`provider.ts` : ajouts disjoints, combinés à chaque fois). |
+| `BE-19b` | Onboarding artisan — `POST`/`PATCH /v1/providers/me` : création, promotion de rôle, complétude, garde de publication | 2026-08-21 | `feat/BE-19b-provider-me-profile` | PR #97 **mergée** dans `feat/BE-19a-completion-score` |
+| `BE-19c` | Onboarding artisan — `PUT /v1/providers/me/categories` : remplacement atomique, `isPrimary`, quota FREE | 2026-08-21 | `feat/BE-19c-provider-categories` | PR #98 **mergée** dans `feat/BE-19a-completion-score` |
+| `BE-19d` | Onboarding artisan — `PUT /v1/providers/me/coverage-areas` : remplacement atomique, quota FREE | 2026-08-21 | `feat/BE-19d-provider-coverage-areas` | PR #99 **mergée** dans `feat/BE-19a-completion-score` — **dernière sous-tâche, clôt #23 une fois #93 mergée dans `develop`** |
 
 ## En binôme
 

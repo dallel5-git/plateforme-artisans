@@ -39,7 +39,10 @@
 | ID | Tâche | Prio | Qui | Est. | Dépend de | US |
 |---|---|---|---|---|---|---|
 | `BE-16` | `GET /providers/search` — filtres + tri + **curseur** | 🔴 | DEV-1 | 3 h | BE-15, BE-05 | US-C-01/03 |
-| `BE-19` | Onboarding artisan — **réduit** : profil + catégories + zones + `completionScore` | 🟠 | DEV-2 | 2,5 h | BE-12 | US-P-02→04 |
+| `BE-19a` | Onboarding artisan — `packages/core` : fonction pure `calculateCompletionScore` + tests | 🟠 | DEV-2 | 0,5 h | BE-12 | US-P-02→04 |
+| `BE-19b` | Onboarding artisan — `POST`/`PATCH /v1/providers/me` : création, promotion de rôle, complétude, garde de publication | 🟠 | DEV-2 | 1 h | BE-19a | US-P-02→04 |
+| `BE-19c` | Onboarding artisan — `PUT /v1/providers/me/categories` : remplacement atomique, `isPrimary`, quota FREE | 🟠 | DEV-2 | 0,5 h | BE-19b | US-P-02→04 |
+| `BE-19d` | Onboarding artisan — `PUT /v1/providers/me/coverage-areas` : remplacement atomique, quota FREE | 🟠 | DEV-2 | 0,5 h | BE-19b | US-P-02→04 |
 | `BE-21` | ⭐ `POST /contact-events` — dédup 30 min, empreinte de session, révélation du numéro, agrégat transactionnel | 🔴 | **binôme** | 3 h *(6 h-h)* | BE-11, BE-12 | US-C-05/06 |
 | `BE-22` | `POST /providers/:id/reviews` — rattaché à un `ContactEvent`, agrégats en transaction | 🔴 | DEV-1 | 2,5 h | BE-21 | US-C-07 |
 | `BE-23` | `POST /profile-views` + `DailyProviderStat` (dédup 24 h) | 🔴 | DEV-2 | 1,5 h | BE-21 | P9 |

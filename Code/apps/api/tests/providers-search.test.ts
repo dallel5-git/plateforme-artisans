@@ -12,13 +12,20 @@ import {
 } from 'fastify-type-provider-zod';
 import { describe, expect, it } from 'vitest';
 import { registerErrorHandler } from '../src/plugins/error-handler.js';
+import { registerRequireAuth } from '../src/plugins/require-auth.js';
+import { registerRequireRole } from '../src/plugins/require-role.js';
 import { providersRoutes } from '../src/routes/providers.js';
 
+// `providersRoutes` (BE-16/17 + BE-19) contient aussi les routes `/providers/me*`, gardées par
+// `app.requireAuth`/`app.requireRole` — ces décorateurs doivent exister avant l'enregistrement
+// des routes, même si ce fichier ne teste que le volet public.
 async function buildTestApp() {
   const app = Fastify().withTypeProvider<ZodTypeProvider>();
   app.setValidatorCompiler(validatorCompiler);
   app.setSerializerCompiler(serializerCompiler);
   registerErrorHandler(app);
+  registerRequireAuth(app);
+  registerRequireRole(app);
   await app.register(providersRoutes, { prefix: '/v1' });
   return app;
 }

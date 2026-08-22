@@ -118,6 +118,36 @@ export async function findProviderProfileBySlug(
   return row ? toProfile(row) : null;
 }
 
+const ownerProfileSelect = { ...profileSelect, whatsappPhone: true, publicPhone: true } as const;
+
+type RawOwnerProfile = Prisma.ProviderProfileGetPayload<{ select: typeof ownerProfileSelect }>;
+
+export interface ProviderProfileOwnerView extends ProviderProfile {
+  whatsappPhone: string | null;
+  publicPhone: string | null;
+}
+
+function toOwnerProfile(row: RawOwnerProfile): ProviderProfileOwnerView {
+  return { ...toProfile(row), whatsappPhone: row.whatsappPhone, publicPhone: row.publicPhone };
+}
+
+/**
+ * BE-19 : vue privée du propriétaire sur son propre profil — inclut `whatsappPhone`/
+ * `publicPhone`, contrairement à `findProviderProfileById`/`findProviderProfileBySlug` (P8).
+ * Distincte de `revealProviderContactPhone` (réservée au flux `ContactEvent` tracé, BE-21) :
+ * ici l'appelant est toujours le propriétaire (`request.user.sub === userId`), jamais un tiers.
+ */
+export async function findProviderProfileByUserId(
+  userId: string,
+  db: DbClient = prisma,
+): Promise<ProviderProfileOwnerView | null> {
+  const row = await db.providerProfile.findUnique({
+    where: { userId },
+    select: ownerProfileSelect,
+  });
+  return row ? toOwnerProfile(row) : null;
+}
+
 /** Réservé au flux ContactEvent tracé (BE-21) — jamais depuis une liste ou une page SEO. */
 export async function revealProviderContactPhone(
   id: string,
@@ -292,6 +322,7 @@ export interface CreateProviderProfileInput {
   baseDelegationId?: string;
   latitude?: number;
   longitude?: number;
+  completionScore?: number;
 }
 
 export async function createProviderProfile(
@@ -313,6 +344,10 @@ export interface UpdateProviderProfileInput {
   availabilityStatus?: AvailabilityStatus;
   availableAgainAt?: Date | null;
   acceptsEmergency?: boolean;
+  // BE-19 : forme libre par artisan, non validée ici — `unknown` côté API publique, comme
+  // `AppSetting.value` (voir `app-setting.repository.ts`). Prisma exige `InputJsonValue` en
+  // écriture, casté au point d'appel juste en dessous.
+  workingHours?: unknown;
   completionScore?: number;
 }
 
@@ -321,9 +356,15 @@ export async function updateProviderProfile(
   input: UpdateProviderProfileInput,
   db: DbClient = prisma,
 ): Promise<ProviderProfile> {
+  const { workingHours, ...rest } = input;
   const row = await db.providerProfile.update({
     where: { id },
-    data: input,
+    data: {
+      ...rest,
+      ...(workingHours !== undefined
+        ? { workingHours: workingHours as Prisma.InputJsonValue }
+        : {}),
+    },
     select: profileSelect,
   });
   return toProfile(row);
@@ -398,6 +439,34 @@ export async function listProviderCategories(
   db: DbClient = prisma,
 ): Promise<ProviderCategoryLink[]> {
   return db.providerCategory.findMany({ where: { providerId }, select: categoryLinkSelect });
+}
+
+export interface ProviderCategoryReplaceInput {
+  categoryId: string;
+  isPrimary: boolean;
+  yearsExperience?: number;
+}
+
+/**
+ * BE-19c : remplace tout le set de catégories d'un coup (`PUT`, sémantique de remplacement) —
+ * supprime puis recrée, plutôt qu'un upsert incrémental, pour ne jamais heurter l'index partiel
+ * unique `isPrimary` (BE-02) en cours de route (voir le commentaire sur `setProviderCategory`).
+ * Transaction-agnostique comme le reste du repository : à appeler avec le `tx` de
+ * `withTransaction` (@repo/db) depuis la route, avec `updateProviderProfile` pour le
+ * `completionScore`, dans la même transaction.
+ */
+export async function replaceProviderCategories(
+  providerId: string,
+  categories: ProviderCategoryReplaceInput[],
+  db: DbClient = prisma,
+): Promise<ProviderCategoryLink[]> {
+  await db.providerCategory.deleteMany({ where: { providerId } });
+  if (categories.length > 0) {
+    await db.providerCategory.createMany({
+      data: categories.map((category) => ({ providerId, ...category })),
+    });
+  }
+  return listProviderCategories(providerId, db);
 }
 
 /** L'index unique partiel (BE-02) garantit une seule catégorie principale : si `isPrimary` est
@@ -537,6 +606,32 @@ export async function listCoverageAreas(
     select: coverageAreaSelect,
   });
   return rows.map(toCoverageArea);
+}
+
+export interface CoverageAreaReplaceInput {
+  governorateId: string;
+  delegationId?: string;
+  travelFee?: number;
+}
+
+/**
+ * BE-19d : remplace tout le set de zones d'un coup (`PUT`), même logique que
+ * `replaceProviderCategories` (BE-19c) — supprime puis recrée, transaction-agnostique (à
+ * appeler avec le `tx` de `withTransaction` depuis la route, avec `updateProviderProfile` pour
+ * le `completionScore`, dans la même transaction).
+ */
+export async function replaceCoverageAreas(
+  providerId: string,
+  areas: CoverageAreaReplaceInput[],
+  db: DbClient = prisma,
+): Promise<CoverageArea[]> {
+  await db.coverageArea.deleteMany({ where: { providerId } });
+  if (areas.length > 0) {
+    await db.coverageArea.createMany({
+      data: areas.map((area) => ({ providerId, ...area })),
+    });
+  }
+  return listCoverageAreas(providerId, db);
 }
 
 export async function addCoverageArea(
