@@ -23,5 +23,6 @@ export const ERROR_HTTP_STATUS: Record<ErrorCode, number> = {
   [errorCodes.PROVIDER_PROFILE_INCOMPLETE]: 403,
   [errorCodes.MEDIA_UNSUPPORTED_TYPE]: 400,
   [errorCodes.MEDIA_TOO_LARGE]: 400,
+  [errorCodes.MEDIA_NOT_FOUND]: 404,
   [errorCodes.PROVIDER_CONTACT_CHANNEL_UNAVAILABLE]: 422,
 };

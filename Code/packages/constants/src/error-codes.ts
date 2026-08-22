@@ -27,6 +27,7 @@ export const PROVIDER_PROFILE_INCOMPLETE = 'PROVIDER_PROFILE_INCOMPLETE';
 // BE-20 : upload de médias.
 export const MEDIA_UNSUPPORTED_TYPE = 'MEDIA_UNSUPPORTED_TYPE';
 export const MEDIA_TOO_LARGE = 'MEDIA_TOO_LARGE';
+export const MEDIA_NOT_FOUND = 'MEDIA_NOT_FOUND';
 
 // BE-21 : révélation du numéro — aucune contrainte DB ne garantit qu'un artisan a rempli le
 // champ correspondant au canal demandé (whatsappPhone/publicPhone sont tous deux nullable).
