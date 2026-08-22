@@ -17,6 +17,11 @@ allowBuilds:
   # argon2 (node-argon2) télécharge/compile son binaire natif au postinstall — script légitime,
   # nécessaire pour le hachage Argon2id de l'OTP (BE-07).
   argon2: true
+  # BE-26 : postinstall = juste un message de sollicitation de don OpenCollective
+  # (`opencollective || exit 0`), rien de nécessaire au fonctionnement — le jar du générateur se
+  # télécharge à la demande, au premier `generate`, pas à l'install. Laissé désactivé (défaut
+  # sécurisé de pnpm) plutôt qu'autorisé pour rien.
+  '@openapitools/openapi-generator-cli': false
 minimumReleaseAgeExclude:
   - '@vitest/expect@4.1.11'
   - '@vitest/mocker@4.1.11'
