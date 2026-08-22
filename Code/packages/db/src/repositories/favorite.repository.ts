@@ -1,8 +1,11 @@
-// BE-05 : agrégat Favorite. Clé composite (userId, providerId) — pas de curseur nécessaire ici,
-// la liste de favoris d'un utilisateur est bornée par construction (un humain ne favorise pas
-// des milliers d'artisans).
+// BE-05 : agrégat Favorite. Clé composite (userId, providerId).
+// BE-25b : `listFavoritesForUser` pagine par curseur (P5, AC explicite du ticket) — `providerId`
+// sert de départage-tri (`idField`, pagination.ts) puisque `Favorite` n'a pas de colonne `id`,
+// mais reste unique une fois le `where` scopé par `userId`.
 import { prisma } from '../client.js';
 import type { DbClient } from '../types.js';
+import { buildKeysetOrderBy, buildKeysetWhere, buildPage, resolveLimit } from '../pagination.js';
+import type { PaginatedResult } from '../pagination.js';
 
 const select = {
   userId: true,
@@ -39,9 +42,26 @@ export async function removeFavorite(
 
 export async function listFavoritesForUser(
   userId: string,
+  options: { cursor?: string; limit?: number } = {},
   db: DbClient = prisma,
-): Promise<Favorite[]> {
-  return db.favorite.findMany({ where: { userId }, select, orderBy: { createdAt: 'desc' } });
+): Promise<PaginatedResult<Favorite>> {
+  const limit = resolveLimit(options.limit);
+  const keysetWhere = buildKeysetWhere('createdAt', 'desc', options.cursor, 'providerId');
+  const baseWhere = { userId };
+
+  const rows = await db.favorite.findMany({
+    where: keysetWhere ? { ...baseWhere, ...keysetWhere } : baseWhere,
+    select,
+    orderBy: buildKeysetOrderBy('createdAt', 'desc', 'providerId'),
+    take: limit + 1,
+  });
+
+  return buildPage(
+    rows,
+    limit,
+    (row) => row.createdAt.toISOString(),
+    (row) => row.providerId,
+  );
 }
 
 export async function isFavorite(

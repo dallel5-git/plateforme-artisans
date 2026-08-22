@@ -308,6 +308,68 @@ export async function searchProviderProfiles(
   return rows.map(toSearchCandidate);
 }
 
+// BE-25b : sélection dédiée à « mes favoris » — volontairement plus légère que
+// `searchCandidateSelect` (pas de `coverageAreas`/`categories`, non affichées dans cette liste,
+// P5 low-bandwidth-first). Nouvelle sélection plutôt qu'élargissement de `searchCandidateSelect` :
+// ce dernier a un appelant réel (`searchProviderProfiles`) et un périmètre de champs différent.
+// Pas de filtre `publicationStatus` ici : un favori reste visible même si le prestataire n'est
+// plus PUBLISHED entre-temps — « mes favoris » n'est pas une page de recherche publique.
+const favoriteProviderSelect = {
+  id: true,
+  slug: true,
+  businessName: true,
+  headline: true,
+  isVerified: true,
+  ratingAvg: true,
+  ratingCount: true,
+  availabilityStatus: true,
+} as const;
+
+type RawFavoriteProviderCard = Prisma.ProviderProfileGetPayload<{
+  select: typeof favoriteProviderSelect;
+}>;
+
+export interface FavoriteProviderCard {
+  id: string;
+  slug: string;
+  businessName: string;
+  headline: string | null;
+  isVerified: boolean;
+  ratingAvg: number;
+  ratingCount: number;
+  availabilityStatus: AvailabilityStatus;
+}
+
+function toFavoriteProviderCard(row: RawFavoriteProviderCard): FavoriteProviderCard {
+  return {
+    id: row.id,
+    slug: row.slug,
+    businessName: row.businessName,
+    headline: row.headline,
+    isVerified: row.isVerified,
+    ratingAvg: row.ratingAvg.toNumber(),
+    ratingCount: row.ratingCount,
+    availabilityStatus: row.availabilityStatus,
+  };
+}
+
+/**
+ * BE-25b : hydratation par lots des prestataires favoris d'un utilisateur — même patron que
+ * `findCategoriesByIds`/`findDelegationsByIds`/`findGovernoratesByIds` (BE-17b), évite le N+1
+ * entre la page `Favorite` et son affichage.
+ */
+export async function findProviderProfilesByIds(
+  ids: string[],
+  db: DbClient = prisma,
+): Promise<FavoriteProviderCard[]> {
+  if (ids.length === 0) return [];
+  const rows = await db.providerProfile.findMany({
+    where: { id: { in: ids } },
+    select: favoriteProviderSelect,
+  });
+  return rows.map(toFavoriteProviderCard);
+}
+
 export interface CreateProviderProfileInput {
   userId: string;
   slug: string;
