@@ -31,6 +31,8 @@ export {
   OTP_REQUEST_WINDOW_SECONDS,
   CONTACT_EVENT_LIMIT,
   CONTACT_EVENT_WINDOW_SECONDS,
+  PROFILE_VIEW_LIMIT,
+  PROFILE_VIEW_WINDOW_SECONDS,
 } from './policies/quotas.js';
 export type { RateLimitVerdict } from './policies/quotas.js';
 
@@ -126,3 +128,5 @@ export type {
   BuildWhatsAppMessageInput,
   BuildContactEventLogInput,
 } from './contacts/index.js';
+
+export { resolveViewDate } from './analytics/index.js';

@@ -8,6 +8,13 @@ export const OTP_REQUEST_WINDOW_SECONDS = 60 * 60; // 1 h
 export const CONTACT_EVENT_LIMIT = 30;
 export const CONTACT_EVENT_WINDOW_SECONDS = 24 * 60 * 60; // 1 j — primitif prêt pour BE-21.
 
+// BE-23 : limite généreuse par rapport aux contacts — parcourir de nombreuses fiches par session
+// est un usage normal. Protège la route contre l'abus brut ; la déduplication elle-même est déjà
+// garantie par la contrainte unique `ProfileView` (providerId, sessionHash, viewDate), pas par ce
+// quota.
+export const PROFILE_VIEW_LIMIT = 200;
+export const PROFILE_VIEW_WINDOW_SECONDS = 24 * 60 * 60; // 1 j
+
 export interface RateLimitVerdict {
   allowed: boolean;
   retryAfterSeconds: number;
