@@ -8,6 +8,14 @@ export const OTP_REQUEST_WINDOW_SECONDS = 60 * 60; // 1 h
 export const CONTACT_EVENT_LIMIT = 30;
 export const CONTACT_EVENT_WINDOW_SECONDS = 24 * 60 * 60; // 1 j — primitif prêt pour BE-21.
 
+// BE-22 : dépôt d'avis, toujours authentifié (pas de volet IP anonyme, contrairement à BE-21).
+export const REVIEW_LIMIT = 10;
+export const REVIEW_WINDOW_SECONDS = 24 * 60 * 60; // 1 j
+
+// BE-25 : ajout/retrait de favori, toujours authentifié — même schéma que REVIEW_LIMIT.
+export const FAVORITE_LIMIT = 60;
+export const FAVORITE_WINDOW_SECONDS = 24 * 60 * 60; // 1 j
+
 // BE-23 : limite généreuse par rapport aux contacts — parcourir de nombreuses fiches par session
 // est un usage normal. Protège la route contre l'abus brut ; la déduplication elle-même est déjà
 // garantie par la contrainte unique `ProfileView` (providerId, sessionHash, viewDate), pas par ce

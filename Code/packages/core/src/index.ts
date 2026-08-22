@@ -31,6 +31,10 @@ export {
   OTP_REQUEST_WINDOW_SECONDS,
   CONTACT_EVENT_LIMIT,
   CONTACT_EVENT_WINDOW_SECONDS,
+  REVIEW_LIMIT,
+  REVIEW_WINDOW_SECONDS,
+  FAVORITE_LIMIT,
+  FAVORITE_WINDOW_SECONDS,
   PROFILE_VIEW_LIMIT,
   PROFILE_VIEW_WINDOW_SECONDS,
 } from './policies/quotas.js';
@@ -128,5 +132,12 @@ export type {
   BuildWhatsAppMessageInput,
   BuildContactEventLogInput,
 } from './contacts/index.js';
+
+export { buildFavoriteListItem } from './favorites/list-item.js';
+export type {
+  FavoriteRecord,
+  FavoriteProviderSummary,
+  FavoriteListItem,
+} from './favorites/list-item.js';
 
 export { resolveViewDate } from './analytics/index.js';

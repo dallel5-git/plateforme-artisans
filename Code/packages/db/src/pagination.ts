@@ -61,11 +61,15 @@ export function resolveLimit(limit?: number): number {
  * Fragment `where` keyset pour "l'élément suivant après ce curseur", à fusionner avec les
  * filtres propres à chaque repository. `sortField` est un nom de champ scalaire du modèle
  * Prisma ciblé (le repository appelant est responsable du typage exact du `where` final).
+ * `idField` est le champ départage-tri (par défaut `id`) — surchargeable pour un modèle sans
+ * colonne `id`, ex. `Favorite` dont la clé est composite `(userId, providerId)` : `providerId`
+ * y joue le même rôle de tie-breaker unique une fois le `where` scopé par `userId` (BE-25b).
  */
 export function buildKeysetWhere(
   sortField: string,
   sortDir: SortDirection,
   cursor?: string,
+  idField: string = 'id',
 ): Record<string, unknown> | undefined {
   if (!cursor) return undefined;
 
@@ -73,26 +77,30 @@ export function buildKeysetWhere(
   const op = sortDir === 'asc' ? 'gt' : 'lt';
 
   return {
-    OR: [{ [sortField]: { [op]: v } }, { [sortField]: v, id: { gt: id } }],
+    OR: [{ [sortField]: { [op]: v } }, { [sortField]: v, [idField]: { gt: id } }],
   };
 }
 
 export function buildKeysetOrderBy(
   sortField: string,
   sortDir: SortDirection,
+  idField: string = 'id',
 ): Array<Record<string, SortDirection>> {
-  return [{ [sortField]: sortDir }, { id: 'asc' }];
+  return [{ [sortField]: sortDir }, { [idField]: 'asc' }];
 }
 
 /**
- * À partir d'une page de `limit + 1` lignes déjà triées par `(sortField, id)`, découpe la page
- * réelle et calcule le curseur suivant. `getSortValue` extrait la valeur du champ de tri sur
- * une ligne (le type exact dépend du modèle, laissé au repository appelant).
+ * À partir d'une page de `limit + 1` lignes déjà triées par `(sortField, idField)`, découpe la
+ * page réelle et calcule le curseur suivant. `getSortValue` extrait la valeur du champ de tri sur
+ * une ligne (le type exact dépend du modèle, laissé au repository appelant). `getId` extrait le
+ * départage-tri de la ligne — par défaut `row.id`, surchargeable comme `buildKeysetWhere`/
+ * `buildKeysetOrderBy` ci-dessus pour un modèle sans colonne `id`.
  */
-export function buildPage<T extends { id: string }>(
+export function buildPage<T>(
   rows: T[],
   limit: number,
   getSortValue: (row: T) => string | number,
+  getId: (row: T) => string = (row) => (row as { id: string }).id,
 ): PaginatedResult<T> {
   const hasMore = rows.length > limit;
   const items = hasMore ? rows.slice(0, limit) : rows;
@@ -100,6 +108,6 @@ export function buildPage<T extends { id: string }>(
 
   return {
     items,
-    nextCursor: hasMore && last ? encodeCursor(getSortValue(last), last.id) : null,
+    nextCursor: hasMore && last ? encodeCursor(getSortValue(last), getId(last)) : null,
   };
 }

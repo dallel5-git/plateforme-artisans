@@ -17,6 +17,7 @@ import { registerSwagger } from './plugins/swagger.js';
 import { authRoutes } from './routes/auth.js';
 import { catalogRoutes } from './routes/catalog.js';
 import { contactsRoutes } from './routes/contacts.js';
+import { favoritesRoutes } from './routes/favorites.js';
 import { healthRoutes } from './routes/health.js';
 import { mediaRoutes } from './routes/media.js';
 import { profileViewsRoutes } from './routes/profile-views.js';
@@ -68,6 +69,7 @@ export async function buildServer() {
   await app.register(mediaRoutes, { prefix: '/v1' });
   await app.register(providersRoutes, { prefix: '/v1' });
   await app.register(contactsRoutes, { prefix: '/v1' });
+  await app.register(favoritesRoutes, { prefix: '/v1' });
   await app.register(profileViewsRoutes, { prefix: '/v1' });
 
   return app;

@@ -46,6 +46,7 @@
 | `BE-10d` | `POST /v1/auth/refresh` + `POST /v1/auth/logout` — rotation, détection de rejeu | Claude | #85 | 2026-08-21 |
 | `BE-10` | Routes d'authentification — parcours complet `otp/request`→`otp/verify`→`me`→`refresh`→`logout` (4 PRs atomiques ci-dessus) | Claude | #82–#85 | 2026-08-21 |
 | `BE-11` | Rate limiting Redis — OTP (5/h) + primitif contacts (30/j), par téléphone et IP | Claude | #86 | 2026-08-21 |
+| `BE-12` | RBAC centralisé `packages/core/policies` (`can()`) + preHandlers `requireAuth`/`requireRole` (`requireAuth` renommé depuis `authenticate`, BE-10a) | Claude | #87 | 2026-08-21 |
 | `BE-14a` | Cache-aside Redis générique (`getOrSetCache`), infra sans surface API | Claude | #88 | 2026-08-21 |
 | `BE-14b` | `GET /v1/categories` — arbre complet FR/AR, une seule requête, exception P5 documentée | Claude | #89 | 2026-08-21 |
 | `BE-14c` | `GET /v1/governorates` + `GET /v1/governorates/:id/delegations` (404 si id inconnu) | Claude | #90 | 2026-08-21 |
@@ -60,6 +61,11 @@
 | `BE-19c` | Onboarding artisan — `PUT /v1/providers/me/categories` | Claude | #98 | 2026-08-22 |
 | `BE-19d` | Onboarding artisan — `PUT /v1/providers/me/coverage-areas` | Claude | #99 | 2026-08-22 |
 | `BE-19` | Onboarding artisan : profil, catégories, zones, complétude — parcours complet (4 PRs atomiques ci-dessus, empilées sur #93) | Claude | #93/#97-#99 | 2026-08-22 |
+| `BE-20a` | Médias — `packages/storage` : client R2, presign, pipeline sharp (variantes WebP) | Claude | #106 | 2026-08-22 |
+| `BE-20b` | Médias — `POST /v1/media/presign` | Claude | #110 | 2026-08-22 |
+| `BE-20c` | Médias — `POST /v1/media/:id/process` (téléchargement + variantes + upload R2) | Claude | #112 | 2026-08-22 |
+| `BE-20d` | Médias — `POST`/`DELETE /v1/providers/me/portfolio` (rattachement au profil, quota FREE) | Claude | #113 | 2026-08-22 |
+| `BE-20` | Upload de médias : URL pré-signées et variantes WebP — parcours complet (4 PRs atomiques ci-dessus, empilées sur #106) | Claude | #106/#110/#112/#113 | 2026-08-22 |
 
 ---
 
