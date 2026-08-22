@@ -1,6 +1,7 @@
 // BE-05 : agrégat Review. « Avis certifié » = `contactEventId` renseigné (unique, garde-fou
 // anti-faux-avis P10) ; le trigger `prevent_self_review` (BE-02) est le dernier filet, ce
 // repository ne duplique pas ce contrôle.
+import { Prisma } from '@prisma/client';
 import { prisma } from '../client.js';
 import type { DbClient, ReviewStatus } from '../types.js';
 import { buildKeysetOrderBy, buildKeysetWhere, buildPage, resolveLimit } from '../pagination.js';
@@ -48,11 +49,40 @@ export interface CreateReviewInput {
   isVerifiedContact?: boolean;
 }
 
+// BE-22 : un ContactEvent ne peut porter qu'un seul avis (contrainte unique sur
+// `contactEventId`) — la course entre deux requêtes quasi-simultanées visant le même contact se
+// termine ici par une violation P2002, traduite en erreur typée plutôt que de laisser fuiter
+// l'erreur Prisma brute vers apps/api (qui ne peut pas importer @prisma/client, cf. règle ESLint
+// no-restricted-imports).
+export class DuplicateReviewError extends Error {
+  constructor(readonly contactEventId: string) {
+    super(`Un avis existe déjà pour ce ContactEvent: "${contactEventId}"`);
+    this.name = 'DuplicateReviewError';
+  }
+}
+
 export async function createReview(
   input: CreateReviewInput,
   db: DbClient = prisma,
 ): Promise<PublicReview> {
-  return db.review.create({ data: { ...input, status: 'PENDING' }, select: publicSelect });
+  try {
+    // BE-22 : publié immédiatement (pas de filtrage anti-spam dans ce ticket, cf. plan) ;
+    // isVerifiedContact toujours vrai — cette fonction ne reçoit que des avis rattachés à un
+    // ContactEvent réel, jamais un contactEventId absent.
+    return await db.review.create({
+      data: { ...input, status: 'PUBLISHED', isVerifiedContact: true },
+      select: publicSelect,
+    });
+  } catch (error) {
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === 'P2002' &&
+      (error.meta?.target as string[] | undefined)?.includes('contactEventId')
+    ) {
+      throw new DuplicateReviewError(input.contactEventId!);
+    }
+    throw error;
+  }
 }
 
 export async function findReviewById(
