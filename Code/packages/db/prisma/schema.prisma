@@ -51,8 +51,8 @@ enum Locale {
 enum ProviderPublicationStatus {
   DRAFT
   PUBLISHED
-  HIDDEN        // masqué par l'artisan (mode vacances)
-  SUSPENDED     // masqué par l'admin
+  HIDDEN // masqué par l'artisan (mode vacances)
+  SUSPENDED // masqué par l'admin
 }
 
 enum AvailabilityStatus {
@@ -83,12 +83,12 @@ enum ModerationStatus {
 }
 
 enum PriceUnit {
-  FIXED         // forfait
+  FIXED // forfait
   HOUR
   DAY
   SQUARE_METER
   LINEAR_METER
-  ON_QUOTE      // sur devis
+  ON_QUOTE // sur devis
 }
 
 enum ContactChannel {
@@ -117,40 +117,40 @@ enum OtpPurpose {
 // =====================================================================
 
 model User {
-  id             String     @id @default(uuid()) @db.Uuid
-  phone          String     @unique @db.VarChar(20)   // format E.164 : +216XXXXXXXX
-  phoneVerifiedAt DateTime?
-  email          String?    @unique @db.Citext
-  emailVerifiedAt DateTime?
-  passwordHash   String?    @db.VarChar(255)          // Argon2id — optionnel (auth OTP)
-  firstName      String?    @db.VarChar(80)
-  lastName       String?    @db.VarChar(80)
-  avatarMediaId  String?    @db.Uuid
-  roles          UserRole[] @default([CLIENT])
-  status         UserStatus @default(PENDING_VERIFICATION)
-  locale         Locale     @default(FR)
-  twoFactorSecret String?   @db.VarChar(255)
-  lastLoginAt    DateTime?
-  acceptedTermsVersion String? @db.VarChar(20)
+  id                   String     @id @default(uuid()) @db.Uuid
+  phone                String     @unique @db.VarChar(20) // format E.164 : +216XXXXXXXX
+  phoneVerifiedAt      DateTime?
+  email                String?    @unique @db.Citext
+  emailVerifiedAt      DateTime?
+  passwordHash         String?    @db.VarChar(255) // Argon2id — optionnel (auth OTP)
+  firstName            String?    @db.VarChar(80)
+  lastName             String?    @db.VarChar(80)
+  avatarMediaId        String?    @db.Uuid
+  roles                UserRole[] @default([CLIENT])
+  status               UserStatus @default(PENDING_VERIFICATION)
+  locale               Locale     @default(FR)
+  twoFactorSecret      String?    @db.VarChar(255)
+  lastLoginAt          DateTime?
+  acceptedTermsVersion String?    @db.VarChar(20)
   acceptedTermsAt      DateTime?
-  marketingOptIn Boolean    @default(false)
-  deletedAt      DateTime?
-  createdAt      DateTime   @default(now())
-  updatedAt      DateTime   @updatedAt
+  marketingOptIn       Boolean    @default(false)
+  deletedAt            DateTime?
+  createdAt            DateTime   @default(now())
+  updatedAt            DateTime   @updatedAt
 
-  avatar             MediaAsset?          @relation("UserAvatar", fields: [avatarMediaId], references: [id], onDelete: SetNull)
-  providerProfile    ProviderProfile?
-  sessions           Session[]
-  otpCodes           OtpCode[]
-  favorites          Favorite[]
-  reviewsWritten     Review[]             @relation("ClientReviews")
-  contactEvents      ContactEvent[]       @relation("ClientContacts")
-  profileViews       ProfileView[]        @relation("ViewerViews")
-  uploadedMedia      MediaAsset[]         @relation("MediaUploader")
+  avatar          MediaAsset?      @relation("UserAvatar", fields: [avatarMediaId], references: [id], onDelete: SetNull)
+  providerProfile ProviderProfile?
+  sessions        Session[]
+  otpCodes        OtpCode[]
+  favorites       Favorite[]
+  reviewsWritten  Review[]         @relation("ClientReviews")
+  contactEvents   ContactEvent[]   @relation("ClientContacts")
+  profileViews    ProfileView[]    @relation("ViewerViews")
+  uploadedMedia   MediaAsset[]     @relation("MediaUploader")
 
   // --- Relations d'administration (acteur = compte interne) ---
-  auditLogs             AuditLog[]             @relation("AuditActor")
-  reviewsModerated      Review[]               @relation("ReviewModerator")
+  auditLogs        AuditLog[] @relation("AuditActor")
+  reviewsModerated Review[]   @relation("ReviewModerator")
 
   @@index([status])
   @@index([createdAt])
@@ -159,15 +159,15 @@ model User {
 }
 
 model Session {
-  id             String   @id @default(uuid()) @db.Uuid
-  userId         String   @db.Uuid
-  refreshTokenHash String @unique @db.VarChar(255)
-  userAgent      String?  @db.VarChar(400)
-  ipHash         String?  @db.VarChar(64)
-  deviceLabel    String?  @db.VarChar(120)
-  expiresAt      DateTime
-  revokedAt      DateTime?
-  createdAt      DateTime @default(now())
+  id               String    @id @default(uuid()) @db.Uuid
+  userId           String    @db.Uuid
+  refreshTokenHash String    @unique @db.VarChar(255)
+  userAgent        String?   @db.VarChar(400)
+  ipHash           String?   @db.VarChar(64)
+  deviceLabel      String?   @db.VarChar(120)
+  expiresAt        DateTime
+  revokedAt        DateTime?
+  createdAt        DateTime  @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -177,17 +177,17 @@ model Session {
 }
 
 model OtpCode {
-  id         String     @id @default(uuid()) @db.Uuid
-  userId     String?    @db.Uuid
-  phone      String     @db.VarChar(20)
-  codeHash   String     @db.VarChar(255)
-  purpose    OtpPurpose
-  attempts   Int        @default(0)
-  maxAttempts Int       @default(3)
-  expiresAt  DateTime
-  consumedAt DateTime?
-  ipHash     String?    @db.VarChar(64)
-  createdAt  DateTime   @default(now())
+  id          String     @id @default(uuid()) @db.Uuid
+  userId      String?    @db.Uuid
+  phone       String     @db.VarChar(20)
+  codeHash    String     @db.VarChar(255)
+  purpose     OtpPurpose
+  attempts    Int        @default(0)
+  maxAttempts Int        @default(3)
+  expiresAt   DateTime
+  consumedAt  DateTime?
+  ipHash      String?    @db.VarChar(64)
+  createdAt   DateTime   @default(now())
 
   user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -202,7 +202,7 @@ model OtpCode {
 
 model Governorate {
   id        String   @id @default(uuid()) @db.Uuid
-  code      String   @unique @db.VarChar(10)   // ex: TN-11
+  code      String   @unique @db.VarChar(10) // ex: TN-11
   nameFr    String   @db.VarChar(80)
   nameAr    String   @db.VarChar(80)
   slug      String   @unique @db.VarChar(80)
@@ -211,9 +211,9 @@ model Governorate {
   isActive  Boolean  @default(true)
   sortOrder Int      @default(0)
 
-  delegations      Delegation[]
-  providers        ProviderProfile[]   @relation("ProviderBaseGovernorate")
-  coverageAreas    CoverageArea[]
+  delegations   Delegation[]
+  providers     ProviderProfile[] @relation("ProviderBaseGovernorate")
+  coverageAreas CoverageArea[]
 
   @@index([isActive])
   @@map("governorates")
@@ -231,9 +231,9 @@ model Delegation {
   longitude     Decimal? @db.Decimal(9, 6)
   isActive      Boolean  @default(true)
 
-  governorate     Governorate       @relation(fields: [governorateId], references: [id], onDelete: Restrict)
-  providers       ProviderProfile[] @relation("ProviderBaseDelegation")
-  coverageAreas   CoverageArea[]
+  governorate   Governorate       @relation(fields: [governorateId], references: [id], onDelete: Restrict)
+  providers     ProviderProfile[] @relation("ProviderBaseDelegation")
+  coverageAreas CoverageArea[]
 
   @@unique([governorateId, slug])
   @@index([governorateId, isActive])
@@ -241,24 +241,24 @@ model Delegation {
 }
 
 model Category {
-  id          String    @id @default(uuid()) @db.Uuid
-  parentId    String?   @db.Uuid
-  slug        String    @unique @db.VarChar(80)
-  nameFr      String    @db.VarChar(120)
-  nameAr      String    @db.VarChar(120)
-  descriptionFr String? @db.Text
-  descriptionAr String? @db.Text
-  iconKey     String?   @db.VarChar(60)
-  colorHex    String?   @db.VarChar(7)
-  isActive    Boolean   @default(true)
-  sortOrder   Int       @default(0)
-  seoTitleFr  String?   @db.VarChar(180)
-  seoTitleAr  String?   @db.VarChar(180)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id            String   @id @default(uuid()) @db.Uuid
+  parentId      String?  @db.Uuid
+  slug          String   @unique @db.VarChar(80)
+  nameFr        String   @db.VarChar(120)
+  nameAr        String   @db.VarChar(120)
+  descriptionFr String?  @db.Text
+  descriptionAr String?  @db.Text
+  iconKey       String?  @db.VarChar(60)
+  colorHex      String?  @db.VarChar(7)
+  isActive      Boolean  @default(true)
+  sortOrder     Int      @default(0)
+  seoTitleFr    String?  @db.VarChar(180)
+  seoTitleAr    String?  @db.VarChar(180)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
-  parent           Category?           @relation("CategoryTree", fields: [parentId], references: [id], onDelete: Restrict)
-  children         Category[]          @relation("CategoryTree")
+  parent           Category?          @relation("CategoryTree", fields: [parentId], references: [id], onDelete: Restrict)
+  children         Category[]         @relation("CategoryTree")
   providerLinks    ProviderCategory[]
   serviceOfferings ServiceOffering[]
   portfolioItems   PortfolioItem[]
@@ -273,57 +273,58 @@ model Category {
 // =====================================================================
 
 model ProviderProfile {
-  id                 String   @id @default(uuid()) @db.Uuid
-  userId             String   @unique @db.Uuid
-  slug               String   @unique @db.VarChar(140)
-  businessName       String   @db.VarChar(140)
-  headline           String?  @db.VarChar(160)
-  bio                String?  @db.Text
-  yearsExperience    Int?
-  whatsappPhone      String?  @db.VarChar(20)
-  publicPhone        String?  @db.VarChar(20)
-  spokenLanguages    Locale[] @default([FR, AR])
+  id              String   @id @default(uuid()) @db.Uuid
+  userId          String   @unique @db.Uuid
+  slug            String   @unique @db.VarChar(140)
+  businessName    String   @db.VarChar(140)
+  headline        String?  @db.VarChar(160)
+  bio             String?  @db.Text
+  yearsExperience Int?
+  whatsappPhone   String?  @db.VarChar(20)
+  publicPhone     String?  @db.VarChar(20)
+  spokenLanguages Locale[] @default([FR, AR])
 
-  baseGovernorateId  String   @db.Uuid
-  baseDelegationId   String?  @db.Uuid
-  latitude           Decimal? @db.Decimal(9, 6)
-  longitude          Decimal? @db.Decimal(9, 6)
+  baseGovernorateId String   @db.Uuid
+  baseDelegationId  String?  @db.Uuid
+  latitude          Decimal? @db.Decimal(9, 6)
+  longitude         Decimal? @db.Decimal(9, 6)
 
   publicationStatus  ProviderPublicationStatus @default(DRAFT)
   availabilityStatus AvailabilityStatus        @default(AVAILABLE)
   availableAgainAt   DateTime?
-  acceptsEmergency   Boolean  @default(false)
-  workingHours       Json?    // { mon: [{from:"08:00",to:"18:00"}], ... }
+  acceptsEmergency   Boolean                   @default(false)
+  workingHours       Json? // { mon: [{from:"08:00",to:"18:00"}], ... }
 
   verificationStatus VerificationStatus @default(NOT_SUBMITTED)
-  isVerified         Boolean  @default(false)
+  isVerified         Boolean            @default(false)
   verifiedAt         DateTime?
 
   // --- Agrégats dénormalisés (maintenus par transaction/trigger) ---
-  ratingAvg          Decimal  @default(0) @db.Decimal(3, 2)
-  ratingCount        Int      @default(0)
-  reviewCountByStar  Json?    // { "1": 0, "2": 1, ... }
-  totalProfileViews  Int      @default(0)
-  totalContacts      Int      @default(0)
-  completionScore    Int      @default(0)   // 0-100
-  rankingScore       Decimal  @default(0) @db.Decimal(10, 4)
-  lastActiveAt       DateTime?
+  ratingAvg         Decimal   @default(0) @db.Decimal(3, 2)
+  ratingCount       Int       @default(0)
+  reviewCountByStar Json? // { "1": 0, "2": 1, ... }
+  totalProfileViews Int       @default(0)
+  totalContacts     Int       @default(0)
+  completionScore   Int       @default(0) // 0-100
+  rankingScore      Decimal   @default(0) @db.Decimal(10, 4)
+  lastActiveAt      DateTime?
 
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  user              User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
-  baseGovernorate   Governorate           @relation("ProviderBaseGovernorate", fields: [baseGovernorateId], references: [id], onDelete: Restrict)
-  baseDelegation    Delegation?           @relation("ProviderBaseDelegation", fields: [baseDelegationId], references: [id], onDelete: SetNull)
+  user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  baseGovernorate Governorate @relation("ProviderBaseGovernorate", fields: [baseGovernorateId], references: [id], onDelete: Restrict)
+  baseDelegation  Delegation? @relation("ProviderBaseDelegation", fields: [baseDelegationId], references: [id], onDelete: SetNull)
 
-  categories        ProviderCategory[]
-  offerings         ServiceOffering[]
-  coverageAreas     CoverageArea[]
-  portfolio         PortfolioItem[]
-  reviews           Review[]
-  contactEvents     ContactEvent[]
-  profileViews      ProfileView[]
-  favoritedBy       Favorite[]
+  categories    ProviderCategory[]
+  offerings     ServiceOffering[]
+  coverageAreas CoverageArea[]
+  portfolio     PortfolioItem[]
+  reviews       Review[]
+  contactEvents ContactEvent[]
+  profileViews  ProfileView[]
+  dailyStats    DailyProviderStat[]
+  favoritedBy   Favorite[]
 
   @@index([publicationStatus, verificationStatus])
   @@index([baseGovernorateId, publicationStatus])
@@ -355,7 +356,7 @@ model ServiceOffering {
   titleFr      String    @db.VarChar(160)
   titleAr      String?   @db.VarChar(160)
   description  String?   @db.Text
-  priceMin     Decimal?  @db.Decimal(10, 3)   // TND, 3 décimales (millimes)
+  priceMin     Decimal?  @db.Decimal(10, 3) // TND, 3 décimales (millimes)
   priceMax     Decimal?  @db.Decimal(10, 3)
   priceUnit    PriceUnit @default(FIXED)
   isNegotiable Boolean   @default(true)
@@ -376,7 +377,7 @@ model CoverageArea {
   id            String   @id @default(uuid()) @db.Uuid
   providerId    String   @db.Uuid
   governorateId String   @db.Uuid
-  delegationId  String?  @db.Uuid          // null = tout le gouvernorat
+  delegationId  String?  @db.Uuid // null = tout le gouvernorat
   travelFee     Decimal? @db.Decimal(10, 3)
   createdAt     DateTime @default(now())
 
@@ -396,7 +397,7 @@ model CoverageArea {
 model MediaAsset {
   id               String           @id @default(uuid()) @db.Uuid
   uploadedById     String?          @db.Uuid
-  bucket           String           @db.VarChar(60)      // public-media | private-kyc
+  bucket           String           @db.VarChar(60) // public-media | private-kyc
   storageKey       String           @unique @db.VarChar(400)
   publicUrl        String?          @db.VarChar(600)
   type             MediaType        @default(IMAGE)
@@ -408,12 +409,12 @@ model MediaAsset {
   checksumSha256   String?          @db.VarChar(64)
   isPrivate        Boolean          @default(false)
   moderationStatus ModerationStatus @default(PENDING)
-  purgeAfter       DateTime?        // rétention automatique (CIN)
+  purgeAfter       DateTime? // rétention automatique (CIN)
   createdAt        DateTime         @default(now())
 
-  uploadedBy            User?                  @relation("MediaUploader", fields: [uploadedById], references: [id], onDelete: SetNull)
-  userAvatars           User[]                 @relation("UserAvatar")
-  portfolioItems        PortfolioItem[]
+  uploadedBy     User?           @relation("MediaUploader", fields: [uploadedById], references: [id], onDelete: SetNull)
+  userAvatars    User[]          @relation("UserAvatar")
+  portfolioItems PortfolioItem[]
 
   @@index([moderationStatus])
   @@index([purgeAfter])
@@ -421,14 +422,14 @@ model MediaAsset {
 }
 
 model PortfolioItem {
-  id          String           @id @default(uuid()) @db.Uuid
-  providerId  String           @db.Uuid
-  mediaId     String           @db.Uuid
-  categoryId  String?          @db.Uuid
-  caption     String?          @db.VarChar(300)
-  sortOrder   Int              @default(0)
-  status      ModerationStatus @default(APPROVED)
-  createdAt   DateTime         @default(now())
+  id         String           @id @default(uuid()) @db.Uuid
+  providerId String           @db.Uuid
+  mediaId    String           @db.Uuid
+  categoryId String?          @db.Uuid
+  caption    String?          @db.VarChar(300)
+  sortOrder  Int              @default(0)
+  status     ModerationStatus @default(APPROVED)
+  createdAt  DateTime         @default(now())
 
   provider ProviderProfile @relation(fields: [providerId], references: [id], onDelete: Cascade)
   media    MediaAsset      @relation(fields: [mediaId], references: [id], onDelete: Cascade)
@@ -445,10 +446,10 @@ model PortfolioItem {
 model ContactEvent {
   id           String         @id @default(uuid()) @db.Uuid
   providerId   String         @db.Uuid
-  clientId     String?        @db.Uuid          // null si visiteur anonyme
+  clientId     String?        @db.Uuid // null si visiteur anonyme
   categoryId   String?        @db.Uuid
   channel      ContactChannel
-  sourceScreen String?        @db.VarChar(60)   // search | profile | boost | ad | seo_page
+  sourceScreen String?        @db.VarChar(60) // search | profile | boost | ad | seo_page
   sessionHash  String?        @db.VarChar(64)
   ipHash       String?        @db.VarChar(64)
   isSuspicious Boolean        @default(false)
@@ -471,7 +472,7 @@ model ProfileView {
   providerId  String   @db.Uuid
   viewerId    String?  @db.Uuid
   sessionHash String   @db.VarChar(64)
-  viewDate    DateTime @db.Date          // clé de déduplication journalière
+  viewDate    DateTime @db.Date // clé de déduplication journalière
   source      String?  @db.VarChar(60)
   isBot       Boolean  @default(false)
   createdAt   DateTime @default(now())
@@ -484,24 +485,48 @@ model ProfileView {
   @@map("profile_views")
 }
 
+// BE-23 : agrégat journalier, modèle repris tel quel du cadrage technique §2.2 (P4 — zéro
+// déviation de noms/types). BE-23 n'écrit que profileViews/uniqueProfileViews ; les autres
+// compteurs (searchImpressions, phoneClicks, whatsappClicks, newReviews, avgSearchPosition)
+// restent à leur défaut jusqu'aux tickets qui les concernent (recherche, contacts, avis).
+model DailyProviderStat {
+  id                 String   @id @default(uuid()) @db.Uuid
+  providerId         String   @db.Uuid
+  date               DateTime @db.Date
+  searchImpressions  Int      @default(0)
+  profileViews       Int      @default(0)
+  uniqueProfileViews Int      @default(0)
+  phoneClicks        Int      @default(0)
+  whatsappClicks     Int      @default(0)
+  newReviews         Int      @default(0)
+  avgSearchPosition  Decimal? @db.Decimal(6, 2)
+  computedAt         DateTime @default(now())
+
+  provider ProviderProfile @relation(fields: [providerId], references: [id], onDelete: Cascade)
+
+  @@unique([providerId, date])
+  @@index([date])
+  @@map("daily_provider_stats")
+}
+
 model Review {
-  id              String       @id @default(uuid()) @db.Uuid
-  providerId      String       @db.Uuid
-  clientId        String       @db.Uuid
-  contactEventId  String?      @unique @db.Uuid     // présent => "Avis certifié"
-  rating          Int                                // 1..5, contrainte CHECK
+  id                String       @id @default(uuid()) @db.Uuid
+  providerId        String       @db.Uuid
+  clientId          String       @db.Uuid
+  contactEventId    String?      @unique @db.Uuid // présent => "Avis certifié"
+  rating            Int // 1..5, contrainte CHECK
   ratingPunctuality Int?
   ratingQuality     Int?
   ratingValue       Int?
-  comment         String?      @db.VarChar(1000)
-  status          ReviewStatus @default(PENDING)
-  isVerifiedContact Boolean    @default(false)
-  moderatedById   String?      @db.Uuid
-  moderatedAt     DateTime?
-  moderationReason String?     @db.VarChar(400)
-  editableUntil   DateTime?
-  createdAt       DateTime     @default(now())
-  updatedAt       DateTime     @updatedAt
+  comment           String?      @db.VarChar(1000)
+  status            ReviewStatus @default(PENDING)
+  isVerifiedContact Boolean      @default(false)
+  moderatedById     String?      @db.Uuid
+  moderatedAt       DateTime?
+  moderationReason  String?      @db.VarChar(400)
+  editableUntil     DateTime?
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
 
   provider     ProviderProfile @relation(fields: [providerId], references: [id], onDelete: Cascade)
   client       User            @relation("ClientReviews", fields: [clientId], references: [id], onDelete: Cascade)
@@ -532,26 +557,26 @@ model Favorite {
 // =====================================================================
 
 model Plan {
-  id               String   @id @default(uuid()) @db.Uuid
-  code             String   @unique @db.VarChar(40)      // FREE | PRO_MONTHLY | PRO_QUARTERLY | PRO_YEARLY
-  nameFr           String   @db.VarChar(80)
-  nameAr           String   @db.VarChar(80)
-  descriptionFr    String?  @db.Text
-  price            Decimal  @db.Decimal(10, 3)           // TND
-  billingPeriodDays Int
-  maxCategories    Int      @default(3)
-  maxCoverageAreas Int      @default(1)
-  maxPortfolioItems Int     @default(5)
-  grantsVerifiedBadge Boolean @default(false)
-  rankingBoostFactor Decimal @default(1.0) @db.Decimal(4, 2)
-  instantLeadAccess Boolean  @default(false)
-  advancedStats    Boolean   @default(false)
-  welcomeCredits   Int       @default(0)
-  features         Json?
-  isActive         Boolean   @default(true)
-  sortOrder        Int       @default(0)
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
+  id                  String   @id @default(uuid()) @db.Uuid
+  code                String   @unique @db.VarChar(40) // FREE | PRO_MONTHLY | PRO_QUARTERLY | PRO_YEARLY
+  nameFr              String   @db.VarChar(80)
+  nameAr              String   @db.VarChar(80)
+  descriptionFr       String?  @db.Text
+  price               Decimal  @db.Decimal(10, 3) // TND
+  billingPeriodDays   Int
+  maxCategories       Int      @default(3)
+  maxCoverageAreas    Int      @default(1)
+  maxPortfolioItems   Int      @default(5)
+  grantsVerifiedBadge Boolean  @default(false)
+  rankingBoostFactor  Decimal  @default(1.0) @db.Decimal(4, 2)
+  instantLeadAccess   Boolean  @default(false)
+  advancedStats       Boolean  @default(false)
+  welcomeCredits      Int      @default(0)
+  features            Json?
+  isActive            Boolean  @default(true)
+  sortOrder           Int      @default(0)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
 
   @@index([isActive, sortOrder])
   @@map("plans")
@@ -564,7 +589,7 @@ model Plan {
 model AuditLog {
   id         String   @id @default(uuid()) @db.Uuid
   actorId    String?  @db.Uuid
-  action     String   @db.VarChar(80)      // provider.verify.approve, payment.validate...
+  action     String   @db.VarChar(80) // provider.verify.approve, payment.validate...
   entityType String   @db.VarChar(60)
   entityId   String?  @db.Uuid
   before     Json?
