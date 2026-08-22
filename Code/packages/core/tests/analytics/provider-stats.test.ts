@@ -4,7 +4,10 @@
 import { describe, expect, it } from 'vitest';
 import { buildProviderStats } from '../../src/analytics/provider-stats.js';
 
-const RANGE = { from: new Date('2026-08-01T00:00:00.000Z'), to: new Date('2026-08-03T00:00:00.000Z') };
+const RANGE = {
+  from: new Date('2026-08-01T00:00:00.000Z'),
+  to: new Date('2026-08-03T00:00:00.000Z'),
+};
 
 describe('buildProviderStats', () => {
   it("renvoie un point par jour de la plage, sans trou — critère d'acceptation BE-24", () => {
