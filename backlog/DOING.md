@@ -16,7 +16,7 @@ _Sprint S1 · dernière mise à jour : 2026-08-21_
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
 | `BE-18` | `GET /providers/:slug/reviews` paginé | 2026-08-21 | `feat/BE-18c-provider-reviews-route` | 3 PRs atomiques (core → repository → route, découpage BE-16a/b/c) : #103 (core, mergée), #104 (repository, CI verte), #105 (route + contrat, CI en cours). |
-| `BE-20a` | Médias — `packages/storage` : client R2, presign, pipeline sharp (variantes WebP) | 2026-08-22 | `feat/BE-20a-storage-infra` | Démarrée — première des 4 sous-tâches de BE-20 (issue #24). Nouvelles dépendances `sharp`/`@aws-sdk/client-s3`/`@aws-sdk/s3-request-presigner` approuvées par Oussama avant implémentation. |
+| `BE-20a` | Médias — `packages/storage` : client R2, presign, pipeline sharp (variantes WebP) | 2026-08-22 | `feat/BE-20a-storage-infra` | PR #106 ouverte (CI en cours) — première des 4 sous-tâches de BE-20 (issue #24). |
 
 ## En binôme
 
