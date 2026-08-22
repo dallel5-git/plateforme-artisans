@@ -8,6 +8,8 @@ import {
   evaluateRateLimit,
   OTP_REQUEST_LIMIT,
   OTP_REQUEST_WINDOW_SECONDS,
+  REVIEW_LIMIT,
+  REVIEW_WINDOW_SECONDS,
   type RateLimitVerdict,
 } from '@repo/core';
 
@@ -102,4 +104,14 @@ export async function enforceContactEventRateLimit(input: {
   if (failing.length > 0) {
     rejectWithRetryAfter(Math.max(...failing.map((verdict) => verdict.retryAfterSeconds)));
   }
+}
+
+/** BE-22 : 10 avis par jour, par utilisateur — route toujours authentifiée (preHandler
+ *  `requireAuth`), pas de volet IP anonyme contrairement à `enforceContactEventRateLimit`. */
+export async function enforceReviewRateLimit(userId: string): Promise<void> {
+  await enforceRateLimit({
+    key: `ratelimit:review:identity:${userId}`,
+    limit: REVIEW_LIMIT,
+    windowSeconds: REVIEW_WINDOW_SECONDS,
+  });
 }

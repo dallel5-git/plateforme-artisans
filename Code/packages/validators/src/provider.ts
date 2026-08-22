@@ -165,6 +165,12 @@ export const providerSlugParamsSchema = z.object({
   slug: z.string().min(1),
 });
 
+// BE-22 : POST /providers/:id/reviews prend l'id (UUID), pas le slug — seule route provider dans
+// ce cas, contrairement à toutes les autres qui résolvent par slug.
+export const providerIdParamsSchema = z.object({
+  id: z.uuid(),
+});
+
 const nameRefSchema = z.object({
   slug: z.string(),
   nameFr: z.string(),

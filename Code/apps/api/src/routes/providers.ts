@@ -8,12 +8,14 @@ import {
   PROVIDER_PROFILE_ALREADY_EXISTS,
   PROVIDER_PROFILE_INCOMPLETE,
   PROVIDER_PROFILE_NOT_FOUND,
+  REVIEW_REQUIRES_CONTACT,
   UNAUTHORIZED,
   VALIDATION_ERROR,
 } from '@repo/constants';
 import {
   buildPublicProviderProfile,
   buildReviewAuthorDisplayName,
+  buildReviewEligibilityWindow,
   buildSearchSeed,
   calculateCompletionScore,
   can,
@@ -38,16 +40,20 @@ import {
   addPortfolioItem,
   addUserRole,
   createProviderProfile,
+  createReview,
   createSession,
+  DuplicateReviewError,
   findAppSetting,
   findCategoriesByIds,
   findCategoryBySlug,
   findDelegationBySlug,
   findDelegationsByIds,
+  findEligibleContactEventForReview,
   findGovernorateBySlug,
   findGovernoratesByIds,
   findMediaAssetById,
   findMediaAssetsByIds,
+  findProviderProfileById,
   findProviderProfileBySlug,
   findProviderProfileByUserId,
   findUserById,
@@ -57,6 +63,8 @@ import {
   listProviderCategories,
   listPublishedReviewsForProvider,
   listServiceOfferings,
+  lockProviderProfileForReviewWrite,
+  recomputeRatingAggregate,
   removePortfolioItem,
   replaceCoverageAreas,
   replaceProviderCategories,
@@ -72,9 +80,12 @@ import {
   attachPortfolioItemSchema,
   createProviderMeResponseSchema,
   createProviderMeSchema,
+  createProviderReviewBodySchema,
   portfolioItemIdParamsSchema,
   portfolioItemResponseSchema,
+  providerIdParamsSchema,
   providerPublicProfileSchema,
+  providerReviewCreateResponseSchema,
   providerReviewListResponseSchema,
   providerReviewsQuerySchema,
   providerSearchQuerySchema,
@@ -86,11 +97,14 @@ import {
   putProviderCoverageAreasSchema,
   updateProviderMeResponseSchema,
   updateProviderMeSchema,
+  type CreateProviderReviewBody,
   type ProviderReviewsQuery,
   type ProviderSearchQuery,
 } from '@repo/validators';
 import type { FastifyInstance, FastifyRequest } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
+
+import { enforceReviewRateLimit } from '../plugins/rate-limit.js';
 
 function requireNormalizedPhone(phone: string): string {
   const normalized = normalizePhoneTn(phone);
@@ -341,6 +355,54 @@ function toPortfolioItemResponse(item: {
   };
 }
 
+// BE-22 : dépôt d'avis rattaché à un contact réel. Sélection automatique du ContactEvent côté
+// serveur (jamais de contactEventId côté client) : le plus récent, non encore avisé, dans la
+// fenêtre d'éligibilité US-C-06 (>12h et <60j). Garde-fou anti-auto-avis applicatif ici — le
+// trigger SQL prevent_self_review (BE-02) reste le filet de dernier recours, celui-ci évite un
+// aller-retour DB inutile pour le cas courant (l'issue #26 précise « pas seulement par
+// l'application », donc les deux mécanismes coexistent délibérément).
+async function handleCreateProviderReview(
+  providerId: string,
+  clientId: string,
+  body: CreateProviderReviewBody,
+) {
+  await enforceReviewRateLimit(clientId);
+
+  const provider = requirePublishedProfile(await findProviderProfileById(providerId));
+  if (provider.userId === clientId) {
+    throw new DomainError(FORBIDDEN, 'Un prestataire ne peut pas évaluer son propre profil');
+  }
+
+  const window = buildReviewEligibilityWindow();
+  const contact = await findEligibleContactEventForReview(provider.id, clientId, window);
+  if (!contact) {
+    throw new DomainError(REVIEW_REQUIRES_CONTACT, 'Aucun contact éligible pour un avis');
+  }
+
+  try {
+    return await withTransaction(async (tx) => {
+      await lockProviderProfileForReviewWrite(provider.id, tx);
+      const review = await createReview(
+        {
+          providerId: provider.id,
+          clientId,
+          contactEventId: contact.id,
+          rating: body.rating,
+          comment: body.comment,
+        },
+        tx,
+      );
+      await recomputeRatingAggregate(provider.id, tx);
+      return review;
+    });
+  } catch (error) {
+    if (error instanceof DuplicateReviewError) {
+      throw new DomainError(REVIEW_REQUIRES_CONTACT, 'Ce contact a déjà un avis');
+    }
+    throw error;
+  }
+}
+
 export async function providersRoutes(app: FastifyInstance): Promise<void> {
   const typedApp = app.withTypeProvider<ZodTypeProvider>();
 
@@ -399,6 +461,24 @@ export async function providersRoutes(app: FastifyInstance): Promise<void> {
       },
     },
     async (request) => loadReviewsPage(request.params.slug, request.query),
+  );
+
+  typedApp.post(
+    '/providers/:id/reviews',
+    {
+      preHandler: [app.requireAuth],
+      schema: {
+        description:
+          'Dépose un avis rattaché à un ContactEvent réel (BE-22, P9/P10). Sélection automatique ' +
+          'du contact éligible (>12h, <60j, pas déjà avisé) — 403 REVIEW_REQUIRES_CONTACT sinon. ' +
+          "Auto-évaluation rejetée. Publié immédiatement (pas de filtrage anti-spam pour l'instant).",
+        params: providerIdParamsSchema,
+        body: createProviderReviewBodySchema,
+        response: { 200: providerReviewCreateResponseSchema },
+      },
+    },
+    async (request) =>
+      handleCreateProviderReview(request.params.id, request.user!.sub, request.body),
   );
 
   typedApp.post(
