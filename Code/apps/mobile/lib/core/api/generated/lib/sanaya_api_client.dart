@@ -39,6 +39,7 @@ export 'package:sanaya_api_client/src/model/v1_health_get503_response.dart';
 export 'package:sanaya_api_client/src/model/v1_media_id_process_post200_response.dart';
 export 'package:sanaya_api_client/src/model/v1_media_presign_post200_response.dart';
 export 'package:sanaya_api_client/src/model/v1_media_presign_post_request.dart';
+export 'package:sanaya_api_client/src/model/v1_profile_views_post_request.dart';
 export 'package:sanaya_api_client/src/model/v1_providers_id_reviews_post200_response.dart';
 export 'package:sanaya_api_client/src/model/v1_providers_id_reviews_post_request.dart';
 export 'package:sanaya_api_client/src/model/v1_providers_me_categories_put200_response.dart';

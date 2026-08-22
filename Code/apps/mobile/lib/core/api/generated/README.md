@@ -80,6 +80,7 @@ Class | Method | HTTP request | Description
 [*DefaultApi*](doc/DefaultApi.md) | [**v1HealthGet**](doc/DefaultApi.md#v1healthget) | **GET** /v1/health | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1MediaIdProcessPost**](doc/DefaultApi.md#v1mediaidprocesspost) | **POST** /v1/media/{id}/process | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1MediaPresignPost**](doc/DefaultApi.md#v1mediapresignpost) | **POST** /v1/media/presign | 
+[*DefaultApi*](doc/DefaultApi.md) | [**v1ProfileViewsPost**](doc/DefaultApi.md#v1profileviewspost) | **POST** /v1/profile-views | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersIdReviewsPost**](doc/DefaultApi.md#v1providersidreviewspost) | **POST** /v1/providers/{id}/reviews | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMeCategoriesPut**](doc/DefaultApi.md#v1providersmecategoriesput) | **PUT** /v1/providers/me/categories | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMeCoverageAreasPut**](doc/DefaultApi.md#v1providersmecoverageareasput) | **PUT** /v1/providers/me/coverage-areas | 
@@ -120,6 +121,7 @@ Class | Method | HTTP request | Description
  - [V1MediaIdProcessPost200Response](doc/V1MediaIdProcessPost200Response.md)
  - [V1MediaPresignPost200Response](doc/V1MediaPresignPost200Response.md)
  - [V1MediaPresignPostRequest](doc/V1MediaPresignPostRequest.md)
+ - [V1ProfileViewsPostRequest](doc/V1ProfileViewsPostRequest.md)
  - [V1ProvidersIdReviewsPost200Response](doc/V1ProvidersIdReviewsPost200Response.md)
  - [V1ProvidersIdReviewsPostRequest](doc/V1ProvidersIdReviewsPostRequest.md)
  - [V1ProvidersMeCategoriesPut200Response](doc/V1ProvidersMeCategoriesPut200Response.md)

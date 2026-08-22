@@ -29,6 +29,7 @@ import 'package:sanaya_api_client/src/model/v1_health_get503_response.dart';
 import 'package:sanaya_api_client/src/model/v1_media_id_process_post200_response.dart';
 import 'package:sanaya_api_client/src/model/v1_media_presign_post200_response.dart';
 import 'package:sanaya_api_client/src/model/v1_media_presign_post_request.dart';
+import 'package:sanaya_api_client/src/model/v1_profile_views_post_request.dart';
 import 'package:sanaya_api_client/src/model/v1_providers_id_reviews_post200_response.dart';
 import 'package:sanaya_api_client/src/model/v1_providers_id_reviews_post_request.dart';
 import 'package:sanaya_api_client/src/model/v1_providers_me_categories_put200_response.dart';
@@ -1301,6 +1302,73 @@ class DefaultApi {
       statusMessage: _response.statusMessage,
       extra: _response.extra,
     );
+  }
+
+  /// v1ProfileViewsPost
+  /// Trace la vue d&#39;un profil artisan (P9). Déduplique par empreinte de session sur un jour calendaire UTC (une vue &#x3D; une ligne par session et par jour) et met à jour l&#39;agrégat journalier DailyProviderStat. Rate-limit 200/j par identité et par IP.
+  ///
+  /// Parameters:
+  /// * [v1ProfileViewsPostRequest]
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future]
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<void>> v1ProfileViewsPost({
+    required V1ProfileViewsPostRequest v1ProfileViewsPostRequest,
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path = r'/v1/profile-views';
+    final _options = Options(
+      method: r'POST',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[],
+        ...?extra,
+      },
+      contentType: 'application/json',
+      validateStatus: validateStatus,
+    );
+
+    dynamic _bodyData;
+
+    try {
+      const _type = FullType(V1ProfileViewsPostRequest);
+      _bodyData = _serializers.serialize(v1ProfileViewsPostRequest,
+          specifiedType: _type);
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _options.compose(
+          _dio.options,
+          _path,
+        ),
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    final _response = await _dio.request<Object>(
+      _path,
+      data: _bodyData,
+      options: _options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    return _response;
   }
 
   /// v1ProvidersIdReviewsPost

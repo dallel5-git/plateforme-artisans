@@ -24,6 +24,7 @@ Method | HTTP request | Description
 [**v1HealthGet**](DefaultApi.md#v1healthget) | **GET** /v1/health | 
 [**v1MediaIdProcessPost**](DefaultApi.md#v1mediaidprocesspost) | **POST** /v1/media/{id}/process | 
 [**v1MediaPresignPost**](DefaultApi.md#v1mediapresignpost) | **POST** /v1/media/presign | 
+[**v1ProfileViewsPost**](DefaultApi.md#v1profileviewspost) | **POST** /v1/profile-views | 
 [**v1ProvidersIdReviewsPost**](DefaultApi.md#v1providersidreviewspost) | **POST** /v1/providers/{id}/reviews | 
 [**v1ProvidersMeCategoriesPut**](DefaultApi.md#v1providersmecategoriesput) | **PUT** /v1/providers/me/categories | 
 [**v1ProvidersMeCoverageAreasPut**](DefaultApi.md#v1providersmecoverageareasput) | **PUT** /v1/providers/me/coverage-areas | 
@@ -663,6 +664,48 @@ No authorization required
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **v1ProfileViewsPost**
+> v1ProfileViewsPost(v1ProfileViewsPostRequest)
+
+
+
+Trace la vue d'un profil artisan (P9). Déduplique par empreinte de session sur un jour calendaire UTC (une vue = une ligne par session et par jour) et met à jour l'agrégat journalier DailyProviderStat. Rate-limit 200/j par identité et par IP.
+
+### Example
+```dart
+import 'package:sanaya_api_client/api.dart';
+
+final api = SanayaApiClient().getDefaultApi();
+final V1ProfileViewsPostRequest v1ProfileViewsPostRequest = ; // V1ProfileViewsPostRequest | 
+
+try {
+    api.v1ProfileViewsPost(v1ProfileViewsPostRequest);
+} catch on DioException (e) {
+    print('Exception when calling DefaultApi->v1ProfileViewsPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **v1ProfileViewsPostRequest** | [**V1ProfileViewsPostRequest**](V1ProfileViewsPostRequest.md)|  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

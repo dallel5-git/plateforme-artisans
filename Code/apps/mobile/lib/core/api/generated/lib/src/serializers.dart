@@ -41,6 +41,7 @@ import 'package:sanaya_api_client/src/model/v1_health_get503_response.dart';
 import 'package:sanaya_api_client/src/model/v1_media_id_process_post200_response.dart';
 import 'package:sanaya_api_client/src/model/v1_media_presign_post200_response.dart';
 import 'package:sanaya_api_client/src/model/v1_media_presign_post_request.dart';
+import 'package:sanaya_api_client/src/model/v1_profile_views_post_request.dart';
 import 'package:sanaya_api_client/src/model/v1_providers_id_reviews_post200_response.dart';
 import 'package:sanaya_api_client/src/model/v1_providers_id_reviews_post_request.dart';
 import 'package:sanaya_api_client/src/model/v1_providers_me_categories_put200_response.dart';
@@ -104,6 +105,7 @@ part 'serializers.g.dart';
   V1MediaIdProcessPost200Response,
   V1MediaPresignPost200Response,
   V1MediaPresignPostRequest,
+  V1ProfileViewsPostRequest,
   V1ProvidersIdReviewsPost200Response,
   V1ProvidersIdReviewsPostRequest,
   V1ProvidersMeCategoriesPut200Response,

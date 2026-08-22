@@ -29,6 +29,7 @@ doc/V1HealthGet503Response.md
 doc/V1MediaIdProcessPost200Response.md
 doc/V1MediaPresignPost200Response.md
 doc/V1MediaPresignPostRequest.md
+doc/V1ProfileViewsPostRequest.md
 doc/V1ProvidersIdReviewsPost200Response.md
 doc/V1ProvidersIdReviewsPostRequest.md
 doc/V1ProvidersMeCategoriesPut200Response.md
@@ -99,6 +100,7 @@ lib/src/model/v1_health_get503_response.dart
 lib/src/model/v1_media_id_process_post200_response.dart
 lib/src/model/v1_media_presign_post200_response.dart
 lib/src/model/v1_media_presign_post_request.dart
+lib/src/model/v1_profile_views_post_request.dart
 lib/src/model/v1_providers_id_reviews_post200_response.dart
 lib/src/model/v1_providers_id_reviews_post_request.dart
 lib/src/model/v1_providers_me_categories_put200_response.dart
@@ -161,6 +163,7 @@ test/v1_health_get503_response_test.dart
 test/v1_media_id_process_post200_response_test.dart
 test/v1_media_presign_post200_response_test.dart
 test/v1_media_presign_post_request_test.dart
+test/v1_profile_views_post_request_test.dart
 test/v1_providers_id_reviews_post200_response_test.dart
 test/v1_providers_id_reviews_post_request_test.dart
 test/v1_providers_me_categories_put200_response_categories_inner_test.dart

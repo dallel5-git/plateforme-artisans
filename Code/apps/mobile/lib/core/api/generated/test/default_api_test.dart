@@ -111,6 +111,13 @@ void main() {
       // TODO
     });
 
+    // Trace la vue d'un profil artisan (P9). Déduplique par empreinte de session sur un jour calendaire UTC (une vue = une ligne par session et par jour) et met à jour l'agrégat journalier DailyProviderStat. Rate-limit 200/j par identité et par IP.
+    //
+    //Future v1ProfileViewsPost(V1ProfileViewsPostRequest v1ProfileViewsPostRequest) async
+    test('test v1ProfileViewsPost', () async {
+      // TODO
+    });
+
     // Dépose un avis rattaché à un ContactEvent réel (BE-22, P9/P10). Sélection automatique du contact éligible (>12h, <60j, pas déjà avisé) — 403 REVIEW_REQUIRES_CONTACT sinon. Auto-évaluation rejetée. Publié immédiatement (pas de filtrage anti-spam pour l'instant).
     //
     //Future<V1ProvidersIdReviewsPost200Response> v1ProvidersIdReviewsPost(String id, V1ProvidersIdReviewsPostRequest v1ProvidersIdReviewsPostRequest) async
