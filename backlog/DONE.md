@@ -55,6 +55,11 @@
 | `BE-17b` | `findGovernoratesByIds`/`findDelegationsByIds`/`findMediaAssetsByIds` — hydratation par lots | Claude | #101 | 2026-08-21 |
 | `BE-17c` | `GET /v1/providers/:slug` — fiche publique, jamais de téléphone (404 si non publié) | Claude | #102 | 2026-08-21 |
 | `BE-17` | Fiche artisan publique — sans le numéro de téléphone — parcours complet (3 PRs atomiques ci-dessus) | Claude | #100–#102 | 2026-08-21 |
+| `BE-19a` | Onboarding artisan — `calculateCompletionScore` pure et testée | Claude | #93 | 2026-08-22 |
+| `BE-19b` | Onboarding artisan — `POST`/`PATCH /v1/providers/me` | Claude | #97 | 2026-08-22 |
+| `BE-19c` | Onboarding artisan — `PUT /v1/providers/me/categories` | Claude | #98 | 2026-08-22 |
+| `BE-19d` | Onboarding artisan — `PUT /v1/providers/me/coverage-areas` | Claude | #99 | 2026-08-22 |
+| `BE-19` | Onboarding artisan : profil, catégories, zones, complétude — parcours complet (4 PRs atomiques ci-dessus, empilées sur #93) | Claude | #93/#97-#99 | 2026-08-22 |
 
 ---
 
