@@ -8,6 +8,8 @@ import {
   evaluateRateLimit,
   OTP_REQUEST_LIMIT,
   OTP_REQUEST_WINDOW_SECONDS,
+  PROFILE_VIEW_LIMIT,
+  PROFILE_VIEW_WINDOW_SECONDS,
   type RateLimitVerdict,
 } from '@repo/core';
 
@@ -95,6 +97,36 @@ export async function enforceContactEventRateLimit(input: {
       key: `ratelimit:contact:ip:${hashIp(input.ip)}`,
       limit: CONTACT_EVENT_LIMIT,
       windowSeconds: CONTACT_EVENT_WINDOW_SECONDS,
+    }),
+  ]);
+
+  const failing = [identityVerdict, ipVerdict].filter((verdict) => !verdict.allowed);
+  if (failing.length > 0) {
+    rejectWithRetryAfter(Math.max(...failing.map((verdict) => verdict.retryAfterSeconds)));
+  }
+}
+
+/**
+ * BE-23 : 200 vues de profil par jour, par identité ET par IP indépendamment — même patron
+ * qu'`enforceContactEventRateLimit`. Limite volontairement plus généreuse que les contacts :
+ * parcourir de nombreuses fiches par session est un usage normal, ce quota protège la route
+ * contre l'abus brut, la déduplication elle-même est déjà garantie par la contrainte unique
+ * `ProfileView` en base.
+ */
+export async function enforceProfileViewRateLimit(input: {
+  identityKey: string;
+  ip: string;
+}): Promise<void> {
+  const [identityVerdict, ipVerdict] = await Promise.all([
+    checkRateLimit({
+      key: `ratelimit:profile-view:identity:${input.identityKey}`,
+      limit: PROFILE_VIEW_LIMIT,
+      windowSeconds: PROFILE_VIEW_WINDOW_SECONDS,
+    }),
+    checkRateLimit({
+      key: `ratelimit:profile-view:ip:${hashIp(input.ip)}`,
+      limit: PROFILE_VIEW_LIMIT,
+      windowSeconds: PROFILE_VIEW_WINDOW_SECONDS,
     }),
   ]);
 

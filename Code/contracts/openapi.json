@@ -3178,6 +3178,46 @@
           }
         }
       }
+    },
+    "/v1/profile-views": {
+      "post": {
+        "description": "Trace la vue d'un profil artisan (P9). Déduplique par empreinte de session sur un jour calendaire UTC (une vue = une ligne par session et par jour) et met à jour l'agrégat journalier DailyProviderStat. Rate-limit 200/j par identité et par IP.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "providerId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "source": {
+                    "type": "string",
+                    "enum": [
+                      "search",
+                      "profile",
+                      "boost",
+                      "ad",
+                      "seo_page"
+                    ]
+                  }
+                },
+                "required": [
+                  "providerId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
     }
   }
 }
