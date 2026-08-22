@@ -35,6 +35,8 @@ export {
   REVIEW_WINDOW_SECONDS,
   FAVORITE_LIMIT,
   FAVORITE_WINDOW_SECONDS,
+  PROFILE_VIEW_LIMIT,
+  PROFILE_VIEW_WINDOW_SECONDS,
 } from './policies/quotas.js';
 export type { RateLimitVerdict } from './policies/quotas.js';
 
@@ -137,3 +139,5 @@ export type {
   FavoriteProviderSummary,
   FavoriteListItem,
 } from './favorites/list-item.js';
+
+export { resolveViewDate } from './analytics/index.js';

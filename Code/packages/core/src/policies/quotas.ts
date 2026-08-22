@@ -16,6 +16,13 @@ export const REVIEW_WINDOW_SECONDS = 24 * 60 * 60; // 1 j
 export const FAVORITE_LIMIT = 60;
 export const FAVORITE_WINDOW_SECONDS = 24 * 60 * 60; // 1 j
 
+// BE-23 : limite généreuse par rapport aux contacts — parcourir de nombreuses fiches par session
+// est un usage normal. Protège la route contre l'abus brut ; la déduplication elle-même est déjà
+// garantie par la contrainte unique `ProfileView` (providerId, sessionHash, viewDate), pas par ce
+// quota.
+export const PROFILE_VIEW_LIMIT = 200;
+export const PROFILE_VIEW_WINDOW_SECONDS = 24 * 60 * 60; // 1 j
+
 export interface RateLimitVerdict {
   allowed: boolean;
   retryAfterSeconds: number;

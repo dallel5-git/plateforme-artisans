@@ -11,6 +11,8 @@ import {
   OTP_REQUEST_WINDOW_SECONDS,
   CONTACT_EVENT_LIMIT,
   CONTACT_EVENT_WINDOW_SECONDS,
+  PROFILE_VIEW_LIMIT,
+  PROFILE_VIEW_WINDOW_SECONDS,
 } from '../src/policies/quotas.js';
 
 describe('BE-11 — constantes', () => {
@@ -22,6 +24,11 @@ describe('BE-11 — constantes', () => {
   it('contacts : 30 par jour (primitif prêt pour BE-21)', () => {
     expect(CONTACT_EVENT_LIMIT).toBe(30);
     expect(CONTACT_EVENT_WINDOW_SECONDS).toBe(86_400);
+  });
+
+  it('vues de profil : 200 par jour (primitif prêt pour BE-23)', () => {
+    expect(PROFILE_VIEW_LIMIT).toBe(200);
+    expect(PROFILE_VIEW_WINDOW_SECONDS).toBe(86_400);
   });
 });
 

@@ -79,6 +79,14 @@
 | `BE-22c` | `findEligibleContactEventForReview` + agrégat concurrency-safe | Claude | #116 | 2026-08-22 |
 | `BE-22d` | `POST /v1/providers/:id/reviews` — route | Claude | #117 | 2026-08-22 |
 | `BE-22` | `POST /providers/:id/reviews` — rattaché à un `ContactEvent`, agrégats en transaction — parcours complet (3 PRs atomiques ci-dessus) | Claude | #115–#117 | 2026-08-22 |
+| `BE-23a` | Vues de profil — `DailyProviderStat` (schéma + migration) + repositories `ProfileView` | Claude | #119 | 2026-08-22 |
+| `BE-23b` | Vues de profil — `resolveViewDate` (core, pur) + quota + schéma Zod | Claude | #121 | 2026-08-22 |
+| `BE-23c` | Vues de profil — `POST /v1/profile-views` (dédup 24 h, agrégat transactionnel) | Claude | #123 | 2026-08-22 |
+| `BE-23` | Traçage des vues de profil et agrégat journalier — parcours complet (3 PRs atomiques ci-dessus, empilées sur #119) | Claude | #119/#121/#123 | 2026-08-22 |
+| `BE-25a` | Favoris — assemblage pur de ligne de liste + quota | Claude | #120 | 2026-08-22 |
+| `BE-25b` | Favoris — pagination curseur + hydratation par lots | Claude | #122 | 2026-08-22 |
+| `BE-25c` | `PUT`/`DELETE`/`GET /v1/favorites` — route + contrat | Claude | #126 | 2026-08-22 |
+| `BE-25` | Favoris (`PUT`/`DELETE`/`GET /favorites`) — parcours complet (3 PRs atomiques ci-dessus) | Claude | #120/#122/#126 | 2026-08-22 |
 
 ---
 
