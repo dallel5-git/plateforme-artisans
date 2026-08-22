@@ -8,6 +8,10 @@ export const OTP_REQUEST_WINDOW_SECONDS = 60 * 60; // 1 h
 export const CONTACT_EVENT_LIMIT = 30;
 export const CONTACT_EVENT_WINDOW_SECONDS = 24 * 60 * 60; // 1 j — primitif prêt pour BE-21.
 
+// BE-22 : dépôt d'avis, toujours authentifié (pas de volet IP anonyme, contrairement à BE-21).
+export const REVIEW_LIMIT = 10;
+export const REVIEW_WINDOW_SECONDS = 24 * 60 * 60; // 1 j
+
 export interface RateLimitVerdict {
   allowed: boolean;
   retryAfterSeconds: number;

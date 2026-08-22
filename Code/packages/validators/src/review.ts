@@ -26,3 +26,22 @@ export const providerReviewListResponseSchema = z.object({
   items: z.array(providerReviewListItemSchema),
   nextCursor: z.string().nullable(),
 });
+
+// BE-22 : pas de contactEventId (sélection automatique côté serveur, jamais exposée au client) ni
+// de sous-notes (même exclusion 🟠 P1 que providerReviewListItemSchema ci-dessus).
+export const createProviderReviewBodySchema = z.object({
+  rating: z.number().int().min(1).max(5),
+  comment: z.string().max(1000).optional(),
+});
+export type CreateProviderReviewBody = z.infer<typeof createProviderReviewBodySchema>;
+
+// Pas d'identifiant interne en sortie (providerId/clientId/contactEventId/status) — même logique
+// que providerReviewListItemSchema.
+export const providerReviewCreateResponseSchema = z.object({
+  id: z.uuid(),
+  rating: z.number().int().min(1).max(5),
+  comment: z.string().nullable(),
+  isVerifiedContact: z.boolean(),
+  createdAt: z.date(),
+});
+export type ProviderReviewCreateResponse = z.infer<typeof providerReviewCreateResponseSchema>;

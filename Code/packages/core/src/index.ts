@@ -31,6 +31,8 @@ export {
   OTP_REQUEST_WINDOW_SECONDS,
   CONTACT_EVENT_LIMIT,
   CONTACT_EVENT_WINDOW_SECONDS,
+  REVIEW_LIMIT,
+  REVIEW_WINDOW_SECONDS,
 } from './policies/quotas.js';
 export type { RateLimitVerdict } from './policies/quotas.js';
 

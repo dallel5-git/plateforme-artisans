@@ -32,3 +32,7 @@ export const MEDIA_NOT_FOUND = 'MEDIA_NOT_FOUND';
 // BE-21 : révélation du numéro — aucune contrainte DB ne garantit qu'un artisan a rempli le
 // champ correspondant au canal demandé (whatsappPhone/publicPhone sont tous deux nullable).
 export const PROVIDER_CONTACT_CHANNEL_UNAVAILABLE = 'PROVIDER_CONTACT_CHANNEL_UNAVAILABLE';
+
+// BE-22 : dépôt d'avis — aucun ContactEvent éligible (absent, trop récent, trop ancien, ou déjà
+// utilisé par un avis existant — y compris la variante course entre deux requêtes quasi-simultanées).
+export const REVIEW_REQUIRES_CONTACT = 'REVIEW_REQUIRES_CONTACT';
