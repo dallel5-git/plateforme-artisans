@@ -48,7 +48,11 @@ export {
 } from './providers/completion-score.js';
 export type { CompletionScoreInput, CompletionScoreResult } from './providers/completion-score.js';
 
-export { FREE_PLAN_MAX_CATEGORIES, FREE_PLAN_MAX_GOVERNORATES } from './billing/plan-limits.js';
+export {
+  FREE_PLAN_MAX_CATEGORIES,
+  FREE_PLAN_MAX_GOVERNORATES,
+  FREE_PLAN_MAX_PORTFOLIO_ITEMS,
+} from './billing/plan-limits.js';
 
 export { computeRankingScore, fnv1aHash, parseRankingWeights } from './search/ranking.js';
 export type {

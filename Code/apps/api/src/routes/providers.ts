@@ -1,7 +1,9 @@
 import { randomUUID } from 'node:crypto';
 
 import {
+  FORBIDDEN,
   INTERNAL_ERROR,
+  MEDIA_NOT_FOUND,
   NOT_FOUND,
   PROVIDER_PROFILE_ALREADY_EXISTS,
   PROVIDER_PROFILE_INCOMPLETE,
@@ -14,9 +16,11 @@ import {
   buildReviewAuthorDisplayName,
   buildSearchSeed,
   calculateCompletionScore,
+  can,
   DomainError,
   FREE_PLAN_MAX_CATEGORIES,
   FREE_PLAN_MAX_GOVERNORATES,
+  FREE_PLAN_MAX_PORTFOLIO_ITEMS,
   hashRefreshToken,
   InvalidSearchCursorError,
   MIN_PUBLICATION_COMPLETION_SCORE,
@@ -31,6 +35,7 @@ import {
   type ScoredCandidate,
 } from '@repo/core';
 import {
+  addPortfolioItem,
   addUserRole,
   createProviderProfile,
   createSession,
@@ -41,6 +46,7 @@ import {
   findDelegationsByIds,
   findGovernorateBySlug,
   findGovernoratesByIds,
+  findMediaAssetById,
   findMediaAssetsByIds,
   findProviderProfileBySlug,
   findProviderProfileByUserId,
@@ -51,6 +57,7 @@ import {
   listProviderCategories,
   listPublishedReviewsForProvider,
   listServiceOfferings,
+  removePortfolioItem,
   replaceCoverageAreas,
   replaceProviderCategories,
   searchProviderProfiles,
@@ -62,8 +69,11 @@ import {
 } from '@repo/db';
 import { normalizePhoneTn, slugify } from '@repo/utils';
 import {
+  attachPortfolioItemSchema,
   createProviderMeResponseSchema,
   createProviderMeSchema,
+  portfolioItemIdParamsSchema,
+  portfolioItemResponseSchema,
   providerPublicProfileSchema,
   providerReviewListResponseSchema,
   providerReviewsQuerySchema,
@@ -313,6 +323,22 @@ async function loadReviewsPage(slug: string, query: ProviderReviewsQuery) {
     }
     throw error;
   }
+}
+
+function toPortfolioItemResponse(item: {
+  id: string;
+  mediaId: string;
+  categoryId: string | null;
+  caption: string | null;
+  sortOrder: number;
+}) {
+  return {
+    id: item.id,
+    mediaId: item.mediaId,
+    categoryId: item.categoryId,
+    caption: item.caption,
+    sortOrder: item.sortOrder,
+  };
 }
 
 export async function providersRoutes(app: FastifyInstance): Promise<void> {
@@ -637,6 +663,87 @@ export async function providersRoutes(app: FastifyInstance): Promise<void> {
       });
 
       return { coverageAreas: updatedCoverageAreas, completionScore: score };
+    },
+  );
+
+  typedApp.post(
+    '/providers/me/portfolio',
+    {
+      preHandler: [app.requireRole('PROVIDER')],
+      schema: {
+        description:
+          'Rattache au profil artisan un `MediaAsset` déjà traité (`POST /v1/media/:id/process`, ' +
+          `BE-20c) — le média doit appartenir à l'appelant et être \`APPROVED\`. Limite du plan ` +
+          `FREE : ${FREE_PLAN_MAX_PORTFOLIO_ITEMS} photos (US-P-04).`,
+        body: attachPortfolioItemSchema,
+        response: { 200: portfolioItemResponseSchema },
+      },
+    },
+    async (request) => {
+      if (!request.user) {
+        throw new DomainError(UNAUTHORIZED, 'Non authentifié');
+      }
+
+      const current = await requireOwnProfile(request.user.sub);
+      const existingItems = await listPortfolioItems(current.id);
+      if (existingItems.length >= FREE_PLAN_MAX_PORTFOLIO_ITEMS) {
+        throw new DomainError(
+          VALIDATION_ERROR,
+          `Maximum ${FREE_PLAN_MAX_PORTFOLIO_ITEMS} photos en offre gratuite`,
+          { limit: FREE_PLAN_MAX_PORTFOLIO_ITEMS, field: 'mediaId' },
+        );
+      }
+
+      const media = await findMediaAssetById(request.body.mediaId);
+      if (!media) {
+        throw new DomainError(MEDIA_NOT_FOUND, 'Média introuvable');
+      }
+      if (!media.uploadedById || !can(request.user, 'update', { ownerId: media.uploadedById })) {
+        throw new DomainError(FORBIDDEN, "Ce média n'appartient pas à l'utilisateur authentifié");
+      }
+      if (media.moderationStatus !== 'APPROVED') {
+        throw new DomainError(
+          VALIDATION_ERROR,
+          "Le média doit être traité (POST /v1/media/:id/process) avant d'être rattaché au portfolio",
+          { field: 'mediaId' },
+        );
+      }
+
+      const item = await addPortfolioItem(
+        current.id,
+        media.id,
+        request.body.categoryId,
+        request.body.caption,
+        existingItems.length,
+      );
+
+      return toPortfolioItemResponse(item);
+    },
+  );
+
+  typedApp.delete(
+    '/providers/me/portfolio/:id',
+    {
+      preHandler: [app.requireRole('PROVIDER')],
+      schema: {
+        description: "Détache un élément de la galerie de l'artisan authentifié.",
+        params: portfolioItemIdParamsSchema,
+      },
+    },
+    async (request, reply) => {
+      if (!request.user) {
+        throw new DomainError(UNAUTHORIZED, 'Non authentifié');
+      }
+
+      const current = await requireOwnProfile(request.user.sub);
+      const items = await listPortfolioItems(current.id);
+      const item = items.find((candidate) => candidate.id === request.params.id);
+      if (!item) {
+        throw new DomainError(NOT_FOUND, 'Élément de portfolio introuvable', { field: 'id' });
+      }
+
+      await removePortfolioItem(item.id);
+      reply.code(204);
     },
   );
 }

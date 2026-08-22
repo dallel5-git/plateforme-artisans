@@ -44,9 +44,6 @@
 | `BE-23` | `POST /profile-views` + `DailyProviderStat` (dédup 24 h) | 🔴 | DEV-2 | 1,5 h | BE-21 | P9 |
 | `BE-26` | ⭐ Contrat : `api:contract` + `mobile:client` (dart-dio) + `web:client` prêt pour S2 | 🔴 | DEV-1 | 2,5 h | toutes | ADR-001 |
 | `BE-27` | 🚦 **GATE 1** — recette backend en `curl` (8 appels) | 🔴 | binôme | 0,75 h *(1,5 h-h)* | BE-26 | — |
-| `BE-20b` | Médias — `POST /v1/media/presign` | 🟠 | DEV-2 | 0,5 h | BE-20a | US-P-04 |
-| `BE-20c` | Médias — `POST /v1/media/:id/process` (téléchargement + variantes + upload R2) | 🟠 | DEV-2 | 0,5 h | BE-20b | US-P-04 |
-| `BE-20d` | Médias — `POST`/`DELETE /v1/providers/me/portfolio` (rattachement au profil, quota FREE) | 🟠 | DEV-2 | 0,5 h | BE-20c | US-P-04 |
 | `BE-24` | `GET /providers/me/stats` — vues, contacts, ratio, série 30 j | 🟠 | DEV-2 | 2 h | BE-23 | US-P-12 |
 | `BE-25` | Favoris (`PUT`/`DELETE`/`GET /favorites`) | 🟠 | DEV-1 | 1 h | BE-12 | US-C-08 |
 
