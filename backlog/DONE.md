@@ -66,6 +66,10 @@
 | `BE-20c` | Médias — `POST /v1/media/:id/process` (téléchargement + variantes + upload R2) | Claude | #112 | 2026-08-22 |
 | `BE-20d` | Médias — `POST`/`DELETE /v1/providers/me/portfolio` (rattachement au profil, quota FREE) | Claude | #113 | 2026-08-22 |
 | `BE-20` | Upload de médias : URL pré-signées et variantes WebP — parcours complet (4 PRs atomiques ci-dessus, empilées sur #106) | Claude | #106/#110/#112/#113 | 2026-08-22 |
+| `BE-23a` | `DailyProviderStat` + repositories `ProfileView` (migration, dédup 24 h) | Claude | #119 | 2026-08-22 |
+| `BE-23b` | `resolveViewDate` + quota + schémas Zod `profile-view` | Claude | #121 | 2026-08-22 |
+| `BE-23c` | `POST /v1/profile-views` — route + rate-limit + contrat | Claude | #123 | 2026-08-22 |
+| `BE-23` | Tracking des vues de profil : `DailyProviderStat` — parcours complet (3 PRs atomiques ci-dessus) | Claude | #119/#121/#123 | 2026-08-22 |
 
 ---
 
