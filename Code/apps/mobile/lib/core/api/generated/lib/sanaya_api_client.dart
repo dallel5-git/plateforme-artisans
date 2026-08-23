@@ -56,6 +56,9 @@ export 'package:sanaya_api_client/src/model/v1_providers_me_portfolio_post_reque
 export 'package:sanaya_api_client/src/model/v1_providers_me_post200_response.dart';
 export 'package:sanaya_api_client/src/model/v1_providers_me_post200_response_provider.dart';
 export 'package:sanaya_api_client/src/model/v1_providers_me_post_request.dart';
+export 'package:sanaya_api_client/src/model/v1_providers_me_stats_get200_response.dart';
+export 'package:sanaya_api_client/src/model/v1_providers_me_stats_get200_response_series_inner.dart';
+export 'package:sanaya_api_client/src/model/v1_providers_me_stats_get200_response_totals.dart';
 export 'package:sanaya_api_client/src/model/v1_providers_search_get200_response.dart';
 export 'package:sanaya_api_client/src/model/v1_providers_search_get200_response_items_inner.dart';
 export 'package:sanaya_api_client/src/model/v1_providers_search_get200_response_items_inner_categories_inner.dart';
