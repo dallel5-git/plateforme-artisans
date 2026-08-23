@@ -185,4 +185,8 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter @repo/db generate
+      # QA-01a (absorbe BE-02b) : sans cette étape, le schéma n'existe jamais sur le Postgres de
+      # service — les tests d'intégration (apps/api, packages/db) qui touchent réellement la base
+      # échouaient en silence côté CI (gap documenté dans 5 fichiers de tests avant ce ticket).
+      - run: pnpm --filter @repo/db migrate:deploy
       - run: pnpm test

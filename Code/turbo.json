@@ -16,7 +16,7 @@
     "test": {
       "dependsOn": ["^build"],
       "outputs": ["coverage/**"],
-      "env": ["DATABASE_URL", "REDIS_URL"]
+      "env": ["DATABASE_URL", "REDIS_URL", "NODE_ENV"]
     },
     "dev": {
       "cache": false,
@@ -25,6 +25,14 @@
     "api:contract": {
       "cache": false,
       "env": ["DATABASE_URL", "REDIS_URL"]
+    },
+    "@repo/testing#test": {
+      "dependsOn": ["^build", "@repo/db#test"],
+      "env": ["DATABASE_URL", "REDIS_URL", "NODE_ENV"]
+    },
+    "api#test": {
+      "dependsOn": ["^build", "@repo/testing#test"],
+      "env": ["DATABASE_URL", "REDIS_URL", "NODE_ENV"]
     }
   }
 }

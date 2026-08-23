@@ -2,5 +2,26 @@
   "name": "@repo/testing",
   "version": "0.0.0",
   "private": true,
-  "description": "Utilitaires de test partagés : fixtures, helpers Vitest, base de test jetable."
+  "type": "module",
+  "description": "Utilitaires de test partagés : fixtures, helpers Vitest, base de test jetable.",
+  "exports": {
+    ".": "./src/index.ts",
+    "./db-test-utils": "./src/db-test-utils.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "lint": "eslint .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@repo/db": "workspace:*"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/tsconfig": "workspace:*",
+    "@types/node": "26.2.0",
+    "eslint": "10.8.1",
+    "typescript": "5.9.3",
+    "vitest": "4.1.11"
+  }
 }
