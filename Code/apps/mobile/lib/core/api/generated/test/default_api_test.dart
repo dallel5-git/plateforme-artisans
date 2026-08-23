@@ -167,6 +167,13 @@ void main() {
       // TODO
     });
 
+    // Tableau de bord de l'artisan authentifié (US-P-07/US-P-08) : totaux et série journalière sur 30 jours (vues, vues dédupliquées, contacts, ratio vue→contact), jours à zéro inclus. `searchImpressions`/`avgSearchPosition` sont absents : aucun module `search` n'existe encore pour les alimenter (BE-43).
+    //
+    //Future<V1ProvidersMeStatsGet200Response> v1ProvidersMeStatsGet() async
+    test('test v1ProvidersMeStatsGet', () async {
+      // TODO
+    });
+
     // Recherche d’artisans : catégorie/gouvernorat/délégation/vérifié/note/disponibilité, tri par score de ranking calculé, pagination par curseur. Mode debug via ?debug=true.
     //
     //Future<V1ProvidersSearchGet200Response> v1ProvidersSearchGet(String governorate, { String category, String delegation, String verified, num minRating, String availability, String cursor, int limit, String debug }) async

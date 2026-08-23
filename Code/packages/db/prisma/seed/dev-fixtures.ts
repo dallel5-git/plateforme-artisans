@@ -1127,4 +1127,58 @@ export async function seedDevFixtures(
       `Attendu 20 artisans vérifiés sur 30, obtenu ${verifiedCount} — corriger dev-fixtures.ts`,
     );
   }
+
+  await seedGate1RecetteFixture(prisma, categoryIdBySlug);
+}
+
+// --- Fixture de recette GATE 1 (BE-27) ----------------------------------------------------
+// PLAN-MVP-SEMAINE-1.md §6.4 : le parcours cœur enchaîne un contact (étape 6) puis un avis sur
+// ce même artisan (étape 7). Mais `buildReviewEligibilityWindow` (US-C-06) exige un
+// `ContactEvent` vieux de plus de 12h — celui créé à l'étape 6 est instantané et ne suffit
+// jamais. Ce client de recette porte donc un contact déjà vieux de 24h, non encore avisé,
+// posé APRÈS la boucle ci-dessus (qui purge sinon les `ContactEvent` de chaque artisan à
+// chaque exécution). Numéro identique à l'exemple documenté du parcours, pour un `curl`
+// copiable tel quel.
+const GATE1_RECETTE_CLIENT_PHONE = '+21622123456';
+const GATE1_RECETTE_PROVIDER_PHONE = '+21650000003'; // Karim Jlassi — plombier vérifié, Sousse
+
+async function seedGate1RecetteFixture(
+  prisma: PrismaClient,
+  categoryIdBySlug: Map<string, string>,
+): Promise<void> {
+  const providerUser = await prisma.user.findUnique({
+    where: { phone: GATE1_RECETTE_PROVIDER_PHONE },
+    include: { providerProfile: true },
+  });
+  if (!providerUser?.providerProfile) {
+    throw new Error(
+      `Fixture GATE 1 : artisan introuvable pour ${GATE1_RECETTE_PROVIDER_PHONE} — corriger dev-fixtures.ts`,
+    );
+  }
+
+  const client = await prisma.user.upsert({
+    where: { phone: GATE1_RECETTE_CLIENT_PHONE },
+    create: {
+      phone: GATE1_RECETTE_CLIENT_PHONE,
+      firstName: 'Recette',
+      lastName: 'GATE1',
+      roles: ['CLIENT'],
+      status: 'ACTIVE',
+    },
+    update: {},
+  });
+
+  await prisma.contactEvent.deleteMany({
+    where: { providerId: providerUser.providerProfile.id, clientId: client.id },
+  });
+  await prisma.contactEvent.create({
+    data: {
+      providerId: providerUser.providerProfile.id,
+      clientId: client.id,
+      categoryId: categoryIdBySlug.get('plomberie'),
+      channel: 'PHONE_CALL',
+      sourceScreen: 'profile',
+      createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000),
+    },
+  });
 }

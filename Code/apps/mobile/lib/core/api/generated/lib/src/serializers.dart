@@ -58,6 +58,9 @@ import 'package:sanaya_api_client/src/model/v1_providers_me_portfolio_post_reque
 import 'package:sanaya_api_client/src/model/v1_providers_me_post200_response.dart';
 import 'package:sanaya_api_client/src/model/v1_providers_me_post200_response_provider.dart';
 import 'package:sanaya_api_client/src/model/v1_providers_me_post_request.dart';
+import 'package:sanaya_api_client/src/model/v1_providers_me_stats_get200_response.dart';
+import 'package:sanaya_api_client/src/model/v1_providers_me_stats_get200_response_series_inner.dart';
+import 'package:sanaya_api_client/src/model/v1_providers_me_stats_get200_response_totals.dart';
 import 'package:sanaya_api_client/src/model/v1_providers_search_get200_response.dart';
 import 'package:sanaya_api_client/src/model/v1_providers_search_get200_response_items_inner.dart';
 import 'package:sanaya_api_client/src/model/v1_providers_search_get200_response_items_inner_categories_inner.dart';
@@ -122,6 +125,9 @@ part 'serializers.g.dart';
   V1ProvidersMePost200Response,
   V1ProvidersMePost200ResponseProvider,
   V1ProvidersMePostRequest,
+  V1ProvidersMeStatsGet200Response,
+  V1ProvidersMeStatsGet200ResponseSeriesInner,
+  V1ProvidersMeStatsGet200ResponseTotals,
   V1ProvidersSearchGet200Response,
   V1ProvidersSearchGet200ResponseItemsInner,
   V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner,
