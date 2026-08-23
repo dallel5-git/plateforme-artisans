@@ -89,6 +89,9 @@ importers:
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
+      '@repo/testing':
+        specifier: workspace:*
+        version: link:../../packages/testing
       '@repo/tsconfig':
         specifier: workspace:*
         version: link:../../packages/tsconfig
@@ -281,6 +284,9 @@ importers:
 
   packages/testing:
     dependencies:
+      '@repo/core':
+        specifier: workspace:*
+        version: link:../core
       '@repo/db':
         specifier: workspace:*
         version: link:../db
