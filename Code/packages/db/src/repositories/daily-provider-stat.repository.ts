@@ -32,3 +32,29 @@ export async function incrementDailyProviderStat(
     select: { id: true },
   });
 }
+
+const dailyStatSelect = {
+  date: true,
+  profileViews: true,
+  uniqueProfileViews: true,
+} as const;
+
+export interface DailyProviderStatPoint {
+  date: Date;
+  profileViews: number;
+  uniqueProfileViews: number;
+}
+
+// BE-24 : lecture pour `GET /providers/me/stats`. `searchImpressions`/`avgSearchPosition` ne sont
+// volontairement pas sélectionnés — aucun module `search` n'écrit encore ces colonnes (BE-43).
+export async function listDailyProviderStats(
+  providerId: string,
+  range: { from: Date; to: Date },
+  db: DbClient = prisma,
+): Promise<DailyProviderStatPoint[]> {
+  return db.dailyProviderStat.findMany({
+    where: { providerId, date: { gte: range.from, lte: range.to } },
+    select: dailyStatSelect,
+    orderBy: { date: 'asc' },
+  });
+}

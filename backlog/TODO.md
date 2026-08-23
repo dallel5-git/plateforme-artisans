@@ -38,12 +38,7 @@
 
 | ID | Tâche | Prio | Qui | Est. | Dépend de | US |
 |---|---|---|---|---|---|---|
-| `BE-16` | `GET /providers/search` — filtres + tri + **curseur** | 🔴 | DEV-1 | 3 h | BE-15, BE-05 | US-C-01/03 |
-| `BE-21` | ⭐ `POST /contact-events` — dédup 30 min, empreinte de session, révélation du numéro, agrégat transactionnel | 🔴 | **binôme** | 3 h *(6 h-h)* | BE-11, BE-12 | US-C-05/06 |
-| `BE-22` | `POST /providers/:id/reviews` — rattaché à un `ContactEvent`, agrégats en transaction | 🔴 | DEV-1 | 2,5 h | BE-21 | US-C-07 |
-| `BE-26` | ⭐ Contrat : `api:contract` + `mobile:client` (dart-dio) + `web:client` prêt pour S2 | 🔴 | DEV-1 | 2,5 h | toutes | ADR-001 |
 | `BE-27` | 🚦 **GATE 1** — recette backend en `curl` (8 appels) | 🔴 | binôme | 0,75 h *(1,5 h-h)* | BE-26 | — |
-| `BE-24` | `GET /providers/me/stats` — vues, contacts, ratio, série 30 j | 🟠 | DEV-2 | 2 h | BE-23 | US-P-12 |
 
 ## LOT MOBILE — Flutter · J4 pm → J7 · **les 2 devs** · ~43 h (P0) + 10 h (P1)
 
@@ -61,7 +56,7 @@
 | `FM-10` | Dépôt d'avis après contact | 🔴 | DEV-1 | 2,5 h | BE-22 | US-C-07 |
 | `FM-14` | Build Android release signé + **APK pour les beta-testeurs du Sahel** | 🔴 | DEV-2 | 2 h | FM-09 | — |
 | `FM-11` | Espace Pro : assistant d'onboarding + `completionScore` en direct | 🟠 | — | 5 h | BE-19 | US-P-02→04 |
-| `FM-12` | Espace Pro : tableau de bord statistiques | 🟠 | — | 3 h | BE-24 | US-P-12 |
+| `FM-12` | Espace Pro : tableau de bord statistiques | 🟠 | — | 3 h | BE-24 | US-P-07/US-P-08 |
 | `FM-13` | Favoris + réglages (langue, déconnexion) | 🟠 | — | 2 h | BE-25 | US-C-08 |
 
 ## QUALITÉ
@@ -132,3 +127,4 @@ _Toute idée surgie en cours de sprint atterrit ici, avec un ID, et n'est jamais
 |---|---|---|---|
 | `BE-02b` | Harnais de test d'intégration Vitest + Postgres jetable (`@repo/testing/db-test-utils`) pour couvrir les contraintes/triggers DB de BE-02, aujourd'hui vérifiées manuellement via `psql` (voir PR #69) | 2026-08-18 | Oussama |
 | `BE-22b` | Réponse de l'artisan à un avis — migration Prisma (colonne ou modèle `ReviewReply`) + `POST` d'écriture. Aucun champ/modèle n'existe aujourd'hui ; BE-18 (`GET /providers/:slug/reviews`) livre sans ce champ faute de donnée à exposer. Nécessaire avant que FM-08/FM-10 (mobile) n'aient besoin d'afficher une réponse artisan | 2026-08-21 | Claude |
+| `BE-43` | `searchImpressions`/`avgSearchPosition` de `DailyProviderStat` — aucun module `search` n'existe encore (pas de route, pas de tracking d'impression/position). BE-24 (`GET /providers/me/stats`) livre sans ces deux champs faute de donnée à exposer. Nécessaire quand `BE-16`/`FM-07` (recherche) seront en place | 2026-08-22 | Claude |

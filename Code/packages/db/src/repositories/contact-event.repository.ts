@@ -134,3 +134,24 @@ export async function countContactEventsForProvider(
 ): Promise<number> {
   return db.contactEvent.count({ where: { providerId } });
 }
+
+export interface ContactEventTimestamp {
+  createdAt: Date;
+}
+
+// BE-24 : lecture brute pour `GET /providers/me/stats`. Le regroupement par jour calendaire UTC
+// (même convention que `resolveViewDate`, BE-23) est fait côté `@repo/core` — DailyProviderStat
+// n'a jamais écrit phoneClicks/whatsappClicks (BE-21 n'incrémente que
+// ProviderProfile.totalContacts), donc les contacts de la série 30 j sont agrégés ici en lecture
+// seule, sans toucher au code d'écriture déjà mergé.
+export async function listContactEventTimestampsForProvider(
+  providerId: string,
+  range: { from: Date; to: Date },
+  db: DbClient = prisma,
+): Promise<ContactEventTimestamp[]> {
+  return db.contactEvent.findMany({
+    where: { providerId, createdAt: { gte: range.from, lte: range.to } },
+    select: { createdAt: true },
+    orderBy: { createdAt: 'asc' },
+  });
+}

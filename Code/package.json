@@ -27,10 +27,13 @@
     "i18n:check": "node tooling/scripts/i18n-check.mjs",
     "tokens:build": "node tooling/scripts/build-tokens.mjs",
     "tokens:build:check": "node tooling/scripts/build-tokens.mjs --check",
+    "mobile:client": "node tooling/scripts/mobile-client.mjs",
+    "mobile:client:check": "node tooling/scripts/mobile-client.mjs --check",
     "web:client": "node tooling/scripts/web-client.mjs",
     "web:client:check": "node tooling/scripts/web-client.mjs --check"
   },
   "devDependencies": {
+    "@openapitools/openapi-generator-cli": "2.40.1",
     "ioredis": "6.0.0",
     "openapi-typescript": "7.13.0",
     "prettier": "3.9.6",

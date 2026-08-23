@@ -52,6 +52,10 @@
 | `BE-14c` | `GET /v1/governorates` + `GET /v1/governorates/:id/delegations` (404 si id inconnu) | Claude | #90 | 2026-08-21 |
 | `BE-14d` | Invalidation cache catalogue au seed (`tooling/scripts/flush-catalog-cache.ts`) | Claude | #91 | 2026-08-21 |
 | `BE-14` | Catalogue (catégories / gouvernorats / délégations) + cache Redis — parcours complet (4 PRs atomiques ci-dessus) | Claude | #88–#91 | 2026-08-21 |
+| `BE-16a` | Recherche — scoring et pagination en mémoire | Claude | #94 | 2026-08-21 |
+| `BE-16b` | Recherche — `searchProviderProfiles` (candidats) | Claude | #95 | 2026-08-21 |
+| `BE-16c` | `GET /v1/providers/search` — filtres, tri, curseur | Claude | #96 | 2026-08-21 |
+| `BE-16` | `GET /providers/search` — filtres + tri + curseur — parcours complet (3 PRs atomiques ci-dessus) | Claude | #94–#96 | 2026-08-21 |
 | `BE-17a` | Règles pures fiche publique (publicationStatus, displayPrice, agrégat d'avis) | Claude | #100 | 2026-08-21 |
 | `BE-17b` | `findGovernoratesByIds`/`findDelegationsByIds`/`findMediaAssetsByIds` — hydratation par lots | Claude | #101 | 2026-08-21 |
 | `BE-17c` | `GET /v1/providers/:slug` — fiche publique, jamais de téléphone (404 si non publié) | Claude | #102 | 2026-08-21 |
@@ -66,6 +70,23 @@
 | `BE-20c` | Médias — `POST /v1/media/:id/process` (téléchargement + variantes + upload R2) | Claude | #112 | 2026-08-22 |
 | `BE-20d` | Médias — `POST`/`DELETE /v1/providers/me/portfolio` (rattachement au profil, quota FREE) | Claude | #113 | 2026-08-22 |
 | `BE-20` | Upload de médias : URL pré-signées et variantes WebP — parcours complet (4 PRs atomiques ci-dessus, empilées sur #106) | Claude | #106/#110/#112/#113 | 2026-08-22 |
+| `BE-21a` | Contacts — module core dédup + empreinte + message WhatsApp | Claude | #107 | 2026-08-21 |
+| `BE-21b` | `findRecentContactEventByFingerprint` + index `sessionHash` | Claude | #108 | 2026-08-21 |
+| `BE-21c` | `tryAuth` + `enforceContactEventRateLimit` | Claude | #109 | 2026-08-21 |
+| `BE-21d` | `POST /v1/contact-events` — route | Claude | #111 | 2026-08-21 |
+| `BE-21` | ⭐ `POST /contact-events` — dédup 30 min, empreinte de session, révélation du numéro, agrégat transactionnel — parcours complet (4 PRs atomiques ci-dessus) | Claude | #107–#109/#111 | 2026-08-21 |
+| `BE-22a` | Fenêtre d'éligibilité pour le dépôt d'avis | Claude | #115 | 2026-08-22 |
+| `BE-22c` | `findEligibleContactEventForReview` + agrégat concurrency-safe | Claude | #116 | 2026-08-22 |
+| `BE-22d` | `POST /v1/providers/:id/reviews` — route | Claude | #117 | 2026-08-22 |
+| `BE-22` | `POST /providers/:id/reviews` — rattaché à un `ContactEvent`, agrégats en transaction — parcours complet (3 PRs atomiques ci-dessus) | Claude | #115–#117 | 2026-08-22 |
+| `BE-23a` | Vues de profil — `DailyProviderStat` (schéma + migration) + repositories `ProfileView` | Claude | #119 | 2026-08-22 |
+| `BE-23b` | Vues de profil — `resolveViewDate` (core, pur) + quota + schéma Zod | Claude | #121 | 2026-08-22 |
+| `BE-23c` | Vues de profil — `POST /v1/profile-views` (dédup 24 h, agrégat transactionnel) | Claude | #123 | 2026-08-22 |
+| `BE-23` | Traçage des vues de profil et agrégat journalier — parcours complet (3 PRs atomiques ci-dessus, empilées sur #119) | Claude | #119/#121/#123 | 2026-08-22 |
+| `BE-25a` | Favoris — assemblage pur de ligne de liste + quota | Claude | #120 | 2026-08-22 |
+| `BE-25b` | Favoris — pagination curseur + hydratation par lots | Claude | #122 | 2026-08-22 |
+| `BE-25c` | `PUT`/`DELETE`/`GET /v1/favorites` — route + contrat | Claude | #126 | 2026-08-22 |
+| `BE-25` | Favoris (`PUT`/`DELETE`/`GET /favorites`) — parcours complet (3 PRs atomiques ci-dessus) | Claude | #120/#122/#126 | 2026-08-22 |
 
 ---
 
