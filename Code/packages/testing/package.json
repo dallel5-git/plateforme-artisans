@@ -14,6 +14,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@repo/core": "workspace:*",
     "@repo/db": "workspace:*"
   },
   "devDependencies": {

@@ -6,8 +6,10 @@
 // automatique entre chaque test : les fixtures ci-dessous utilisent des valeurs uniques
 // aléatoires pour rester isolées même si plusieurs paquets tournent en parallèle sous Turborepo
 // sur la même base jetable (voir resetTestDatabase, @repo/db/testing, pour le nettoyage global).
-import { createContactEvent, createUser } from '@repo/db';
-import type { ContactEvent, PublicUser } from '@repo/db';
+import { randomUUID } from 'node:crypto';
+import { hashOtp, hashRefreshToken, REFRESH_TTL_DAYS } from '@repo/core';
+import { createContactEvent, createOtpCode, createSession, createUser } from '@repo/db';
+import type { ContactEvent, OtpPurpose, PublicUser } from '@repo/db';
 import {
   createTestContactEventRow,
   createTestProviderProfileRow,
@@ -88,3 +90,69 @@ export async function createTestContactEvent(
 }
 
 export { createTestContactEventRow };
+
+export interface TestOtpCodeOverrides {
+  userId?: string;
+  purpose?: OtpPurpose;
+  code?: string;
+  expiresAt?: Date;
+}
+
+export interface TestOtpCode {
+  otpId: string;
+  phone: string;
+  /** Code en clair — jamais lisible depuis `createOtpCode` (@repo/db, ne renvoie que le hash). */
+  code: string;
+}
+
+/**
+ * Sème un code OTP directement en base (même hachage que la route, `hashOtp` @repo/core) : le
+ * seul moyen de tester `POST /auth/otp/verify` sans passer par SMS, qui n'existe qu'en
+ * `console.log` (@repo/notifications) — le code n'est jamais renvoyé dans la réponse HTTP de
+ * `POST /auth/otp/request` (anti-énumération, P8).
+ */
+export async function createTestOtpCode(
+  phone: string,
+  overrides: TestOtpCodeOverrides = {},
+): Promise<TestOtpCode> {
+  const code = overrides.code ?? '123456';
+  const otp = await createOtpCode({
+    phone,
+    userId: overrides.userId,
+    purpose: overrides.purpose ?? 'SIGNUP',
+    codeHash: await hashOtp(code),
+    expiresAt: overrides.expiresAt ?? new Date(Date.now() + 5 * 60_000),
+  });
+  return { otpId: otp.id, phone, code };
+}
+
+export interface TestSessionOverrides {
+  expiresAt?: Date;
+  userAgent?: string;
+}
+
+export interface TestSession {
+  sessionId: string;
+  userId: string;
+  /** `${sessionId}.${tokenId}` en clair — le format opaque attendu par `/auth/refresh|logout`. */
+  refreshToken: string;
+}
+
+/**
+ * Sème une session avec un refresh token connu en clair, même hachage que la route
+ * (`hashRefreshToken`, @repo/core) : `createSession` (@repo/db) ne renvoie jamais le hash — sans
+ * ce fixture, impossible de fabriquer un refresh token que `/auth/refresh` accepterait.
+ */
+export async function createTestSession(
+  userId: string,
+  overrides: TestSessionOverrides = {},
+): Promise<TestSession> {
+  const tokenId = randomUUID();
+  const session = await createSession({
+    userId,
+    refreshTokenHash: hashRefreshToken(tokenId),
+    expiresAt: overrides.expiresAt ?? new Date(Date.now() + REFRESH_TTL_DAYS * 24 * 60 * 60_000),
+    userAgent: overrides.userAgent,
+  });
+  return { sessionId: session.id, userId, refreshToken: `${session.id}.${tokenId}` };
+}
