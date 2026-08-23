@@ -14,7 +14,7 @@ _Sprint S1 · dernière mise à jour : 2026-08-23_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `QA-01` | Tests d'intégration API sur base jetable (routes qui écrivent) | 2026-08-23 | `test/QA-01a-db-integration-harness` → `…b` → `…c` → `…d` → `…e` | Démarré : 5 PRs atomiques prévues. **QA-01a absorbe `BE-02b`** (harnais `@repo/testing/db-test-utils` — stub vide aujourd'hui — + correction du job CI `test` qui ne migrait jamais le schéma, gap confirmé dans 5 fichiers de tests existants). Puis QA-01b (auth), QA-01c (contact-events), QA-01d (reviews + trigger `prevent_self_review` + concurrence `ratingAvg`), QA-01e (onboarding = `providers/me*`, BE-19). Arbitrage Oussama 2026-08-23 : absorption de BE-02b actée. |
+| `QA-01` | Tests d'intégration API sur base jetable (routes qui écrivent) | 2026-08-23 | `test/QA-01a-db-integration-harness` → `…b` → `…c` → `…d` → `…e` | 5 PRs atomiques prévues. **QA-01a absorbe `BE-02b`** : PR #138 ouverte (harnais `@repo/testing/db-test-utils` + `@repo/db/testing`, correction du job CI `test` qui ne migrait jamais le schéma, ordonnancement Turborepo `@repo/db#test` → `@repo/testing#test` → `api#test` pour éviter une course de TRUNCATE entre paquets — vérifié en réel : 366 tests verts en ~10s depuis un schéma vierge). Puis QA-01b (auth), QA-01c (contact-events), QA-01d (reviews + trigger `prevent_self_review` + concurrence `ratingAvg`), QA-01e (onboarding = `providers/me*`, BE-19). Arbitrage Oussama 2026-08-23 : absorption de BE-02b actée. |
 
 *(BE-18 et BE-24 : bookkeeping de retard corrigé dans ce même commit — les deux étaient déjà mergées sur `develop`, déplacées vers `DONE.md`.)*
 
