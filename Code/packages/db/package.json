@@ -5,7 +5,8 @@
   "type": "module",
   "description": "Prisma 6 / PostgreSQL 16 — la seule couche qui parle à Prisma (P4). Repositories, schéma, migrations.",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./testing": "./src/testing.ts"
   },
   "prisma": {
     "schema": "prisma/schema.prisma",
@@ -20,6 +21,7 @@
     "seed": "prisma db seed",
     "seed:dev": "tsx prisma/seed/seed-dev.ts",
     "studio": "prisma studio",
+    "test:reset-db": "tsx --env-file-if-exists=../../../.env scripts/reset-test-db.ts",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "lint": "eslint .",
     "test": "vitest run"

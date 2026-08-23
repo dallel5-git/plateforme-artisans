@@ -156,6 +156,10 @@ jobs:
           --health-retries 10
     env:
       DATABASE_URL: postgresql://sanaya:sanaya_dev_password@localhost:5432/sanaya
+      # QA-01a : requis par `prisma migrate deploy` (schema.prisma déclare `directUrl`, jamais
+      # utilisé par le client Prisma lui-même — seulement par les commandes migrate). Sans
+      # pooler devant ce Postgres de service, même valeur que DATABASE_URL (voir .env.example).
+      DIRECT_DATABASE_URL: postgresql://sanaya:sanaya_dev_password@localhost:5432/sanaya
       REDIS_URL: redis://localhost:6379
       NODE_ENV: test
     steps:
@@ -185,4 +189,8 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter @repo/db generate
+      # QA-01a (absorbe BE-02b) : sans cette étape, le schéma n'existe jamais sur le Postgres de
+      # service — les tests d'intégration (apps/api, packages/db) qui touchent réellement la base
+      # échouaient en silence côté CI (gap documenté dans 5 fichiers de tests avant ce ticket).
+      - run: pnpm --filter @repo/db migrate:deploy
       - run: pnpm test

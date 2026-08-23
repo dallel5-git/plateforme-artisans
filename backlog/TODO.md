@@ -63,7 +63,6 @@
 
 | ID | Tâche | Prio | Qui | Est. | Dépend de |
 |---|---|---|---|---|---|
-| `QA-01` | Tests d'intégration API sur base jetable (routes qui écrivent) | 🔴 | DEV-1 | 2 h | BE-22 |
 | `QA-03` | 🚦 **GATE 2** — recette (15 scénarios, Android réel, FR + AR, 3G) | 🔴 | binôme | 1 h *(2 h-h)* | FM-14 |
 
 ---
@@ -125,6 +124,5 @@ _Toute idée surgie en cours de sprint atterrit ici, avec un ID, et n'est jamais
 
 | ID | Tâche | Ajoutée le | Par |
 |---|---|---|---|
-| `BE-02b` | Harnais de test d'intégration Vitest + Postgres jetable (`@repo/testing/db-test-utils`) pour couvrir les contraintes/triggers DB de BE-02, aujourd'hui vérifiées manuellement via `psql` (voir PR #69) | 2026-08-18 | Oussama |
 | `BE-22b` | Réponse de l'artisan à un avis — migration Prisma (colonne ou modèle `ReviewReply`) + `POST` d'écriture. Aucun champ/modèle n'existe aujourd'hui ; BE-18 (`GET /providers/:slug/reviews`) livre sans ce champ faute de donnée à exposer. Nécessaire avant que FM-08/FM-10 (mobile) n'aient besoin d'afficher une réponse artisan | 2026-08-21 | Claude |
 | `BE-43` | `searchImpressions`/`avgSearchPosition` de `DailyProviderStat` — aucun module `search` n'existe encore (pas de route, pas de tracking d'impression/position). BE-24 (`GET /providers/me/stats`) livre sans ces deux champs faute de donnée à exposer. Nécessaire quand `BE-16`/`FM-07` (recherche) seront en place | 2026-08-22 | Claude |
