@@ -13,6 +13,7 @@ import {
   VALIDATION_ERROR,
 } from '@repo/constants';
 import {
+  buildProviderStats,
   buildPublicProviderProfile,
   buildReviewAuthorDisplayName,
   buildReviewEligibilityWindow,
@@ -30,6 +31,7 @@ import {
   parseRankingWeights,
   REFRESH_TTL_DAYS,
   requirePublishedProfile,
+  resolveProviderStatsRange,
   scoreCandidates,
   signAccessToken,
   type NormalizedSearchFilters,
@@ -58,7 +60,9 @@ import {
   findProviderProfileByUserId,
   findUserById,
   InvalidCursorError,
+  listContactEventTimestampsForProvider,
   listCoverageAreas,
+  listDailyProviderStats,
   listPortfolioItems,
   listProviderCategories,
   listPublishedReviewsForProvider,
@@ -91,6 +95,7 @@ import {
   providerSearchQuerySchema,
   providerSearchResponseSchema,
   providerSlugParamsSchema,
+  providerStatsResponseSchema,
   putProviderCategoriesResponseSchema,
   putProviderCategoriesSchema,
   putProviderCoverageAreasResponseSchema,
@@ -824,6 +829,40 @@ export async function providersRoutes(app: FastifyInstance): Promise<void> {
 
       await removePortfolioItem(item.id);
       reply.code(204);
+    },
+  );
+
+  typedApp.get(
+    '/providers/me/stats',
+    {
+      preHandler: [app.requireRole('PROVIDER')],
+      schema: {
+        description:
+          "Tableau de bord de l'artisan authentifié (US-P-07/US-P-08) : totaux et série " +
+          'journalière sur 30 jours (vues, vues dédupliquées, contacts, ratio vue→contact), ' +
+          'jours à zéro inclus. `searchImpressions`/`avgSearchPosition` sont absents : aucun ' +
+          "module `search` n'existe encore pour les alimenter (BE-43).",
+        response: { 200: providerStatsResponseSchema },
+      },
+    },
+    async (request) => {
+      if (!request.user) {
+        throw new DomainError(UNAUTHORIZED, 'Non authentifié');
+      }
+
+      const current = await requireOwnProfile(request.user.sub);
+      const range = resolveProviderStatsRange(new Date());
+
+      const [dailyStats, contactEvents] = await Promise.all([
+        listDailyProviderStats(current.id, range),
+        listContactEventTimestampsForProvider(current.id, range),
+      ]);
+
+      return buildProviderStats(
+        dailyStats,
+        contactEvents.map((event) => event.createdAt),
+        range,
+      );
     },
   );
 }
