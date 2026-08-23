@@ -1142,6 +1142,15 @@ export async function seedDevFixtures(
 const GATE1_RECETTE_CLIENT_PHONE = '+21622123456';
 const GATE1_RECETTE_PROVIDER_PHONE = '+21650000003'; // Karim Jlassi — plombier vérifié, Sousse
 
+// Doit rester strictement > 12h (seuil US-C-06, `buildReviewEligibilityWindow`) : voir le test
+// dédié dans `tests/dev-fixtures.test.ts`, qui rougit si cette valeur descend au niveau ou
+// sous ce seuil.
+export const GATE1_RECETTE_CONTACT_AGE_HOURS = 24;
+
+export function computeGate1RecetteContactCreatedAt(now: Date = new Date()): Date {
+  return new Date(now.getTime() - GATE1_RECETTE_CONTACT_AGE_HOURS * 60 * 60 * 1000);
+}
+
 async function seedGate1RecetteFixture(
   prisma: PrismaClient,
   categoryIdBySlug: Map<string, string>,
@@ -1178,7 +1187,7 @@ async function seedGate1RecetteFixture(
       categoryId: categoryIdBySlug.get('plomberie'),
       channel: 'PHONE_CALL',
       sourceScreen: 'profile',
-      createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000),
+      createdAt: computeGate1RecetteContactCreatedAt(),
     },
   });
 }
