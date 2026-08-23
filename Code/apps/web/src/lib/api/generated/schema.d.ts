@@ -1235,6 +1235,56 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/providers/me/stats": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Tableau de bord de l'artisan authentifié (US-P-07/US-P-08) : totaux et série journalière sur 30 jours (vues, vues dédupliquées, contacts, ratio vue→contact), jours à zéro inclus. `searchImpressions`/`avgSearchPosition` sont absents : aucun module `search` n'existe encore pour les alimenter (BE-43). */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            totals: {
+                                profileViews: number;
+                                uniqueProfileViews: number;
+                                contacts: number;
+                                viewToContactRatio: number;
+                            };
+                            series: {
+                                /** Format: date-time */
+                                date: string;
+                                profileViews: number;
+                                uniqueProfileViews: number;
+                                contacts: number;
+                            }[];
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/contact-events": {
         parameters: {
             query?: never;

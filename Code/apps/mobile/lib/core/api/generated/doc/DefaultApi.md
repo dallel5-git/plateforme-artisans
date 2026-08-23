@@ -32,6 +32,7 @@ Method | HTTP request | Description
 [**v1ProvidersMePortfolioIdDelete**](DefaultApi.md#v1providersmeportfolioiddelete) | **DELETE** /v1/providers/me/portfolio/{id} | 
 [**v1ProvidersMePortfolioPost**](DefaultApi.md#v1providersmeportfoliopost) | **POST** /v1/providers/me/portfolio | 
 [**v1ProvidersMePost**](DefaultApi.md#v1providersmepost) | **POST** /v1/providers/me | 
+[**v1ProvidersMeStatsGet**](DefaultApi.md#v1providersmestatsget) | **GET** /v1/providers/me/stats | 
 [**v1ProvidersSearchGet**](DefaultApi.md#v1providerssearchget) | **GET** /v1/providers/search | 
 [**v1ProvidersSlugGet**](DefaultApi.md#v1providersslugget) | **GET** /v1/providers/{slug} | 
 [**v1ProvidersSlugReviewsGet**](DefaultApi.md#v1providersslugreviewsget) | **GET** /v1/providers/{slug}/reviews | 
@@ -1007,6 +1008,45 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **v1ProvidersMeStatsGet**
+> V1ProvidersMeStatsGet200Response v1ProvidersMeStatsGet()
+
+
+
+Tableau de bord de l'artisan authentifié (US-P-07/US-P-08) : totaux et série journalière sur 30 jours (vues, vues dédupliquées, contacts, ratio vue→contact), jours à zéro inclus. `searchImpressions`/`avgSearchPosition` sont absents : aucun module `search` n'existe encore pour les alimenter (BE-43).
+
+### Example
+```dart
+import 'package:sanaya_api_client/api.dart';
+
+final api = SanayaApiClient().getDefaultApi();
+
+try {
+    final response = api.v1ProvidersMeStatsGet();
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling DefaultApi->v1ProvidersMeStatsGet: $e\n');
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**V1ProvidersMeStatsGet200Response**](V1ProvidersMeStatsGet200Response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

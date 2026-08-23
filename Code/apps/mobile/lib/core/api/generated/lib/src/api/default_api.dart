@@ -42,6 +42,7 @@ import 'package:sanaya_api_client/src/model/v1_providers_me_portfolio_post_reque
 import 'package:sanaya_api_client/src/model/v1_providers_me_post200_response.dart';
 import 'package:sanaya_api_client/src/model/v1_providers_me_post200_response_provider.dart';
 import 'package:sanaya_api_client/src/model/v1_providers_me_post_request.dart';
+import 'package:sanaya_api_client/src/model/v1_providers_me_stats_get200_response.dart';
 import 'package:sanaya_api_client/src/model/v1_providers_search_get200_response.dart';
 import 'package:sanaya_api_client/src/model/v1_providers_slug_get200_response.dart';
 import 'package:sanaya_api_client/src/model/v1_providers_slug_reviews_get200_response.dart';
@@ -2003,6 +2004,80 @@ class DefaultApi {
     }
 
     return Response<V1ProvidersMePost200Response>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// v1ProvidersMeStatsGet
+  /// Tableau de bord de l&#39;artisan authentifié (US-P-07/US-P-08) : totaux et série journalière sur 30 jours (vues, vues dédupliquées, contacts, ratio vue→contact), jours à zéro inclus. &#x60;searchImpressions&#x60;/&#x60;avgSearchPosition&#x60; sont absents : aucun module &#x60;search&#x60; n&#39;existe encore pour les alimenter (BE-43).
+  ///
+  /// Parameters:
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future] containing a [Response] with a [V1ProvidersMeStatsGet200Response] as data
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<V1ProvidersMeStatsGet200Response>> v1ProvidersMeStatsGet({
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path = r'/v1/providers/me/stats';
+    final _options = Options(
+      method: r'GET',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+    );
+
+    final _response = await _dio.request<Object>(
+      _path,
+      options: _options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    V1ProvidersMeStatsGet200Response? _responseData;
+
+    try {
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(V1ProvidersMeStatsGet200Response),
+            ) as V1ProvidersMeStatsGet200Response;
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<V1ProvidersMeStatsGet200Response>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

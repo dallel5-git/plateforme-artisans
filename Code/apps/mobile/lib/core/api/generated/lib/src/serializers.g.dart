@@ -77,6 +77,9 @@ Serializers _$serializers = (Serializers().toBuilder()
       ..add(V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum.serializer)
       ..add(V1ProvidersMePostRequest.serializer)
       ..add(V1ProvidersMePostRequestSpokenLanguagesEnum.serializer)
+      ..add(V1ProvidersMeStatsGet200Response.serializer)
+      ..add(V1ProvidersMeStatsGet200ResponseSeriesInner.serializer)
+      ..add(V1ProvidersMeStatsGet200ResponseTotals.serializer)
       ..add(V1ProvidersSearchGet200Response.serializer)
       ..add(V1ProvidersSearchGet200ResponseItemsInner.serializer)
       ..add(V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum
@@ -199,6 +202,11 @@ Serializers _$serializers = (Serializers().toBuilder()
             const FullType(V1ProvidersMePostRequestSpokenLanguagesEnum)
           ]),
           () => ListBuilder<V1ProvidersMePostRequestSpokenLanguagesEnum>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(V1ProvidersMeStatsGet200ResponseSeriesInner)
+          ]),
+          () => ListBuilder<V1ProvidersMeStatsGet200ResponseSeriesInner>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [
             const FullType(V1ProvidersSearchGet200ResponseItemsInner)

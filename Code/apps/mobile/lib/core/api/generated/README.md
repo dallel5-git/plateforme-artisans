@@ -88,6 +88,7 @@ Class | Method | HTTP request | Description
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMePortfolioIdDelete**](doc/DefaultApi.md#v1providersmeportfolioiddelete) | **DELETE** /v1/providers/me/portfolio/{id} | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMePortfolioPost**](doc/DefaultApi.md#v1providersmeportfoliopost) | **POST** /v1/providers/me/portfolio | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMePost**](doc/DefaultApi.md#v1providersmepost) | **POST** /v1/providers/me | 
+[*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMeStatsGet**](doc/DefaultApi.md#v1providersmestatsget) | **GET** /v1/providers/me/stats | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersSearchGet**](doc/DefaultApi.md#v1providerssearchget) | **GET** /v1/providers/search | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersSlugGet**](doc/DefaultApi.md#v1providersslugget) | **GET** /v1/providers/{slug} | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersSlugReviewsGet**](doc/DefaultApi.md#v1providersslugreviewsget) | **GET** /v1/providers/{slug}/reviews | 
@@ -138,6 +139,9 @@ Class | Method | HTTP request | Description
  - [V1ProvidersMePost200Response](doc/V1ProvidersMePost200Response.md)
  - [V1ProvidersMePost200ResponseProvider](doc/V1ProvidersMePost200ResponseProvider.md)
  - [V1ProvidersMePostRequest](doc/V1ProvidersMePostRequest.md)
+ - [V1ProvidersMeStatsGet200Response](doc/V1ProvidersMeStatsGet200Response.md)
+ - [V1ProvidersMeStatsGet200ResponseSeriesInner](doc/V1ProvidersMeStatsGet200ResponseSeriesInner.md)
+ - [V1ProvidersMeStatsGet200ResponseTotals](doc/V1ProvidersMeStatsGet200ResponseTotals.md)
  - [V1ProvidersSearchGet200Response](doc/V1ProvidersSearchGet200Response.md)
  - [V1ProvidersSearchGet200ResponseItemsInner](doc/V1ProvidersSearchGet200ResponseItemsInner.md)
  - [V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner](doc/V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner.md)
