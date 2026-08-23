@@ -150,6 +150,8 @@ export interface CreateTestProviderProfileRowInput {
   verificationStatus?: 'NOT_SUBMITTED' | 'PENDING' | 'MORE_INFO_REQUIRED' | 'APPROVED' | 'REJECTED';
   ratingAvg?: number;
   ratingCount?: number;
+  whatsappPhone?: string;
+  publicPhone?: string;
 }
 
 /**
@@ -176,6 +178,8 @@ export async function createTestProviderProfileRow(
       verificationStatus: input.verificationStatus ?? 'NOT_SUBMITTED',
       ratingAvg: input.ratingAvg ?? 0,
       ratingCount: input.ratingCount ?? 0,
+      whatsappPhone: input.whatsappPhone,
+      publicPhone: input.publicPhone,
     },
   });
 }
