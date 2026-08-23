@@ -87,6 +87,13 @@
 | `BE-25b` | Favoris — pagination curseur + hydratation par lots | Claude | #122 | 2026-08-22 |
 | `BE-25c` | `PUT`/`DELETE`/`GET /v1/favorites` — route + contrat | Claude | #126 | 2026-08-22 |
 | `BE-25` | Favoris (`PUT`/`DELETE`/`GET /favorites`) — parcours complet (3 PRs atomiques ci-dessus) | Claude | #120/#122/#126 | 2026-08-22 |
+| `BE-24a` | Stats artisan — `DailyProviderStat`/`ContactEvent` : requêtes d'agrégation par plage de dates | Claude | #129 | 2026-08-22 |
+| `BE-24b` | Stats artisan — `resolveProviderStatsRange`/`buildProviderStats` (core, purs) + schéma Zod | Claude | #131 | 2026-08-22 |
+| `BE-24c` | `GET /v1/providers/me/stats` — route | Claude | #133 | 2026-08-23 |
+| `BE-24` | `GET /providers/me/stats` — vues, contacts, ratio, série 30 j — parcours complet (3 PRs atomiques ci-dessus) | Claude | #129/#131/#133 | 2026-08-23 |
+| `BE-26a` | Client Dart généré depuis `openapi.json` (`mobile:client`, dart-dio, package autonome) | Claude | #130 | 2026-08-23 |
+| `BE-26b` | Types TS générés depuis `openapi.json` (`web:client`, openapi-typescript) | Claude | #132 | 2026-08-23 |
+| `BE-26` | ⭐ Contrat : `api:contract` (déjà livré) + `mobile:client` + `web:client` — parcours complet (2 PRs atomiques ci-dessus) | Claude | #130/#132 | 2026-08-23 |
 
 ---
 
