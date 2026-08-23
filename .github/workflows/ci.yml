@@ -156,6 +156,10 @@ jobs:
           --health-retries 10
     env:
       DATABASE_URL: postgresql://sanaya:sanaya_dev_password@localhost:5432/sanaya
+      # QA-01a : requis par `prisma migrate deploy` (schema.prisma déclare `directUrl`, jamais
+      # utilisé par le client Prisma lui-même — seulement par les commandes migrate). Sans
+      # pooler devant ce Postgres de service, même valeur que DATABASE_URL (voir .env.example).
+      DIRECT_DATABASE_URL: postgresql://sanaya:sanaya_dev_password@localhost:5432/sanaya
       REDIS_URL: redis://localhost:6379
       NODE_ENV: test
     steps:
