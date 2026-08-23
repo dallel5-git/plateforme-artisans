@@ -41,6 +41,10 @@ export interface TestProviderOverrides {
   publicationStatus?: 'DRAFT' | 'PUBLISHED' | 'HIDDEN' | 'SUSPENDED';
   isVerified?: boolean;
   baseGovernorateId?: string;
+  /** Omis par défaut (comme la base) : QA-01c a besoin d'un artisan SANS ce canal pour tester
+   *  PROVIDER_CONTACT_CHANNEL_UNAVAILABLE — un défaut ici masquerait ce cas d'erreur. */
+  whatsappPhone?: string;
+  publicPhone?: string;
 }
 
 export interface TestProvider {
@@ -63,6 +67,8 @@ export async function createTestProvider(
     baseGovernorateId: overrides.baseGovernorateId,
     publicationStatus: overrides.publicationStatus ?? 'PUBLISHED',
     isVerified: overrides.isVerified,
+    whatsappPhone: overrides.whatsappPhone,
+    publicPhone: overrides.publicPhone,
   });
   return { userId: user.id, providerId: profile.id };
 }
