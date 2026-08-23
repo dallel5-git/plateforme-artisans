@@ -60,6 +60,7 @@
 | `BE-17b` | `findGovernoratesByIds`/`findDelegationsByIds`/`findMediaAssetsByIds` — hydratation par lots | Claude | #101 | 2026-08-21 |
 | `BE-17c` | `GET /v1/providers/:slug` — fiche publique, jamais de téléphone (404 si non publié) | Claude | #102 | 2026-08-21 |
 | `BE-17` | Fiche artisan publique — sans le numéro de téléphone — parcours complet (3 PRs atomiques ci-dessus) | Claude | #100–#102 | 2026-08-21 |
+| `BE-15` | ⭐ Ranking — géo, bayésien (C=8), confiance, complétude, réactivité, plan, pénalités, rotation ±2 % — 🔒 garde-fou ADR-002 vert | Claude | #92 | 2026-08-21 |
 | `BE-19a` | Onboarding artisan — `calculateCompletionScore` pure et testée | Claude | #93 | 2026-08-22 |
 | `BE-19b` | Onboarding artisan — `POST`/`PATCH /v1/providers/me` | Claude | #97 | 2026-08-22 |
 | `BE-19c` | Onboarding artisan — `PUT /v1/providers/me/categories` | Claude | #98 | 2026-08-22 |
@@ -102,6 +103,12 @@
 | `BE-24b` | Stats artisan — assemblage pur (ratio, série sans trou) + schémas Zod | Claude | #131 | 2026-08-23 |
 | `BE-24c` | `GET /v1/providers/me/stats` — route | Claude | #133 | 2026-08-23 |
 | `BE-24` | `GET /providers/me/stats` — vues, contacts, ratio, série 30 j — parcours complet (3 PRs atomiques ci-dessus) | Claude | #129/#131/#133 | 2026-08-23 |
+| `QA-01a` | Harnais Vitest + Postgres jetable pour les tests d'intégration (absorbe `BE-02b`) | Claude | #138/#140 | 2026-08-23 |
+| `QA-01b` | Tests d'intégration sur base réelle — `otp/request`, `otp/verify`, `refresh`, `logout` | Claude | #139 | 2026-08-23 |
+| `QA-01c` | Tests d'intégration sur base réelle — `POST /contact-events` | Claude | #141 | 2026-08-23 |
+| `QA-01d` | Tests d'intégration sur base réelle — `POST /providers/:id/reviews` (🔒 trigger `prevent_self_review` + concurrence `ratingAvg`) | Claude | #142 | 2026-08-23 |
+| `QA-01e` | Tests d'intégration sur base réelle — onboarding `providers/me*` (`POST`/`PATCH /providers/me`, catégories, zones) | Claude | #143 | 2026-08-23 |
+| `QA-01` | Tests d'intégration API sur base jetable (routes qui écrivent) — parcours complet (5 PRs atomiques ci-dessus) | Claude | #138/#140/#139/#141–#143 | 2026-08-23 |
 
 ---
 
