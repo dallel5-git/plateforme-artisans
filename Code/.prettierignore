@@ -11,6 +11,9 @@ pnpm-lock.yaml
 # Contrat d'API — généré par `pnpm api:contract` (ADR-001)
 contracts/openapi.json
 
+# Client web (types TS) — généré par `pnpm web:client` (BE-26, ADR-001 §3.2)
+apps/web/src/lib/api/generated/schema.d.ts
+
 # Design tokens générés — régénérés par `pnpm tokens:build` (cf. tokens.json)
 packages/design-tokens/src/colors.ts
 packages/design-tokens/src/spacing.ts
