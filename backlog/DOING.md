@@ -14,10 +14,9 @@ _Sprint S1 · dernière mise à jour : 2026-08-23_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `BE-18` | `GET /providers/:slug/reviews` paginé | 2026-08-21 | `feat/BE-18c-provider-reviews-route` | 3 PRs atomiques (core → repository → route, découpage BE-16a/b/c) : #103 (core, mergée), #104 (repository, CI verte), #105 (route + contrat, CI en cours). |
-| `BE-24` | `GET /providers/me/stats` — vues, contacts, ratio, série 30 j (US-P-07/US-P-08, issue #28) | 2026-08-22 | `feat/BE-24a-provider-stats-db` → `…b` → `…c` | **Les 3 PRs (#129/#131/#133) sont mergées sur `develop`** (confirmé par `git log` — cette ligne était en retard, à déplacer vers `DONE.md`). |
+| `QA-01` | Tests d'intégration API sur base jetable (routes qui écrivent) | 2026-08-23 | `test/QA-01a-db-integration-harness` → `…b` → `…c` → `…d` → `…e` | Démarré : 5 PRs atomiques prévues. **QA-01a absorbe `BE-02b`** (harnais `@repo/testing/db-test-utils` — stub vide aujourd'hui — + correction du job CI `test` qui ne migrait jamais le schéma, gap confirmé dans 5 fichiers de tests existants). Puis QA-01b (auth), QA-01c (contact-events), QA-01d (reviews + trigger `prevent_self_review` + concurrence `ratingAvg`), QA-01e (onboarding = `providers/me*`, BE-19). Arbitrage Oussama 2026-08-23 : absorption de BE-02b actée. |
 
-⚠️ **BE-26 (mobile:client + web:client) déplacée vers `DONE.md` dans ce même commit — les 2 PRs (#130/#132) sont mergées.** BE-24 est également déjà mergée (voir ci-dessus, juste pas encore déplacée). BE-18 mérite la même vérification (mergée ou non ?) — à trancher au prochain daily.
+*(BE-18 et BE-24 : bookkeeping de retard corrigé dans ce même commit — les deux étaient déjà mergées sur `develop`, déplacées vers `DONE.md`.)*
 
 ## En binôme
 

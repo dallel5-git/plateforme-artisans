@@ -94,6 +94,14 @@
 | `BE-26a` | Client Dart généré depuis `openapi.json` (`mobile:client`, dart-dio, package autonome) | Claude | #130 | 2026-08-23 |
 | `BE-26b` | Types TS générés depuis `openapi.json` (`web:client`, openapi-typescript) | Claude | #132 | 2026-08-23 |
 | `BE-26` | ⭐ Contrat : `api:contract` (déjà livré) + `mobile:client` + `web:client` — parcours complet (2 PRs atomiques ci-dessus) | Claude | #130/#132 | 2026-08-23 |
+| `BE-18a` | Assemblage pur du nom d'auteur d'avis (`buildReviewAuthorDisplayName`) | Claude | #103 | 2026-08-21 |
+| `BE-18b` | `listPublishedReviewsForProvider` — repository paginé par curseur | Claude | #104 | 2026-08-21 |
+| `BE-18c` | `GET /v1/providers/:slug/reviews` — route | Claude | #105 | 2026-08-21 |
+| `BE-18` | `GET /providers/:slug/reviews` paginé — parcours complet (3 PRs atomiques ci-dessus) | Claude | #103–#105 | 2026-08-21 |
+| `BE-24a` | Stats artisan — repository `DailyProviderStat` (totaux + série 30 j) | Claude | #129 | 2026-08-22 |
+| `BE-24b` | Stats artisan — assemblage pur (ratio, série sans trou) + schémas Zod | Claude | #131 | 2026-08-23 |
+| `BE-24c` | `GET /v1/providers/me/stats` — route | Claude | #133 | 2026-08-23 |
+| `BE-24` | `GET /providers/me/stats` — vues, contacts, ratio, série 30 j — parcours complet (3 PRs atomiques ci-dessus) | Claude | #129/#131/#133 | 2026-08-23 |
 
 ---
 
@@ -102,8 +110,8 @@
 | Métrique | Valeur |
 |---|---|
 | Tâches 🔴 P0 planifiées | 43 |
-| Tâches 🔴 P0 terminées | 19 |
-| Tâches 🟠 P1 terminées | 0 / 7 *(l'amortisseur : 18 h)* |
+| Tâches 🔴 P0 terminées | 20 *(+ BE-18, backfill bookkeeping du 2026-08-23)* |
+| Tâches 🟠 P1 terminées | 1 / 7 *(l'amortisseur : 18 h — BE-24 mergée, backfill bookkeeping du 2026-08-23)* |
 | Heures-homme 🔴 P0 estimées / consommées | 109 h / 3 h *(capacité 112 h)* |
 
 > Mettre à jour ce compteur **au daily**. C'est le seul indicateur qui dira mercredi si le périmètre
