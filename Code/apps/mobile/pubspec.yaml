@@ -29,4 +29,29 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-  # Polices Manrope + Noto Kufi Arabic : ajoutées en FM-01c.
+  # Polices variables (un seul fichier par famille, axe wght) — noms de
+  # famille alignés strictement sur AppText.latinFamily/arabicFamily
+  # (lib/core/theme/app_text.dart, généré SO-04). Les 4 poids déclarés sont
+  # ceux réellement utilisés par AppText (400/600/700/800) ; Flutter/Skia
+  # interpole sur l'axe wght du fichier variable pour chacun.
+  fonts:
+    - family: Manrope
+      fonts:
+        - asset: assets/fonts/Manrope[wght].ttf
+          weight: 400
+        - asset: assets/fonts/Manrope[wght].ttf
+          weight: 600
+        - asset: assets/fonts/Manrope[wght].ttf
+          weight: 700
+        - asset: assets/fonts/Manrope[wght].ttf
+          weight: 800
+    - family: Noto Kufi Arabic
+      fonts:
+        - asset: assets/fonts/NotoKufiArabic[wght].ttf
+          weight: 400
+        - asset: assets/fonts/NotoKufiArabic[wght].ttf
+          weight: 600
+        - asset: assets/fonts/NotoKufiArabic[wght].ttf
+          weight: 700
+        - asset: assets/fonts/NotoKufiArabic[wght].ttf
+          weight: 800

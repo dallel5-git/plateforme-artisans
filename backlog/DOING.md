@@ -14,7 +14,7 @@ _Sprint S1 · dernière mise à jour : 2026-08-23_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `FM-01` | Bootstrap Flutter : go_router, Riverpod, thème généré, polices (#32) | 2026-08-24 | `chore/FM-01a-flutter-scaffold` (mergée #147) → `chore/FM-01b-flutter-deps-lints` → `FM-01c` → `FM-01d` → `FM-01e` | Décomposée en 5 PRs atomiques (a: scaffold `flutter create` · b: deps/lints/main minimal · c: polices · d: theme/router/providers réels · e: CI `flutter analyze`), chacune branchée depuis `develop` à jour et ciblée sur `develop` directement. `FM-01a` mergée. `FM-01b` : deps (go_router, flutter_riverpod ^2.6.0, flutter_localizations) + `very_good_analysis` + exclusion documentée des fichiers générés SO-04 (`lib/core/theme/**`) et du test FM-09 pré-écrit — `flutter analyze`/`flutter test` verts. |
+| `FM-01` | Bootstrap Flutter : go_router, Riverpod, thème généré, polices (#32) | 2026-08-24 | `chore/FM-01a-flutter-scaffold` (mergée #147) → `chore/FM-01b-flutter-deps-lints` (mergée #148) → `chore/FM-01c-flutter-fonts` → `FM-01d` → `FM-01e` | Décomposée en 5 PRs atomiques, chacune branchée depuis `develop` à jour et ciblée sur `develop` directement. `FM-01a`/`FM-01b` mergées. `FM-01c` : polices Manrope + Noto Kufi Arabic sourcées en variable fonts (google/fonts, licence OFL) — un seul fichier par famille, 4 poids déclarés (400/600/700/800) pointant sur le même asset, noms de famille alignés sur `AppText`. Vérifié par `flutter build apk --debug` + tests de fumée (chargement sans exception, FR et AR). |
 
 *(QA-01 — 5/5 PRs mergées #138/#140/#139/#141–#143 — déplacée vers `DONE.md`. BE-18 et BE-24 : bookkeeping de retard déjà corrigé précédemment.)*
 
