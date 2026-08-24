@@ -21,6 +21,11 @@ Code/contracts/openapi.json      linguist-generated=true -diff merge=ours
 Code/apps/mobile/lib/core/api/generated/**  linguist-generated=true -diff merge=ours
 Code/apps/mobile/lib/core/i18n/**.g.dart    linguist-generated=true -diff merge=ours
 
+# --- Scaffold plateforme Flutter (flutter create, FM-01) --------------------
+# En cas de conflit : régénérer avec `flutter create --platforms=android,ios .`
+Code/apps/mobile/android/**      linguist-generated=true -diff merge=ours
+Code/apps/mobile/ios/**          linguist-generated=true -diff merge=ours
+
 # --- Design tokens générés --------------------------------------------------
 # En cas de conflit :  pnpm tokens:build
 # La seule source à fusionner vraiment est tokens.json.
