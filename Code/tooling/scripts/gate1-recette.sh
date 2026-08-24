@@ -127,7 +127,7 @@ if jq -e 'has("phone") or has("publicPhone") or has("whatsappPhone")' <<<"$BODY"
   fail "un champ téléphone est présent dans la fiche publique (P8)"
 fi
 PROVIDER_ID=$(jq -r '.id' <<<"$BODY")
-RATING_COUNT_BEFORE=$(jq -r '.ratingCount' <<<"$BODY")
+RATING_COUNT_BEFORE=$(jq -r '.reviewAggregate.count // 0' <<<"$BODY")
 ok "200 — fiche reçue, aucun champ téléphone, id=$PROVIDER_ID, ratingCount=$RATING_COUNT_BEFORE"
 
 # --- 6. POST /contact-events ------------------------------------------------------------------
@@ -151,7 +151,7 @@ ok "200 — avis créé"
 # Vérification bonus (hors des 8 appels du parcours) : l'agrégat a bien été recalculé.
 RECHECK=$(req GET "/providers/$SLUG")
 split_status "$RECHECK"
-RATING_COUNT_AFTER=$(jq -r '.ratingCount' <<<"$BODY")
+RATING_COUNT_AFTER=$(jq -r '.reviewAggregate.count // 0' <<<"$BODY")
 (( RATING_COUNT_AFTER == RATING_COUNT_BEFORE + 1 )) \
   || fail "ratingAvg/ratingCount non recalculé (avant=$RATING_COUNT_BEFORE, après=$RATING_COUNT_AFTER)"
 ok "vérifié — ratingCount recalculé ($RATING_COUNT_BEFORE → $RATING_COUNT_AFTER)"

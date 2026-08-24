@@ -109,6 +109,7 @@
 | `QA-01d` | Tests d'intégration sur base réelle — `POST /providers/:id/reviews` (🔒 trigger `prevent_self_review` + concurrence `ratingAvg`) | Claude | #142 | 2026-08-23 |
 | `QA-01e` | Tests d'intégration sur base réelle — onboarding `providers/me*` (`POST`/`PATCH /providers/me`, catégories, zones) | Claude | #143 | 2026-08-23 |
 | `QA-01` | Tests d'intégration API sur base jetable (routes qui écrivent) — parcours complet (5 PRs atomiques ci-dessus) | Claude | #138/#140/#139/#141–#143 | 2026-08-23 |
+| `BE-27` | 🚦 **GATE 1** — recette backend en `curl` (8 appels, §6.4), exécutée sur base + API réels — verte. 2 bugs de script corrigés au passage (`.ratingCount` → `.reviewAggregate.count`, garde `null` sur la comparaison arithmétique) ; backend déjà correct | Claude | #144/#145 + clôture ci-jointe | 2026-08-24 |
 
 ---
 
@@ -117,9 +118,9 @@
 | Métrique | Valeur |
 |---|---|
 | Tâches 🔴 P0 planifiées | 43 |
-| Tâches 🔴 P0 terminées | 20 *(+ BE-18, backfill bookkeeping du 2026-08-23)* |
+| Tâches 🔴 P0 terminées | 21 *(+ BE-18, backfill bookkeeping du 2026-08-23 ; + BE-27, GATE 1 vert du 2026-08-24)* |
 | Tâches 🟠 P1 terminées | 1 / 7 *(l'amortisseur : 18 h — BE-24 mergée, backfill bookkeeping du 2026-08-23)* |
-| Heures-homme 🔴 P0 estimées / consommées | 109 h / 3 h *(capacité 112 h)* |
+| Heures-homme 🔴 P0 estimées / consommées | 109 h / 4,5 h *(capacité 112 h)* |
 
 > Mettre à jour ce compteur **au daily**. C'est le seul indicateur qui dira mercredi si le périmètre
 > tient — et mercredi est le dernier jour où couper coûte encore peu.
