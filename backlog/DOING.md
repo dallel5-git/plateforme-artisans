@@ -26,7 +26,13 @@ _Sprint S1 · dernière mise à jour : 2026-08-23_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `BE-27` | 🚦 GATE 1 — recette backend en `curl` (8 appels, §6.4) | 2026-08-23 | `chore/BE-27a-gate1-seed-fixture` → `…b-gate1-script` → `chore/BE-27b-gate1-script-fix` | **Piège détecté par balayage (2026-08-23)** : #134 et #135 s'affichent « MERGED » sur GitHub, mais #135 ciblait `chore/BE-27a-gate1-seed-fixture` au lieu de `develop`, et le merge commit de #134 (`ef3b035`) s'est avéré être un merge *develop→branche*, pas *branche→develop*. Le fixture BE-27a a fini par atteindre `develop` par un autre chemin (PR #136), mais `tooling/scripts/gate1-recette.sh` (BE-27b) n'y a jamais mis les pieds. **PR #144 ouverte** (cible `develop` directement, contenu identique à #135, CI verte) pour combler le trou — en attente de merge par Oussama. **Docker est maintenant disponible dans cet environnement** (`sanaya-postgres`/`sanaya-redis` déjà up) : une fois #144 mergée, GATE 1 peut réellement être exécuté ici (`pnpm db:seed:dev` + API + `tooling/scripts/gate1-recette.sh`) — le blocage précédent ("pas de Docker disponible") n'est plus d'actualité. Ne pas démarrer le lot Flutter avant ce vert. |
+
+*(`BE-27` — GATE 1 exécutée avec succès le 2026-08-24, les 8 appels + vérifications bonus passent :
+voir `DONE.md`. Deux bugs trouvés et corrigés dans le script de recette lui-même au passage —
+`tooling/scripts/gate1-recette.sh` lisait `.ratingCount` au lieu de `.reviewAggregate.count`
+(mauvais chemin jq, donnait toujours `null`/0) et un crash bash sur comparaison arithmétique avec
+`null` non protégée. **Le backend (BE-22, agrégat de notes) était correct** — confirmé par
+`apps/api/tests/providers-reviews-create.integration.test.ts`, déjà vert. Lot Flutter débloqué.)*
 
 ---
 
