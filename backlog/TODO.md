@@ -44,7 +44,6 @@
 
 | ID | Tâche | Prio | Qui | Est. | Dépend de | US |
 |---|---|---|---|---|---|---|
-| `FM-01` | Bootstrap Flutter 3.24 + go_router + Riverpod + thème **généré** + polices | 🔴 | DEV-2 | 3 h | SO-04 | ADR-001 |
 | `FM-02` | ⭐ Dio + Retrofit **générés**, intercepteurs (JWT, refresh, retry, offline), secure storage | 🔴 | **binôme** | 4 h *(8 h-h)* | BE-26 | ADR-001 |
 | `FM-03` | i18n `slang` FR/AR + `Directionality` global + miroir des icônes | 🔴 | DEV-1 | 2,5 h | SO-05 | P7 |
 | `FM-04` | Widgets DS (AppButton, ProviderCard, RatingStars, VerifiedBadge, Skeleton, Empty, Error, OfflineBanner) | 🔴 | DEV-1 | 4 h | FM-01 | — |
