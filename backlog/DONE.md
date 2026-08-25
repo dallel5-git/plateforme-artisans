@@ -110,6 +110,12 @@
 | `QA-01e` | Tests d'intégration sur base réelle — onboarding `providers/me*` (`POST`/`PATCH /providers/me`, catégories, zones) | Claude | #143 | 2026-08-23 |
 | `QA-01` | Tests d'intégration API sur base jetable (routes qui écrivent) — parcours complet (5 PRs atomiques ci-dessus) | Claude | #138/#140/#139/#141–#143 | 2026-08-23 |
 | `BE-27` | 🚦 **GATE 1** — recette backend en `curl` (8 appels, §6.4), exécutée sur base + API réels — verte. 2 bugs de script corrigés au passage (`.ratingCount` → `.reviewAggregate.count`, garde `null` sur la comparaison arithmétique) ; backend déjà correct | Claude | #144/#145 + clôture ci-jointe | 2026-08-24 |
+| `FM-01a` | Bootstrap Flutter — nettoyage stub Expo/RN mort + scaffold `flutter create` (android+ios, bundle id `tn.sanaya.app`) | Claude | #147 | 2026-08-24 |
+| `FM-01b` | Bootstrap Flutter — dépendances (go_router, flutter_riverpod ^2.6.0), lints `very_good_analysis`, `main.dart` minimal | Claude | #148 | 2026-08-24 |
+| `FM-01c` | Bootstrap Flutter — polices Manrope + Noto Kufi Arabic (variable fonts, google/fonts OFL) | Claude | #149 | 2026-08-24 |
+| `FM-01d` | Bootstrap Flutter — `lib/app/{theme,router,providers}.dart` + écran d'accueil réel (3 routes, bascule sombre/clair, bascule FR/AR) | Claude | #150 | 2026-08-24 |
+| `FM-01e` | Bootstrap Flutter — CI `flutter analyze` + `dart format` + `flutter test`, résout `TODO(FM-01)` de `ci.yml` | Claude | #151 | 2026-08-25 |
+| `FM-01` | Bootstrap Flutter : go_router, Riverpod 2, thème généré (SO-04), polices — parcours complet (5 PRs atomiques ci-dessus). **Vérifié en direct sur device Android réel** (M2101K7AG, Android 11) : écran d'accueil aux couleurs Sanaya, police Manrope, thème sombre fonctionnel, `flutter analyze` zéro warning | Claude | #147–#151 | 2026-08-25 |
 
 ---
 
@@ -118,9 +124,9 @@
 | Métrique | Valeur |
 |---|---|
 | Tâches 🔴 P0 planifiées | 43 |
-| Tâches 🔴 P0 terminées | 21 *(+ BE-18, backfill bookkeeping du 2026-08-23 ; + BE-27, GATE 1 vert du 2026-08-24)* |
+| Tâches 🔴 P0 terminées | 22 *(+ BE-18, backfill bookkeeping du 2026-08-23 ; + BE-27, GATE 1 vert du 2026-08-24 ; + FM-01, premier lot Flutter vert du 2026-08-25)* |
 | Tâches 🟠 P1 terminées | 1 / 7 *(l'amortisseur : 18 h — BE-24 mergée, backfill bookkeeping du 2026-08-23)* |
-| Heures-homme 🔴 P0 estimées / consommées | 109 h / 4,5 h *(capacité 112 h)* |
+| Heures-homme 🔴 P0 estimées / consommées | 109 h / 7,5 h *(capacité 112 h)* |
 
 > Mettre à jour ce compteur **au daily**. C'est le seul indicateur qui dira mercredi si le périmètre
 > tient — et mercredi est le dernier jour où couper coûte encore peu.

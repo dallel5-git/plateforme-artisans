@@ -14,7 +14,6 @@ _Sprint S1 · dernière mise à jour : 2026-08-23_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `FM-01` | Bootstrap Flutter : go_router, Riverpod, thème généré, polices (#32) | 2026-08-24 | `chore/FM-01a-flutter-scaffold` (mergée #147) → `chore/FM-01b-flutter-deps-lints` (mergée #148) → `chore/FM-01c-flutter-fonts` (mergée #149) → `chore/FM-01d-flutter-theme-router-providers` (mergée #150) → `chore/FM-01e-flutter-ci-analyze` | Décomposée en 5 PRs atomiques, chacune branchée depuis `develop` à jour et ciblée sur `develop` directement. `FM-01a`–`FM-01d` mergées ; `FM-01d` vérifiée en direct sur device Android réel (M2101K7AG) — écran d'accueil aux couleurs Sanaya, police Manrope, bascule sombre↔clair, bascule FR↔AR (RTL confirmé), navigation fonctionnelle. `FM-01e` (dernière PR) : job CI `mobile-analyze` (`flutter analyze` + `dart format` + `flutter test test/widget_test.dart`), résout le marqueur `TODO(FM-01)` de `ci.yml`. Une fois mergée, `FM-01` passe intégralement en DONE. |
 
 *(QA-01 — 5/5 PRs mergées #138/#140/#139/#141–#143 — déplacée vers `DONE.md`. BE-18 et BE-24 : bookkeeping de retard déjà corrigé précédemment.)*
 
