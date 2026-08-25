@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/app/router.dart';
@@ -10,6 +11,12 @@ import 'package:sanaya/core/i18n/locale_persistence.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final initialLocale = await readInitialLocale();
+
+  // FM-03d : DateFormat lève une exception tant que les données de locale
+  // ne sont pas chargées — fait une seule fois au bootstrap pour les deux
+  // locales supportées, avant tout usage de lib/core/i18n/format.dart.
+  await initializeDateFormatting('fr');
+  await initializeDateFormatting('ar');
 
   runApp(
     ProviderScope(
