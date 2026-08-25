@@ -1,12 +1,12 @@
 import 'package:test/test.dart';
 import 'package:sanaya_api_client/sanaya_api_client.dart';
 
-// tests for V1ContactEventsPost200Response
+// tests for ContactEventResponseInput
 void main() {
-  final instance = V1ContactEventsPost200ResponseBuilder();
+  final instance = ContactEventResponseInputBuilder();
   // TODO add properties to the builder and call build()
 
-  group(V1ContactEventsPost200Response, () {
+  group(ContactEventResponseInput, () {
     // String contactEventId
     test('to test the property `contactEventId`', () async {
       // TODO

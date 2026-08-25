@@ -4,13 +4,12 @@
 
 // ignore_for_file: unused_element
 import 'package:built_collection/built_collection.dart';
-import 'package:built_value/json_object.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'v1_contact_events_post200_response.g.dart';
+part 'contact_event_response_input.g.dart';
 
-/// V1ContactEventsPost200Response
+/// ContactEventResponseInput
 ///
 /// Properties:
 /// * [contactEventId]
@@ -20,10 +19,9 @@ part 'v1_contact_events_post200_response.g.dart';
 /// * [whatsappMessage]
 /// * [deduplicated]
 @BuiltValue()
-abstract class V1ContactEventsPost200Response
+abstract class ContactEventResponseInput
     implements
-        Built<V1ContactEventsPost200Response,
-            V1ContactEventsPost200ResponseBuilder> {
+        Built<ContactEventResponseInput, ContactEventResponseInputBuilder> {
   @BuiltValueField(wireName: r'contactEventId')
   String get contactEventId;
 
@@ -31,7 +29,7 @@ abstract class V1ContactEventsPost200Response
   String get providerId;
 
   @BuiltValueField(wireName: r'channel')
-  V1ContactEventsPost200ResponseChannelEnum get channel;
+  ContactEventResponseInputChannelEnum get channel;
   // enum channelEnum {  PHONE,  WHATSAPP,  };
 
   @BuiltValueField(wireName: r'phone')
@@ -43,34 +41,34 @@ abstract class V1ContactEventsPost200Response
   @BuiltValueField(wireName: r'deduplicated')
   bool get deduplicated;
 
-  V1ContactEventsPost200Response._();
+  ContactEventResponseInput._();
 
-  factory V1ContactEventsPost200Response(
-          [void updates(V1ContactEventsPost200ResponseBuilder b)]) =
-      _$V1ContactEventsPost200Response;
+  factory ContactEventResponseInput(
+          [void updates(ContactEventResponseInputBuilder b)]) =
+      _$ContactEventResponseInput;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(V1ContactEventsPost200ResponseBuilder b) => b;
+  static void _defaults(ContactEventResponseInputBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<V1ContactEventsPost200Response> get serializer =>
-      _$V1ContactEventsPost200ResponseSerializer();
+  static Serializer<ContactEventResponseInput> get serializer =>
+      _$ContactEventResponseInputSerializer();
 }
 
-class _$V1ContactEventsPost200ResponseSerializer
-    implements PrimitiveSerializer<V1ContactEventsPost200Response> {
+class _$ContactEventResponseInputSerializer
+    implements PrimitiveSerializer<ContactEventResponseInput> {
   @override
   final Iterable<Type> types = const [
-    V1ContactEventsPost200Response,
-    _$V1ContactEventsPost200Response
+    ContactEventResponseInput,
+    _$ContactEventResponseInput
   ];
 
   @override
-  final String wireName = r'V1ContactEventsPost200Response';
+  final String wireName = r'ContactEventResponseInput';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    V1ContactEventsPost200Response object, {
+    ContactEventResponseInput object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'contactEventId';
@@ -86,7 +84,7 @@ class _$V1ContactEventsPost200ResponseSerializer
     yield r'channel';
     yield serializers.serialize(
       object.channel,
-      specifiedType: const FullType(V1ContactEventsPost200ResponseChannelEnum),
+      specifiedType: const FullType(ContactEventResponseInputChannelEnum),
     );
     yield r'phone';
     yield serializers.serialize(
@@ -110,7 +108,7 @@ class _$V1ContactEventsPost200ResponseSerializer
   @override
   Object serialize(
     Serializers serializers,
-    V1ContactEventsPost200Response object, {
+    ContactEventResponseInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object,
@@ -123,7 +121,7 @@ class _$V1ContactEventsPost200ResponseSerializer
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required V1ContactEventsPost200ResponseBuilder result,
+    required ContactEventResponseInputBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -147,9 +145,8 @@ class _$V1ContactEventsPost200ResponseSerializer
         case r'channel':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType:
-                const FullType(V1ContactEventsPost200ResponseChannelEnum),
-          ) as V1ContactEventsPost200ResponseChannelEnum;
+            specifiedType: const FullType(ContactEventResponseInputChannelEnum),
+          ) as ContactEventResponseInputChannelEnum;
           result.channel = valueDes;
           break;
         case r'phone':
@@ -182,12 +179,12 @@ class _$V1ContactEventsPost200ResponseSerializer
   }
 
   @override
-  V1ContactEventsPost200Response deserialize(
+  ContactEventResponseInput deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = V1ContactEventsPost200ResponseBuilder();
+    final result = ContactEventResponseInputBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(
@@ -202,21 +199,21 @@ class _$V1ContactEventsPost200ResponseSerializer
   }
 }
 
-class V1ContactEventsPost200ResponseChannelEnum extends EnumClass {
+class ContactEventResponseInputChannelEnum extends EnumClass {
   @BuiltValueEnumConst(wireName: r'PHONE')
-  static const V1ContactEventsPost200ResponseChannelEnum PHONE =
-      _$v1ContactEventsPost200ResponseChannelEnum_PHONE;
+  static const ContactEventResponseInputChannelEnum PHONE =
+      _$contactEventResponseInputChannelEnum_PHONE;
   @BuiltValueEnumConst(wireName: r'WHATSAPP')
-  static const V1ContactEventsPost200ResponseChannelEnum WHATSAPP =
-      _$v1ContactEventsPost200ResponseChannelEnum_WHATSAPP;
+  static const ContactEventResponseInputChannelEnum WHATSAPP =
+      _$contactEventResponseInputChannelEnum_WHATSAPP;
 
-  static Serializer<V1ContactEventsPost200ResponseChannelEnum> get serializer =>
-      _$v1ContactEventsPost200ResponseChannelEnumSerializer;
+  static Serializer<ContactEventResponseInputChannelEnum> get serializer =>
+      _$contactEventResponseInputChannelEnumSerializer;
 
-  const V1ContactEventsPost200ResponseChannelEnum._(String name) : super(name);
+  const ContactEventResponseInputChannelEnum._(String name) : super(name);
 
-  static BuiltSet<V1ContactEventsPost200ResponseChannelEnum> get values =>
-      _$v1ContactEventsPost200ResponseChannelEnumValues;
-  static V1ContactEventsPost200ResponseChannelEnum valueOf(String name) =>
-      _$v1ContactEventsPost200ResponseChannelEnumValueOf(name);
+  static BuiltSet<ContactEventResponseInputChannelEnum> get values =>
+      _$contactEventResponseInputChannelEnumValues;
+  static ContactEventResponseInputChannelEnum valueOf(String name) =>
+      _$contactEventResponseInputChannelEnumValueOf(name);
 }
