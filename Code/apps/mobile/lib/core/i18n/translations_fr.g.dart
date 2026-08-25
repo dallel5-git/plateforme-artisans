@@ -73,6 +73,9 @@ class Translations$common$home$fr {
 
 	/// fr: 'Basculer FR/AR'
 	String get toggleLocale => 'Basculer FR/AR';
+
+	/// fr: 'Vitrine design system'
+	String get designSystemPreview => 'Vitrine design system';
 }
 
 /// The flat map containing all translations for locale <fr>.
@@ -89,6 +92,7 @@ extension on Translations {
 			'common.home.navPro' => 'Espace pro — à venir (FM-08)',
 			'common.home.toggleTheme' => 'Basculer thème clair/sombre',
 			'common.home.toggleLocale' => 'Basculer FR/AR',
+			'common.home.designSystemPreview' => 'Vitrine design system',
 			_ => null,
 		};
 	}

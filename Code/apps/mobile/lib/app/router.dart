@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 
 import 'package:sanaya/app/bootstrap_placeholder_screen.dart';
+import 'package:sanaya/app/design_system_preview_screen.dart';
 import 'package:sanaya/app/home_screen.dart';
 
 /// go_router n'a pas d'équivalent aux dossiers parenthésés d'Expo Router —
@@ -32,6 +33,11 @@ final router = GoRouter(
       builder: (_, _) => const BootstrapPlaceholderScreen(
         space: BootstrapNavSpace.pro,
       ),
+    ),
+    GoRoute(
+      path: '/_ds-preview',
+      name: 'ds-preview',
+      builder: (_, _) => const DesignSystemPreviewScreen(),
     ),
   ],
 );
