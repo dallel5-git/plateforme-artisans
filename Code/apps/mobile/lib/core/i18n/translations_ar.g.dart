@@ -65,6 +65,7 @@ class Translations$common$home$ar extends Translations$common$home$fr {
 	@override String get navPro => 'مساحة المحترف — قريبًا (FM-08)';
 	@override String get toggleTheme => 'تبديل المظهر الفاتح/الداكن';
 	@override String get toggleLocale => 'تبديل الفرنسية/العربية';
+	@override String get designSystemPreview => 'معرض نظام التصميم';
 }
 
 /// The flat map containing all translations for locale <ar>.
@@ -81,6 +82,7 @@ extension on TranslationsAr {
 			'common.home.navPro' => 'مساحة المحترف — قريبًا (FM-08)',
 			'common.home.toggleTheme' => 'تبديل المظهر الفاتح/الداكن',
 			'common.home.toggleLocale' => 'تبديل الفرنسية/العربية',
+			'common.home.designSystemPreview' => 'معرض نظام التصميم',
 			_ => null,
 		};
 	}

@@ -5,6 +5,7 @@
     "navClient": "Espace client — à venir (FM-06)",
     "navPro": "Espace pro — à venir (FM-08)",
     "toggleTheme": "Basculer thème clair/sombre",
-    "toggleLocale": "Basculer FR/AR"
+    "toggleLocale": "Basculer FR/AR",
+    "designSystemPreview": "Vitrine design system"
   }
 }

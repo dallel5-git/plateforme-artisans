@@ -36,6 +36,11 @@ class HomeScreen extends ConsumerWidget {
             onPressed: () => ref.read(themeModeProvider.notifier).state =
                 themeMode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark,
           ),
+          IconButton(
+            tooltip: t.common.home.designSystemPreview,
+            icon: const Icon(Icons.palette_outlined),
+            onPressed: () => context.go('/_ds-preview'),
+          ),
         ],
       ),
       body: Padding(
