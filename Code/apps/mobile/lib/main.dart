@@ -5,9 +5,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/app/router.dart';
 import 'package:sanaya/app/theme.dart';
+import 'package:sanaya/core/i18n/locale_persistence.dart';
 
-void main() {
-  runApp(const ProviderScope(child: SanayaApp()));
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final initialLocale = await readInitialLocale();
+
+  runApp(
+    ProviderScope(
+      overrides: [localeProvider.overrideWith((ref) => initialLocale)],
+      child: const SanayaApp(),
+    ),
+  );
 }
 
 class SanayaApp extends ConsumerWidget {
@@ -17,6 +26,10 @@ class SanayaApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final locale = ref.watch(localeProvider);
     final themeMode = ref.watch(themeModeProvider);
+
+    // FM-03b : persiste tout changement de langue — la lecture initiale se
+    // fait une seule fois avant runApp (voir main() ci-dessus).
+    ref.listen<Locale>(localeProvider, (_, next) => persistLocale(next));
 
     return MaterialApp.router(
       routerConfig: router,
