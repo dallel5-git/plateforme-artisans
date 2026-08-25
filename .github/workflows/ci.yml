@@ -91,6 +91,22 @@ jobs:
       # pré-écrit sont exclus via analysis_options.yaml, pas ici.
       - run: flutter analyze
 
+      # lib/core/api/generated/ est exclu de `flutter analyze` ci-dessus (voir
+      # analysis_options.yaml) — le générateur produit toujours quelques avertissements
+      # (imports défensifs non utilisés) qu'on tolère, mais une vraie erreur de compilation
+      # doit quand même faire échouer la CI. FM-02b : ce sous-arbre fait désormais partie du
+      # package de l'app (plus de pub get séparé, cf. mobile-client-check), `flutter pub get`
+      # ci-dessus suffit à lui donner un `.dart_tool/package_config.json` valide.
+      - name: dart analyze sur lib/core/api/generated (échoue uniquement sur une erreur)
+        run: |
+          dart analyze lib/core/api/generated > analyze-generated.log 2>&1 || true
+          cat analyze-generated.log
+          if grep -q '^ *error - ' analyze-generated.log; then
+            echo "::error::dart analyze a trouvé au moins une erreur dans lib/core/api/generated (voir le log ci-dessus)."
+            exit 1
+          fi
+          echo "✓ dart analyze (lib/core/api/generated) : 0 erreur"
+
       # Ciblé sur les répertoires réellement écrits à la main, pas `dart format .`
       # sur tout l'arbre : lib/core/theme/** (généré SO-04) et
       # test/features/contact/contact_flow_test.dart (pré-écrit FM-09) ne passent
@@ -146,8 +162,12 @@ jobs:
           distribution: temurin
           java-version: "21"
 
-      # Épinglé (comme Node/pnpm/Java ci-dessus) — un canal "stable" mobile peut faire varier le
-      # comportement de l'analyzer sur le code généré (`built_value`) d'une exécution à l'autre.
+      # Épinglé (comme Node/pnpm/Java ci-dessus) — mobile-client.mjs lance lui-même `dart pub
+      # get`/`build_runner`/`dart format` sur le client généré (avant fusion dans l'app) ; un
+      # SDK Dart différent en local vs CI peut résoudre une version différente de
+      # built_value_generator (aucune borne exacte, seulement `>=8.4.0 <9.0.0`) et produire un
+      # `dart format` différent — les deux font échouer `mobile:client:check` sur un diff qui
+      # n'a rien à voir avec le contrat lui-même (vécu : PR #153/BE-26c).
       - uses: dart-lang/setup-dart@v1
         with:
           sdk: "3.12.2"
@@ -162,25 +182,10 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
       - run: pnpm mobile:client:check
-      # `mobile:client:check` régénère dans un dossier TEMPORAIRE pour le diff — il ne lance
-      # jamais `pub get` dans `apps/mobile/lib/core/api/generated/` lui-même. Sans ça,
-      # `dart analyze` ci-dessous n'a pas de `.dart_tool/package_config.json` et résout les
-      # paquets au hasard plutôt que via `pubspec.lock` committé.
-      - run: dart pub get
-        working-directory: Code/apps/mobile/lib/core/api/generated
-      # `dart analyze` sort en code non-zéro dès qu'il y a des WARNINGS, pas seulement des
-      # erreurs — le générateur en produit toujours (imports défensifs non utilisés, cf.
-      # description de la PR). On échoue seulement s'il y a une vraie ligne "error -".
-      - name: dart analyze (échoue uniquement sur une erreur, pas un avertissement)
-        working-directory: Code/apps/mobile/lib/core/api/generated
-        run: |
-          dart analyze > analyze.log 2>&1 || true
-          cat analyze.log
-          if grep -q '^ *error - ' analyze.log; then
-            echo "::error::dart analyze a trouvé au moins une erreur (voir le log ci-dessus)."
-            exit 1
-          fi
-          echo "✓ dart analyze : 0 erreur"
+      # FM-02b : lib/core/api/generated/ n'est plus un package pub autonome (fusionné dans
+      # l'app `sanaya`, cf. mobile-client.mjs/foldIntoApp) — son analyse d'erreurs vit
+      # désormais dans le job mobile-analyze (qui a déjà flutter pub get sur l'app entière),
+      # pas ici. Ce job ne fait plus que garder le contrat/client synchronisés.
 
   test:
     name: test (PostgreSQL + Redis)
