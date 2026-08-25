@@ -18,6 +18,16 @@ analyzer:
     # précédent que le job CI mobile-client-check, qui tolère déjà les
     # warnings du générateur de client API pour la même raison. Retirer si
     # le générateur SO-04 est un jour rendu conforme very_good_analysis.
+    - lib/core/api/generated/**
+    # BE-26 : paquet Dart autonome (son propre pubspec.yaml), déjà analysé
+    # séparément par le job CI mobile-client-check (avec son propre `pub
+    # get` scopé). Sans ce `pub get`, cette arborescence n'a pas de
+    # `.dart_tool/package_config.json` : `flutter analyze` à la racine
+    # d'apps/mobile la traite quand même mais résout ses imports
+    # (built_value, built_collection…) au hasard plutôt que via le
+    # pubspec.lock du sous-paquet, et produit des centaines de fausses
+    # erreurs "undefined name" — reproductible uniquement sur un checkout
+    # propre (un `.dart_tool` local préexistant masque le problème).
 
 linter:
   rules:

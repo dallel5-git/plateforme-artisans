@@ -63,8 +63,54 @@ jobs:
 
       # TODO(SO-05) : activer `pnpm i18n:check` une fois le squelette i18n FR/AR
       # (packages/i18n/src/locales/{fr,ar}/*.json + tooling/scripts/i18n-check.mjs) mergé sur main.
-      # TODO(FM-01) : ajouter un job `flutter analyze` + `dart format --set-exit-if-changed`
-      # une fois apps/mobile bootstrapé en Flutter (ADR-001) — cf. POLITIQUE-PROJET.md §3.3/§6.
+
+  mobile-analyze:
+    name: mobile — flutter analyze · dart format · test
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    defaults:
+      run:
+        working-directory: Code/apps/mobile
+    steps:
+      - uses: actions/checkout@v5
+
+      # Épinglé sur une version précise (pas "stable") — même raison que
+      # dart-lang/setup-dart dans mobile-client-check : un canal mobile "stable" peut
+      # faire varier le comportement de l'analyzer d'une exécution à l'autre.
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.44.6"
+          channel: stable
+          cache: true
+
+      - run: flutter pub get
+
+      # Contrairement à mobile-client-check (qui tolère les avertissements du
+      # générateur de client API), ce job utilise le code de sortie natif de
+      # `flutter analyze`, qui échoue déjà sur avertissement ET erreur — c'est
+      # exactement le critère d'acceptation de FM-01 ("flutter analyze : zéro
+      # warning"). Les fichiers générés SO-04 (lib/core/theme/**) et le test FM-09
+      # pré-écrit sont exclus via analysis_options.yaml, pas ici.
+      - run: flutter analyze
+
+      # Ciblé sur les répertoires réellement écrits à la main, pas `dart format .`
+      # sur tout l'arbre : lib/core/theme/** (généré SO-04) et
+      # test/features/contact/contact_flow_test.dart (pré-écrit FM-09) ne passent
+      # pas `dart format` tel quel et ne sont pas à nous de reformater — même
+      # raison que l'exclusion analyzer ci-dessus. À élargir au fil des tickets
+      # FM-* qui ajoutent du code sous lib/core/{api,i18n,widgets}/ et
+      # lib/features/.
+      - run: dart format --set-exit-if-changed lib/app lib/main.dart test/widget_test.dart
+
+      # Ciblé sur test/widget_test.dart, pas un `flutter test` général : le test
+      # test/features/contact/contact_flow_test.dart est du code FM-09/FM-02
+      # pré-écrit qui ne compile pas encore (imports vers du code qui n'existe pas
+      # encore) — voulu, cf. son en-tête. Un `flutter test` sans filtre le
+      # découvrirait quand même (l'exclusion analyzer n'affecte que l'analyse
+      # statique, pas la collecte des tests) et ferait échouer ce job pour une
+      # raison sans rapport avec le code de la PR. À élargir quand FM-02/FM-09
+      # livrent le code testé.
+      - run: flutter test test/widget_test.dart
 
   mobile-client-check:
     name: contrat → client Dart (mobile:client)
