@@ -3,9 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:sanaya/core/i18n/translations.g.dart';
 
-/// FM-01 : tient la locale active pour AppText.familyFor()/Directionality
-/// (pilotée au niveau de MaterialApp, cf. apps/mobile/CLAUDE.md). Persistance
-/// (SharedPreferences) et détection de la locale OS : FM-03b.
+/// Locale active — pilote AppText.familyFor()/Directionality (au niveau de
+/// MaterialApp, cf. apps/mobile/CLAUDE.md). Valeur initiale réelle injectée
+/// via overrideWith dans main() (préférence persistée ou locale du device,
+/// cf. lib/core/i18n/locale_persistence.dart) ; ce défaut ne sert qu'aux
+/// contextes sans override (tests unitaires isolés).
 final localeProvider = StateProvider<Locale>((ref) => const Locale('fr'));
 
 /// Bascule manuelle pour vérifier le thème sombre en revue, sans dépendre
