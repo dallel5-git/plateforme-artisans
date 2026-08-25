@@ -261,10 +261,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": {
-                            accessToken: string;
-                            refreshToken: string;
-                        };
+                        "application/json": components["schemas"]["AuthTokens"];
                     };
                 };
             };
@@ -1323,17 +1320,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": {
-                            /** Format: uuid */
-                            contactEventId: string;
-                            /** Format: uuid */
-                            providerId: string;
-                            /** @enum {string} */
-                            channel: "PHONE" | "WHATSAPP";
-                            phone: string;
-                            whatsappMessage?: string;
-                            deduplicated: boolean;
-                        };
+                        "application/json": components["schemas"]["ContactEventResponse"];
                     };
                 };
             };
@@ -1509,6 +1496,10 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        AuthTokensInput: {
+            accessToken: string;
+            refreshToken: string;
+        };
         CategoryTreeNodeInput: {
             /** Format: uuid */
             id: string;
@@ -1522,6 +1513,21 @@ export interface components {
             sortOrder: number;
             children: components["schemas"]["CategoryTreeNodeInput"][];
         };
+        ContactEventResponseInput: {
+            /** Format: uuid */
+            contactEventId: string;
+            /** Format: uuid */
+            providerId: string;
+            /** @enum {string} */
+            channel: "PHONE" | "WHATSAPP";
+            phone: string;
+            whatsappMessage?: string;
+            deduplicated: boolean;
+        };
+        AuthTokens: {
+            accessToken: string;
+            refreshToken: string;
+        };
         CategoryTreeNode: {
             /** Format: uuid */
             id: string;
@@ -1534,6 +1540,17 @@ export interface components {
             colorHex: string | null;
             sortOrder: number;
             children: components["schemas"]["CategoryTreeNode"][];
+        };
+        ContactEventResponse: {
+            /** Format: uuid */
+            contactEventId: string;
+            /** Format: uuid */
+            providerId: string;
+            /** @enum {string} */
+            channel: "PHONE" | "WHATSAPP";
+            phone: string;
+            whatsappMessage?: string;
+            deduplicated: boolean;
         };
     };
     responses: never;

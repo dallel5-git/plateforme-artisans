@@ -3,7 +3,7 @@
 > ⚠️ **Maximum 2 tâches par développeur.** Si vous en avez 3, vous n'en finissez aucune.
 > Mise à jour obligatoire **en fin de chaque journée**.
 
-_Sprint S1 · dernière mise à jour : 2026-08-23_
+_Sprint S1 · dernière mise à jour : 2026-08-25_
 
 ## DEV-1
 
@@ -14,6 +14,7 @@ _Sprint S1 · dernière mise à jour : 2026-08-23_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
+| `BE-26c` | Prérequis `FM-02` : `tags` OpenAPI (`auth`, `contact-events`) + `contactEventResponseSchema`/`authTokensSchema` enregistrés dans `z.globalRegistry` (même mécanisme que `categoryTreeNodeSchema`) — sans ça le client Dart généré n'a qu'un `DefaultApi` fourre-tout et des modèles anonymes (`V1AuthRefreshPost200Response`…), alors que `contact_flow_test.dart` (groupe FM-02) exige `ContactEventsApi`/`ContactEventResponse` par leur nom | 2026-08-25 | `feat/BE-26c-openapi-tags-schemas` (PR #153, approuvée par Oussama, en attente de merge) | Claude, en préparation de `FM-02` avec Oussama (DEV-2). `pnpm api:contract` + `mobile:client` + `web:client` régénérés et commités dans la PR. `typecheck`/`lint` verts. **Non vérifié : `pnpm test` côté `apps/api`** — dépend de `@repo/db#test` (Postgres local), indisponible dans cet environnement (même contrainte que `BE-27`/GATE 1 avant sa résolution). Corrige aussi un bug Windows préexistant dans `mobile-client.mjs` (spawnSync sur `.cmd`/`.bat` — CVE-2024-27980 — et chemin `-i`/`-o` à backslash rejeté par le parseur Swagger), sans quoi `pnpm mobile:client` ne tourne sur aucune machine Windows. |
 
 *(QA-01 — 5/5 PRs mergées #138/#140/#139/#141–#143 — déplacée vers `DONE.md`. BE-18 et BE-24 : bookkeeping de retard déjà corrigé précédemment.)*
 
