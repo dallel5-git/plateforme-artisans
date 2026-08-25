@@ -9,7 +9,8 @@ _Sprint S1 · dernière mise à jour : 2026-08-25_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `FM-03` | i18n `slang` FR/AR, `Directionality` global, miroir des icônes (#54) | 2026-08-25 | `feat/FM-03a-slang-pipeline` (mergée #154) → `feat/FM-03b-locale-persistence` (mergée #156) → `feat/FM-03c-directional-icons` (mergée #159) → `feat/FM-03d-date-currency-format` | Décomposée en 4 PRs atomiques, chacune branchée depuis `develop` à jour et ciblée sur `develop` directement. `FM-03a`, `FM-03b`, `FM-03c` mergées. `FM-03d` : `lib/core/i18n/format.dart` — `formatCurrency`/`formatDate`, miroir Dart de `packages/i18n/src/format.ts`, via `package:intl` (ajouté en `dependencies` directe). Montant en millimes (jamais un float, CLAUDE.md §4.1) converti en dinars au seul point d'affichage. Chiffres occidentaux en arabe : déjà le comportement par défaut d'`intl` pour `ar` (`ZERO_DIGIT: '0'` dans ses données CLDR, vérifié à l'exécution) — aucun forçage nécessaire, contrairement à ce que redoutait le plan initial. Fuseau Africa/Tunis appliqué par décalage fixe UTC+1 (pas de DST en Tunisie depuis 2009, pas besoin du package `timezone`). `initializeDateFormatting('fr'/'ar')` câblé une fois au bootstrap (`main()`), sans quoi `DateFormat` lève une exception. 7 tests unitaires (`test/core/i18n/format_test.dart`). Pure infra sans écran consommateur avant FM-05+ (même situation que FM-01c avant FM-01d) — **pas de vérification visuelle device nécessaire**, aucun rendu ne change. |
+
+*(FM-03 — 4/4 PRs mergées #154/#156/#159/#160 — déplacée vers `DONE.md`.)*
 
 ## DEV-2
 
