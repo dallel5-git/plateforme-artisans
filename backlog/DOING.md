@@ -9,6 +9,7 @@ _Sprint S1 · dernière mise à jour : 2026-08-23_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
+| `FM-03` | i18n `slang` FR/AR, `Directionality` global, miroir des icônes (#54) | 2026-08-25 | `feat/FM-03a-slang-pipeline` → `FM-03b` → `FM-03c` → `FM-03d` | Décomposée en 4 PRs atomiques (a: pipeline slang + 1er contenu réel · b: persistance langue + détection OS · c: miroir icônes · d: formatage dates/montants), chacune branchée depuis `develop` à jour et ciblée sur `develop` directement. `FM-03a` : pipeline slang fonctionnel (mode "directory locale" de slang, lit directement `packages/i18n/src/locales/` sans script de pont), `bootstrap_copy.dart` supprimé et migré vers `t.common.*`, CI `pnpm i18n:check` enfin activé (dette SO-05/SO-06) + drift-check génération slang. **Vérifié en direct sur device Android réel** : bascule FR→AR change tout le texte visible et le RTL sans redémarrage (icônes/titre miroités, chiffres FM-05/FM-06/FM-08 restés en latin) — critère d'acceptation principal de l'issue observé directement. |
 
 ## DEV-2
 

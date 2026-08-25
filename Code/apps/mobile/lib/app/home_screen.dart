@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:sanaya/app/bootstrap_copy.dart';
 import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
@@ -14,6 +13,7 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final locale = ref.watch(localeProvider);
     final themeMode = ref.watch(themeModeProvider);
+    final t = ref.watch(translationsProvider);
 
     return Scaffold(
       backgroundColor: context.colors.background,
@@ -21,7 +21,7 @@ class HomeScreen extends ConsumerWidget {
         backgroundColor: context.colors.surface,
         actions: [
           IconButton(
-            tooltip: BootstrapCopy.toggleLocaleTooltip,
+            tooltip: t.common.home.toggleLocale,
             icon: const Icon(Icons.language),
             onPressed: () => ref.read(localeProvider.notifier).state =
                 locale.languageCode == 'fr'
@@ -29,7 +29,7 @@ class HomeScreen extends ConsumerWidget {
                 : const Locale('fr'),
           ),
           IconButton(
-            tooltip: BootstrapCopy.toggleThemeTooltip,
+            tooltip: t.common.home.toggleTheme,
             icon: Icon(
               themeMode == ThemeMode.dark ? Icons.dark_mode : Icons.light_mode,
             ),
@@ -45,22 +45,22 @@ class HomeScreen extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              BootstrapCopy.appName,
+              t.common.appName,
               style: Theme.of(context).textTheme.displayLarge,
             ),
             const SizedBox(height: AppSpacing.s2xl),
             _NavButton(
-              label: BootstrapCopy.authLabel,
+              label: t.common.home.navAuth,
               onTap: () => context.go('/auth'),
             ),
             const SizedBox(height: AppSpacing.sm),
             _NavButton(
-              label: BootstrapCopy.clientLabel,
+              label: t.common.home.navClient,
               onTap: () => context.go('/client'),
             ),
             const SizedBox(height: AppSpacing.sm),
             _NavButton(
-              label: BootstrapCopy.proLabel,
+              label: t.common.home.navPro,
               onTap: () => context.go('/pro'),
             ),
           ],

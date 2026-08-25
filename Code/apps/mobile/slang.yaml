@@ -1,0 +1,28 @@
+# FM-03 — configuration slang. Source de vérité : packages/i18n/src/locales/
+# (SO-05), jamais éditée ici. Régénérer : dart run build_runner build -d
+base_locale: fr
+fallback_strategy: base_locale
+input_directory: ../../packages/i18n/src/locales
+input_file_pattern: .json
+namespaces: true
+output_directory: lib/core/i18n
+output_file_name: translations.g.dart
+translate_var: t
+
+# localeProvider (Riverpod, lib/app/providers.dart) reste l'unique source de
+# vérité pour la locale active — pas le LocaleSettings/TranslationProvider
+# intégré de slang, qui créerait un second état concurrent.
+locale_handling: false
+translation_class_visibility: public
+
+# Sans ça, la locale secondaire (ar) est chargée en `deferred` — buildSync()
+# lèverait une exception tant que sa bibliothèque n'est pas chargée. L'app
+# est trop petite pour justifier le lazy loading ; les deux locales doivent
+# être immédiatement disponibles pour la bascule FR/AR instantanée.
+lazy: false
+
+# Sans ça, l'en-tête "Built on <timestamp>" change à chaque régénération
+# même sans modification des traductions — ferait échouer le drift-check CI
+# (régénère + git diff --exit-code) sur chaque PR, sans rapport avec le
+# contenu réel.
+timestamp: false
