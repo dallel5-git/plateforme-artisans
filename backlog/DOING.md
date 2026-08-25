@@ -3,7 +3,7 @@
 > ⚠️ **Maximum 2 tâches par développeur.** Si vous en avez 3, vous n'en finissez aucune.
 > Mise à jour obligatoire **en fin de chaque journée**.
 
-_Sprint S1 · dernière mise à jour : 2026-08-23_
+_Sprint S1 · dernière mise à jour : 2026-08-25_
 
 ## DEV-1
 
@@ -25,6 +25,7 @@ _Sprint S1 · dernière mise à jour : 2026-08-23_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
+| `BE-26c` | Prérequis `FM-02` : `tags` OpenAPI (`auth`, `contact-events`) + `contactEventResponseSchema`/`authTokensSchema` enregistrés dans `z.globalRegistry` (même mécanisme que `categoryTreeNodeSchema`) — sans ça le client Dart généré n'a qu'un `DefaultApi` fourre-tout et des modèles anonymes (`V1AuthRefreshPost200Response`…), alors que `contact_flow_test.dart` (groupe FM-02) exige `ContactEventsApi`/`ContactEventResponse` par leur nom | 2026-08-25 | `feat/BE-26c-openapi-tags-schemas-v2` (remplace PR #153, fermée) | Claude, en préparation de `FM-02` avec Oussama (DEV-2). PR #153 (même contenu, ouverte par Chayma/DEV-1) bloquée en CI sur `contrat → client Dart (mobile:client)` : le client Dart committé ne correspondait pas à une régénération fraîche du contrat, alors que le diff écrit à la main (routes, schémas, fix Windows) était sain — reproduit à l'identique en local avec le même toolchain pinné (`openapi-generator-cli` 2.40.1 / générateur 7.14.0), donc pas une nondéterminisme du générateur mais un écart d'environnement au moment où le client avait été committé. Repris depuis `develop` à jour, mêmes changements métier, `pnpm api:contract` + `mobile:client` + `web:client` régénérés proprement dans un environnement où `mobile:client:check` est vérifié stable (deux régénérations consécutives identiques). `typecheck`/`lint` verts. **Non vérifié : `pnpm test` côté `apps/api`** — dépend de `@repo/db#test` (Postgres local), indisponible dans cet environnement (même contrainte que BE-27/GATE 1 avant sa résolution). |
 
 *(`BE-27` — GATE 1 exécutée avec succès le 2026-08-24, les 8 appels + vérifications bonus passent :
 voir `DONE.md`. Deux bugs trouvés et corrigés dans le script de recette lui-même au passage —
