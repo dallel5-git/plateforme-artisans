@@ -117,6 +117,11 @@
 | `FM-01d` | Bootstrap Flutter — `lib/app/{theme,router,providers}.dart` + écran d'accueil réel (3 routes, bascule sombre/clair, bascule FR/AR) | Claude | #150 | 2026-08-24 |
 | `FM-01e` | Bootstrap Flutter — CI `flutter analyze` + `dart format` + `flutter test`, résout `TODO(FM-01)` de `ci.yml` | Claude | #151 | 2026-08-25 |
 | `FM-01` | Bootstrap Flutter : go_router, Riverpod 2, thème généré (SO-04), polices — parcours complet (5 PRs atomiques ci-dessus). **Vérifié en direct sur device Android réel** (M2101K7AG, Android 11) : écran d'accueil aux couleurs Sanaya, police Manrope, thème sombre fonctionnel, `flutter analyze` zéro warning | Claude | #147–#151 | 2026-08-25 |
+| `FM-03a` | i18n — pipeline `slang` (mode « directory locale », `namespaces: true`, lit `packages/i18n/src/locales/` directement) + première traduction réelle FR/AR (suppression de `bootstrap_copy.dart`) + activation CI `pnpm i18n:check` | Claude | #154 | 2026-08-25 |
+| `FM-03b` | i18n — persistance de la langue (`shared_preferences`) + détection locale OS via `AppLocaleUtils.findDeviceLocale()` ; `localeProvider` reste l'unique source de vérité | Claude | #156 | 2026-08-25 |
+| `FM-03c` | i18n — miroir des icônes directionnelles : chevron `Icons.chevron_right` sur les 3 boutons de navigation. Pas de wrapper custom — `matchTextDirection` est un champ `IconData` déjà `true` sur cette icône, le miroir RTL est automatique via la `Directionality` ambiante | Claude | #159 | 2026-08-25 |
+| `FM-03d` | i18n — `formatCurrency`/`formatDate` (`lib/core/i18n/format.dart`), miroir Dart de `packages/i18n/src/format.ts`, chiffres occidentaux en AR (comportement par défaut d'`intl`), fuseau Africa/Tunis par décalage fixe UTC+1 | Claude | #160 | 2026-08-25 |
+| `FM-03` | i18n FR/AR `slang`, `Directionality` global, miroir des icônes — parcours complet (4 PRs atomiques ci-dessus). **Vérifié en direct sur device Android réel** : bascule FR/AR live, persistance disque après `force-stop`, chevron miroité en RTL | Claude | #154/#156/#159/#160 | 2026-08-25 |
 
 ---
 
@@ -125,9 +130,9 @@
 | Métrique | Valeur |
 |---|---|
 | Tâches 🔴 P0 planifiées | 43 |
-| Tâches 🔴 P0 terminées | 22 *(+ BE-18, backfill bookkeeping du 2026-08-23 ; + BE-27, GATE 1 vert du 2026-08-24 ; + FM-01, premier lot Flutter vert du 2026-08-25)* |
+| Tâches 🔴 P0 terminées | 23 *(+ BE-18, backfill bookkeeping du 2026-08-23 ; + BE-27, GATE 1 vert du 2026-08-24 ; + FM-01, premier lot Flutter vert du 2026-08-25 ; + FM-03, i18n FR/AR vert du 2026-08-25)* |
 | Tâches 🟠 P1 terminées | 1 / 7 *(l'amortisseur : 18 h — BE-24 mergée, backfill bookkeeping du 2026-08-23)* |
-| Heures-homme 🔴 P0 estimées / consommées | 109 h / 7,5 h *(capacité 112 h)* |
+| Heures-homme 🔴 P0 estimées / consommées | 109 h / 10 h *(capacité 112 h)* |
 
 > Mettre à jour ce compteur **au daily**. C'est le seul indicateur qui dira mercredi si le périmètre
 > tient — et mercredi est le dernier jour où couper coûte encore peu.

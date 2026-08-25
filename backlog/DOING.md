@@ -9,7 +9,8 @@ _Sprint S1 · dernière mise à jour : 2026-08-25_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `FM-03` | i18n `slang` FR/AR, `Directionality` global, miroir des icônes (#54) | 2026-08-25 | `feat/FM-03a-slang-pipeline` (mergée #154) → `feat/FM-03b-locale-persistence` (mergée #156) → `feat/FM-03c-directional-icons` → `FM-03d` | Décomposée en 4 PRs atomiques, chacune branchée depuis `develop` à jour et ciblée sur `develop` directement. `FM-03a` et `FM-03b` mergées. `FM-03c` : chevron `Icons.chevron_right` ajouté en fin des 3 boutons de navigation de `HomeScreen`. Pas de wrapper `AppDirectionalIcon` — vérifié contre la doc Flutter que `matchTextDirection` est un champ de `IconData` (déjà `true` sur `chevron_right`/`arrow_back`…), pas un paramètre du widget `Icon` ; le miroir RTL est donc déjà automatique via la `Directionality` ambiante, sans code supplémentaire. Test de non-régression dans `test/widget_test.dart` (groupe FM-03c) : vérifie `matchTextDirection: true` sur l'icône utilisée + absence/présence du `Transform` de miroir en LTR/RTL. **Vérifié en direct sur device Android réel** : capture FR (chevron `>` à droite) vs capture AR (chevron `<` miroité à gauche) — critère d'acceptation de l'issue #54. |
+
+*(FM-03 — 4/4 PRs mergées #154/#156/#159/#160 — déplacée vers `DONE.md`.)*
 
 ## DEV-2
 
