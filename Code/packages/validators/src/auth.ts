@@ -55,6 +55,9 @@ export const authTokensSchema = z.object({
   accessToken: z.string(),
   refreshToken: z.string(),
 });
+// BE-26c : voir le commentaire équivalent dans contact.ts — donne un nom stable (`AuthTokens`)
+// au lieu d'un schéma anonyme dupliqué par point d'usage (otp/verify ET refresh).
+z.globalRegistry.add(authTokensSchema, { id: 'AuthTokens' });
 
 export const otpVerifyResponseSchema = authTokensSchema.extend({
   user: publicUserSchema,

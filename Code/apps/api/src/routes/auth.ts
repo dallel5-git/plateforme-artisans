@@ -135,6 +135,7 @@ export async function authRoutes(app: FastifyInstance): Promise<void> {
     {
       preHandler: [app.requireAuth],
       schema: {
+        tags: ['auth'],
         description: "Profil de l'utilisateur authentifié, rôles inclus.",
         response: { 200: meResponseSchema },
       },
@@ -157,6 +158,7 @@ export async function authRoutes(app: FastifyInstance): Promise<void> {
     '/auth/otp/request',
     {
       schema: {
+        tags: ['auth'],
         description:
           'Demande un code OTP par SMS. Réponse identique, que le numéro existe déjà ou non (anti-énumération). Rate-limit : 5/h par numéro et par IP.',
         body: otpRequestSchema,
@@ -183,6 +185,7 @@ export async function authRoutes(app: FastifyInstance): Promise<void> {
     '/auth/otp/verify',
     {
       schema: {
+        tags: ['auth'],
         description: 'Vérifie le code OTP, crée le compte au besoin, émet les tokens de session.',
         body: otpVerifySchema,
         response: { 200: otpVerifyResponseSchema },
@@ -226,6 +229,7 @@ export async function authRoutes(app: FastifyInstance): Promise<void> {
     '/auth/refresh',
     {
       schema: {
+        tags: ['auth'],
         description:
           'Fait tourner le refresh token. Un rejeu révoque toute la famille de sessions.',
         body: refreshRequestSchema,
@@ -256,6 +260,7 @@ export async function authRoutes(app: FastifyInstance): Promise<void> {
     '/auth/logout',
     {
       schema: {
+        tags: ['auth'],
         description: 'Révoque la session associée au refresh token présenté. Idempotent.',
         body: logoutRequestSchema,
         response: { 200: logoutResponseSchema },
