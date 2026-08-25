@@ -1,37 +1,33 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'v1_auth_refresh_post200_response.dart';
+part of 'auth_tokens.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-class _$V1AuthRefreshPost200Response extends V1AuthRefreshPost200Response {
+class _$AuthTokens extends AuthTokens {
   @override
   final String accessToken;
   @override
   final String refreshToken;
 
-  factory _$V1AuthRefreshPost200Response(
-          [void Function(V1AuthRefreshPost200ResponseBuilder)? updates]) =>
-      (V1AuthRefreshPost200ResponseBuilder()..update(updates))._build();
+  factory _$AuthTokens([void Function(AuthTokensBuilder)? updates]) =>
+      (AuthTokensBuilder()..update(updates))._build();
 
-  _$V1AuthRefreshPost200Response._(
-      {required this.accessToken, required this.refreshToken})
+  _$AuthTokens._({required this.accessToken, required this.refreshToken})
       : super._();
   @override
-  V1AuthRefreshPost200Response rebuild(
-          void Function(V1AuthRefreshPost200ResponseBuilder) updates) =>
+  AuthTokens rebuild(void Function(AuthTokensBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  V1AuthRefreshPost200ResponseBuilder toBuilder() =>
-      V1AuthRefreshPost200ResponseBuilder()..replace(this);
+  AuthTokensBuilder toBuilder() => AuthTokensBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is V1AuthRefreshPost200Response &&
+    return other is AuthTokens &&
         accessToken == other.accessToken &&
         refreshToken == other.refreshToken;
   }
@@ -47,18 +43,15 @@ class _$V1AuthRefreshPost200Response extends V1AuthRefreshPost200Response {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'V1AuthRefreshPost200Response')
+    return (newBuiltValueToStringHelper(r'AuthTokens')
           ..add('accessToken', accessToken)
           ..add('refreshToken', refreshToken))
         .toString();
   }
 }
 
-class V1AuthRefreshPost200ResponseBuilder
-    implements
-        Builder<V1AuthRefreshPost200Response,
-            V1AuthRefreshPost200ResponseBuilder> {
-  _$V1AuthRefreshPost200Response? _$v;
+class AuthTokensBuilder implements Builder<AuthTokens, AuthTokensBuilder> {
+  _$AuthTokens? _$v;
 
   String? _accessToken;
   String? get accessToken => _$this._accessToken;
@@ -68,11 +61,11 @@ class V1AuthRefreshPost200ResponseBuilder
   String? get refreshToken => _$this._refreshToken;
   set refreshToken(String? refreshToken) => _$this._refreshToken = refreshToken;
 
-  V1AuthRefreshPost200ResponseBuilder() {
-    V1AuthRefreshPost200Response._defaults(this);
+  AuthTokensBuilder() {
+    AuthTokens._defaults(this);
   }
 
-  V1AuthRefreshPost200ResponseBuilder get _$this {
+  AuthTokensBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _accessToken = $v.accessToken;
@@ -83,25 +76,25 @@ class V1AuthRefreshPost200ResponseBuilder
   }
 
   @override
-  void replace(V1AuthRefreshPost200Response other) {
-    _$v = other as _$V1AuthRefreshPost200Response;
+  void replace(AuthTokens other) {
+    _$v = other as _$AuthTokens;
   }
 
   @override
-  void update(void Function(V1AuthRefreshPost200ResponseBuilder)? updates) {
+  void update(void Function(AuthTokensBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  V1AuthRefreshPost200Response build() => _build();
+  AuthTokens build() => _build();
 
-  _$V1AuthRefreshPost200Response _build() {
+  _$AuthTokens _build() {
     final _$result = _$v ??
-        _$V1AuthRefreshPost200Response._(
+        _$AuthTokens._(
           accessToken: BuiltValueNullFieldError.checkNotNull(
-              accessToken, r'V1AuthRefreshPost200Response', 'accessToken'),
+              accessToken, r'AuthTokens', 'accessToken'),
           refreshToken: BuiltValueNullFieldError.checkNotNull(
-              refreshToken, r'V1AuthRefreshPost200Response', 'refreshToken'),
+              refreshToken, r'AuthTokens', 'refreshToken'),
         );
     replace(_$result);
     return _$result;

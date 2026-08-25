@@ -174,6 +174,7 @@ export async function contactsRoutes(app: FastifyInstance): Promise<void> {
       // BE-21 : accepte authentifié ET anonyme (empreinte de session) — tryAuth, pas requireAuth.
       preHandler: [app.tryAuth],
       schema: {
+        tags: ['contact-events'],
         description:
           "Révèle le numéro d'un prestataire et trace l'événement (P9). Canal PHONE ou WHATSAPP " +
           'uniquement. Déduplique deux clics de la même session sur le même artisan/canal en ' +

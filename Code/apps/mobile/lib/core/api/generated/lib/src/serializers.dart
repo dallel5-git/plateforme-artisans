@@ -15,8 +15,12 @@ import 'package:sanaya_api_client/src/date_serializer.dart';
 import 'package:sanaya_api_client/src/model/date.dart';
 import 'package:sanaya_api_client/src/model/shared_enums.dart';
 
+import 'package:sanaya_api_client/src/model/auth_tokens.dart';
+import 'package:sanaya_api_client/src/model/auth_tokens_input.dart';
 import 'package:sanaya_api_client/src/model/category_tree_node.dart';
 import 'package:sanaya_api_client/src/model/category_tree_node_input.dart';
+import 'package:sanaya_api_client/src/model/contact_event_response.dart';
+import 'package:sanaya_api_client/src/model/contact_event_response_input.dart';
 import 'package:sanaya_api_client/src/model/v1_auth_logout_post200_response.dart';
 import 'package:sanaya_api_client/src/model/v1_auth_me_get200_response.dart';
 import 'package:sanaya_api_client/src/model/v1_auth_otp_request_post200_response.dart';
@@ -24,10 +28,8 @@ import 'package:sanaya_api_client/src/model/v1_auth_otp_request_post_request.dar
 import 'package:sanaya_api_client/src/model/v1_auth_otp_verify_post200_response.dart';
 import 'package:sanaya_api_client/src/model/v1_auth_otp_verify_post200_response_user.dart';
 import 'package:sanaya_api_client/src/model/v1_auth_otp_verify_post_request.dart';
-import 'package:sanaya_api_client/src/model/v1_auth_refresh_post200_response.dart';
 import 'package:sanaya_api_client/src/model/v1_auth_refresh_post_request.dart';
 import 'package:sanaya_api_client/src/model/v1_categories_get200_response.dart';
-import 'package:sanaya_api_client/src/model/v1_contact_events_post200_response.dart';
 import 'package:sanaya_api_client/src/model/v1_contact_events_post_request.dart';
 import 'package:sanaya_api_client/src/model/v1_favorites_get200_response.dart';
 import 'package:sanaya_api_client/src/model/v1_favorites_get200_response_items_inner.dart';
@@ -82,8 +84,12 @@ import 'package:sanaya_api_client/src/model/v1_providers_slug_reviews_get200_res
 part 'serializers.g.dart';
 
 @SerializersFor([
+  AuthTokens,
+  AuthTokensInput,
   CategoryTreeNode,
   CategoryTreeNodeInput,
+  ContactEventResponse,
+  ContactEventResponseInput,
   V1AuthLogoutPost200Response,
   V1AuthMeGet200Response,
   V1AuthOtpRequestPost200Response,
@@ -91,10 +97,8 @@ part 'serializers.g.dart';
   V1AuthOtpVerifyPost200Response,
   V1AuthOtpVerifyPost200ResponseUser,
   V1AuthOtpVerifyPostRequest,
-  V1AuthRefreshPost200Response,
   V1AuthRefreshPostRequest,
   V1CategoriesGet200Response,
-  V1ContactEventsPost200Response,
   V1ContactEventsPostRequest,
   V1FavoritesGet200Response,
   V1FavoritesGet200ResponseItemsInner,

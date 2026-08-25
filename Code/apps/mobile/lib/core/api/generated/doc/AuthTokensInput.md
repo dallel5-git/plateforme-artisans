@@ -1,4 +1,4 @@
-# sanaya_api_client.model.V1AuthRefreshPost200Response
+# sanaya_api_client.model.AuthTokensInput
 
 ## Load the model package
 ```dart

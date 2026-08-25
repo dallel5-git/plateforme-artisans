@@ -34,12 +34,31 @@ import { fileURLToPath } from 'node:url';
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const SPEC_PATH = join(ROOT, 'contracts/openapi.json');
 const TARGET_DIR = join(ROOT, 'apps/mobile/lib/core/api/generated');
-const GENERATOR_CLI = join(ROOT, 'node_modules/.bin/openapi-generator-cli');
+// Le shim POSIX (`#!/bin/sh`, sans extension) n'est pas exécutable directement par
+// child_process.spawnSync sur Windows (pas d'interprétation de shebang) : on cible le .cmd
+// généré par pnpm à côté, que Windows sait lancer nativement.
+const GENERATOR_CLI = join(
+  ROOT,
+  process.platform === 'win32'
+    ? 'node_modules/.bin/openapi-generator-cli.CMD'
+    : 'node_modules/.bin/openapi-generator-cli',
+);
 const CHECK = process.argv.includes('--check');
 const PACKAGE_NAME = 'sanaya_api_client';
 
+// Sur Windows, `dart`/`openapi-generator-cli` résolvent vers un script `.bat`/`.cmd` : depuis la
+// CVE-2024-27980, spawnSync refuse de les exécuter sans `shell: true` (ENOENT/EINVAL sinon).
+// Aucun argument passé ici ne contient d'espace ni de métacaractère shell (chemins temp/projet,
+// noms de commande) — sûr à concaténer tel quel sous cmd.exe.
 function run(cmd, args, opts = {}) {
-  const result = spawnSync(cmd, args, { stdio: 'inherit', ...opts });
+  const result = spawnSync(cmd, args, {
+    stdio: 'inherit',
+    shell: process.platform === 'win32',
+    ...opts,
+  });
+  if (result.error) {
+    throw new Error(`Commande injoignable : ${cmd} ${args.join(' ')}\n${result.error.message}`);
+  }
   if (result.status !== 0) {
     throw new Error(`Commande échouée (${result.status}) : ${cmd} ${args.join(' ')}`);
   }
@@ -278,15 +297,21 @@ function generateInto(outputDir) {
   const tmpSpecPath = join(tmpdir(), `sanaya-openapi-dart-${process.pid}.json`);
   writeFileSync(tmpSpecPath, JSON.stringify(spec, null, 2));
 
+  // Le parseur Swagger interne au générateur traite -i/-o comme une URI avant de les traiter
+  // comme chemin fichier : un backslash Windows y est un caractère illégal
+  // (`URISyntaxException: Illegal character in opaque part`). Le slash direct reste un chemin
+  // Windows valide pour Node comme pour le générateur, donc sans effet côté POSIX.
+  const toGeneratorPath = (p) => p.replaceAll('\\', '/');
+
   try {
     run(GENERATOR_CLI, [
       'generate',
       '-i',
-      tmpSpecPath,
+      toGeneratorPath(tmpSpecPath),
       '-g',
       'dart-dio',
       '-o',
-      outputDir,
+      toGeneratorPath(outputDir),
       '--package-name',
       PACKAGE_NAME,
       '-p',

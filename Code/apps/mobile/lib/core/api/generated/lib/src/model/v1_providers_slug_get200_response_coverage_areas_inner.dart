@@ -4,9 +4,7 @@
 
 // ignore_for_file: unused_element
 import 'package:sanaya_api_client/src/model/v1_providers_slug_get200_response_coverage_areas_inner_delegation.dart';
-import 'package:built_collection/built_collection.dart';
 import 'package:sanaya_api_client/src/model/v1_providers_slug_get200_response_offerings_inner_category.dart';
-import 'package:built_value/json_object.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 

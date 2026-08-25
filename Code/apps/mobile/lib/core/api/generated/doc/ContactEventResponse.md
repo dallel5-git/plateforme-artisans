@@ -1,4 +1,4 @@
-# sanaya_api_client.model.V1ContactEventsPost200Response
+# sanaya_api_client.model.ContactEventResponse
 
 ## Load the model package
 ```dart
