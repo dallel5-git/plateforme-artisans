@@ -44,7 +44,6 @@
 | ID | Tâche | Prio | Qui | Est. | Dépend de | US |
 |---|---|---|---|---|---|---|
 | `FM-02` | ⭐ Dio + Retrofit **générés**, intercepteurs (JWT, refresh, retry, offline), secure storage | 🔴 | **binôme** | 4 h *(8 h-h)* | BE-26 | ADR-001 |
-| `FM-03` | i18n `slang` FR/AR + `Directionality` global + miroir des icônes | 🔴 | DEV-1 | 2,5 h | SO-05 | P7 |
 | `FM-04` | Widgets DS (AppButton, ProviderCard, RatingStars, VerifiedBadge, Skeleton, Empty, Error, OfflineBanner) | 🔴 | DEV-1 | 4 h | FM-01 | — |
 | `FM-05` | Auth : rôle → téléphone → OTP → session persistée | 🔴 | DEV-1 | 3,5 h | BE-10, FM-02 | US-C-02 |
 | `FM-06` | Accueil client : recherche + grille de catégories (depuis l'API) | 🔴 | DEV-2 | 3 h | BE-14 | US-C-01 |

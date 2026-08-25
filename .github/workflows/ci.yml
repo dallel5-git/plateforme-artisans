@@ -60,9 +60,7 @@ jobs:
       - run: pnpm api:contract:check
       - run: pnpm tokens:build:check
       - run: pnpm web:client:check
-
-      # TODO(SO-05) : activer `pnpm i18n:check` une fois le squelette i18n FR/AR
-      # (packages/i18n/src/locales/{fr,ar}/*.json + tooling/scripts/i18n-check.mjs) mergé sur main.
+      - run: pnpm i18n:check
 
   mobile-analyze:
     name: mobile — flutter analyze · dart format · test
@@ -101,6 +99,17 @@ jobs:
       # FM-* qui ajoutent du code sous lib/core/{api,i18n,widgets}/ et
       # lib/features/.
       - run: dart format --set-exit-if-changed lib/app lib/main.dart test/widget_test.dart
+
+      # FM-03 : lib/core/i18n/*.g.dart est généré par slang depuis
+      # packages/i18n/src/locales/ (SO-05). `dart run build_runner build`
+      # ne fonctionne PAS ici — son graphe d'assets ne voit pas les fichiers
+      # hors du package (input_directory pointe sur ../../packages/i18n/…) ;
+      # seule la CLI `dart run slang` fait de l'I/O disque direct. Un
+      # checkout CI est toujours propre : régénérer puis `git diff
+      # --exit-code` prouve que le code committé est à jour, même principe
+      # que tokens:build:check/mobile:client:check côté TS.
+      - run: dart run slang
+      - run: git diff --exit-code -- lib/core/i18n
 
       # Ciblé sur test/widget_test.dart, pas un `flutter test` général : le test
       # test/features/contact/contact_flow_test.dart est du code FM-09/FM-02

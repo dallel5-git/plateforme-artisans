@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:sanaya/app/bootstrap_copy.dart';
 import 'package:sanaya/app/router.dart';
+import 'package:sanaya/core/i18n/translations.g.dart';
 import 'package:sanaya/core/theme/app_text.dart';
 import 'package:sanaya/main.dart';
+
+final Translations _tFr = AppLocale.fr.buildSync();
+final Translations _tAr = AppLocale.ar.buildSync();
 
 void main() {
   // `router` (lib/app/router.dart) est un singleton top-level — son état de
@@ -20,19 +23,19 @@ void main() {
       await tester.pumpWidget(const ProviderScope(child: SanayaApp()));
       await tester.pumpAndSettle();
 
-      expect(find.text(BootstrapCopy.appName), findsOneWidget);
-      expect(find.text(BootstrapCopy.authLabel), findsOneWidget);
-      expect(find.text(BootstrapCopy.clientLabel), findsOneWidget);
-      expect(find.text(BootstrapCopy.proLabel), findsOneWidget);
+      expect(find.text(_tFr.common.appName), findsOneWidget);
+      expect(find.text(_tFr.common.home.navAuth), findsOneWidget);
+      expect(find.text(_tFr.common.home.navClient), findsOneWidget);
+      expect(find.text(_tFr.common.home.navPro), findsOneWidget);
     });
 
     testWidgets('les 3 boutons mènent bien à /auth, /client, /pro', (
       tester,
     ) async {
       for (final label in [
-        BootstrapCopy.authLabel,
-        BootstrapCopy.clientLabel,
-        BootstrapCopy.proLabel,
+        _tFr.common.home.navAuth,
+        _tFr.common.home.navClient,
+        _tFr.common.home.navPro,
       ]) {
         router.go('/');
         await tester.pumpWidget(const ProviderScope(child: SanayaApp()));
@@ -58,6 +61,37 @@ void main() {
 
       expect(find.byIcon(Icons.dark_mode), findsOneWidget);
     });
+  });
+
+  group('FM-03a — bascule de langue en direct', () {
+    testWidgets(
+      'changer la langue affiche les chaînes AR et bascule en RTL '
+      'sans redémarrage',
+      (tester) async {
+        await tester.pumpWidget(const ProviderScope(child: SanayaApp()));
+        await tester.pumpAndSettle();
+
+        expect(find.text(_tFr.common.home.navAuth), findsOneWidget);
+        expect(
+          Directionality.of(
+            tester.element(find.text(_tFr.common.home.navAuth)),
+          ),
+          TextDirection.ltr,
+        );
+
+        await tester.tap(find.byIcon(Icons.language));
+        await tester.pumpAndSettle();
+
+        expect(find.text(_tFr.common.home.navAuth), findsNothing);
+        expect(find.text(_tAr.common.home.navAuth), findsOneWidget);
+        expect(
+          Directionality.of(
+            tester.element(find.text(_tAr.common.home.navAuth)),
+          ),
+          TextDirection.rtl,
+        );
+      },
+    );
   });
 
   group('FM-01c — polices Manrope + Noto Kufi Arabic', () {

@@ -1,6 +1,5 @@
 import 'package:go_router/go_router.dart';
 
-import 'package:sanaya/app/bootstrap_copy.dart';
 import 'package:sanaya/app/bootstrap_placeholder_screen.dart';
 import 'package:sanaya/app/home_screen.dart';
 
@@ -16,20 +15,23 @@ final router = GoRouter(
     GoRoute(
       path: '/auth',
       name: 'auth-placeholder',
-      builder: (_, _) =>
-          const BootstrapPlaceholderScreen(label: BootstrapCopy.authLabel),
+      builder: (_, _) => const BootstrapPlaceholderScreen(
+        space: BootstrapNavSpace.auth,
+      ),
     ),
     GoRoute(
       path: '/client',
       name: 'client-placeholder',
-      builder: (_, _) =>
-          const BootstrapPlaceholderScreen(label: BootstrapCopy.clientLabel),
+      builder: (_, _) => const BootstrapPlaceholderScreen(
+        space: BootstrapNavSpace.client,
+      ),
     ),
     GoRoute(
       path: '/pro',
       name: 'pro-placeholder',
-      builder: (_, _) =>
-          const BootstrapPlaceholderScreen(label: BootstrapCopy.proLabel),
+      builder: (_, _) => const BootstrapPlaceholderScreen(
+        space: BootstrapNavSpace.pro,
+      ),
     ),
   ],
 );
