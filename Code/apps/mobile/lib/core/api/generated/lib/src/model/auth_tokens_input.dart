@@ -3,57 +3,49 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:built_collection/built_collection.dart';
-import 'package:built_value/json_object.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'v1_auth_refresh_post200_response.g.dart';
+part 'auth_tokens_input.g.dart';
 
-/// V1AuthRefreshPost200Response
+/// AuthTokensInput
 ///
 /// Properties:
 /// * [accessToken]
 /// * [refreshToken]
 @BuiltValue()
-abstract class V1AuthRefreshPost200Response
-    implements
-        Built<V1AuthRefreshPost200Response,
-            V1AuthRefreshPost200ResponseBuilder> {
+abstract class AuthTokensInput
+    implements Built<AuthTokensInput, AuthTokensInputBuilder> {
   @BuiltValueField(wireName: r'accessToken')
   String get accessToken;
 
   @BuiltValueField(wireName: r'refreshToken')
   String get refreshToken;
 
-  V1AuthRefreshPost200Response._();
+  AuthTokensInput._();
 
-  factory V1AuthRefreshPost200Response(
-          [void updates(V1AuthRefreshPost200ResponseBuilder b)]) =
-      _$V1AuthRefreshPost200Response;
+  factory AuthTokensInput([void updates(AuthTokensInputBuilder b)]) =
+      _$AuthTokensInput;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(V1AuthRefreshPost200ResponseBuilder b) => b;
+  static void _defaults(AuthTokensInputBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<V1AuthRefreshPost200Response> get serializer =>
-      _$V1AuthRefreshPost200ResponseSerializer();
+  static Serializer<AuthTokensInput> get serializer =>
+      _$AuthTokensInputSerializer();
 }
 
-class _$V1AuthRefreshPost200ResponseSerializer
-    implements PrimitiveSerializer<V1AuthRefreshPost200Response> {
+class _$AuthTokensInputSerializer
+    implements PrimitiveSerializer<AuthTokensInput> {
   @override
-  final Iterable<Type> types = const [
-    V1AuthRefreshPost200Response,
-    _$V1AuthRefreshPost200Response
-  ];
+  final Iterable<Type> types = const [AuthTokensInput, _$AuthTokensInput];
 
   @override
-  final String wireName = r'V1AuthRefreshPost200Response';
+  final String wireName = r'AuthTokensInput';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    V1AuthRefreshPost200Response object, {
+    AuthTokensInput object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'accessToken';
@@ -71,7 +63,7 @@ class _$V1AuthRefreshPost200ResponseSerializer
   @override
   Object serialize(
     Serializers serializers,
-    V1AuthRefreshPost200Response object, {
+    AuthTokensInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object,
@@ -84,7 +76,7 @@ class _$V1AuthRefreshPost200ResponseSerializer
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required V1AuthRefreshPost200ResponseBuilder result,
+    required AuthTokensInputBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -114,12 +106,12 @@ class _$V1AuthRefreshPost200ResponseSerializer
   }
 
   @override
-  V1AuthRefreshPost200Response deserialize(
+  AuthTokensInput deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = V1AuthRefreshPost200ResponseBuilder();
+    final result = AuthTokensInputBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

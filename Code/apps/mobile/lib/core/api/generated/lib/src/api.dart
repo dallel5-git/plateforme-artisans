@@ -9,6 +9,8 @@ import 'package:sanaya_api_client/src/auth/api_key_auth.dart';
 import 'package:sanaya_api_client/src/auth/basic_auth.dart';
 import 'package:sanaya_api_client/src/auth/bearer_auth.dart';
 import 'package:sanaya_api_client/src/auth/oauth.dart';
+import 'package:sanaya_api_client/src/api/auth_api.dart';
+import 'package:sanaya_api_client/src/api/contact_events_api.dart';
 import 'package:sanaya_api_client/src/api/default_api.dart';
 
 class SanayaApiClient {
@@ -74,6 +76,18 @@ class SanayaApiClient {
               as ApiKeyAuthInterceptor)
           .apiKeys[name] = apiKey;
     }
+  }
+
+  /// Get AuthApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  AuthApi getAuthApi() {
+    return AuthApi(dio, serializers);
+  }
+
+  /// Get ContactEventsApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  ContactEventsApi getContactEventsApi() {
+    return ContactEventsApi(dio, serializers);
   }
 
   /// Get DefaultApi instance, base route and serializer can be overridden by a given but be careful,

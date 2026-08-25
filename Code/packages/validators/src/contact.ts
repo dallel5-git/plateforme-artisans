@@ -25,3 +25,9 @@ export const contactEventResponseSchema = z.object({
   deduplicated: z.boolean(),
 });
 export type ContactEventResponse = z.infer<typeof contactEventResponseSchema>;
+
+// BE-26c : sans id enregistré, fastify-type-provider-zod inline ce schéma dans openapi.json
+// (une définition par point d'usage) — le générateur Dart produit alors un nom anonyme
+// (`V1ContactEventsPost200Response`) au lieu de `ContactEventResponse`. Même mécanisme que
+// `categoryTreeNodeSchema` (packages/validators/src/catalog.ts).
+z.globalRegistry.add(contactEventResponseSchema, { id: 'ContactEventResponse' });

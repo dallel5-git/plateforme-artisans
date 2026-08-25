@@ -6,52 +6,10 @@ void main() {
   final instance = SanayaApiClient().getDefaultApi();
 
   group(DefaultApi, () {
-    // Révoque la session associée au refresh token présenté. Idempotent.
-    //
-    //Future<V1AuthLogoutPost200Response> v1AuthLogoutPost(V1AuthRefreshPostRequest v1AuthRefreshPostRequest) async
-    test('test v1AuthLogoutPost', () async {
-      // TODO
-    });
-
-    // Profil de l'utilisateur authentifié, rôles inclus.
-    //
-    //Future<V1AuthMeGet200Response> v1AuthMeGet() async
-    test('test v1AuthMeGet', () async {
-      // TODO
-    });
-
-    // Demande un code OTP par SMS. Réponse identique, que le numéro existe déjà ou non (anti-énumération). Rate-limit : 5/h par numéro et par IP.
-    //
-    //Future<V1AuthOtpRequestPost200Response> v1AuthOtpRequestPost(V1AuthOtpRequestPostRequest v1AuthOtpRequestPostRequest) async
-    test('test v1AuthOtpRequestPost', () async {
-      // TODO
-    });
-
-    // Vérifie le code OTP, crée le compte au besoin, émet les tokens de session.
-    //
-    //Future<V1AuthOtpVerifyPost200Response> v1AuthOtpVerifyPost(V1AuthOtpVerifyPostRequest v1AuthOtpVerifyPostRequest) async
-    test('test v1AuthOtpVerifyPost', () async {
-      // TODO
-    });
-
-    // Fait tourner le refresh token. Un rejeu révoque toute la famille de sessions.
-    //
-    //Future<V1AuthRefreshPost200Response> v1AuthRefreshPost(V1AuthRefreshPostRequest v1AuthRefreshPostRequest) async
-    test('test v1AuthRefreshPost', () async {
-      // TODO
-    });
-
     // Arbre complet des catégories, libellés FR et AR. Cache Redis 1h.
     //
     //Future<V1CategoriesGet200Response> v1CategoriesGet() async
     test('test v1CategoriesGet', () async {
-      // TODO
-    });
-
-    // Révèle le numéro d'un prestataire et trace l'événement (P9). Canal PHONE ou WHATSAPP uniquement. Déduplique deux clics de la même session sur le même artisan/canal en 30 min. Rate-limit 30/j par identité et par IP.
-    //
-    //Future<V1ContactEventsPost200Response> v1ContactEventsPost(V1ContactEventsPostRequest v1ContactEventsPostRequest) async
-    test('test v1ContactEventsPost', () async {
       // TODO
     });
 

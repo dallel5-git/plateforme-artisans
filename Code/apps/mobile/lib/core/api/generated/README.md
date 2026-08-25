@@ -47,14 +47,14 @@ Please follow the [installation procedure](#installation--usage) and then run th
 import 'package:sanaya_api_client/sanaya_api_client.dart';
 
 
-final api = SanayaApiClient().getDefaultApi();
+final api = SanayaApiClient().getAuthApi();
 final V1AuthRefreshPostRequest v1AuthRefreshPostRequest = ; // V1AuthRefreshPostRequest | 
 
 try {
     final response = await api.v1AuthLogoutPost(v1AuthRefreshPostRequest);
     print(response);
 } catch on DioException (e) {
-    print("Exception when calling DefaultApi->v1AuthLogoutPost: $e\n");
+    print("Exception when calling AuthApi->v1AuthLogoutPost: $e\n");
 }
 
 ```
@@ -65,13 +65,13 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-[*DefaultApi*](doc/DefaultApi.md) | [**v1AuthLogoutPost**](doc/DefaultApi.md#v1authlogoutpost) | **POST** /v1/auth/logout | 
-[*DefaultApi*](doc/DefaultApi.md) | [**v1AuthMeGet**](doc/DefaultApi.md#v1authmeget) | **GET** /v1/auth/me | 
-[*DefaultApi*](doc/DefaultApi.md) | [**v1AuthOtpRequestPost**](doc/DefaultApi.md#v1authotprequestpost) | **POST** /v1/auth/otp/request | 
-[*DefaultApi*](doc/DefaultApi.md) | [**v1AuthOtpVerifyPost**](doc/DefaultApi.md#v1authotpverifypost) | **POST** /v1/auth/otp/verify | 
-[*DefaultApi*](doc/DefaultApi.md) | [**v1AuthRefreshPost**](doc/DefaultApi.md#v1authrefreshpost) | **POST** /v1/auth/refresh | 
+[*AuthApi*](doc/AuthApi.md) | [**v1AuthLogoutPost**](doc/AuthApi.md#v1authlogoutpost) | **POST** /v1/auth/logout | 
+[*AuthApi*](doc/AuthApi.md) | [**v1AuthMeGet**](doc/AuthApi.md#v1authmeget) | **GET** /v1/auth/me | 
+[*AuthApi*](doc/AuthApi.md) | [**v1AuthOtpRequestPost**](doc/AuthApi.md#v1authotprequestpost) | **POST** /v1/auth/otp/request | 
+[*AuthApi*](doc/AuthApi.md) | [**v1AuthOtpVerifyPost**](doc/AuthApi.md#v1authotpverifypost) | **POST** /v1/auth/otp/verify | 
+[*AuthApi*](doc/AuthApi.md) | [**v1AuthRefreshPost**](doc/AuthApi.md#v1authrefreshpost) | **POST** /v1/auth/refresh | 
+[*ContactEventsApi*](doc/ContactEventsApi.md) | [**v1ContactEventsPost**](doc/ContactEventsApi.md#v1contacteventspost) | **POST** /v1/contact-events | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1CategoriesGet**](doc/DefaultApi.md#v1categoriesget) | **GET** /v1/categories | 
-[*DefaultApi*](doc/DefaultApi.md) | [**v1ContactEventsPost**](doc/DefaultApi.md#v1contacteventspost) | **POST** /v1/contact-events | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1FavoritesGet**](doc/DefaultApi.md#v1favoritesget) | **GET** /v1/favorites | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1FavoritesProviderIdDelete**](doc/DefaultApi.md#v1favoritesprovideriddelete) | **DELETE** /v1/favorites/{providerId} | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1FavoritesProviderIdPut**](doc/DefaultApi.md#v1favoritesprovideridput) | **PUT** /v1/favorites/{providerId} | 
@@ -96,8 +96,12 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [AuthTokens](doc/AuthTokens.md)
+ - [AuthTokensInput](doc/AuthTokensInput.md)
  - [CategoryTreeNode](doc/CategoryTreeNode.md)
  - [CategoryTreeNodeInput](doc/CategoryTreeNodeInput.md)
+ - [ContactEventResponse](doc/ContactEventResponse.md)
+ - [ContactEventResponseInput](doc/ContactEventResponseInput.md)
  - [V1AuthLogoutPost200Response](doc/V1AuthLogoutPost200Response.md)
  - [V1AuthMeGet200Response](doc/V1AuthMeGet200Response.md)
  - [V1AuthOtpRequestPost200Response](doc/V1AuthOtpRequestPost200Response.md)
@@ -105,10 +109,8 @@ Class | Method | HTTP request | Description
  - [V1AuthOtpVerifyPost200Response](doc/V1AuthOtpVerifyPost200Response.md)
  - [V1AuthOtpVerifyPost200ResponseUser](doc/V1AuthOtpVerifyPost200ResponseUser.md)
  - [V1AuthOtpVerifyPostRequest](doc/V1AuthOtpVerifyPostRequest.md)
- - [V1AuthRefreshPost200Response](doc/V1AuthRefreshPost200Response.md)
  - [V1AuthRefreshPostRequest](doc/V1AuthRefreshPostRequest.md)
  - [V1CategoriesGet200Response](doc/V1CategoriesGet200Response.md)
- - [V1ContactEventsPost200Response](doc/V1ContactEventsPost200Response.md)
  - [V1ContactEventsPostRequest](doc/V1ContactEventsPostRequest.md)
  - [V1FavoritesGet200Response](doc/V1FavoritesGet200Response.md)
  - [V1FavoritesGet200ResponseItemsInner](doc/V1FavoritesGet200ResponseItemsInner.md)
