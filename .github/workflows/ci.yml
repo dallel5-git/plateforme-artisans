@@ -111,10 +111,15 @@ jobs:
       # sur tout l'arbre : lib/core/theme/** (généré SO-04) et
       # test/features/contact/contact_flow_test.dart (pré-écrit FM-09) ne passent
       # pas `dart format` tel quel et ne sont pas à nous de reformater — même
-      # raison que l'exclusion analyzer ci-dessus. À élargir au fil des tickets
-      # FM-* qui ajoutent du code sous lib/core/{api,i18n,widgets}/ et
-      # lib/features/.
-      - run: dart format --set-exit-if-changed lib/app lib/main.dart test/widget_test.dart
+      # raison que l'exclusion analyzer ci-dessus. lib/core/widgets et
+      # test/core/widgets ajoutés par FM-04. test/core/i18n (FM-03) n'est pas
+      # encore couvert ici — gap pré-existant, indépendant de FM-04, loggé dans
+      # backlog/TODO.md § Backlog non planifié. À élargir au fil des tickets
+      # FM-* qui ajoutent du code sous lib/core/{api,i18n}/ et lib/features/.
+      - run: |
+          dart format --set-exit-if-changed \
+            lib/app lib/main.dart lib/core/widgets \
+            test/widget_test.dart test/core/widgets
 
       # FM-03 : lib/core/i18n/*.g.dart est généré par slang depuis
       # packages/i18n/src/locales/ (SO-05). `dart run build_runner build`
@@ -127,15 +132,15 @@ jobs:
       - run: dart run slang
       - run: git diff --exit-code -- lib/core/i18n
 
-      # Ciblé sur test/widget_test.dart, pas un `flutter test` général : le test
+      # Ciblé sur une liste explicite, pas un `flutter test` général : le test
       # test/features/contact/contact_flow_test.dart est du code FM-09/FM-02
       # pré-écrit qui ne compile pas encore (imports vers du code qui n'existe pas
       # encore) — voulu, cf. son en-tête. Un `flutter test` sans filtre le
       # découvrirait quand même (l'exclusion analyzer n'affecte que l'analyse
       # statique, pas la collecte des tests) et ferait échouer ce job pour une
-      # raison sans rapport avec le code de la PR. À élargir quand FM-02/FM-09
-      # livrent le code testé.
-      - run: flutter test test/widget_test.dart
+      # raison sans rapport avec le code de la PR. test/core/widgets ajouté par
+      # FM-04. À élargir quand FM-02/FM-09 livrent le code testé.
+      - run: flutter test test/widget_test.dart test/core/widgets
 
   mobile-client-check:
     name: contrat → client Dart (mobile:client)
