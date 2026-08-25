@@ -94,6 +94,49 @@ void main() {
     );
   });
 
+  group('FM-03c — miroir des icônes directionnelles', () {
+    testWidgets(
+      'le chevron des boutons de navigation se miroite en RTL (AR) et '
+      'pas en LTR (FR)',
+      (tester) async {
+        await tester.pumpWidget(const ProviderScope(child: SanayaApp()));
+        await tester.pumpAndSettle();
+
+        final chevronFinder = find.byIcon(Icons.chevron_right).first;
+        final chevronWidget = tester.widget<Icon>(chevronFinder);
+
+        // Regression guard : si l'icône est un jour remplacée par une
+        // constante Icons.* sans matchTextDirection, ce test doit échouer
+        // avant même de vérifier le rendu.
+        expect(chevronWidget.icon!.matchTextDirection, isTrue);
+        expect(
+          Directionality.of(tester.element(chevronFinder)),
+          TextDirection.ltr,
+        );
+        expect(
+          find.descendant(of: chevronFinder, matching: find.byType(Transform)),
+          findsNothing,
+        );
+
+        await tester.tap(find.byIcon(Icons.language));
+        await tester.pumpAndSettle();
+
+        final chevronFinderAr = find.byIcon(Icons.chevron_right).first;
+        expect(
+          Directionality.of(tester.element(chevronFinderAr)),
+          TextDirection.rtl,
+        );
+        expect(
+          find.descendant(
+            of: chevronFinderAr,
+            matching: find.byType(Transform),
+          ),
+          findsOneWidget,
+        );
+      },
+    );
+  });
+
   group('FM-01c — polices Manrope + Noto Kufi Arabic', () {
     testWidgets('les 4 poids Manrope (FR) se chargent sans exception', (
       tester,
