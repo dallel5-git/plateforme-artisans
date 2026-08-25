@@ -4,6 +4,7 @@
 
 import 'dart:async';
 
+import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
@@ -14,6 +15,7 @@ import 'package:sanaya_api_client/src/model/v1_favorites_provider_id_put200_resp
 import 'package:sanaya_api_client/src/model/v1_governorates_get200_response.dart';
 import 'package:sanaya_api_client/src/model/v1_governorates_id_delegations_get200_response.dart';
 import 'package:sanaya_api_client/src/model/v1_health_get200_response.dart';
+import 'package:sanaya_api_client/src/model/v1_health_get503_response.dart';
 import 'package:sanaya_api_client/src/model/v1_media_id_process_post200_response.dart';
 import 'package:sanaya_api_client/src/model/v1_media_presign_post200_response.dart';
 import 'package:sanaya_api_client/src/model/v1_media_presign_post_request.dart';

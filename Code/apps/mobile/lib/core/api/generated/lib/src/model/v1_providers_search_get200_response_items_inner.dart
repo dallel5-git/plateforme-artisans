@@ -6,6 +6,7 @@
 import 'package:sanaya_api_client/src/model/v1_providers_search_get200_response_items_inner_categories_inner.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:sanaya_api_client/src/model/v1_providers_search_get200_response_items_inner_match_reason.dart';
+import 'package:built_value/json_object.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
