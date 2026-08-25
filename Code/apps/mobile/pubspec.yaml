@@ -9,18 +9,31 @@ environment:
   flutter: '>=3.24.0'
 
 dependencies:
+  # FM-02b : dépendances du client Dio/built_value généré (BE-26), fusionné dans l'app sous
+  # lib/core/api/generated/ — voir tooling/scripts/mobile-client.mjs (foldIntoApp). Versions
+  # alignées sur lib/core/api/generated/pubspec.yaml avant fusion (dernière valeur committée).
+  built_collection: ">=5.1.1 <6.0.0"
+  built_value: ">=8.4.0 <9.0.0"
   cupertino_icons: ^1.0.8
+  dio: ^5.7.0
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
   flutter_riverpod: ^2.6.0
   go_router: ^17.5.0
+  one_of: ">=1.5.0 <2.0.0"
+  one_of_serializer: ">=1.5.0 <2.0.0"
 
 # flutter_lints + very_good_analysis : voir analysis_options.yaml — un seul
 # `include` (very_good_analysis, superset strict) suffit, les deux packages
 # restent en dev_dependencies pour respecter le périmètre de l'issue FM-01.
 dev_dependencies:
+  # FM-02b : build_runner du client généré tourne en amont (mobile-client.mjs, scopé au package
+  # autonome avant fusion) — ces deux entrées ne servent qu'à ce que `flutter pub get`, une fois
+  # ce client fusionné, résolve encore ses .g.dart si jamais régénérés localement in-place.
+  build_runner: any
+  built_value_generator: ">=8.4.0 <9.0.0"
   flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter

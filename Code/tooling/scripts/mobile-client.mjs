@@ -3,7 +3,7 @@
  * Sanaya — client Dart généré depuis contracts/openapi.json (BE-26, ADR-001 §3.2).
  *
  * Source unique : contracts/openapi.json
- * Cible          : apps/mobile/lib/core/api/generated/ (package Dart autonome, dart-dio)
+ * Cible          : apps/mobile/lib/core/api/generated/ (sous-arbre de l'app `sanaya`, dart-dio)
  *
  * Usage :
  *   node tooling/scripts/mobile-client.mjs           # génère
@@ -11,10 +11,13 @@
  *
  * ⚠️ Le dossier généré NE DOIT JAMAIS être édité à la main (.gitattributes le marque generated).
  *
- * apps/mobile n'est pas encore le vrai projet Flutter (FM-01 pas démarré, cadrage — voir
- * pnpm-workspace.yaml) : le client est généré comme un package Dart autonome, avec son propre
- * pubspec.yaml, vérifié isolément par `dart analyze`. FM-01/FM-02 l'intègreront plus tard dans
- * l'app réelle.
+ * FM-02b : le générateur produit d'abord un package pub autonome (openapi-generator-cli n'a pas
+ * d'autre mode) — nécessaire pour que `dart pub get`/`build_runner` résolvent build_value_generator
+ * isolément. Une fois le code généré et build_runner passé, `foldIntoApp()` aplatit `lib/**` à la
+ * racine du dossier et réécrit les imports `package:sanaya_api_client/...` en
+ * `package:sanaya/core/api/generated/...` : le résultat committé est un sous-arbre ordinaire de
+ * l'app `sanaya`, plus un package séparé (voir apps/mobile/pubspec.yaml pour les dépendances
+ * dio/built_value qu'il faut alors déclarer côté app).
  */
 import { spawnSync } from 'node:child_process';
 import {
@@ -24,6 +27,7 @@ import {
   mkdtempSync,
   readdirSync,
   readFileSync,
+  renameSync,
   rmSync,
   writeFileSync,
 } from 'node:fs';
@@ -34,6 +38,9 @@ import { fileURLToPath } from 'node:url';
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const SPEC_PATH = join(ROOT, 'contracts/openapi.json');
 const TARGET_DIR = join(ROOT, 'apps/mobile/lib/core/api/generated');
+// FM-02b : le client n'est plus un package pub autonome (BE-26) — il vit désormais dans
+// l'arborescence de l'app réelle, importable en `package:sanaya/core/api/generated/...`.
+const APP_PACKAGE_NAME = 'sanaya';
 // Le shim POSIX (`#!/bin/sh`, sans extension) n'est pas exécutable directement par
 // child_process.spawnSync sur Windows (pas d'interprétation de shebang) : on cible le .cmd
 // généré par pnpm à côté, que Windows sait lancer nativement.
@@ -345,6 +352,66 @@ function generateInto(outputDir) {
   run('dart', ['pub', 'get'], { cwd: outputDir });
   run('dart', ['run', 'build_runner', 'build', '--delete-conflicting-outputs'], { cwd: outputDir });
   run('dart', ['format', '.'], { cwd: outputDir });
+
+  foldIntoApp(outputDir);
+}
+
+// ---------------------------------------------------------------------------
+// 3bis. Fusion dans l'app réelle (FM-02b) — appelée en dernier, une fois pub get/build_runner/
+//    format passés sur le package autonome ci-dessus (ils ont besoin de cette forme pour
+//    résoudre leurs dépendances). Aplati lib/** à la racine, réécrit les imports
+//    package:sanaya_api_client/... en package:sanaya/core/api/generated/..., renomme le barrel
+//    en api.dart (chemin exigé par contact_flow_test.dart), puis supprime ce qui n'a de sens que
+//    pour un package pub autonome.
+// ---------------------------------------------------------------------------
+function listAllFiles(dir) {
+  const out = [];
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const full = join(dir, entry.name);
+    if (entry.isDirectory()) out.push(...listAllFiles(full));
+    else out.push(full);
+  }
+  return out;
+}
+
+function foldIntoApp(outputDir) {
+  const libDir = join(outputDir, 'lib');
+  if (!existsSync(libDir)) return;
+
+  const oldImportPrefix = `package:${PACKAGE_NAME}/`;
+  const newImportPrefix = `package:${APP_PACKAGE_NAME}/core/api/generated/`;
+  for (const file of listAllFiles(libDir)) {
+    if (!file.endsWith('.dart')) continue;
+    const content = readFileSync(file, 'utf8');
+    if (content.includes(oldImportPrefix)) {
+      writeFileSync(file, content.split(oldImportPrefix).join(newImportPrefix), 'utf8');
+    }
+  }
+
+  for (const entry of readdirSync(libDir)) {
+    renameSync(join(libDir, entry), join(outputDir, entry));
+  }
+  rmSync(libDir, { recursive: true, force: true });
+
+  // lib/sanaya_api_client.dart -> api.dart : chemin d'import exigé tel quel par
+  // contact_flow_test.dart (package:sanaya/core/api/generated/api.dart).
+  const oldBarrel = join(outputDir, `${PACKAGE_NAME}.dart`);
+  if (existsSync(oldBarrel)) renameSync(oldBarrel, join(outputDir, 'api.dart'));
+
+  // Artefacts d'un package pub autonome — sans objet une fois fusionné : dio/built_value/... se
+  // résolvent désormais via apps/mobile/pubspec.yaml et son propre pubspec.lock.
+  for (const name of [
+    'pubspec.yaml',
+    'pubspec.lock',
+    '.gitignore',
+    'analysis_options.yaml',
+    'test',
+    '.dart_tool',
+    'build',
+    '.packages',
+  ]) {
+    rmSync(join(outputDir, name), { recursive: true, force: true });
+  }
 }
 
 // ---------------------------------------------------------------------------
