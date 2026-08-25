@@ -78,6 +78,19 @@ class _NavButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FilledButton(onPressed: onTap, child: Text(label));
+    return FilledButton(
+      onPressed: onTap,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(label),
+          // `Icons.chevron_right` porte déjà IconData.matchTextDirection:
+          // true — Flutter le miroite automatiquement selon la
+          // Directionality ambiante (cf. apps/mobile/CLAUDE.md, RTL &
+          // bilingue). Aucun wrapper personnalisé nécessaire.
+          const Icon(Icons.chevron_right),
+        ],
+      ),
+    );
   }
 }
