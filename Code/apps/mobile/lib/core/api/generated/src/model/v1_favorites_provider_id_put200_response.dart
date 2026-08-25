@@ -18,8 +18,10 @@ part 'v1_favorites_provider_id_put200_response.g.dart';
 @BuiltValue()
 abstract class V1FavoritesProviderIdPut200Response
     implements
-        Built<V1FavoritesProviderIdPut200Response,
-            V1FavoritesProviderIdPut200ResponseBuilder> {
+        Built<
+          V1FavoritesProviderIdPut200Response,
+          V1FavoritesProviderIdPut200ResponseBuilder
+        > {
   @BuiltValueField(wireName: r'providerId')
   String get providerId;
 
@@ -28,9 +30,9 @@ abstract class V1FavoritesProviderIdPut200Response
 
   V1FavoritesProviderIdPut200Response._();
 
-  factory V1FavoritesProviderIdPut200Response(
-          [void updates(V1FavoritesProviderIdPut200ResponseBuilder b)]) =
-      _$V1FavoritesProviderIdPut200Response;
+  factory V1FavoritesProviderIdPut200Response([
+    void updates(V1FavoritesProviderIdPut200ResponseBuilder b),
+  ]) = _$V1FavoritesProviderIdPut200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1FavoritesProviderIdPut200ResponseBuilder b) => b;
@@ -45,7 +47,7 @@ class _$V1FavoritesProviderIdPut200ResponseSerializer
   @override
   final Iterable<Type> types = const [
     V1FavoritesProviderIdPut200Response,
-    _$V1FavoritesProviderIdPut200Response
+    _$V1FavoritesProviderIdPut200Response,
   ];
 
   @override
@@ -74,9 +76,11 @@ class _$V1FavoritesProviderIdPut200ResponseSerializer
     V1FavoritesProviderIdPut200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -92,17 +96,21 @@ class _$V1FavoritesProviderIdPut200ResponseSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'providerId':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.providerId = valueDes;
           break;
         case r'createdAt':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime;
           result.createdAt = valueDes;
           break;
         default:

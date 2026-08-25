@@ -23,8 +23,10 @@ part 'v1_media_id_process_post200_response.g.dart';
 @BuiltValue()
 abstract class V1MediaIdProcessPost200Response
     implements
-        Built<V1MediaIdProcessPost200Response,
-            V1MediaIdProcessPost200ResponseBuilder> {
+        Built<
+          V1MediaIdProcessPost200Response,
+          V1MediaIdProcessPost200ResponseBuilder
+        > {
   @BuiltValueField(wireName: r'id')
   String get id;
 
@@ -48,9 +50,9 @@ abstract class V1MediaIdProcessPost200Response
 
   V1MediaIdProcessPost200Response._();
 
-  factory V1MediaIdProcessPost200Response(
-          [void updates(V1MediaIdProcessPost200ResponseBuilder b)]) =
-      _$V1MediaIdProcessPost200Response;
+  factory V1MediaIdProcessPost200Response([
+    void updates(V1MediaIdProcessPost200ResponseBuilder b),
+  ]) = _$V1MediaIdProcessPost200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1MediaIdProcessPost200ResponseBuilder b) => b;
@@ -65,7 +67,7 @@ class _$V1MediaIdProcessPost200ResponseSerializer
   @override
   final Iterable<Type> types = const [
     V1MediaIdProcessPost200Response,
-    _$V1MediaIdProcessPost200Response
+    _$V1MediaIdProcessPost200Response,
   ];
 
   @override
@@ -119,9 +121,11 @@ class _$V1MediaIdProcessPost200ResponseSerializer
     V1MediaIdProcessPost200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -137,52 +141,66 @@ class _$V1MediaIdProcessPost200ResponseSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.id = valueDes;
           break;
         case r'publicUrl':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.publicUrl = valueDes;
           break;
         case r'thumbUrl':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.thumbUrl = valueDes;
           break;
         case r'cardUrl':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.cardUrl = valueDes;
           break;
         case r'fullUrl':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.fullUrl = valueDes;
           break;
         case r'width':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int;
           result.width = valueDes;
           break;
         case r'height':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int;
           result.height = valueDes;
           break;
         default:

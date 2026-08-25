@@ -55,9 +55,9 @@ abstract class V1ProvidersMePostRequest
 
   V1ProvidersMePostRequest._();
 
-  factory V1ProvidersMePostRequest(
-          [void updates(V1ProvidersMePostRequestBuilder b)]) =
-      _$V1ProvidersMePostRequest;
+  factory V1ProvidersMePostRequest([
+    void updates(V1ProvidersMePostRequestBuilder b),
+  ]) = _$V1ProvidersMePostRequest;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1ProvidersMePostRequestBuilder b) => b;
@@ -72,7 +72,7 @@ class _$V1ProvidersMePostRequestSerializer
   @override
   final Iterable<Type> types = const [
     V1ProvidersMePostRequest,
-    _$V1ProvidersMePostRequest
+    _$V1ProvidersMePostRequest,
   ];
 
   @override
@@ -139,8 +139,9 @@ class _$V1ProvidersMePostRequestSerializer
       yield r'spokenLanguages';
       yield serializers.serialize(
         object.spokenLanguages,
-        specifiedType: const FullType(
-            BuiltList, [FullType(V1ProvidersMePostRequestSpokenLanguagesEnum)]),
+        specifiedType: const FullType(BuiltList, [
+          FullType(V1ProvidersMePostRequestSpokenLanguagesEnum),
+        ]),
       );
     }
   }
@@ -151,9 +152,11 @@ class _$V1ProvidersMePostRequestSerializer
     V1ProvidersMePostRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -169,67 +172,86 @@ class _$V1ProvidersMePostRequestSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'businessName':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.businessName = valueDes;
           break;
         case r'baseGovernorateId':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.baseGovernorateId = valueDes;
           break;
         case r'baseDelegationId':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.baseDelegationId = valueDes;
           break;
         case r'headline':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.headline = valueDes;
           break;
         case r'bio':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.bio = valueDes;
           break;
         case r'yearsExperience':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int;
           result.yearsExperience = valueDes;
           break;
         case r'whatsappPhone':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.whatsappPhone = valueDes;
           break;
         case r'publicPhone':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.publicPhone = valueDes;
           break;
         case r'spokenLanguages':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BuiltList,
-                [FullType(V1ProvidersMePostRequestSpokenLanguagesEnum)]),
-          ) as BuiltList<V1ProvidersMePostRequestSpokenLanguagesEnum>;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(BuiltList, [
+                      FullType(V1ProvidersMePostRequestSpokenLanguagesEnum),
+                    ]),
+                  )
+                  as BuiltList<V1ProvidersMePostRequestSpokenLanguagesEnum>;
           result.spokenLanguages.replace(valueDes);
           break;
         default:
@@ -273,10 +295,10 @@ class V1ProvidersMePostRequestSpokenLanguagesEnum extends EnumClass {
       _$v1ProvidersMePostRequestSpokenLanguagesEnum_EN;
 
   static Serializer<V1ProvidersMePostRequestSpokenLanguagesEnum>
-      get serializer => _$v1ProvidersMePostRequestSpokenLanguagesEnumSerializer;
+  get serializer => _$v1ProvidersMePostRequestSpokenLanguagesEnumSerializer;
 
   const V1ProvidersMePostRequestSpokenLanguagesEnum._(String name)
-      : super(name);
+    : super(name);
 
   static BuiltSet<V1ProvidersMePostRequestSpokenLanguagesEnum> get values =>
       _$v1ProvidersMePostRequestSpokenLanguagesEnumValues;

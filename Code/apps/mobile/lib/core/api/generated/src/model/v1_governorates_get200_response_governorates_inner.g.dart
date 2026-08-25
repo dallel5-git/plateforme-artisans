@@ -25,27 +25,27 @@ class _$V1GovernoratesGet200ResponseGovernoratesInner
   @override
   final int sortOrder;
 
-  factory _$V1GovernoratesGet200ResponseGovernoratesInner(
-          [void Function(V1GovernoratesGet200ResponseGovernoratesInnerBuilder)?
-              updates]) =>
+  factory _$V1GovernoratesGet200ResponseGovernoratesInner([
+    void Function(V1GovernoratesGet200ResponseGovernoratesInnerBuilder)?
+    updates,
+  ]) =>
       (V1GovernoratesGet200ResponseGovernoratesInnerBuilder()..update(updates))
           ._build();
 
-  _$V1GovernoratesGet200ResponseGovernoratesInner._(
-      {required this.id,
-      required this.code,
-      required this.nameFr,
-      required this.nameAr,
-      required this.slug,
-      required this.latitude,
-      required this.longitude,
-      required this.sortOrder})
-      : super._();
+  _$V1GovernoratesGet200ResponseGovernoratesInner._({
+    required this.id,
+    required this.code,
+    required this.nameFr,
+    required this.nameAr,
+    required this.slug,
+    required this.latitude,
+    required this.longitude,
+    required this.sortOrder,
+  }) : super._();
   @override
   V1GovernoratesGet200ResponseGovernoratesInner rebuild(
-          void Function(V1GovernoratesGet200ResponseGovernoratesInnerBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(V1GovernoratesGet200ResponseGovernoratesInnerBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   V1GovernoratesGet200ResponseGovernoratesInnerBuilder toBuilder() =>
@@ -83,7 +83,8 @@ class _$V1GovernoratesGet200ResponseGovernoratesInner
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'V1GovernoratesGet200ResponseGovernoratesInner')
+            r'V1GovernoratesGet200ResponseGovernoratesInner',
+          )
           ..add('id', id)
           ..add('code', code)
           ..add('nameFr', nameFr)
@@ -98,8 +99,10 @@ class _$V1GovernoratesGet200ResponseGovernoratesInner
 
 class V1GovernoratesGet200ResponseGovernoratesInnerBuilder
     implements
-        Builder<V1GovernoratesGet200ResponseGovernoratesInner,
-            V1GovernoratesGet200ResponseGovernoratesInnerBuilder> {
+        Builder<
+          V1GovernoratesGet200ResponseGovernoratesInner,
+          V1GovernoratesGet200ResponseGovernoratesInnerBuilder
+        > {
   _$V1GovernoratesGet200ResponseGovernoratesInner? _$v;
 
   String? _id;
@@ -161,8 +164,9 @@ class V1GovernoratesGet200ResponseGovernoratesInnerBuilder
 
   @override
   void update(
-      void Function(V1GovernoratesGet200ResponseGovernoratesInnerBuilder)?
-          updates) {
+    void Function(V1GovernoratesGet200ResponseGovernoratesInnerBuilder)?
+    updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -170,24 +174,49 @@ class V1GovernoratesGet200ResponseGovernoratesInnerBuilder
   V1GovernoratesGet200ResponseGovernoratesInner build() => _build();
 
   _$V1GovernoratesGet200ResponseGovernoratesInner _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$V1GovernoratesGet200ResponseGovernoratesInner._(
           id: BuiltValueNullFieldError.checkNotNull(
-              id, r'V1GovernoratesGet200ResponseGovernoratesInner', 'id'),
+            id,
+            r'V1GovernoratesGet200ResponseGovernoratesInner',
+            'id',
+          ),
           code: BuiltValueNullFieldError.checkNotNull(
-              code, r'V1GovernoratesGet200ResponseGovernoratesInner', 'code'),
-          nameFr: BuiltValueNullFieldError.checkNotNull(nameFr,
-              r'V1GovernoratesGet200ResponseGovernoratesInner', 'nameFr'),
-          nameAr: BuiltValueNullFieldError.checkNotNull(nameAr,
-              r'V1GovernoratesGet200ResponseGovernoratesInner', 'nameAr'),
+            code,
+            r'V1GovernoratesGet200ResponseGovernoratesInner',
+            'code',
+          ),
+          nameFr: BuiltValueNullFieldError.checkNotNull(
+            nameFr,
+            r'V1GovernoratesGet200ResponseGovernoratesInner',
+            'nameFr',
+          ),
+          nameAr: BuiltValueNullFieldError.checkNotNull(
+            nameAr,
+            r'V1GovernoratesGet200ResponseGovernoratesInner',
+            'nameAr',
+          ),
           slug: BuiltValueNullFieldError.checkNotNull(
-              slug, r'V1GovernoratesGet200ResponseGovernoratesInner', 'slug'),
-          latitude: BuiltValueNullFieldError.checkNotNull(latitude,
-              r'V1GovernoratesGet200ResponseGovernoratesInner', 'latitude'),
-          longitude: BuiltValueNullFieldError.checkNotNull(longitude,
-              r'V1GovernoratesGet200ResponseGovernoratesInner', 'longitude'),
-          sortOrder: BuiltValueNullFieldError.checkNotNull(sortOrder,
-              r'V1GovernoratesGet200ResponseGovernoratesInner', 'sortOrder'),
+            slug,
+            r'V1GovernoratesGet200ResponseGovernoratesInner',
+            'slug',
+          ),
+          latitude: BuiltValueNullFieldError.checkNotNull(
+            latitude,
+            r'V1GovernoratesGet200ResponseGovernoratesInner',
+            'latitude',
+          ),
+          longitude: BuiltValueNullFieldError.checkNotNull(
+            longitude,
+            r'V1GovernoratesGet200ResponseGovernoratesInner',
+            'longitude',
+          ),
+          sortOrder: BuiltValueNullFieldError.checkNotNull(
+            sortOrder,
+            r'V1GovernoratesGet200ResponseGovernoratesInner',
+            'sortOrder',
+          ),
         );
     replace(_$result);
     return _$result;

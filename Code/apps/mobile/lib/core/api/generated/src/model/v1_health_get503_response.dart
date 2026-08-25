@@ -32,9 +32,9 @@ abstract class V1HealthGet503Response
 
   V1HealthGet503Response._();
 
-  factory V1HealthGet503Response(
-          [void updates(V1HealthGet503ResponseBuilder b)]) =
-      _$V1HealthGet503Response;
+  factory V1HealthGet503Response([
+    void updates(V1HealthGet503ResponseBuilder b),
+  ]) = _$V1HealthGet503Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1HealthGet503ResponseBuilder b) => b;
@@ -49,7 +49,7 @@ class _$V1HealthGet503ResponseSerializer
   @override
   final Iterable<Type> types = const [
     V1HealthGet503Response,
-    _$V1HealthGet503Response
+    _$V1HealthGet503Response,
   ];
 
   @override
@@ -83,9 +83,11 @@ class _$V1HealthGet503ResponseSerializer
     V1HealthGet503Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -101,24 +103,34 @@ class _$V1HealthGet503ResponseSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'status':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(V1HealthGet503ResponseStatusEnum),
-          ) as V1HealthGet503ResponseStatusEnum;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(
+                      V1HealthGet503ResponseStatusEnum,
+                    ),
+                  )
+                  as V1HealthGet503ResponseStatusEnum;
           result.status = valueDes;
           break;
         case r'db':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(V1HealthGet503ResponseDbEnum),
-          ) as V1HealthGet503ResponseDbEnum;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(V1HealthGet503ResponseDbEnum),
+                  )
+                  as V1HealthGet503ResponseDbEnum;
           result.db = valueDes;
           break;
         case r'redis':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(V1HealthGet503ResponseRedisEnum),
-          ) as V1HealthGet503ResponseRedisEnum;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(
+                      V1HealthGet503ResponseRedisEnum,
+                    ),
+                  )
+                  as V1HealthGet503ResponseRedisEnum;
           result.redis = valueDes;
           break;
         default:

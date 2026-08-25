@@ -10,15 +10,15 @@ class _$V1GovernoratesGet200Response extends V1GovernoratesGet200Response {
   @override
   final BuiltList<V1GovernoratesGet200ResponseGovernoratesInner> governorates;
 
-  factory _$V1GovernoratesGet200Response(
-          [void Function(V1GovernoratesGet200ResponseBuilder)? updates]) =>
-      (V1GovernoratesGet200ResponseBuilder()..update(updates))._build();
+  factory _$V1GovernoratesGet200Response([
+    void Function(V1GovernoratesGet200ResponseBuilder)? updates,
+  ]) => (V1GovernoratesGet200ResponseBuilder()..update(updates))._build();
 
   _$V1GovernoratesGet200Response._({required this.governorates}) : super._();
   @override
   V1GovernoratesGet200Response rebuild(
-          void Function(V1GovernoratesGet200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(V1GovernoratesGet200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   V1GovernoratesGet200ResponseBuilder toBuilder() =>
@@ -41,16 +41,18 @@ class _$V1GovernoratesGet200Response extends V1GovernoratesGet200Response {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'V1GovernoratesGet200Response')
-          ..add('governorates', governorates))
-        .toString();
+    return (newBuiltValueToStringHelper(
+      r'V1GovernoratesGet200Response',
+    )..add('governorates', governorates)).toString();
   }
 }
 
 class V1GovernoratesGet200ResponseBuilder
     implements
-        Builder<V1GovernoratesGet200Response,
-            V1GovernoratesGet200ResponseBuilder> {
+        Builder<
+          V1GovernoratesGet200Response,
+          V1GovernoratesGet200ResponseBuilder
+        > {
   _$V1GovernoratesGet200Response? _$v;
 
   ListBuilder<V1GovernoratesGet200ResponseGovernoratesInner>? _governorates;
@@ -58,9 +60,8 @@ class V1GovernoratesGet200ResponseBuilder
       _$this._governorates ??=
           ListBuilder<V1GovernoratesGet200ResponseGovernoratesInner>();
   set governorates(
-          ListBuilder<V1GovernoratesGet200ResponseGovernoratesInner>?
-              governorates) =>
-      _$this._governorates = governorates;
+    ListBuilder<V1GovernoratesGet200ResponseGovernoratesInner>? governorates,
+  ) => _$this._governorates = governorates;
 
   V1GovernoratesGet200ResponseBuilder() {
     V1GovernoratesGet200Response._defaults(this);
@@ -91,7 +92,8 @@ class V1GovernoratesGet200ResponseBuilder
   _$V1GovernoratesGet200Response _build() {
     _$V1GovernoratesGet200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$V1GovernoratesGet200Response._(
             governorates: governorates.build(),
           );
@@ -102,7 +104,10 @@ class V1GovernoratesGet200ResponseBuilder
         governorates.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'V1GovernoratesGet200Response', _$failedField, e.toString());
+          r'V1GovernoratesGet200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

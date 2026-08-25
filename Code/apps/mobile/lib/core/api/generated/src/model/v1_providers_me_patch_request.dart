@@ -65,9 +65,9 @@ abstract class V1ProvidersMePatchRequest
 
   V1ProvidersMePatchRequest._();
 
-  factory V1ProvidersMePatchRequest(
-          [void updates(V1ProvidersMePatchRequestBuilder b)]) =
-      _$V1ProvidersMePatchRequest;
+  factory V1ProvidersMePatchRequest([
+    void updates(V1ProvidersMePatchRequestBuilder b),
+  ]) = _$V1ProvidersMePatchRequest;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1ProvidersMePatchRequestBuilder b) => b;
@@ -82,7 +82,7 @@ class _$V1ProvidersMePatchRequestSerializer
   @override
   final Iterable<Type> types = const [
     V1ProvidersMePatchRequest,
-    _$V1ProvidersMePatchRequest
+    _$V1ProvidersMePatchRequest,
   ];
 
   @override
@@ -139,16 +139,19 @@ class _$V1ProvidersMePatchRequestSerializer
       yield r'availabilityStatus';
       yield serializers.serialize(
         object.availabilityStatus,
-        specifiedType:
-            const FullType(V1ProvidersMePatchRequestAvailabilityStatusEnum),
+        specifiedType: const FullType(
+          V1ProvidersMePatchRequestAvailabilityStatusEnum,
+        ),
       );
     }
     if (object.availableAgainAt != null) {
       yield r'availableAgainAt';
       yield serializers.serialize(
         object.availableAgainAt,
-        specifiedType: const FullType(
-            BuiltMap, [FullType(String), FullType.nullable(JsonObject)]),
+        specifiedType: const FullType(BuiltMap, [
+          FullType(String),
+          FullType.nullable(JsonObject),
+        ]),
       );
     }
     if (object.acceptsEmergency != null) {
@@ -162,16 +165,19 @@ class _$V1ProvidersMePatchRequestSerializer
       yield r'workingHours';
       yield serializers.serialize(
         object.workingHours,
-        specifiedType: const FullType(
-            BuiltMap, [FullType(String), FullType.nullable(JsonObject)]),
+        specifiedType: const FullType(BuiltMap, [
+          FullType(String),
+          FullType.nullable(JsonObject),
+        ]),
       );
     }
     if (object.publicationStatus != null) {
       yield r'publicationStatus';
       yield serializers.serialize(
         object.publicationStatus,
-        specifiedType:
-            const FullType(V1ProvidersMePatchRequestPublicationStatusEnum),
+        specifiedType: const FullType(
+          V1ProvidersMePatchRequestPublicationStatusEnum,
+        ),
       );
     }
   }
@@ -182,9 +188,11 @@ class _$V1ProvidersMePatchRequestSerializer
     V1ProvidersMePatchRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -200,84 +208,112 @@ class _$V1ProvidersMePatchRequestSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'businessName':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.businessName = valueDes;
           break;
         case r'headline':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.headline = valueDes;
           break;
         case r'bio':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.bio = valueDes;
           break;
         case r'yearsExperience':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int;
           result.yearsExperience = valueDes;
           break;
         case r'whatsappPhone':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.whatsappPhone = valueDes;
           break;
         case r'publicPhone':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.publicPhone = valueDes;
           break;
         case r'availabilityStatus':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType:
-                const FullType(V1ProvidersMePatchRequestAvailabilityStatusEnum),
-          ) as V1ProvidersMePatchRequestAvailabilityStatusEnum;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(
+                      V1ProvidersMePatchRequestAvailabilityStatusEnum,
+                    ),
+                  )
+                  as V1ProvidersMePatchRequestAvailabilityStatusEnum;
           result.availabilityStatus = valueDes;
           break;
         case r'availableAgainAt':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-                BuiltMap, [FullType(String), FullType.nullable(JsonObject)]),
-          ) as BuiltMap<String, JsonObject?>;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(BuiltMap, [
+                      FullType(String),
+                      FullType.nullable(JsonObject),
+                    ]),
+                  )
+                  as BuiltMap<String, JsonObject?>;
           result.availableAgainAt.replace(valueDes);
           break;
         case r'acceptsEmergency':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool;
           result.acceptsEmergency = valueDes;
           break;
         case r'workingHours':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-                BuiltMap, [FullType(String), FullType.nullable(JsonObject)]),
-          ) as BuiltMap<String, JsonObject?>;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(BuiltMap, [
+                      FullType(String),
+                      FullType.nullable(JsonObject),
+                    ]),
+                  )
+                  as BuiltMap<String, JsonObject?>;
           result.workingHours.replace(valueDes);
           break;
         case r'publicationStatus':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType:
-                const FullType(V1ProvidersMePatchRequestPublicationStatusEnum),
-          ) as V1ProvidersMePatchRequestPublicationStatusEnum;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(
+                      V1ProvidersMePatchRequestPublicationStatusEnum,
+                    ),
+                  )
+                  as V1ProvidersMePatchRequestPublicationStatusEnum;
           result.publicationStatus = valueDes;
           break;
         default:
@@ -321,11 +357,10 @@ class V1ProvidersMePatchRequestAvailabilityStatusEnum extends EnumClass {
       _$v1ProvidersMePatchRequestAvailabilityStatusEnum_ON_HOLIDAY;
 
   static Serializer<V1ProvidersMePatchRequestAvailabilityStatusEnum>
-      get serializer =>
-          _$v1ProvidersMePatchRequestAvailabilityStatusEnumSerializer;
+  get serializer => _$v1ProvidersMePatchRequestAvailabilityStatusEnumSerializer;
 
   const V1ProvidersMePatchRequestAvailabilityStatusEnum._(String name)
-      : super(name);
+    : super(name);
 
   static BuiltSet<V1ProvidersMePatchRequestAvailabilityStatusEnum> get values =>
       _$v1ProvidersMePatchRequestAvailabilityStatusEnumValues;
@@ -342,11 +377,10 @@ class V1ProvidersMePatchRequestPublicationStatusEnum extends EnumClass {
       _$v1ProvidersMePatchRequestPublicationStatusEnum_PUBLISHED;
 
   static Serializer<V1ProvidersMePatchRequestPublicationStatusEnum>
-      get serializer =>
-          _$v1ProvidersMePatchRequestPublicationStatusEnumSerializer;
+  get serializer => _$v1ProvidersMePatchRequestPublicationStatusEnumSerializer;
 
   const V1ProvidersMePatchRequestPublicationStatusEnum._(String name)
-      : super(name);
+    : super(name);
 
   static BuiltSet<V1ProvidersMePatchRequestPublicationStatusEnum> get values =>
       _$v1ProvidersMePatchRequestPublicationStatusEnumValues;

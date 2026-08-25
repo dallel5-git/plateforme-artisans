@@ -16,8 +16,10 @@ part 'v1_providers_id_reviews_post_request.g.dart';
 @BuiltValue()
 abstract class V1ProvidersIdReviewsPostRequest
     implements
-        Built<V1ProvidersIdReviewsPostRequest,
-            V1ProvidersIdReviewsPostRequestBuilder> {
+        Built<
+          V1ProvidersIdReviewsPostRequest,
+          V1ProvidersIdReviewsPostRequestBuilder
+        > {
   @BuiltValueField(wireName: r'rating')
   int get rating;
 
@@ -26,9 +28,9 @@ abstract class V1ProvidersIdReviewsPostRequest
 
   V1ProvidersIdReviewsPostRequest._();
 
-  factory V1ProvidersIdReviewsPostRequest(
-          [void updates(V1ProvidersIdReviewsPostRequestBuilder b)]) =
-      _$V1ProvidersIdReviewsPostRequest;
+  factory V1ProvidersIdReviewsPostRequest([
+    void updates(V1ProvidersIdReviewsPostRequestBuilder b),
+  ]) = _$V1ProvidersIdReviewsPostRequest;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1ProvidersIdReviewsPostRequestBuilder b) => b;
@@ -43,7 +45,7 @@ class _$V1ProvidersIdReviewsPostRequestSerializer
   @override
   final Iterable<Type> types = const [
     V1ProvidersIdReviewsPostRequest,
-    _$V1ProvidersIdReviewsPostRequest
+    _$V1ProvidersIdReviewsPostRequest,
   ];
 
   @override
@@ -74,9 +76,11 @@ class _$V1ProvidersIdReviewsPostRequestSerializer
     V1ProvidersIdReviewsPostRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -92,17 +96,21 @@ class _$V1ProvidersIdReviewsPostRequestSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'rating':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int;
           result.rating = valueDes;
           break;
         case r'comment':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.comment = valueDes;
           break;
         default:

@@ -22,8 +22,10 @@ part 'v1_providers_slug_reviews_get200_response_items_inner.g.dart';
 @BuiltValue()
 abstract class V1ProvidersSlugReviewsGet200ResponseItemsInner
     implements
-        Built<V1ProvidersSlugReviewsGet200ResponseItemsInner,
-            V1ProvidersSlugReviewsGet200ResponseItemsInnerBuilder> {
+        Built<
+          V1ProvidersSlugReviewsGet200ResponseItemsInner,
+          V1ProvidersSlugReviewsGet200ResponseItemsInnerBuilder
+        > {
   @BuiltValueField(wireName: r'id')
   String get id;
 
@@ -44,20 +46,19 @@ abstract class V1ProvidersSlugReviewsGet200ResponseItemsInner
 
   V1ProvidersSlugReviewsGet200ResponseItemsInner._();
 
-  factory V1ProvidersSlugReviewsGet200ResponseItemsInner(
-          [void updates(
-              V1ProvidersSlugReviewsGet200ResponseItemsInnerBuilder b)]) =
-      _$V1ProvidersSlugReviewsGet200ResponseItemsInner;
+  factory V1ProvidersSlugReviewsGet200ResponseItemsInner([
+    void updates(V1ProvidersSlugReviewsGet200ResponseItemsInnerBuilder b),
+  ]) = _$V1ProvidersSlugReviewsGet200ResponseItemsInner;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(
-          V1ProvidersSlugReviewsGet200ResponseItemsInnerBuilder b) =>
-      b;
+    V1ProvidersSlugReviewsGet200ResponseItemsInnerBuilder b,
+  ) => b;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<V1ProvidersSlugReviewsGet200ResponseItemsInner>
-      get serializer =>
-          _$V1ProvidersSlugReviewsGet200ResponseItemsInnerSerializer();
+  get serializer =>
+      _$V1ProvidersSlugReviewsGet200ResponseItemsInnerSerializer();
 }
 
 class _$V1ProvidersSlugReviewsGet200ResponseItemsInnerSerializer
@@ -66,7 +67,7 @@ class _$V1ProvidersSlugReviewsGet200ResponseItemsInnerSerializer
   @override
   final Iterable<Type> types = const [
     V1ProvidersSlugReviewsGet200ResponseItemsInner,
-    _$V1ProvidersSlugReviewsGet200ResponseItemsInner
+    _$V1ProvidersSlugReviewsGet200ResponseItemsInner,
   ];
 
   @override
@@ -115,9 +116,11 @@ class _$V1ProvidersSlugReviewsGet200ResponseItemsInnerSerializer
     V1ProvidersSlugReviewsGet200ResponseItemsInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -133,45 +136,57 @@ class _$V1ProvidersSlugReviewsGet200ResponseItemsInnerSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.id = valueDes;
           break;
         case r'rating':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int;
           result.rating = valueDes;
           break;
         case r'comment':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.comment = valueDes;
           break;
         case r'isVerifiedContact':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool;
           result.isVerifiedContact = valueDes;
           break;
         case r'createdAt':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime;
           result.createdAt = valueDes;
           break;
         case r'authorDisplayName':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.authorDisplayName = valueDes;
           break;
         default:

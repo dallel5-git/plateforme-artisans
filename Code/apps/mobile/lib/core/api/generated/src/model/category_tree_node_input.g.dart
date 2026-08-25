@@ -28,26 +28,26 @@ class _$CategoryTreeNodeInput extends CategoryTreeNodeInput {
   @override
   final BuiltList<CategoryTreeNodeInput> children;
 
-  factory _$CategoryTreeNodeInput(
-          [void Function(CategoryTreeNodeInputBuilder)? updates]) =>
-      (CategoryTreeNodeInputBuilder()..update(updates))._build();
+  factory _$CategoryTreeNodeInput([
+    void Function(CategoryTreeNodeInputBuilder)? updates,
+  ]) => (CategoryTreeNodeInputBuilder()..update(updates))._build();
 
-  _$CategoryTreeNodeInput._(
-      {required this.id,
-      required this.slug,
-      required this.nameFr,
-      required this.nameAr,
-      required this.descriptionFr,
-      required this.descriptionAr,
-      required this.iconKey,
-      required this.colorHex,
-      required this.sortOrder,
-      required this.children})
-      : super._();
+  _$CategoryTreeNodeInput._({
+    required this.id,
+    required this.slug,
+    required this.nameFr,
+    required this.nameAr,
+    required this.descriptionFr,
+    required this.descriptionAr,
+    required this.iconKey,
+    required this.colorHex,
+    required this.sortOrder,
+    required this.children,
+  }) : super._();
   @override
   CategoryTreeNodeInput rebuild(
-          void Function(CategoryTreeNodeInputBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(CategoryTreeNodeInputBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   CategoryTreeNodeInputBuilder toBuilder() =>
@@ -189,26 +189,54 @@ class CategoryTreeNodeInputBuilder
   _$CategoryTreeNodeInput _build() {
     _$CategoryTreeNodeInput _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$CategoryTreeNodeInput._(
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'CategoryTreeNodeInput', 'id'),
+              id,
+              r'CategoryTreeNodeInput',
+              'id',
+            ),
             slug: BuiltValueNullFieldError.checkNotNull(
-                slug, r'CategoryTreeNodeInput', 'slug'),
+              slug,
+              r'CategoryTreeNodeInput',
+              'slug',
+            ),
             nameFr: BuiltValueNullFieldError.checkNotNull(
-                nameFr, r'CategoryTreeNodeInput', 'nameFr'),
+              nameFr,
+              r'CategoryTreeNodeInput',
+              'nameFr',
+            ),
             nameAr: BuiltValueNullFieldError.checkNotNull(
-                nameAr, r'CategoryTreeNodeInput', 'nameAr'),
+              nameAr,
+              r'CategoryTreeNodeInput',
+              'nameAr',
+            ),
             descriptionFr: BuiltValueNullFieldError.checkNotNull(
-                descriptionFr, r'CategoryTreeNodeInput', 'descriptionFr'),
+              descriptionFr,
+              r'CategoryTreeNodeInput',
+              'descriptionFr',
+            ),
             descriptionAr: BuiltValueNullFieldError.checkNotNull(
-                descriptionAr, r'CategoryTreeNodeInput', 'descriptionAr'),
+              descriptionAr,
+              r'CategoryTreeNodeInput',
+              'descriptionAr',
+            ),
             iconKey: BuiltValueNullFieldError.checkNotNull(
-                iconKey, r'CategoryTreeNodeInput', 'iconKey'),
+              iconKey,
+              r'CategoryTreeNodeInput',
+              'iconKey',
+            ),
             colorHex: BuiltValueNullFieldError.checkNotNull(
-                colorHex, r'CategoryTreeNodeInput', 'colorHex'),
+              colorHex,
+              r'CategoryTreeNodeInput',
+              'colorHex',
+            ),
             sortOrder: BuiltValueNullFieldError.checkNotNull(
-                sortOrder, r'CategoryTreeNodeInput', 'sortOrder'),
+              sortOrder,
+              r'CategoryTreeNodeInput',
+              'sortOrder',
+            ),
             children: children.build(),
           );
     } catch (_) {
@@ -218,7 +246,10 @@ class CategoryTreeNodeInputBuilder
         children.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'CategoryTreeNodeInput', _$failedField, e.toString());
+          r'CategoryTreeNodeInput',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

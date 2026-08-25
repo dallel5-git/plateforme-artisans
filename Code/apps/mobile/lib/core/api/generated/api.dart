@@ -80,3 +80,4 @@ export 'package:sanaya/core/api/generated/src/model/v1_providers_slug_get200_res
 export 'package:sanaya/core/api/generated/src/model/v1_providers_slug_get200_response_review_aggregate_breakdown.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_slug_reviews_get200_response.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_slug_reviews_get200_response_items_inner.dart';
+export 'package:sanaya/core/api/exceptions.dart';

@@ -20,8 +20,10 @@ part 'v1_providers_me_stats_get200_response.g.dart';
 @BuiltValue()
 abstract class V1ProvidersMeStatsGet200Response
     implements
-        Built<V1ProvidersMeStatsGet200Response,
-            V1ProvidersMeStatsGet200ResponseBuilder> {
+        Built<
+          V1ProvidersMeStatsGet200Response,
+          V1ProvidersMeStatsGet200ResponseBuilder
+        > {
   @BuiltValueField(wireName: r'totals')
   V1ProvidersMeStatsGet200ResponseTotals get totals;
 
@@ -30,9 +32,9 @@ abstract class V1ProvidersMeStatsGet200Response
 
   V1ProvidersMeStatsGet200Response._();
 
-  factory V1ProvidersMeStatsGet200Response(
-          [void updates(V1ProvidersMeStatsGet200ResponseBuilder b)]) =
-      _$V1ProvidersMeStatsGet200Response;
+  factory V1ProvidersMeStatsGet200Response([
+    void updates(V1ProvidersMeStatsGet200ResponseBuilder b),
+  ]) = _$V1ProvidersMeStatsGet200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1ProvidersMeStatsGet200ResponseBuilder b) => b;
@@ -47,7 +49,7 @@ class _$V1ProvidersMeStatsGet200ResponseSerializer
   @override
   final Iterable<Type> types = const [
     V1ProvidersMeStatsGet200Response,
-    _$V1ProvidersMeStatsGet200Response
+    _$V1ProvidersMeStatsGet200Response,
   ];
 
   @override
@@ -66,8 +68,9 @@ class _$V1ProvidersMeStatsGet200ResponseSerializer
     yield r'series';
     yield serializers.serialize(
       object.series,
-      specifiedType: const FullType(
-          BuiltList, [FullType(V1ProvidersMeStatsGet200ResponseSeriesInner)]),
+      specifiedType: const FullType(BuiltList, [
+        FullType(V1ProvidersMeStatsGet200ResponseSeriesInner),
+      ]),
     );
   }
 
@@ -77,9 +80,11 @@ class _$V1ProvidersMeStatsGet200ResponseSerializer
     V1ProvidersMeStatsGet200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -95,19 +100,25 @@ class _$V1ProvidersMeStatsGet200ResponseSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'totals':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType:
-                const FullType(V1ProvidersMeStatsGet200ResponseTotals),
-          ) as V1ProvidersMeStatsGet200ResponseTotals;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(
+                      V1ProvidersMeStatsGet200ResponseTotals,
+                    ),
+                  )
+                  as V1ProvidersMeStatsGet200ResponseTotals;
           result.totals = valueDes.toBuilder();
           break;
         case r'series':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BuiltList,
-                [FullType(V1ProvidersMeStatsGet200ResponseSeriesInner)]),
-          ) as BuiltList<V1ProvidersMeStatsGet200ResponseSeriesInner>;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(BuiltList, [
+                      FullType(V1ProvidersMeStatsGet200ResponseSeriesInner),
+                    ]),
+                  )
+                  as BuiltList<V1ProvidersMeStatsGet200ResponseSeriesInner>;
           result.series.replace(valueDes);
           break;
         default:

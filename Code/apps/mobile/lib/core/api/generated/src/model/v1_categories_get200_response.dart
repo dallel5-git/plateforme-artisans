@@ -24,9 +24,9 @@ abstract class V1CategoriesGet200Response
 
   V1CategoriesGet200Response._();
 
-  factory V1CategoriesGet200Response(
-          [void updates(V1CategoriesGet200ResponseBuilder b)]) =
-      _$V1CategoriesGet200Response;
+  factory V1CategoriesGet200Response([
+    void updates(V1CategoriesGet200ResponseBuilder b),
+  ]) = _$V1CategoriesGet200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1CategoriesGet200ResponseBuilder b) => b;
@@ -41,7 +41,7 @@ class _$V1CategoriesGet200ResponseSerializer
   @override
   final Iterable<Type> types = const [
     V1CategoriesGet200Response,
-    _$V1CategoriesGet200Response
+    _$V1CategoriesGet200Response,
   ];
 
   @override
@@ -65,9 +65,11 @@ class _$V1CategoriesGet200ResponseSerializer
     V1CategoriesGet200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -83,11 +85,14 @@ class _$V1CategoriesGet200ResponseSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'categories':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType:
-                const FullType(BuiltList, [FullType(CategoryTreeNode)]),
-          ) as BuiltList<CategoryTreeNode>;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(BuiltList, [
+                      FullType(CategoryTreeNode),
+                    ]),
+                  )
+                  as BuiltList<CategoryTreeNode>;
           result.categories.replace(valueDes);
           break;
         default:

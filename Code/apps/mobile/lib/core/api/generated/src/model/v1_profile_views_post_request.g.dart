@@ -7,23 +7,23 @@ part of 'v1_profile_views_post_request.dart';
 // **************************************************************************
 
 const V1ProfileViewsPostRequestSource_Enum
-    _$v1ProfileViewsPostRequestSourceEnum_search =
+_$v1ProfileViewsPostRequestSourceEnum_search =
     const V1ProfileViewsPostRequestSource_Enum._('search');
 const V1ProfileViewsPostRequestSource_Enum
-    _$v1ProfileViewsPostRequestSourceEnum_profile =
+_$v1ProfileViewsPostRequestSourceEnum_profile =
     const V1ProfileViewsPostRequestSource_Enum._('profile');
 const V1ProfileViewsPostRequestSource_Enum
-    _$v1ProfileViewsPostRequestSourceEnum_boost =
+_$v1ProfileViewsPostRequestSourceEnum_boost =
     const V1ProfileViewsPostRequestSource_Enum._('boost');
 const V1ProfileViewsPostRequestSource_Enum
-    _$v1ProfileViewsPostRequestSourceEnum_ad =
+_$v1ProfileViewsPostRequestSourceEnum_ad =
     const V1ProfileViewsPostRequestSource_Enum._('ad');
 const V1ProfileViewsPostRequestSource_Enum
-    _$v1ProfileViewsPostRequestSourceEnum_seoPage =
+_$v1ProfileViewsPostRequestSourceEnum_seoPage =
     const V1ProfileViewsPostRequestSource_Enum._('seoPage');
 
 V1ProfileViewsPostRequestSource_Enum
-    _$v1ProfileViewsPostRequestSourceEnumValueOf(String name) {
+_$v1ProfileViewsPostRequestSourceEnumValueOf(String name) {
   switch (name) {
     case 'search':
       return _$v1ProfileViewsPostRequestSourceEnum_search;
@@ -41,17 +41,19 @@ V1ProfileViewsPostRequestSource_Enum
 }
 
 final BuiltSet<V1ProfileViewsPostRequestSource_Enum>
-    _$v1ProfileViewsPostRequestSourceEnumValues = BuiltSet<
-        V1ProfileViewsPostRequestSource_Enum>(const <V1ProfileViewsPostRequestSource_Enum>[
-  _$v1ProfileViewsPostRequestSourceEnum_search,
-  _$v1ProfileViewsPostRequestSourceEnum_profile,
-  _$v1ProfileViewsPostRequestSourceEnum_boost,
-  _$v1ProfileViewsPostRequestSourceEnum_ad,
-  _$v1ProfileViewsPostRequestSourceEnum_seoPage,
-]);
+_$v1ProfileViewsPostRequestSourceEnumValues =
+    BuiltSet<V1ProfileViewsPostRequestSource_Enum>(
+      const <V1ProfileViewsPostRequestSource_Enum>[
+        _$v1ProfileViewsPostRequestSourceEnum_search,
+        _$v1ProfileViewsPostRequestSourceEnum_profile,
+        _$v1ProfileViewsPostRequestSourceEnum_boost,
+        _$v1ProfileViewsPostRequestSourceEnum_ad,
+        _$v1ProfileViewsPostRequestSourceEnum_seoPage,
+      ],
+    );
 
 Serializer<V1ProfileViewsPostRequestSource_Enum>
-    _$v1ProfileViewsPostRequestSourceEnumSerializer =
+_$v1ProfileViewsPostRequestSourceEnumSerializer =
     _$V1ProfileViewsPostRequestSource_EnumSerializer();
 
 class _$V1ProfileViewsPostRequestSource_EnumSerializer
@@ -73,23 +75,26 @@ class _$V1ProfileViewsPostRequestSource_EnumSerializer
 
   @override
   final Iterable<Type> types = const <Type>[
-    V1ProfileViewsPostRequestSource_Enum
+    V1ProfileViewsPostRequestSource_Enum,
   ];
   @override
   final String wireName = 'V1ProfileViewsPostRequestSource_Enum';
 
   @override
   Object serialize(
-          Serializers serializers, V1ProfileViewsPostRequestSource_Enum object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+    Serializers serializers,
+    V1ProfileViewsPostRequestSource_Enum object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _toWire[object.name] ?? object.name;
 
   @override
   V1ProfileViewsPostRequestSource_Enum deserialize(
-          Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      V1ProfileViewsPostRequestSource_Enum.valueOf(
-          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => V1ProfileViewsPostRequestSource_Enum.valueOf(
+    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+  );
 }
 
 class _$V1ProfileViewsPostRequest extends V1ProfileViewsPostRequest {
@@ -98,16 +103,16 @@ class _$V1ProfileViewsPostRequest extends V1ProfileViewsPostRequest {
   @override
   final V1ProfileViewsPostRequestSource_Enum? source_;
 
-  factory _$V1ProfileViewsPostRequest(
-          [void Function(V1ProfileViewsPostRequestBuilder)? updates]) =>
-      (V1ProfileViewsPostRequestBuilder()..update(updates))._build();
+  factory _$V1ProfileViewsPostRequest([
+    void Function(V1ProfileViewsPostRequestBuilder)? updates,
+  ]) => (V1ProfileViewsPostRequestBuilder()..update(updates))._build();
 
   _$V1ProfileViewsPostRequest._({required this.providerId, this.source_})
-      : super._();
+    : super._();
   @override
   V1ProfileViewsPostRequest rebuild(
-          void Function(V1ProfileViewsPostRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(V1ProfileViewsPostRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   V1ProfileViewsPostRequestBuilder toBuilder() =>
@@ -181,10 +186,14 @@ class V1ProfileViewsPostRequestBuilder
   V1ProfileViewsPostRequest build() => _build();
 
   _$V1ProfileViewsPostRequest _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$V1ProfileViewsPostRequest._(
           providerId: BuiltValueNullFieldError.checkNotNull(
-              providerId, r'V1ProfileViewsPostRequest', 'providerId'),
+            providerId,
+            r'V1ProfileViewsPostRequest',
+            'providerId',
+          ),
           source_: source_,
         );
     replace(_$result);

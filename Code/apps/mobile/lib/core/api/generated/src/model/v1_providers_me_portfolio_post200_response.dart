@@ -21,8 +21,10 @@ part 'v1_providers_me_portfolio_post200_response.g.dart';
 @BuiltValue()
 abstract class V1ProvidersMePortfolioPost200Response
     implements
-        Built<V1ProvidersMePortfolioPost200Response,
-            V1ProvidersMePortfolioPost200ResponseBuilder> {
+        Built<
+          V1ProvidersMePortfolioPost200Response,
+          V1ProvidersMePortfolioPost200ResponseBuilder
+        > {
   @BuiltValueField(wireName: r'id')
   String get id;
 
@@ -40,9 +42,9 @@ abstract class V1ProvidersMePortfolioPost200Response
 
   V1ProvidersMePortfolioPost200Response._();
 
-  factory V1ProvidersMePortfolioPost200Response(
-          [void updates(V1ProvidersMePortfolioPost200ResponseBuilder b)]) =
-      _$V1ProvidersMePortfolioPost200Response;
+  factory V1ProvidersMePortfolioPost200Response([
+    void updates(V1ProvidersMePortfolioPost200ResponseBuilder b),
+  ]) = _$V1ProvidersMePortfolioPost200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1ProvidersMePortfolioPost200ResponseBuilder b) => b;
@@ -57,7 +59,7 @@ class _$V1ProvidersMePortfolioPost200ResponseSerializer
   @override
   final Iterable<Type> types = const [
     V1ProvidersMePortfolioPost200Response,
-    _$V1ProvidersMePortfolioPost200Response
+    _$V1ProvidersMePortfolioPost200Response,
   ];
 
   @override
@@ -101,9 +103,11 @@ class _$V1ProvidersMePortfolioPost200ResponseSerializer
     V1ProvidersMePortfolioPost200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -119,38 +123,48 @@ class _$V1ProvidersMePortfolioPost200ResponseSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.id = valueDes;
           break;
         case r'mediaId':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.mediaId = valueDes;
           break;
         case r'categoryId':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.categoryId = valueDes;
           break;
         case r'caption':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.caption = valueDes;
           break;
         case r'sortOrder':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int;
           result.sortOrder = valueDes;
           break;
         default:

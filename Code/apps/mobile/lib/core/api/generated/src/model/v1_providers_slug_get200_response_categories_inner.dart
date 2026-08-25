@@ -21,8 +21,10 @@ part 'v1_providers_slug_get200_response_categories_inner.g.dart';
 @BuiltValue()
 abstract class V1ProvidersSlugGet200ResponseCategoriesInner
     implements
-        Built<V1ProvidersSlugGet200ResponseCategoriesInner,
-            V1ProvidersSlugGet200ResponseCategoriesInnerBuilder> {
+        Built<
+          V1ProvidersSlugGet200ResponseCategoriesInner,
+          V1ProvidersSlugGet200ResponseCategoriesInnerBuilder
+        > {
   @BuiltValueField(wireName: r'slug')
   String get slug;
 
@@ -40,20 +42,18 @@ abstract class V1ProvidersSlugGet200ResponseCategoriesInner
 
   V1ProvidersSlugGet200ResponseCategoriesInner._();
 
-  factory V1ProvidersSlugGet200ResponseCategoriesInner(
-          [void updates(
-              V1ProvidersSlugGet200ResponseCategoriesInnerBuilder b)]) =
-      _$V1ProvidersSlugGet200ResponseCategoriesInner;
+  factory V1ProvidersSlugGet200ResponseCategoriesInner([
+    void updates(V1ProvidersSlugGet200ResponseCategoriesInnerBuilder b),
+  ]) = _$V1ProvidersSlugGet200ResponseCategoriesInner;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(
-          V1ProvidersSlugGet200ResponseCategoriesInnerBuilder b) =>
-      b;
+    V1ProvidersSlugGet200ResponseCategoriesInnerBuilder b,
+  ) => b;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<V1ProvidersSlugGet200ResponseCategoriesInner>
-      get serializer =>
-          _$V1ProvidersSlugGet200ResponseCategoriesInnerSerializer();
+  get serializer => _$V1ProvidersSlugGet200ResponseCategoriesInnerSerializer();
 }
 
 class _$V1ProvidersSlugGet200ResponseCategoriesInnerSerializer
@@ -62,7 +62,7 @@ class _$V1ProvidersSlugGet200ResponseCategoriesInnerSerializer
   @override
   final Iterable<Type> types = const [
     V1ProvidersSlugGet200ResponseCategoriesInner,
-    _$V1ProvidersSlugGet200ResponseCategoriesInner
+    _$V1ProvidersSlugGet200ResponseCategoriesInner,
   ];
 
   @override
@@ -106,9 +106,11 @@ class _$V1ProvidersSlugGet200ResponseCategoriesInnerSerializer
     V1ProvidersSlugGet200ResponseCategoriesInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -124,38 +126,48 @@ class _$V1ProvidersSlugGet200ResponseCategoriesInnerSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'slug':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.slug = valueDes;
           break;
         case r'nameFr':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.nameFr = valueDes;
           break;
         case r'nameAr':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.nameAr = valueDes;
           break;
         case r'isPrimary':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool;
           result.isPrimary = valueDes;
           break;
         case r'yearsExperience':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int;
           result.yearsExperience = valueDes;
           break;
         default:

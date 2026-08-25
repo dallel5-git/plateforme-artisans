@@ -17,17 +17,19 @@ part 'v1_auth_otp_request_post200_response.g.dart';
 @BuiltValue()
 abstract class V1AuthOtpRequestPost200Response
     implements
-        Built<V1AuthOtpRequestPost200Response,
-            V1AuthOtpRequestPost200ResponseBuilder> {
+        Built<
+          V1AuthOtpRequestPost200Response,
+          V1AuthOtpRequestPost200ResponseBuilder
+        > {
   @BuiltValueField(wireName: r'status')
   V1AuthOtpRequestPost200ResponseStatusEnum get status;
   // enum statusEnum {  sent,  };
 
   V1AuthOtpRequestPost200Response._();
 
-  factory V1AuthOtpRequestPost200Response(
-          [void updates(V1AuthOtpRequestPost200ResponseBuilder b)]) =
-      _$V1AuthOtpRequestPost200Response;
+  factory V1AuthOtpRequestPost200Response([
+    void updates(V1AuthOtpRequestPost200ResponseBuilder b),
+  ]) = _$V1AuthOtpRequestPost200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1AuthOtpRequestPost200ResponseBuilder b) => b;
@@ -42,7 +44,7 @@ class _$V1AuthOtpRequestPost200ResponseSerializer
   @override
   final Iterable<Type> types = const [
     V1AuthOtpRequestPost200Response,
-    _$V1AuthOtpRequestPost200Response
+    _$V1AuthOtpRequestPost200Response,
   ];
 
   @override
@@ -66,9 +68,11 @@ class _$V1AuthOtpRequestPost200ResponseSerializer
     V1AuthOtpRequestPost200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -84,11 +88,14 @@ class _$V1AuthOtpRequestPost200ResponseSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'status':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType:
-                const FullType(V1AuthOtpRequestPost200ResponseStatusEnum),
-          ) as V1AuthOtpRequestPost200ResponseStatusEnum;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(
+                      V1AuthOtpRequestPost200ResponseStatusEnum,
+                    ),
+                  )
+                  as V1AuthOtpRequestPost200ResponseStatusEnum;
           result.status = valueDes;
           break;
         default:

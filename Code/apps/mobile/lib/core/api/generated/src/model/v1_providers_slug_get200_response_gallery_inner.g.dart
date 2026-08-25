@@ -23,26 +23,24 @@ class _$V1ProvidersSlugGet200ResponseGalleryInner
   @override
   final V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation category;
 
-  factory _$V1ProvidersSlugGet200ResponseGalleryInner(
-          [void Function(V1ProvidersSlugGet200ResponseGalleryInnerBuilder)?
-              updates]) =>
-      (V1ProvidersSlugGet200ResponseGalleryInnerBuilder()..update(updates))
-          ._build();
+  factory _$V1ProvidersSlugGet200ResponseGalleryInner([
+    void Function(V1ProvidersSlugGet200ResponseGalleryInnerBuilder)? updates,
+  ]) => (V1ProvidersSlugGet200ResponseGalleryInnerBuilder()..update(updates))
+      ._build();
 
-  _$V1ProvidersSlugGet200ResponseGalleryInner._(
-      {required this.id,
-      required this.url,
-      required this.width,
-      required this.height,
-      required this.blurhash,
-      required this.caption,
-      required this.category})
-      : super._();
+  _$V1ProvidersSlugGet200ResponseGalleryInner._({
+    required this.id,
+    required this.url,
+    required this.width,
+    required this.height,
+    required this.blurhash,
+    required this.caption,
+    required this.category,
+  }) : super._();
   @override
   V1ProvidersSlugGet200ResponseGalleryInner rebuild(
-          void Function(V1ProvidersSlugGet200ResponseGalleryInnerBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(V1ProvidersSlugGet200ResponseGalleryInnerBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersSlugGet200ResponseGalleryInnerBuilder toBuilder() =>
@@ -78,7 +76,8 @@ class _$V1ProvidersSlugGet200ResponseGalleryInner
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'V1ProvidersSlugGet200ResponseGalleryInner')
+            r'V1ProvidersSlugGet200ResponseGalleryInner',
+          )
           ..add('id', id)
           ..add('url', url)
           ..add('width', width)
@@ -92,8 +91,10 @@ class _$V1ProvidersSlugGet200ResponseGalleryInner
 
 class V1ProvidersSlugGet200ResponseGalleryInnerBuilder
     implements
-        Builder<V1ProvidersSlugGet200ResponseGalleryInner,
-            V1ProvidersSlugGet200ResponseGalleryInnerBuilder> {
+        Builder<
+          V1ProvidersSlugGet200ResponseGalleryInner,
+          V1ProvidersSlugGet200ResponseGalleryInnerBuilder
+        > {
   _$V1ProvidersSlugGet200ResponseGalleryInner? _$v;
 
   String? _id;
@@ -122,12 +123,11 @@ class V1ProvidersSlugGet200ResponseGalleryInnerBuilder
 
   V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder? _category;
   V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder
-      get category => _$this._category ??=
-          V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder();
+  get category => _$this._category ??=
+      V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder();
   set category(
-          V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder?
-              category) =>
-      _$this._category = category;
+    V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder? category,
+  ) => _$this._category = category;
 
   V1ProvidersSlugGet200ResponseGalleryInnerBuilder() {
     V1ProvidersSlugGet200ResponseGalleryInner._defaults(this);
@@ -155,8 +155,8 @@ class V1ProvidersSlugGet200ResponseGalleryInnerBuilder
 
   @override
   void update(
-      void Function(V1ProvidersSlugGet200ResponseGalleryInnerBuilder)?
-          updates) {
+    void Function(V1ProvidersSlugGet200ResponseGalleryInnerBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -166,20 +166,39 @@ class V1ProvidersSlugGet200ResponseGalleryInnerBuilder
   _$V1ProvidersSlugGet200ResponseGalleryInner _build() {
     _$V1ProvidersSlugGet200ResponseGalleryInner _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$V1ProvidersSlugGet200ResponseGalleryInner._(
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'V1ProvidersSlugGet200ResponseGalleryInner', 'id'),
+              id,
+              r'V1ProvidersSlugGet200ResponseGalleryInner',
+              'id',
+            ),
             url: BuiltValueNullFieldError.checkNotNull(
-                url, r'V1ProvidersSlugGet200ResponseGalleryInner', 'url'),
+              url,
+              r'V1ProvidersSlugGet200ResponseGalleryInner',
+              'url',
+            ),
             width: BuiltValueNullFieldError.checkNotNull(
-                width, r'V1ProvidersSlugGet200ResponseGalleryInner', 'width'),
+              width,
+              r'V1ProvidersSlugGet200ResponseGalleryInner',
+              'width',
+            ),
             height: BuiltValueNullFieldError.checkNotNull(
-                height, r'V1ProvidersSlugGet200ResponseGalleryInner', 'height'),
-            blurhash: BuiltValueNullFieldError.checkNotNull(blurhash,
-                r'V1ProvidersSlugGet200ResponseGalleryInner', 'blurhash'),
-            caption: BuiltValueNullFieldError.checkNotNull(caption,
-                r'V1ProvidersSlugGet200ResponseGalleryInner', 'caption'),
+              height,
+              r'V1ProvidersSlugGet200ResponseGalleryInner',
+              'height',
+            ),
+            blurhash: BuiltValueNullFieldError.checkNotNull(
+              blurhash,
+              r'V1ProvidersSlugGet200ResponseGalleryInner',
+              'blurhash',
+            ),
+            caption: BuiltValueNullFieldError.checkNotNull(
+              caption,
+              r'V1ProvidersSlugGet200ResponseGalleryInner',
+              'caption',
+            ),
             category: category.build(),
           );
     } catch (_) {
@@ -189,9 +208,10 @@ class V1ProvidersSlugGet200ResponseGalleryInnerBuilder
         category.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'V1ProvidersSlugGet200ResponseGalleryInner',
-            _$failedField,
-            e.toString());
+          r'V1ProvidersSlugGet200ResponseGalleryInner',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

@@ -15,22 +15,24 @@ class _$V1ProvidersMeCategoriesPutRequestCategoriesInner
   @override
   final int? yearsExperience;
 
-  factory _$V1ProvidersMeCategoriesPutRequestCategoriesInner(
-          [void Function(
-                  V1ProvidersMeCategoriesPutRequestCategoriesInnerBuilder)?
-              updates]) =>
+  factory _$V1ProvidersMeCategoriesPutRequestCategoriesInner([
+    void Function(V1ProvidersMeCategoriesPutRequestCategoriesInnerBuilder)?
+    updates,
+  ]) =>
       (V1ProvidersMeCategoriesPutRequestCategoriesInnerBuilder()
             ..update(updates))
           ._build();
 
-  _$V1ProvidersMeCategoriesPutRequestCategoriesInner._(
-      {required this.categoryId, required this.isPrimary, this.yearsExperience})
-      : super._();
+  _$V1ProvidersMeCategoriesPutRequestCategoriesInner._({
+    required this.categoryId,
+    required this.isPrimary,
+    this.yearsExperience,
+  }) : super._();
   @override
   V1ProvidersMeCategoriesPutRequestCategoriesInner rebuild(
-          void Function(V1ProvidersMeCategoriesPutRequestCategoriesInnerBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(V1ProvidersMeCategoriesPutRequestCategoriesInnerBuilder)
+    updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersMeCategoriesPutRequestCategoriesInnerBuilder toBuilder() =>
@@ -58,7 +60,8 @@ class _$V1ProvidersMeCategoriesPutRequestCategoriesInner
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'V1ProvidersMeCategoriesPutRequestCategoriesInner')
+            r'V1ProvidersMeCategoriesPutRequestCategoriesInner',
+          )
           ..add('categoryId', categoryId)
           ..add('isPrimary', isPrimary)
           ..add('yearsExperience', yearsExperience))
@@ -68,8 +71,10 @@ class _$V1ProvidersMeCategoriesPutRequestCategoriesInner
 
 class V1ProvidersMeCategoriesPutRequestCategoriesInnerBuilder
     implements
-        Builder<V1ProvidersMeCategoriesPutRequestCategoriesInner,
-            V1ProvidersMeCategoriesPutRequestCategoriesInnerBuilder> {
+        Builder<
+          V1ProvidersMeCategoriesPutRequestCategoriesInner,
+          V1ProvidersMeCategoriesPutRequestCategoriesInnerBuilder
+        > {
   _$V1ProvidersMeCategoriesPutRequestCategoriesInner? _$v;
 
   String? _categoryId;
@@ -107,8 +112,9 @@ class V1ProvidersMeCategoriesPutRequestCategoriesInnerBuilder
 
   @override
   void update(
-      void Function(V1ProvidersMeCategoriesPutRequestCategoriesInnerBuilder)?
-          updates) {
+    void Function(V1ProvidersMeCategoriesPutRequestCategoriesInnerBuilder)?
+    updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -116,14 +122,19 @@ class V1ProvidersMeCategoriesPutRequestCategoriesInnerBuilder
   V1ProvidersMeCategoriesPutRequestCategoriesInner build() => _build();
 
   _$V1ProvidersMeCategoriesPutRequestCategoriesInner _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$V1ProvidersMeCategoriesPutRequestCategoriesInner._(
           categoryId: BuiltValueNullFieldError.checkNotNull(
-              categoryId,
-              r'V1ProvidersMeCategoriesPutRequestCategoriesInner',
-              'categoryId'),
-          isPrimary: BuiltValueNullFieldError.checkNotNull(isPrimary,
-              r'V1ProvidersMeCategoriesPutRequestCategoriesInner', 'isPrimary'),
+            categoryId,
+            r'V1ProvidersMeCategoriesPutRequestCategoriesInner',
+            'categoryId',
+          ),
+          isPrimary: BuiltValueNullFieldError.checkNotNull(
+            isPrimary,
+            r'V1ProvidersMeCategoriesPutRequestCategoriesInner',
+            'isPrimary',
+          ),
           yearsExperience: yearsExperience,
         );
     replace(_$result);

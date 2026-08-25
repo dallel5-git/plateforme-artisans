@@ -13,18 +13,19 @@ class _$V1ProvidersSlugReviewsGet200Response
   @override
   final String nextCursor;
 
-  factory _$V1ProvidersSlugReviewsGet200Response(
-          [void Function(V1ProvidersSlugReviewsGet200ResponseBuilder)?
-              updates]) =>
+  factory _$V1ProvidersSlugReviewsGet200Response([
+    void Function(V1ProvidersSlugReviewsGet200ResponseBuilder)? updates,
+  ]) =>
       (V1ProvidersSlugReviewsGet200ResponseBuilder()..update(updates))._build();
 
-  _$V1ProvidersSlugReviewsGet200Response._(
-      {required this.items, required this.nextCursor})
-      : super._();
+  _$V1ProvidersSlugReviewsGet200Response._({
+    required this.items,
+    required this.nextCursor,
+  }) : super._();
   @override
   V1ProvidersSlugReviewsGet200Response rebuild(
-          void Function(V1ProvidersSlugReviewsGet200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(V1ProvidersSlugReviewsGet200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersSlugReviewsGet200ResponseBuilder toBuilder() =>
@@ -58,8 +59,10 @@ class _$V1ProvidersSlugReviewsGet200Response
 
 class V1ProvidersSlugReviewsGet200ResponseBuilder
     implements
-        Builder<V1ProvidersSlugReviewsGet200Response,
-            V1ProvidersSlugReviewsGet200ResponseBuilder> {
+        Builder<
+          V1ProvidersSlugReviewsGet200Response,
+          V1ProvidersSlugReviewsGet200ResponseBuilder
+        > {
   _$V1ProvidersSlugReviewsGet200Response? _$v;
 
   ListBuilder<V1ProvidersSlugReviewsGet200ResponseItemsInner>? _items;
@@ -67,8 +70,8 @@ class V1ProvidersSlugReviewsGet200ResponseBuilder
       _$this._items ??=
           ListBuilder<V1ProvidersSlugReviewsGet200ResponseItemsInner>();
   set items(
-          ListBuilder<V1ProvidersSlugReviewsGet200ResponseItemsInner>? items) =>
-      _$this._items = items;
+    ListBuilder<V1ProvidersSlugReviewsGet200ResponseItemsInner>? items,
+  ) => _$this._items = items;
 
   String? _nextCursor;
   String? get nextCursor => _$this._nextCursor;
@@ -95,7 +98,8 @@ class V1ProvidersSlugReviewsGet200ResponseBuilder
 
   @override
   void update(
-      void Function(V1ProvidersSlugReviewsGet200ResponseBuilder)? updates) {
+    void Function(V1ProvidersSlugReviewsGet200ResponseBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -105,11 +109,15 @@ class V1ProvidersSlugReviewsGet200ResponseBuilder
   _$V1ProvidersSlugReviewsGet200Response _build() {
     _$V1ProvidersSlugReviewsGet200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$V1ProvidersSlugReviewsGet200Response._(
             items: items.build(),
-            nextCursor: BuiltValueNullFieldError.checkNotNull(nextCursor,
-                r'V1ProvidersSlugReviewsGet200Response', 'nextCursor'),
+            nextCursor: BuiltValueNullFieldError.checkNotNull(
+              nextCursor,
+              r'V1ProvidersSlugReviewsGet200Response',
+              'nextCursor',
+            ),
           );
     } catch (_) {
       late String _$failedField;
@@ -118,9 +126,10 @@ class V1ProvidersSlugReviewsGet200ResponseBuilder
         items.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'V1ProvidersSlugReviewsGet200Response',
-            _$failedField,
-            e.toString());
+          r'V1ProvidersSlugReviewsGet200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

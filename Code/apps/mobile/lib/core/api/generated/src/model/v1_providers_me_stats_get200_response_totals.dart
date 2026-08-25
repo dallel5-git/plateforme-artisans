@@ -20,8 +20,10 @@ part 'v1_providers_me_stats_get200_response_totals.g.dart';
 @BuiltValue()
 abstract class V1ProvidersMeStatsGet200ResponseTotals
     implements
-        Built<V1ProvidersMeStatsGet200ResponseTotals,
-            V1ProvidersMeStatsGet200ResponseTotalsBuilder> {
+        Built<
+          V1ProvidersMeStatsGet200ResponseTotals,
+          V1ProvidersMeStatsGet200ResponseTotalsBuilder
+        > {
   @BuiltValueField(wireName: r'profileViews')
   int get profileViews;
 
@@ -36,9 +38,9 @@ abstract class V1ProvidersMeStatsGet200ResponseTotals
 
   V1ProvidersMeStatsGet200ResponseTotals._();
 
-  factory V1ProvidersMeStatsGet200ResponseTotals(
-          [void updates(V1ProvidersMeStatsGet200ResponseTotalsBuilder b)]) =
-      _$V1ProvidersMeStatsGet200ResponseTotals;
+  factory V1ProvidersMeStatsGet200ResponseTotals([
+    void updates(V1ProvidersMeStatsGet200ResponseTotalsBuilder b),
+  ]) = _$V1ProvidersMeStatsGet200ResponseTotals;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1ProvidersMeStatsGet200ResponseTotalsBuilder b) => b;
@@ -53,7 +55,7 @@ class _$V1ProvidersMeStatsGet200ResponseTotalsSerializer
   @override
   final Iterable<Type> types = const [
     V1ProvidersMeStatsGet200ResponseTotals,
-    _$V1ProvidersMeStatsGet200ResponseTotals
+    _$V1ProvidersMeStatsGet200ResponseTotals,
   ];
 
   @override
@@ -92,9 +94,11 @@ class _$V1ProvidersMeStatsGet200ResponseTotalsSerializer
     V1ProvidersMeStatsGet200ResponseTotals object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -110,31 +114,39 @@ class _$V1ProvidersMeStatsGet200ResponseTotalsSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'profileViews':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int;
           result.profileViews = valueDes;
           break;
         case r'uniqueProfileViews':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int;
           result.uniqueProfileViews = valueDes;
           break;
         case r'contacts':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int;
           result.contacts = valueDes;
           break;
         case r'viewToContactRatio':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(num),
-          ) as num;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(num),
+                  )
+                  as num;
           result.viewToContactRatio = valueDes;
           break;
         default:

@@ -19,8 +19,10 @@ part 'v1_media_presign_post200_response.g.dart';
 @BuiltValue()
 abstract class V1MediaPresignPost200Response
     implements
-        Built<V1MediaPresignPost200Response,
-            V1MediaPresignPost200ResponseBuilder> {
+        Built<
+          V1MediaPresignPost200Response,
+          V1MediaPresignPost200ResponseBuilder
+        > {
   @BuiltValueField(wireName: r'mediaId')
   String get mediaId;
 
@@ -32,9 +34,9 @@ abstract class V1MediaPresignPost200Response
 
   V1MediaPresignPost200Response._();
 
-  factory V1MediaPresignPost200Response(
-          [void updates(V1MediaPresignPost200ResponseBuilder b)]) =
-      _$V1MediaPresignPost200Response;
+  factory V1MediaPresignPost200Response([
+    void updates(V1MediaPresignPost200ResponseBuilder b),
+  ]) = _$V1MediaPresignPost200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1MediaPresignPost200ResponseBuilder b) => b;
@@ -49,7 +51,7 @@ class _$V1MediaPresignPost200ResponseSerializer
   @override
   final Iterable<Type> types = const [
     V1MediaPresignPost200Response,
-    _$V1MediaPresignPost200Response
+    _$V1MediaPresignPost200Response,
   ];
 
   @override
@@ -83,9 +85,11 @@ class _$V1MediaPresignPost200ResponseSerializer
     V1MediaPresignPost200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -101,24 +105,30 @@ class _$V1MediaPresignPost200ResponseSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'mediaId':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.mediaId = valueDes;
           break;
         case r'uploadUrl':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.uploadUrl = valueDes;
           break;
         case r'expiresAt':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime;
           result.expiresAt = valueDes;
           break;
         default:

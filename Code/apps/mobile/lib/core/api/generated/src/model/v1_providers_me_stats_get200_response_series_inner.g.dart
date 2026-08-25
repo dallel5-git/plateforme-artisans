@@ -17,23 +17,21 @@ class _$V1ProvidersMeStatsGet200ResponseSeriesInner
   @override
   final int contacts;
 
-  factory _$V1ProvidersMeStatsGet200ResponseSeriesInner(
-          [void Function(V1ProvidersMeStatsGet200ResponseSeriesInnerBuilder)?
-              updates]) =>
-      (V1ProvidersMeStatsGet200ResponseSeriesInnerBuilder()..update(updates))
-          ._build();
+  factory _$V1ProvidersMeStatsGet200ResponseSeriesInner([
+    void Function(V1ProvidersMeStatsGet200ResponseSeriesInnerBuilder)? updates,
+  ]) => (V1ProvidersMeStatsGet200ResponseSeriesInnerBuilder()..update(updates))
+      ._build();
 
-  _$V1ProvidersMeStatsGet200ResponseSeriesInner._(
-      {required this.date,
-      required this.profileViews,
-      required this.uniqueProfileViews,
-      required this.contacts})
-      : super._();
+  _$V1ProvidersMeStatsGet200ResponseSeriesInner._({
+    required this.date,
+    required this.profileViews,
+    required this.uniqueProfileViews,
+    required this.contacts,
+  }) : super._();
   @override
   V1ProvidersMeStatsGet200ResponseSeriesInner rebuild(
-          void Function(V1ProvidersMeStatsGet200ResponseSeriesInnerBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(V1ProvidersMeStatsGet200ResponseSeriesInnerBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersMeStatsGet200ResponseSeriesInnerBuilder toBuilder() =>
@@ -63,7 +61,8 @@ class _$V1ProvidersMeStatsGet200ResponseSeriesInner
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'V1ProvidersMeStatsGet200ResponseSeriesInner')
+            r'V1ProvidersMeStatsGet200ResponseSeriesInner',
+          )
           ..add('date', date)
           ..add('profileViews', profileViews)
           ..add('uniqueProfileViews', uniqueProfileViews)
@@ -74,8 +73,10 @@ class _$V1ProvidersMeStatsGet200ResponseSeriesInner
 
 class V1ProvidersMeStatsGet200ResponseSeriesInnerBuilder
     implements
-        Builder<V1ProvidersMeStatsGet200ResponseSeriesInner,
-            V1ProvidersMeStatsGet200ResponseSeriesInnerBuilder> {
+        Builder<
+          V1ProvidersMeStatsGet200ResponseSeriesInner,
+          V1ProvidersMeStatsGet200ResponseSeriesInnerBuilder
+        > {
   _$V1ProvidersMeStatsGet200ResponseSeriesInner? _$v;
 
   DateTime? _date;
@@ -118,8 +119,8 @@ class V1ProvidersMeStatsGet200ResponseSeriesInnerBuilder
 
   @override
   void update(
-      void Function(V1ProvidersMeStatsGet200ResponseSeriesInnerBuilder)?
-          updates) {
+    void Function(V1ProvidersMeStatsGet200ResponseSeriesInnerBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -127,18 +128,29 @@ class V1ProvidersMeStatsGet200ResponseSeriesInnerBuilder
   V1ProvidersMeStatsGet200ResponseSeriesInner build() => _build();
 
   _$V1ProvidersMeStatsGet200ResponseSeriesInner _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$V1ProvidersMeStatsGet200ResponseSeriesInner._(
           date: BuiltValueNullFieldError.checkNotNull(
-              date, r'V1ProvidersMeStatsGet200ResponseSeriesInner', 'date'),
-          profileViews: BuiltValueNullFieldError.checkNotNull(profileViews,
-              r'V1ProvidersMeStatsGet200ResponseSeriesInner', 'profileViews'),
+            date,
+            r'V1ProvidersMeStatsGet200ResponseSeriesInner',
+            'date',
+          ),
+          profileViews: BuiltValueNullFieldError.checkNotNull(
+            profileViews,
+            r'V1ProvidersMeStatsGet200ResponseSeriesInner',
+            'profileViews',
+          ),
           uniqueProfileViews: BuiltValueNullFieldError.checkNotNull(
-              uniqueProfileViews,
-              r'V1ProvidersMeStatsGet200ResponseSeriesInner',
-              'uniqueProfileViews'),
-          contacts: BuiltValueNullFieldError.checkNotNull(contacts,
-              r'V1ProvidersMeStatsGet200ResponseSeriesInner', 'contacts'),
+            uniqueProfileViews,
+            r'V1ProvidersMeStatsGet200ResponseSeriesInner',
+            'uniqueProfileViews',
+          ),
+          contacts: BuiltValueNullFieldError.checkNotNull(
+            contacts,
+            r'V1ProvidersMeStatsGet200ResponseSeriesInner',
+            'contacts',
+          ),
         );
     replace(_$result);
     return _$result;

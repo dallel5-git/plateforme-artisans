@@ -93,9 +93,10 @@ class DefaultApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(V1CategoriesGet200Response),
-            ) as V1CategoriesGet200Response;
+                  rawResponse,
+                  specifiedType: const FullType(V1CategoriesGet200Response),
+                )
+                as V1CategoriesGet200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -158,11 +159,17 @@ class DefaultApi {
 
     final _queryParameters = <String, dynamic>{
       if (cursor != null)
-        r'cursor':
-            encodeQueryParameter(_serializers, cursor, const FullType(String)),
+        r'cursor': encodeQueryParameter(
+          _serializers,
+          cursor,
+          const FullType(String),
+        ),
       if (limit != null)
-        r'limit':
-            encodeQueryParameter(_serializers, limit, const FullType(int)),
+        r'limit': encodeQueryParameter(
+          _serializers,
+          limit,
+          const FullType(int),
+        ),
     };
 
     final _response = await _dio.request<Object>(
@@ -181,9 +188,10 @@ class DefaultApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(V1FavoritesGet200Response),
-            ) as V1FavoritesGet200Response;
+                  rawResponse,
+                  specifiedType: const FullType(V1FavoritesGet200Response),
+                )
+                as V1FavoritesGet200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -230,9 +238,15 @@ class DefaultApi {
     ProgressCallback? onReceiveProgress,
   }) async {
     final _path = r'/v1/favorites/{providerId}'.replaceAll(
-        '{' r'providerId' '}',
-        encodeQueryParameter(_serializers, providerId, const FullType(String))
-            .toString());
+      '{'
+      r'providerId'
+      '}',
+      encodeQueryParameter(
+        _serializers,
+        providerId,
+        const FullType(String),
+      ).toString(),
+    );
     final _options = Options(
       method: r'DELETE',
       headers: <String, dynamic>{
@@ -271,7 +285,7 @@ class DefaultApi {
   /// Returns a [Future] containing a [Response] with a [V1FavoritesProviderIdPut200Response] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<V1FavoritesProviderIdPut200Response>>
-      v1FavoritesProviderIdPut({
+  v1FavoritesProviderIdPut({
     required String providerId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -281,9 +295,15 @@ class DefaultApi {
     ProgressCallback? onReceiveProgress,
   }) async {
     final _path = r'/v1/favorites/{providerId}'.replaceAll(
-        '{' r'providerId' '}',
-        encodeQueryParameter(_serializers, providerId, const FullType(String))
-            .toString());
+      '{'
+      r'providerId'
+      '}',
+      encodeQueryParameter(
+        _serializers,
+        providerId,
+        const FullType(String),
+      ).toString(),
+    );
     final _options = Options(
       method: r'PUT',
       headers: <String, dynamic>{
@@ -311,10 +331,12 @@ class DefaultApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType:
-                  const FullType(V1FavoritesProviderIdPut200Response),
-            ) as V1FavoritesProviderIdPut200Response;
+                  rawResponse,
+                  specifiedType: const FullType(
+                    V1FavoritesProviderIdPut200Response,
+                  ),
+                )
+                as V1FavoritesProviderIdPut200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -386,9 +408,10 @@ class DefaultApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(V1GovernoratesGet200Response),
-            ) as V1GovernoratesGet200Response;
+                  rawResponse,
+                  specifiedType: const FullType(V1GovernoratesGet200Response),
+                )
+                as V1GovernoratesGet200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -426,7 +449,7 @@ class DefaultApi {
   /// Returns a [Future] containing a [Response] with a [V1GovernoratesIdDelegationsGet200Response] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<V1GovernoratesIdDelegationsGet200Response>>
-      v1GovernoratesIdDelegationsGet({
+  v1GovernoratesIdDelegationsGet({
     required String id,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -436,9 +459,11 @@ class DefaultApi {
     ProgressCallback? onReceiveProgress,
   }) async {
     final _path = r'/v1/governorates/{id}/delegations'.replaceAll(
-        '{' r'id' '}',
-        encodeQueryParameter(_serializers, id, const FullType(String))
-            .toString());
+      '{'
+      r'id'
+      '}',
+      encodeQueryParameter(_serializers, id, const FullType(String)).toString(),
+    );
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
@@ -466,10 +491,12 @@ class DefaultApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType:
-                  const FullType(V1GovernoratesIdDelegationsGet200Response),
-            ) as V1GovernoratesIdDelegationsGet200Response;
+                  rawResponse,
+                  specifiedType: const FullType(
+                    V1GovernoratesIdDelegationsGet200Response,
+                  ),
+                )
+                as V1GovernoratesIdDelegationsGet200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -541,9 +568,10 @@ class DefaultApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(V1HealthGet200Response),
-            ) as V1HealthGet200Response;
+                  rawResponse,
+                  specifiedType: const FullType(V1HealthGet200Response),
+                )
+                as V1HealthGet200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -590,9 +618,11 @@ class DefaultApi {
     ProgressCallback? onReceiveProgress,
   }) async {
     final _path = r'/v1/media/{id}/process'.replaceAll(
-        '{' r'id' '}',
-        encodeQueryParameter(_serializers, id, const FullType(String))
-            .toString());
+      '{'
+      r'id'
+      '}',
+      encodeQueryParameter(_serializers, id, const FullType(String)).toString(),
+    );
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -620,9 +650,12 @@ class DefaultApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(V1MediaIdProcessPost200Response),
-            ) as V1MediaIdProcessPost200Response;
+                  rawResponse,
+                  specifiedType: const FullType(
+                    V1MediaIdProcessPost200Response,
+                  ),
+                )
+                as V1MediaIdProcessPost200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -686,8 +719,10 @@ class DefaultApi {
 
     try {
       const _type = FullType(V1MediaPresignPostRequest);
-      _bodyData = _serializers.serialize(v1MediaPresignPostRequest,
-          specifiedType: _type);
+      _bodyData = _serializers.serialize(
+        v1MediaPresignPostRequest,
+        specifiedType: _type,
+      );
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _options.compose(
@@ -716,9 +751,10 @@ class DefaultApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(V1MediaPresignPost200Response),
-            ) as V1MediaPresignPost200Response;
+                  rawResponse,
+                  specifiedType: const FullType(V1MediaPresignPost200Response),
+                )
+                as V1MediaPresignPost200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -782,8 +818,10 @@ class DefaultApi {
 
     try {
       const _type = FullType(V1ProfileViewsPostRequest);
-      _bodyData = _serializers.serialize(v1ProfileViewsPostRequest,
-          specifiedType: _type);
+      _bodyData = _serializers.serialize(
+        v1ProfileViewsPostRequest,
+        specifiedType: _type,
+      );
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _options.compose(
@@ -824,7 +862,7 @@ class DefaultApi {
   /// Returns a [Future] containing a [Response] with a [V1ProvidersIdReviewsPost200Response] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<V1ProvidersIdReviewsPost200Response>>
-      v1ProvidersIdReviewsPost({
+  v1ProvidersIdReviewsPost({
     required String id,
     required V1ProvidersIdReviewsPostRequest v1ProvidersIdReviewsPostRequest,
     CancelToken? cancelToken,
@@ -835,9 +873,11 @@ class DefaultApi {
     ProgressCallback? onReceiveProgress,
   }) async {
     final _path = r'/v1/providers/{id}/reviews'.replaceAll(
-        '{' r'id' '}',
-        encodeQueryParameter(_serializers, id, const FullType(String))
-            .toString());
+      '{'
+      r'id'
+      '}',
+      encodeQueryParameter(_serializers, id, const FullType(String)).toString(),
+    );
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -855,8 +895,10 @@ class DefaultApi {
 
     try {
       const _type = FullType(V1ProvidersIdReviewsPostRequest);
-      _bodyData = _serializers.serialize(v1ProvidersIdReviewsPostRequest,
-          specifiedType: _type);
+      _bodyData = _serializers.serialize(
+        v1ProvidersIdReviewsPostRequest,
+        specifiedType: _type,
+      );
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _options.compose(
@@ -885,10 +927,12 @@ class DefaultApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType:
-                  const FullType(V1ProvidersIdReviewsPost200Response),
-            ) as V1ProvidersIdReviewsPost200Response;
+                  rawResponse,
+                  specifiedType: const FullType(
+                    V1ProvidersIdReviewsPost200Response,
+                  ),
+                )
+                as V1ProvidersIdReviewsPost200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -926,9 +970,9 @@ class DefaultApi {
   /// Returns a [Future] containing a [Response] with a [V1ProvidersMeCategoriesPut200Response] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<V1ProvidersMeCategoriesPut200Response>>
-      v1ProvidersMeCategoriesPut({
+  v1ProvidersMeCategoriesPut({
     required V1ProvidersMeCategoriesPutRequest
-        v1ProvidersMeCategoriesPutRequest,
+    v1ProvidersMeCategoriesPutRequest,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -954,8 +998,10 @@ class DefaultApi {
 
     try {
       const _type = FullType(V1ProvidersMeCategoriesPutRequest);
-      _bodyData = _serializers.serialize(v1ProvidersMeCategoriesPutRequest,
-          specifiedType: _type);
+      _bodyData = _serializers.serialize(
+        v1ProvidersMeCategoriesPutRequest,
+        specifiedType: _type,
+      );
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _options.compose(
@@ -984,10 +1030,12 @@ class DefaultApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType:
-                  const FullType(V1ProvidersMeCategoriesPut200Response),
-            ) as V1ProvidersMeCategoriesPut200Response;
+                  rawResponse,
+                  specifiedType: const FullType(
+                    V1ProvidersMeCategoriesPut200Response,
+                  ),
+                )
+                as V1ProvidersMeCategoriesPut200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -1025,9 +1073,9 @@ class DefaultApi {
   /// Returns a [Future] containing a [Response] with a [V1ProvidersMeCoverageAreasPut200Response] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<V1ProvidersMeCoverageAreasPut200Response>>
-      v1ProvidersMeCoverageAreasPut({
+  v1ProvidersMeCoverageAreasPut({
     required V1ProvidersMeCoverageAreasPutRequest
-        v1ProvidersMeCoverageAreasPutRequest,
+    v1ProvidersMeCoverageAreasPutRequest,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -1053,8 +1101,10 @@ class DefaultApi {
 
     try {
       const _type = FullType(V1ProvidersMeCoverageAreasPutRequest);
-      _bodyData = _serializers.serialize(v1ProvidersMeCoverageAreasPutRequest,
-          specifiedType: _type);
+      _bodyData = _serializers.serialize(
+        v1ProvidersMeCoverageAreasPutRequest,
+        specifiedType: _type,
+      );
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _options.compose(
@@ -1083,10 +1133,12 @@ class DefaultApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType:
-                  const FullType(V1ProvidersMeCoverageAreasPut200Response),
-            ) as V1ProvidersMeCoverageAreasPut200Response;
+                  rawResponse,
+                  specifiedType: const FullType(
+                    V1ProvidersMeCoverageAreasPut200Response,
+                  ),
+                )
+                as V1ProvidersMeCoverageAreasPut200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -1150,8 +1202,10 @@ class DefaultApi {
 
     try {
       const _type = FullType(V1ProvidersMePatchRequest);
-      _bodyData = _serializers.serialize(v1ProvidersMePatchRequest,
-          specifiedType: _type);
+      _bodyData = _serializers.serialize(
+        v1ProvidersMePatchRequest,
+        specifiedType: _type,
+      );
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _options.compose(
@@ -1180,10 +1234,12 @@ class DefaultApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType:
-                  const FullType(V1ProvidersMePost200ResponseProvider),
-            ) as V1ProvidersMePost200ResponseProvider;
+                  rawResponse,
+                  specifiedType: const FullType(
+                    V1ProvidersMePost200ResponseProvider,
+                  ),
+                )
+                as V1ProvidersMePost200ResponseProvider;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -1230,9 +1286,11 @@ class DefaultApi {
     ProgressCallback? onReceiveProgress,
   }) async {
     final _path = r'/v1/providers/me/portfolio/{id}'.replaceAll(
-        '{' r'id' '}',
-        encodeQueryParameter(_serializers, id, const FullType(String))
-            .toString());
+      '{'
+      r'id'
+      '}',
+      encodeQueryParameter(_serializers, id, const FullType(String)).toString(),
+    );
     final _options = Options(
       method: r'DELETE',
       headers: <String, dynamic>{
@@ -1271,9 +1329,9 @@ class DefaultApi {
   /// Returns a [Future] containing a [Response] with a [V1ProvidersMePortfolioPost200Response] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<V1ProvidersMePortfolioPost200Response>>
-      v1ProvidersMePortfolioPost({
+  v1ProvidersMePortfolioPost({
     required V1ProvidersMePortfolioPostRequest
-        v1ProvidersMePortfolioPostRequest,
+    v1ProvidersMePortfolioPostRequest,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -1299,8 +1357,10 @@ class DefaultApi {
 
     try {
       const _type = FullType(V1ProvidersMePortfolioPostRequest);
-      _bodyData = _serializers.serialize(v1ProvidersMePortfolioPostRequest,
-          specifiedType: _type);
+      _bodyData = _serializers.serialize(
+        v1ProvidersMePortfolioPostRequest,
+        specifiedType: _type,
+      );
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _options.compose(
@@ -1329,10 +1389,12 @@ class DefaultApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType:
-                  const FullType(V1ProvidersMePortfolioPost200Response),
-            ) as V1ProvidersMePortfolioPost200Response;
+                  rawResponse,
+                  specifiedType: const FullType(
+                    V1ProvidersMePortfolioPost200Response,
+                  ),
+                )
+                as V1ProvidersMePortfolioPost200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -1396,8 +1458,10 @@ class DefaultApi {
 
     try {
       const _type = FullType(V1ProvidersMePostRequest);
-      _bodyData = _serializers.serialize(v1ProvidersMePostRequest,
-          specifiedType: _type);
+      _bodyData = _serializers.serialize(
+        v1ProvidersMePostRequest,
+        specifiedType: _type,
+      );
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _options.compose(
@@ -1426,9 +1490,10 @@ class DefaultApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(V1ProvidersMePost200Response),
-            ) as V1ProvidersMePost200Response;
+                  rawResponse,
+                  specifiedType: const FullType(V1ProvidersMePost200Response),
+                )
+                as V1ProvidersMePost200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -1500,9 +1565,12 @@ class DefaultApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(V1ProvidersMeStatsGet200Response),
-            ) as V1ProvidersMeStatsGet200Response;
+                  rawResponse,
+                  specifiedType: const FullType(
+                    V1ProvidersMeStatsGet200Response,
+                  ),
+                )
+                as V1ProvidersMeStatsGet200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -1580,30 +1648,57 @@ class DefaultApi {
     final _queryParameters = <String, dynamic>{
       if (category != null)
         r'category': encodeQueryParameter(
-            _serializers, category, const FullType(String)),
+          _serializers,
+          category,
+          const FullType(String),
+        ),
       r'governorate': encodeQueryParameter(
-          _serializers, governorate, const FullType(String)),
+        _serializers,
+        governorate,
+        const FullType(String),
+      ),
       if (delegation != null)
         r'delegation': encodeQueryParameter(
-            _serializers, delegation, const FullType(String)),
+          _serializers,
+          delegation,
+          const FullType(String),
+        ),
       if (verified != null)
         r'verified': encodeQueryParameter(
-            _serializers, verified, const FullType(String)),
+          _serializers,
+          verified,
+          const FullType(String),
+        ),
       if (minRating != null)
-        r'minRating':
-            encodeQueryParameter(_serializers, minRating, const FullType(num)),
+        r'minRating': encodeQueryParameter(
+          _serializers,
+          minRating,
+          const FullType(num),
+        ),
       if (availability != null)
         r'availability': encodeQueryParameter(
-            _serializers, availability, const FullType(String)),
+          _serializers,
+          availability,
+          const FullType(String),
+        ),
       if (cursor != null)
-        r'cursor':
-            encodeQueryParameter(_serializers, cursor, const FullType(String)),
+        r'cursor': encodeQueryParameter(
+          _serializers,
+          cursor,
+          const FullType(String),
+        ),
       if (limit != null)
-        r'limit':
-            encodeQueryParameter(_serializers, limit, const FullType(int)),
+        r'limit': encodeQueryParameter(
+          _serializers,
+          limit,
+          const FullType(int),
+        ),
       if (debug != null)
-        r'debug':
-            encodeQueryParameter(_serializers, debug, const FullType(String)),
+        r'debug': encodeQueryParameter(
+          _serializers,
+          debug,
+          const FullType(String),
+        ),
     };
 
     final _response = await _dio.request<Object>(
@@ -1622,9 +1717,12 @@ class DefaultApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(V1ProvidersSearchGet200Response),
-            ) as V1ProvidersSearchGet200Response;
+                  rawResponse,
+                  specifiedType: const FullType(
+                    V1ProvidersSearchGet200Response,
+                  ),
+                )
+                as V1ProvidersSearchGet200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -1671,9 +1769,15 @@ class DefaultApi {
     ProgressCallback? onReceiveProgress,
   }) async {
     final _path = r'/v1/providers/{slug}'.replaceAll(
-        '{' r'slug' '}',
-        encodeQueryParameter(_serializers, slug, const FullType(String))
-            .toString());
+      '{'
+      r'slug'
+      '}',
+      encodeQueryParameter(
+        _serializers,
+        slug,
+        const FullType(String),
+      ).toString(),
+    );
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
@@ -1701,9 +1805,10 @@ class DefaultApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(V1ProvidersSlugGet200Response),
-            ) as V1ProvidersSlugGet200Response;
+                  rawResponse,
+                  specifiedType: const FullType(V1ProvidersSlugGet200Response),
+                )
+                as V1ProvidersSlugGet200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -1743,7 +1848,7 @@ class DefaultApi {
   /// Returns a [Future] containing a [Response] with a [V1ProvidersSlugReviewsGet200Response] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<V1ProvidersSlugReviewsGet200Response>>
-      v1ProvidersSlugReviewsGet({
+  v1ProvidersSlugReviewsGet({
     required String slug,
     String? cursor,
     int? limit = 20,
@@ -1755,9 +1860,15 @@ class DefaultApi {
     ProgressCallback? onReceiveProgress,
   }) async {
     final _path = r'/v1/providers/{slug}/reviews'.replaceAll(
-        '{' r'slug' '}',
-        encodeQueryParameter(_serializers, slug, const FullType(String))
-            .toString());
+      '{'
+      r'slug'
+      '}',
+      encodeQueryParameter(
+        _serializers,
+        slug,
+        const FullType(String),
+      ).toString(),
+    );
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
@@ -1772,11 +1883,17 @@ class DefaultApi {
 
     final _queryParameters = <String, dynamic>{
       if (cursor != null)
-        r'cursor':
-            encodeQueryParameter(_serializers, cursor, const FullType(String)),
+        r'cursor': encodeQueryParameter(
+          _serializers,
+          cursor,
+          const FullType(String),
+        ),
       if (limit != null)
-        r'limit':
-            encodeQueryParameter(_serializers, limit, const FullType(int)),
+        r'limit': encodeQueryParameter(
+          _serializers,
+          limit,
+          const FullType(int),
+        ),
     };
 
     final _response = await _dio.request<Object>(
@@ -1795,10 +1912,12 @@ class DefaultApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType:
-                  const FullType(V1ProvidersSlugReviewsGet200Response),
-            ) as V1ProvidersSlugReviewsGet200Response;
+                  rawResponse,
+                  specifiedType: const FullType(
+                    V1ProvidersSlugReviewsGet200Response,
+                  ),
+                )
+                as V1ProvidersSlugReviewsGet200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,

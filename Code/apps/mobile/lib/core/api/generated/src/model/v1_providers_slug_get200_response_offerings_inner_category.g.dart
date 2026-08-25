@@ -15,23 +15,24 @@ class _$V1ProvidersSlugGet200ResponseOfferingsInnerCategory
   @override
   final String nameAr;
 
-  factory _$V1ProvidersSlugGet200ResponseOfferingsInnerCategory(
-          [void Function(
-                  V1ProvidersSlugGet200ResponseOfferingsInnerCategoryBuilder)?
-              updates]) =>
+  factory _$V1ProvidersSlugGet200ResponseOfferingsInnerCategory([
+    void Function(V1ProvidersSlugGet200ResponseOfferingsInnerCategoryBuilder)?
+    updates,
+  ]) =>
       (V1ProvidersSlugGet200ResponseOfferingsInnerCategoryBuilder()
             ..update(updates))
           ._build();
 
-  _$V1ProvidersSlugGet200ResponseOfferingsInnerCategory._(
-      {required this.slug, required this.nameFr, required this.nameAr})
-      : super._();
+  _$V1ProvidersSlugGet200ResponseOfferingsInnerCategory._({
+    required this.slug,
+    required this.nameFr,
+    required this.nameAr,
+  }) : super._();
   @override
   V1ProvidersSlugGet200ResponseOfferingsInnerCategory rebuild(
-          void Function(
-                  V1ProvidersSlugGet200ResponseOfferingsInnerCategoryBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(V1ProvidersSlugGet200ResponseOfferingsInnerCategoryBuilder)
+    updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersSlugGet200ResponseOfferingsInnerCategoryBuilder toBuilder() =>
@@ -60,7 +61,8 @@ class _$V1ProvidersSlugGet200ResponseOfferingsInnerCategory
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'V1ProvidersSlugGet200ResponseOfferingsInnerCategory')
+            r'V1ProvidersSlugGet200ResponseOfferingsInnerCategory',
+          )
           ..add('slug', slug)
           ..add('nameFr', nameFr)
           ..add('nameAr', nameAr))
@@ -70,8 +72,10 @@ class _$V1ProvidersSlugGet200ResponseOfferingsInnerCategory
 
 class V1ProvidersSlugGet200ResponseOfferingsInnerCategoryBuilder
     implements
-        Builder<V1ProvidersSlugGet200ResponseOfferingsInnerCategory,
-            V1ProvidersSlugGet200ResponseOfferingsInnerCategoryBuilder> {
+        Builder<
+          V1ProvidersSlugGet200ResponseOfferingsInnerCategory,
+          V1ProvidersSlugGet200ResponseOfferingsInnerCategoryBuilder
+        > {
   _$V1ProvidersSlugGet200ResponseOfferingsInnerCategory? _$v;
 
   String? _slug;
@@ -108,8 +112,9 @@ class V1ProvidersSlugGet200ResponseOfferingsInnerCategoryBuilder
 
   @override
   void update(
-      void Function(V1ProvidersSlugGet200ResponseOfferingsInnerCategoryBuilder)?
-          updates) {
+    void Function(V1ProvidersSlugGet200ResponseOfferingsInnerCategoryBuilder)?
+    updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -117,14 +122,24 @@ class V1ProvidersSlugGet200ResponseOfferingsInnerCategoryBuilder
   V1ProvidersSlugGet200ResponseOfferingsInnerCategory build() => _build();
 
   _$V1ProvidersSlugGet200ResponseOfferingsInnerCategory _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$V1ProvidersSlugGet200ResponseOfferingsInnerCategory._(
-          slug: BuiltValueNullFieldError.checkNotNull(slug,
-              r'V1ProvidersSlugGet200ResponseOfferingsInnerCategory', 'slug'),
-          nameFr: BuiltValueNullFieldError.checkNotNull(nameFr,
-              r'V1ProvidersSlugGet200ResponseOfferingsInnerCategory', 'nameFr'),
-          nameAr: BuiltValueNullFieldError.checkNotNull(nameAr,
-              r'V1ProvidersSlugGet200ResponseOfferingsInnerCategory', 'nameAr'),
+          slug: BuiltValueNullFieldError.checkNotNull(
+            slug,
+            r'V1ProvidersSlugGet200ResponseOfferingsInnerCategory',
+            'slug',
+          ),
+          nameFr: BuiltValueNullFieldError.checkNotNull(
+            nameFr,
+            r'V1ProvidersSlugGet200ResponseOfferingsInnerCategory',
+            'nameFr',
+          ),
+          nameAr: BuiltValueNullFieldError.checkNotNull(
+            nameAr,
+            r'V1ProvidersSlugGet200ResponseOfferingsInnerCategory',
+            'nameAr',
+          ),
         );
     replace(_$result);
     return _$result;

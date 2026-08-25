@@ -81,9 +81,9 @@ abstract class V1AuthMeGet200Response
 
   V1AuthMeGet200Response._();
 
-  factory V1AuthMeGet200Response(
-          [void updates(V1AuthMeGet200ResponseBuilder b)]) =
-      _$V1AuthMeGet200Response;
+  factory V1AuthMeGet200Response([
+    void updates(V1AuthMeGet200ResponseBuilder b),
+  ]) = _$V1AuthMeGet200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1AuthMeGet200ResponseBuilder b) => b;
@@ -98,7 +98,7 @@ class _$V1AuthMeGet200ResponseSerializer
   @override
   final Iterable<Type> types = const [
     V1AuthMeGet200Response,
-    _$V1AuthMeGet200Response
+    _$V1AuthMeGet200Response,
   ];
 
   @override
@@ -152,8 +152,9 @@ class _$V1AuthMeGet200ResponseSerializer
     yield r'roles';
     yield serializers.serialize(
       object.roles,
-      specifiedType: const FullType(
-          BuiltList, [FullType(V1AuthOtpVerifyPost200ResponseUserRolesEnum)]),
+      specifiedType: const FullType(BuiltList, [
+        FullType(V1AuthOtpVerifyPost200ResponseUserRolesEnum),
+      ]),
     );
     yield r'status';
     yield serializers.serialize(
@@ -193,9 +194,11 @@ class _$V1AuthMeGet200ResponseSerializer
     V1AuthMeGet200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -211,109 +214,142 @@ class _$V1AuthMeGet200ResponseSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.id = valueDes;
           break;
         case r'phone':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.phone = valueDes;
           break;
         case r'phoneVerifiedAt':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime;
           result.phoneVerifiedAt = valueDes;
           break;
         case r'email':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.email = valueDes;
           break;
         case r'emailVerifiedAt':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime;
           result.emailVerifiedAt = valueDes;
           break;
         case r'firstName':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.firstName = valueDes;
           break;
         case r'lastName':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.lastName = valueDes;
           break;
         case r'avatarMediaId':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.avatarMediaId = valueDes;
           break;
         case r'roles':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BuiltList,
-                [FullType(V1AuthOtpVerifyPost200ResponseUserRolesEnum)]),
-          ) as BuiltList<V1AuthOtpVerifyPost200ResponseUserRolesEnum>;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(BuiltList, [
+                      FullType(V1AuthOtpVerifyPost200ResponseUserRolesEnum),
+                    ]),
+                  )
+                  as BuiltList<V1AuthOtpVerifyPost200ResponseUserRolesEnum>;
           result.roles.replace(valueDes);
           break;
         case r'status':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(V1AuthMeGet200ResponseStatusEnum),
-          ) as V1AuthMeGet200ResponseStatusEnum;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(
+                      V1AuthMeGet200ResponseStatusEnum,
+                    ),
+                  )
+                  as V1AuthMeGet200ResponseStatusEnum;
           result.status = valueDes;
           break;
         case r'locale':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.locale = valueDes;
           break;
         case r'lastLoginAt':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime;
           result.lastLoginAt = valueDes;
           break;
         case r'marketingOptIn':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool;
           result.marketingOptIn = valueDes;
           break;
         case r'createdAt':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime;
           result.createdAt = valueDes;
           break;
         case r'updatedAt':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime;
           result.updatedAt = valueDes;
           break;
         default:

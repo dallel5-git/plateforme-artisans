@@ -25,8 +25,10 @@ part 'v1_governorates_id_delegations_get200_response_delegations_inner.g.dart';
 @BuiltValue()
 abstract class V1GovernoratesIdDelegationsGet200ResponseDelegationsInner
     implements
-        Built<V1GovernoratesIdDelegationsGet200ResponseDelegationsInner,
-            V1GovernoratesIdDelegationsGet200ResponseDelegationsInnerBuilder> {
+        Built<
+          V1GovernoratesIdDelegationsGet200ResponseDelegationsInner,
+          V1GovernoratesIdDelegationsGet200ResponseDelegationsInnerBuilder
+        > {
   @BuiltValueField(wireName: r'id')
   String get id;
 
@@ -56,31 +58,32 @@ abstract class V1GovernoratesIdDelegationsGet200ResponseDelegationsInner
 
   V1GovernoratesIdDelegationsGet200ResponseDelegationsInner._();
 
-  factory V1GovernoratesIdDelegationsGet200ResponseDelegationsInner(
-          [void updates(
-              V1GovernoratesIdDelegationsGet200ResponseDelegationsInnerBuilder
-                  b)]) =
-      _$V1GovernoratesIdDelegationsGet200ResponseDelegationsInner;
+  factory V1GovernoratesIdDelegationsGet200ResponseDelegationsInner([
+    void updates(
+      V1GovernoratesIdDelegationsGet200ResponseDelegationsInnerBuilder b,
+    ),
+  ]) = _$V1GovernoratesIdDelegationsGet200ResponseDelegationsInner;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(
-          V1GovernoratesIdDelegationsGet200ResponseDelegationsInnerBuilder b) =>
-      b;
+    V1GovernoratesIdDelegationsGet200ResponseDelegationsInnerBuilder b,
+  ) => b;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<V1GovernoratesIdDelegationsGet200ResponseDelegationsInner>
-      get serializer =>
-          _$V1GovernoratesIdDelegationsGet200ResponseDelegationsInnerSerializer();
+  get serializer =>
+      _$V1GovernoratesIdDelegationsGet200ResponseDelegationsInnerSerializer();
 }
 
 class _$V1GovernoratesIdDelegationsGet200ResponseDelegationsInnerSerializer
     implements
         PrimitiveSerializer<
-            V1GovernoratesIdDelegationsGet200ResponseDelegationsInner> {
+          V1GovernoratesIdDelegationsGet200ResponseDelegationsInner
+        > {
   @override
   final Iterable<Type> types = const [
     V1GovernoratesIdDelegationsGet200ResponseDelegationsInner,
-    _$V1GovernoratesIdDelegationsGet200ResponseDelegationsInner
+    _$V1GovernoratesIdDelegationsGet200ResponseDelegationsInner,
   ];
 
   @override
@@ -145,9 +148,11 @@ class _$V1GovernoratesIdDelegationsGet200ResponseDelegationsInnerSerializer
     V1GovernoratesIdDelegationsGet200ResponseDelegationsInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -156,7 +161,7 @@ class _$V1GovernoratesIdDelegationsGet200ResponseDelegationsInnerSerializer
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
     required V1GovernoratesIdDelegationsGet200ResponseDelegationsInnerBuilder
-        result,
+    result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -164,66 +169,84 @@ class _$V1GovernoratesIdDelegationsGet200ResponseDelegationsInnerSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.id = valueDes;
           break;
         case r'governorateId':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.governorateId = valueDes;
           break;
         case r'code':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.code = valueDes;
           break;
         case r'nameFr':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.nameFr = valueDes;
           break;
         case r'nameAr':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.nameAr = valueDes;
           break;
         case r'slug':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.slug = valueDes;
           break;
         case r'postalCode':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.postalCode = valueDes;
           break;
         case r'latitude':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(num),
-          ) as num;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(num),
+                  )
+                  as num;
           result.latitude = valueDes;
           break;
         case r'longitude':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(num),
-          ) as num;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(num),
+                  )
+                  as num;
           result.longitude = valueDes;
           break;
         default:

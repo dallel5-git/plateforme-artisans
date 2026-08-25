@@ -7,21 +7,22 @@ part of 'v1_auth_otp_verify_post200_response_user.dart';
 // **************************************************************************
 
 const V1AuthOtpVerifyPost200ResponseUserStatusEnum
-    _$v1AuthOtpVerifyPost200ResponseUserStatusEnum_PENDING_VERIFICATION =
+_$v1AuthOtpVerifyPost200ResponseUserStatusEnum_PENDING_VERIFICATION =
     const V1AuthOtpVerifyPost200ResponseUserStatusEnum._(
-        'PENDING_VERIFICATION');
+      'PENDING_VERIFICATION',
+    );
 const V1AuthOtpVerifyPost200ResponseUserStatusEnum
-    _$v1AuthOtpVerifyPost200ResponseUserStatusEnum_ACTIVE =
+_$v1AuthOtpVerifyPost200ResponseUserStatusEnum_ACTIVE =
     const V1AuthOtpVerifyPost200ResponseUserStatusEnum._('ACTIVE');
 const V1AuthOtpVerifyPost200ResponseUserStatusEnum
-    _$v1AuthOtpVerifyPost200ResponseUserStatusEnum_SUSPENDED =
+_$v1AuthOtpVerifyPost200ResponseUserStatusEnum_SUSPENDED =
     const V1AuthOtpVerifyPost200ResponseUserStatusEnum._('SUSPENDED');
 const V1AuthOtpVerifyPost200ResponseUserStatusEnum
-    _$v1AuthOtpVerifyPost200ResponseUserStatusEnum_DELETED =
+_$v1AuthOtpVerifyPost200ResponseUserStatusEnum_DELETED =
     const V1AuthOtpVerifyPost200ResponseUserStatusEnum._('DELETED');
 
 V1AuthOtpVerifyPost200ResponseUserStatusEnum
-    _$v1AuthOtpVerifyPost200ResponseUserStatusEnumValueOf(String name) {
+_$v1AuthOtpVerifyPost200ResponseUserStatusEnumValueOf(String name) {
   switch (name) {
     case 'PENDING_VERIFICATION':
       return _$v1AuthOtpVerifyPost200ResponseUserStatusEnum_PENDING_VERIFICATION;
@@ -37,16 +38,18 @@ V1AuthOtpVerifyPost200ResponseUserStatusEnum
 }
 
 final BuiltSet<V1AuthOtpVerifyPost200ResponseUserStatusEnum>
-    _$v1AuthOtpVerifyPost200ResponseUserStatusEnumValues = BuiltSet<
-        V1AuthOtpVerifyPost200ResponseUserStatusEnum>(const <V1AuthOtpVerifyPost200ResponseUserStatusEnum>[
-  _$v1AuthOtpVerifyPost200ResponseUserStatusEnum_PENDING_VERIFICATION,
-  _$v1AuthOtpVerifyPost200ResponseUserStatusEnum_ACTIVE,
-  _$v1AuthOtpVerifyPost200ResponseUserStatusEnum_SUSPENDED,
-  _$v1AuthOtpVerifyPost200ResponseUserStatusEnum_DELETED,
-]);
+_$v1AuthOtpVerifyPost200ResponseUserStatusEnumValues =
+    BuiltSet<V1AuthOtpVerifyPost200ResponseUserStatusEnum>(
+      const <V1AuthOtpVerifyPost200ResponseUserStatusEnum>[
+        _$v1AuthOtpVerifyPost200ResponseUserStatusEnum_PENDING_VERIFICATION,
+        _$v1AuthOtpVerifyPost200ResponseUserStatusEnum_ACTIVE,
+        _$v1AuthOtpVerifyPost200ResponseUserStatusEnum_SUSPENDED,
+        _$v1AuthOtpVerifyPost200ResponseUserStatusEnum_DELETED,
+      ],
+    );
 
 Serializer<V1AuthOtpVerifyPost200ResponseUserStatusEnum>
-    _$v1AuthOtpVerifyPost200ResponseUserStatusEnumSerializer =
+_$v1AuthOtpVerifyPost200ResponseUserStatusEnumSerializer =
     _$V1AuthOtpVerifyPost200ResponseUserStatusEnumSerializer();
 
 class _$V1AuthOtpVerifyPost200ResponseUserStatusEnumSerializer
@@ -67,23 +70,26 @@ class _$V1AuthOtpVerifyPost200ResponseUserStatusEnumSerializer
 
   @override
   final Iterable<Type> types = const <Type>[
-    V1AuthOtpVerifyPost200ResponseUserStatusEnum
+    V1AuthOtpVerifyPost200ResponseUserStatusEnum,
   ];
   @override
   final String wireName = 'V1AuthOtpVerifyPost200ResponseUserStatusEnum';
 
   @override
-  Object serialize(Serializers serializers,
-          V1AuthOtpVerifyPost200ResponseUserStatusEnum object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+  Object serialize(
+    Serializers serializers,
+    V1AuthOtpVerifyPost200ResponseUserStatusEnum object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _toWire[object.name] ?? object.name;
 
   @override
   V1AuthOtpVerifyPost200ResponseUserStatusEnum deserialize(
-          Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      V1AuthOtpVerifyPost200ResponseUserStatusEnum.valueOf(
-          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => V1AuthOtpVerifyPost200ResponseUserStatusEnum.valueOf(
+    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+  );
 }
 
 class _$V1AuthOtpVerifyPost200ResponseUser
@@ -119,32 +125,31 @@ class _$V1AuthOtpVerifyPost200ResponseUser
   @override
   final DateTime updatedAt;
 
-  factory _$V1AuthOtpVerifyPost200ResponseUser(
-          [void Function(V1AuthOtpVerifyPost200ResponseUserBuilder)?
-              updates]) =>
-      (V1AuthOtpVerifyPost200ResponseUserBuilder()..update(updates))._build();
+  factory _$V1AuthOtpVerifyPost200ResponseUser([
+    void Function(V1AuthOtpVerifyPost200ResponseUserBuilder)? updates,
+  ]) => (V1AuthOtpVerifyPost200ResponseUserBuilder()..update(updates))._build();
 
-  _$V1AuthOtpVerifyPost200ResponseUser._(
-      {required this.id,
-      required this.phone,
-      required this.phoneVerifiedAt,
-      required this.email,
-      required this.emailVerifiedAt,
-      required this.firstName,
-      required this.lastName,
-      required this.avatarMediaId,
-      required this.roles,
-      required this.status,
-      required this.locale,
-      required this.lastLoginAt,
-      required this.marketingOptIn,
-      required this.createdAt,
-      required this.updatedAt})
-      : super._();
+  _$V1AuthOtpVerifyPost200ResponseUser._({
+    required this.id,
+    required this.phone,
+    required this.phoneVerifiedAt,
+    required this.email,
+    required this.emailVerifiedAt,
+    required this.firstName,
+    required this.lastName,
+    required this.avatarMediaId,
+    required this.roles,
+    required this.status,
+    required this.locale,
+    required this.lastLoginAt,
+    required this.marketingOptIn,
+    required this.createdAt,
+    required this.updatedAt,
+  }) : super._();
   @override
   V1AuthOtpVerifyPost200ResponseUser rebuild(
-          void Function(V1AuthOtpVerifyPost200ResponseUserBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(V1AuthOtpVerifyPost200ResponseUserBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   V1AuthOtpVerifyPost200ResponseUserBuilder toBuilder() =>
@@ -217,8 +222,10 @@ class _$V1AuthOtpVerifyPost200ResponseUser
 
 class V1AuthOtpVerifyPost200ResponseUserBuilder
     implements
-        Builder<V1AuthOtpVerifyPost200ResponseUser,
-            V1AuthOtpVerifyPost200ResponseUserBuilder> {
+        Builder<
+          V1AuthOtpVerifyPost200ResponseUser,
+          V1AuthOtpVerifyPost200ResponseUserBuilder
+        > {
   _$V1AuthOtpVerifyPost200ResponseUser? _$v;
 
   String? _id;
@@ -323,7 +330,8 @@ class V1AuthOtpVerifyPost200ResponseUserBuilder
 
   @override
   void update(
-      void Function(V1AuthOtpVerifyPost200ResponseUserBuilder)? updates) {
+    void Function(V1AuthOtpVerifyPost200ResponseUserBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -333,43 +341,80 @@ class V1AuthOtpVerifyPost200ResponseUserBuilder
   _$V1AuthOtpVerifyPost200ResponseUser _build() {
     _$V1AuthOtpVerifyPost200ResponseUser _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$V1AuthOtpVerifyPost200ResponseUser._(
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'V1AuthOtpVerifyPost200ResponseUser', 'id'),
+              id,
+              r'V1AuthOtpVerifyPost200ResponseUser',
+              'id',
+            ),
             phone: BuiltValueNullFieldError.checkNotNull(
-                phone, r'V1AuthOtpVerifyPost200ResponseUser', 'phone'),
+              phone,
+              r'V1AuthOtpVerifyPost200ResponseUser',
+              'phone',
+            ),
             phoneVerifiedAt: BuiltValueNullFieldError.checkNotNull(
-                phoneVerifiedAt,
-                r'V1AuthOtpVerifyPost200ResponseUser',
-                'phoneVerifiedAt'),
+              phoneVerifiedAt,
+              r'V1AuthOtpVerifyPost200ResponseUser',
+              'phoneVerifiedAt',
+            ),
             email: BuiltValueNullFieldError.checkNotNull(
-                email, r'V1AuthOtpVerifyPost200ResponseUser', 'email'),
+              email,
+              r'V1AuthOtpVerifyPost200ResponseUser',
+              'email',
+            ),
             emailVerifiedAt: BuiltValueNullFieldError.checkNotNull(
-                emailVerifiedAt,
-                r'V1AuthOtpVerifyPost200ResponseUser',
-                'emailVerifiedAt'),
+              emailVerifiedAt,
+              r'V1AuthOtpVerifyPost200ResponseUser',
+              'emailVerifiedAt',
+            ),
             firstName: BuiltValueNullFieldError.checkNotNull(
-                firstName, r'V1AuthOtpVerifyPost200ResponseUser', 'firstName'),
+              firstName,
+              r'V1AuthOtpVerifyPost200ResponseUser',
+              'firstName',
+            ),
             lastName: BuiltValueNullFieldError.checkNotNull(
-                lastName, r'V1AuthOtpVerifyPost200ResponseUser', 'lastName'),
-            avatarMediaId: BuiltValueNullFieldError.checkNotNull(avatarMediaId,
-                r'V1AuthOtpVerifyPost200ResponseUser', 'avatarMediaId'),
+              lastName,
+              r'V1AuthOtpVerifyPost200ResponseUser',
+              'lastName',
+            ),
+            avatarMediaId: BuiltValueNullFieldError.checkNotNull(
+              avatarMediaId,
+              r'V1AuthOtpVerifyPost200ResponseUser',
+              'avatarMediaId',
+            ),
             roles: roles.build(),
             status: BuiltValueNullFieldError.checkNotNull(
-                status, r'V1AuthOtpVerifyPost200ResponseUser', 'status'),
+              status,
+              r'V1AuthOtpVerifyPost200ResponseUser',
+              'status',
+            ),
             locale: BuiltValueNullFieldError.checkNotNull(
-                locale, r'V1AuthOtpVerifyPost200ResponseUser', 'locale'),
-            lastLoginAt: BuiltValueNullFieldError.checkNotNull(lastLoginAt,
-                r'V1AuthOtpVerifyPost200ResponseUser', 'lastLoginAt'),
+              locale,
+              r'V1AuthOtpVerifyPost200ResponseUser',
+              'locale',
+            ),
+            lastLoginAt: BuiltValueNullFieldError.checkNotNull(
+              lastLoginAt,
+              r'V1AuthOtpVerifyPost200ResponseUser',
+              'lastLoginAt',
+            ),
             marketingOptIn: BuiltValueNullFieldError.checkNotNull(
-                marketingOptIn,
-                r'V1AuthOtpVerifyPost200ResponseUser',
-                'marketingOptIn'),
+              marketingOptIn,
+              r'V1AuthOtpVerifyPost200ResponseUser',
+              'marketingOptIn',
+            ),
             createdAt: BuiltValueNullFieldError.checkNotNull(
-                createdAt, r'V1AuthOtpVerifyPost200ResponseUser', 'createdAt'),
+              createdAt,
+              r'V1AuthOtpVerifyPost200ResponseUser',
+              'createdAt',
+            ),
             updatedAt: BuiltValueNullFieldError.checkNotNull(
-                updatedAt, r'V1AuthOtpVerifyPost200ResponseUser', 'updatedAt'),
+              updatedAt,
+              r'V1AuthOtpVerifyPost200ResponseUser',
+              'updatedAt',
+            ),
           );
     } catch (_) {
       late String _$failedField;
@@ -378,7 +423,10 @@ class V1AuthOtpVerifyPost200ResponseUserBuilder
         roles.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'V1AuthOtpVerifyPost200ResponseUser', _$failedField, e.toString());
+          r'V1AuthOtpVerifyPost200ResponseUser',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

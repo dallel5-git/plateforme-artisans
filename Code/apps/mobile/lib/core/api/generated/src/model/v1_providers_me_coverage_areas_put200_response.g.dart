@@ -10,24 +10,23 @@ class _$V1ProvidersMeCoverageAreasPut200Response
     extends V1ProvidersMeCoverageAreasPut200Response {
   @override
   final BuiltList<V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner>
-      coverageAreas;
+  coverageAreas;
   @override
   final int completionScore;
 
-  factory _$V1ProvidersMeCoverageAreasPut200Response(
-          [void Function(V1ProvidersMeCoverageAreasPut200ResponseBuilder)?
-              updates]) =>
-      (V1ProvidersMeCoverageAreasPut200ResponseBuilder()..update(updates))
-          ._build();
+  factory _$V1ProvidersMeCoverageAreasPut200Response([
+    void Function(V1ProvidersMeCoverageAreasPut200ResponseBuilder)? updates,
+  ]) => (V1ProvidersMeCoverageAreasPut200ResponseBuilder()..update(updates))
+      ._build();
 
-  _$V1ProvidersMeCoverageAreasPut200Response._(
-      {required this.coverageAreas, required this.completionScore})
-      : super._();
+  _$V1ProvidersMeCoverageAreasPut200Response._({
+    required this.coverageAreas,
+    required this.completionScore,
+  }) : super._();
   @override
   V1ProvidersMeCoverageAreasPut200Response rebuild(
-          void Function(V1ProvidersMeCoverageAreasPut200ResponseBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(V1ProvidersMeCoverageAreasPut200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersMeCoverageAreasPut200ResponseBuilder toBuilder() =>
@@ -53,7 +52,8 @@ class _$V1ProvidersMeCoverageAreasPut200Response
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'V1ProvidersMeCoverageAreasPut200Response')
+            r'V1ProvidersMeCoverageAreasPut200Response',
+          )
           ..add('coverageAreas', coverageAreas)
           ..add('completionScore', completionScore))
         .toString();
@@ -62,20 +62,21 @@ class _$V1ProvidersMeCoverageAreasPut200Response
 
 class V1ProvidersMeCoverageAreasPut200ResponseBuilder
     implements
-        Builder<V1ProvidersMeCoverageAreasPut200Response,
-            V1ProvidersMeCoverageAreasPut200ResponseBuilder> {
+        Builder<
+          V1ProvidersMeCoverageAreasPut200Response,
+          V1ProvidersMeCoverageAreasPut200ResponseBuilder
+        > {
   _$V1ProvidersMeCoverageAreasPut200Response? _$v;
 
   ListBuilder<V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner>?
-      _coverageAreas;
+  _coverageAreas;
   ListBuilder<V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner>
-      get coverageAreas => _$this._coverageAreas ??= ListBuilder<
-          V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner>();
+  get coverageAreas => _$this._coverageAreas ??=
+      ListBuilder<V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner>();
   set coverageAreas(
-          ListBuilder<
-                  V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner>?
-              coverageAreas) =>
-      _$this._coverageAreas = coverageAreas;
+    ListBuilder<V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner>?
+    coverageAreas,
+  ) => _$this._coverageAreas = coverageAreas;
 
   int? _completionScore;
   int? get completionScore => _$this._completionScore;
@@ -103,7 +104,8 @@ class V1ProvidersMeCoverageAreasPut200ResponseBuilder
 
   @override
   void update(
-      void Function(V1ProvidersMeCoverageAreasPut200ResponseBuilder)? updates) {
+    void Function(V1ProvidersMeCoverageAreasPut200ResponseBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -113,13 +115,15 @@ class V1ProvidersMeCoverageAreasPut200ResponseBuilder
   _$V1ProvidersMeCoverageAreasPut200Response _build() {
     _$V1ProvidersMeCoverageAreasPut200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$V1ProvidersMeCoverageAreasPut200Response._(
             coverageAreas: coverageAreas.build(),
             completionScore: BuiltValueNullFieldError.checkNotNull(
-                completionScore,
-                r'V1ProvidersMeCoverageAreasPut200Response',
-                'completionScore'),
+              completionScore,
+              r'V1ProvidersMeCoverageAreasPut200Response',
+              'completionScore',
+            ),
           );
     } catch (_) {
       late String _$failedField;
@@ -128,9 +132,10 @@ class V1ProvidersMeCoverageAreasPut200ResponseBuilder
         coverageAreas.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'V1ProvidersMeCoverageAreasPut200Response',
-            _$failedField,
-            e.toString());
+          r'V1ProvidersMeCoverageAreasPut200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

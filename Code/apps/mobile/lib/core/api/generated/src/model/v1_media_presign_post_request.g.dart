@@ -14,17 +14,19 @@ class _$V1MediaPresignPostRequest extends V1MediaPresignPostRequest {
   @override
   final int sizeBytes;
 
-  factory _$V1MediaPresignPostRequest(
-          [void Function(V1MediaPresignPostRequestBuilder)? updates]) =>
-      (V1MediaPresignPostRequestBuilder()..update(updates))._build();
+  factory _$V1MediaPresignPostRequest([
+    void Function(V1MediaPresignPostRequestBuilder)? updates,
+  ]) => (V1MediaPresignPostRequestBuilder()..update(updates))._build();
 
-  _$V1MediaPresignPostRequest._(
-      {required this.filename, required this.mimeType, required this.sizeBytes})
-      : super._();
+  _$V1MediaPresignPostRequest._({
+    required this.filename,
+    required this.mimeType,
+    required this.sizeBytes,
+  }) : super._();
   @override
   V1MediaPresignPostRequest rebuild(
-          void Function(V1MediaPresignPostRequestBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(V1MediaPresignPostRequestBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   V1MediaPresignPostRequestBuilder toBuilder() =>
@@ -105,14 +107,24 @@ class V1MediaPresignPostRequestBuilder
   V1MediaPresignPostRequest build() => _build();
 
   _$V1MediaPresignPostRequest _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$V1MediaPresignPostRequest._(
           filename: BuiltValueNullFieldError.checkNotNull(
-              filename, r'V1MediaPresignPostRequest', 'filename'),
+            filename,
+            r'V1MediaPresignPostRequest',
+            'filename',
+          ),
           mimeType: BuiltValueNullFieldError.checkNotNull(
-              mimeType, r'V1MediaPresignPostRequest', 'mimeType'),
+            mimeType,
+            r'V1MediaPresignPostRequest',
+            'mimeType',
+          ),
           sizeBytes: BuiltValueNullFieldError.checkNotNull(
-              sizeBytes, r'V1MediaPresignPostRequest', 'sizeBytes'),
+            sizeBytes,
+            r'V1MediaPresignPostRequest',
+            'sizeBytes',
+          ),
         );
     replace(_$result);
     return _$result;

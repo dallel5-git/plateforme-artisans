@@ -31,8 +31,10 @@ part 'v1_auth_otp_verify_post200_response_user.g.dart';
 @BuiltValue()
 abstract class V1AuthOtpVerifyPost200ResponseUser
     implements
-        Built<V1AuthOtpVerifyPost200ResponseUser,
-            V1AuthOtpVerifyPost200ResponseUserBuilder> {
+        Built<
+          V1AuthOtpVerifyPost200ResponseUser,
+          V1AuthOtpVerifyPost200ResponseUserBuilder
+        > {
   @BuiltValueField(wireName: r'id')
   String get id;
 
@@ -82,9 +84,9 @@ abstract class V1AuthOtpVerifyPost200ResponseUser
 
   V1AuthOtpVerifyPost200ResponseUser._();
 
-  factory V1AuthOtpVerifyPost200ResponseUser(
-          [void updates(V1AuthOtpVerifyPost200ResponseUserBuilder b)]) =
-      _$V1AuthOtpVerifyPost200ResponseUser;
+  factory V1AuthOtpVerifyPost200ResponseUser([
+    void updates(V1AuthOtpVerifyPost200ResponseUserBuilder b),
+  ]) = _$V1AuthOtpVerifyPost200ResponseUser;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1AuthOtpVerifyPost200ResponseUserBuilder b) => b;
@@ -99,7 +101,7 @@ class _$V1AuthOtpVerifyPost200ResponseUserSerializer
   @override
   final Iterable<Type> types = const [
     V1AuthOtpVerifyPost200ResponseUser,
-    _$V1AuthOtpVerifyPost200ResponseUser
+    _$V1AuthOtpVerifyPost200ResponseUser,
   ];
 
   @override
@@ -153,14 +155,16 @@ class _$V1AuthOtpVerifyPost200ResponseUserSerializer
     yield r'roles';
     yield serializers.serialize(
       object.roles,
-      specifiedType: const FullType(
-          BuiltList, [FullType(V1AuthOtpVerifyPost200ResponseUserRolesEnum)]),
+      specifiedType: const FullType(BuiltList, [
+        FullType(V1AuthOtpVerifyPost200ResponseUserRolesEnum),
+      ]),
     );
     yield r'status';
     yield serializers.serialize(
       object.status,
-      specifiedType:
-          const FullType(V1AuthOtpVerifyPost200ResponseUserStatusEnum),
+      specifiedType: const FullType(
+        V1AuthOtpVerifyPost200ResponseUserStatusEnum,
+      ),
     );
     yield r'locale';
     yield serializers.serialize(
@@ -195,9 +199,11 @@ class _$V1AuthOtpVerifyPost200ResponseUserSerializer
     V1AuthOtpVerifyPost200ResponseUser object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -213,110 +219,142 @@ class _$V1AuthOtpVerifyPost200ResponseUserSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.id = valueDes;
           break;
         case r'phone':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.phone = valueDes;
           break;
         case r'phoneVerifiedAt':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime;
           result.phoneVerifiedAt = valueDes;
           break;
         case r'email':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.email = valueDes;
           break;
         case r'emailVerifiedAt':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime;
           result.emailVerifiedAt = valueDes;
           break;
         case r'firstName':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.firstName = valueDes;
           break;
         case r'lastName':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.lastName = valueDes;
           break;
         case r'avatarMediaId':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.avatarMediaId = valueDes;
           break;
         case r'roles':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BuiltList,
-                [FullType(V1AuthOtpVerifyPost200ResponseUserRolesEnum)]),
-          ) as BuiltList<V1AuthOtpVerifyPost200ResponseUserRolesEnum>;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(BuiltList, [
+                      FullType(V1AuthOtpVerifyPost200ResponseUserRolesEnum),
+                    ]),
+                  )
+                  as BuiltList<V1AuthOtpVerifyPost200ResponseUserRolesEnum>;
           result.roles.replace(valueDes);
           break;
         case r'status':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType:
-                const FullType(V1AuthOtpVerifyPost200ResponseUserStatusEnum),
-          ) as V1AuthOtpVerifyPost200ResponseUserStatusEnum;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(
+                      V1AuthOtpVerifyPost200ResponseUserStatusEnum,
+                    ),
+                  )
+                  as V1AuthOtpVerifyPost200ResponseUserStatusEnum;
           result.status = valueDes;
           break;
         case r'locale':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.locale = valueDes;
           break;
         case r'lastLoginAt':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime;
           result.lastLoginAt = valueDes;
           break;
         case r'marketingOptIn':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool;
           result.marketingOptIn = valueDes;
           break;
         case r'createdAt':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime;
           result.createdAt = valueDes;
           break;
         case r'updatedAt':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime;
           result.updatedAt = valueDes;
           break;
         default:
@@ -351,7 +389,7 @@ class _$V1AuthOtpVerifyPost200ResponseUserSerializer
 class V1AuthOtpVerifyPost200ResponseUserStatusEnum extends EnumClass {
   @BuiltValueEnumConst(wireName: r'PENDING_VERIFICATION')
   static const V1AuthOtpVerifyPost200ResponseUserStatusEnum
-      PENDING_VERIFICATION =
+  PENDING_VERIFICATION =
       _$v1AuthOtpVerifyPost200ResponseUserStatusEnum_PENDING_VERIFICATION;
   @BuiltValueEnumConst(wireName: r'ACTIVE')
   static const V1AuthOtpVerifyPost200ResponseUserStatusEnum ACTIVE =
@@ -364,11 +402,10 @@ class V1AuthOtpVerifyPost200ResponseUserStatusEnum extends EnumClass {
       _$v1AuthOtpVerifyPost200ResponseUserStatusEnum_DELETED;
 
   static Serializer<V1AuthOtpVerifyPost200ResponseUserStatusEnum>
-      get serializer =>
-          _$v1AuthOtpVerifyPost200ResponseUserStatusEnumSerializer;
+  get serializer => _$v1AuthOtpVerifyPost200ResponseUserStatusEnumSerializer;
 
   const V1AuthOtpVerifyPost200ResponseUserStatusEnum._(String name)
-      : super(name);
+    : super(name);
 
   static BuiltSet<V1AuthOtpVerifyPost200ResponseUserStatusEnum> get values =>
       _$v1AuthOtpVerifyPost200ResponseUserStatusEnumValues;

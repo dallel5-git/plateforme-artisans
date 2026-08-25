@@ -27,37 +27,40 @@ class _$V1GovernoratesIdDelegationsGet200ResponseDelegationsInner
   @override
   final num longitude;
 
-  factory _$V1GovernoratesIdDelegationsGet200ResponseDelegationsInner(
-          [void Function(
-                  V1GovernoratesIdDelegationsGet200ResponseDelegationsInnerBuilder)?
-              updates]) =>
+  factory _$V1GovernoratesIdDelegationsGet200ResponseDelegationsInner([
+    void Function(
+      V1GovernoratesIdDelegationsGet200ResponseDelegationsInnerBuilder,
+    )?
+    updates,
+  ]) =>
       (V1GovernoratesIdDelegationsGet200ResponseDelegationsInnerBuilder()
             ..update(updates))
           ._build();
 
-  _$V1GovernoratesIdDelegationsGet200ResponseDelegationsInner._(
-      {required this.id,
-      required this.governorateId,
-      required this.code,
-      required this.nameFr,
-      required this.nameAr,
-      required this.slug,
-      required this.postalCode,
-      required this.latitude,
-      required this.longitude})
-      : super._();
+  _$V1GovernoratesIdDelegationsGet200ResponseDelegationsInner._({
+    required this.id,
+    required this.governorateId,
+    required this.code,
+    required this.nameFr,
+    required this.nameAr,
+    required this.slug,
+    required this.postalCode,
+    required this.latitude,
+    required this.longitude,
+  }) : super._();
   @override
   V1GovernoratesIdDelegationsGet200ResponseDelegationsInner rebuild(
-          void Function(
-                  V1GovernoratesIdDelegationsGet200ResponseDelegationsInnerBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(
+      V1GovernoratesIdDelegationsGet200ResponseDelegationsInnerBuilder,
+    )
+    updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   V1GovernoratesIdDelegationsGet200ResponseDelegationsInnerBuilder
-      toBuilder() =>
-          V1GovernoratesIdDelegationsGet200ResponseDelegationsInnerBuilder()
-            ..replace(this);
+  toBuilder() =>
+      V1GovernoratesIdDelegationsGet200ResponseDelegationsInnerBuilder()
+        ..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -93,7 +96,8 @@ class _$V1GovernoratesIdDelegationsGet200ResponseDelegationsInner
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'V1GovernoratesIdDelegationsGet200ResponseDelegationsInner')
+            r'V1GovernoratesIdDelegationsGet200ResponseDelegationsInner',
+          )
           ..add('id', id)
           ..add('governorateId', governorateId)
           ..add('code', code)
@@ -109,8 +113,10 @@ class _$V1GovernoratesIdDelegationsGet200ResponseDelegationsInner
 
 class V1GovernoratesIdDelegationsGet200ResponseDelegationsInnerBuilder
     implements
-        Builder<V1GovernoratesIdDelegationsGet200ResponseDelegationsInner,
-            V1GovernoratesIdDelegationsGet200ResponseDelegationsInnerBuilder> {
+        Builder<
+          V1GovernoratesIdDelegationsGet200ResponseDelegationsInner,
+          V1GovernoratesIdDelegationsGet200ResponseDelegationsInnerBuilder
+        > {
   _$V1GovernoratesIdDelegationsGet200ResponseDelegationsInner? _$v;
 
   String? _id;
@@ -173,15 +179,18 @@ class V1GovernoratesIdDelegationsGet200ResponseDelegationsInnerBuilder
 
   @override
   void replace(
-      V1GovernoratesIdDelegationsGet200ResponseDelegationsInner other) {
+    V1GovernoratesIdDelegationsGet200ResponseDelegationsInner other,
+  ) {
     _$v = other as _$V1GovernoratesIdDelegationsGet200ResponseDelegationsInner;
   }
 
   @override
   void update(
-      void Function(
-              V1GovernoratesIdDelegationsGet200ResponseDelegationsInnerBuilder)?
-          updates) {
+    void Function(
+      V1GovernoratesIdDelegationsGet200ResponseDelegationsInnerBuilder,
+    )?
+    updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -189,44 +198,54 @@ class V1GovernoratesIdDelegationsGet200ResponseDelegationsInnerBuilder
   V1GovernoratesIdDelegationsGet200ResponseDelegationsInner build() => _build();
 
   _$V1GovernoratesIdDelegationsGet200ResponseDelegationsInner _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$V1GovernoratesIdDelegationsGet200ResponseDelegationsInner._(
           id: BuiltValueNullFieldError.checkNotNull(
-              id,
-              r'V1GovernoratesIdDelegationsGet200ResponseDelegationsInner',
-              'id'),
+            id,
+            r'V1GovernoratesIdDelegationsGet200ResponseDelegationsInner',
+            'id',
+          ),
           governorateId: BuiltValueNullFieldError.checkNotNull(
-              governorateId,
-              r'V1GovernoratesIdDelegationsGet200ResponseDelegationsInner',
-              'governorateId'),
+            governorateId,
+            r'V1GovernoratesIdDelegationsGet200ResponseDelegationsInner',
+            'governorateId',
+          ),
           code: BuiltValueNullFieldError.checkNotNull(
-              code,
-              r'V1GovernoratesIdDelegationsGet200ResponseDelegationsInner',
-              'code'),
+            code,
+            r'V1GovernoratesIdDelegationsGet200ResponseDelegationsInner',
+            'code',
+          ),
           nameFr: BuiltValueNullFieldError.checkNotNull(
-              nameFr,
-              r'V1GovernoratesIdDelegationsGet200ResponseDelegationsInner',
-              'nameFr'),
+            nameFr,
+            r'V1GovernoratesIdDelegationsGet200ResponseDelegationsInner',
+            'nameFr',
+          ),
           nameAr: BuiltValueNullFieldError.checkNotNull(
-              nameAr,
-              r'V1GovernoratesIdDelegationsGet200ResponseDelegationsInner',
-              'nameAr'),
+            nameAr,
+            r'V1GovernoratesIdDelegationsGet200ResponseDelegationsInner',
+            'nameAr',
+          ),
           slug: BuiltValueNullFieldError.checkNotNull(
-              slug,
-              r'V1GovernoratesIdDelegationsGet200ResponseDelegationsInner',
-              'slug'),
+            slug,
+            r'V1GovernoratesIdDelegationsGet200ResponseDelegationsInner',
+            'slug',
+          ),
           postalCode: BuiltValueNullFieldError.checkNotNull(
-              postalCode,
-              r'V1GovernoratesIdDelegationsGet200ResponseDelegationsInner',
-              'postalCode'),
+            postalCode,
+            r'V1GovernoratesIdDelegationsGet200ResponseDelegationsInner',
+            'postalCode',
+          ),
           latitude: BuiltValueNullFieldError.checkNotNull(
-              latitude,
-              r'V1GovernoratesIdDelegationsGet200ResponseDelegationsInner',
-              'latitude'),
+            latitude,
+            r'V1GovernoratesIdDelegationsGet200ResponseDelegationsInner',
+            'latitude',
+          ),
           longitude: BuiltValueNullFieldError.checkNotNull(
-              longitude,
-              r'V1GovernoratesIdDelegationsGet200ResponseDelegationsInner',
-              'longitude'),
+            longitude,
+            r'V1GovernoratesIdDelegationsGet200ResponseDelegationsInner',
+            'longitude',
+          ),
         );
     replace(_$result);
     return _$result;

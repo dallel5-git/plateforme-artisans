@@ -25,8 +25,10 @@ part 'v1_favorites_get200_response_items_inner.g.dart';
 @BuiltValue()
 abstract class V1FavoritesGet200ResponseItemsInner
     implements
-        Built<V1FavoritesGet200ResponseItemsInner,
-            V1FavoritesGet200ResponseItemsInnerBuilder> {
+        Built<
+          V1FavoritesGet200ResponseItemsInner,
+          V1FavoritesGet200ResponseItemsInnerBuilder
+        > {
   @BuiltValueField(wireName: r'providerId')
   String get providerId;
 
@@ -50,7 +52,7 @@ abstract class V1FavoritesGet200ResponseItemsInner
 
   @BuiltValueField(wireName: r'availabilityStatus')
   V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum
-      get availabilityStatus;
+  get availabilityStatus;
   // enum availabilityStatusEnum {  AVAILABLE,  BUSY,  ON_HOLIDAY,  };
 
   @BuiltValueField(wireName: r'favoritedAt')
@@ -58,9 +60,9 @@ abstract class V1FavoritesGet200ResponseItemsInner
 
   V1FavoritesGet200ResponseItemsInner._();
 
-  factory V1FavoritesGet200ResponseItemsInner(
-          [void updates(V1FavoritesGet200ResponseItemsInnerBuilder b)]) =
-      _$V1FavoritesGet200ResponseItemsInner;
+  factory V1FavoritesGet200ResponseItemsInner([
+    void updates(V1FavoritesGet200ResponseItemsInnerBuilder b),
+  ]) = _$V1FavoritesGet200ResponseItemsInner;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1FavoritesGet200ResponseItemsInnerBuilder b) => b;
@@ -75,7 +77,7 @@ class _$V1FavoritesGet200ResponseItemsInnerSerializer
   @override
   final Iterable<Type> types = const [
     V1FavoritesGet200ResponseItemsInner,
-    _$V1FavoritesGet200ResponseItemsInner
+    _$V1FavoritesGet200ResponseItemsInner,
   ];
 
   @override
@@ -125,7 +127,8 @@ class _$V1FavoritesGet200ResponseItemsInnerSerializer
     yield serializers.serialize(
       object.availabilityStatus,
       specifiedType: const FullType(
-          V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum),
+        V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum,
+      ),
     );
     yield r'favoritedAt';
     yield serializers.serialize(
@@ -140,9 +143,11 @@ class _$V1FavoritesGet200ResponseItemsInnerSerializer
     V1FavoritesGet200ResponseItemsInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -158,67 +163,86 @@ class _$V1FavoritesGet200ResponseItemsInnerSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'providerId':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.providerId = valueDes;
           break;
         case r'slug':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.slug = valueDes;
           break;
         case r'businessName':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.businessName = valueDes;
           break;
         case r'headline':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.headline = valueDes;
           break;
         case r'isVerified':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool;
           result.isVerified = valueDes;
           break;
         case r'ratingAvg':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(num),
-          ) as num;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(num),
+                  )
+                  as num;
           result.ratingAvg = valueDes;
           break;
         case r'ratingCount':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(num),
-          ) as num;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(num),
+                  )
+                  as num;
           result.ratingCount = valueDes;
           break;
         case r'availabilityStatus':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-                V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum),
-          ) as V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(
+                      V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum,
+                    ),
+                  )
+                  as V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum;
           result.availabilityStatus = valueDes;
           break;
         case r'favoritedAt':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime;
           result.favoritedAt = valueDes;
           break;
         default:
@@ -254,27 +278,27 @@ class V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum
     extends EnumClass {
   @BuiltValueEnumConst(wireName: r'AVAILABLE')
   static const V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum
-      AVAILABLE =
+  AVAILABLE =
       _$v1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum_AVAILABLE;
   @BuiltValueEnumConst(wireName: r'BUSY')
   static const V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum BUSY =
       _$v1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum_BUSY;
   @BuiltValueEnumConst(wireName: r'ON_HOLIDAY')
   static const V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum
-      ON_HOLIDAY =
+  ON_HOLIDAY =
       _$v1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum_ON_HOLIDAY;
 
   static Serializer<V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum>
-      get serializer =>
-          _$v1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnumSerializer;
+  get serializer =>
+      _$v1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnumSerializer;
 
   const V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum._(String name)
-      : super(name);
+    : super(name);
 
   static BuiltSet<V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum>
-      get values =>
-          _$v1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnumValues;
+  get values =>
+      _$v1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnumValues;
   static V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum valueOf(
-          String name) =>
-      _$v1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnumValueOf(name);
+    String name,
+  ) => _$v1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnumValueOf(name);
 }

@@ -23,8 +23,10 @@ part 'v1_providers_search_get200_response_items_inner_match_reason.g.dart';
 @BuiltValue()
 abstract class V1ProvidersSearchGet200ResponseItemsInnerMatchReason
     implements
-        Built<V1ProvidersSearchGet200ResponseItemsInnerMatchReason,
-            V1ProvidersSearchGet200ResponseItemsInnerMatchReasonBuilder> {
+        Built<
+          V1ProvidersSearchGet200ResponseItemsInnerMatchReason,
+          V1ProvidersSearchGet200ResponseItemsInnerMatchReasonBuilder
+        > {
   @BuiltValueField(wireName: r'geo')
   num get geo;
 
@@ -48,30 +50,30 @@ abstract class V1ProvidersSearchGet200ResponseItemsInnerMatchReason
 
   V1ProvidersSearchGet200ResponseItemsInnerMatchReason._();
 
-  factory V1ProvidersSearchGet200ResponseItemsInnerMatchReason(
-          [void updates(
-              V1ProvidersSearchGet200ResponseItemsInnerMatchReasonBuilder b)]) =
-      _$V1ProvidersSearchGet200ResponseItemsInnerMatchReason;
+  factory V1ProvidersSearchGet200ResponseItemsInnerMatchReason([
+    void updates(V1ProvidersSearchGet200ResponseItemsInnerMatchReasonBuilder b),
+  ]) = _$V1ProvidersSearchGet200ResponseItemsInnerMatchReason;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(
-          V1ProvidersSearchGet200ResponseItemsInnerMatchReasonBuilder b) =>
-      b;
+    V1ProvidersSearchGet200ResponseItemsInnerMatchReasonBuilder b,
+  ) => b;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<V1ProvidersSearchGet200ResponseItemsInnerMatchReason>
-      get serializer =>
-          _$V1ProvidersSearchGet200ResponseItemsInnerMatchReasonSerializer();
+  get serializer =>
+      _$V1ProvidersSearchGet200ResponseItemsInnerMatchReasonSerializer();
 }
 
 class _$V1ProvidersSearchGet200ResponseItemsInnerMatchReasonSerializer
     implements
         PrimitiveSerializer<
-            V1ProvidersSearchGet200ResponseItemsInnerMatchReason> {
+          V1ProvidersSearchGet200ResponseItemsInnerMatchReason
+        > {
   @override
   final Iterable<Type> types = const [
     V1ProvidersSearchGet200ResponseItemsInnerMatchReason,
-    _$V1ProvidersSearchGet200ResponseItemsInnerMatchReason
+    _$V1ProvidersSearchGet200ResponseItemsInnerMatchReason,
   ];
 
   @override
@@ -126,9 +128,11 @@ class _$V1ProvidersSearchGet200ResponseItemsInnerMatchReasonSerializer
     V1ProvidersSearchGet200ResponseItemsInnerMatchReason object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -144,52 +148,66 @@ class _$V1ProvidersSearchGet200ResponseItemsInnerMatchReasonSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'geo':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(num),
-          ) as num;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(num),
+                  )
+                  as num;
           result.geo = valueDes;
           break;
         case r'rating':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(num),
-          ) as num;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(num),
+                  )
+                  as num;
           result.rating = valueDes;
           break;
         case r'trust':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(num),
-          ) as num;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(num),
+                  )
+                  as num;
           result.trust = valueDes;
           break;
         case r'completion':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(num),
-          ) as num;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(num),
+                  )
+                  as num;
           result.completion = valueDes;
           break;
         case r'responsiveness':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(num),
-          ) as num;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(num),
+                  )
+                  as num;
           result.responsiveness = valueDes;
           break;
         case r'plan':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(num),
-          ) as num;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(num),
+                  )
+                  as num;
           result.plan = valueDes;
           break;
         case r'penalty':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(num),
-          ) as num;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(num),
+                  )
+                  as num;
           result.penalty = valueDes;
           break;
         default:

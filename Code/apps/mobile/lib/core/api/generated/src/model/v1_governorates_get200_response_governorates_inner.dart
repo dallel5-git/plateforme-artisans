@@ -24,8 +24,10 @@ part 'v1_governorates_get200_response_governorates_inner.g.dart';
 @BuiltValue()
 abstract class V1GovernoratesGet200ResponseGovernoratesInner
     implements
-        Built<V1GovernoratesGet200ResponseGovernoratesInner,
-            V1GovernoratesGet200ResponseGovernoratesInnerBuilder> {
+        Built<
+          V1GovernoratesGet200ResponseGovernoratesInner,
+          V1GovernoratesGet200ResponseGovernoratesInnerBuilder
+        > {
   @BuiltValueField(wireName: r'id')
   String get id;
 
@@ -52,20 +54,18 @@ abstract class V1GovernoratesGet200ResponseGovernoratesInner
 
   V1GovernoratesGet200ResponseGovernoratesInner._();
 
-  factory V1GovernoratesGet200ResponseGovernoratesInner(
-          [void updates(
-              V1GovernoratesGet200ResponseGovernoratesInnerBuilder b)]) =
-      _$V1GovernoratesGet200ResponseGovernoratesInner;
+  factory V1GovernoratesGet200ResponseGovernoratesInner([
+    void updates(V1GovernoratesGet200ResponseGovernoratesInnerBuilder b),
+  ]) = _$V1GovernoratesGet200ResponseGovernoratesInner;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(
-          V1GovernoratesGet200ResponseGovernoratesInnerBuilder b) =>
-      b;
+    V1GovernoratesGet200ResponseGovernoratesInnerBuilder b,
+  ) => b;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<V1GovernoratesGet200ResponseGovernoratesInner>
-      get serializer =>
-          _$V1GovernoratesGet200ResponseGovernoratesInnerSerializer();
+  get serializer => _$V1GovernoratesGet200ResponseGovernoratesInnerSerializer();
 }
 
 class _$V1GovernoratesGet200ResponseGovernoratesInnerSerializer
@@ -74,7 +74,7 @@ class _$V1GovernoratesGet200ResponseGovernoratesInnerSerializer
   @override
   final Iterable<Type> types = const [
     V1GovernoratesGet200ResponseGovernoratesInner,
-    _$V1GovernoratesGet200ResponseGovernoratesInner
+    _$V1GovernoratesGet200ResponseGovernoratesInner,
   ];
 
   @override
@@ -133,9 +133,11 @@ class _$V1GovernoratesGet200ResponseGovernoratesInnerSerializer
     V1GovernoratesGet200ResponseGovernoratesInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -151,59 +153,75 @@ class _$V1GovernoratesGet200ResponseGovernoratesInnerSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.id = valueDes;
           break;
         case r'code':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.code = valueDes;
           break;
         case r'nameFr':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.nameFr = valueDes;
           break;
         case r'nameAr':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.nameAr = valueDes;
           break;
         case r'slug':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.slug = valueDes;
           break;
         case r'latitude':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(num),
-          ) as num;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(num),
+                  )
+                  as num;
           result.latitude = valueDes;
           break;
         case r'longitude':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(num),
-          ) as num;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(num),
+                  )
+                  as num;
           result.longitude = valueDes;
           break;
         case r'sortOrder':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int;
           result.sortOrder = valueDes;
           break;
         default:

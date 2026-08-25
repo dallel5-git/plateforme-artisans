@@ -15,29 +15,34 @@ class _$V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation
   @override
   final String nameAr;
 
-  factory _$V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation(
-          [void Function(
-                  V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder)?
-              updates]) =>
+  factory _$V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation([
+    void Function(
+      V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder,
+    )?
+    updates,
+  ]) =>
       (V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder()
             ..update(updates))
           ._build();
 
-  _$V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation._(
-      {required this.slug, required this.nameFr, required this.nameAr})
-      : super._();
+  _$V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation._({
+    required this.slug,
+    required this.nameFr,
+    required this.nameAr,
+  }) : super._();
   @override
   V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation rebuild(
-          void Function(
-                  V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(
+      V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder,
+    )
+    updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder
-      toBuilder() =>
-          V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder()
-            ..replace(this);
+  toBuilder() =>
+      V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder()
+        ..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -61,7 +66,8 @@ class _$V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation')
+            r'V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation',
+          )
           ..add('slug', slug)
           ..add('nameFr', nameFr)
           ..add('nameAr', nameAr))
@@ -71,8 +77,10 @@ class _$V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation
 
 class V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder
     implements
-        Builder<V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation,
-            V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder> {
+        Builder<
+          V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation,
+          V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder
+        > {
   _$V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation? _$v;
 
   String? _slug;
@@ -104,15 +112,18 @@ class V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder
 
   @override
   void replace(
-      V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation other) {
+    V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation other,
+  ) {
     _$v = other as _$V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation;
   }
 
   @override
   void update(
-      void Function(
-              V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder)?
-          updates) {
+    void Function(
+      V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder,
+    )?
+    updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -120,20 +131,24 @@ class V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder
   V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation build() => _build();
 
   _$V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation._(
           slug: BuiltValueNullFieldError.checkNotNull(
-              slug,
-              r'V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation',
-              'slug'),
+            slug,
+            r'V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation',
+            'slug',
+          ),
           nameFr: BuiltValueNullFieldError.checkNotNull(
-              nameFr,
-              r'V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation',
-              'nameFr'),
+            nameFr,
+            r'V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation',
+            'nameFr',
+          ),
           nameAr: BuiltValueNullFieldError.checkNotNull(
-              nameAr,
-              r'V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation',
-              'nameAr'),
+            nameAr,
+            r'V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation',
+            'nameAr',
+          ),
         );
     replace(_$result);
     return _$result;

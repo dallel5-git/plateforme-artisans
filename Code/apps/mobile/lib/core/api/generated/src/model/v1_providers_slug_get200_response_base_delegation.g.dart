@@ -15,20 +15,20 @@ class _$V1ProvidersSlugGet200ResponseBaseDelegation
   @override
   final String nameAr;
 
-  factory _$V1ProvidersSlugGet200ResponseBaseDelegation(
-          [void Function(V1ProvidersSlugGet200ResponseBaseDelegationBuilder)?
-              updates]) =>
-      (V1ProvidersSlugGet200ResponseBaseDelegationBuilder()..update(updates))
-          ._build();
+  factory _$V1ProvidersSlugGet200ResponseBaseDelegation([
+    void Function(V1ProvidersSlugGet200ResponseBaseDelegationBuilder)? updates,
+  ]) => (V1ProvidersSlugGet200ResponseBaseDelegationBuilder()..update(updates))
+      ._build();
 
-  _$V1ProvidersSlugGet200ResponseBaseDelegation._(
-      {required this.slug, required this.nameFr, required this.nameAr})
-      : super._();
+  _$V1ProvidersSlugGet200ResponseBaseDelegation._({
+    required this.slug,
+    required this.nameFr,
+    required this.nameAr,
+  }) : super._();
   @override
   V1ProvidersSlugGet200ResponseBaseDelegation rebuild(
-          void Function(V1ProvidersSlugGet200ResponseBaseDelegationBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(V1ProvidersSlugGet200ResponseBaseDelegationBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersSlugGet200ResponseBaseDelegationBuilder toBuilder() =>
@@ -56,7 +56,8 @@ class _$V1ProvidersSlugGet200ResponseBaseDelegation
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'V1ProvidersSlugGet200ResponseBaseDelegation')
+            r'V1ProvidersSlugGet200ResponseBaseDelegation',
+          )
           ..add('slug', slug)
           ..add('nameFr', nameFr)
           ..add('nameAr', nameAr))
@@ -66,8 +67,10 @@ class _$V1ProvidersSlugGet200ResponseBaseDelegation
 
 class V1ProvidersSlugGet200ResponseBaseDelegationBuilder
     implements
-        Builder<V1ProvidersSlugGet200ResponseBaseDelegation,
-            V1ProvidersSlugGet200ResponseBaseDelegationBuilder> {
+        Builder<
+          V1ProvidersSlugGet200ResponseBaseDelegation,
+          V1ProvidersSlugGet200ResponseBaseDelegationBuilder
+        > {
   _$V1ProvidersSlugGet200ResponseBaseDelegation? _$v;
 
   String? _slug;
@@ -104,8 +107,8 @@ class V1ProvidersSlugGet200ResponseBaseDelegationBuilder
 
   @override
   void update(
-      void Function(V1ProvidersSlugGet200ResponseBaseDelegationBuilder)?
-          updates) {
+    void Function(V1ProvidersSlugGet200ResponseBaseDelegationBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -113,14 +116,24 @@ class V1ProvidersSlugGet200ResponseBaseDelegationBuilder
   V1ProvidersSlugGet200ResponseBaseDelegation build() => _build();
 
   _$V1ProvidersSlugGet200ResponseBaseDelegation _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$V1ProvidersSlugGet200ResponseBaseDelegation._(
           slug: BuiltValueNullFieldError.checkNotNull(
-              slug, r'V1ProvidersSlugGet200ResponseBaseDelegation', 'slug'),
+            slug,
+            r'V1ProvidersSlugGet200ResponseBaseDelegation',
+            'slug',
+          ),
           nameFr: BuiltValueNullFieldError.checkNotNull(
-              nameFr, r'V1ProvidersSlugGet200ResponseBaseDelegation', 'nameFr'),
+            nameFr,
+            r'V1ProvidersSlugGet200ResponseBaseDelegation',
+            'nameFr',
+          ),
           nameAr: BuiltValueNullFieldError.checkNotNull(
-              nameAr, r'V1ProvidersSlugGet200ResponseBaseDelegation', 'nameAr'),
+            nameAr,
+            r'V1ProvidersSlugGet200ResponseBaseDelegation',
+            'nameAr',
+          ),
         );
     replace(_$result);
     return _$result;

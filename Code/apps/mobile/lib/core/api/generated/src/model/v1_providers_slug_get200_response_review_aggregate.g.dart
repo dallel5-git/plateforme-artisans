@@ -15,20 +15,20 @@ class _$V1ProvidersSlugGet200ResponseReviewAggregate
   @override
   final V1ProvidersSlugGet200ResponseReviewAggregateBreakdown breakdown;
 
-  factory _$V1ProvidersSlugGet200ResponseReviewAggregate(
-          [void Function(V1ProvidersSlugGet200ResponseReviewAggregateBuilder)?
-              updates]) =>
-      (V1ProvidersSlugGet200ResponseReviewAggregateBuilder()..update(updates))
-          ._build();
+  factory _$V1ProvidersSlugGet200ResponseReviewAggregate([
+    void Function(V1ProvidersSlugGet200ResponseReviewAggregateBuilder)? updates,
+  ]) => (V1ProvidersSlugGet200ResponseReviewAggregateBuilder()..update(updates))
+      ._build();
 
-  _$V1ProvidersSlugGet200ResponseReviewAggregate._(
-      {required this.average, required this.count, required this.breakdown})
-      : super._();
+  _$V1ProvidersSlugGet200ResponseReviewAggregate._({
+    required this.average,
+    required this.count,
+    required this.breakdown,
+  }) : super._();
   @override
   V1ProvidersSlugGet200ResponseReviewAggregate rebuild(
-          void Function(V1ProvidersSlugGet200ResponseReviewAggregateBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(V1ProvidersSlugGet200ResponseReviewAggregateBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersSlugGet200ResponseReviewAggregateBuilder toBuilder() =>
@@ -56,7 +56,8 @@ class _$V1ProvidersSlugGet200ResponseReviewAggregate
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'V1ProvidersSlugGet200ResponseReviewAggregate')
+            r'V1ProvidersSlugGet200ResponseReviewAggregate',
+          )
           ..add('average', average)
           ..add('count', count)
           ..add('breakdown', breakdown))
@@ -66,8 +67,10 @@ class _$V1ProvidersSlugGet200ResponseReviewAggregate
 
 class V1ProvidersSlugGet200ResponseReviewAggregateBuilder
     implements
-        Builder<V1ProvidersSlugGet200ResponseReviewAggregate,
-            V1ProvidersSlugGet200ResponseReviewAggregateBuilder> {
+        Builder<
+          V1ProvidersSlugGet200ResponseReviewAggregate,
+          V1ProvidersSlugGet200ResponseReviewAggregateBuilder
+        > {
   _$V1ProvidersSlugGet200ResponseReviewAggregate? _$v;
 
   num? _average;
@@ -83,9 +86,8 @@ class V1ProvidersSlugGet200ResponseReviewAggregateBuilder
       _$this._breakdown ??=
           V1ProvidersSlugGet200ResponseReviewAggregateBreakdownBuilder();
   set breakdown(
-          V1ProvidersSlugGet200ResponseReviewAggregateBreakdownBuilder?
-              breakdown) =>
-      _$this._breakdown = breakdown;
+    V1ProvidersSlugGet200ResponseReviewAggregateBreakdownBuilder? breakdown,
+  ) => _$this._breakdown = breakdown;
 
   V1ProvidersSlugGet200ResponseReviewAggregateBuilder() {
     V1ProvidersSlugGet200ResponseReviewAggregate._defaults(this);
@@ -109,8 +111,8 @@ class V1ProvidersSlugGet200ResponseReviewAggregateBuilder
 
   @override
   void update(
-      void Function(V1ProvidersSlugGet200ResponseReviewAggregateBuilder)?
-          updates) {
+    void Function(V1ProvidersSlugGet200ResponseReviewAggregateBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -120,12 +122,19 @@ class V1ProvidersSlugGet200ResponseReviewAggregateBuilder
   _$V1ProvidersSlugGet200ResponseReviewAggregate _build() {
     _$V1ProvidersSlugGet200ResponseReviewAggregate _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$V1ProvidersSlugGet200ResponseReviewAggregate._(
-            average: BuiltValueNullFieldError.checkNotNull(average,
-                r'V1ProvidersSlugGet200ResponseReviewAggregate', 'average'),
-            count: BuiltValueNullFieldError.checkNotNull(count,
-                r'V1ProvidersSlugGet200ResponseReviewAggregate', 'count'),
+            average: BuiltValueNullFieldError.checkNotNull(
+              average,
+              r'V1ProvidersSlugGet200ResponseReviewAggregate',
+              'average',
+            ),
+            count: BuiltValueNullFieldError.checkNotNull(
+              count,
+              r'V1ProvidersSlugGet200ResponseReviewAggregate',
+              'count',
+            ),
             breakdown: breakdown.build(),
           );
     } catch (_) {
@@ -135,9 +144,10 @@ class V1ProvidersSlugGet200ResponseReviewAggregateBuilder
         breakdown.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'V1ProvidersSlugGet200ResponseReviewAggregate',
-            _$failedField,
-            e.toString());
+          r'V1ProvidersSlugGet200ResponseReviewAggregate',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

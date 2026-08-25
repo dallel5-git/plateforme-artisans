@@ -24,8 +24,10 @@ part 'v1_providers_slug_get200_response_gallery_inner.g.dart';
 @BuiltValue()
 abstract class V1ProvidersSlugGet200ResponseGalleryInner
     implements
-        Built<V1ProvidersSlugGet200ResponseGalleryInner,
-            V1ProvidersSlugGet200ResponseGalleryInnerBuilder> {
+        Built<
+          V1ProvidersSlugGet200ResponseGalleryInner,
+          V1ProvidersSlugGet200ResponseGalleryInnerBuilder
+        > {
   @BuiltValueField(wireName: r'id')
   String get id;
 
@@ -49,9 +51,9 @@ abstract class V1ProvidersSlugGet200ResponseGalleryInner
 
   V1ProvidersSlugGet200ResponseGalleryInner._();
 
-  factory V1ProvidersSlugGet200ResponseGalleryInner(
-          [void updates(V1ProvidersSlugGet200ResponseGalleryInnerBuilder b)]) =
-      _$V1ProvidersSlugGet200ResponseGalleryInner;
+  factory V1ProvidersSlugGet200ResponseGalleryInner([
+    void updates(V1ProvidersSlugGet200ResponseGalleryInnerBuilder b),
+  ]) = _$V1ProvidersSlugGet200ResponseGalleryInner;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1ProvidersSlugGet200ResponseGalleryInnerBuilder b) =>
@@ -67,7 +69,7 @@ class _$V1ProvidersSlugGet200ResponseGalleryInnerSerializer
   @override
   final Iterable<Type> types = const [
     V1ProvidersSlugGet200ResponseGalleryInner,
-    _$V1ProvidersSlugGet200ResponseGalleryInner
+    _$V1ProvidersSlugGet200ResponseGalleryInner,
   ];
 
   @override
@@ -112,7 +114,8 @@ class _$V1ProvidersSlugGet200ResponseGalleryInnerSerializer
     yield serializers.serialize(
       object.category,
       specifiedType: const FullType(
-          V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation),
+        V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation,
+      ),
     );
   }
 
@@ -122,9 +125,11 @@ class _$V1ProvidersSlugGet200ResponseGalleryInnerSerializer
     V1ProvidersSlugGet200ResponseGalleryInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -140,53 +145,68 @@ class _$V1ProvidersSlugGet200ResponseGalleryInnerSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.id = valueDes;
           break;
         case r'url':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.url = valueDes;
           break;
         case r'width':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int;
           result.width = valueDes;
           break;
         case r'height':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int;
           result.height = valueDes;
           break;
         case r'blurhash':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.blurhash = valueDes;
           break;
         case r'caption':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.caption = valueDes;
           break;
         case r'category':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-                V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation),
-          ) as V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(
+                      V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation,
+                    ),
+                  )
+                  as V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation;
           result.category.replace(valueDes);
           break;
         default:

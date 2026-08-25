@@ -14,19 +14,19 @@ class _$V1ProvidersMePost200Response extends V1ProvidersMePost200Response {
   @override
   final V1ProvidersMePost200ResponseProvider provider;
 
-  factory _$V1ProvidersMePost200Response(
-          [void Function(V1ProvidersMePost200ResponseBuilder)? updates]) =>
-      (V1ProvidersMePost200ResponseBuilder()..update(updates))._build();
+  factory _$V1ProvidersMePost200Response([
+    void Function(V1ProvidersMePost200ResponseBuilder)? updates,
+  ]) => (V1ProvidersMePost200ResponseBuilder()..update(updates))._build();
 
-  _$V1ProvidersMePost200Response._(
-      {required this.accessToken,
-      required this.refreshToken,
-      required this.provider})
-      : super._();
+  _$V1ProvidersMePost200Response._({
+    required this.accessToken,
+    required this.refreshToken,
+    required this.provider,
+  }) : super._();
   @override
   V1ProvidersMePost200Response rebuild(
-          void Function(V1ProvidersMePost200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(V1ProvidersMePost200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersMePost200ResponseBuilder toBuilder() =>
@@ -63,8 +63,10 @@ class _$V1ProvidersMePost200Response extends V1ProvidersMePost200Response {
 
 class V1ProvidersMePost200ResponseBuilder
     implements
-        Builder<V1ProvidersMePost200Response,
-            V1ProvidersMePost200ResponseBuilder> {
+        Builder<
+          V1ProvidersMePost200Response,
+          V1ProvidersMePost200ResponseBuilder
+        > {
   _$V1ProvidersMePost200Response? _$v;
 
   String? _accessToken;
@@ -112,12 +114,19 @@ class V1ProvidersMePost200ResponseBuilder
   _$V1ProvidersMePost200Response _build() {
     _$V1ProvidersMePost200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$V1ProvidersMePost200Response._(
             accessToken: BuiltValueNullFieldError.checkNotNull(
-                accessToken, r'V1ProvidersMePost200Response', 'accessToken'),
+              accessToken,
+              r'V1ProvidersMePost200Response',
+              'accessToken',
+            ),
             refreshToken: BuiltValueNullFieldError.checkNotNull(
-                refreshToken, r'V1ProvidersMePost200Response', 'refreshToken'),
+              refreshToken,
+              r'V1ProvidersMePost200Response',
+              'refreshToken',
+            ),
             provider: provider.build(),
           );
     } catch (_) {
@@ -127,7 +136,10 @@ class V1ProvidersMePost200ResponseBuilder
         provider.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'V1ProvidersMePost200Response', _$failedField, e.toString());
+          r'V1ProvidersMePost200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

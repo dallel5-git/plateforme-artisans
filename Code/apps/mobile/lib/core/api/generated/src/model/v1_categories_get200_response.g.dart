@@ -10,15 +10,15 @@ class _$V1CategoriesGet200Response extends V1CategoriesGet200Response {
   @override
   final BuiltList<CategoryTreeNode> categories;
 
-  factory _$V1CategoriesGet200Response(
-          [void Function(V1CategoriesGet200ResponseBuilder)? updates]) =>
-      (V1CategoriesGet200ResponseBuilder()..update(updates))._build();
+  factory _$V1CategoriesGet200Response([
+    void Function(V1CategoriesGet200ResponseBuilder)? updates,
+  ]) => (V1CategoriesGet200ResponseBuilder()..update(updates))._build();
 
   _$V1CategoriesGet200Response._({required this.categories}) : super._();
   @override
   V1CategoriesGet200Response rebuild(
-          void Function(V1CategoriesGet200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(V1CategoriesGet200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   V1CategoriesGet200ResponseBuilder toBuilder() =>
@@ -41,9 +41,9 @@ class _$V1CategoriesGet200Response extends V1CategoriesGet200Response {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'V1CategoriesGet200Response')
-          ..add('categories', categories))
-        .toString();
+    return (newBuiltValueToStringHelper(
+      r'V1CategoriesGet200Response',
+    )..add('categories', categories)).toString();
   }
 }
 
@@ -87,7 +87,8 @@ class V1CategoriesGet200ResponseBuilder
   _$V1CategoriesGet200Response _build() {
     _$V1CategoriesGet200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$V1CategoriesGet200Response._(
             categories: categories.build(),
           );
@@ -98,7 +99,10 @@ class V1CategoriesGet200ResponseBuilder
         categories.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'V1CategoriesGet200Response', _$failedField, e.toString());
+          r'V1CategoriesGet200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }

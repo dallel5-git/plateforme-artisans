@@ -65,8 +65,10 @@ class AuthApi {
 
     try {
       const _type = FullType(V1AuthRefreshPostRequest);
-      _bodyData = _serializers.serialize(v1AuthRefreshPostRequest,
-          specifiedType: _type);
+      _bodyData = _serializers.serialize(
+        v1AuthRefreshPostRequest,
+        specifiedType: _type,
+      );
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _options.compose(
@@ -95,9 +97,10 @@ class AuthApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(V1AuthLogoutPost200Response),
-            ) as V1AuthLogoutPost200Response;
+                  rawResponse,
+                  specifiedType: const FullType(V1AuthLogoutPost200Response),
+                )
+                as V1AuthLogoutPost200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -169,9 +172,10 @@ class AuthApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(V1AuthMeGet200Response),
-            ) as V1AuthMeGet200Response;
+                  rawResponse,
+                  specifiedType: const FullType(V1AuthMeGet200Response),
+                )
+                as V1AuthMeGet200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -235,8 +239,10 @@ class AuthApi {
 
     try {
       const _type = FullType(V1AuthOtpRequestPostRequest);
-      _bodyData = _serializers.serialize(v1AuthOtpRequestPostRequest,
-          specifiedType: _type);
+      _bodyData = _serializers.serialize(
+        v1AuthOtpRequestPostRequest,
+        specifiedType: _type,
+      );
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _options.compose(
@@ -265,9 +271,12 @@ class AuthApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(V1AuthOtpRequestPost200Response),
-            ) as V1AuthOtpRequestPost200Response;
+                  rawResponse,
+                  specifiedType: const FullType(
+                    V1AuthOtpRequestPost200Response,
+                  ),
+                )
+                as V1AuthOtpRequestPost200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -331,8 +340,10 @@ class AuthApi {
 
     try {
       const _type = FullType(V1AuthOtpVerifyPostRequest);
-      _bodyData = _serializers.serialize(v1AuthOtpVerifyPostRequest,
-          specifiedType: _type);
+      _bodyData = _serializers.serialize(
+        v1AuthOtpVerifyPostRequest,
+        specifiedType: _type,
+      );
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _options.compose(
@@ -361,9 +372,10 @@ class AuthApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(V1AuthOtpVerifyPost200Response),
-            ) as V1AuthOtpVerifyPost200Response;
+                  rawResponse,
+                  specifiedType: const FullType(V1AuthOtpVerifyPost200Response),
+                )
+                as V1AuthOtpVerifyPost200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -427,8 +439,10 @@ class AuthApi {
 
     try {
       const _type = FullType(V1AuthRefreshPostRequest);
-      _bodyData = _serializers.serialize(v1AuthRefreshPostRequest,
-          specifiedType: _type);
+      _bodyData = _serializers.serialize(
+        v1AuthRefreshPostRequest,
+        specifiedType: _type,
+      );
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _options.compose(
@@ -457,9 +471,10 @@ class AuthApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(AuthTokens),
-            ) as AuthTokens;
+                  rawResponse,
+                  specifiedType: const FullType(AuthTokens),
+                )
+                as AuthTokens;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,

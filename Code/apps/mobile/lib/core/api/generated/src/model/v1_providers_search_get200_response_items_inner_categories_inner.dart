@@ -20,8 +20,10 @@ part 'v1_providers_search_get200_response_items_inner_categories_inner.g.dart';
 @BuiltValue()
 abstract class V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner
     implements
-        Built<V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner,
-            V1ProvidersSearchGet200ResponseItemsInnerCategoriesInnerBuilder> {
+        Built<
+          V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner,
+          V1ProvidersSearchGet200ResponseItemsInnerCategoriesInnerBuilder
+        > {
   @BuiltValueField(wireName: r'slug')
   String get slug;
 
@@ -36,30 +38,32 @@ abstract class V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner
 
   V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner._();
 
-  factory V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner(
-      [void updates(
-          V1ProvidersSearchGet200ResponseItemsInnerCategoriesInnerBuilder
-              b)]) = _$V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner;
+  factory V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner([
+    void updates(
+      V1ProvidersSearchGet200ResponseItemsInnerCategoriesInnerBuilder b,
+    ),
+  ]) = _$V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(
-          V1ProvidersSearchGet200ResponseItemsInnerCategoriesInnerBuilder b) =>
-      b;
+    V1ProvidersSearchGet200ResponseItemsInnerCategoriesInnerBuilder b,
+  ) => b;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner>
-      get serializer =>
-          _$V1ProvidersSearchGet200ResponseItemsInnerCategoriesInnerSerializer();
+  get serializer =>
+      _$V1ProvidersSearchGet200ResponseItemsInnerCategoriesInnerSerializer();
 }
 
 class _$V1ProvidersSearchGet200ResponseItemsInnerCategoriesInnerSerializer
     implements
         PrimitiveSerializer<
-            V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner> {
+          V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner
+        > {
   @override
   final Iterable<Type> types = const [
     V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner,
-    _$V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner
+    _$V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner,
   ];
 
   @override
@@ -99,9 +103,11 @@ class _$V1ProvidersSearchGet200ResponseItemsInnerCategoriesInnerSerializer
     V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -110,7 +116,7 @@ class _$V1ProvidersSearchGet200ResponseItemsInnerCategoriesInnerSerializer
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
     required V1ProvidersSearchGet200ResponseItemsInnerCategoriesInnerBuilder
-        result,
+    result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -118,31 +124,39 @@ class _$V1ProvidersSearchGet200ResponseItemsInnerCategoriesInnerSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'slug':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.slug = valueDes;
           break;
         case r'nameFr':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.nameFr = valueDes;
           break;
         case r'nameAr':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.nameAr = valueDes;
           break;
         case r'isPrimary':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool;
           result.isPrimary = valueDes;
           break;
         default:

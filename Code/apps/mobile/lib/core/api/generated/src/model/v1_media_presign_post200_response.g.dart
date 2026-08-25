@@ -14,17 +14,19 @@ class _$V1MediaPresignPost200Response extends V1MediaPresignPost200Response {
   @override
   final DateTime expiresAt;
 
-  factory _$V1MediaPresignPost200Response(
-          [void Function(V1MediaPresignPost200ResponseBuilder)? updates]) =>
-      (V1MediaPresignPost200ResponseBuilder()..update(updates))._build();
+  factory _$V1MediaPresignPost200Response([
+    void Function(V1MediaPresignPost200ResponseBuilder)? updates,
+  ]) => (V1MediaPresignPost200ResponseBuilder()..update(updates))._build();
 
-  _$V1MediaPresignPost200Response._(
-      {required this.mediaId, required this.uploadUrl, required this.expiresAt})
-      : super._();
+  _$V1MediaPresignPost200Response._({
+    required this.mediaId,
+    required this.uploadUrl,
+    required this.expiresAt,
+  }) : super._();
   @override
   V1MediaPresignPost200Response rebuild(
-          void Function(V1MediaPresignPost200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(V1MediaPresignPost200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   V1MediaPresignPost200ResponseBuilder toBuilder() =>
@@ -61,8 +63,10 @@ class _$V1MediaPresignPost200Response extends V1MediaPresignPost200Response {
 
 class V1MediaPresignPost200ResponseBuilder
     implements
-        Builder<V1MediaPresignPost200Response,
-            V1MediaPresignPost200ResponseBuilder> {
+        Builder<
+          V1MediaPresignPost200Response,
+          V1MediaPresignPost200ResponseBuilder
+        > {
   _$V1MediaPresignPost200Response? _$v;
 
   String? _mediaId;
@@ -106,14 +110,24 @@ class V1MediaPresignPost200ResponseBuilder
   V1MediaPresignPost200Response build() => _build();
 
   _$V1MediaPresignPost200Response _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$V1MediaPresignPost200Response._(
           mediaId: BuiltValueNullFieldError.checkNotNull(
-              mediaId, r'V1MediaPresignPost200Response', 'mediaId'),
+            mediaId,
+            r'V1MediaPresignPost200Response',
+            'mediaId',
+          ),
           uploadUrl: BuiltValueNullFieldError.checkNotNull(
-              uploadUrl, r'V1MediaPresignPost200Response', 'uploadUrl'),
+            uploadUrl,
+            r'V1MediaPresignPost200Response',
+            'uploadUrl',
+          ),
           expiresAt: BuiltValueNullFieldError.checkNotNull(
-              expiresAt, r'V1MediaPresignPost200Response', 'expiresAt'),
+            expiresAt,
+            r'V1MediaPresignPost200Response',
+            'expiresAt',
+          ),
         );
     replace(_$result);
     return _$result;

@@ -17,8 +17,10 @@ part 'v1_providers_slug_get200_response_offerings_inner_category.g.dart';
 @BuiltValue()
 abstract class V1ProvidersSlugGet200ResponseOfferingsInnerCategory
     implements
-        Built<V1ProvidersSlugGet200ResponseOfferingsInnerCategory,
-            V1ProvidersSlugGet200ResponseOfferingsInnerCategoryBuilder> {
+        Built<
+          V1ProvidersSlugGet200ResponseOfferingsInnerCategory,
+          V1ProvidersSlugGet200ResponseOfferingsInnerCategoryBuilder
+        > {
   @BuiltValueField(wireName: r'slug')
   String get slug;
 
@@ -30,30 +32,30 @@ abstract class V1ProvidersSlugGet200ResponseOfferingsInnerCategory
 
   V1ProvidersSlugGet200ResponseOfferingsInnerCategory._();
 
-  factory V1ProvidersSlugGet200ResponseOfferingsInnerCategory(
-          [void updates(
-              V1ProvidersSlugGet200ResponseOfferingsInnerCategoryBuilder b)]) =
-      _$V1ProvidersSlugGet200ResponseOfferingsInnerCategory;
+  factory V1ProvidersSlugGet200ResponseOfferingsInnerCategory([
+    void updates(V1ProvidersSlugGet200ResponseOfferingsInnerCategoryBuilder b),
+  ]) = _$V1ProvidersSlugGet200ResponseOfferingsInnerCategory;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(
-          V1ProvidersSlugGet200ResponseOfferingsInnerCategoryBuilder b) =>
-      b;
+    V1ProvidersSlugGet200ResponseOfferingsInnerCategoryBuilder b,
+  ) => b;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<V1ProvidersSlugGet200ResponseOfferingsInnerCategory>
-      get serializer =>
-          _$V1ProvidersSlugGet200ResponseOfferingsInnerCategorySerializer();
+  get serializer =>
+      _$V1ProvidersSlugGet200ResponseOfferingsInnerCategorySerializer();
 }
 
 class _$V1ProvidersSlugGet200ResponseOfferingsInnerCategorySerializer
     implements
         PrimitiveSerializer<
-            V1ProvidersSlugGet200ResponseOfferingsInnerCategory> {
+          V1ProvidersSlugGet200ResponseOfferingsInnerCategory
+        > {
   @override
   final Iterable<Type> types = const [
     V1ProvidersSlugGet200ResponseOfferingsInnerCategory,
-    _$V1ProvidersSlugGet200ResponseOfferingsInnerCategory
+    _$V1ProvidersSlugGet200ResponseOfferingsInnerCategory,
   ];
 
   @override
@@ -88,9 +90,11 @@ class _$V1ProvidersSlugGet200ResponseOfferingsInnerCategorySerializer
     V1ProvidersSlugGet200ResponseOfferingsInnerCategory object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -106,24 +110,30 @@ class _$V1ProvidersSlugGet200ResponseOfferingsInnerCategorySerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'slug':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.slug = valueDes;
           break;
         case r'nameFr':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.nameFr = valueDes;
           break;
         case r'nameAr':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.nameAr = valueDes;
           break;
         default:

@@ -19,8 +19,10 @@ part 'v1_providers_search_get200_response.g.dart';
 @BuiltValue()
 abstract class V1ProvidersSearchGet200Response
     implements
-        Built<V1ProvidersSearchGet200Response,
-            V1ProvidersSearchGet200ResponseBuilder> {
+        Built<
+          V1ProvidersSearchGet200Response,
+          V1ProvidersSearchGet200ResponseBuilder
+        > {
   @BuiltValueField(wireName: r'items')
   BuiltList<V1ProvidersSearchGet200ResponseItemsInner> get items;
 
@@ -29,9 +31,9 @@ abstract class V1ProvidersSearchGet200Response
 
   V1ProvidersSearchGet200Response._();
 
-  factory V1ProvidersSearchGet200Response(
-          [void updates(V1ProvidersSearchGet200ResponseBuilder b)]) =
-      _$V1ProvidersSearchGet200Response;
+  factory V1ProvidersSearchGet200Response([
+    void updates(V1ProvidersSearchGet200ResponseBuilder b),
+  ]) = _$V1ProvidersSearchGet200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1ProvidersSearchGet200ResponseBuilder b) => b;
@@ -46,7 +48,7 @@ class _$V1ProvidersSearchGet200ResponseSerializer
   @override
   final Iterable<Type> types = const [
     V1ProvidersSearchGet200Response,
-    _$V1ProvidersSearchGet200Response
+    _$V1ProvidersSearchGet200Response,
   ];
 
   @override
@@ -60,8 +62,9 @@ class _$V1ProvidersSearchGet200ResponseSerializer
     yield r'items';
     yield serializers.serialize(
       object.items,
-      specifiedType: const FullType(
-          BuiltList, [FullType(V1ProvidersSearchGet200ResponseItemsInner)]),
+      specifiedType: const FullType(BuiltList, [
+        FullType(V1ProvidersSearchGet200ResponseItemsInner),
+      ]),
     );
     yield r'nextCursor';
     yield serializers.serialize(
@@ -76,9 +79,11 @@ class _$V1ProvidersSearchGet200ResponseSerializer
     V1ProvidersSearchGet200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -94,18 +99,23 @@ class _$V1ProvidersSearchGet200ResponseSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'items':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BuiltList,
-                [FullType(V1ProvidersSearchGet200ResponseItemsInner)]),
-          ) as BuiltList<V1ProvidersSearchGet200ResponseItemsInner>;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(BuiltList, [
+                      FullType(V1ProvidersSearchGet200ResponseItemsInner),
+                    ]),
+                  )
+                  as BuiltList<V1ProvidersSearchGet200ResponseItemsInner>;
           result.items.replace(valueDes);
           break;
         case r'nextCursor':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.nextCursor = valueDes;
           break;
         default:

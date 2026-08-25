@@ -21,8 +21,10 @@ part 'v1_providers_slug_get200_response_coverage_areas_inner.g.dart';
 @BuiltValue()
 abstract class V1ProvidersSlugGet200ResponseCoverageAreasInner
     implements
-        Built<V1ProvidersSlugGet200ResponseCoverageAreasInner,
-            V1ProvidersSlugGet200ResponseCoverageAreasInnerBuilder> {
+        Built<
+          V1ProvidersSlugGet200ResponseCoverageAreasInner,
+          V1ProvidersSlugGet200ResponseCoverageAreasInnerBuilder
+        > {
   @BuiltValueField(wireName: r'governorate')
   V1ProvidersSlugGet200ResponseOfferingsInnerCategory get governorate;
 
@@ -34,20 +36,19 @@ abstract class V1ProvidersSlugGet200ResponseCoverageAreasInner
 
   V1ProvidersSlugGet200ResponseCoverageAreasInner._();
 
-  factory V1ProvidersSlugGet200ResponseCoverageAreasInner(
-          [void updates(
-              V1ProvidersSlugGet200ResponseCoverageAreasInnerBuilder b)]) =
-      _$V1ProvidersSlugGet200ResponseCoverageAreasInner;
+  factory V1ProvidersSlugGet200ResponseCoverageAreasInner([
+    void updates(V1ProvidersSlugGet200ResponseCoverageAreasInnerBuilder b),
+  ]) = _$V1ProvidersSlugGet200ResponseCoverageAreasInner;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(
-          V1ProvidersSlugGet200ResponseCoverageAreasInnerBuilder b) =>
-      b;
+    V1ProvidersSlugGet200ResponseCoverageAreasInnerBuilder b,
+  ) => b;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<V1ProvidersSlugGet200ResponseCoverageAreasInner>
-      get serializer =>
-          _$V1ProvidersSlugGet200ResponseCoverageAreasInnerSerializer();
+  get serializer =>
+      _$V1ProvidersSlugGet200ResponseCoverageAreasInnerSerializer();
 }
 
 class _$V1ProvidersSlugGet200ResponseCoverageAreasInnerSerializer
@@ -56,7 +57,7 @@ class _$V1ProvidersSlugGet200ResponseCoverageAreasInnerSerializer
   @override
   final Iterable<Type> types = const [
     V1ProvidersSlugGet200ResponseCoverageAreasInner,
-    _$V1ProvidersSlugGet200ResponseCoverageAreasInner
+    _$V1ProvidersSlugGet200ResponseCoverageAreasInner,
   ];
 
   @override
@@ -70,14 +71,16 @@ class _$V1ProvidersSlugGet200ResponseCoverageAreasInnerSerializer
     yield r'governorate';
     yield serializers.serialize(
       object.governorate,
-      specifiedType:
-          const FullType(V1ProvidersSlugGet200ResponseOfferingsInnerCategory),
+      specifiedType: const FullType(
+        V1ProvidersSlugGet200ResponseOfferingsInnerCategory,
+      ),
     );
     yield r'delegation';
     yield serializers.serialize(
       object.delegation,
       specifiedType: const FullType(
-          V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation),
+        V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation,
+      ),
     );
     yield r'travelFee';
     yield serializers.serialize(
@@ -92,9 +95,11 @@ class _$V1ProvidersSlugGet200ResponseCoverageAreasInnerSerializer
     V1ProvidersSlugGet200ResponseCoverageAreasInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -110,26 +115,34 @@ class _$V1ProvidersSlugGet200ResponseCoverageAreasInnerSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'governorate':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-                V1ProvidersSlugGet200ResponseOfferingsInnerCategory),
-          ) as V1ProvidersSlugGet200ResponseOfferingsInnerCategory;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(
+                      V1ProvidersSlugGet200ResponseOfferingsInnerCategory,
+                    ),
+                  )
+                  as V1ProvidersSlugGet200ResponseOfferingsInnerCategory;
           result.governorate.replace(valueDes);
           break;
         case r'delegation':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(
-                V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation),
-          ) as V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(
+                      V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation,
+                    ),
+                  )
+                  as V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation;
           result.delegation.replace(valueDes);
           break;
         case r'travelFee':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(num),
-          ) as num;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(num),
+                  )
+                  as num;
           result.travelFee = valueDes;
           break;
         default:

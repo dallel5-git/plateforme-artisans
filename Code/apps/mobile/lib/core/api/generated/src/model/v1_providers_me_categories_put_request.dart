@@ -17,16 +17,18 @@ part 'v1_providers_me_categories_put_request.g.dart';
 @BuiltValue()
 abstract class V1ProvidersMeCategoriesPutRequest
     implements
-        Built<V1ProvidersMeCategoriesPutRequest,
-            V1ProvidersMeCategoriesPutRequestBuilder> {
+        Built<
+          V1ProvidersMeCategoriesPutRequest,
+          V1ProvidersMeCategoriesPutRequestBuilder
+        > {
   @BuiltValueField(wireName: r'categories')
   BuiltList<V1ProvidersMeCategoriesPutRequestCategoriesInner> get categories;
 
   V1ProvidersMeCategoriesPutRequest._();
 
-  factory V1ProvidersMeCategoriesPutRequest(
-          [void updates(V1ProvidersMeCategoriesPutRequestBuilder b)]) =
-      _$V1ProvidersMeCategoriesPutRequest;
+  factory V1ProvidersMeCategoriesPutRequest([
+    void updates(V1ProvidersMeCategoriesPutRequestBuilder b),
+  ]) = _$V1ProvidersMeCategoriesPutRequest;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1ProvidersMeCategoriesPutRequestBuilder b) => b;
@@ -41,7 +43,7 @@ class _$V1ProvidersMeCategoriesPutRequestSerializer
   @override
   final Iterable<Type> types = const [
     V1ProvidersMeCategoriesPutRequest,
-    _$V1ProvidersMeCategoriesPutRequest
+    _$V1ProvidersMeCategoriesPutRequest,
   ];
 
   @override
@@ -55,8 +57,9 @@ class _$V1ProvidersMeCategoriesPutRequestSerializer
     yield r'categories';
     yield serializers.serialize(
       object.categories,
-      specifiedType: const FullType(BuiltList,
-          [FullType(V1ProvidersMeCategoriesPutRequestCategoriesInner)]),
+      specifiedType: const FullType(BuiltList, [
+        FullType(V1ProvidersMeCategoriesPutRequestCategoriesInner),
+      ]),
     );
   }
 
@@ -66,9 +69,11 @@ class _$V1ProvidersMeCategoriesPutRequestSerializer
     V1ProvidersMeCategoriesPutRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -84,11 +89,18 @@ class _$V1ProvidersMeCategoriesPutRequestSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'categories':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BuiltList,
-                [FullType(V1ProvidersMeCategoriesPutRequestCategoriesInner)]),
-          ) as BuiltList<V1ProvidersMeCategoriesPutRequestCategoriesInner>;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(BuiltList, [
+                      FullType(
+                        V1ProvidersMeCategoriesPutRequestCategoriesInner,
+                      ),
+                    ]),
+                  )
+                  as BuiltList<
+                    V1ProvidersMeCategoriesPutRequestCategoriesInner
+                  >;
           result.categories.replace(valueDes);
           break;
         default:

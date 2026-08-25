@@ -21,8 +21,10 @@ part 'v1_providers_id_reviews_post200_response.g.dart';
 @BuiltValue()
 abstract class V1ProvidersIdReviewsPost200Response
     implements
-        Built<V1ProvidersIdReviewsPost200Response,
-            V1ProvidersIdReviewsPost200ResponseBuilder> {
+        Built<
+          V1ProvidersIdReviewsPost200Response,
+          V1ProvidersIdReviewsPost200ResponseBuilder
+        > {
   @BuiltValueField(wireName: r'id')
   String get id;
 
@@ -40,9 +42,9 @@ abstract class V1ProvidersIdReviewsPost200Response
 
   V1ProvidersIdReviewsPost200Response._();
 
-  factory V1ProvidersIdReviewsPost200Response(
-          [void updates(V1ProvidersIdReviewsPost200ResponseBuilder b)]) =
-      _$V1ProvidersIdReviewsPost200Response;
+  factory V1ProvidersIdReviewsPost200Response([
+    void updates(V1ProvidersIdReviewsPost200ResponseBuilder b),
+  ]) = _$V1ProvidersIdReviewsPost200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1ProvidersIdReviewsPost200ResponseBuilder b) => b;
@@ -57,7 +59,7 @@ class _$V1ProvidersIdReviewsPost200ResponseSerializer
   @override
   final Iterable<Type> types = const [
     V1ProvidersIdReviewsPost200Response,
-    _$V1ProvidersIdReviewsPost200Response
+    _$V1ProvidersIdReviewsPost200Response,
   ];
 
   @override
@@ -101,9 +103,11 @@ class _$V1ProvidersIdReviewsPost200ResponseSerializer
     V1ProvidersIdReviewsPost200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -119,38 +123,48 @@ class _$V1ProvidersIdReviewsPost200ResponseSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.id = valueDes;
           break;
         case r'rating':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(int),
+                  )
+                  as int;
           result.rating = valueDes;
           break;
         case r'comment':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.comment = valueDes;
           break;
         case r'isVerifiedContact':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(bool),
+                  )
+                  as bool;
           result.isVerifiedContact = valueDes;
           break;
         case r'createdAt':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(DateTime),
+                  )
+                  as DateTime;
           result.createdAt = valueDes;
           break;
         default:

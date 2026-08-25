@@ -19,22 +19,22 @@ class _$V1ProvidersIdReviewsPost200Response
   @override
   final DateTime createdAt;
 
-  factory _$V1ProvidersIdReviewsPost200Response(
-          [void Function(V1ProvidersIdReviewsPost200ResponseBuilder)?
-              updates]) =>
+  factory _$V1ProvidersIdReviewsPost200Response([
+    void Function(V1ProvidersIdReviewsPost200ResponseBuilder)? updates,
+  ]) =>
       (V1ProvidersIdReviewsPost200ResponseBuilder()..update(updates))._build();
 
-  _$V1ProvidersIdReviewsPost200Response._(
-      {required this.id,
-      required this.rating,
-      required this.comment,
-      required this.isVerifiedContact,
-      required this.createdAt})
-      : super._();
+  _$V1ProvidersIdReviewsPost200Response._({
+    required this.id,
+    required this.rating,
+    required this.comment,
+    required this.isVerifiedContact,
+    required this.createdAt,
+  }) : super._();
   @override
   V1ProvidersIdReviewsPost200Response rebuild(
-          void Function(V1ProvidersIdReviewsPost200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(V1ProvidersIdReviewsPost200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersIdReviewsPost200ResponseBuilder toBuilder() =>
@@ -77,8 +77,10 @@ class _$V1ProvidersIdReviewsPost200Response
 
 class V1ProvidersIdReviewsPost200ResponseBuilder
     implements
-        Builder<V1ProvidersIdReviewsPost200Response,
-            V1ProvidersIdReviewsPost200ResponseBuilder> {
+        Builder<
+          V1ProvidersIdReviewsPost200Response,
+          V1ProvidersIdReviewsPost200ResponseBuilder
+        > {
   _$V1ProvidersIdReviewsPost200Response? _$v;
 
   String? _id;
@@ -126,7 +128,8 @@ class V1ProvidersIdReviewsPost200ResponseBuilder
 
   @override
   void update(
-      void Function(V1ProvidersIdReviewsPost200ResponseBuilder)? updates) {
+    void Function(V1ProvidersIdReviewsPost200ResponseBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -134,20 +137,34 @@ class V1ProvidersIdReviewsPost200ResponseBuilder
   V1ProvidersIdReviewsPost200Response build() => _build();
 
   _$V1ProvidersIdReviewsPost200Response _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$V1ProvidersIdReviewsPost200Response._(
           id: BuiltValueNullFieldError.checkNotNull(
-              id, r'V1ProvidersIdReviewsPost200Response', 'id'),
+            id,
+            r'V1ProvidersIdReviewsPost200Response',
+            'id',
+          ),
           rating: BuiltValueNullFieldError.checkNotNull(
-              rating, r'V1ProvidersIdReviewsPost200Response', 'rating'),
+            rating,
+            r'V1ProvidersIdReviewsPost200Response',
+            'rating',
+          ),
           comment: BuiltValueNullFieldError.checkNotNull(
-              comment, r'V1ProvidersIdReviewsPost200Response', 'comment'),
+            comment,
+            r'V1ProvidersIdReviewsPost200Response',
+            'comment',
+          ),
           isVerifiedContact: BuiltValueNullFieldError.checkNotNull(
-              isVerifiedContact,
-              r'V1ProvidersIdReviewsPost200Response',
-              'isVerifiedContact'),
+            isVerifiedContact,
+            r'V1ProvidersIdReviewsPost200Response',
+            'isVerifiedContact',
+          ),
           createdAt: BuiltValueNullFieldError.checkNotNull(
-              createdAt, r'V1ProvidersIdReviewsPost200Response', 'createdAt'),
+            createdAt,
+            r'V1ProvidersIdReviewsPost200Response',
+            'createdAt',
+          ),
         );
     replace(_$result);
     return _$result;

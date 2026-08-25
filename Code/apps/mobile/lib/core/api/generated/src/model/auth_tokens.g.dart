@@ -16,7 +16,7 @@ class _$AuthTokens extends AuthTokens {
       (AuthTokensBuilder()..update(updates))._build();
 
   _$AuthTokens._({required this.accessToken, required this.refreshToken})
-      : super._();
+    : super._();
   @override
   AuthTokens rebuild(void Function(AuthTokensBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -89,12 +89,19 @@ class AuthTokensBuilder implements Builder<AuthTokens, AuthTokensBuilder> {
   AuthTokens build() => _build();
 
   _$AuthTokens _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$AuthTokens._(
           accessToken: BuiltValueNullFieldError.checkNotNull(
-              accessToken, r'AuthTokens', 'accessToken'),
+            accessToken,
+            r'AuthTokens',
+            'accessToken',
+          ),
           refreshToken: BuiltValueNullFieldError.checkNotNull(
-              refreshToken, r'AuthTokens', 'refreshToken'),
+            refreshToken,
+            r'AuthTokens',
+            'refreshToken',
+          ),
         );
     replace(_$result);
     return _$result;

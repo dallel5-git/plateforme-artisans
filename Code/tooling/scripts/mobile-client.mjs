@@ -396,7 +396,20 @@ function foldIntoApp(outputDir) {
   // lib/sanaya_api_client.dart -> api.dart : chemin d'import exigé tel quel par
   // contact_flow_test.dart (package:sanaya/core/api/generated/api.dart).
   const oldBarrel = join(outputDir, `${PACKAGE_NAME}.dart`);
-  if (existsSync(oldBarrel)) renameSync(oldBarrel, join(outputDir, 'api.dart'));
+  const newBarrel = join(outputDir, 'api.dart');
+  if (existsSync(oldBarrel)) renameSync(oldBarrel, newBarrel);
+
+  // FM-02c : contact_flow_test.dart importe NetworkException/UnauthorizedException depuis ce
+  // même barrel (package:sanaya/core/api/generated/api.dart), pas depuis leur fichier
+  // hand-written — ré-exportées ici, écrit par l'outillage (jamais par une main humaine dans ce
+  // dossier). lib/core/api/exceptions.dart lui-même reste un fichier ordinaire, non généré.
+  if (existsSync(newBarrel)) {
+    const exportLine = "export 'package:sanaya/core/api/exceptions.dart';\n";
+    const barrel = readFileSync(newBarrel, 'utf8');
+    if (!barrel.includes(exportLine)) {
+      writeFileSync(newBarrel, `${barrel}${exportLine}`, 'utf8');
+    }
+  }
 
   // Artefacts d'un package pub autonome — sans objet une fois fusionné : dio/built_value/... se
   // résolvent désormais via apps/mobile/pubspec.yaml et son propre pubspec.lock.

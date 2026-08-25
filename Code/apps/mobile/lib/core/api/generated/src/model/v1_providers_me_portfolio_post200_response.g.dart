@@ -19,24 +19,22 @@ class _$V1ProvidersMePortfolioPost200Response
   @override
   final int sortOrder;
 
-  factory _$V1ProvidersMePortfolioPost200Response(
-          [void Function(V1ProvidersMePortfolioPost200ResponseBuilder)?
-              updates]) =>
-      (V1ProvidersMePortfolioPost200ResponseBuilder()..update(updates))
-          ._build();
+  factory _$V1ProvidersMePortfolioPost200Response([
+    void Function(V1ProvidersMePortfolioPost200ResponseBuilder)? updates,
+  ]) => (V1ProvidersMePortfolioPost200ResponseBuilder()..update(updates))
+      ._build();
 
-  _$V1ProvidersMePortfolioPost200Response._(
-      {required this.id,
-      required this.mediaId,
-      required this.categoryId,
-      required this.caption,
-      required this.sortOrder})
-      : super._();
+  _$V1ProvidersMePortfolioPost200Response._({
+    required this.id,
+    required this.mediaId,
+    required this.categoryId,
+    required this.caption,
+    required this.sortOrder,
+  }) : super._();
   @override
   V1ProvidersMePortfolioPost200Response rebuild(
-          void Function(V1ProvidersMePortfolioPost200ResponseBuilder)
-              updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(V1ProvidersMePortfolioPost200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersMePortfolioPost200ResponseBuilder toBuilder() =>
@@ -68,7 +66,8 @@ class _$V1ProvidersMePortfolioPost200Response
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'V1ProvidersMePortfolioPost200Response')
+            r'V1ProvidersMePortfolioPost200Response',
+          )
           ..add('id', id)
           ..add('mediaId', mediaId)
           ..add('categoryId', categoryId)
@@ -80,8 +79,10 @@ class _$V1ProvidersMePortfolioPost200Response
 
 class V1ProvidersMePortfolioPost200ResponseBuilder
     implements
-        Builder<V1ProvidersMePortfolioPost200Response,
-            V1ProvidersMePortfolioPost200ResponseBuilder> {
+        Builder<
+          V1ProvidersMePortfolioPost200Response,
+          V1ProvidersMePortfolioPost200ResponseBuilder
+        > {
   _$V1ProvidersMePortfolioPost200Response? _$v;
 
   String? _id;
@@ -128,7 +129,8 @@ class V1ProvidersMePortfolioPost200ResponseBuilder
 
   @override
   void update(
-      void Function(V1ProvidersMePortfolioPost200ResponseBuilder)? updates) {
+    void Function(V1ProvidersMePortfolioPost200ResponseBuilder)? updates,
+  ) {
     if (updates != null) updates(this);
   }
 
@@ -136,18 +138,34 @@ class V1ProvidersMePortfolioPost200ResponseBuilder
   V1ProvidersMePortfolioPost200Response build() => _build();
 
   _$V1ProvidersMePortfolioPost200Response _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$V1ProvidersMePortfolioPost200Response._(
           id: BuiltValueNullFieldError.checkNotNull(
-              id, r'V1ProvidersMePortfolioPost200Response', 'id'),
+            id,
+            r'V1ProvidersMePortfolioPost200Response',
+            'id',
+          ),
           mediaId: BuiltValueNullFieldError.checkNotNull(
-              mediaId, r'V1ProvidersMePortfolioPost200Response', 'mediaId'),
-          categoryId: BuiltValueNullFieldError.checkNotNull(categoryId,
-              r'V1ProvidersMePortfolioPost200Response', 'categoryId'),
+            mediaId,
+            r'V1ProvidersMePortfolioPost200Response',
+            'mediaId',
+          ),
+          categoryId: BuiltValueNullFieldError.checkNotNull(
+            categoryId,
+            r'V1ProvidersMePortfolioPost200Response',
+            'categoryId',
+          ),
           caption: BuiltValueNullFieldError.checkNotNull(
-              caption, r'V1ProvidersMePortfolioPost200Response', 'caption'),
+            caption,
+            r'V1ProvidersMePortfolioPost200Response',
+            'caption',
+          ),
           sortOrder: BuiltValueNullFieldError.checkNotNull(
-              sortOrder, r'V1ProvidersMePortfolioPost200Response', 'sortOrder'),
+            sortOrder,
+            r'V1ProvidersMePortfolioPost200Response',
+            'sortOrder',
+          ),
         );
     replace(_$result);
     return _$result;

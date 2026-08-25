@@ -20,8 +20,10 @@ part 'v1_auth_otp_verify_post200_response.g.dart';
 @BuiltValue()
 abstract class V1AuthOtpVerifyPost200Response
     implements
-        Built<V1AuthOtpVerifyPost200Response,
-            V1AuthOtpVerifyPost200ResponseBuilder> {
+        Built<
+          V1AuthOtpVerifyPost200Response,
+          V1AuthOtpVerifyPost200ResponseBuilder
+        > {
   @BuiltValueField(wireName: r'accessToken')
   String get accessToken;
 
@@ -33,9 +35,9 @@ abstract class V1AuthOtpVerifyPost200Response
 
   V1AuthOtpVerifyPost200Response._();
 
-  factory V1AuthOtpVerifyPost200Response(
-          [void updates(V1AuthOtpVerifyPost200ResponseBuilder b)]) =
-      _$V1AuthOtpVerifyPost200Response;
+  factory V1AuthOtpVerifyPost200Response([
+    void updates(V1AuthOtpVerifyPost200ResponseBuilder b),
+  ]) = _$V1AuthOtpVerifyPost200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1AuthOtpVerifyPost200ResponseBuilder b) => b;
@@ -50,7 +52,7 @@ class _$V1AuthOtpVerifyPost200ResponseSerializer
   @override
   final Iterable<Type> types = const [
     V1AuthOtpVerifyPost200Response,
-    _$V1AuthOtpVerifyPost200Response
+    _$V1AuthOtpVerifyPost200Response,
   ];
 
   @override
@@ -84,9 +86,11 @@ class _$V1AuthOtpVerifyPost200ResponseSerializer
     V1AuthOtpVerifyPost200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(
+      serializers,
+      object,
+      specifiedType: specifiedType,
+    ).toList();
   }
 
   void _deserializeProperties(
@@ -102,24 +106,32 @@ class _$V1AuthOtpVerifyPost200ResponseSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'accessToken':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.accessToken = valueDes;
           break;
         case r'refreshToken':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(String),
+                  )
+                  as String;
           result.refreshToken = valueDes;
           break;
         case r'user':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(V1AuthOtpVerifyPost200ResponseUser),
-          ) as V1AuthOtpVerifyPost200ResponseUser;
+          final valueDes =
+              serializers.deserialize(
+                    value,
+                    specifiedType: const FullType(
+                      V1AuthOtpVerifyPost200ResponseUser,
+                    ),
+                  )
+                  as V1AuthOtpVerifyPost200ResponseUser;
           result.user.replace(valueDes);
           break;
         default:

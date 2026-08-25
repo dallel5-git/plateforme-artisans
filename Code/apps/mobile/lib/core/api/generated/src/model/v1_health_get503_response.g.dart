@@ -9,11 +9,12 @@ part of 'v1_health_get503_response.dart';
 const V1HealthGet503ResponseStatusEnum _$v1HealthGet503ResponseStatusEnum_ok =
     const V1HealthGet503ResponseStatusEnum._('ok');
 const V1HealthGet503ResponseStatusEnum
-    _$v1HealthGet503ResponseStatusEnum_degraded =
+_$v1HealthGet503ResponseStatusEnum_degraded =
     const V1HealthGet503ResponseStatusEnum._('degraded');
 
 V1HealthGet503ResponseStatusEnum _$v1HealthGet503ResponseStatusEnumValueOf(
-    String name) {
+  String name,
+) {
   switch (name) {
     case 'ok':
       return _$v1HealthGet503ResponseStatusEnum_ok;
@@ -25,11 +26,13 @@ V1HealthGet503ResponseStatusEnum _$v1HealthGet503ResponseStatusEnumValueOf(
 }
 
 final BuiltSet<V1HealthGet503ResponseStatusEnum>
-    _$v1HealthGet503ResponseStatusEnumValues = BuiltSet<
-        V1HealthGet503ResponseStatusEnum>(const <V1HealthGet503ResponseStatusEnum>[
-  _$v1HealthGet503ResponseStatusEnum_ok,
-  _$v1HealthGet503ResponseStatusEnum_degraded,
-]);
+_$v1HealthGet503ResponseStatusEnumValues =
+    BuiltSet<V1HealthGet503ResponseStatusEnum>(
+      const <V1HealthGet503ResponseStatusEnum>[
+        _$v1HealthGet503ResponseStatusEnum_ok,
+        _$v1HealthGet503ResponseStatusEnum_degraded,
+      ],
+    );
 
 const V1HealthGet503ResponseDbEnum _$v1HealthGet503ResponseDbEnum_up =
     const V1HealthGet503ResponseDbEnum._('up');
@@ -37,7 +40,8 @@ const V1HealthGet503ResponseDbEnum _$v1HealthGet503ResponseDbEnum_down =
     const V1HealthGet503ResponseDbEnum._('down');
 
 V1HealthGet503ResponseDbEnum _$v1HealthGet503ResponseDbEnumValueOf(
-    String name) {
+  String name,
+) {
   switch (name) {
     case 'up':
       return _$v1HealthGet503ResponseDbEnum_up;
@@ -49,11 +53,12 @@ V1HealthGet503ResponseDbEnum _$v1HealthGet503ResponseDbEnumValueOf(
 }
 
 final BuiltSet<V1HealthGet503ResponseDbEnum>
-    _$v1HealthGet503ResponseDbEnumValues =
-    BuiltSet<V1HealthGet503ResponseDbEnum>(const <V1HealthGet503ResponseDbEnum>[
-  _$v1HealthGet503ResponseDbEnum_up,
-  _$v1HealthGet503ResponseDbEnum_down,
-]);
+_$v1HealthGet503ResponseDbEnumValues = BuiltSet<V1HealthGet503ResponseDbEnum>(
+  const <V1HealthGet503ResponseDbEnum>[
+    _$v1HealthGet503ResponseDbEnum_up,
+    _$v1HealthGet503ResponseDbEnum_down,
+  ],
+);
 
 const V1HealthGet503ResponseRedisEnum _$v1HealthGet503ResponseRedisEnum_up =
     const V1HealthGet503ResponseRedisEnum._('up');
@@ -61,7 +66,8 @@ const V1HealthGet503ResponseRedisEnum _$v1HealthGet503ResponseRedisEnum_down =
     const V1HealthGet503ResponseRedisEnum._('down');
 
 V1HealthGet503ResponseRedisEnum _$v1HealthGet503ResponseRedisEnumValueOf(
-    String name) {
+  String name,
+) {
   switch (name) {
     case 'up':
       return _$v1HealthGet503ResponseRedisEnum_up;
@@ -73,20 +79,22 @@ V1HealthGet503ResponseRedisEnum _$v1HealthGet503ResponseRedisEnumValueOf(
 }
 
 final BuiltSet<V1HealthGet503ResponseRedisEnum>
-    _$v1HealthGet503ResponseRedisEnumValues = BuiltSet<
-        V1HealthGet503ResponseRedisEnum>(const <V1HealthGet503ResponseRedisEnum>[
-  _$v1HealthGet503ResponseRedisEnum_up,
-  _$v1HealthGet503ResponseRedisEnum_down,
-]);
+_$v1HealthGet503ResponseRedisEnumValues =
+    BuiltSet<V1HealthGet503ResponseRedisEnum>(
+      const <V1HealthGet503ResponseRedisEnum>[
+        _$v1HealthGet503ResponseRedisEnum_up,
+        _$v1HealthGet503ResponseRedisEnum_down,
+      ],
+    );
 
 Serializer<V1HealthGet503ResponseStatusEnum>
-    _$v1HealthGet503ResponseStatusEnumSerializer =
+_$v1HealthGet503ResponseStatusEnumSerializer =
     _$V1HealthGet503ResponseStatusEnumSerializer();
 Serializer<V1HealthGet503ResponseDbEnum>
-    _$v1HealthGet503ResponseDbEnumSerializer =
+_$v1HealthGet503ResponseDbEnumSerializer =
     _$V1HealthGet503ResponseDbEnumSerializer();
 Serializer<V1HealthGet503ResponseRedisEnum>
-    _$v1HealthGet503ResponseRedisEnumSerializer =
+_$v1HealthGet503ResponseRedisEnumSerializer =
     _$V1HealthGet503ResponseRedisEnumSerializer();
 
 class _$V1HealthGet503ResponseStatusEnumSerializer
@@ -107,16 +115,19 @@ class _$V1HealthGet503ResponseStatusEnumSerializer
 
   @override
   Object serialize(
-          Serializers serializers, V1HealthGet503ResponseStatusEnum object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+    Serializers serializers,
+    V1HealthGet503ResponseStatusEnum object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _toWire[object.name] ?? object.name;
 
   @override
   V1HealthGet503ResponseStatusEnum deserialize(
-          Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      V1HealthGet503ResponseStatusEnum.valueOf(
-          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => V1HealthGet503ResponseStatusEnum.valueOf(
+    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+  );
 }
 
 class _$V1HealthGet503ResponseDbEnumSerializer
@@ -136,16 +147,20 @@ class _$V1HealthGet503ResponseDbEnumSerializer
   final String wireName = 'V1HealthGet503ResponseDbEnum';
 
   @override
-  Object serialize(Serializers serializers, V1HealthGet503ResponseDbEnum object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+  Object serialize(
+    Serializers serializers,
+    V1HealthGet503ResponseDbEnum object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _toWire[object.name] ?? object.name;
 
   @override
   V1HealthGet503ResponseDbEnum deserialize(
-          Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      V1HealthGet503ResponseDbEnum.valueOf(
-          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => V1HealthGet503ResponseDbEnum.valueOf(
+    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+  );
 }
 
 class _$V1HealthGet503ResponseRedisEnumSerializer
@@ -166,16 +181,19 @@ class _$V1HealthGet503ResponseRedisEnumSerializer
 
   @override
   Object serialize(
-          Serializers serializers, V1HealthGet503ResponseRedisEnum object,
-          {FullType specifiedType = FullType.unspecified}) =>
-      _toWire[object.name] ?? object.name;
+    Serializers serializers,
+    V1HealthGet503ResponseRedisEnum object, {
+    FullType specifiedType = FullType.unspecified,
+  }) => _toWire[object.name] ?? object.name;
 
   @override
   V1HealthGet503ResponseRedisEnum deserialize(
-          Serializers serializers, Object serialized,
-          {FullType specifiedType = FullType.unspecified}) =>
-      V1HealthGet503ResponseRedisEnum.valueOf(
-          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) => V1HealthGet503ResponseRedisEnum.valueOf(
+    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
+  );
 }
 
 class _$V1HealthGet503Response extends V1HealthGet503Response {
@@ -186,17 +204,19 @@ class _$V1HealthGet503Response extends V1HealthGet503Response {
   @override
   final V1HealthGet503ResponseRedisEnum redis;
 
-  factory _$V1HealthGet503Response(
-          [void Function(V1HealthGet503ResponseBuilder)? updates]) =>
-      (V1HealthGet503ResponseBuilder()..update(updates))._build();
+  factory _$V1HealthGet503Response([
+    void Function(V1HealthGet503ResponseBuilder)? updates,
+  ]) => (V1HealthGet503ResponseBuilder()..update(updates))._build();
 
-  _$V1HealthGet503Response._(
-      {required this.status, required this.db, required this.redis})
-      : super._();
+  _$V1HealthGet503Response._({
+    required this.status,
+    required this.db,
+    required this.redis,
+  }) : super._();
   @override
   V1HealthGet503Response rebuild(
-          void Function(V1HealthGet503ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(V1HealthGet503ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   V1HealthGet503ResponseBuilder toBuilder() =>
@@ -277,14 +297,24 @@ class V1HealthGet503ResponseBuilder
   V1HealthGet503Response build() => _build();
 
   _$V1HealthGet503Response _build() {
-    final _$result = _$v ??
+    final _$result =
+        _$v ??
         _$V1HealthGet503Response._(
           status: BuiltValueNullFieldError.checkNotNull(
-              status, r'V1HealthGet503Response', 'status'),
+            status,
+            r'V1HealthGet503Response',
+            'status',
+          ),
           db: BuiltValueNullFieldError.checkNotNull(
-              db, r'V1HealthGet503Response', 'db'),
+            db,
+            r'V1HealthGet503Response',
+            'db',
+          ),
           redis: BuiltValueNullFieldError.checkNotNull(
-              redis, r'V1HealthGet503Response', 'redis'),
+            redis,
+            r'V1HealthGet503Response',
+            'redis',
+          ),
         );
     replace(_$result);
     return _$result;

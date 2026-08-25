@@ -13,17 +13,18 @@ class _$V1ProvidersMeStatsGet200Response
   @override
   final BuiltList<V1ProvidersMeStatsGet200ResponseSeriesInner> series;
 
-  factory _$V1ProvidersMeStatsGet200Response(
-          [void Function(V1ProvidersMeStatsGet200ResponseBuilder)? updates]) =>
-      (V1ProvidersMeStatsGet200ResponseBuilder()..update(updates))._build();
+  factory _$V1ProvidersMeStatsGet200Response([
+    void Function(V1ProvidersMeStatsGet200ResponseBuilder)? updates,
+  ]) => (V1ProvidersMeStatsGet200ResponseBuilder()..update(updates))._build();
 
-  _$V1ProvidersMeStatsGet200Response._(
-      {required this.totals, required this.series})
-      : super._();
+  _$V1ProvidersMeStatsGet200Response._({
+    required this.totals,
+    required this.series,
+  }) : super._();
   @override
   V1ProvidersMeStatsGet200Response rebuild(
-          void Function(V1ProvidersMeStatsGet200ResponseBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+    void Function(V1ProvidersMeStatsGet200ResponseBuilder) updates,
+  ) => (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersMeStatsGet200ResponseBuilder toBuilder() =>
@@ -57,8 +58,10 @@ class _$V1ProvidersMeStatsGet200Response
 
 class V1ProvidersMeStatsGet200ResponseBuilder
     implements
-        Builder<V1ProvidersMeStatsGet200Response,
-            V1ProvidersMeStatsGet200ResponseBuilder> {
+        Builder<
+          V1ProvidersMeStatsGet200Response,
+          V1ProvidersMeStatsGet200ResponseBuilder
+        > {
   _$V1ProvidersMeStatsGet200Response? _$v;
 
   V1ProvidersMeStatsGet200ResponseTotalsBuilder? _totals;
@@ -72,8 +75,8 @@ class V1ProvidersMeStatsGet200ResponseBuilder
       _$this._series ??=
           ListBuilder<V1ProvidersMeStatsGet200ResponseSeriesInner>();
   set series(
-          ListBuilder<V1ProvidersMeStatsGet200ResponseSeriesInner>? series) =>
-      _$this._series = series;
+    ListBuilder<V1ProvidersMeStatsGet200ResponseSeriesInner>? series,
+  ) => _$this._series = series;
 
   V1ProvidersMeStatsGet200ResponseBuilder() {
     V1ProvidersMeStatsGet200Response._defaults(this);
@@ -105,7 +108,8 @@ class V1ProvidersMeStatsGet200ResponseBuilder
   _$V1ProvidersMeStatsGet200Response _build() {
     _$V1ProvidersMeStatsGet200Response _$result;
     try {
-      _$result = _$v ??
+      _$result =
+          _$v ??
           _$V1ProvidersMeStatsGet200Response._(
             totals: totals.build(),
             series: series.build(),
@@ -119,7 +123,10 @@ class V1ProvidersMeStatsGet200ResponseBuilder
         series.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'V1ProvidersMeStatsGet200Response', _$failedField, e.toString());
+          r'V1ProvidersMeStatsGet200Response',
+          _$failedField,
+          e.toString(),
+        );
       }
       rethrow;
     }
