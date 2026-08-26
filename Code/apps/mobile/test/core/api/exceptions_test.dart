@@ -147,7 +147,8 @@ void main() {
 
   group('FM-02c — unwrapDioErrors', () {
     test(
-      'relance le SanayaApiException porté par DioException.error, pas le DioException lui-même',
+      'relance le SanayaApiException porté par '
+      'DioException.error, pas le DioException lui-même',
       () async {
         final options = RequestOptions(path: '/v1/test');
         final apiException = UnauthorizedException();
