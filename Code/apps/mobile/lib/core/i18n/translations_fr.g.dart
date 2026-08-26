@@ -49,6 +49,7 @@ class Translations$common$fr {
 	String get appName => 'Sanaya';
 
 	late final Translations$common$home$fr home = Translations$common$home$fr.internal(_root);
+	late final Translations$common$widgets$fr widgets = Translations$common$widgets$fr.internal(_root);
 }
 
 // Path: common.home
@@ -78,6 +79,18 @@ class Translations$common$home$fr {
 	String get designSystemPreview => 'Vitrine design system';
 }
 
+// Path: common.widgets
+class Translations$common$widgets$fr {
+	Translations$common$widgets$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Vérifié'
+	String get verifiedBadge => 'Vérifié';
+}
+
 /// The flat map containing all translations for locale <fr>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -93,6 +106,7 @@ extension on Translations {
 			'common.home.toggleTheme' => 'Basculer thème clair/sombre',
 			'common.home.toggleLocale' => 'Basculer FR/AR',
 			'common.home.designSystemPreview' => 'Vitrine design system',
+			'common.widgets.verifiedBadge' => 'Vérifié',
 			_ => null,
 		};
 	}

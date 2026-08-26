@@ -107,19 +107,26 @@ jobs:
           fi
           echo "✓ dart analyze (lib/core/api/generated) : 0 erreur"
 
-      # Ciblé sur les répertoires réellement écrits à la main, pas `dart format .`
-      # sur tout l'arbre : lib/core/theme/** (généré SO-04) et
-      # test/features/contact/contact_flow_test.dart (pré-écrit FM-09) ne passent
-      # pas `dart format` tel quel et ne sont pas à nous de reformater — même
-      # raison que l'exclusion analyzer ci-dessus. lib/core/widgets et
-      # test/core/widgets ajoutés par FM-04. test/core/i18n (FM-03) n'est pas
-      # encore couvert ici — gap pré-existant, indépendant de FM-04, loggé dans
-      # backlog/TODO.md § Backlog non planifié. À élargir au fil des tickets
-      # FM-* qui ajoutent du code sous lib/core/{api,i18n}/ et lib/features/.
+      # Ciblé sur les répertoires/fichiers réellement écrits à la main, pas
+      # `dart format .` sur tout l'arbre : lib/core/theme/** (généré SO-04),
+      # lib/core/i18n/*.g.dart (généré slang) et
+      # test/features/contact/contact_flow_test.dart (pré-écrit FM-09) ne
+      # passent pas `dart format` tel quel et ne sont pas à nous de
+      # reformater — même raison que l'exclusion analyzer ci-dessus.
+      # lib/core/widgets et test/core/widgets ajoutés par FM-04.
+      # lib/core/i18n/{format,locale_persistence}.dart et leurs tests ciblés
+      # explicitement (fichiers, pas tout le dossier) : seuls fichiers écrits
+      # à la main de lib/core/i18n, le reste (*.g.dart) est généré par slang.
+      # Résout SO-09 (gap pré-existant depuis FM-03, jamais couvert par
+      # cette étape). À élargir au fil des tickets FM-* qui ajoutent du code
+      # sous lib/core/{api,i18n}/ et lib/features/.
       - run: |
           dart format --set-exit-if-changed \
             lib/app lib/main.dart lib/core/widgets \
-            test/widget_test.dart test/core/widgets
+            lib/core/i18n/format.dart lib/core/i18n/locale_persistence.dart \
+            test/widget_test.dart test/core/widgets \
+            test/core/i18n/format_test.dart \
+            test/core/i18n/locale_persistence_test.dart
 
       # FM-03 : lib/core/i18n/*.g.dart est généré par slang depuis
       # packages/i18n/src/locales/ (SO-05). `dart run build_runner build`
@@ -139,8 +146,9 @@ jobs:
       # découvrirait quand même (l'exclusion analyzer n'affecte que l'analyse
       # statique, pas la collecte des tests) et ferait échouer ce job pour une
       # raison sans rapport avec le code de la PR. test/core/widgets ajouté par
-      # FM-04. À élargir quand FM-02/FM-09 livrent le code testé.
-      - run: flutter test test/widget_test.dart test/core/widgets
+      # FM-04. test/core/i18n ajouté ici (résout SO-09). À élargir quand
+      # FM-02/FM-09 livrent le code testé.
+      - run: flutter test test/widget_test.dart test/core/widgets test/core/i18n
 
   mobile-client-check:
     name: contrat → client Dart (mobile:client)

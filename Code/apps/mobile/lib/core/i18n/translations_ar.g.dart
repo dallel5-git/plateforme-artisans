@@ -51,6 +51,7 @@ class Translations$common$ar extends Translations$common$fr {
 	// Translations
 	@override String get appName => 'Sanaya';
 	@override late final Translations$common$home$ar home = Translations$common$home$ar._(_root);
+	@override late final Translations$common$widgets$ar widgets = Translations$common$widgets$ar._(_root);
 }
 
 // Path: common.home
@@ -68,6 +69,16 @@ class Translations$common$home$ar extends Translations$common$home$fr {
 	@override String get designSystemPreview => 'معرض نظام التصميم';
 }
 
+// Path: common.widgets
+class Translations$common$widgets$ar extends Translations$common$widgets$fr {
+	Translations$common$widgets$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get verifiedBadge => 'موثّق';
+}
+
 /// The flat map containing all translations for locale <ar>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -83,6 +94,7 @@ extension on TranslationsAr {
 			'common.home.toggleTheme' => 'تبديل المظهر الفاتح/الداكن',
 			'common.home.toggleLocale' => 'تبديل الفرنسية/العربية',
 			'common.home.designSystemPreview' => 'معرض نظام التصميم',
+			'common.widgets.verifiedBadge' => 'موثّق',
 			_ => null,
 		};
 	}
