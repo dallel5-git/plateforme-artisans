@@ -7,7 +7,7 @@ import 'package:sanaya/core/api/exceptions.dart';
 /// de la relancer. Un appelant récupère l'exception typée avec
 /// [unwrapDioErrors] plutôt qu'en déballant `DioException.error` lui-même.
 ///
-/// Doit rester le dernier intercepteur enregistré (voir [buildApiClient]) :
+/// Doit rester le dernier intercepteur enregistré (voir `buildApiClient`) :
 /// un intercepteur plus spécifique (auth/refresh — FM-02d) doit pouvoir
 /// intercepter un 401 et rejouer la requête *avant* que celui-ci ne le
 /// traduise en exception définitive.
