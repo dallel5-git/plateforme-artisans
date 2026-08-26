@@ -111,18 +111,21 @@ jobs:
       # sur tout l'arbre : lib/core/theme/** (généré SO-04) et
       # test/features/contact/contact_flow_test.dart (pré-écrit FM-09) ne passent
       # pas `dart format` tel quel et ne sont pas à nous de reformater — même
-      # raison que l'exclusion analyzer ci-dessus. lib/core/widgets/test/core/widgets
-      # ajoutés par FM-04, lib/core/api (fichier par fichier)/test/core/api par
-      # FM-02c — lib/core/api/generated/ (sous-arbre) est vérifié séparément par
-      # mobile:client:check, pas ici. test/core/i18n (FM-03) n'est pas encore
-      # couvert ici — gap pré-existant, loggé dans backlog/TODO.md § Backlog non
-      # planifié. À élargir au fil des tickets FM-* qui ajoutent du code sous
-      # lib/core/{api,i18n}/ et lib/features/.
+      # raison que l'exclusion analyzer ci-dessus. lib/core/widgets/test/core/widgets ajoutés
+      # par FM-04 ; lib/core/api/api_client_provider.dart et lib/features/search/test/features/
+      # search (FM-06) ; lib/core/api/{api_client,env,exceptions}.dart, lib/core/api/interceptors
+      # et test/core/api (FM-02c). ⚠️ Fichier précis, jamais `lib/core/api` en entier : ce
+      # dossier contient aussi `lib/core/api/generated/` (client openapi-generator, SDK Dart
+      # 3.12.2 épinglé côté mobile-client-check) — un `dart format` avec un SDK local/CI
+      # différent le reformaterait en diff parasite, même bug que documenté pour
+      # mobile-client-check. test/core/i18n (FM-03) n'est pas encore couvert ici — gap
+      # pré-existant, loggé dans backlog/TODO.md § Backlog non planifié. À élargir au fil des
+      # tickets FM-* qui ajoutent du code sous lib/core/{api,i18n}/ et lib/features/.
       - run: |
           dart format --set-exit-if-changed \
-            lib/app lib/main.dart lib/core/widgets \
-            lib/core/api/api_client.dart lib/core/api/env.dart lib/core/api/exceptions.dart lib/core/api/interceptors \
-            test/widget_test.dart test/core/widgets test/core/api
+            lib/app lib/main.dart lib/core/widgets lib/features/search \
+            lib/core/api/api_client.dart lib/core/api/api_client_provider.dart lib/core/api/env.dart lib/core/api/exceptions.dart lib/core/api/interceptors \
+            test/widget_test.dart test/core/widgets test/core/api test/features/search
 
       # FM-03 : lib/core/i18n/*.g.dart est généré par slang depuis
       # packages/i18n/src/locales/ (SO-05). `dart run build_runner build`
@@ -141,8 +144,8 @@ jobs:
       # mocktail pas déclaré) — voulu, cf. son en-tête. Un `flutter test` sans
       # filtre le découvrirait quand même (l'exclusion analyzer n'affecte que
       # l'analyse statique, pas la collecte des tests) et ferait échouer ce job
-      # pour une raison sans rapport avec le code de la PR. À élargir quand
-      # FM-09 livre le code testé.
+      # pour une raison sans rapport avec le code de la PR. test/features/search
+      # ajouté par FM-06. À élargir quand FM-09 livre le code testé.
       #
       # FM-02c : un seul `flutter test` avec plusieurs cibles mélangeant fichier(s)
       # et répertoire(s) est peu fiable — observé reproductible localement (un test
@@ -152,6 +155,7 @@ jobs:
       - run: flutter test test/widget_test.dart
       - run: flutter test test/core/widgets
       - run: flutter test test/core/api
+      - run: flutter test test/features/search
 
   mobile-client-check:
     name: contrat → client Dart (mobile:client)

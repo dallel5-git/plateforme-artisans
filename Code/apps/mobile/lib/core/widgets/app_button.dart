@@ -71,13 +71,22 @@ class AppButton extends StatelessWidget {
           child: InkWell(
             onTap: onPressed,
             borderRadius: BorderRadius.all(radius),
-            child: Container(
+            // ConstrainedBox + Padding, pas Container(alignment:) : un
+            // Container avec un alignment non nul s'étend pour remplir
+            // l'espace dès que le parent lui donne des contraintes bornées
+            // (c'est le cas ici, dans un Wrap) — bug constaté à l'écran
+            // vitrine (boutons pleine largeur au lieu de s'ajuster à leur
+            // contenu). ConstrainedBox n'a pas cet effet de bord ; le
+            // centrage vertical reste assuré par le crossAxisAlignment
+            // par défaut (center) du Row de contenu.
+            child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: minHeight),
-              padding: EdgeInsetsDirectional.symmetric(
-                horizontal: horizontalPadding,
+              child: Padding(
+                padding: EdgeInsetsDirectional.symmetric(
+                  horizontal: horizontalPadding,
+                ),
+                child: content,
               ),
-              alignment: Alignment.center,
-              child: content,
             ),
           ),
         ),
