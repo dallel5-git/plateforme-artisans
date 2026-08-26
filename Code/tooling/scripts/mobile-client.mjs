@@ -27,7 +27,6 @@ import {
   mkdtempSync,
   readdirSync,
   readFileSync,
-  renameSync,
   rmSync,
   writeFileSync,
 } from 'node:fs';
@@ -52,6 +51,25 @@ const GENERATOR_CLI = join(
 );
 const CHECK = process.argv.includes('--check');
 const PACKAGE_NAME = 'sanaya_api_client';
+
+// Versions exactes des dépendances du package pub.dev autonome que le générateur écrit
+// (jamais committé lui-même depuis FM-02b — foldIntoApp le supprime en toute fin de pipeline,
+// voir plus bas). Le générateur les déclare en range (ex. `>=8.4.0 <9.0.0`) : sans pin exact,
+// `dart pub get` résout « la dernière version compatible au moment du run », qui dérive dans le
+// temps à mesure que pub.dev publie — observé en pratique deux fois (BE-26c #153, puis ici :
+// built_value/built_value_generator 8.4.0→8.12.7 entre deux régénérations à quelques jours
+// d'écart, generated/*.dart différent alors qu'aucun schéma n'avait changé). Un pin exact rend
+// la régénération déterministe indépendamment de la date d'exécution — mettre à jour ces
+// versions est un choix délibéré (nouvelle PR), jamais une dérive silencieuse.
+const PINNED_GENERATOR_DEPENDENCIES = {
+  dio: '5.11.0',
+  one_of: '1.5.0',
+  one_of_serializer: '1.5.0',
+  built_value: '8.12.7',
+  built_collection: '5.1.1',
+  built_value_generator: '8.12.7',
+  build_runner: '2.16.0',
+};
 
 // Sur Windows, `dart`/`openapi-generator-cli` résolvent vers un script `.bat`/`.cmd` : depuis la
 // CVE-2024-27980, spawnSync refuse de les exécuter sans `shell: true` (ENOENT/EINVAL sinon).
@@ -254,6 +272,30 @@ function dedupeGeneratedEnums(outputDir) {
 }
 
 // ---------------------------------------------------------------------------
+// 3ter. Pin des dépendances du package pub.dev généré (voir PINNED_GENERATOR_DEPENDENCIES) —
+//    remplace les ranges écrites par openapi-generator-cli par des versions exactes, pour que
+//    `dart pub get` (juste après) résolve toujours la même chose indépendamment de la date
+//    d'exécution. Doit tourner avant `dart pub get`.
+// ---------------------------------------------------------------------------
+function pinGeneratorDependencies(outputDir) {
+  const pubspecPath = join(outputDir, 'pubspec.yaml');
+  if (!existsSync(pubspecPath)) return;
+
+  let pubspec = readFileSync(pubspecPath, 'utf8');
+  for (const [name, version] of Object.entries(PINNED_GENERATOR_DEPENDENCIES)) {
+    const pattern = new RegExp(`^(  ${name}:\\s*).*$`, 'm');
+    if (!pattern.test(pubspec)) {
+      throw new Error(
+        `pinGeneratorDependencies : dépendance "${name}" attendue dans ${pubspecPath} mais introuvable — ` +
+          'le générateur a peut-être changé son template pubspec.yaml, PINNED_GENERATOR_DEPENDENCIES doit être mis à jour.',
+      );
+    }
+    pubspec = pubspec.replace(pattern, `$1'${version}'`);
+  }
+  writeFileSync(pubspecPath, pubspec, 'utf8');
+}
+
+// ---------------------------------------------------------------------------
 // 3. `.toBuilder()` manquant sur les propriétés objet imbriquées — même cause
 //    racine que les deux bugs précédents (le contrat source n'utilise jamais
 //    `$ref`/`components.schemas`, tout est un schéma anonyme inliné). Quand
@@ -346,6 +388,7 @@ function generateInto(outputDir) {
     );
   }
 
+  pinGeneratorDependencies(outputDir);
   dedupeGeneratedEnums(outputDir);
   fixMissingNestedBuilderConversions(outputDir);
 
@@ -388,15 +431,36 @@ function foldIntoApp(outputDir) {
     }
   }
 
+  // cpSync+rmSync plutôt que renameSync : sur Windows, un `rename` de répertoire échoue
+  // (EPERM) dès qu'un watcher externe (serveur d'analyse Dart de l'IDE, notamment) a un
+  // descripteur ouvert quelque part dans l'arborescence — un simple `flutter analyze` ou
+  // `dart analyze` lancé en tâche de fond suffit à déclencher ça de façon intermittente.
+  // Copier puis supprimer n'a pas besoin d'un verrou exclusif sur le répertoire source.
   for (const entry of readdirSync(libDir)) {
-    renameSync(join(libDir, entry), join(outputDir, entry));
+    cpSync(join(libDir, entry), join(outputDir, entry), { recursive: true });
   }
   rmSync(libDir, { recursive: true, force: true });
 
   // lib/sanaya_api_client.dart -> api.dart : chemin d'import exigé tel quel par
   // contact_flow_test.dart (package:sanaya/core/api/generated/api.dart).
   const oldBarrel = join(outputDir, `${PACKAGE_NAME}.dart`);
-  if (existsSync(oldBarrel)) renameSync(oldBarrel, join(outputDir, 'api.dart'));
+  const newBarrel = join(outputDir, 'api.dart');
+  if (existsSync(oldBarrel)) {
+    cpSync(oldBarrel, newBarrel);
+    rmSync(oldBarrel, { force: true });
+  }
+
+  // FM-02c : contact_flow_test.dart importe NetworkException/UnauthorizedException depuis ce
+  // même barrel (package:sanaya/core/api/generated/api.dart), pas depuis leur fichier
+  // hand-written — ré-exportées ici, écrit par l'outillage (jamais par une main humaine dans ce
+  // dossier). lib/core/api/exceptions.dart lui-même reste un fichier ordinaire, non généré.
+  if (existsSync(newBarrel)) {
+    const exportLine = "export 'package:sanaya/core/api/exceptions.dart';\n";
+    const barrel = readFileSync(newBarrel, 'utf8');
+    if (!barrel.includes(exportLine)) {
+      writeFileSync(newBarrel, `${barrel}${exportLine}`, 'utf8');
+    }
+  }
 
   // Artefacts d'un package pub autonome — sans objet une fois fusionné : dio/built_value/... se
   // résolvent désormais via apps/mobile/pubspec.yaml et son propre pubspec.lock.
