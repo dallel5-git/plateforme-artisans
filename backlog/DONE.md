@@ -95,6 +95,7 @@
 | `BE-26a` | Client Dart généré depuis `openapi.json` (`mobile:client`, dart-dio, package autonome) | Claude | #130 | 2026-08-23 |
 | `BE-26b` | Types TS générés depuis `openapi.json` (`web:client`, openapi-typescript) | Claude | #132 | 2026-08-23 |
 | `BE-26` | ⭐ Contrat : `api:contract` (déjà livré) + `mobile:client` + `web:client` — parcours complet (2 PRs atomiques ci-dessus) | Claude | #130/#132 | 2026-08-23 |
+| `BE-26c` | Prérequis `FM-02` : tags OpenAPI (`auth`, `contact-events`) + `AuthTokens`/`ContactEventResponse` enregistrés dans `z.globalRegistry` — le client Dart généré expose `AuthApi`/`ContactEventsApi` par leur nom au lieu d'un `DefaultApi` fourre-tout | Claude | #155 | 2026-08-25 |
 | `BE-18a` | Assemblage pur du nom d'auteur d'avis (`buildReviewAuthorDisplayName`) | Claude | #103 | 2026-08-21 |
 | `BE-18b` | `listPublishedReviewsForProvider` — repository paginé par curseur | Claude | #104 | 2026-08-21 |
 | `BE-18c` | `GET /v1/providers/:slug/reviews` — route | Claude | #105 | 2026-08-21 |
