@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:sanaya/app/router.dart';
 import 'package:sanaya/core/i18n/translations.g.dart';
 import 'package:sanaya/core/theme/app_text.dart';
+import 'package:sanaya/features/search/application/catalog_providers.dart';
 import 'package:sanaya/main.dart';
 
 final Translations _tFr = AppLocale.fr.buildSync();
@@ -29,14 +30,10 @@ void main() {
       expect(find.text(_tFr.common.home.navPro), findsOneWidget);
     });
 
-    testWidgets('les 3 boutons mènent bien à /auth, /client, /pro', (
+    testWidgets('les boutons /auth et /pro mènent à leur placeholder', (
       tester,
     ) async {
-      for (final label in [
-        _tFr.common.home.navAuth,
-        _tFr.common.home.navClient,
-        _tFr.common.home.navPro,
-      ]) {
+      for (final label in [_tFr.common.home.navAuth, _tFr.common.home.navPro]) {
         router.go('/');
         await tester.pumpWidget(const ProviderScope(child: SanayaApp()));
         await tester.pumpAndSettle();
@@ -47,6 +44,30 @@ void main() {
         expect(find.text(label), findsOneWidget);
       }
     });
+
+    testWidgets(
+      "le bouton /client mène à l'accueil client (FM-06), pas à un "
+      'placeholder',
+      (tester) async {
+        router.go('/');
+        await tester.pumpWidget(
+          ProviderScope(
+            overrides: [
+              categoriesProvider.overrideWith((ref) async => const []),
+              governoratesProvider.overrideWith((ref) async => const []),
+            ],
+            child: const SanayaApp(),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.text(_tFr.common.home.navClient));
+        await tester.pumpAndSettle();
+
+        expect(find.text(_tFr.common.home.navClient), findsNothing);
+        expect(find.text(_tFr.search.categoriesTitle), findsOneWidget);
+      },
+    );
 
     testWidgets('le bouton thème bascule clair ↔ sombre', (tester) async {
       await tester.pumpWidget(const ProviderScope(child: SanayaApp()));

@@ -4,5 +4,6 @@
   "categoriesTitle": "الفئات",
   "categoriesEmpty": "لا توجد فئات متاحة حاليًا.",
   "categoriesError": "تعذّر تحميل الفئات.",
+  "locationError": "تعذّر تحميل الولايات.",
   "retry": "إعادة المحاولة"
 }

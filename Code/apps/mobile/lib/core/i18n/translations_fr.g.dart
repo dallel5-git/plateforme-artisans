@@ -75,6 +75,9 @@ class Translations$search$fr {
 	/// fr: 'Impossible de charger les catégories.'
 	String get categoriesError => 'Impossible de charger les catégories.';
 
+	/// fr: 'Impossible de charger les gouvernorats.'
+	String get locationError => 'Impossible de charger les gouvernorats.';
+
 	/// fr: 'Réessayer'
 	String get retry => 'Réessayer';
 }
@@ -90,8 +93,8 @@ class Translations$common$home$fr {
 	/// fr: 'Espace authentification — à venir (FM-05)'
 	String get navAuth => 'Espace authentification — à venir (FM-05)';
 
-	/// fr: 'Espace client — à venir (FM-06)'
-	String get navClient => 'Espace client — à venir (FM-06)';
+	/// fr: 'Espace client'
+	String get navClient => 'Espace client';
 
 	/// fr: 'Espace pro — à venir (FM-08)'
 	String get navPro => 'Espace pro — à venir (FM-08)';
@@ -116,7 +119,7 @@ extension on Translations {
 		return switch (path) {
 			'common.appName' => 'Sanaya',
 			'common.home.navAuth' => 'Espace authentification — à venir (FM-05)',
-			'common.home.navClient' => 'Espace client — à venir (FM-06)',
+			'common.home.navClient' => 'Espace client',
 			'common.home.navPro' => 'Espace pro — à venir (FM-08)',
 			'common.home.toggleTheme' => 'Basculer thème clair/sombre',
 			'common.home.toggleLocale' => 'Basculer FR/AR',
@@ -126,6 +129,7 @@ extension on Translations {
 			'search.categoriesTitle' => 'Catégories',
 			'search.categoriesEmpty' => 'Aucune catégorie disponible pour le moment.',
 			'search.categoriesError' => 'Impossible de charger les catégories.',
+			'search.locationError' => 'Impossible de charger les gouvernorats.',
 			'search.retry' => 'Réessayer',
 			_ => null,
 		};
