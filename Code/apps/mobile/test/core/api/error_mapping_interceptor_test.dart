@@ -38,7 +38,8 @@ ResponseBody _jsonResponse(int statusCode, Map<String, dynamic> body) =>
 void main() {
   group('FM-02c — ErrorMappingInterceptor', () {
     test(
-      'un 401 réel (via Dio + adaptateur factice) ressort comme UnauthorizedException',
+      'un 401 réel (via Dio + adaptateur factice) ressort comme '
+      'UnauthorizedException',
       () async {
         final dio = Dio()
           ..httpClientAdapter = _FakeAdapter(
