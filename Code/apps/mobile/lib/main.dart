@@ -7,10 +7,13 @@ import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/app/router.dart';
 import 'package:sanaya/app/theme.dart';
 import 'package:sanaya/core/i18n/locale_persistence.dart';
+import 'package:sanaya/features/search/application/catalog_providers.dart';
+import 'package:sanaya/features/search/data/governorate_persistence.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final initialLocale = await readInitialLocale();
+  final initialGovernorateId = await readInitialGovernorateId();
 
   // FM-03d : DateFormat lève une exception tant que les données de locale
   // ne sont pas chargées — fait une seule fois au bootstrap pour les deux
@@ -20,7 +23,14 @@ Future<void> main() async {
 
   runApp(
     ProviderScope(
-      overrides: [localeProvider.overrideWith((ref) => initialLocale)],
+      overrides: [
+        localeProvider.overrideWith((ref) => initialLocale),
+        // FM-06 : même patron que `localeProvider` — lecture une seule
+        // fois avant `runApp`, écriture via `ref.listen` dans `SanayaApp`.
+        selectedGovernorateIdProvider.overrideWith(
+          (ref) => initialGovernorateId,
+        ),
+      ],
       child: const SanayaApp(),
     ),
   );
@@ -35,8 +45,16 @@ class SanayaApp extends ConsumerWidget {
     final themeMode = ref.watch(themeModeProvider);
 
     // FM-03b : persiste tout changement de langue — la lecture initiale se
-    // fait une seule fois avant runApp (voir main() ci-dessus).
-    ref.listen<Locale>(localeProvider, (_, next) => persistLocale(next));
+    // fait une seule fois avant runApp (voir main() ci-dessus). FM-06 :
+    // idem pour le gouvernorat choisi (critère d'acceptation — mémorisé
+    // entre deux lancements) ; `null` = aucun choix encore fait, rien à
+    // persister.
+    ref
+      ..listen<Locale>(localeProvider, (_, next) => persistLocale(next))
+      ..listen<String?>(
+        selectedGovernorateIdProvider,
+        (_, next) => next == null ? null : persistGovernorateId(next),
+      );
 
     return MaterialApp.router(
       routerConfig: router,

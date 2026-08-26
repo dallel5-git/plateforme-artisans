@@ -66,6 +66,7 @@ class Translations$search$ar extends Translations$search$fr {
 	@override String get categoriesTitle => 'الفئات';
 	@override String get categoriesEmpty => 'لا توجد فئات متاحة حاليًا.';
 	@override String get categoriesError => 'تعذّر تحميل الفئات.';
+	@override String get locationError => 'تعذّر تحميل الولايات.';
 	@override String get retry => 'إعادة المحاولة';
 }
 
@@ -77,7 +78,7 @@ class Translations$common$home$ar extends Translations$common$home$fr {
 
 	// Translations
 	@override String get navAuth => 'مساحة المصادقة — قريبًا (FM-05)';
-	@override String get navClient => 'مساحة العميل — قريبًا (FM-06)';
+	@override String get navClient => 'مساحة العميل';
 	@override String get navPro => 'مساحة المحترف — قريبًا (FM-08)';
 	@override String get toggleTheme => 'تبديل المظهر الفاتح/الداكن';
 	@override String get toggleLocale => 'تبديل الفرنسية/العربية';
@@ -94,7 +95,7 @@ extension on TranslationsAr {
 		return switch (path) {
 			'common.appName' => 'Sanaya',
 			'common.home.navAuth' => 'مساحة المصادقة — قريبًا (FM-05)',
-			'common.home.navClient' => 'مساحة العميل — قريبًا (FM-06)',
+			'common.home.navClient' => 'مساحة العميل',
 			'common.home.navPro' => 'مساحة المحترف — قريبًا (FM-08)',
 			'common.home.toggleTheme' => 'تبديل المظهر الفاتح/الداكن',
 			'common.home.toggleLocale' => 'تبديل الفرنسية/العربية',
@@ -104,6 +105,7 @@ extension on TranslationsAr {
 			'search.categoriesTitle' => 'الفئات',
 			'search.categoriesEmpty' => 'لا توجد فئات متاحة حاليًا.',
 			'search.categoriesError' => 'تعذّر تحميل الفئات.',
+			'search.locationError' => 'تعذّر تحميل الولايات.',
 			'search.retry' => 'إعادة المحاولة',
 			_ => null,
 		};
