@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sanaya/app/bootstrap_placeholder_screen.dart';
 import 'package:sanaya/app/design_system_preview_screen.dart';
 import 'package:sanaya/app/home_screen.dart';
+import 'package:sanaya/features/search/presentation/search_home_screen.dart';
 
 /// go_router n'a pas d'équivalent aux dossiers parenthésés d'Expo Router —
 /// les groupes (auth)/(client)/(pro) de l'issue FM-01 sont traduits en
@@ -22,10 +23,8 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/client',
-      name: 'client-placeholder',
-      builder: (_, _) => const BootstrapPlaceholderScreen(
-        space: BootstrapNavSpace.client,
-      ),
+      name: 'client-home',
+      builder: (_, _) => const SearchHomeScreen(),
     ),
     GoRoute(
       path: '/pro',

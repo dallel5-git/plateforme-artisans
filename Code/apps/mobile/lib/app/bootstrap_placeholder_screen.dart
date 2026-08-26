@@ -5,9 +5,10 @@ import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
 
-/// Les 3 groupes de routes bootstrap — remplacés feature par feature par
-/// les tickets FM-05+.
-enum BootstrapNavSpace { auth, client, pro }
+/// Groupes de routes encore en bootstrap — remplacés feature par feature
+/// par les tickets FM-05+. `client` a été retiré : `/client` route
+/// désormais vers `SearchHomeScreen` (FM-06).
+enum BootstrapNavSpace { auth, pro }
 
 /// Écran provisoire pour les groupes de routes /auth, /client, /pro.
 class BootstrapPlaceholderScreen extends ConsumerWidget {
@@ -20,7 +21,6 @@ class BootstrapPlaceholderScreen extends ConsumerWidget {
     final t = ref.watch(translationsProvider);
     final label = switch (space) {
       BootstrapNavSpace.auth => t.common.home.navAuth,
-      BootstrapNavSpace.client => t.common.home.navClient,
       BootstrapNavSpace.pro => t.common.home.navPro,
     };
 
