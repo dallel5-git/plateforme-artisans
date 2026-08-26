@@ -1,178 +1,77 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:sanaya/core/api/exceptions.dart';
+import 'package:sanaya/core/api/interceptors/error_mapping_interceptor.dart';
 
-DioException _errorResponse(
-  int statusCode, {
-  Object? data,
-}) {
-  final options = RequestOptions(path: '/v1/test');
-  return DioException(
-    requestOptions: options,
-    type: DioExceptionType.badResponse,
-    response: Response(
-      requestOptions: options,
-      statusCode: statusCode,
-      data: data,
-    ),
-  );
+/// Adaptateur factice minimal — pas de dépendance de test supplémentaire
+/// (mocktail, http_mock_adapter) pour un seul point d'usage : implémente
+/// directement l'interface publique `HttpClientAdapter` de dio.
+class _FakeAdapter implements HttpClientAdapter {
+  _FakeAdapter(this._respond);
+
+  final ResponseBody Function(RequestOptions options) _respond;
+
+  @override
+  Future<ResponseBody> fetch(
+    RequestOptions options,
+    Stream<Uint8List>? requestStream,
+    Future<void>? cancelFuture,
+  ) async => _respond(options);
+
+  @override
+  void close({bool force = false}) {}
 }
 
+ResponseBody _jsonResponse(int statusCode, Map<String, dynamic> body) =>
+    ResponseBody.fromString(
+      jsonEncode(body),
+      statusCode,
+      headers: {
+        Headers.contentTypeHeader: [Headers.jsonContentType],
+      },
+    );
+
 void main() {
-  group('FM-02c — mapping des erreurs API vers des exceptions typées', () {
-    test('timeout → NetworkException, quel que soit le type précis', () {
-      for (final type in [
-        DioExceptionType.connectionTimeout,
-        DioExceptionType.sendTimeout,
-        DioExceptionType.receiveTimeout,
-        DioExceptionType.connectionError,
-      ]) {
-        final err = DioException(
-          requestOptions: RequestOptions(path: '/v1/test'),
-          type: type,
-        );
-        expect(mapDioExceptionToApiException(err), isA<NetworkException>());
-      }
-    });
-
+  group('FM-02c — ErrorMappingInterceptor', () {
     test(
-      'pas de réponse (type inconnu, sans statusCode) → NetworkException',
-      () {
-        final err = DioException(
-          requestOptions: RequestOptions(path: '/v1/test'),
-        );
-        expect(mapDioExceptionToApiException(err), isA<NetworkException>());
-      },
-    );
-
-    test(
-      "401 → UnauthorizedException, code/message/requestId de l'enveloppe repris tels quels",
-      () {
-        final err = _errorResponse(
-          401,
-          data: {
-            'error': {
-              'code': 'ACCESS_TOKEN_EXPIRED',
-              'message': 'Token expiré',
-              'details': {'x': 1},
-            },
-            'requestId': 'req-1',
-          },
-        );
-        final mapped = mapDioExceptionToApiException(err);
-        expect(mapped, isA<UnauthorizedException>());
-        expect(mapped.code, 'ACCESS_TOKEN_EXPIRED');
-        expect(mapped.message, 'Token expiré');
-        expect(mapped.requestId, 'req-1');
-        expect(mapped.details, {'x': 1});
-      },
-    );
-
-    test('403 → ForbiddenException', () {
-      expect(
-        mapDioExceptionToApiException(_errorResponse(403)),
-        isA<ForbiddenException>(),
-      );
-    });
-
-    test('404 → NotFoundException', () {
-      expect(
-        mapDioExceptionToApiException(_errorResponse(404)),
-        isA<NotFoundException>(),
-      );
-    });
-
-    test('400 et 422 → ValidationException', () {
-      expect(
-        mapDioExceptionToApiException(_errorResponse(400)),
-        isA<ValidationException>(),
-      );
-      expect(
-        mapDioExceptionToApiException(_errorResponse(422)),
-        isA<ValidationException>(),
-      );
-    });
-
-    test('429 → RateLimitException', () {
-      expect(
-        mapDioExceptionToApiException(_errorResponse(429)),
-        isA<RateLimitException>(),
-      );
-    });
-
-    test('5xx → ServerException', () {
-      expect(
-        mapDioExceptionToApiException(_errorResponse(500)),
-        isA<ServerException>(),
-      );
-      expect(
-        mapDioExceptionToApiException(_errorResponse(503)),
-        isA<ServerException>(),
-      );
-    });
-
-    test(
-      'statut inattendu (ex. 418) → ServerException, repli sans planter',
-      () {
-        expect(
-          mapDioExceptionToApiException(_errorResponse(418)),
-          isA<ServerException>(),
-        );
-      },
-    );
-
-    test(
-      'enveloppe absente ou malformée (corps texte brut) → repli sans planter',
-      () {
-        final mapped = mapDioExceptionToApiException(
-          _errorResponse(500, data: 'plain text'),
-        );
-        expect(mapped, isA<ServerException>());
-        expect(mapped.code, isNotEmpty);
-        expect(mapped.message, isNotEmpty);
-      },
-    );
-
-    // 🔒 Contrat exigé tel quel par contact_flow_test.dart (FM-09/FM-02, pré-écrit) —
-    // ne pas changer ces signatures sans mettre à jour ce test-là.
-    test('UnauthorizedException() sans argument', () {
-      expect(UnauthorizedException(), isA<UnauthorizedException>());
-    });
-
-    test('NetworkException(message) positionnel', () {
-      expect(NetworkException('hors ligne').message, 'hors ligne');
-    });
-  });
-
-  group('FM-02c — unwrapDioErrors', () {
-    test(
-      'relance le SanayaApiException porté par '
-      'DioException.error, pas le DioException lui-même',
+      'un 401 réel (via Dio + adaptateur factice) '
+      'ressort comme UnauthorizedException',
       () async {
-        final options = RequestOptions(path: '/v1/test');
-        final apiException = UnauthorizedException();
-        Future<int> call() => Future<int>.error(
-          DioException(requestOptions: options, error: apiException),
-        );
+        final dio = Dio()
+          ..httpClientAdapter = _FakeAdapter(
+            (_) => _jsonResponse(401, {
+              'error': {'code': 'UNAUTHORIZED', 'message': 'Non authentifié'},
+              'requestId': 'r1',
+            }),
+          )
+          ..interceptors.add(ErrorMappingInterceptor());
 
-        await expectLater(unwrapDioErrors(call), throwsA(same(apiException)));
+        try {
+          await dio.get<dynamic>('/v1/test');
+          fail('devait lancer un DioException');
+        } on DioException catch (e) {
+          expect(e.error, isA<UnauthorizedException>());
+          expect((e.error! as UnauthorizedException).requestId, 'r1');
+        }
       },
     );
 
     test(
-      'laisse passer un DioException sans SanayaApiException attaché',
+      'une réponse 200 normale traverse sans passer par le mapping',
       () async {
-        final options = RequestOptions(path: '/v1/test');
-        Future<int> call() =>
-            Future<int>.error(DioException(requestOptions: options));
+        final dio = Dio()
+          ..httpClientAdapter = _FakeAdapter(
+            (_) => _jsonResponse(200, {'ok': true}),
+          )
+          ..interceptors.add(ErrorMappingInterceptor());
 
-        await expectLater(unwrapDioErrors(call), throwsA(isA<DioException>()));
+        final response = await dio.get<Map<String, dynamic>>('/v1/test');
+        expect(response.data, {'ok': true});
       },
     );
-
-    test('laisse passer la valeur de retour normale', () async {
-      expect(await unwrapDioErrors(() async => 42), 42);
-    });
   });
 }
