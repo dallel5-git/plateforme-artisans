@@ -113,8 +113,14 @@ jobs:
       # pas `dart format` tel quel et ne sont pas à nous de reformater — même
       # raison que l'exclusion analyzer ci-dessus. À élargir au fil des tickets
       # FM-* qui ajoutent du code sous lib/core/{api,i18n,widgets}/ et
-      # lib/features/.
-      - run: dart format --set-exit-if-changed lib/app lib/main.dart test/widget_test.dart
+      # lib/features/. FM-02c : lib/core/api listé par fichier/sous-dossier
+      # explicite plutôt que le répertoire entier — lib/core/api/generated/
+      # (sous-arbre) est vérifié séparément par mobile:client:check, pas ici.
+      - run: |
+          dart format --set-exit-if-changed \
+            lib/app lib/main.dart \
+            lib/core/api/api_client.dart lib/core/api/env.dart lib/core/api/exceptions.dart lib/core/api/interceptors \
+            test/widget_test.dart test/core/api
 
       # FM-03 : lib/core/i18n/*.g.dart est généré par slang depuis
       # packages/i18n/src/locales/ (SO-05). `dart run build_runner build`
@@ -127,15 +133,21 @@ jobs:
       - run: dart run slang
       - run: git diff --exit-code -- lib/core/i18n
 
-      # Ciblé sur test/widget_test.dart, pas un `flutter test` général : le test
-      # test/features/contact/contact_flow_test.dart est du code FM-09/FM-02
-      # pré-écrit qui ne compile pas encore (imports vers du code qui n'existe pas
-      # encore) — voulu, cf. son en-tête. Un `flutter test` sans filtre le
-      # découvrirait quand même (l'exclusion analyzer n'affecte que l'analyse
-      # statique, pas la collecte des tests) et ferait échouer ce job pour une
-      # raison sans rapport avec le code de la PR. À élargir quand FM-02/FM-09
-      # livrent le code testé.
-      - run: flutter test test/widget_test.dart
+      # Ciblé sur des chemins précis, pas un `flutter test` général : le test
+      # test/features/contact/contact_flow_test.dart est du code FM-09 pré-écrit
+      # qui ne compile pas encore (imports vers du code qui n'existe pas encore,
+      # mocktail pas déclaré) — voulu, cf. son en-tête. Un `flutter test` sans
+      # filtre le découvrirait quand même (l'exclusion analyzer n'affecte que
+      # l'analyse statique, pas la collecte des tests) et ferait échouer ce job
+      # pour une raison sans rapport avec le code de la PR. À élargir quand
+      # FM-09 livre le code testé.
+      #
+      # FM-02c : le répertoire doit être passé AVANT le fichier — `flutter test
+      # <fichier> <répertoire>` ignore silencieusement le second argument (0
+      # test collecté pour lui, aucune erreur), reproductible avec ce SDK
+      # (aucun rapport amont trouvé, comportement empirique). L'ordre inverse
+      # (`<répertoire> <fichier>`) collecte bien les deux.
+      - run: flutter test test/core/api/ test/widget_test.dart
 
   mobile-client-check:
     name: contrat → client Dart (mobile:client)
