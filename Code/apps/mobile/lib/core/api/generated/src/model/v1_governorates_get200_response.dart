@@ -18,18 +18,16 @@ part 'v1_governorates_get200_response.g.dart';
 @BuiltValue()
 abstract class V1GovernoratesGet200Response
     implements
-        Built<
-          V1GovernoratesGet200Response,
-          V1GovernoratesGet200ResponseBuilder
-        > {
+        Built<V1GovernoratesGet200Response,
+            V1GovernoratesGet200ResponseBuilder> {
   @BuiltValueField(wireName: r'governorates')
   BuiltList<V1GovernoratesGet200ResponseGovernoratesInner> get governorates;
 
   V1GovernoratesGet200Response._();
 
-  factory V1GovernoratesGet200Response([
-    void updates(V1GovernoratesGet200ResponseBuilder b),
-  ]) = _$V1GovernoratesGet200Response;
+  factory V1GovernoratesGet200Response(
+          [void updates(V1GovernoratesGet200ResponseBuilder b)]) =
+      _$V1GovernoratesGet200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1GovernoratesGet200ResponseBuilder b) => b;
@@ -44,7 +42,7 @@ class _$V1GovernoratesGet200ResponseSerializer
   @override
   final Iterable<Type> types = const [
     V1GovernoratesGet200Response,
-    _$V1GovernoratesGet200Response,
+    _$V1GovernoratesGet200Response
   ];
 
   @override
@@ -58,9 +56,8 @@ class _$V1GovernoratesGet200ResponseSerializer
     yield r'governorates';
     yield serializers.serialize(
       object.governorates,
-      specifiedType: const FullType(BuiltList, [
-        FullType(V1GovernoratesGet200ResponseGovernoratesInner),
-      ]),
+      specifiedType: const FullType(
+          BuiltList, [FullType(V1GovernoratesGet200ResponseGovernoratesInner)]),
     );
   }
 
@@ -70,11 +67,9 @@ class _$V1GovernoratesGet200ResponseSerializer
     V1GovernoratesGet200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(
-      serializers,
-      object,
-      specifiedType: specifiedType,
-    ).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -90,14 +85,11 @@ class _$V1GovernoratesGet200ResponseSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'governorates':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(BuiltList, [
-                      FullType(V1GovernoratesGet200ResponseGovernoratesInner),
-                    ]),
-                  )
-                  as BuiltList<V1GovernoratesGet200ResponseGovernoratesInner>;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList,
+                [FullType(V1GovernoratesGet200ResponseGovernoratesInner)]),
+          ) as BuiltList<V1GovernoratesGet200ResponseGovernoratesInner>;
           result.governorates.replace(valueDes);
           break;
         default:

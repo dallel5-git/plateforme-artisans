@@ -13,18 +13,17 @@ class _$V1ProvidersSearchGet200Response
   @override
   final String nextCursor;
 
-  factory _$V1ProvidersSearchGet200Response([
-    void Function(V1ProvidersSearchGet200ResponseBuilder)? updates,
-  ]) => (V1ProvidersSearchGet200ResponseBuilder()..update(updates))._build();
+  factory _$V1ProvidersSearchGet200Response(
+          [void Function(V1ProvidersSearchGet200ResponseBuilder)? updates]) =>
+      (V1ProvidersSearchGet200ResponseBuilder()..update(updates))._build();
 
-  _$V1ProvidersSearchGet200Response._({
-    required this.items,
-    required this.nextCursor,
-  }) : super._();
+  _$V1ProvidersSearchGet200Response._(
+      {required this.items, required this.nextCursor})
+      : super._();
   @override
   V1ProvidersSearchGet200Response rebuild(
-    void Function(V1ProvidersSearchGet200ResponseBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(V1ProvidersSearchGet200ResponseBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersSearchGet200ResponseBuilder toBuilder() =>
@@ -58,10 +57,8 @@ class _$V1ProvidersSearchGet200Response
 
 class V1ProvidersSearchGet200ResponseBuilder
     implements
-        Builder<
-          V1ProvidersSearchGet200Response,
-          V1ProvidersSearchGet200ResponseBuilder
-        > {
+        Builder<V1ProvidersSearchGet200Response,
+            V1ProvidersSearchGet200ResponseBuilder> {
   _$V1ProvidersSearchGet200Response? _$v;
 
   ListBuilder<V1ProvidersSearchGet200ResponseItemsInner>? _items;
@@ -105,15 +102,11 @@ class V1ProvidersSearchGet200ResponseBuilder
   _$V1ProvidersSearchGet200Response _build() {
     _$V1ProvidersSearchGet200Response _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           _$V1ProvidersSearchGet200Response._(
             items: items.build(),
             nextCursor: BuiltValueNullFieldError.checkNotNull(
-              nextCursor,
-              r'V1ProvidersSearchGet200Response',
-              'nextCursor',
-            ),
+                nextCursor, r'V1ProvidersSearchGet200Response', 'nextCursor'),
           );
     } catch (_) {
       late String _$failedField;
@@ -122,10 +115,7 @@ class V1ProvidersSearchGet200ResponseBuilder
         items.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-          r'V1ProvidersSearchGet200Response',
-          _$failedField,
-          e.toString(),
-        );
+            r'V1ProvidersSearchGet200Response', _$failedField, e.toString());
       }
       rethrow;
     }

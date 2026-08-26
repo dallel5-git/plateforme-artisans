@@ -24,9 +24,9 @@ abstract class V1AuthLogoutPost200Response
 
   V1AuthLogoutPost200Response._();
 
-  factory V1AuthLogoutPost200Response([
-    void updates(V1AuthLogoutPost200ResponseBuilder b),
-  ]) = _$V1AuthLogoutPost200Response;
+  factory V1AuthLogoutPost200Response(
+          [void updates(V1AuthLogoutPost200ResponseBuilder b)]) =
+      _$V1AuthLogoutPost200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1AuthLogoutPost200ResponseBuilder b) => b;
@@ -41,7 +41,7 @@ class _$V1AuthLogoutPost200ResponseSerializer
   @override
   final Iterable<Type> types = const [
     V1AuthLogoutPost200Response,
-    _$V1AuthLogoutPost200Response,
+    _$V1AuthLogoutPost200Response
   ];
 
   @override
@@ -65,11 +65,9 @@ class _$V1AuthLogoutPost200ResponseSerializer
     V1AuthLogoutPost200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(
-      serializers,
-      object,
-      specifiedType: specifiedType,
-    ).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -85,14 +83,11 @@ class _$V1AuthLogoutPost200ResponseSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'status':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(
-                      V1AuthLogoutPost200ResponseStatusEnum,
-                    ),
-                  )
-                  as V1AuthLogoutPost200ResponseStatusEnum;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(V1AuthLogoutPost200ResponseStatusEnum),
+          ) as V1AuthLogoutPost200ResponseStatusEnum;
           result.status = valueDes;
           break;
         default:

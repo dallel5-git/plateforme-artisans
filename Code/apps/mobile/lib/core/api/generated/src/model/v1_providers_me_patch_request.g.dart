@@ -7,17 +7,17 @@ part of 'v1_providers_me_patch_request.dart';
 // **************************************************************************
 
 const V1ProvidersMePatchRequestAvailabilityStatusEnum
-_$v1ProvidersMePatchRequestAvailabilityStatusEnum_AVAILABLE =
+    _$v1ProvidersMePatchRequestAvailabilityStatusEnum_AVAILABLE =
     const V1ProvidersMePatchRequestAvailabilityStatusEnum._('AVAILABLE');
 const V1ProvidersMePatchRequestAvailabilityStatusEnum
-_$v1ProvidersMePatchRequestAvailabilityStatusEnum_BUSY =
+    _$v1ProvidersMePatchRequestAvailabilityStatusEnum_BUSY =
     const V1ProvidersMePatchRequestAvailabilityStatusEnum._('BUSY');
 const V1ProvidersMePatchRequestAvailabilityStatusEnum
-_$v1ProvidersMePatchRequestAvailabilityStatusEnum_ON_HOLIDAY =
+    _$v1ProvidersMePatchRequestAvailabilityStatusEnum_ON_HOLIDAY =
     const V1ProvidersMePatchRequestAvailabilityStatusEnum._('ON_HOLIDAY');
 
 V1ProvidersMePatchRequestAvailabilityStatusEnum
-_$v1ProvidersMePatchRequestAvailabilityStatusEnumValueOf(String name) {
+    _$v1ProvidersMePatchRequestAvailabilityStatusEnumValueOf(String name) {
   switch (name) {
     case 'AVAILABLE':
       return _$v1ProvidersMePatchRequestAvailabilityStatusEnum_AVAILABLE;
@@ -31,24 +31,22 @@ _$v1ProvidersMePatchRequestAvailabilityStatusEnumValueOf(String name) {
 }
 
 final BuiltSet<V1ProvidersMePatchRequestAvailabilityStatusEnum>
-_$v1ProvidersMePatchRequestAvailabilityStatusEnumValues =
-    BuiltSet<V1ProvidersMePatchRequestAvailabilityStatusEnum>(
-      const <V1ProvidersMePatchRequestAvailabilityStatusEnum>[
-        _$v1ProvidersMePatchRequestAvailabilityStatusEnum_AVAILABLE,
-        _$v1ProvidersMePatchRequestAvailabilityStatusEnum_BUSY,
-        _$v1ProvidersMePatchRequestAvailabilityStatusEnum_ON_HOLIDAY,
-      ],
-    );
+    _$v1ProvidersMePatchRequestAvailabilityStatusEnumValues = BuiltSet<
+        V1ProvidersMePatchRequestAvailabilityStatusEnum>(const <V1ProvidersMePatchRequestAvailabilityStatusEnum>[
+  _$v1ProvidersMePatchRequestAvailabilityStatusEnum_AVAILABLE,
+  _$v1ProvidersMePatchRequestAvailabilityStatusEnum_BUSY,
+  _$v1ProvidersMePatchRequestAvailabilityStatusEnum_ON_HOLIDAY,
+]);
 
 const V1ProvidersMePatchRequestPublicationStatusEnum
-_$v1ProvidersMePatchRequestPublicationStatusEnum_DRAFT =
+    _$v1ProvidersMePatchRequestPublicationStatusEnum_DRAFT =
     const V1ProvidersMePatchRequestPublicationStatusEnum._('DRAFT');
 const V1ProvidersMePatchRequestPublicationStatusEnum
-_$v1ProvidersMePatchRequestPublicationStatusEnum_PUBLISHED =
+    _$v1ProvidersMePatchRequestPublicationStatusEnum_PUBLISHED =
     const V1ProvidersMePatchRequestPublicationStatusEnum._('PUBLISHED');
 
 V1ProvidersMePatchRequestPublicationStatusEnum
-_$v1ProvidersMePatchRequestPublicationStatusEnumValueOf(String name) {
+    _$v1ProvidersMePatchRequestPublicationStatusEnumValueOf(String name) {
   switch (name) {
     case 'DRAFT':
       return _$v1ProvidersMePatchRequestPublicationStatusEnum_DRAFT;
@@ -60,19 +58,17 @@ _$v1ProvidersMePatchRequestPublicationStatusEnumValueOf(String name) {
 }
 
 final BuiltSet<V1ProvidersMePatchRequestPublicationStatusEnum>
-_$v1ProvidersMePatchRequestPublicationStatusEnumValues =
-    BuiltSet<V1ProvidersMePatchRequestPublicationStatusEnum>(
-      const <V1ProvidersMePatchRequestPublicationStatusEnum>[
-        _$v1ProvidersMePatchRequestPublicationStatusEnum_DRAFT,
-        _$v1ProvidersMePatchRequestPublicationStatusEnum_PUBLISHED,
-      ],
-    );
+    _$v1ProvidersMePatchRequestPublicationStatusEnumValues = BuiltSet<
+        V1ProvidersMePatchRequestPublicationStatusEnum>(const <V1ProvidersMePatchRequestPublicationStatusEnum>[
+  _$v1ProvidersMePatchRequestPublicationStatusEnum_DRAFT,
+  _$v1ProvidersMePatchRequestPublicationStatusEnum_PUBLISHED,
+]);
 
 Serializer<V1ProvidersMePatchRequestAvailabilityStatusEnum>
-_$v1ProvidersMePatchRequestAvailabilityStatusEnumSerializer =
+    _$v1ProvidersMePatchRequestAvailabilityStatusEnumSerializer =
     _$V1ProvidersMePatchRequestAvailabilityStatusEnumSerializer();
 Serializer<V1ProvidersMePatchRequestPublicationStatusEnum>
-_$v1ProvidersMePatchRequestPublicationStatusEnumSerializer =
+    _$v1ProvidersMePatchRequestPublicationStatusEnumSerializer =
     _$V1ProvidersMePatchRequestPublicationStatusEnumSerializer();
 
 class _$V1ProvidersMePatchRequestAvailabilityStatusEnumSerializer
@@ -91,26 +87,23 @@ class _$V1ProvidersMePatchRequestAvailabilityStatusEnumSerializer
 
   @override
   final Iterable<Type> types = const <Type>[
-    V1ProvidersMePatchRequestAvailabilityStatusEnum,
+    V1ProvidersMePatchRequestAvailabilityStatusEnum
   ];
   @override
   final String wireName = 'V1ProvidersMePatchRequestAvailabilityStatusEnum';
 
   @override
-  Object serialize(
-    Serializers serializers,
-    V1ProvidersMePatchRequestAvailabilityStatusEnum object, {
-    FullType specifiedType = FullType.unspecified,
-  }) => _toWire[object.name] ?? object.name;
+  Object serialize(Serializers serializers,
+          V1ProvidersMePatchRequestAvailabilityStatusEnum object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      _toWire[object.name] ?? object.name;
 
   @override
   V1ProvidersMePatchRequestAvailabilityStatusEnum deserialize(
-    Serializers serializers,
-    Object serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) => V1ProvidersMePatchRequestAvailabilityStatusEnum.valueOf(
-    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
-  );
+          Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      V1ProvidersMePatchRequestAvailabilityStatusEnum.valueOf(
+          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
 }
 
 class _$V1ProvidersMePatchRequestPublicationStatusEnumSerializer
@@ -127,26 +120,23 @@ class _$V1ProvidersMePatchRequestPublicationStatusEnumSerializer
 
   @override
   final Iterable<Type> types = const <Type>[
-    V1ProvidersMePatchRequestPublicationStatusEnum,
+    V1ProvidersMePatchRequestPublicationStatusEnum
   ];
   @override
   final String wireName = 'V1ProvidersMePatchRequestPublicationStatusEnum';
 
   @override
-  Object serialize(
-    Serializers serializers,
-    V1ProvidersMePatchRequestPublicationStatusEnum object, {
-    FullType specifiedType = FullType.unspecified,
-  }) => _toWire[object.name] ?? object.name;
+  Object serialize(Serializers serializers,
+          V1ProvidersMePatchRequestPublicationStatusEnum object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      _toWire[object.name] ?? object.name;
 
   @override
   V1ProvidersMePatchRequestPublicationStatusEnum deserialize(
-    Serializers serializers,
-    Object serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) => V1ProvidersMePatchRequestPublicationStatusEnum.valueOf(
-    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
-  );
+          Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      V1ProvidersMePatchRequestPublicationStatusEnum.valueOf(
+          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
 }
 
 class _$V1ProvidersMePatchRequest extends V1ProvidersMePatchRequest {
@@ -173,27 +163,27 @@ class _$V1ProvidersMePatchRequest extends V1ProvidersMePatchRequest {
   @override
   final V1ProvidersMePatchRequestPublicationStatusEnum? publicationStatus;
 
-  factory _$V1ProvidersMePatchRequest([
-    void Function(V1ProvidersMePatchRequestBuilder)? updates,
-  ]) => (V1ProvidersMePatchRequestBuilder()..update(updates))._build();
+  factory _$V1ProvidersMePatchRequest(
+          [void Function(V1ProvidersMePatchRequestBuilder)? updates]) =>
+      (V1ProvidersMePatchRequestBuilder()..update(updates))._build();
 
-  _$V1ProvidersMePatchRequest._({
-    this.businessName,
-    this.headline,
-    this.bio,
-    this.yearsExperience,
-    this.whatsappPhone,
-    this.publicPhone,
-    this.availabilityStatus,
-    this.availableAgainAt,
-    this.acceptsEmergency,
-    this.workingHours,
-    this.publicationStatus,
-  }) : super._();
+  _$V1ProvidersMePatchRequest._(
+      {this.businessName,
+      this.headline,
+      this.bio,
+      this.yearsExperience,
+      this.whatsappPhone,
+      this.publicPhone,
+      this.availabilityStatus,
+      this.availableAgainAt,
+      this.acceptsEmergency,
+      this.workingHours,
+      this.publicationStatus})
+      : super._();
   @override
   V1ProvidersMePatchRequest rebuild(
-    void Function(V1ProvidersMePatchRequestBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(V1ProvidersMePatchRequestBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersMePatchRequestBuilder toBuilder() =>
@@ -287,8 +277,9 @@ class V1ProvidersMePatchRequestBuilder
   V1ProvidersMePatchRequestAvailabilityStatusEnum? get availabilityStatus =>
       _$this._availabilityStatus;
   set availabilityStatus(
-    V1ProvidersMePatchRequestAvailabilityStatusEnum? availabilityStatus,
-  ) => _$this._availabilityStatus = availabilityStatus;
+          V1ProvidersMePatchRequestAvailabilityStatusEnum?
+              availabilityStatus) =>
+      _$this._availabilityStatus = availabilityStatus;
 
   MapBuilder<String, JsonObject?>? _availableAgainAt;
   MapBuilder<String, JsonObject?> get availableAgainAt =>
@@ -311,8 +302,8 @@ class V1ProvidersMePatchRequestBuilder
   V1ProvidersMePatchRequestPublicationStatusEnum? get publicationStatus =>
       _$this._publicationStatus;
   set publicationStatus(
-    V1ProvidersMePatchRequestPublicationStatusEnum? publicationStatus,
-  ) => _$this._publicationStatus = publicationStatus;
+          V1ProvidersMePatchRequestPublicationStatusEnum? publicationStatus) =>
+      _$this._publicationStatus = publicationStatus;
 
   V1ProvidersMePatchRequestBuilder() {
     V1ProvidersMePatchRequest._defaults(this);
@@ -353,8 +344,7 @@ class V1ProvidersMePatchRequestBuilder
   _$V1ProvidersMePatchRequest _build() {
     _$V1ProvidersMePatchRequest _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           _$V1ProvidersMePatchRequest._(
             businessName: businessName,
             headline: headline,
@@ -378,10 +368,7 @@ class V1ProvidersMePatchRequestBuilder
         _workingHours?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-          r'V1ProvidersMePatchRequest',
-          _$failedField,
-          e.toString(),
-        );
+            r'V1ProvidersMePatchRequest', _$failedField, e.toString());
       }
       rethrow;
     }

@@ -20,10 +20,8 @@ part 'v1_providers_slug_get200_response_review_aggregate.g.dart';
 @BuiltValue()
 abstract class V1ProvidersSlugGet200ResponseReviewAggregate
     implements
-        Built<
-          V1ProvidersSlugGet200ResponseReviewAggregate,
-          V1ProvidersSlugGet200ResponseReviewAggregateBuilder
-        > {
+        Built<V1ProvidersSlugGet200ResponseReviewAggregate,
+            V1ProvidersSlugGet200ResponseReviewAggregateBuilder> {
   @BuiltValueField(wireName: r'average')
   num get average;
 
@@ -35,18 +33,20 @@ abstract class V1ProvidersSlugGet200ResponseReviewAggregate
 
   V1ProvidersSlugGet200ResponseReviewAggregate._();
 
-  factory V1ProvidersSlugGet200ResponseReviewAggregate([
-    void updates(V1ProvidersSlugGet200ResponseReviewAggregateBuilder b),
-  ]) = _$V1ProvidersSlugGet200ResponseReviewAggregate;
+  factory V1ProvidersSlugGet200ResponseReviewAggregate(
+          [void updates(
+              V1ProvidersSlugGet200ResponseReviewAggregateBuilder b)]) =
+      _$V1ProvidersSlugGet200ResponseReviewAggregate;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(
-    V1ProvidersSlugGet200ResponseReviewAggregateBuilder b,
-  ) => b;
+          V1ProvidersSlugGet200ResponseReviewAggregateBuilder b) =>
+      b;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<V1ProvidersSlugGet200ResponseReviewAggregate>
-  get serializer => _$V1ProvidersSlugGet200ResponseReviewAggregateSerializer();
+      get serializer =>
+          _$V1ProvidersSlugGet200ResponseReviewAggregateSerializer();
 }
 
 class _$V1ProvidersSlugGet200ResponseReviewAggregateSerializer
@@ -55,7 +55,7 @@ class _$V1ProvidersSlugGet200ResponseReviewAggregateSerializer
   @override
   final Iterable<Type> types = const [
     V1ProvidersSlugGet200ResponseReviewAggregate,
-    _$V1ProvidersSlugGet200ResponseReviewAggregate,
+    _$V1ProvidersSlugGet200ResponseReviewAggregate
   ];
 
   @override
@@ -79,9 +79,8 @@ class _$V1ProvidersSlugGet200ResponseReviewAggregateSerializer
     yield r'breakdown';
     yield serializers.serialize(
       object.breakdown,
-      specifiedType: const FullType(
-        V1ProvidersSlugGet200ResponseReviewAggregateBreakdown,
-      ),
+      specifiedType:
+          const FullType(V1ProvidersSlugGet200ResponseReviewAggregateBreakdown),
     );
   }
 
@@ -91,11 +90,9 @@ class _$V1ProvidersSlugGet200ResponseReviewAggregateSerializer
     V1ProvidersSlugGet200ResponseReviewAggregate object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(
-      serializers,
-      object,
-      specifiedType: specifiedType,
-    ).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -111,32 +108,25 @@ class _$V1ProvidersSlugGet200ResponseReviewAggregateSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'average':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(num),
-                  )
-                  as num;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
           result.average = valueDes;
           break;
         case r'count':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(int),
-                  )
-                  as int;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
           result.count = valueDes;
           break;
         case r'breakdown':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(
-                      V1ProvidersSlugGet200ResponseReviewAggregateBreakdown,
-                    ),
-                  )
-                  as V1ProvidersSlugGet200ResponseReviewAggregateBreakdown;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+                V1ProvidersSlugGet200ResponseReviewAggregateBreakdown),
+          ) as V1ProvidersSlugGet200ResponseReviewAggregateBreakdown;
           result.breakdown = valueDes.toBuilder();
           break;
         default:

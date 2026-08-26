@@ -13,16 +13,16 @@ class _$V1ProvidersIdReviewsPostRequest
   @override
   final String? comment;
 
-  factory _$V1ProvidersIdReviewsPostRequest([
-    void Function(V1ProvidersIdReviewsPostRequestBuilder)? updates,
-  ]) => (V1ProvidersIdReviewsPostRequestBuilder()..update(updates))._build();
+  factory _$V1ProvidersIdReviewsPostRequest(
+          [void Function(V1ProvidersIdReviewsPostRequestBuilder)? updates]) =>
+      (V1ProvidersIdReviewsPostRequestBuilder()..update(updates))._build();
 
   _$V1ProvidersIdReviewsPostRequest._({required this.rating, this.comment})
-    : super._();
+      : super._();
   @override
   V1ProvidersIdReviewsPostRequest rebuild(
-    void Function(V1ProvidersIdReviewsPostRequestBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(V1ProvidersIdReviewsPostRequestBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersIdReviewsPostRequestBuilder toBuilder() =>
@@ -56,10 +56,8 @@ class _$V1ProvidersIdReviewsPostRequest
 
 class V1ProvidersIdReviewsPostRequestBuilder
     implements
-        Builder<
-          V1ProvidersIdReviewsPostRequest,
-          V1ProvidersIdReviewsPostRequestBuilder
-        > {
+        Builder<V1ProvidersIdReviewsPostRequest,
+            V1ProvidersIdReviewsPostRequestBuilder> {
   _$V1ProvidersIdReviewsPostRequest? _$v;
 
   int? _rating;
@@ -98,14 +96,10 @@ class V1ProvidersIdReviewsPostRequestBuilder
   V1ProvidersIdReviewsPostRequest build() => _build();
 
   _$V1ProvidersIdReviewsPostRequest _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         _$V1ProvidersIdReviewsPostRequest._(
           rating: BuiltValueNullFieldError.checkNotNull(
-            rating,
-            r'V1ProvidersIdReviewsPostRequest',
-            'rating',
-          ),
+              rating, r'V1ProvidersIdReviewsPostRequest', 'rating'),
           comment: comment,
         );
     replace(_$result);

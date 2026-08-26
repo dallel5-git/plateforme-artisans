@@ -7,21 +7,20 @@ part of 'v1_auth_me_get200_response.dart';
 // **************************************************************************
 
 const V1AuthMeGet200ResponseStatusEnum
-_$v1AuthMeGet200ResponseStatusEnum_PENDING_VERIFICATION =
+    _$v1AuthMeGet200ResponseStatusEnum_PENDING_VERIFICATION =
     const V1AuthMeGet200ResponseStatusEnum._('PENDING_VERIFICATION');
 const V1AuthMeGet200ResponseStatusEnum
-_$v1AuthMeGet200ResponseStatusEnum_ACTIVE =
+    _$v1AuthMeGet200ResponseStatusEnum_ACTIVE =
     const V1AuthMeGet200ResponseStatusEnum._('ACTIVE');
 const V1AuthMeGet200ResponseStatusEnum
-_$v1AuthMeGet200ResponseStatusEnum_SUSPENDED =
+    _$v1AuthMeGet200ResponseStatusEnum_SUSPENDED =
     const V1AuthMeGet200ResponseStatusEnum._('SUSPENDED');
 const V1AuthMeGet200ResponseStatusEnum
-_$v1AuthMeGet200ResponseStatusEnum_DELETED =
+    _$v1AuthMeGet200ResponseStatusEnum_DELETED =
     const V1AuthMeGet200ResponseStatusEnum._('DELETED');
 
 V1AuthMeGet200ResponseStatusEnum _$v1AuthMeGet200ResponseStatusEnumValueOf(
-  String name,
-) {
+    String name) {
   switch (name) {
     case 'PENDING_VERIFICATION':
       return _$v1AuthMeGet200ResponseStatusEnum_PENDING_VERIFICATION;
@@ -37,18 +36,16 @@ V1AuthMeGet200ResponseStatusEnum _$v1AuthMeGet200ResponseStatusEnumValueOf(
 }
 
 final BuiltSet<V1AuthMeGet200ResponseStatusEnum>
-_$v1AuthMeGet200ResponseStatusEnumValues =
-    BuiltSet<V1AuthMeGet200ResponseStatusEnum>(
-      const <V1AuthMeGet200ResponseStatusEnum>[
-        _$v1AuthMeGet200ResponseStatusEnum_PENDING_VERIFICATION,
-        _$v1AuthMeGet200ResponseStatusEnum_ACTIVE,
-        _$v1AuthMeGet200ResponseStatusEnum_SUSPENDED,
-        _$v1AuthMeGet200ResponseStatusEnum_DELETED,
-      ],
-    );
+    _$v1AuthMeGet200ResponseStatusEnumValues = BuiltSet<
+        V1AuthMeGet200ResponseStatusEnum>(const <V1AuthMeGet200ResponseStatusEnum>[
+  _$v1AuthMeGet200ResponseStatusEnum_PENDING_VERIFICATION,
+  _$v1AuthMeGet200ResponseStatusEnum_ACTIVE,
+  _$v1AuthMeGet200ResponseStatusEnum_SUSPENDED,
+  _$v1AuthMeGet200ResponseStatusEnum_DELETED,
+]);
 
 Serializer<V1AuthMeGet200ResponseStatusEnum>
-_$v1AuthMeGet200ResponseStatusEnumSerializer =
+    _$v1AuthMeGet200ResponseStatusEnumSerializer =
     _$V1AuthMeGet200ResponseStatusEnumSerializer();
 
 class _$V1AuthMeGet200ResponseStatusEnumSerializer
@@ -73,19 +70,16 @@ class _$V1AuthMeGet200ResponseStatusEnumSerializer
 
   @override
   Object serialize(
-    Serializers serializers,
-    V1AuthMeGet200ResponseStatusEnum object, {
-    FullType specifiedType = FullType.unspecified,
-  }) => _toWire[object.name] ?? object.name;
+          Serializers serializers, V1AuthMeGet200ResponseStatusEnum object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      _toWire[object.name] ?? object.name;
 
   @override
   V1AuthMeGet200ResponseStatusEnum deserialize(
-    Serializers serializers,
-    Object serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) => V1AuthMeGet200ResponseStatusEnum.valueOf(
-    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
-  );
+          Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      V1AuthMeGet200ResponseStatusEnum.valueOf(
+          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
 }
 
 class _$V1AuthMeGet200Response extends V1AuthMeGet200Response {
@@ -120,31 +114,31 @@ class _$V1AuthMeGet200Response extends V1AuthMeGet200Response {
   @override
   final DateTime updatedAt;
 
-  factory _$V1AuthMeGet200Response([
-    void Function(V1AuthMeGet200ResponseBuilder)? updates,
-  ]) => (V1AuthMeGet200ResponseBuilder()..update(updates))._build();
+  factory _$V1AuthMeGet200Response(
+          [void Function(V1AuthMeGet200ResponseBuilder)? updates]) =>
+      (V1AuthMeGet200ResponseBuilder()..update(updates))._build();
 
-  _$V1AuthMeGet200Response._({
-    required this.id,
-    required this.phone,
-    required this.phoneVerifiedAt,
-    required this.email,
-    required this.emailVerifiedAt,
-    required this.firstName,
-    required this.lastName,
-    required this.avatarMediaId,
-    required this.roles,
-    required this.status,
-    required this.locale,
-    required this.lastLoginAt,
-    required this.marketingOptIn,
-    required this.createdAt,
-    required this.updatedAt,
-  }) : super._();
+  _$V1AuthMeGet200Response._(
+      {required this.id,
+      required this.phone,
+      required this.phoneVerifiedAt,
+      required this.email,
+      required this.emailVerifiedAt,
+      required this.firstName,
+      required this.lastName,
+      required this.avatarMediaId,
+      required this.roles,
+      required this.status,
+      required this.locale,
+      required this.lastLoginAt,
+      required this.marketingOptIn,
+      required this.createdAt,
+      required this.updatedAt})
+      : super._();
   @override
   V1AuthMeGet200Response rebuild(
-    void Function(V1AuthMeGet200ResponseBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(V1AuthMeGet200ResponseBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1AuthMeGet200ResponseBuilder toBuilder() =>
@@ -330,80 +324,37 @@ class V1AuthMeGet200ResponseBuilder
   _$V1AuthMeGet200Response _build() {
     _$V1AuthMeGet200Response _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           _$V1AuthMeGet200Response._(
             id: BuiltValueNullFieldError.checkNotNull(
-              id,
-              r'V1AuthMeGet200Response',
-              'id',
-            ),
+                id, r'V1AuthMeGet200Response', 'id'),
             phone: BuiltValueNullFieldError.checkNotNull(
-              phone,
-              r'V1AuthMeGet200Response',
-              'phone',
-            ),
+                phone, r'V1AuthMeGet200Response', 'phone'),
             phoneVerifiedAt: BuiltValueNullFieldError.checkNotNull(
-              phoneVerifiedAt,
-              r'V1AuthMeGet200Response',
-              'phoneVerifiedAt',
-            ),
+                phoneVerifiedAt, r'V1AuthMeGet200Response', 'phoneVerifiedAt'),
             email: BuiltValueNullFieldError.checkNotNull(
-              email,
-              r'V1AuthMeGet200Response',
-              'email',
-            ),
+                email, r'V1AuthMeGet200Response', 'email'),
             emailVerifiedAt: BuiltValueNullFieldError.checkNotNull(
-              emailVerifiedAt,
-              r'V1AuthMeGet200Response',
-              'emailVerifiedAt',
-            ),
+                emailVerifiedAt, r'V1AuthMeGet200Response', 'emailVerifiedAt'),
             firstName: BuiltValueNullFieldError.checkNotNull(
-              firstName,
-              r'V1AuthMeGet200Response',
-              'firstName',
-            ),
+                firstName, r'V1AuthMeGet200Response', 'firstName'),
             lastName: BuiltValueNullFieldError.checkNotNull(
-              lastName,
-              r'V1AuthMeGet200Response',
-              'lastName',
-            ),
+                lastName, r'V1AuthMeGet200Response', 'lastName'),
             avatarMediaId: BuiltValueNullFieldError.checkNotNull(
-              avatarMediaId,
-              r'V1AuthMeGet200Response',
-              'avatarMediaId',
-            ),
+                avatarMediaId, r'V1AuthMeGet200Response', 'avatarMediaId'),
             roles: roles.build(),
             status: BuiltValueNullFieldError.checkNotNull(
-              status,
-              r'V1AuthMeGet200Response',
-              'status',
-            ),
+                status, r'V1AuthMeGet200Response', 'status'),
             locale: BuiltValueNullFieldError.checkNotNull(
-              locale,
-              r'V1AuthMeGet200Response',
-              'locale',
-            ),
+                locale, r'V1AuthMeGet200Response', 'locale'),
             lastLoginAt: BuiltValueNullFieldError.checkNotNull(
-              lastLoginAt,
-              r'V1AuthMeGet200Response',
-              'lastLoginAt',
-            ),
+                lastLoginAt, r'V1AuthMeGet200Response', 'lastLoginAt'),
             marketingOptIn: BuiltValueNullFieldError.checkNotNull(
-              marketingOptIn,
-              r'V1AuthMeGet200Response',
-              'marketingOptIn',
-            ),
+                marketingOptIn, r'V1AuthMeGet200Response', 'marketingOptIn'),
             createdAt: BuiltValueNullFieldError.checkNotNull(
-              createdAt,
-              r'V1AuthMeGet200Response',
-              'createdAt',
-            ),
+                createdAt, r'V1AuthMeGet200Response', 'createdAt'),
             updatedAt: BuiltValueNullFieldError.checkNotNull(
-              updatedAt,
-              r'V1AuthMeGet200Response',
-              'updatedAt',
-            ),
+                updatedAt, r'V1AuthMeGet200Response', 'updatedAt'),
           );
     } catch (_) {
       late String _$failedField;
@@ -412,10 +363,7 @@ class V1AuthMeGet200ResponseBuilder
         roles.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-          r'V1AuthMeGet200Response',
-          _$failedField,
-          e.toString(),
-        );
+            r'V1AuthMeGet200Response', _$failedField, e.toString());
       }
       rethrow;
     }

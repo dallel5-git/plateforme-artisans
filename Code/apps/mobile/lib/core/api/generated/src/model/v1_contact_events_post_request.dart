@@ -36,9 +36,9 @@ abstract class V1ContactEventsPostRequest
 
   V1ContactEventsPostRequest._();
 
-  factory V1ContactEventsPostRequest([
-    void updates(V1ContactEventsPostRequestBuilder b),
-  ]) = _$V1ContactEventsPostRequest;
+  factory V1ContactEventsPostRequest(
+          [void updates(V1ContactEventsPostRequestBuilder b)]) =
+      _$V1ContactEventsPostRequest;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1ContactEventsPostRequestBuilder b) => b;
@@ -53,7 +53,7 @@ class _$V1ContactEventsPostRequestSerializer
   @override
   final Iterable<Type> types = const [
     V1ContactEventsPostRequest,
-    _$V1ContactEventsPostRequest,
+    _$V1ContactEventsPostRequest
   ];
 
   @override
@@ -85,9 +85,8 @@ class _$V1ContactEventsPostRequestSerializer
       yield r'sourceScreen';
       yield serializers.serialize(
         object.sourceScreen,
-        specifiedType: const FullType(
-          V1ContactEventsPostRequestSourceScreenEnum,
-        ),
+        specifiedType:
+            const FullType(V1ContactEventsPostRequestSourceScreenEnum),
       );
     }
   }
@@ -98,11 +97,9 @@ class _$V1ContactEventsPostRequestSerializer
     V1ContactEventsPostRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(
-      serializers,
-      object,
-      specifiedType: specifiedType,
-    ).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -118,43 +115,33 @@ class _$V1ContactEventsPostRequestSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'providerId':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.providerId = valueDes;
           break;
         case r'channel':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(
-                      V1ContactEventsPostRequestChannelEnum,
-                    ),
-                  )
-                  as V1ContactEventsPostRequestChannelEnum;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(V1ContactEventsPostRequestChannelEnum),
+          ) as V1ContactEventsPostRequestChannelEnum;
           result.channel = valueDes;
           break;
         case r'categoryId':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.categoryId = valueDes;
           break;
         case r'sourceScreen':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(
-                      V1ContactEventsPostRequestSourceScreenEnum,
-                    ),
-                  )
-                  as V1ContactEventsPostRequestSourceScreenEnum;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(V1ContactEventsPostRequestSourceScreenEnum),
+          ) as V1ContactEventsPostRequestSourceScreenEnum;
           result.sourceScreen = valueDes;
           break;
         default:
@@ -223,7 +210,7 @@ class V1ContactEventsPostRequestSourceScreenEnum extends EnumClass {
       _$v1ContactEventsPostRequestSourceScreenEnum_seoPage;
 
   static Serializer<V1ContactEventsPostRequestSourceScreenEnum>
-  get serializer => _$v1ContactEventsPostRequestSourceScreenEnumSerializer;
+      get serializer => _$v1ContactEventsPostRequestSourceScreenEnumSerializer;
 
   const V1ContactEventsPostRequestSourceScreenEnum._(String name) : super(name);
 

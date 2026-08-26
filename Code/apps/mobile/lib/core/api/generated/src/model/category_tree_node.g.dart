@@ -28,22 +28,22 @@ class _$CategoryTreeNode extends CategoryTreeNode {
   @override
   final BuiltList<CategoryTreeNode> children;
 
-  factory _$CategoryTreeNode([
-    void Function(CategoryTreeNodeBuilder)? updates,
-  ]) => (CategoryTreeNodeBuilder()..update(updates))._build();
+  factory _$CategoryTreeNode(
+          [void Function(CategoryTreeNodeBuilder)? updates]) =>
+      (CategoryTreeNodeBuilder()..update(updates))._build();
 
-  _$CategoryTreeNode._({
-    required this.id,
-    required this.slug,
-    required this.nameFr,
-    required this.nameAr,
-    required this.descriptionFr,
-    required this.descriptionAr,
-    required this.iconKey,
-    required this.colorHex,
-    required this.sortOrder,
-    required this.children,
-  }) : super._();
+  _$CategoryTreeNode._(
+      {required this.id,
+      required this.slug,
+      required this.nameFr,
+      required this.nameAr,
+      required this.descriptionFr,
+      required this.descriptionAr,
+      required this.iconKey,
+      required this.colorHex,
+      required this.sortOrder,
+      required this.children})
+      : super._();
   @override
   CategoryTreeNode rebuild(void Function(CategoryTreeNodeBuilder) updates) =>
       (toBuilder()..update(updates)).build();
@@ -188,54 +188,26 @@ class CategoryTreeNodeBuilder
   _$CategoryTreeNode _build() {
     _$CategoryTreeNode _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           _$CategoryTreeNode._(
             id: BuiltValueNullFieldError.checkNotNull(
-              id,
-              r'CategoryTreeNode',
-              'id',
-            ),
+                id, r'CategoryTreeNode', 'id'),
             slug: BuiltValueNullFieldError.checkNotNull(
-              slug,
-              r'CategoryTreeNode',
-              'slug',
-            ),
+                slug, r'CategoryTreeNode', 'slug'),
             nameFr: BuiltValueNullFieldError.checkNotNull(
-              nameFr,
-              r'CategoryTreeNode',
-              'nameFr',
-            ),
+                nameFr, r'CategoryTreeNode', 'nameFr'),
             nameAr: BuiltValueNullFieldError.checkNotNull(
-              nameAr,
-              r'CategoryTreeNode',
-              'nameAr',
-            ),
+                nameAr, r'CategoryTreeNode', 'nameAr'),
             descriptionFr: BuiltValueNullFieldError.checkNotNull(
-              descriptionFr,
-              r'CategoryTreeNode',
-              'descriptionFr',
-            ),
+                descriptionFr, r'CategoryTreeNode', 'descriptionFr'),
             descriptionAr: BuiltValueNullFieldError.checkNotNull(
-              descriptionAr,
-              r'CategoryTreeNode',
-              'descriptionAr',
-            ),
+                descriptionAr, r'CategoryTreeNode', 'descriptionAr'),
             iconKey: BuiltValueNullFieldError.checkNotNull(
-              iconKey,
-              r'CategoryTreeNode',
-              'iconKey',
-            ),
+                iconKey, r'CategoryTreeNode', 'iconKey'),
             colorHex: BuiltValueNullFieldError.checkNotNull(
-              colorHex,
-              r'CategoryTreeNode',
-              'colorHex',
-            ),
+                colorHex, r'CategoryTreeNode', 'colorHex'),
             sortOrder: BuiltValueNullFieldError.checkNotNull(
-              sortOrder,
-              r'CategoryTreeNode',
-              'sortOrder',
-            ),
+                sortOrder, r'CategoryTreeNode', 'sortOrder'),
             children: children.build(),
           );
     } catch (_) {
@@ -245,10 +217,7 @@ class CategoryTreeNodeBuilder
         children.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-          r'CategoryTreeNode',
-          _$failedField,
-          e.toString(),
-        );
+            r'CategoryTreeNode', _$failedField, e.toString());
       }
       rethrow;
     }

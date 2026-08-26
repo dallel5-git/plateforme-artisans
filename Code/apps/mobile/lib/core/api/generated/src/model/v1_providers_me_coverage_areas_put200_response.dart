@@ -19,22 +19,20 @@ part 'v1_providers_me_coverage_areas_put200_response.g.dart';
 @BuiltValue()
 abstract class V1ProvidersMeCoverageAreasPut200Response
     implements
-        Built<
-          V1ProvidersMeCoverageAreasPut200Response,
-          V1ProvidersMeCoverageAreasPut200ResponseBuilder
-        > {
+        Built<V1ProvidersMeCoverageAreasPut200Response,
+            V1ProvidersMeCoverageAreasPut200ResponseBuilder> {
   @BuiltValueField(wireName: r'coverageAreas')
   BuiltList<V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner>
-  get coverageAreas;
+      get coverageAreas;
 
   @BuiltValueField(wireName: r'completionScore')
   int get completionScore;
 
   V1ProvidersMeCoverageAreasPut200Response._();
 
-  factory V1ProvidersMeCoverageAreasPut200Response([
-    void updates(V1ProvidersMeCoverageAreasPut200ResponseBuilder b),
-  ]) = _$V1ProvidersMeCoverageAreasPut200Response;
+  factory V1ProvidersMeCoverageAreasPut200Response(
+          [void updates(V1ProvidersMeCoverageAreasPut200ResponseBuilder b)]) =
+      _$V1ProvidersMeCoverageAreasPut200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1ProvidersMeCoverageAreasPut200ResponseBuilder b) => b;
@@ -49,7 +47,7 @@ class _$V1ProvidersMeCoverageAreasPut200ResponseSerializer
   @override
   final Iterable<Type> types = const [
     V1ProvidersMeCoverageAreasPut200Response,
-    _$V1ProvidersMeCoverageAreasPut200Response,
+    _$V1ProvidersMeCoverageAreasPut200Response
   ];
 
   @override
@@ -64,7 +62,7 @@ class _$V1ProvidersMeCoverageAreasPut200ResponseSerializer
     yield serializers.serialize(
       object.coverageAreas,
       specifiedType: const FullType(BuiltList, [
-        FullType(V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner),
+        FullType(V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner)
       ]),
     );
     yield r'completionScore';
@@ -80,11 +78,9 @@ class _$V1ProvidersMeCoverageAreasPut200ResponseSerializer
     V1ProvidersMeCoverageAreasPut200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(
-      serializers,
-      object,
-      specifiedType: specifiedType,
-    ).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -100,27 +96,21 @@ class _$V1ProvidersMeCoverageAreasPut200ResponseSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'coverageAreas':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(BuiltList, [
-                      FullType(
-                        V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner,
-                      ),
-                    ]),
-                  )
-                  as BuiltList<
-                    V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner
-                  >;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [
+              FullType(
+                  V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner)
+            ]),
+          ) as BuiltList<
+              V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner>;
           result.coverageAreas.replace(valueDes);
           break;
         case r'completionScore':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(int),
-                  )
-                  as int;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
           result.completionScore = valueDes;
           break;
         default:

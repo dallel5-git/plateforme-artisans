@@ -17,21 +17,23 @@ class _$V1ProvidersMeStatsGet200ResponseTotals
   @override
   final num viewToContactRatio;
 
-  factory _$V1ProvidersMeStatsGet200ResponseTotals([
-    void Function(V1ProvidersMeStatsGet200ResponseTotalsBuilder)? updates,
-  ]) => (V1ProvidersMeStatsGet200ResponseTotalsBuilder()..update(updates))
-      ._build();
+  factory _$V1ProvidersMeStatsGet200ResponseTotals(
+          [void Function(V1ProvidersMeStatsGet200ResponseTotalsBuilder)?
+              updates]) =>
+      (V1ProvidersMeStatsGet200ResponseTotalsBuilder()..update(updates))
+          ._build();
 
-  _$V1ProvidersMeStatsGet200ResponseTotals._({
-    required this.profileViews,
-    required this.uniqueProfileViews,
-    required this.contacts,
-    required this.viewToContactRatio,
-  }) : super._();
+  _$V1ProvidersMeStatsGet200ResponseTotals._(
+      {required this.profileViews,
+      required this.uniqueProfileViews,
+      required this.contacts,
+      required this.viewToContactRatio})
+      : super._();
   @override
   V1ProvidersMeStatsGet200ResponseTotals rebuild(
-    void Function(V1ProvidersMeStatsGet200ResponseTotalsBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(V1ProvidersMeStatsGet200ResponseTotalsBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersMeStatsGet200ResponseTotalsBuilder toBuilder() =>
@@ -61,8 +63,7 @@ class _$V1ProvidersMeStatsGet200ResponseTotals
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'V1ProvidersMeStatsGet200ResponseTotals',
-          )
+            r'V1ProvidersMeStatsGet200ResponseTotals')
           ..add('profileViews', profileViews)
           ..add('uniqueProfileViews', uniqueProfileViews)
           ..add('contacts', contacts)
@@ -73,10 +74,8 @@ class _$V1ProvidersMeStatsGet200ResponseTotals
 
 class V1ProvidersMeStatsGet200ResponseTotalsBuilder
     implements
-        Builder<
-          V1ProvidersMeStatsGet200ResponseTotals,
-          V1ProvidersMeStatsGet200ResponseTotalsBuilder
-        > {
+        Builder<V1ProvidersMeStatsGet200ResponseTotals,
+            V1ProvidersMeStatsGet200ResponseTotalsBuilder> {
   _$V1ProvidersMeStatsGet200ResponseTotals? _$v;
 
   int? _profileViews;
@@ -120,8 +119,7 @@ class V1ProvidersMeStatsGet200ResponseTotalsBuilder
 
   @override
   void update(
-    void Function(V1ProvidersMeStatsGet200ResponseTotalsBuilder)? updates,
-  ) {
+      void Function(V1ProvidersMeStatsGet200ResponseTotalsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -129,29 +127,20 @@ class V1ProvidersMeStatsGet200ResponseTotalsBuilder
   V1ProvidersMeStatsGet200ResponseTotals build() => _build();
 
   _$V1ProvidersMeStatsGet200ResponseTotals _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         _$V1ProvidersMeStatsGet200ResponseTotals._(
-          profileViews: BuiltValueNullFieldError.checkNotNull(
-            profileViews,
-            r'V1ProvidersMeStatsGet200ResponseTotals',
-            'profileViews',
-          ),
+          profileViews: BuiltValueNullFieldError.checkNotNull(profileViews,
+              r'V1ProvidersMeStatsGet200ResponseTotals', 'profileViews'),
           uniqueProfileViews: BuiltValueNullFieldError.checkNotNull(
-            uniqueProfileViews,
-            r'V1ProvidersMeStatsGet200ResponseTotals',
-            'uniqueProfileViews',
-          ),
+              uniqueProfileViews,
+              r'V1ProvidersMeStatsGet200ResponseTotals',
+              'uniqueProfileViews'),
           contacts: BuiltValueNullFieldError.checkNotNull(
-            contacts,
-            r'V1ProvidersMeStatsGet200ResponseTotals',
-            'contacts',
-          ),
+              contacts, r'V1ProvidersMeStatsGet200ResponseTotals', 'contacts'),
           viewToContactRatio: BuiltValueNullFieldError.checkNotNull(
-            viewToContactRatio,
-            r'V1ProvidersMeStatsGet200ResponseTotals',
-            'viewToContactRatio',
-          ),
+              viewToContactRatio,
+              r'V1ProvidersMeStatsGet200ResponseTotals',
+              'viewToContactRatio'),
         );
     replace(_$result);
     return _$result;

@@ -27,9 +27,9 @@ abstract class V1ProfileViewsPostRequest
 
   V1ProfileViewsPostRequest._();
 
-  factory V1ProfileViewsPostRequest([
-    void updates(V1ProfileViewsPostRequestBuilder b),
-  ]) = _$V1ProfileViewsPostRequest;
+  factory V1ProfileViewsPostRequest(
+          [void updates(V1ProfileViewsPostRequestBuilder b)]) =
+      _$V1ProfileViewsPostRequest;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1ProfileViewsPostRequestBuilder b) => b;
@@ -44,7 +44,7 @@ class _$V1ProfileViewsPostRequestSerializer
   @override
   final Iterable<Type> types = const [
     V1ProfileViewsPostRequest,
-    _$V1ProfileViewsPostRequest,
+    _$V1ProfileViewsPostRequest
   ];
 
   @override
@@ -75,11 +75,9 @@ class _$V1ProfileViewsPostRequestSerializer
     V1ProfileViewsPostRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(
-      serializers,
-      object,
-      specifiedType: specifiedType,
-    ).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -95,23 +93,17 @@ class _$V1ProfileViewsPostRequestSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'providerId':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.providerId = valueDes;
           break;
         case r'source':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(
-                      V1ProfileViewsPostRequestSource_Enum,
-                    ),
-                  )
-                  as V1ProfileViewsPostRequestSource_Enum;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(V1ProfileViewsPostRequestSource_Enum),
+          ) as V1ProfileViewsPostRequestSource_Enum;
           result.source_ = valueDes;
           break;
         default:

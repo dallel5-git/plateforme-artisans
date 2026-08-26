@@ -23,23 +23,23 @@ class _$V1MediaIdProcessPost200Response
   @override
   final int height;
 
-  factory _$V1MediaIdProcessPost200Response([
-    void Function(V1MediaIdProcessPost200ResponseBuilder)? updates,
-  ]) => (V1MediaIdProcessPost200ResponseBuilder()..update(updates))._build();
+  factory _$V1MediaIdProcessPost200Response(
+          [void Function(V1MediaIdProcessPost200ResponseBuilder)? updates]) =>
+      (V1MediaIdProcessPost200ResponseBuilder()..update(updates))._build();
 
-  _$V1MediaIdProcessPost200Response._({
-    required this.id,
-    required this.publicUrl,
-    required this.thumbUrl,
-    required this.cardUrl,
-    required this.fullUrl,
-    required this.width,
-    required this.height,
-  }) : super._();
+  _$V1MediaIdProcessPost200Response._(
+      {required this.id,
+      required this.publicUrl,
+      required this.thumbUrl,
+      required this.cardUrl,
+      required this.fullUrl,
+      required this.width,
+      required this.height})
+      : super._();
   @override
   V1MediaIdProcessPost200Response rebuild(
-    void Function(V1MediaIdProcessPost200ResponseBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(V1MediaIdProcessPost200ResponseBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1MediaIdProcessPost200ResponseBuilder toBuilder() =>
@@ -88,10 +88,8 @@ class _$V1MediaIdProcessPost200Response
 
 class V1MediaIdProcessPost200ResponseBuilder
     implements
-        Builder<
-          V1MediaIdProcessPost200Response,
-          V1MediaIdProcessPost200ResponseBuilder
-        > {
+        Builder<V1MediaIdProcessPost200Response,
+            V1MediaIdProcessPost200ResponseBuilder> {
   _$V1MediaIdProcessPost200Response? _$v;
 
   String? _id;
@@ -155,44 +153,22 @@ class V1MediaIdProcessPost200ResponseBuilder
   V1MediaIdProcessPost200Response build() => _build();
 
   _$V1MediaIdProcessPost200Response _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         _$V1MediaIdProcessPost200Response._(
           id: BuiltValueNullFieldError.checkNotNull(
-            id,
-            r'V1MediaIdProcessPost200Response',
-            'id',
-          ),
+              id, r'V1MediaIdProcessPost200Response', 'id'),
           publicUrl: BuiltValueNullFieldError.checkNotNull(
-            publicUrl,
-            r'V1MediaIdProcessPost200Response',
-            'publicUrl',
-          ),
+              publicUrl, r'V1MediaIdProcessPost200Response', 'publicUrl'),
           thumbUrl: BuiltValueNullFieldError.checkNotNull(
-            thumbUrl,
-            r'V1MediaIdProcessPost200Response',
-            'thumbUrl',
-          ),
+              thumbUrl, r'V1MediaIdProcessPost200Response', 'thumbUrl'),
           cardUrl: BuiltValueNullFieldError.checkNotNull(
-            cardUrl,
-            r'V1MediaIdProcessPost200Response',
-            'cardUrl',
-          ),
+              cardUrl, r'V1MediaIdProcessPost200Response', 'cardUrl'),
           fullUrl: BuiltValueNullFieldError.checkNotNull(
-            fullUrl,
-            r'V1MediaIdProcessPost200Response',
-            'fullUrl',
-          ),
+              fullUrl, r'V1MediaIdProcessPost200Response', 'fullUrl'),
           width: BuiltValueNullFieldError.checkNotNull(
-            width,
-            r'V1MediaIdProcessPost200Response',
-            'width',
-          ),
+              width, r'V1MediaIdProcessPost200Response', 'width'),
           height: BuiltValueNullFieldError.checkNotNull(
-            height,
-            r'V1MediaIdProcessPost200Response',
-            'height',
-          ),
+              height, r'V1MediaIdProcessPost200Response', 'height'),
         );
     replace(_$result);
     return _$result;

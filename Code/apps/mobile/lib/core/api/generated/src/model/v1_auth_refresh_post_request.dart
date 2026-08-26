@@ -21,9 +21,9 @@ abstract class V1AuthRefreshPostRequest
 
   V1AuthRefreshPostRequest._();
 
-  factory V1AuthRefreshPostRequest([
-    void updates(V1AuthRefreshPostRequestBuilder b),
-  ]) = _$V1AuthRefreshPostRequest;
+  factory V1AuthRefreshPostRequest(
+          [void updates(V1AuthRefreshPostRequestBuilder b)]) =
+      _$V1AuthRefreshPostRequest;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1AuthRefreshPostRequestBuilder b) => b;
@@ -38,7 +38,7 @@ class _$V1AuthRefreshPostRequestSerializer
   @override
   final Iterable<Type> types = const [
     V1AuthRefreshPostRequest,
-    _$V1AuthRefreshPostRequest,
+    _$V1AuthRefreshPostRequest
   ];
 
   @override
@@ -62,11 +62,9 @@ class _$V1AuthRefreshPostRequestSerializer
     V1AuthRefreshPostRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(
-      serializers,
-      object,
-      specifiedType: specifiedType,
-    ).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -82,12 +80,10 @@ class _$V1AuthRefreshPostRequestSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'refreshToken':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.refreshToken = valueDes;
           break;
         default:

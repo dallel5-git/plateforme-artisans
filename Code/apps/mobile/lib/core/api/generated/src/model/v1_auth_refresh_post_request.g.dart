@@ -10,15 +10,15 @@ class _$V1AuthRefreshPostRequest extends V1AuthRefreshPostRequest {
   @override
   final String refreshToken;
 
-  factory _$V1AuthRefreshPostRequest([
-    void Function(V1AuthRefreshPostRequestBuilder)? updates,
-  ]) => (V1AuthRefreshPostRequestBuilder()..update(updates))._build();
+  factory _$V1AuthRefreshPostRequest(
+          [void Function(V1AuthRefreshPostRequestBuilder)? updates]) =>
+      (V1AuthRefreshPostRequestBuilder()..update(updates))._build();
 
   _$V1AuthRefreshPostRequest._({required this.refreshToken}) : super._();
   @override
   V1AuthRefreshPostRequest rebuild(
-    void Function(V1AuthRefreshPostRequestBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(V1AuthRefreshPostRequestBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1AuthRefreshPostRequestBuilder toBuilder() =>
@@ -41,9 +41,9 @@ class _$V1AuthRefreshPostRequest extends V1AuthRefreshPostRequest {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(
-      r'V1AuthRefreshPostRequest',
-    )..add('refreshToken', refreshToken)).toString();
+    return (newBuiltValueToStringHelper(r'V1AuthRefreshPostRequest')
+          ..add('refreshToken', refreshToken))
+        .toString();
   }
 }
 
@@ -83,14 +83,10 @@ class V1AuthRefreshPostRequestBuilder
   V1AuthRefreshPostRequest build() => _build();
 
   _$V1AuthRefreshPostRequest _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         _$V1AuthRefreshPostRequest._(
           refreshToken: BuiltValueNullFieldError.checkNotNull(
-            refreshToken,
-            r'V1AuthRefreshPostRequest',
-            'refreshToken',
-          ),
+              refreshToken, r'V1AuthRefreshPostRequest', 'refreshToken'),
         );
     replace(_$result);
     return _$result;

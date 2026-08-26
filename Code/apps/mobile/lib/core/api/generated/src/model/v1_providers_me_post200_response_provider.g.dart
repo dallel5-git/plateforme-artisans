@@ -7,26 +7,23 @@ part of 'v1_providers_me_post200_response_provider.dart';
 // **************************************************************************
 
 const V1ProvidersMePost200ResponseProviderPublicationStatusEnum
-_$v1ProvidersMePost200ResponseProviderPublicationStatusEnum_DRAFT =
+    _$v1ProvidersMePost200ResponseProviderPublicationStatusEnum_DRAFT =
     const V1ProvidersMePost200ResponseProviderPublicationStatusEnum._('DRAFT');
 const V1ProvidersMePost200ResponseProviderPublicationStatusEnum
-_$v1ProvidersMePost200ResponseProviderPublicationStatusEnum_PUBLISHED =
+    _$v1ProvidersMePost200ResponseProviderPublicationStatusEnum_PUBLISHED =
     const V1ProvidersMePost200ResponseProviderPublicationStatusEnum._(
-      'PUBLISHED',
-    );
+        'PUBLISHED');
 const V1ProvidersMePost200ResponseProviderPublicationStatusEnum
-_$v1ProvidersMePost200ResponseProviderPublicationStatusEnum_HIDDEN =
+    _$v1ProvidersMePost200ResponseProviderPublicationStatusEnum_HIDDEN =
     const V1ProvidersMePost200ResponseProviderPublicationStatusEnum._('HIDDEN');
 const V1ProvidersMePost200ResponseProviderPublicationStatusEnum
-_$v1ProvidersMePost200ResponseProviderPublicationStatusEnum_SUSPENDED =
+    _$v1ProvidersMePost200ResponseProviderPublicationStatusEnum_SUSPENDED =
     const V1ProvidersMePost200ResponseProviderPublicationStatusEnum._(
-      'SUSPENDED',
-    );
+        'SUSPENDED');
 
 V1ProvidersMePost200ResponseProviderPublicationStatusEnum
-_$v1ProvidersMePost200ResponseProviderPublicationStatusEnumValueOf(
-  String name,
-) {
+    _$v1ProvidersMePost200ResponseProviderPublicationStatusEnumValueOf(
+        String name) {
   switch (name) {
     case 'DRAFT':
       return _$v1ProvidersMePost200ResponseProviderPublicationStatusEnum_DRAFT;
@@ -42,34 +39,30 @@ _$v1ProvidersMePost200ResponseProviderPublicationStatusEnumValueOf(
 }
 
 final BuiltSet<V1ProvidersMePost200ResponseProviderPublicationStatusEnum>
-_$v1ProvidersMePost200ResponseProviderPublicationStatusEnumValues =
-    BuiltSet<V1ProvidersMePost200ResponseProviderPublicationStatusEnum>(
-      const <V1ProvidersMePost200ResponseProviderPublicationStatusEnum>[
-        _$v1ProvidersMePost200ResponseProviderPublicationStatusEnum_DRAFT,
-        _$v1ProvidersMePost200ResponseProviderPublicationStatusEnum_PUBLISHED,
-        _$v1ProvidersMePost200ResponseProviderPublicationStatusEnum_HIDDEN,
-        _$v1ProvidersMePost200ResponseProviderPublicationStatusEnum_SUSPENDED,
-      ],
-    );
+    _$v1ProvidersMePost200ResponseProviderPublicationStatusEnumValues =
+    BuiltSet<
+        V1ProvidersMePost200ResponseProviderPublicationStatusEnum>(const <V1ProvidersMePost200ResponseProviderPublicationStatusEnum>[
+  _$v1ProvidersMePost200ResponseProviderPublicationStatusEnum_DRAFT,
+  _$v1ProvidersMePost200ResponseProviderPublicationStatusEnum_PUBLISHED,
+  _$v1ProvidersMePost200ResponseProviderPublicationStatusEnum_HIDDEN,
+  _$v1ProvidersMePost200ResponseProviderPublicationStatusEnum_SUSPENDED,
+]);
 
 const V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum
-_$v1ProvidersMePost200ResponseProviderAvailabilityStatusEnum_AVAILABLE =
+    _$v1ProvidersMePost200ResponseProviderAvailabilityStatusEnum_AVAILABLE =
     const V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum._(
-      'AVAILABLE',
-    );
+        'AVAILABLE');
 const V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum
-_$v1ProvidersMePost200ResponseProviderAvailabilityStatusEnum_BUSY =
+    _$v1ProvidersMePost200ResponseProviderAvailabilityStatusEnum_BUSY =
     const V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum._('BUSY');
 const V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum
-_$v1ProvidersMePost200ResponseProviderAvailabilityStatusEnum_ON_HOLIDAY =
+    _$v1ProvidersMePost200ResponseProviderAvailabilityStatusEnum_ON_HOLIDAY =
     const V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum._(
-      'ON_HOLIDAY',
-    );
+        'ON_HOLIDAY');
 
 V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum
-_$v1ProvidersMePost200ResponseProviderAvailabilityStatusEnumValueOf(
-  String name,
-) {
+    _$v1ProvidersMePost200ResponseProviderAvailabilityStatusEnumValueOf(
+        String name) {
   switch (name) {
     case 'AVAILABLE':
       return _$v1ProvidersMePost200ResponseProviderAvailabilityStatusEnum_AVAILABLE;
@@ -83,27 +76,25 @@ _$v1ProvidersMePost200ResponseProviderAvailabilityStatusEnumValueOf(
 }
 
 final BuiltSet<V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum>
-_$v1ProvidersMePost200ResponseProviderAvailabilityStatusEnumValues =
-    BuiltSet<V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum>(
-      const <V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum>[
-        _$v1ProvidersMePost200ResponseProviderAvailabilityStatusEnum_AVAILABLE,
-        _$v1ProvidersMePost200ResponseProviderAvailabilityStatusEnum_BUSY,
-        _$v1ProvidersMePost200ResponseProviderAvailabilityStatusEnum_ON_HOLIDAY,
-      ],
-    );
+    _$v1ProvidersMePost200ResponseProviderAvailabilityStatusEnumValues =
+    BuiltSet<
+        V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum>(const <V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum>[
+  _$v1ProvidersMePost200ResponseProviderAvailabilityStatusEnum_AVAILABLE,
+  _$v1ProvidersMePost200ResponseProviderAvailabilityStatusEnum_BUSY,
+  _$v1ProvidersMePost200ResponseProviderAvailabilityStatusEnum_ON_HOLIDAY,
+]);
 
 Serializer<V1ProvidersMePost200ResponseProviderPublicationStatusEnum>
-_$v1ProvidersMePost200ResponseProviderPublicationStatusEnumSerializer =
+    _$v1ProvidersMePost200ResponseProviderPublicationStatusEnumSerializer =
     _$V1ProvidersMePost200ResponseProviderPublicationStatusEnumSerializer();
 Serializer<V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum>
-_$v1ProvidersMePost200ResponseProviderAvailabilityStatusEnumSerializer =
+    _$v1ProvidersMePost200ResponseProviderAvailabilityStatusEnumSerializer =
     _$V1ProvidersMePost200ResponseProviderAvailabilityStatusEnumSerializer();
 
 class _$V1ProvidersMePost200ResponseProviderPublicationStatusEnumSerializer
     implements
         PrimitiveSerializer<
-          V1ProvidersMePost200ResponseProviderPublicationStatusEnum
-        > {
+            V1ProvidersMePost200ResponseProviderPublicationStatusEnum> {
   static const Map<String, Object> _toWire = const <String, Object>{
     'DRAFT': 'DRAFT',
     'PUBLISHED': 'PUBLISHED',
@@ -119,34 +110,30 @@ class _$V1ProvidersMePost200ResponseProviderPublicationStatusEnumSerializer
 
   @override
   final Iterable<Type> types = const <Type>[
-    V1ProvidersMePost200ResponseProviderPublicationStatusEnum,
+    V1ProvidersMePost200ResponseProviderPublicationStatusEnum
   ];
   @override
   final String wireName =
       'V1ProvidersMePost200ResponseProviderPublicationStatusEnum';
 
   @override
-  Object serialize(
-    Serializers serializers,
-    V1ProvidersMePost200ResponseProviderPublicationStatusEnum object, {
-    FullType specifiedType = FullType.unspecified,
-  }) => _toWire[object.name] ?? object.name;
+  Object serialize(Serializers serializers,
+          V1ProvidersMePost200ResponseProviderPublicationStatusEnum object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      _toWire[object.name] ?? object.name;
 
   @override
   V1ProvidersMePost200ResponseProviderPublicationStatusEnum deserialize(
-    Serializers serializers,
-    Object serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) => V1ProvidersMePost200ResponseProviderPublicationStatusEnum.valueOf(
-    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
-  );
+          Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      V1ProvidersMePost200ResponseProviderPublicationStatusEnum.valueOf(
+          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
 }
 
 class _$V1ProvidersMePost200ResponseProviderAvailabilityStatusEnumSerializer
     implements
         PrimitiveSerializer<
-          V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum
-        > {
+            V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum> {
   static const Map<String, Object> _toWire = const <String, Object>{
     'AVAILABLE': 'AVAILABLE',
     'BUSY': 'BUSY',
@@ -160,27 +147,24 @@ class _$V1ProvidersMePost200ResponseProviderAvailabilityStatusEnumSerializer
 
   @override
   final Iterable<Type> types = const <Type>[
-    V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum,
+    V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum
   ];
   @override
   final String wireName =
       'V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum';
 
   @override
-  Object serialize(
-    Serializers serializers,
-    V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum object, {
-    FullType specifiedType = FullType.unspecified,
-  }) => _toWire[object.name] ?? object.name;
+  Object serialize(Serializers serializers,
+          V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      _toWire[object.name] ?? object.name;
 
   @override
   V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum deserialize(
-    Serializers serializers,
-    Object serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) => V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum.valueOf(
-    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
-  );
+          Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum.valueOf(
+          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
 }
 
 class _$V1ProvidersMePost200ResponseProvider
@@ -203,7 +187,7 @@ class _$V1ProvidersMePost200ResponseProvider
   final String publicPhone;
   @override
   final BuiltList<V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum>
-  spokenLanguages;
+      spokenLanguages;
   @override
   final String baseGovernorateId;
   @override
@@ -214,10 +198,10 @@ class _$V1ProvidersMePost200ResponseProvider
   final num longitude;
   @override
   final V1ProvidersMePost200ResponseProviderPublicationStatusEnum
-  publicationStatus;
+      publicationStatus;
   @override
   final V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum
-  availabilityStatus;
+      availabilityStatus;
   @override
   final DateTime availableAgainAt;
   @override
@@ -247,46 +231,46 @@ class _$V1ProvidersMePost200ResponseProvider
   @override
   final DateTime updatedAt;
 
-  factory _$V1ProvidersMePost200ResponseProvider([
-    void Function(V1ProvidersMePost200ResponseProviderBuilder)? updates,
-  ]) =>
+  factory _$V1ProvidersMePost200ResponseProvider(
+          [void Function(V1ProvidersMePost200ResponseProviderBuilder)?
+              updates]) =>
       (V1ProvidersMePost200ResponseProviderBuilder()..update(updates))._build();
 
-  _$V1ProvidersMePost200ResponseProvider._({
-    required this.id,
-    required this.slug,
-    required this.businessName,
-    required this.headline,
-    required this.bio,
-    required this.yearsExperience,
-    required this.whatsappPhone,
-    required this.publicPhone,
-    required this.spokenLanguages,
-    required this.baseGovernorateId,
-    required this.baseDelegationId,
-    required this.latitude,
-    required this.longitude,
-    required this.publicationStatus,
-    required this.availabilityStatus,
-    required this.availableAgainAt,
-    required this.acceptsEmergency,
-    required this.workingHours,
-    required this.isVerified,
-    required this.verifiedAt,
-    required this.ratingAvg,
-    required this.ratingCount,
-    required this.totalProfileViews,
-    required this.totalContacts,
-    required this.completionScore,
-    required this.rankingScore,
-    required this.lastActiveAt,
-    required this.createdAt,
-    required this.updatedAt,
-  }) : super._();
+  _$V1ProvidersMePost200ResponseProvider._(
+      {required this.id,
+      required this.slug,
+      required this.businessName,
+      required this.headline,
+      required this.bio,
+      required this.yearsExperience,
+      required this.whatsappPhone,
+      required this.publicPhone,
+      required this.spokenLanguages,
+      required this.baseGovernorateId,
+      required this.baseDelegationId,
+      required this.latitude,
+      required this.longitude,
+      required this.publicationStatus,
+      required this.availabilityStatus,
+      required this.availableAgainAt,
+      required this.acceptsEmergency,
+      required this.workingHours,
+      required this.isVerified,
+      required this.verifiedAt,
+      required this.ratingAvg,
+      required this.ratingCount,
+      required this.totalProfileViews,
+      required this.totalContacts,
+      required this.completionScore,
+      required this.rankingScore,
+      required this.lastActiveAt,
+      required this.createdAt,
+      required this.updatedAt})
+      : super._();
   @override
   V1ProvidersMePost200ResponseProvider rebuild(
-    void Function(V1ProvidersMePost200ResponseProviderBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(V1ProvidersMePost200ResponseProviderBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersMePost200ResponseProviderBuilder toBuilder() =>
@@ -401,10 +385,8 @@ class _$V1ProvidersMePost200ResponseProvider
 
 class V1ProvidersMePost200ResponseProviderBuilder
     implements
-        Builder<
-          V1ProvidersMePost200ResponseProvider,
-          V1ProvidersMePost200ResponseProviderBuilder
-        > {
+        Builder<V1ProvidersMePost200ResponseProvider,
+            V1ProvidersMePost200ResponseProviderBuilder> {
   _$V1ProvidersMePost200ResponseProvider? _$v;
 
   String? _id;
@@ -442,14 +424,14 @@ class V1ProvidersMePost200ResponseProviderBuilder
   set publicPhone(String? publicPhone) => _$this._publicPhone = publicPhone;
 
   ListBuilder<V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum>?
-  _spokenLanguages;
+      _spokenLanguages;
   ListBuilder<V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum>
-  get spokenLanguages => _$this._spokenLanguages ??=
-      ListBuilder<V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum>();
+      get spokenLanguages => _$this._spokenLanguages ??= ListBuilder<
+          V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum>();
   set spokenLanguages(
-    ListBuilder<V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum>?
-    spokenLanguages,
-  ) => _$this._spokenLanguages = spokenLanguages;
+          ListBuilder<V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum>?
+              spokenLanguages) =>
+      _$this._spokenLanguages = spokenLanguages;
 
   String? _baseGovernorateId;
   String? get baseGovernorateId => _$this._baseGovernorateId;
@@ -471,20 +453,20 @@ class V1ProvidersMePost200ResponseProviderBuilder
 
   V1ProvidersMePost200ResponseProviderPublicationStatusEnum? _publicationStatus;
   V1ProvidersMePost200ResponseProviderPublicationStatusEnum?
-  get publicationStatus => _$this._publicationStatus;
+      get publicationStatus => _$this._publicationStatus;
   set publicationStatus(
-    V1ProvidersMePost200ResponseProviderPublicationStatusEnum?
-    publicationStatus,
-  ) => _$this._publicationStatus = publicationStatus;
+          V1ProvidersMePost200ResponseProviderPublicationStatusEnum?
+              publicationStatus) =>
+      _$this._publicationStatus = publicationStatus;
 
   V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum?
-  _availabilityStatus;
+      _availabilityStatus;
   V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum?
-  get availabilityStatus => _$this._availabilityStatus;
+      get availabilityStatus => _$this._availabilityStatus;
   set availabilityStatus(
-    V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum?
-    availabilityStatus,
-  ) => _$this._availabilityStatus = availabilityStatus;
+          V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum?
+              availabilityStatus) =>
+      _$this._availabilityStatus = availabilityStatus;
 
   DateTime? _availableAgainAt;
   DateTime? get availableAgainAt => _$this._availableAgainAt;
@@ -597,8 +579,7 @@ class V1ProvidersMePost200ResponseProviderBuilder
 
   @override
   void update(
-    void Function(V1ProvidersMePost200ResponseProviderBuilder)? updates,
-  ) {
+      void Function(V1ProvidersMePost200ResponseProviderBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -608,150 +589,83 @@ class V1ProvidersMePost200ResponseProviderBuilder
   _$V1ProvidersMePost200ResponseProvider _build() {
     _$V1ProvidersMePost200ResponseProvider _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           _$V1ProvidersMePost200ResponseProvider._(
             id: BuiltValueNullFieldError.checkNotNull(
-              id,
-              r'V1ProvidersMePost200ResponseProvider',
-              'id',
-            ),
+                id, r'V1ProvidersMePost200ResponseProvider', 'id'),
             slug: BuiltValueNullFieldError.checkNotNull(
-              slug,
-              r'V1ProvidersMePost200ResponseProvider',
-              'slug',
-            ),
-            businessName: BuiltValueNullFieldError.checkNotNull(
-              businessName,
-              r'V1ProvidersMePost200ResponseProvider',
-              'businessName',
-            ),
+                slug, r'V1ProvidersMePost200ResponseProvider', 'slug'),
+            businessName: BuiltValueNullFieldError.checkNotNull(businessName,
+                r'V1ProvidersMePost200ResponseProvider', 'businessName'),
             headline: BuiltValueNullFieldError.checkNotNull(
-              headline,
-              r'V1ProvidersMePost200ResponseProvider',
-              'headline',
-            ),
+                headline, r'V1ProvidersMePost200ResponseProvider', 'headline'),
             bio: BuiltValueNullFieldError.checkNotNull(
-              bio,
-              r'V1ProvidersMePost200ResponseProvider',
-              'bio',
-            ),
+                bio, r'V1ProvidersMePost200ResponseProvider', 'bio'),
             yearsExperience: BuiltValueNullFieldError.checkNotNull(
-              yearsExperience,
-              r'V1ProvidersMePost200ResponseProvider',
-              'yearsExperience',
-            ),
-            whatsappPhone: BuiltValueNullFieldError.checkNotNull(
-              whatsappPhone,
-              r'V1ProvidersMePost200ResponseProvider',
-              'whatsappPhone',
-            ),
-            publicPhone: BuiltValueNullFieldError.checkNotNull(
-              publicPhone,
-              r'V1ProvidersMePost200ResponseProvider',
-              'publicPhone',
-            ),
+                yearsExperience,
+                r'V1ProvidersMePost200ResponseProvider',
+                'yearsExperience'),
+            whatsappPhone: BuiltValueNullFieldError.checkNotNull(whatsappPhone,
+                r'V1ProvidersMePost200ResponseProvider', 'whatsappPhone'),
+            publicPhone: BuiltValueNullFieldError.checkNotNull(publicPhone,
+                r'V1ProvidersMePost200ResponseProvider', 'publicPhone'),
             spokenLanguages: spokenLanguages.build(),
             baseGovernorateId: BuiltValueNullFieldError.checkNotNull(
-              baseGovernorateId,
-              r'V1ProvidersMePost200ResponseProvider',
-              'baseGovernorateId',
-            ),
+                baseGovernorateId,
+                r'V1ProvidersMePost200ResponseProvider',
+                'baseGovernorateId'),
             baseDelegationId: BuiltValueNullFieldError.checkNotNull(
-              baseDelegationId,
-              r'V1ProvidersMePost200ResponseProvider',
-              'baseDelegationId',
-            ),
+                baseDelegationId,
+                r'V1ProvidersMePost200ResponseProvider',
+                'baseDelegationId'),
             latitude: BuiltValueNullFieldError.checkNotNull(
-              latitude,
-              r'V1ProvidersMePost200ResponseProvider',
-              'latitude',
-            ),
-            longitude: BuiltValueNullFieldError.checkNotNull(
-              longitude,
-              r'V1ProvidersMePost200ResponseProvider',
-              'longitude',
-            ),
+                latitude, r'V1ProvidersMePost200ResponseProvider', 'latitude'),
+            longitude: BuiltValueNullFieldError.checkNotNull(longitude,
+                r'V1ProvidersMePost200ResponseProvider', 'longitude'),
             publicationStatus: BuiltValueNullFieldError.checkNotNull(
-              publicationStatus,
-              r'V1ProvidersMePost200ResponseProvider',
-              'publicationStatus',
-            ),
+                publicationStatus,
+                r'V1ProvidersMePost200ResponseProvider',
+                'publicationStatus'),
             availabilityStatus: BuiltValueNullFieldError.checkNotNull(
-              availabilityStatus,
-              r'V1ProvidersMePost200ResponseProvider',
-              'availabilityStatus',
-            ),
+                availabilityStatus,
+                r'V1ProvidersMePost200ResponseProvider',
+                'availabilityStatus'),
             availableAgainAt: BuiltValueNullFieldError.checkNotNull(
-              availableAgainAt,
-              r'V1ProvidersMePost200ResponseProvider',
-              'availableAgainAt',
-            ),
+                availableAgainAt,
+                r'V1ProvidersMePost200ResponseProvider',
+                'availableAgainAt'),
             acceptsEmergency: BuiltValueNullFieldError.checkNotNull(
-              acceptsEmergency,
-              r'V1ProvidersMePost200ResponseProvider',
-              'acceptsEmergency',
-            ),
-            workingHours: BuiltValueNullFieldError.checkNotNull(
-              workingHours,
-              r'V1ProvidersMePost200ResponseProvider',
-              'workingHours',
-            ),
-            isVerified: BuiltValueNullFieldError.checkNotNull(
-              isVerified,
-              r'V1ProvidersMePost200ResponseProvider',
-              'isVerified',
-            ),
-            verifiedAt: BuiltValueNullFieldError.checkNotNull(
-              verifiedAt,
-              r'V1ProvidersMePost200ResponseProvider',
-              'verifiedAt',
-            ),
-            ratingAvg: BuiltValueNullFieldError.checkNotNull(
-              ratingAvg,
-              r'V1ProvidersMePost200ResponseProvider',
-              'ratingAvg',
-            ),
-            ratingCount: BuiltValueNullFieldError.checkNotNull(
-              ratingCount,
-              r'V1ProvidersMePost200ResponseProvider',
-              'ratingCount',
-            ),
+                acceptsEmergency,
+                r'V1ProvidersMePost200ResponseProvider',
+                'acceptsEmergency'),
+            workingHours: BuiltValueNullFieldError.checkNotNull(workingHours,
+                r'V1ProvidersMePost200ResponseProvider', 'workingHours'),
+            isVerified: BuiltValueNullFieldError.checkNotNull(isVerified,
+                r'V1ProvidersMePost200ResponseProvider', 'isVerified'),
+            verifiedAt: BuiltValueNullFieldError.checkNotNull(verifiedAt,
+                r'V1ProvidersMePost200ResponseProvider', 'verifiedAt'),
+            ratingAvg: BuiltValueNullFieldError.checkNotNull(ratingAvg,
+                r'V1ProvidersMePost200ResponseProvider', 'ratingAvg'),
+            ratingCount: BuiltValueNullFieldError.checkNotNull(ratingCount,
+                r'V1ProvidersMePost200ResponseProvider', 'ratingCount'),
             totalProfileViews: BuiltValueNullFieldError.checkNotNull(
-              totalProfileViews,
-              r'V1ProvidersMePost200ResponseProvider',
-              'totalProfileViews',
-            ),
-            totalContacts: BuiltValueNullFieldError.checkNotNull(
-              totalContacts,
-              r'V1ProvidersMePost200ResponseProvider',
-              'totalContacts',
-            ),
+                totalProfileViews,
+                r'V1ProvidersMePost200ResponseProvider',
+                'totalProfileViews'),
+            totalContacts: BuiltValueNullFieldError.checkNotNull(totalContacts,
+                r'V1ProvidersMePost200ResponseProvider', 'totalContacts'),
             completionScore: BuiltValueNullFieldError.checkNotNull(
-              completionScore,
-              r'V1ProvidersMePost200ResponseProvider',
-              'completionScore',
-            ),
-            rankingScore: BuiltValueNullFieldError.checkNotNull(
-              rankingScore,
-              r'V1ProvidersMePost200ResponseProvider',
-              'rankingScore',
-            ),
-            lastActiveAt: BuiltValueNullFieldError.checkNotNull(
-              lastActiveAt,
-              r'V1ProvidersMePost200ResponseProvider',
-              'lastActiveAt',
-            ),
-            createdAt: BuiltValueNullFieldError.checkNotNull(
-              createdAt,
-              r'V1ProvidersMePost200ResponseProvider',
-              'createdAt',
-            ),
-            updatedAt: BuiltValueNullFieldError.checkNotNull(
-              updatedAt,
-              r'V1ProvidersMePost200ResponseProvider',
-              'updatedAt',
-            ),
+                completionScore,
+                r'V1ProvidersMePost200ResponseProvider',
+                'completionScore'),
+            rankingScore: BuiltValueNullFieldError.checkNotNull(rankingScore,
+                r'V1ProvidersMePost200ResponseProvider', 'rankingScore'),
+            lastActiveAt: BuiltValueNullFieldError.checkNotNull(lastActiveAt,
+                r'V1ProvidersMePost200ResponseProvider', 'lastActiveAt'),
+            createdAt: BuiltValueNullFieldError.checkNotNull(createdAt,
+                r'V1ProvidersMePost200ResponseProvider', 'createdAt'),
+            updatedAt: BuiltValueNullFieldError.checkNotNull(updatedAt,
+                r'V1ProvidersMePost200ResponseProvider', 'updatedAt'),
           );
     } catch (_) {
       late String _$failedField;
@@ -760,10 +674,9 @@ class V1ProvidersMePost200ResponseProviderBuilder
         spokenLanguages.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-          r'V1ProvidersMePost200ResponseProvider',
-          _$failedField,
-          e.toString(),
-        );
+            r'V1ProvidersMePost200ResponseProvider',
+            _$failedField,
+            e.toString());
       }
       rethrow;
     }

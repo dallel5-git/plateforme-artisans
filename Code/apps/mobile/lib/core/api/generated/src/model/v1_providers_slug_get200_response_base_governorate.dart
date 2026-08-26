@@ -19,10 +19,8 @@ part 'v1_providers_slug_get200_response_base_governorate.g.dart';
 @BuiltValue()
 abstract class V1ProvidersSlugGet200ResponseBaseGovernorate
     implements
-        Built<
-          V1ProvidersSlugGet200ResponseBaseGovernorate,
-          V1ProvidersSlugGet200ResponseBaseGovernorateBuilder
-        > {
+        Built<V1ProvidersSlugGet200ResponseBaseGovernorate,
+            V1ProvidersSlugGet200ResponseBaseGovernorateBuilder> {
   @BuiltValueField(wireName: r'slug')
   String get slug;
 
@@ -34,18 +32,20 @@ abstract class V1ProvidersSlugGet200ResponseBaseGovernorate
 
   V1ProvidersSlugGet200ResponseBaseGovernorate._();
 
-  factory V1ProvidersSlugGet200ResponseBaseGovernorate([
-    void updates(V1ProvidersSlugGet200ResponseBaseGovernorateBuilder b),
-  ]) = _$V1ProvidersSlugGet200ResponseBaseGovernorate;
+  factory V1ProvidersSlugGet200ResponseBaseGovernorate(
+          [void updates(
+              V1ProvidersSlugGet200ResponseBaseGovernorateBuilder b)]) =
+      _$V1ProvidersSlugGet200ResponseBaseGovernorate;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(
-    V1ProvidersSlugGet200ResponseBaseGovernorateBuilder b,
-  ) => b;
+          V1ProvidersSlugGet200ResponseBaseGovernorateBuilder b) =>
+      b;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<V1ProvidersSlugGet200ResponseBaseGovernorate>
-  get serializer => _$V1ProvidersSlugGet200ResponseBaseGovernorateSerializer();
+      get serializer =>
+          _$V1ProvidersSlugGet200ResponseBaseGovernorateSerializer();
 }
 
 class _$V1ProvidersSlugGet200ResponseBaseGovernorateSerializer
@@ -54,7 +54,7 @@ class _$V1ProvidersSlugGet200ResponseBaseGovernorateSerializer
   @override
   final Iterable<Type> types = const [
     V1ProvidersSlugGet200ResponseBaseGovernorate,
-    _$V1ProvidersSlugGet200ResponseBaseGovernorate,
+    _$V1ProvidersSlugGet200ResponseBaseGovernorate
   ];
 
   @override
@@ -88,11 +88,9 @@ class _$V1ProvidersSlugGet200ResponseBaseGovernorateSerializer
     V1ProvidersSlugGet200ResponseBaseGovernorate object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(
-      serializers,
-      object,
-      specifiedType: specifiedType,
-    ).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -108,30 +106,24 @@ class _$V1ProvidersSlugGet200ResponseBaseGovernorateSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'slug':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.slug = valueDes;
           break;
         case r'nameFr':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.nameFr = valueDes;
           break;
         case r'nameAr':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.nameAr = valueDes;
           break;
         default:

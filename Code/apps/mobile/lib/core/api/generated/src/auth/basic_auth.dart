@@ -23,12 +23,11 @@ class BasicAuthInterceptor extends AuthInterceptor {
     RequestInterceptorHandler handler,
   ) {
     final metadataAuthInfo = getAuthInfo(
-      options,
-      (secure) =>
-          (secure['type'] == 'http' &&
-              secure['scheme']?.toLowerCase() == 'basic') ||
-          secure['type'] == 'basic',
-    );
+        options,
+        (secure) =>
+            (secure['type'] == 'http' &&
+                secure['scheme']?.toLowerCase() == 'basic') ||
+            secure['type'] == 'basic');
     for (final info in metadataAuthInfo) {
       final authName = info['name'] as String;
       final basicAuthInfo = authInfo[authName];

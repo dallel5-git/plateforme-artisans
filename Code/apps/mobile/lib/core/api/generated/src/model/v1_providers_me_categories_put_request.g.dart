@@ -11,15 +11,15 @@ class _$V1ProvidersMeCategoriesPutRequest
   @override
   final BuiltList<V1ProvidersMeCategoriesPutRequestCategoriesInner> categories;
 
-  factory _$V1ProvidersMeCategoriesPutRequest([
-    void Function(V1ProvidersMeCategoriesPutRequestBuilder)? updates,
-  ]) => (V1ProvidersMeCategoriesPutRequestBuilder()..update(updates))._build();
+  factory _$V1ProvidersMeCategoriesPutRequest(
+          [void Function(V1ProvidersMeCategoriesPutRequestBuilder)? updates]) =>
+      (V1ProvidersMeCategoriesPutRequestBuilder()..update(updates))._build();
 
   _$V1ProvidersMeCategoriesPutRequest._({required this.categories}) : super._();
   @override
   V1ProvidersMeCategoriesPutRequest rebuild(
-    void Function(V1ProvidersMeCategoriesPutRequestBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(V1ProvidersMeCategoriesPutRequestBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersMeCategoriesPutRequestBuilder toBuilder() =>
@@ -42,27 +42,26 @@ class _$V1ProvidersMeCategoriesPutRequest
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(
-      r'V1ProvidersMeCategoriesPutRequest',
-    )..add('categories', categories)).toString();
+    return (newBuiltValueToStringHelper(r'V1ProvidersMeCategoriesPutRequest')
+          ..add('categories', categories))
+        .toString();
   }
 }
 
 class V1ProvidersMeCategoriesPutRequestBuilder
     implements
-        Builder<
-          V1ProvidersMeCategoriesPutRequest,
-          V1ProvidersMeCategoriesPutRequestBuilder
-        > {
+        Builder<V1ProvidersMeCategoriesPutRequest,
+            V1ProvidersMeCategoriesPutRequestBuilder> {
   _$V1ProvidersMeCategoriesPutRequest? _$v;
 
   ListBuilder<V1ProvidersMeCategoriesPutRequestCategoriesInner>? _categories;
   ListBuilder<V1ProvidersMeCategoriesPutRequestCategoriesInner>
-  get categories => _$this._categories ??=
-      ListBuilder<V1ProvidersMeCategoriesPutRequestCategoriesInner>();
+      get categories => _$this._categories ??=
+          ListBuilder<V1ProvidersMeCategoriesPutRequestCategoriesInner>();
   set categories(
-    ListBuilder<V1ProvidersMeCategoriesPutRequestCategoriesInner>? categories,
-  ) => _$this._categories = categories;
+          ListBuilder<V1ProvidersMeCategoriesPutRequestCategoriesInner>?
+              categories) =>
+      _$this._categories = categories;
 
   V1ProvidersMeCategoriesPutRequestBuilder() {
     V1ProvidersMeCategoriesPutRequest._defaults(this);
@@ -84,8 +83,7 @@ class V1ProvidersMeCategoriesPutRequestBuilder
 
   @override
   void update(
-    void Function(V1ProvidersMeCategoriesPutRequestBuilder)? updates,
-  ) {
+      void Function(V1ProvidersMeCategoriesPutRequestBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -95,8 +93,7 @@ class V1ProvidersMeCategoriesPutRequestBuilder
   _$V1ProvidersMeCategoriesPutRequest _build() {
     _$V1ProvidersMeCategoriesPutRequest _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           _$V1ProvidersMeCategoriesPutRequest._(
             categories: categories.build(),
           );
@@ -107,10 +104,7 @@ class V1ProvidersMeCategoriesPutRequestBuilder
         categories.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-          r'V1ProvidersMeCategoriesPutRequest',
-          _$failedField,
-          e.toString(),
-        );
+            r'V1ProvidersMeCategoriesPutRequest', _$failedField, e.toString());
       }
       rethrow;
     }

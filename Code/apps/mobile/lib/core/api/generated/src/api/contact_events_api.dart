@@ -59,10 +59,8 @@ class ContactEventsApi {
 
     try {
       const _type = FullType(V1ContactEventsPostRequest);
-      _bodyData = _serializers.serialize(
-        v1ContactEventsPostRequest,
-        specifiedType: _type,
-      );
+      _bodyData = _serializers.serialize(v1ContactEventsPostRequest,
+          specifiedType: _type);
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _options.compose(
@@ -91,10 +89,9 @@ class ContactEventsApi {
       _responseData = rawResponse == null
           ? null
           : _serializers.deserialize(
-                  rawResponse,
-                  specifiedType: const FullType(ContactEventResponse),
-                )
-                as ContactEventResponse;
+              rawResponse,
+              specifiedType: const FullType(ContactEventResponse),
+            ) as ContactEventResponse;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,

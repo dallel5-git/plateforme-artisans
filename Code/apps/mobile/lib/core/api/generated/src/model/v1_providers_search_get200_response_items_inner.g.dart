@@ -7,25 +7,21 @@ part of 'v1_providers_search_get200_response_items_inner.dart';
 // **************************************************************************
 
 const V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum
-_$v1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum_AVAILABLE =
+    _$v1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum_AVAILABLE =
     const V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum._(
-      'AVAILABLE',
-    );
+        'AVAILABLE');
 const V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum
-_$v1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum_BUSY =
+    _$v1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum_BUSY =
     const V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum._(
-      'BUSY',
-    );
+        'BUSY');
 const V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum
-_$v1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum_ON_HOLIDAY =
+    _$v1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum_ON_HOLIDAY =
     const V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum._(
-      'ON_HOLIDAY',
-    );
+        'ON_HOLIDAY');
 
 V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum
-_$v1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnumValueOf(
-  String name,
-) {
+    _$v1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnumValueOf(
+        String name) {
   switch (name) {
     case 'AVAILABLE':
       return _$v1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum_AVAILABLE;
@@ -39,24 +35,22 @@ _$v1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnumValueOf(
 }
 
 final BuiltSet<V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum>
-_$v1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnumValues =
+    _$v1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnumValues =
     BuiltSet<
-      V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum
-    >(const <V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum>[
-      _$v1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum_AVAILABLE,
-      _$v1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum_BUSY,
-      _$v1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum_ON_HOLIDAY,
-    ]);
+        V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum>(const <V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum>[
+  _$v1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum_AVAILABLE,
+  _$v1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum_BUSY,
+  _$v1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum_ON_HOLIDAY,
+]);
 
 Serializer<V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum>
-_$v1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnumSerializer =
+    _$v1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnumSerializer =
     _$V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnumSerializer();
 
 class _$V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnumSerializer
     implements
         PrimitiveSerializer<
-          V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum
-        > {
+            V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum> {
   static const Map<String, Object> _toWire = const <String, Object>{
     'AVAILABLE': 'AVAILABLE',
     'BUSY': 'BUSY',
@@ -70,7 +64,7 @@ class _$V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnumSerialize
 
   @override
   final Iterable<Type> types = const <Type>[
-    V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum,
+    V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum
   ];
   @override
   final String wireName =
@@ -78,19 +72,18 @@ class _$V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnumSerialize
 
   @override
   Object serialize(
-    Serializers serializers,
-    V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum object, {
-    FullType specifiedType = FullType.unspecified,
-  }) => _toWire[object.name] ?? object.name;
+          Serializers serializers,
+          V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum
+              object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      _toWire[object.name] ?? object.name;
 
   @override
   V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum deserialize(
-    Serializers serializers,
-    Object serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) => V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum.valueOf(
-    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
-  );
+          Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum.valueOf(
+          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
 }
 
 class _$V1ProvidersSearchGet200ResponseItemsInner
@@ -113,38 +106,40 @@ class _$V1ProvidersSearchGet200ResponseItemsInner
   final int completionScore;
   @override
   final V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum
-  availabilityStatus;
+      availabilityStatus;
   @override
   final BuiltList<V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner>
-  categories;
+      categories;
   @override
   final num? score;
   @override
   final V1ProvidersSearchGet200ResponseItemsInnerMatchReason? matchReason;
 
-  factory _$V1ProvidersSearchGet200ResponseItemsInner([
-    void Function(V1ProvidersSearchGet200ResponseItemsInnerBuilder)? updates,
-  ]) => (V1ProvidersSearchGet200ResponseItemsInnerBuilder()..update(updates))
-      ._build();
+  factory _$V1ProvidersSearchGet200ResponseItemsInner(
+          [void Function(V1ProvidersSearchGet200ResponseItemsInnerBuilder)?
+              updates]) =>
+      (V1ProvidersSearchGet200ResponseItemsInnerBuilder()..update(updates))
+          ._build();
 
-  _$V1ProvidersSearchGet200ResponseItemsInner._({
-    required this.id,
-    required this.slug,
-    required this.businessName,
-    required this.headline,
-    required this.isVerified,
-    required this.ratingAvg,
-    required this.ratingCount,
-    required this.completionScore,
-    required this.availabilityStatus,
-    required this.categories,
-    this.score,
-    this.matchReason,
-  }) : super._();
+  _$V1ProvidersSearchGet200ResponseItemsInner._(
+      {required this.id,
+      required this.slug,
+      required this.businessName,
+      required this.headline,
+      required this.isVerified,
+      required this.ratingAvg,
+      required this.ratingCount,
+      required this.completionScore,
+      required this.availabilityStatus,
+      required this.categories,
+      this.score,
+      this.matchReason})
+      : super._();
   @override
   V1ProvidersSearchGet200ResponseItemsInner rebuild(
-    void Function(V1ProvidersSearchGet200ResponseItemsInnerBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(V1ProvidersSearchGet200ResponseItemsInnerBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersSearchGet200ResponseItemsInnerBuilder toBuilder() =>
@@ -190,8 +185,7 @@ class _$V1ProvidersSearchGet200ResponseItemsInner
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'V1ProvidersSearchGet200ResponseItemsInner',
-          )
+            r'V1ProvidersSearchGet200ResponseItemsInner')
           ..add('id', id)
           ..add('slug', slug)
           ..add('businessName', businessName)
@@ -210,10 +204,8 @@ class _$V1ProvidersSearchGet200ResponseItemsInner
 
 class V1ProvidersSearchGet200ResponseItemsInnerBuilder
     implements
-        Builder<
-          V1ProvidersSearchGet200ResponseItemsInner,
-          V1ProvidersSearchGet200ResponseItemsInnerBuilder
-        > {
+        Builder<V1ProvidersSearchGet200ResponseItemsInner,
+            V1ProvidersSearchGet200ResponseItemsInnerBuilder> {
   _$V1ProvidersSearchGet200ResponseItemsInner? _$v;
 
   String? _id;
@@ -250,23 +242,23 @@ class V1ProvidersSearchGet200ResponseItemsInnerBuilder
       _$this._completionScore = completionScore;
 
   V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum?
-  _availabilityStatus;
+      _availabilityStatus;
   V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum?
-  get availabilityStatus => _$this._availabilityStatus;
+      get availabilityStatus => _$this._availabilityStatus;
   set availabilityStatus(
-    V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum?
-    availabilityStatus,
-  ) => _$this._availabilityStatus = availabilityStatus;
+          V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum?
+              availabilityStatus) =>
+      _$this._availabilityStatus = availabilityStatus;
 
   ListBuilder<V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner>?
-  _categories;
+      _categories;
   ListBuilder<V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner>
-  get categories => _$this._categories ??=
-      ListBuilder<V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner>();
+      get categories => _$this._categories ??= ListBuilder<
+          V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner>();
   set categories(
-    ListBuilder<V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner>?
-    categories,
-  ) => _$this._categories = categories;
+          ListBuilder<V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner>?
+              categories) =>
+      _$this._categories = categories;
 
   num? _score;
   num? get score => _$this._score;
@@ -277,8 +269,9 @@ class V1ProvidersSearchGet200ResponseItemsInnerBuilder
       _$this._matchReason ??=
           V1ProvidersSearchGet200ResponseItemsInnerMatchReasonBuilder();
   set matchReason(
-    V1ProvidersSearchGet200ResponseItemsInnerMatchReasonBuilder? matchReason,
-  ) => _$this._matchReason = matchReason;
+          V1ProvidersSearchGet200ResponseItemsInnerMatchReasonBuilder?
+              matchReason) =>
+      _$this._matchReason = matchReason;
 
   V1ProvidersSearchGet200ResponseItemsInnerBuilder() {
     V1ProvidersSearchGet200ResponseItemsInner._defaults(this);
@@ -311,8 +304,8 @@ class V1ProvidersSearchGet200ResponseItemsInnerBuilder
 
   @override
   void update(
-    void Function(V1ProvidersSearchGet200ResponseItemsInnerBuilder)? updates,
-  ) {
+      void Function(V1ProvidersSearchGet200ResponseItemsInnerBuilder)?
+          updates) {
     if (updates != null) updates(this);
   }
 
@@ -322,54 +315,30 @@ class V1ProvidersSearchGet200ResponseItemsInnerBuilder
   _$V1ProvidersSearchGet200ResponseItemsInner _build() {
     _$V1ProvidersSearchGet200ResponseItemsInner _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           _$V1ProvidersSearchGet200ResponseItemsInner._(
             id: BuiltValueNullFieldError.checkNotNull(
-              id,
-              r'V1ProvidersSearchGet200ResponseItemsInner',
-              'id',
-            ),
+                id, r'V1ProvidersSearchGet200ResponseItemsInner', 'id'),
             slug: BuiltValueNullFieldError.checkNotNull(
-              slug,
-              r'V1ProvidersSearchGet200ResponseItemsInner',
-              'slug',
-            ),
-            businessName: BuiltValueNullFieldError.checkNotNull(
-              businessName,
-              r'V1ProvidersSearchGet200ResponseItemsInner',
-              'businessName',
-            ),
-            headline: BuiltValueNullFieldError.checkNotNull(
-              headline,
-              r'V1ProvidersSearchGet200ResponseItemsInner',
-              'headline',
-            ),
-            isVerified: BuiltValueNullFieldError.checkNotNull(
-              isVerified,
-              r'V1ProvidersSearchGet200ResponseItemsInner',
-              'isVerified',
-            ),
-            ratingAvg: BuiltValueNullFieldError.checkNotNull(
-              ratingAvg,
-              r'V1ProvidersSearchGet200ResponseItemsInner',
-              'ratingAvg',
-            ),
-            ratingCount: BuiltValueNullFieldError.checkNotNull(
-              ratingCount,
-              r'V1ProvidersSearchGet200ResponseItemsInner',
-              'ratingCount',
-            ),
+                slug, r'V1ProvidersSearchGet200ResponseItemsInner', 'slug'),
+            businessName: BuiltValueNullFieldError.checkNotNull(businessName,
+                r'V1ProvidersSearchGet200ResponseItemsInner', 'businessName'),
+            headline: BuiltValueNullFieldError.checkNotNull(headline,
+                r'V1ProvidersSearchGet200ResponseItemsInner', 'headline'),
+            isVerified: BuiltValueNullFieldError.checkNotNull(isVerified,
+                r'V1ProvidersSearchGet200ResponseItemsInner', 'isVerified'),
+            ratingAvg: BuiltValueNullFieldError.checkNotNull(ratingAvg,
+                r'V1ProvidersSearchGet200ResponseItemsInner', 'ratingAvg'),
+            ratingCount: BuiltValueNullFieldError.checkNotNull(ratingCount,
+                r'V1ProvidersSearchGet200ResponseItemsInner', 'ratingCount'),
             completionScore: BuiltValueNullFieldError.checkNotNull(
-              completionScore,
-              r'V1ProvidersSearchGet200ResponseItemsInner',
-              'completionScore',
-            ),
+                completionScore,
+                r'V1ProvidersSearchGet200ResponseItemsInner',
+                'completionScore'),
             availabilityStatus: BuiltValueNullFieldError.checkNotNull(
-              availabilityStatus,
-              r'V1ProvidersSearchGet200ResponseItemsInner',
-              'availabilityStatus',
-            ),
+                availabilityStatus,
+                r'V1ProvidersSearchGet200ResponseItemsInner',
+                'availabilityStatus'),
             categories: categories.build(),
             score: score,
             matchReason: _matchReason?.build(),
@@ -384,10 +353,9 @@ class V1ProvidersSearchGet200ResponseItemsInnerBuilder
         _matchReason?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-          r'V1ProvidersSearchGet200ResponseItemsInner',
-          _$failedField,
-          e.toString(),
-        );
+            r'V1ProvidersSearchGet200ResponseItemsInner',
+            _$failedField,
+            e.toString());
       }
       rethrow;
     }

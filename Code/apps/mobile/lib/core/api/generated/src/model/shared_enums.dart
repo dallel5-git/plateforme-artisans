@@ -41,10 +41,10 @@ class V1AuthOtpVerifyPost200ResponseUserRolesEnum extends EnumClass {
       _$v1AuthOtpVerifyPost200ResponseUserRolesEnum_SUPER_ADMIN;
 
   static Serializer<V1AuthOtpVerifyPost200ResponseUserRolesEnum>
-  get serializer => _$v1AuthOtpVerifyPost200ResponseUserRolesEnumSerializer;
+      get serializer => _$v1AuthOtpVerifyPost200ResponseUserRolesEnumSerializer;
 
   const V1AuthOtpVerifyPost200ResponseUserRolesEnum._(String name)
-    : super(name);
+      : super(name);
 
   static BuiltSet<V1AuthOtpVerifyPost200ResponseUserRolesEnum> get values =>
       _$v1AuthOtpVerifyPost200ResponseUserRolesEnumValues;
@@ -65,15 +65,16 @@ class V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum
       _$v1ProvidersMePost200ResponseProviderSpokenLanguagesEnum_EN;
 
   static Serializer<V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum>
-  get serializer =>
-      _$v1ProvidersMePost200ResponseProviderSpokenLanguagesEnumSerializer;
+      get serializer =>
+          _$v1ProvidersMePost200ResponseProviderSpokenLanguagesEnumSerializer;
 
   const V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum._(String name)
-    : super(name);
+      : super(name);
 
   static BuiltSet<V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum>
-  get values => _$v1ProvidersMePost200ResponseProviderSpokenLanguagesEnumValues;
+      get values =>
+          _$v1ProvidersMePost200ResponseProviderSpokenLanguagesEnumValues;
   static V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum valueOf(
-    String name,
-  ) => _$v1ProvidersMePost200ResponseProviderSpokenLanguagesEnumValueOf(name);
+          String name) =>
+      _$v1ProvidersMePost200ResponseProviderSpokenLanguagesEnumValueOf(name);
 }

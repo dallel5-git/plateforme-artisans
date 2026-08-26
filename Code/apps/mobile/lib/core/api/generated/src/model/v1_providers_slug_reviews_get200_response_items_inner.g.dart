@@ -21,26 +21,25 @@ class _$V1ProvidersSlugReviewsGet200ResponseItemsInner
   @override
   final String authorDisplayName;
 
-  factory _$V1ProvidersSlugReviewsGet200ResponseItemsInner([
-    void Function(V1ProvidersSlugReviewsGet200ResponseItemsInnerBuilder)?
-    updates,
-  ]) =>
+  factory _$V1ProvidersSlugReviewsGet200ResponseItemsInner(
+          [void Function(V1ProvidersSlugReviewsGet200ResponseItemsInnerBuilder)?
+              updates]) =>
       (V1ProvidersSlugReviewsGet200ResponseItemsInnerBuilder()..update(updates))
           ._build();
 
-  _$V1ProvidersSlugReviewsGet200ResponseItemsInner._({
-    required this.id,
-    required this.rating,
-    required this.comment,
-    required this.isVerifiedContact,
-    required this.createdAt,
-    required this.authorDisplayName,
-  }) : super._();
+  _$V1ProvidersSlugReviewsGet200ResponseItemsInner._(
+      {required this.id,
+      required this.rating,
+      required this.comment,
+      required this.isVerifiedContact,
+      required this.createdAt,
+      required this.authorDisplayName})
+      : super._();
   @override
   V1ProvidersSlugReviewsGet200ResponseItemsInner rebuild(
-    void Function(V1ProvidersSlugReviewsGet200ResponseItemsInnerBuilder)
-    updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(V1ProvidersSlugReviewsGet200ResponseItemsInnerBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersSlugReviewsGet200ResponseItemsInnerBuilder toBuilder() =>
@@ -74,8 +73,7 @@ class _$V1ProvidersSlugReviewsGet200ResponseItemsInner
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'V1ProvidersSlugReviewsGet200ResponseItemsInner',
-          )
+            r'V1ProvidersSlugReviewsGet200ResponseItemsInner')
           ..add('id', id)
           ..add('rating', rating)
           ..add('comment', comment)
@@ -88,10 +86,8 @@ class _$V1ProvidersSlugReviewsGet200ResponseItemsInner
 
 class V1ProvidersSlugReviewsGet200ResponseItemsInnerBuilder
     implements
-        Builder<
-          V1ProvidersSlugReviewsGet200ResponseItemsInner,
-          V1ProvidersSlugReviewsGet200ResponseItemsInnerBuilder
-        > {
+        Builder<V1ProvidersSlugReviewsGet200ResponseItemsInner,
+            V1ProvidersSlugReviewsGet200ResponseItemsInnerBuilder> {
   _$V1ProvidersSlugReviewsGet200ResponseItemsInner? _$v;
 
   String? _id;
@@ -145,9 +141,8 @@ class V1ProvidersSlugReviewsGet200ResponseItemsInnerBuilder
 
   @override
   void update(
-    void Function(V1ProvidersSlugReviewsGet200ResponseItemsInnerBuilder)?
-    updates,
-  ) {
+      void Function(V1ProvidersSlugReviewsGet200ResponseItemsInnerBuilder)?
+          updates) {
     if (updates != null) updates(this);
   }
 
@@ -155,39 +150,24 @@ class V1ProvidersSlugReviewsGet200ResponseItemsInnerBuilder
   V1ProvidersSlugReviewsGet200ResponseItemsInner build() => _build();
 
   _$V1ProvidersSlugReviewsGet200ResponseItemsInner _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         _$V1ProvidersSlugReviewsGet200ResponseItemsInner._(
           id: BuiltValueNullFieldError.checkNotNull(
-            id,
-            r'V1ProvidersSlugReviewsGet200ResponseItemsInner',
-            'id',
-          ),
-          rating: BuiltValueNullFieldError.checkNotNull(
-            rating,
-            r'V1ProvidersSlugReviewsGet200ResponseItemsInner',
-            'rating',
-          ),
-          comment: BuiltValueNullFieldError.checkNotNull(
-            comment,
-            r'V1ProvidersSlugReviewsGet200ResponseItemsInner',
-            'comment',
-          ),
+              id, r'V1ProvidersSlugReviewsGet200ResponseItemsInner', 'id'),
+          rating: BuiltValueNullFieldError.checkNotNull(rating,
+              r'V1ProvidersSlugReviewsGet200ResponseItemsInner', 'rating'),
+          comment: BuiltValueNullFieldError.checkNotNull(comment,
+              r'V1ProvidersSlugReviewsGet200ResponseItemsInner', 'comment'),
           isVerifiedContact: BuiltValueNullFieldError.checkNotNull(
-            isVerifiedContact,
-            r'V1ProvidersSlugReviewsGet200ResponseItemsInner',
-            'isVerifiedContact',
-          ),
-          createdAt: BuiltValueNullFieldError.checkNotNull(
-            createdAt,
-            r'V1ProvidersSlugReviewsGet200ResponseItemsInner',
-            'createdAt',
-          ),
+              isVerifiedContact,
+              r'V1ProvidersSlugReviewsGet200ResponseItemsInner',
+              'isVerifiedContact'),
+          createdAt: BuiltValueNullFieldError.checkNotNull(createdAt,
+              r'V1ProvidersSlugReviewsGet200ResponseItemsInner', 'createdAt'),
           authorDisplayName: BuiltValueNullFieldError.checkNotNull(
-            authorDisplayName,
-            r'V1ProvidersSlugReviewsGet200ResponseItemsInner',
-            'authorDisplayName',
-          ),
+              authorDisplayName,
+              r'V1ProvidersSlugReviewsGet200ResponseItemsInner',
+              'authorDisplayName'),
         );
     replace(_$result);
     return _$result;

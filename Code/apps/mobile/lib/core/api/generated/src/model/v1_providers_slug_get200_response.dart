@@ -45,10 +45,8 @@ part 'v1_providers_slug_get200_response.g.dart';
 @BuiltValue()
 abstract class V1ProvidersSlugGet200Response
     implements
-        Built<
-          V1ProvidersSlugGet200Response,
-          V1ProvidersSlugGet200ResponseBuilder
-        > {
+        Built<V1ProvidersSlugGet200Response,
+            V1ProvidersSlugGet200ResponseBuilder> {
   @BuiltValueField(wireName: r'id')
   String get id;
 
@@ -69,7 +67,7 @@ abstract class V1ProvidersSlugGet200Response
 
   @BuiltValueField(wireName: r'spokenLanguages')
   BuiltList<V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum>
-  get spokenLanguages;
+      get spokenLanguages;
   // enum spokenLanguagesEnum {  FR,  AR,  EN,  };
 
   @BuiltValueField(wireName: r'baseGovernorate')
@@ -117,9 +115,9 @@ abstract class V1ProvidersSlugGet200Response
 
   V1ProvidersSlugGet200Response._();
 
-  factory V1ProvidersSlugGet200Response([
-    void updates(V1ProvidersSlugGet200ResponseBuilder b),
-  ]) = _$V1ProvidersSlugGet200Response;
+  factory V1ProvidersSlugGet200Response(
+          [void updates(V1ProvidersSlugGet200ResponseBuilder b)]) =
+      _$V1ProvidersSlugGet200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1ProvidersSlugGet200ResponseBuilder b) => b;
@@ -134,7 +132,7 @@ class _$V1ProvidersSlugGet200ResponseSerializer
   @override
   final Iterable<Type> types = const [
     V1ProvidersSlugGet200Response,
-    _$V1ProvidersSlugGet200Response,
+    _$V1ProvidersSlugGet200Response
   ];
 
   @override
@@ -178,23 +176,20 @@ class _$V1ProvidersSlugGet200ResponseSerializer
     yield r'spokenLanguages';
     yield serializers.serialize(
       object.spokenLanguages,
-      specifiedType: const FullType(BuiltList, [
-        FullType(V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum),
-      ]),
+      specifiedType: const FullType(BuiltList,
+          [FullType(V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum)]),
     );
     yield r'baseGovernorate';
     yield serializers.serialize(
       object.baseGovernorate,
-      specifiedType: const FullType(
-        V1ProvidersSlugGet200ResponseBaseGovernorate,
-      ),
+      specifiedType:
+          const FullType(V1ProvidersSlugGet200ResponseBaseGovernorate),
     );
     yield r'baseDelegation';
     yield serializers.serialize(
       object.baseDelegation,
-      specifiedType: const FullType(
-        V1ProvidersSlugGet200ResponseBaseDelegation,
-      ),
+      specifiedType:
+          const FullType(V1ProvidersSlugGet200ResponseBaseDelegation),
     );
     yield r'latitude';
     yield serializers.serialize(
@@ -214,9 +209,8 @@ class _$V1ProvidersSlugGet200ResponseSerializer
     yield r'availabilityStatus';
     yield serializers.serialize(
       object.availabilityStatus,
-      specifiedType: const FullType(
-        V1ProvidersSlugGet200ResponseAvailabilityStatusEnum,
-      ),
+      specifiedType:
+          const FullType(V1ProvidersSlugGet200ResponseAvailabilityStatusEnum),
     );
     yield r'availableAgainAt';
     yield serializers.serialize(
@@ -236,37 +230,32 @@ class _$V1ProvidersSlugGet200ResponseSerializer
     yield r'categories';
     yield serializers.serialize(
       object.categories,
-      specifiedType: const FullType(BuiltList, [
-        FullType(V1ProvidersSlugGet200ResponseCategoriesInner),
-      ]),
+      specifiedType: const FullType(
+          BuiltList, [FullType(V1ProvidersSlugGet200ResponseCategoriesInner)]),
     );
     yield r'offerings';
     yield serializers.serialize(
       object.offerings,
-      specifiedType: const FullType(BuiltList, [
-        FullType(V1ProvidersSlugGet200ResponseOfferingsInner),
-      ]),
+      specifiedType: const FullType(
+          BuiltList, [FullType(V1ProvidersSlugGet200ResponseOfferingsInner)]),
     );
     yield r'coverageAreas';
     yield serializers.serialize(
       object.coverageAreas,
-      specifiedType: const FullType(BuiltList, [
-        FullType(V1ProvidersSlugGet200ResponseCoverageAreasInner),
-      ]),
+      specifiedType: const FullType(BuiltList,
+          [FullType(V1ProvidersSlugGet200ResponseCoverageAreasInner)]),
     );
     yield r'gallery';
     yield serializers.serialize(
       object.gallery,
-      specifiedType: const FullType(BuiltList, [
-        FullType(V1ProvidersSlugGet200ResponseGalleryInner),
-      ]),
+      specifiedType: const FullType(
+          BuiltList, [FullType(V1ProvidersSlugGet200ResponseGalleryInner)]),
     );
     yield r'reviewAggregate';
     yield serializers.serialize(
       object.reviewAggregate,
-      specifiedType: const FullType(
-        V1ProvidersSlugGet200ResponseReviewAggregate,
-      ),
+      specifiedType:
+          const FullType(V1ProvidersSlugGet200ResponseReviewAggregate),
     );
   }
 
@@ -276,11 +265,9 @@ class _$V1ProvidersSlugGet200ResponseSerializer
     V1ProvidersSlugGet200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(
-      serializers,
-      object,
-      specifiedType: specifiedType,
-    ).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -296,214 +283,161 @@ class _$V1ProvidersSlugGet200ResponseSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'id':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.id = valueDes;
           break;
         case r'slug':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.slug = valueDes;
           break;
         case r'businessName':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.businessName = valueDes;
           break;
         case r'headline':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.headline = valueDes;
           break;
         case r'bio':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.bio = valueDes;
           break;
         case r'yearsExperience':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(int),
-                  )
-                  as int;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
           result.yearsExperience = valueDes;
           break;
         case r'spokenLanguages':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(BuiltList, [
-                      FullType(
-                        V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum,
-                      ),
-                    ]),
-                  )
-                  as BuiltList<
-                    V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum
-                  >;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [
+              FullType(V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum)
+            ]),
+          ) as BuiltList<
+              V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum>;
           result.spokenLanguages.replace(valueDes);
           break;
         case r'baseGovernorate':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(
-                      V1ProvidersSlugGet200ResponseBaseGovernorate,
-                    ),
-                  )
-                  as V1ProvidersSlugGet200ResponseBaseGovernorate;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(V1ProvidersSlugGet200ResponseBaseGovernorate),
+          ) as V1ProvidersSlugGet200ResponseBaseGovernorate;
           result.baseGovernorate = valueDes.toBuilder();
           break;
         case r'baseDelegation':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(
-                      V1ProvidersSlugGet200ResponseBaseDelegation,
-                    ),
-                  )
-                  as V1ProvidersSlugGet200ResponseBaseDelegation;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(V1ProvidersSlugGet200ResponseBaseDelegation),
+          ) as V1ProvidersSlugGet200ResponseBaseDelegation;
           result.baseDelegation = valueDes.toBuilder();
           break;
         case r'latitude':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(num),
-                  )
-                  as num;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
           result.latitude = valueDes;
           break;
         case r'longitude':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(num),
-                  )
-                  as num;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
           result.longitude = valueDes;
           break;
         case r'isVerified':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(bool),
-                  )
-                  as bool;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
           result.isVerified = valueDes;
           break;
         case r'availabilityStatus':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(
-                      V1ProvidersSlugGet200ResponseAvailabilityStatusEnum,
-                    ),
-                  )
-                  as V1ProvidersSlugGet200ResponseAvailabilityStatusEnum;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+                V1ProvidersSlugGet200ResponseAvailabilityStatusEnum),
+          ) as V1ProvidersSlugGet200ResponseAvailabilityStatusEnum;
           result.availabilityStatus = valueDes;
           break;
         case r'availableAgainAt':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(DateTime),
-                  )
-                  as DateTime;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
           result.availableAgainAt = valueDes;
           break;
         case r'acceptsEmergency':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(bool),
-                  )
-                  as bool;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
           result.acceptsEmergency = valueDes;
           break;
         case r'completionScore':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(int),
-                  )
-                  as int;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
           result.completionScore = valueDes;
           break;
         case r'categories':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(BuiltList, [
-                      FullType(V1ProvidersSlugGet200ResponseCategoriesInner),
-                    ]),
-                  )
-                  as BuiltList<V1ProvidersSlugGet200ResponseCategoriesInner>;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList,
+                [FullType(V1ProvidersSlugGet200ResponseCategoriesInner)]),
+          ) as BuiltList<V1ProvidersSlugGet200ResponseCategoriesInner>;
           result.categories.replace(valueDes);
           break;
         case r'offerings':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(BuiltList, [
-                      FullType(V1ProvidersSlugGet200ResponseOfferingsInner),
-                    ]),
-                  )
-                  as BuiltList<V1ProvidersSlugGet200ResponseOfferingsInner>;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList,
+                [FullType(V1ProvidersSlugGet200ResponseOfferingsInner)]),
+          ) as BuiltList<V1ProvidersSlugGet200ResponseOfferingsInner>;
           result.offerings.replace(valueDes);
           break;
         case r'coverageAreas':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(BuiltList, [
-                      FullType(V1ProvidersSlugGet200ResponseCoverageAreasInner),
-                    ]),
-                  )
-                  as BuiltList<V1ProvidersSlugGet200ResponseCoverageAreasInner>;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList,
+                [FullType(V1ProvidersSlugGet200ResponseCoverageAreasInner)]),
+          ) as BuiltList<V1ProvidersSlugGet200ResponseCoverageAreasInner>;
           result.coverageAreas.replace(valueDes);
           break;
         case r'gallery':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(BuiltList, [
-                      FullType(V1ProvidersSlugGet200ResponseGalleryInner),
-                    ]),
-                  )
-                  as BuiltList<V1ProvidersSlugGet200ResponseGalleryInner>;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList,
+                [FullType(V1ProvidersSlugGet200ResponseGalleryInner)]),
+          ) as BuiltList<V1ProvidersSlugGet200ResponseGalleryInner>;
           result.gallery.replace(valueDes);
           break;
         case r'reviewAggregate':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(
-                      V1ProvidersSlugGet200ResponseReviewAggregate,
-                    ),
-                  )
-                  as V1ProvidersSlugGet200ResponseReviewAggregate;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType:
+                const FullType(V1ProvidersSlugGet200ResponseReviewAggregate),
+          ) as V1ProvidersSlugGet200ResponseReviewAggregate;
           result.reviewAggregate = valueDes.toBuilder();
           break;
         default:
@@ -547,15 +481,15 @@ class V1ProvidersSlugGet200ResponseAvailabilityStatusEnum extends EnumClass {
       _$v1ProvidersSlugGet200ResponseAvailabilityStatusEnum_ON_HOLIDAY;
 
   static Serializer<V1ProvidersSlugGet200ResponseAvailabilityStatusEnum>
-  get serializer =>
-      _$v1ProvidersSlugGet200ResponseAvailabilityStatusEnumSerializer;
+      get serializer =>
+          _$v1ProvidersSlugGet200ResponseAvailabilityStatusEnumSerializer;
 
   const V1ProvidersSlugGet200ResponseAvailabilityStatusEnum._(String name)
-    : super(name);
+      : super(name);
 
   static BuiltSet<V1ProvidersSlugGet200ResponseAvailabilityStatusEnum>
-  get values => _$v1ProvidersSlugGet200ResponseAvailabilityStatusEnumValues;
+      get values => _$v1ProvidersSlugGet200ResponseAvailabilityStatusEnumValues;
   static V1ProvidersSlugGet200ResponseAvailabilityStatusEnum valueOf(
-    String name,
-  ) => _$v1ProvidersSlugGet200ResponseAvailabilityStatusEnumValueOf(name);
+          String name) =>
+      _$v1ProvidersSlugGet200ResponseAvailabilityStatusEnumValueOf(name);
 }

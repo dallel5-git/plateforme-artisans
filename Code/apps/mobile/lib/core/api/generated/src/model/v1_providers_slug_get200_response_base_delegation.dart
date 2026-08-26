@@ -19,10 +19,8 @@ part 'v1_providers_slug_get200_response_base_delegation.g.dart';
 @BuiltValue()
 abstract class V1ProvidersSlugGet200ResponseBaseDelegation
     implements
-        Built<
-          V1ProvidersSlugGet200ResponseBaseDelegation,
-          V1ProvidersSlugGet200ResponseBaseDelegationBuilder
-        > {
+        Built<V1ProvidersSlugGet200ResponseBaseDelegation,
+            V1ProvidersSlugGet200ResponseBaseDelegationBuilder> {
   @BuiltValueField(wireName: r'slug')
   String get slug;
 
@@ -34,9 +32,10 @@ abstract class V1ProvidersSlugGet200ResponseBaseDelegation
 
   V1ProvidersSlugGet200ResponseBaseDelegation._();
 
-  factory V1ProvidersSlugGet200ResponseBaseDelegation([
-    void updates(V1ProvidersSlugGet200ResponseBaseDelegationBuilder b),
-  ]) = _$V1ProvidersSlugGet200ResponseBaseDelegation;
+  factory V1ProvidersSlugGet200ResponseBaseDelegation(
+          [void updates(
+              V1ProvidersSlugGet200ResponseBaseDelegationBuilder b)]) =
+      _$V1ProvidersSlugGet200ResponseBaseDelegation;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1ProvidersSlugGet200ResponseBaseDelegationBuilder b) =>
@@ -44,7 +43,8 @@ abstract class V1ProvidersSlugGet200ResponseBaseDelegation
 
   @BuiltValueSerializer(custom: true)
   static Serializer<V1ProvidersSlugGet200ResponseBaseDelegation>
-  get serializer => _$V1ProvidersSlugGet200ResponseBaseDelegationSerializer();
+      get serializer =>
+          _$V1ProvidersSlugGet200ResponseBaseDelegationSerializer();
 }
 
 class _$V1ProvidersSlugGet200ResponseBaseDelegationSerializer
@@ -53,7 +53,7 @@ class _$V1ProvidersSlugGet200ResponseBaseDelegationSerializer
   @override
   final Iterable<Type> types = const [
     V1ProvidersSlugGet200ResponseBaseDelegation,
-    _$V1ProvidersSlugGet200ResponseBaseDelegation,
+    _$V1ProvidersSlugGet200ResponseBaseDelegation
   ];
 
   @override
@@ -87,11 +87,9 @@ class _$V1ProvidersSlugGet200ResponseBaseDelegationSerializer
     V1ProvidersSlugGet200ResponseBaseDelegation object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(
-      serializers,
-      object,
-      specifiedType: specifiedType,
-    ).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -107,30 +105,24 @@ class _$V1ProvidersSlugGet200ResponseBaseDelegationSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'slug':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.slug = valueDes;
           break;
         case r'nameFr':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.nameFr = valueDes;
           break;
         case r'nameAr':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.nameAr = valueDes;
           break;
         default:

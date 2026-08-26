@@ -13,19 +13,18 @@ class _$V1FavoritesProviderIdPut200Response
   @override
   final DateTime createdAt;
 
-  factory _$V1FavoritesProviderIdPut200Response([
-    void Function(V1FavoritesProviderIdPut200ResponseBuilder)? updates,
-  ]) =>
+  factory _$V1FavoritesProviderIdPut200Response(
+          [void Function(V1FavoritesProviderIdPut200ResponseBuilder)?
+              updates]) =>
       (V1FavoritesProviderIdPut200ResponseBuilder()..update(updates))._build();
 
-  _$V1FavoritesProviderIdPut200Response._({
-    required this.providerId,
-    required this.createdAt,
-  }) : super._();
+  _$V1FavoritesProviderIdPut200Response._(
+      {required this.providerId, required this.createdAt})
+      : super._();
   @override
   V1FavoritesProviderIdPut200Response rebuild(
-    void Function(V1FavoritesProviderIdPut200ResponseBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(V1FavoritesProviderIdPut200ResponseBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1FavoritesProviderIdPut200ResponseBuilder toBuilder() =>
@@ -59,10 +58,8 @@ class _$V1FavoritesProviderIdPut200Response
 
 class V1FavoritesProviderIdPut200ResponseBuilder
     implements
-        Builder<
-          V1FavoritesProviderIdPut200Response,
-          V1FavoritesProviderIdPut200ResponseBuilder
-        > {
+        Builder<V1FavoritesProviderIdPut200Response,
+            V1FavoritesProviderIdPut200ResponseBuilder> {
   _$V1FavoritesProviderIdPut200Response? _$v;
 
   String? _providerId;
@@ -94,8 +91,7 @@ class V1FavoritesProviderIdPut200ResponseBuilder
 
   @override
   void update(
-    void Function(V1FavoritesProviderIdPut200ResponseBuilder)? updates,
-  ) {
+      void Function(V1FavoritesProviderIdPut200ResponseBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -103,19 +99,12 @@ class V1FavoritesProviderIdPut200ResponseBuilder
   V1FavoritesProviderIdPut200Response build() => _build();
 
   _$V1FavoritesProviderIdPut200Response _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         _$V1FavoritesProviderIdPut200Response._(
           providerId: BuiltValueNullFieldError.checkNotNull(
-            providerId,
-            r'V1FavoritesProviderIdPut200Response',
-            'providerId',
-          ),
+              providerId, r'V1FavoritesProviderIdPut200Response', 'providerId'),
           createdAt: BuiltValueNullFieldError.checkNotNull(
-            createdAt,
-            r'V1FavoritesProviderIdPut200Response',
-            'createdAt',
-          ),
+              createdAt, r'V1FavoritesProviderIdPut200Response', 'createdAt'),
         );
     replace(_$result);
     return _$result;

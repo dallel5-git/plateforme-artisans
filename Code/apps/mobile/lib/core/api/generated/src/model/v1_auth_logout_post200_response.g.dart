@@ -7,11 +7,11 @@ part of 'v1_auth_logout_post200_response.dart';
 // **************************************************************************
 
 const V1AuthLogoutPost200ResponseStatusEnum
-_$v1AuthLogoutPost200ResponseStatusEnum_ok =
+    _$v1AuthLogoutPost200ResponseStatusEnum_ok =
     const V1AuthLogoutPost200ResponseStatusEnum._('ok');
 
 V1AuthLogoutPost200ResponseStatusEnum
-_$v1AuthLogoutPost200ResponseStatusEnumValueOf(String name) {
+    _$v1AuthLogoutPost200ResponseStatusEnumValueOf(String name) {
   switch (name) {
     case 'ok':
       return _$v1AuthLogoutPost200ResponseStatusEnum_ok;
@@ -21,15 +21,13 @@ _$v1AuthLogoutPost200ResponseStatusEnumValueOf(String name) {
 }
 
 final BuiltSet<V1AuthLogoutPost200ResponseStatusEnum>
-_$v1AuthLogoutPost200ResponseStatusEnumValues =
-    BuiltSet<V1AuthLogoutPost200ResponseStatusEnum>(
-      const <V1AuthLogoutPost200ResponseStatusEnum>[
-        _$v1AuthLogoutPost200ResponseStatusEnum_ok,
-      ],
-    );
+    _$v1AuthLogoutPost200ResponseStatusEnumValues = BuiltSet<
+        V1AuthLogoutPost200ResponseStatusEnum>(const <V1AuthLogoutPost200ResponseStatusEnum>[
+  _$v1AuthLogoutPost200ResponseStatusEnum_ok,
+]);
 
 Serializer<V1AuthLogoutPost200ResponseStatusEnum>
-_$v1AuthLogoutPost200ResponseStatusEnumSerializer =
+    _$v1AuthLogoutPost200ResponseStatusEnumSerializer =
     _$V1AuthLogoutPost200ResponseStatusEnumSerializer();
 
 class _$V1AuthLogoutPost200ResponseStatusEnumSerializer
@@ -43,41 +41,38 @@ class _$V1AuthLogoutPost200ResponseStatusEnumSerializer
 
   @override
   final Iterable<Type> types = const <Type>[
-    V1AuthLogoutPost200ResponseStatusEnum,
+    V1AuthLogoutPost200ResponseStatusEnum
   ];
   @override
   final String wireName = 'V1AuthLogoutPost200ResponseStatusEnum';
 
   @override
   Object serialize(
-    Serializers serializers,
-    V1AuthLogoutPost200ResponseStatusEnum object, {
-    FullType specifiedType = FullType.unspecified,
-  }) => _toWire[object.name] ?? object.name;
+          Serializers serializers, V1AuthLogoutPost200ResponseStatusEnum object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      _toWire[object.name] ?? object.name;
 
   @override
   V1AuthLogoutPost200ResponseStatusEnum deserialize(
-    Serializers serializers,
-    Object serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) => V1AuthLogoutPost200ResponseStatusEnum.valueOf(
-    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
-  );
+          Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      V1AuthLogoutPost200ResponseStatusEnum.valueOf(
+          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
 }
 
 class _$V1AuthLogoutPost200Response extends V1AuthLogoutPost200Response {
   @override
   final V1AuthLogoutPost200ResponseStatusEnum status;
 
-  factory _$V1AuthLogoutPost200Response([
-    void Function(V1AuthLogoutPost200ResponseBuilder)? updates,
-  ]) => (V1AuthLogoutPost200ResponseBuilder()..update(updates))._build();
+  factory _$V1AuthLogoutPost200Response(
+          [void Function(V1AuthLogoutPost200ResponseBuilder)? updates]) =>
+      (V1AuthLogoutPost200ResponseBuilder()..update(updates))._build();
 
   _$V1AuthLogoutPost200Response._({required this.status}) : super._();
   @override
   V1AuthLogoutPost200Response rebuild(
-    void Function(V1AuthLogoutPost200ResponseBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(V1AuthLogoutPost200ResponseBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1AuthLogoutPost200ResponseBuilder toBuilder() =>
@@ -99,18 +94,16 @@ class _$V1AuthLogoutPost200Response extends V1AuthLogoutPost200Response {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(
-      r'V1AuthLogoutPost200Response',
-    )..add('status', status)).toString();
+    return (newBuiltValueToStringHelper(r'V1AuthLogoutPost200Response')
+          ..add('status', status))
+        .toString();
   }
 }
 
 class V1AuthLogoutPost200ResponseBuilder
     implements
-        Builder<
-          V1AuthLogoutPost200Response,
-          V1AuthLogoutPost200ResponseBuilder
-        > {
+        Builder<V1AuthLogoutPost200Response,
+            V1AuthLogoutPost200ResponseBuilder> {
   _$V1AuthLogoutPost200Response? _$v;
 
   V1AuthLogoutPost200ResponseStatusEnum? _status;
@@ -145,14 +138,10 @@ class V1AuthLogoutPost200ResponseBuilder
   V1AuthLogoutPost200Response build() => _build();
 
   _$V1AuthLogoutPost200Response _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         _$V1AuthLogoutPost200Response._(
           status: BuiltValueNullFieldError.checkNotNull(
-            status,
-            r'V1AuthLogoutPost200Response',
-            'status',
-          ),
+              status, r'V1AuthLogoutPost200Response', 'status'),
         );
     replace(_$result);
     return _$result;

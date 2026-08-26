@@ -19,22 +19,24 @@ class _$V1ProvidersSlugGet200ResponseCategoriesInner
   @override
   final int yearsExperience;
 
-  factory _$V1ProvidersSlugGet200ResponseCategoriesInner([
-    void Function(V1ProvidersSlugGet200ResponseCategoriesInnerBuilder)? updates,
-  ]) => (V1ProvidersSlugGet200ResponseCategoriesInnerBuilder()..update(updates))
-      ._build();
+  factory _$V1ProvidersSlugGet200ResponseCategoriesInner(
+          [void Function(V1ProvidersSlugGet200ResponseCategoriesInnerBuilder)?
+              updates]) =>
+      (V1ProvidersSlugGet200ResponseCategoriesInnerBuilder()..update(updates))
+          ._build();
 
-  _$V1ProvidersSlugGet200ResponseCategoriesInner._({
-    required this.slug,
-    required this.nameFr,
-    required this.nameAr,
-    required this.isPrimary,
-    required this.yearsExperience,
-  }) : super._();
+  _$V1ProvidersSlugGet200ResponseCategoriesInner._(
+      {required this.slug,
+      required this.nameFr,
+      required this.nameAr,
+      required this.isPrimary,
+      required this.yearsExperience})
+      : super._();
   @override
   V1ProvidersSlugGet200ResponseCategoriesInner rebuild(
-    void Function(V1ProvidersSlugGet200ResponseCategoriesInnerBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(V1ProvidersSlugGet200ResponseCategoriesInnerBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersSlugGet200ResponseCategoriesInnerBuilder toBuilder() =>
@@ -66,8 +68,7 @@ class _$V1ProvidersSlugGet200ResponseCategoriesInner
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'V1ProvidersSlugGet200ResponseCategoriesInner',
-          )
+            r'V1ProvidersSlugGet200ResponseCategoriesInner')
           ..add('slug', slug)
           ..add('nameFr', nameFr)
           ..add('nameAr', nameAr)
@@ -79,10 +80,8 @@ class _$V1ProvidersSlugGet200ResponseCategoriesInner
 
 class V1ProvidersSlugGet200ResponseCategoriesInnerBuilder
     implements
-        Builder<
-          V1ProvidersSlugGet200ResponseCategoriesInner,
-          V1ProvidersSlugGet200ResponseCategoriesInnerBuilder
-        > {
+        Builder<V1ProvidersSlugGet200ResponseCategoriesInner,
+            V1ProvidersSlugGet200ResponseCategoriesInnerBuilder> {
   _$V1ProvidersSlugGet200ResponseCategoriesInner? _$v;
 
   String? _slug;
@@ -130,8 +129,8 @@ class V1ProvidersSlugGet200ResponseCategoriesInnerBuilder
 
   @override
   void update(
-    void Function(V1ProvidersSlugGet200ResponseCategoriesInnerBuilder)? updates,
-  ) {
+      void Function(V1ProvidersSlugGet200ResponseCategoriesInnerBuilder)?
+          updates) {
     if (updates != null) updates(this);
   }
 
@@ -139,34 +138,20 @@ class V1ProvidersSlugGet200ResponseCategoriesInnerBuilder
   V1ProvidersSlugGet200ResponseCategoriesInner build() => _build();
 
   _$V1ProvidersSlugGet200ResponseCategoriesInner _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         _$V1ProvidersSlugGet200ResponseCategoriesInner._(
           slug: BuiltValueNullFieldError.checkNotNull(
-            slug,
-            r'V1ProvidersSlugGet200ResponseCategoriesInner',
-            'slug',
-          ),
-          nameFr: BuiltValueNullFieldError.checkNotNull(
-            nameFr,
-            r'V1ProvidersSlugGet200ResponseCategoriesInner',
-            'nameFr',
-          ),
-          nameAr: BuiltValueNullFieldError.checkNotNull(
-            nameAr,
-            r'V1ProvidersSlugGet200ResponseCategoriesInner',
-            'nameAr',
-          ),
-          isPrimary: BuiltValueNullFieldError.checkNotNull(
-            isPrimary,
-            r'V1ProvidersSlugGet200ResponseCategoriesInner',
-            'isPrimary',
-          ),
+              slug, r'V1ProvidersSlugGet200ResponseCategoriesInner', 'slug'),
+          nameFr: BuiltValueNullFieldError.checkNotNull(nameFr,
+              r'V1ProvidersSlugGet200ResponseCategoriesInner', 'nameFr'),
+          nameAr: BuiltValueNullFieldError.checkNotNull(nameAr,
+              r'V1ProvidersSlugGet200ResponseCategoriesInner', 'nameAr'),
+          isPrimary: BuiltValueNullFieldError.checkNotNull(isPrimary,
+              r'V1ProvidersSlugGet200ResponseCategoriesInner', 'isPrimary'),
           yearsExperience: BuiltValueNullFieldError.checkNotNull(
-            yearsExperience,
-            r'V1ProvidersSlugGet200ResponseCategoriesInner',
-            'yearsExperience',
-          ),
+              yearsExperience,
+              r'V1ProvidersSlugGet200ResponseCategoriesInner',
+              'yearsExperience'),
         );
     replace(_$result);
     return _$result;

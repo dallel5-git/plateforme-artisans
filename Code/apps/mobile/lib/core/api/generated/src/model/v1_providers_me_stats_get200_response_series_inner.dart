@@ -20,10 +20,8 @@ part 'v1_providers_me_stats_get200_response_series_inner.g.dart';
 @BuiltValue()
 abstract class V1ProvidersMeStatsGet200ResponseSeriesInner
     implements
-        Built<
-          V1ProvidersMeStatsGet200ResponseSeriesInner,
-          V1ProvidersMeStatsGet200ResponseSeriesInnerBuilder
-        > {
+        Built<V1ProvidersMeStatsGet200ResponseSeriesInner,
+            V1ProvidersMeStatsGet200ResponseSeriesInnerBuilder> {
   @BuiltValueField(wireName: r'date')
   DateTime get date;
 
@@ -38,9 +36,10 @@ abstract class V1ProvidersMeStatsGet200ResponseSeriesInner
 
   V1ProvidersMeStatsGet200ResponseSeriesInner._();
 
-  factory V1ProvidersMeStatsGet200ResponseSeriesInner([
-    void updates(V1ProvidersMeStatsGet200ResponseSeriesInnerBuilder b),
-  ]) = _$V1ProvidersMeStatsGet200ResponseSeriesInner;
+  factory V1ProvidersMeStatsGet200ResponseSeriesInner(
+          [void updates(
+              V1ProvidersMeStatsGet200ResponseSeriesInnerBuilder b)]) =
+      _$V1ProvidersMeStatsGet200ResponseSeriesInner;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1ProvidersMeStatsGet200ResponseSeriesInnerBuilder b) =>
@@ -48,7 +47,8 @@ abstract class V1ProvidersMeStatsGet200ResponseSeriesInner
 
   @BuiltValueSerializer(custom: true)
   static Serializer<V1ProvidersMeStatsGet200ResponseSeriesInner>
-  get serializer => _$V1ProvidersMeStatsGet200ResponseSeriesInnerSerializer();
+      get serializer =>
+          _$V1ProvidersMeStatsGet200ResponseSeriesInnerSerializer();
 }
 
 class _$V1ProvidersMeStatsGet200ResponseSeriesInnerSerializer
@@ -57,7 +57,7 @@ class _$V1ProvidersMeStatsGet200ResponseSeriesInnerSerializer
   @override
   final Iterable<Type> types = const [
     V1ProvidersMeStatsGet200ResponseSeriesInner,
-    _$V1ProvidersMeStatsGet200ResponseSeriesInner,
+    _$V1ProvidersMeStatsGet200ResponseSeriesInner
   ];
 
   @override
@@ -96,11 +96,9 @@ class _$V1ProvidersMeStatsGet200ResponseSeriesInnerSerializer
     V1ProvidersMeStatsGet200ResponseSeriesInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(
-      serializers,
-      object,
-      specifiedType: specifiedType,
-    ).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -116,39 +114,31 @@ class _$V1ProvidersMeStatsGet200ResponseSeriesInnerSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'date':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(DateTime),
-                  )
-                  as DateTime;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
           result.date = valueDes;
           break;
         case r'profileViews':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(int),
-                  )
-                  as int;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
           result.profileViews = valueDes;
           break;
         case r'uniqueProfileViews':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(int),
-                  )
-                  as int;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
           result.uniqueProfileViews = valueDes;
           break;
         case r'contacts':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(int),
-                  )
-                  as int;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
           result.contacts = valueDes;
           break;
         default:

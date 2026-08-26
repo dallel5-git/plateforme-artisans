@@ -17,10 +17,8 @@ part 'v1_providers_me_coverage_areas_put_request_coverage_areas_inner.g.dart';
 @BuiltValue()
 abstract class V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner
     implements
-        Built<
-          V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner,
-          V1ProvidersMeCoverageAreasPutRequestCoverageAreasInnerBuilder
-        > {
+        Built<V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner,
+            V1ProvidersMeCoverageAreasPutRequestCoverageAreasInnerBuilder> {
   @BuiltValueField(wireName: r'governorateId')
   String get governorateId;
 
@@ -32,32 +30,30 @@ abstract class V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner
 
   V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner._();
 
-  factory V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner([
-    void updates(
-      V1ProvidersMeCoverageAreasPutRequestCoverageAreasInnerBuilder b,
-    ),
-  ]) = _$V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner;
+  factory V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner(
+      [void updates(
+          V1ProvidersMeCoverageAreasPutRequestCoverageAreasInnerBuilder
+              b)]) = _$V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(
-    V1ProvidersMeCoverageAreasPutRequestCoverageAreasInnerBuilder b,
-  ) => b;
+          V1ProvidersMeCoverageAreasPutRequestCoverageAreasInnerBuilder b) =>
+      b;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner>
-  get serializer =>
-      _$V1ProvidersMeCoverageAreasPutRequestCoverageAreasInnerSerializer();
+      get serializer =>
+          _$V1ProvidersMeCoverageAreasPutRequestCoverageAreasInnerSerializer();
 }
 
 class _$V1ProvidersMeCoverageAreasPutRequestCoverageAreasInnerSerializer
     implements
         PrimitiveSerializer<
-          V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner
-        > {
+            V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner> {
   @override
   final Iterable<Type> types = const [
     V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner,
-    _$V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner,
+    _$V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner
   ];
 
   @override
@@ -96,11 +92,9 @@ class _$V1ProvidersMeCoverageAreasPutRequestCoverageAreasInnerSerializer
     V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(
-      serializers,
-      object,
-      specifiedType: specifiedType,
-    ).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -109,7 +103,7 @@ class _$V1ProvidersMeCoverageAreasPutRequestCoverageAreasInnerSerializer
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
     required V1ProvidersMeCoverageAreasPutRequestCoverageAreasInnerBuilder
-    result,
+        result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -117,30 +111,24 @@ class _$V1ProvidersMeCoverageAreasPutRequestCoverageAreasInnerSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'governorateId':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.governorateId = valueDes;
           break;
         case r'delegationId':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.delegationId = valueDes;
           break;
         case r'travelFee':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(int),
-                  )
-                  as int;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
           result.travelFee = valueDes;
           break;
         default:

@@ -21,9 +21,9 @@ abstract class V1AuthOtpRequestPostRequest
 
   V1AuthOtpRequestPostRequest._();
 
-  factory V1AuthOtpRequestPostRequest([
-    void updates(V1AuthOtpRequestPostRequestBuilder b),
-  ]) = _$V1AuthOtpRequestPostRequest;
+  factory V1AuthOtpRequestPostRequest(
+          [void updates(V1AuthOtpRequestPostRequestBuilder b)]) =
+      _$V1AuthOtpRequestPostRequest;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1AuthOtpRequestPostRequestBuilder b) => b;
@@ -38,7 +38,7 @@ class _$V1AuthOtpRequestPostRequestSerializer
   @override
   final Iterable<Type> types = const [
     V1AuthOtpRequestPostRequest,
-    _$V1AuthOtpRequestPostRequest,
+    _$V1AuthOtpRequestPostRequest
   ];
 
   @override
@@ -62,11 +62,9 @@ class _$V1AuthOtpRequestPostRequestSerializer
     V1AuthOtpRequestPostRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(
-      serializers,
-      object,
-      specifiedType: specifiedType,
-    ).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -82,12 +80,10 @@ class _$V1AuthOtpRequestPostRequestSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'phone':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.phone = valueDes;
           break;
         default:

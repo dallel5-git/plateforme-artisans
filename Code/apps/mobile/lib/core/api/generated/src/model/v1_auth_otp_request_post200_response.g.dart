@@ -7,11 +7,11 @@ part of 'v1_auth_otp_request_post200_response.dart';
 // **************************************************************************
 
 const V1AuthOtpRequestPost200ResponseStatusEnum
-_$v1AuthOtpRequestPost200ResponseStatusEnum_sent =
+    _$v1AuthOtpRequestPost200ResponseStatusEnum_sent =
     const V1AuthOtpRequestPost200ResponseStatusEnum._('sent');
 
 V1AuthOtpRequestPost200ResponseStatusEnum
-_$v1AuthOtpRequestPost200ResponseStatusEnumValueOf(String name) {
+    _$v1AuthOtpRequestPost200ResponseStatusEnumValueOf(String name) {
   switch (name) {
     case 'sent':
       return _$v1AuthOtpRequestPost200ResponseStatusEnum_sent;
@@ -21,15 +21,13 @@ _$v1AuthOtpRequestPost200ResponseStatusEnumValueOf(String name) {
 }
 
 final BuiltSet<V1AuthOtpRequestPost200ResponseStatusEnum>
-_$v1AuthOtpRequestPost200ResponseStatusEnumValues =
-    BuiltSet<V1AuthOtpRequestPost200ResponseStatusEnum>(
-      const <V1AuthOtpRequestPost200ResponseStatusEnum>[
-        _$v1AuthOtpRequestPost200ResponseStatusEnum_sent,
-      ],
-    );
+    _$v1AuthOtpRequestPost200ResponseStatusEnumValues = BuiltSet<
+        V1AuthOtpRequestPost200ResponseStatusEnum>(const <V1AuthOtpRequestPost200ResponseStatusEnum>[
+  _$v1AuthOtpRequestPost200ResponseStatusEnum_sent,
+]);
 
 Serializer<V1AuthOtpRequestPost200ResponseStatusEnum>
-_$v1AuthOtpRequestPost200ResponseStatusEnumSerializer =
+    _$v1AuthOtpRequestPost200ResponseStatusEnumSerializer =
     _$V1AuthOtpRequestPost200ResponseStatusEnumSerializer();
 
 class _$V1AuthOtpRequestPost200ResponseStatusEnumSerializer
@@ -43,26 +41,23 @@ class _$V1AuthOtpRequestPost200ResponseStatusEnumSerializer
 
   @override
   final Iterable<Type> types = const <Type>[
-    V1AuthOtpRequestPost200ResponseStatusEnum,
+    V1AuthOtpRequestPost200ResponseStatusEnum
   ];
   @override
   final String wireName = 'V1AuthOtpRequestPost200ResponseStatusEnum';
 
   @override
-  Object serialize(
-    Serializers serializers,
-    V1AuthOtpRequestPost200ResponseStatusEnum object, {
-    FullType specifiedType = FullType.unspecified,
-  }) => _toWire[object.name] ?? object.name;
+  Object serialize(Serializers serializers,
+          V1AuthOtpRequestPost200ResponseStatusEnum object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      _toWire[object.name] ?? object.name;
 
   @override
   V1AuthOtpRequestPost200ResponseStatusEnum deserialize(
-    Serializers serializers,
-    Object serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) => V1AuthOtpRequestPost200ResponseStatusEnum.valueOf(
-    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
-  );
+          Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      V1AuthOtpRequestPost200ResponseStatusEnum.valueOf(
+          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
 }
 
 class _$V1AuthOtpRequestPost200Response
@@ -70,15 +65,15 @@ class _$V1AuthOtpRequestPost200Response
   @override
   final V1AuthOtpRequestPost200ResponseStatusEnum status;
 
-  factory _$V1AuthOtpRequestPost200Response([
-    void Function(V1AuthOtpRequestPost200ResponseBuilder)? updates,
-  ]) => (V1AuthOtpRequestPost200ResponseBuilder()..update(updates))._build();
+  factory _$V1AuthOtpRequestPost200Response(
+          [void Function(V1AuthOtpRequestPost200ResponseBuilder)? updates]) =>
+      (V1AuthOtpRequestPost200ResponseBuilder()..update(updates))._build();
 
   _$V1AuthOtpRequestPost200Response._({required this.status}) : super._();
   @override
   V1AuthOtpRequestPost200Response rebuild(
-    void Function(V1AuthOtpRequestPost200ResponseBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(V1AuthOtpRequestPost200ResponseBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1AuthOtpRequestPost200ResponseBuilder toBuilder() =>
@@ -100,18 +95,16 @@ class _$V1AuthOtpRequestPost200Response
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(
-      r'V1AuthOtpRequestPost200Response',
-    )..add('status', status)).toString();
+    return (newBuiltValueToStringHelper(r'V1AuthOtpRequestPost200Response')
+          ..add('status', status))
+        .toString();
   }
 }
 
 class V1AuthOtpRequestPost200ResponseBuilder
     implements
-        Builder<
-          V1AuthOtpRequestPost200Response,
-          V1AuthOtpRequestPost200ResponseBuilder
-        > {
+        Builder<V1AuthOtpRequestPost200Response,
+            V1AuthOtpRequestPost200ResponseBuilder> {
   _$V1AuthOtpRequestPost200Response? _$v;
 
   V1AuthOtpRequestPost200ResponseStatusEnum? _status;
@@ -146,14 +139,10 @@ class V1AuthOtpRequestPost200ResponseBuilder
   V1AuthOtpRequestPost200Response build() => _build();
 
   _$V1AuthOtpRequestPost200Response _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         _$V1AuthOtpRequestPost200Response._(
           status: BuiltValueNullFieldError.checkNotNull(
-            status,
-            r'V1AuthOtpRequestPost200Response',
-            'status',
-          ),
+              status, r'V1AuthOtpRequestPost200Response', 'status'),
         );
     replace(_$result);
     return _$result;

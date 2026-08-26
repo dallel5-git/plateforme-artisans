@@ -9,12 +9,11 @@ part of 'contact_event_response.dart';
 const ContactEventResponseChannelEnum _$contactEventResponseChannelEnum_PHONE =
     const ContactEventResponseChannelEnum._('PHONE');
 const ContactEventResponseChannelEnum
-_$contactEventResponseChannelEnum_WHATSAPP =
+    _$contactEventResponseChannelEnum_WHATSAPP =
     const ContactEventResponseChannelEnum._('WHATSAPP');
 
 ContactEventResponseChannelEnum _$contactEventResponseChannelEnumValueOf(
-  String name,
-) {
+    String name) {
   switch (name) {
     case 'PHONE':
       return _$contactEventResponseChannelEnum_PHONE;
@@ -26,16 +25,14 @@ ContactEventResponseChannelEnum _$contactEventResponseChannelEnumValueOf(
 }
 
 final BuiltSet<ContactEventResponseChannelEnum>
-_$contactEventResponseChannelEnumValues =
-    BuiltSet<ContactEventResponseChannelEnum>(
-      const <ContactEventResponseChannelEnum>[
-        _$contactEventResponseChannelEnum_PHONE,
-        _$contactEventResponseChannelEnum_WHATSAPP,
-      ],
-    );
+    _$contactEventResponseChannelEnumValues = BuiltSet<
+        ContactEventResponseChannelEnum>(const <ContactEventResponseChannelEnum>[
+  _$contactEventResponseChannelEnum_PHONE,
+  _$contactEventResponseChannelEnum_WHATSAPP,
+]);
 
 Serializer<ContactEventResponseChannelEnum>
-_$contactEventResponseChannelEnumSerializer =
+    _$contactEventResponseChannelEnumSerializer =
     _$ContactEventResponseChannelEnumSerializer();
 
 class _$ContactEventResponseChannelEnumSerializer
@@ -56,19 +53,16 @@ class _$ContactEventResponseChannelEnumSerializer
 
   @override
   Object serialize(
-    Serializers serializers,
-    ContactEventResponseChannelEnum object, {
-    FullType specifiedType = FullType.unspecified,
-  }) => _toWire[object.name] ?? object.name;
+          Serializers serializers, ContactEventResponseChannelEnum object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      _toWire[object.name] ?? object.name;
 
   @override
   ContactEventResponseChannelEnum deserialize(
-    Serializers serializers,
-    Object serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) => ContactEventResponseChannelEnum.valueOf(
-    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
-  );
+          Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      ContactEventResponseChannelEnum.valueOf(
+          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
 }
 
 class _$ContactEventResponse extends ContactEventResponse {
@@ -85,22 +79,22 @@ class _$ContactEventResponse extends ContactEventResponse {
   @override
   final bool deduplicated;
 
-  factory _$ContactEventResponse([
-    void Function(ContactEventResponseBuilder)? updates,
-  ]) => (ContactEventResponseBuilder()..update(updates))._build();
+  factory _$ContactEventResponse(
+          [void Function(ContactEventResponseBuilder)? updates]) =>
+      (ContactEventResponseBuilder()..update(updates))._build();
 
-  _$ContactEventResponse._({
-    required this.contactEventId,
-    required this.providerId,
-    required this.channel,
-    required this.phone,
-    this.whatsappMessage,
-    required this.deduplicated,
-  }) : super._();
+  _$ContactEventResponse._(
+      {required this.contactEventId,
+      required this.providerId,
+      required this.channel,
+      required this.phone,
+      this.whatsappMessage,
+      required this.deduplicated})
+      : super._();
   @override
   ContactEventResponse rebuild(
-    void Function(ContactEventResponseBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(ContactEventResponseBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   ContactEventResponseBuilder toBuilder() =>
@@ -207,35 +201,19 @@ class ContactEventResponseBuilder
   ContactEventResponse build() => _build();
 
   _$ContactEventResponse _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         _$ContactEventResponse._(
           contactEventId: BuiltValueNullFieldError.checkNotNull(
-            contactEventId,
-            r'ContactEventResponse',
-            'contactEventId',
-          ),
+              contactEventId, r'ContactEventResponse', 'contactEventId'),
           providerId: BuiltValueNullFieldError.checkNotNull(
-            providerId,
-            r'ContactEventResponse',
-            'providerId',
-          ),
+              providerId, r'ContactEventResponse', 'providerId'),
           channel: BuiltValueNullFieldError.checkNotNull(
-            channel,
-            r'ContactEventResponse',
-            'channel',
-          ),
+              channel, r'ContactEventResponse', 'channel'),
           phone: BuiltValueNullFieldError.checkNotNull(
-            phone,
-            r'ContactEventResponse',
-            'phone',
-          ),
+              phone, r'ContactEventResponse', 'phone'),
           whatsappMessage: whatsappMessage,
           deduplicated: BuiltValueNullFieldError.checkNotNull(
-            deduplicated,
-            r'ContactEventResponse',
-            'deduplicated',
-          ),
+              deduplicated, r'ContactEventResponse', 'deduplicated'),
         );
     replace(_$result);
     return _$result;

@@ -43,9 +43,9 @@ abstract class ContactEventResponseInput
 
   ContactEventResponseInput._();
 
-  factory ContactEventResponseInput([
-    void updates(ContactEventResponseInputBuilder b),
-  ]) = _$ContactEventResponseInput;
+  factory ContactEventResponseInput(
+          [void updates(ContactEventResponseInputBuilder b)]) =
+      _$ContactEventResponseInput;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(ContactEventResponseInputBuilder b) => b;
@@ -60,7 +60,7 @@ class _$ContactEventResponseInputSerializer
   @override
   final Iterable<Type> types = const [
     ContactEventResponseInput,
-    _$ContactEventResponseInput,
+    _$ContactEventResponseInput
   ];
 
   @override
@@ -111,11 +111,9 @@ class _$ContactEventResponseInputSerializer
     ContactEventResponseInput object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(
-      serializers,
-      object,
-      specifiedType: specifiedType,
-    ).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -131,59 +129,45 @@ class _$ContactEventResponseInputSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'contactEventId':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.contactEventId = valueDes;
           break;
         case r'providerId':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.providerId = valueDes;
           break;
         case r'channel':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(
-                      ContactEventResponseInputChannelEnum,
-                    ),
-                  )
-                  as ContactEventResponseInputChannelEnum;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(ContactEventResponseInputChannelEnum),
+          ) as ContactEventResponseInputChannelEnum;
           result.channel = valueDes;
           break;
         case r'phone':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.phone = valueDes;
           break;
         case r'whatsappMessage':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.whatsappMessage = valueDes;
           break;
         case r'deduplicated':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(bool),
-                  )
-                  as bool;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
           result.deduplicated = valueDes;
           break;
         default:

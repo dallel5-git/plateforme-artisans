@@ -7,23 +7,20 @@ part of 'v1_favorites_get200_response_items_inner.dart';
 // **************************************************************************
 
 const V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum
-_$v1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum_AVAILABLE =
+    _$v1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum_AVAILABLE =
     const V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum._(
-      'AVAILABLE',
-    );
+        'AVAILABLE');
 const V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum
-_$v1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum_BUSY =
+    _$v1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum_BUSY =
     const V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum._('BUSY');
 const V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum
-_$v1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum_ON_HOLIDAY =
+    _$v1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum_ON_HOLIDAY =
     const V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum._(
-      'ON_HOLIDAY',
-    );
+        'ON_HOLIDAY');
 
 V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum
-_$v1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnumValueOf(
-  String name,
-) {
+    _$v1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnumValueOf(
+        String name) {
   switch (name) {
     case 'AVAILABLE':
       return _$v1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum_AVAILABLE;
@@ -37,24 +34,22 @@ _$v1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnumValueOf(
 }
 
 final BuiltSet<V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum>
-_$v1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnumValues =
-    BuiltSet<V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum>(
-      const <V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum>[
-        _$v1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum_AVAILABLE,
-        _$v1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum_BUSY,
-        _$v1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum_ON_HOLIDAY,
-      ],
-    );
+    _$v1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnumValues =
+    BuiltSet<
+        V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum>(const <V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum>[
+  _$v1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum_AVAILABLE,
+  _$v1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum_BUSY,
+  _$v1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum_ON_HOLIDAY,
+]);
 
 Serializer<V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum>
-_$v1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnumSerializer =
+    _$v1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnumSerializer =
     _$V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnumSerializer();
 
 class _$V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnumSerializer
     implements
         PrimitiveSerializer<
-          V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum
-        > {
+            V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum> {
   static const Map<String, Object> _toWire = const <String, Object>{
     'AVAILABLE': 'AVAILABLE',
     'BUSY': 'BUSY',
@@ -68,27 +63,24 @@ class _$V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnumSerializer
 
   @override
   final Iterable<Type> types = const <Type>[
-    V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum,
+    V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum
   ];
   @override
   final String wireName =
       'V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum';
 
   @override
-  Object serialize(
-    Serializers serializers,
-    V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum object, {
-    FullType specifiedType = FullType.unspecified,
-  }) => _toWire[object.name] ?? object.name;
+  Object serialize(Serializers serializers,
+          V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      _toWire[object.name] ?? object.name;
 
   @override
   V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum deserialize(
-    Serializers serializers,
-    Object serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) => V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum.valueOf(
-    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
-  );
+          Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum.valueOf(
+          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
 }
 
 class _$V1FavoritesGet200ResponseItemsInner
@@ -109,30 +101,30 @@ class _$V1FavoritesGet200ResponseItemsInner
   final num ratingCount;
   @override
   final V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum
-  availabilityStatus;
+      availabilityStatus;
   @override
   final DateTime favoritedAt;
 
-  factory _$V1FavoritesGet200ResponseItemsInner([
-    void Function(V1FavoritesGet200ResponseItemsInnerBuilder)? updates,
-  ]) =>
+  factory _$V1FavoritesGet200ResponseItemsInner(
+          [void Function(V1FavoritesGet200ResponseItemsInnerBuilder)?
+              updates]) =>
       (V1FavoritesGet200ResponseItemsInnerBuilder()..update(updates))._build();
 
-  _$V1FavoritesGet200ResponseItemsInner._({
-    required this.providerId,
-    required this.slug,
-    required this.businessName,
-    required this.headline,
-    required this.isVerified,
-    required this.ratingAvg,
-    required this.ratingCount,
-    required this.availabilityStatus,
-    required this.favoritedAt,
-  }) : super._();
+  _$V1FavoritesGet200ResponseItemsInner._(
+      {required this.providerId,
+      required this.slug,
+      required this.businessName,
+      required this.headline,
+      required this.isVerified,
+      required this.ratingAvg,
+      required this.ratingCount,
+      required this.availabilityStatus,
+      required this.favoritedAt})
+      : super._();
   @override
   V1FavoritesGet200ResponseItemsInner rebuild(
-    void Function(V1FavoritesGet200ResponseItemsInnerBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(V1FavoritesGet200ResponseItemsInnerBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1FavoritesGet200ResponseItemsInnerBuilder toBuilder() =>
@@ -187,10 +179,8 @@ class _$V1FavoritesGet200ResponseItemsInner
 
 class V1FavoritesGet200ResponseItemsInnerBuilder
     implements
-        Builder<
-          V1FavoritesGet200ResponseItemsInner,
-          V1FavoritesGet200ResponseItemsInnerBuilder
-        > {
+        Builder<V1FavoritesGet200ResponseItemsInner,
+            V1FavoritesGet200ResponseItemsInnerBuilder> {
   _$V1FavoritesGet200ResponseItemsInner? _$v;
 
   String? _providerId;
@@ -222,13 +212,13 @@ class V1FavoritesGet200ResponseItemsInnerBuilder
   set ratingCount(num? ratingCount) => _$this._ratingCount = ratingCount;
 
   V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum?
-  _availabilityStatus;
+      _availabilityStatus;
   V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum?
-  get availabilityStatus => _$this._availabilityStatus;
+      get availabilityStatus => _$this._availabilityStatus;
   set availabilityStatus(
-    V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum?
-    availabilityStatus,
-  ) => _$this._availabilityStatus = availabilityStatus;
+          V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum?
+              availabilityStatus) =>
+      _$this._availabilityStatus = availabilityStatus;
 
   DateTime? _favoritedAt;
   DateTime? get favoritedAt => _$this._favoritedAt;
@@ -262,8 +252,7 @@ class V1FavoritesGet200ResponseItemsInnerBuilder
 
   @override
   void update(
-    void Function(V1FavoritesGet200ResponseItemsInnerBuilder)? updates,
-  ) {
+      void Function(V1FavoritesGet200ResponseItemsInnerBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -271,54 +260,28 @@ class V1FavoritesGet200ResponseItemsInnerBuilder
   V1FavoritesGet200ResponseItemsInner build() => _build();
 
   _$V1FavoritesGet200ResponseItemsInner _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         _$V1FavoritesGet200ResponseItemsInner._(
           providerId: BuiltValueNullFieldError.checkNotNull(
-            providerId,
-            r'V1FavoritesGet200ResponseItemsInner',
-            'providerId',
-          ),
+              providerId, r'V1FavoritesGet200ResponseItemsInner', 'providerId'),
           slug: BuiltValueNullFieldError.checkNotNull(
-            slug,
-            r'V1FavoritesGet200ResponseItemsInner',
-            'slug',
-          ),
-          businessName: BuiltValueNullFieldError.checkNotNull(
-            businessName,
-            r'V1FavoritesGet200ResponseItemsInner',
-            'businessName',
-          ),
+              slug, r'V1FavoritesGet200ResponseItemsInner', 'slug'),
+          businessName: BuiltValueNullFieldError.checkNotNull(businessName,
+              r'V1FavoritesGet200ResponseItemsInner', 'businessName'),
           headline: BuiltValueNullFieldError.checkNotNull(
-            headline,
-            r'V1FavoritesGet200ResponseItemsInner',
-            'headline',
-          ),
+              headline, r'V1FavoritesGet200ResponseItemsInner', 'headline'),
           isVerified: BuiltValueNullFieldError.checkNotNull(
-            isVerified,
-            r'V1FavoritesGet200ResponseItemsInner',
-            'isVerified',
-          ),
+              isVerified, r'V1FavoritesGet200ResponseItemsInner', 'isVerified'),
           ratingAvg: BuiltValueNullFieldError.checkNotNull(
-            ratingAvg,
-            r'V1FavoritesGet200ResponseItemsInner',
-            'ratingAvg',
-          ),
-          ratingCount: BuiltValueNullFieldError.checkNotNull(
-            ratingCount,
-            r'V1FavoritesGet200ResponseItemsInner',
-            'ratingCount',
-          ),
+              ratingAvg, r'V1FavoritesGet200ResponseItemsInner', 'ratingAvg'),
+          ratingCount: BuiltValueNullFieldError.checkNotNull(ratingCount,
+              r'V1FavoritesGet200ResponseItemsInner', 'ratingCount'),
           availabilityStatus: BuiltValueNullFieldError.checkNotNull(
-            availabilityStatus,
-            r'V1FavoritesGet200ResponseItemsInner',
-            'availabilityStatus',
-          ),
-          favoritedAt: BuiltValueNullFieldError.checkNotNull(
-            favoritedAt,
-            r'V1FavoritesGet200ResponseItemsInner',
-            'favoritedAt',
-          ),
+              availabilityStatus,
+              r'V1FavoritesGet200ResponseItemsInner',
+              'availabilityStatus'),
+          favoritedAt: BuiltValueNullFieldError.checkNotNull(favoritedAt,
+              r'V1FavoritesGet200ResponseItemsInner', 'favoritedAt'),
         );
     replace(_$result);
     return _$result;

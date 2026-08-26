@@ -7,17 +7,17 @@ part of 'v1_providers_slug_get200_response.dart';
 // **************************************************************************
 
 const V1ProvidersSlugGet200ResponseAvailabilityStatusEnum
-_$v1ProvidersSlugGet200ResponseAvailabilityStatusEnum_AVAILABLE =
+    _$v1ProvidersSlugGet200ResponseAvailabilityStatusEnum_AVAILABLE =
     const V1ProvidersSlugGet200ResponseAvailabilityStatusEnum._('AVAILABLE');
 const V1ProvidersSlugGet200ResponseAvailabilityStatusEnum
-_$v1ProvidersSlugGet200ResponseAvailabilityStatusEnum_BUSY =
+    _$v1ProvidersSlugGet200ResponseAvailabilityStatusEnum_BUSY =
     const V1ProvidersSlugGet200ResponseAvailabilityStatusEnum._('BUSY');
 const V1ProvidersSlugGet200ResponseAvailabilityStatusEnum
-_$v1ProvidersSlugGet200ResponseAvailabilityStatusEnum_ON_HOLIDAY =
+    _$v1ProvidersSlugGet200ResponseAvailabilityStatusEnum_ON_HOLIDAY =
     const V1ProvidersSlugGet200ResponseAvailabilityStatusEnum._('ON_HOLIDAY');
 
 V1ProvidersSlugGet200ResponseAvailabilityStatusEnum
-_$v1ProvidersSlugGet200ResponseAvailabilityStatusEnumValueOf(String name) {
+    _$v1ProvidersSlugGet200ResponseAvailabilityStatusEnumValueOf(String name) {
   switch (name) {
     case 'AVAILABLE':
       return _$v1ProvidersSlugGet200ResponseAvailabilityStatusEnum_AVAILABLE;
@@ -31,24 +31,21 @@ _$v1ProvidersSlugGet200ResponseAvailabilityStatusEnumValueOf(String name) {
 }
 
 final BuiltSet<V1ProvidersSlugGet200ResponseAvailabilityStatusEnum>
-_$v1ProvidersSlugGet200ResponseAvailabilityStatusEnumValues =
-    BuiltSet<V1ProvidersSlugGet200ResponseAvailabilityStatusEnum>(
-      const <V1ProvidersSlugGet200ResponseAvailabilityStatusEnum>[
-        _$v1ProvidersSlugGet200ResponseAvailabilityStatusEnum_AVAILABLE,
-        _$v1ProvidersSlugGet200ResponseAvailabilityStatusEnum_BUSY,
-        _$v1ProvidersSlugGet200ResponseAvailabilityStatusEnum_ON_HOLIDAY,
-      ],
-    );
+    _$v1ProvidersSlugGet200ResponseAvailabilityStatusEnumValues = BuiltSet<
+        V1ProvidersSlugGet200ResponseAvailabilityStatusEnum>(const <V1ProvidersSlugGet200ResponseAvailabilityStatusEnum>[
+  _$v1ProvidersSlugGet200ResponseAvailabilityStatusEnum_AVAILABLE,
+  _$v1ProvidersSlugGet200ResponseAvailabilityStatusEnum_BUSY,
+  _$v1ProvidersSlugGet200ResponseAvailabilityStatusEnum_ON_HOLIDAY,
+]);
 
 Serializer<V1ProvidersSlugGet200ResponseAvailabilityStatusEnum>
-_$v1ProvidersSlugGet200ResponseAvailabilityStatusEnumSerializer =
+    _$v1ProvidersSlugGet200ResponseAvailabilityStatusEnumSerializer =
     _$V1ProvidersSlugGet200ResponseAvailabilityStatusEnumSerializer();
 
 class _$V1ProvidersSlugGet200ResponseAvailabilityStatusEnumSerializer
     implements
         PrimitiveSerializer<
-          V1ProvidersSlugGet200ResponseAvailabilityStatusEnum
-        > {
+            V1ProvidersSlugGet200ResponseAvailabilityStatusEnum> {
   static const Map<String, Object> _toWire = const <String, Object>{
     'AVAILABLE': 'AVAILABLE',
     'BUSY': 'BUSY',
@@ -62,26 +59,23 @@ class _$V1ProvidersSlugGet200ResponseAvailabilityStatusEnumSerializer
 
   @override
   final Iterable<Type> types = const <Type>[
-    V1ProvidersSlugGet200ResponseAvailabilityStatusEnum,
+    V1ProvidersSlugGet200ResponseAvailabilityStatusEnum
   ];
   @override
   final String wireName = 'V1ProvidersSlugGet200ResponseAvailabilityStatusEnum';
 
   @override
-  Object serialize(
-    Serializers serializers,
-    V1ProvidersSlugGet200ResponseAvailabilityStatusEnum object, {
-    FullType specifiedType = FullType.unspecified,
-  }) => _toWire[object.name] ?? object.name;
+  Object serialize(Serializers serializers,
+          V1ProvidersSlugGet200ResponseAvailabilityStatusEnum object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      _toWire[object.name] ?? object.name;
 
   @override
   V1ProvidersSlugGet200ResponseAvailabilityStatusEnum deserialize(
-    Serializers serializers,
-    Object serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) => V1ProvidersSlugGet200ResponseAvailabilityStatusEnum.valueOf(
-    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
-  );
+          Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      V1ProvidersSlugGet200ResponseAvailabilityStatusEnum.valueOf(
+          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
 }
 
 class _$V1ProvidersSlugGet200Response extends V1ProvidersSlugGet200Response {
@@ -99,7 +93,7 @@ class _$V1ProvidersSlugGet200Response extends V1ProvidersSlugGet200Response {
   final int yearsExperience;
   @override
   final BuiltList<V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum>
-  spokenLanguages;
+      spokenLanguages;
   @override
   final V1ProvidersSlugGet200ResponseBaseGovernorate baseGovernorate;
   @override
@@ -124,43 +118,43 @@ class _$V1ProvidersSlugGet200Response extends V1ProvidersSlugGet200Response {
   final BuiltList<V1ProvidersSlugGet200ResponseOfferingsInner> offerings;
   @override
   final BuiltList<V1ProvidersSlugGet200ResponseCoverageAreasInner>
-  coverageAreas;
+      coverageAreas;
   @override
   final BuiltList<V1ProvidersSlugGet200ResponseGalleryInner> gallery;
   @override
   final V1ProvidersSlugGet200ResponseReviewAggregate reviewAggregate;
 
-  factory _$V1ProvidersSlugGet200Response([
-    void Function(V1ProvidersSlugGet200ResponseBuilder)? updates,
-  ]) => (V1ProvidersSlugGet200ResponseBuilder()..update(updates))._build();
+  factory _$V1ProvidersSlugGet200Response(
+          [void Function(V1ProvidersSlugGet200ResponseBuilder)? updates]) =>
+      (V1ProvidersSlugGet200ResponseBuilder()..update(updates))._build();
 
-  _$V1ProvidersSlugGet200Response._({
-    required this.id,
-    required this.slug,
-    required this.businessName,
-    required this.headline,
-    required this.bio,
-    required this.yearsExperience,
-    required this.spokenLanguages,
-    required this.baseGovernorate,
-    required this.baseDelegation,
-    required this.latitude,
-    required this.longitude,
-    required this.isVerified,
-    required this.availabilityStatus,
-    required this.availableAgainAt,
-    required this.acceptsEmergency,
-    required this.completionScore,
-    required this.categories,
-    required this.offerings,
-    required this.coverageAreas,
-    required this.gallery,
-    required this.reviewAggregate,
-  }) : super._();
+  _$V1ProvidersSlugGet200Response._(
+      {required this.id,
+      required this.slug,
+      required this.businessName,
+      required this.headline,
+      required this.bio,
+      required this.yearsExperience,
+      required this.spokenLanguages,
+      required this.baseGovernorate,
+      required this.baseDelegation,
+      required this.latitude,
+      required this.longitude,
+      required this.isVerified,
+      required this.availabilityStatus,
+      required this.availableAgainAt,
+      required this.acceptsEmergency,
+      required this.completionScore,
+      required this.categories,
+      required this.offerings,
+      required this.coverageAreas,
+      required this.gallery,
+      required this.reviewAggregate})
+      : super._();
   @override
   V1ProvidersSlugGet200Response rebuild(
-    void Function(V1ProvidersSlugGet200ResponseBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(V1ProvidersSlugGet200ResponseBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersSlugGet200ResponseBuilder toBuilder() =>
@@ -251,10 +245,8 @@ class _$V1ProvidersSlugGet200Response extends V1ProvidersSlugGet200Response {
 
 class V1ProvidersSlugGet200ResponseBuilder
     implements
-        Builder<
-          V1ProvidersSlugGet200Response,
-          V1ProvidersSlugGet200ResponseBuilder
-        > {
+        Builder<V1ProvidersSlugGet200Response,
+            V1ProvidersSlugGet200ResponseBuilder> {
   _$V1ProvidersSlugGet200Response? _$v;
 
   String? _id;
@@ -283,30 +275,31 @@ class V1ProvidersSlugGet200ResponseBuilder
       _$this._yearsExperience = yearsExperience;
 
   ListBuilder<V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum>?
-  _spokenLanguages;
+      _spokenLanguages;
   ListBuilder<V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum>
-  get spokenLanguages => _$this._spokenLanguages ??=
-      ListBuilder<V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum>();
+      get spokenLanguages => _$this._spokenLanguages ??= ListBuilder<
+          V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum>();
   set spokenLanguages(
-    ListBuilder<V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum>?
-    spokenLanguages,
-  ) => _$this._spokenLanguages = spokenLanguages;
+          ListBuilder<V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum>?
+              spokenLanguages) =>
+      _$this._spokenLanguages = spokenLanguages;
 
   V1ProvidersSlugGet200ResponseBaseGovernorateBuilder? _baseGovernorate;
   V1ProvidersSlugGet200ResponseBaseGovernorateBuilder get baseGovernorate =>
       _$this._baseGovernorate ??=
           V1ProvidersSlugGet200ResponseBaseGovernorateBuilder();
   set baseGovernorate(
-    V1ProvidersSlugGet200ResponseBaseGovernorateBuilder? baseGovernorate,
-  ) => _$this._baseGovernorate = baseGovernorate;
+          V1ProvidersSlugGet200ResponseBaseGovernorateBuilder?
+              baseGovernorate) =>
+      _$this._baseGovernorate = baseGovernorate;
 
   V1ProvidersSlugGet200ResponseBaseDelegationBuilder? _baseDelegation;
   V1ProvidersSlugGet200ResponseBaseDelegationBuilder get baseDelegation =>
       _$this._baseDelegation ??=
           V1ProvidersSlugGet200ResponseBaseDelegationBuilder();
   set baseDelegation(
-    V1ProvidersSlugGet200ResponseBaseDelegationBuilder? baseDelegation,
-  ) => _$this._baseDelegation = baseDelegation;
+          V1ProvidersSlugGet200ResponseBaseDelegationBuilder? baseDelegation) =>
+      _$this._baseDelegation = baseDelegation;
 
   num? _latitude;
   num? get latitude => _$this._latitude;
@@ -324,8 +317,9 @@ class V1ProvidersSlugGet200ResponseBuilder
   V1ProvidersSlugGet200ResponseAvailabilityStatusEnum? get availabilityStatus =>
       _$this._availabilityStatus;
   set availabilityStatus(
-    V1ProvidersSlugGet200ResponseAvailabilityStatusEnum? availabilityStatus,
-  ) => _$this._availabilityStatus = availabilityStatus;
+          V1ProvidersSlugGet200ResponseAvailabilityStatusEnum?
+              availabilityStatus) =>
+      _$this._availabilityStatus = availabilityStatus;
 
   DateTime? _availableAgainAt;
   DateTime? get availableAgainAt => _$this._availableAgainAt;
@@ -347,40 +341,44 @@ class V1ProvidersSlugGet200ResponseBuilder
       _$this._categories ??=
           ListBuilder<V1ProvidersSlugGet200ResponseCategoriesInner>();
   set categories(
-    ListBuilder<V1ProvidersSlugGet200ResponseCategoriesInner>? categories,
-  ) => _$this._categories = categories;
+          ListBuilder<V1ProvidersSlugGet200ResponseCategoriesInner>?
+              categories) =>
+      _$this._categories = categories;
 
   ListBuilder<V1ProvidersSlugGet200ResponseOfferingsInner>? _offerings;
   ListBuilder<V1ProvidersSlugGet200ResponseOfferingsInner> get offerings =>
       _$this._offerings ??=
           ListBuilder<V1ProvidersSlugGet200ResponseOfferingsInner>();
   set offerings(
-    ListBuilder<V1ProvidersSlugGet200ResponseOfferingsInner>? offerings,
-  ) => _$this._offerings = offerings;
+          ListBuilder<V1ProvidersSlugGet200ResponseOfferingsInner>?
+              offerings) =>
+      _$this._offerings = offerings;
 
   ListBuilder<V1ProvidersSlugGet200ResponseCoverageAreasInner>? _coverageAreas;
   ListBuilder<V1ProvidersSlugGet200ResponseCoverageAreasInner>
-  get coverageAreas => _$this._coverageAreas ??=
-      ListBuilder<V1ProvidersSlugGet200ResponseCoverageAreasInner>();
+      get coverageAreas => _$this._coverageAreas ??=
+          ListBuilder<V1ProvidersSlugGet200ResponseCoverageAreasInner>();
   set coverageAreas(
-    ListBuilder<V1ProvidersSlugGet200ResponseCoverageAreasInner>? coverageAreas,
-  ) => _$this._coverageAreas = coverageAreas;
+          ListBuilder<V1ProvidersSlugGet200ResponseCoverageAreasInner>?
+              coverageAreas) =>
+      _$this._coverageAreas = coverageAreas;
 
   ListBuilder<V1ProvidersSlugGet200ResponseGalleryInner>? _gallery;
   ListBuilder<V1ProvidersSlugGet200ResponseGalleryInner> get gallery =>
       _$this._gallery ??=
           ListBuilder<V1ProvidersSlugGet200ResponseGalleryInner>();
   set gallery(
-    ListBuilder<V1ProvidersSlugGet200ResponseGalleryInner>? gallery,
-  ) => _$this._gallery = gallery;
+          ListBuilder<V1ProvidersSlugGet200ResponseGalleryInner>? gallery) =>
+      _$this._gallery = gallery;
 
   V1ProvidersSlugGet200ResponseReviewAggregateBuilder? _reviewAggregate;
   V1ProvidersSlugGet200ResponseReviewAggregateBuilder get reviewAggregate =>
       _$this._reviewAggregate ??=
           V1ProvidersSlugGet200ResponseReviewAggregateBuilder();
   set reviewAggregate(
-    V1ProvidersSlugGet200ResponseReviewAggregateBuilder? reviewAggregate,
-  ) => _$this._reviewAggregate = reviewAggregate;
+          V1ProvidersSlugGet200ResponseReviewAggregateBuilder?
+              reviewAggregate) =>
+      _$this._reviewAggregate = reviewAggregate;
 
   V1ProvidersSlugGet200ResponseBuilder() {
     V1ProvidersSlugGet200Response._defaults(this);
@@ -431,77 +429,47 @@ class V1ProvidersSlugGet200ResponseBuilder
   _$V1ProvidersSlugGet200Response _build() {
     _$V1ProvidersSlugGet200Response _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           _$V1ProvidersSlugGet200Response._(
             id: BuiltValueNullFieldError.checkNotNull(
-              id,
-              r'V1ProvidersSlugGet200Response',
-              'id',
-            ),
+                id, r'V1ProvidersSlugGet200Response', 'id'),
             slug: BuiltValueNullFieldError.checkNotNull(
-              slug,
-              r'V1ProvidersSlugGet200Response',
-              'slug',
-            ),
+                slug, r'V1ProvidersSlugGet200Response', 'slug'),
             businessName: BuiltValueNullFieldError.checkNotNull(
-              businessName,
-              r'V1ProvidersSlugGet200Response',
-              'businessName',
-            ),
+                businessName, r'V1ProvidersSlugGet200Response', 'businessName'),
             headline: BuiltValueNullFieldError.checkNotNull(
-              headline,
-              r'V1ProvidersSlugGet200Response',
-              'headline',
-            ),
+                headline, r'V1ProvidersSlugGet200Response', 'headline'),
             bio: BuiltValueNullFieldError.checkNotNull(
-              bio,
-              r'V1ProvidersSlugGet200Response',
-              'bio',
-            ),
+                bio, r'V1ProvidersSlugGet200Response', 'bio'),
             yearsExperience: BuiltValueNullFieldError.checkNotNull(
-              yearsExperience,
-              r'V1ProvidersSlugGet200Response',
-              'yearsExperience',
-            ),
+                yearsExperience,
+                r'V1ProvidersSlugGet200Response',
+                'yearsExperience'),
             spokenLanguages: spokenLanguages.build(),
             baseGovernorate: baseGovernorate.build(),
             baseDelegation: baseDelegation.build(),
             latitude: BuiltValueNullFieldError.checkNotNull(
-              latitude,
-              r'V1ProvidersSlugGet200Response',
-              'latitude',
-            ),
+                latitude, r'V1ProvidersSlugGet200Response', 'latitude'),
             longitude: BuiltValueNullFieldError.checkNotNull(
-              longitude,
-              r'V1ProvidersSlugGet200Response',
-              'longitude',
-            ),
+                longitude, r'V1ProvidersSlugGet200Response', 'longitude'),
             isVerified: BuiltValueNullFieldError.checkNotNull(
-              isVerified,
-              r'V1ProvidersSlugGet200Response',
-              'isVerified',
-            ),
+                isVerified, r'V1ProvidersSlugGet200Response', 'isVerified'),
             availabilityStatus: BuiltValueNullFieldError.checkNotNull(
-              availabilityStatus,
-              r'V1ProvidersSlugGet200Response',
-              'availabilityStatus',
-            ),
+                availabilityStatus,
+                r'V1ProvidersSlugGet200Response',
+                'availabilityStatus'),
             availableAgainAt: BuiltValueNullFieldError.checkNotNull(
-              availableAgainAt,
-              r'V1ProvidersSlugGet200Response',
-              'availableAgainAt',
-            ),
+                availableAgainAt,
+                r'V1ProvidersSlugGet200Response',
+                'availableAgainAt'),
             acceptsEmergency: BuiltValueNullFieldError.checkNotNull(
-              acceptsEmergency,
-              r'V1ProvidersSlugGet200Response',
-              'acceptsEmergency',
-            ),
+                acceptsEmergency,
+                r'V1ProvidersSlugGet200Response',
+                'acceptsEmergency'),
             completionScore: BuiltValueNullFieldError.checkNotNull(
-              completionScore,
-              r'V1ProvidersSlugGet200Response',
-              'completionScore',
-            ),
+                completionScore,
+                r'V1ProvidersSlugGet200Response',
+                'completionScore'),
             categories: categories.build(),
             offerings: offerings.build(),
             coverageAreas: coverageAreas.build(),
@@ -530,10 +498,7 @@ class V1ProvidersSlugGet200ResponseBuilder
         reviewAggregate.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-          r'V1ProvidersSlugGet200Response',
-          _$failedField,
-          e.toString(),
-        );
+            r'V1ProvidersSlugGet200Response', _$failedField, e.toString());
       }
       rethrow;
     }

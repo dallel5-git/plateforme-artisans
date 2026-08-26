@@ -7,17 +7,17 @@ part of 'v1_providers_me_post_request.dart';
 // **************************************************************************
 
 const V1ProvidersMePostRequestSpokenLanguagesEnum
-_$v1ProvidersMePostRequestSpokenLanguagesEnum_FR =
+    _$v1ProvidersMePostRequestSpokenLanguagesEnum_FR =
     const V1ProvidersMePostRequestSpokenLanguagesEnum._('FR');
 const V1ProvidersMePostRequestSpokenLanguagesEnum
-_$v1ProvidersMePostRequestSpokenLanguagesEnum_AR =
+    _$v1ProvidersMePostRequestSpokenLanguagesEnum_AR =
     const V1ProvidersMePostRequestSpokenLanguagesEnum._('AR');
 const V1ProvidersMePostRequestSpokenLanguagesEnum
-_$v1ProvidersMePostRequestSpokenLanguagesEnum_EN =
+    _$v1ProvidersMePostRequestSpokenLanguagesEnum_EN =
     const V1ProvidersMePostRequestSpokenLanguagesEnum._('EN');
 
 V1ProvidersMePostRequestSpokenLanguagesEnum
-_$v1ProvidersMePostRequestSpokenLanguagesEnumValueOf(String name) {
+    _$v1ProvidersMePostRequestSpokenLanguagesEnumValueOf(String name) {
   switch (name) {
     case 'FR':
       return _$v1ProvidersMePostRequestSpokenLanguagesEnum_FR;
@@ -31,17 +31,15 @@ _$v1ProvidersMePostRequestSpokenLanguagesEnumValueOf(String name) {
 }
 
 final BuiltSet<V1ProvidersMePostRequestSpokenLanguagesEnum>
-_$v1ProvidersMePostRequestSpokenLanguagesEnumValues =
-    BuiltSet<V1ProvidersMePostRequestSpokenLanguagesEnum>(
-      const <V1ProvidersMePostRequestSpokenLanguagesEnum>[
-        _$v1ProvidersMePostRequestSpokenLanguagesEnum_FR,
-        _$v1ProvidersMePostRequestSpokenLanguagesEnum_AR,
-        _$v1ProvidersMePostRequestSpokenLanguagesEnum_EN,
-      ],
-    );
+    _$v1ProvidersMePostRequestSpokenLanguagesEnumValues = BuiltSet<
+        V1ProvidersMePostRequestSpokenLanguagesEnum>(const <V1ProvidersMePostRequestSpokenLanguagesEnum>[
+  _$v1ProvidersMePostRequestSpokenLanguagesEnum_FR,
+  _$v1ProvidersMePostRequestSpokenLanguagesEnum_AR,
+  _$v1ProvidersMePostRequestSpokenLanguagesEnum_EN,
+]);
 
 Serializer<V1ProvidersMePostRequestSpokenLanguagesEnum>
-_$v1ProvidersMePostRequestSpokenLanguagesEnumSerializer =
+    _$v1ProvidersMePostRequestSpokenLanguagesEnumSerializer =
     _$V1ProvidersMePostRequestSpokenLanguagesEnumSerializer();
 
 class _$V1ProvidersMePostRequestSpokenLanguagesEnumSerializer
@@ -60,26 +58,23 @@ class _$V1ProvidersMePostRequestSpokenLanguagesEnumSerializer
 
   @override
   final Iterable<Type> types = const <Type>[
-    V1ProvidersMePostRequestSpokenLanguagesEnum,
+    V1ProvidersMePostRequestSpokenLanguagesEnum
   ];
   @override
   final String wireName = 'V1ProvidersMePostRequestSpokenLanguagesEnum';
 
   @override
-  Object serialize(
-    Serializers serializers,
-    V1ProvidersMePostRequestSpokenLanguagesEnum object, {
-    FullType specifiedType = FullType.unspecified,
-  }) => _toWire[object.name] ?? object.name;
+  Object serialize(Serializers serializers,
+          V1ProvidersMePostRequestSpokenLanguagesEnum object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      _toWire[object.name] ?? object.name;
 
   @override
   V1ProvidersMePostRequestSpokenLanguagesEnum deserialize(
-    Serializers serializers,
-    Object serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) => V1ProvidersMePostRequestSpokenLanguagesEnum.valueOf(
-    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
-  );
+          Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      V1ProvidersMePostRequestSpokenLanguagesEnum.valueOf(
+          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
 }
 
 class _$V1ProvidersMePostRequest extends V1ProvidersMePostRequest {
@@ -102,25 +97,25 @@ class _$V1ProvidersMePostRequest extends V1ProvidersMePostRequest {
   @override
   final BuiltList<V1ProvidersMePostRequestSpokenLanguagesEnum>? spokenLanguages;
 
-  factory _$V1ProvidersMePostRequest([
-    void Function(V1ProvidersMePostRequestBuilder)? updates,
-  ]) => (V1ProvidersMePostRequestBuilder()..update(updates))._build();
+  factory _$V1ProvidersMePostRequest(
+          [void Function(V1ProvidersMePostRequestBuilder)? updates]) =>
+      (V1ProvidersMePostRequestBuilder()..update(updates))._build();
 
-  _$V1ProvidersMePostRequest._({
-    required this.businessName,
-    required this.baseGovernorateId,
-    this.baseDelegationId,
-    this.headline,
-    this.bio,
-    this.yearsExperience,
-    this.whatsappPhone,
-    this.publicPhone,
-    this.spokenLanguages,
-  }) : super._();
+  _$V1ProvidersMePostRequest._(
+      {required this.businessName,
+      required this.baseGovernorateId,
+      this.baseDelegationId,
+      this.headline,
+      this.bio,
+      this.yearsExperience,
+      this.whatsappPhone,
+      this.publicPhone,
+      this.spokenLanguages})
+      : super._();
   @override
   V1ProvidersMePostRequest rebuild(
-    void Function(V1ProvidersMePostRequestBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(V1ProvidersMePostRequestBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersMePostRequestBuilder toBuilder() =>
@@ -216,11 +211,12 @@ class V1ProvidersMePostRequestBuilder
 
   ListBuilder<V1ProvidersMePostRequestSpokenLanguagesEnum>? _spokenLanguages;
   ListBuilder<V1ProvidersMePostRequestSpokenLanguagesEnum>
-  get spokenLanguages => _$this._spokenLanguages ??=
-      ListBuilder<V1ProvidersMePostRequestSpokenLanguagesEnum>();
+      get spokenLanguages => _$this._spokenLanguages ??=
+          ListBuilder<V1ProvidersMePostRequestSpokenLanguagesEnum>();
   set spokenLanguages(
-    ListBuilder<V1ProvidersMePostRequestSpokenLanguagesEnum>? spokenLanguages,
-  ) => _$this._spokenLanguages = spokenLanguages;
+          ListBuilder<V1ProvidersMePostRequestSpokenLanguagesEnum>?
+              spokenLanguages) =>
+      _$this._spokenLanguages = spokenLanguages;
 
   V1ProvidersMePostRequestBuilder() {
     V1ProvidersMePostRequest._defaults(this);
@@ -259,19 +255,14 @@ class V1ProvidersMePostRequestBuilder
   _$V1ProvidersMePostRequest _build() {
     _$V1ProvidersMePostRequest _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           _$V1ProvidersMePostRequest._(
             businessName: BuiltValueNullFieldError.checkNotNull(
-              businessName,
-              r'V1ProvidersMePostRequest',
-              'businessName',
-            ),
+                businessName, r'V1ProvidersMePostRequest', 'businessName'),
             baseGovernorateId: BuiltValueNullFieldError.checkNotNull(
-              baseGovernorateId,
-              r'V1ProvidersMePostRequest',
-              'baseGovernorateId',
-            ),
+                baseGovernorateId,
+                r'V1ProvidersMePostRequest',
+                'baseGovernorateId'),
             baseDelegationId: baseDelegationId,
             headline: headline,
             bio: bio,
@@ -287,10 +278,7 @@ class V1ProvidersMePostRequestBuilder
         _spokenLanguages?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-          r'V1ProvidersMePostRequest',
-          _$failedField,
-          e.toString(),
-        );
+            r'V1ProvidersMePostRequest', _$failedField, e.toString());
       }
       rethrow;
     }

@@ -14,19 +14,19 @@ class _$V1AuthOtpVerifyPost200Response extends V1AuthOtpVerifyPost200Response {
   @override
   final V1AuthOtpVerifyPost200ResponseUser user;
 
-  factory _$V1AuthOtpVerifyPost200Response([
-    void Function(V1AuthOtpVerifyPost200ResponseBuilder)? updates,
-  ]) => (V1AuthOtpVerifyPost200ResponseBuilder()..update(updates))._build();
+  factory _$V1AuthOtpVerifyPost200Response(
+          [void Function(V1AuthOtpVerifyPost200ResponseBuilder)? updates]) =>
+      (V1AuthOtpVerifyPost200ResponseBuilder()..update(updates))._build();
 
-  _$V1AuthOtpVerifyPost200Response._({
-    required this.accessToken,
-    required this.refreshToken,
-    required this.user,
-  }) : super._();
+  _$V1AuthOtpVerifyPost200Response._(
+      {required this.accessToken,
+      required this.refreshToken,
+      required this.user})
+      : super._();
   @override
   V1AuthOtpVerifyPost200Response rebuild(
-    void Function(V1AuthOtpVerifyPost200ResponseBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(V1AuthOtpVerifyPost200ResponseBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1AuthOtpVerifyPost200ResponseBuilder toBuilder() =>
@@ -63,10 +63,8 @@ class _$V1AuthOtpVerifyPost200Response extends V1AuthOtpVerifyPost200Response {
 
 class V1AuthOtpVerifyPost200ResponseBuilder
     implements
-        Builder<
-          V1AuthOtpVerifyPost200Response,
-          V1AuthOtpVerifyPost200ResponseBuilder
-        > {
+        Builder<V1AuthOtpVerifyPost200Response,
+            V1AuthOtpVerifyPost200ResponseBuilder> {
   _$V1AuthOtpVerifyPost200Response? _$v;
 
   String? _accessToken;
@@ -114,19 +112,12 @@ class V1AuthOtpVerifyPost200ResponseBuilder
   _$V1AuthOtpVerifyPost200Response _build() {
     _$V1AuthOtpVerifyPost200Response _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           _$V1AuthOtpVerifyPost200Response._(
             accessToken: BuiltValueNullFieldError.checkNotNull(
-              accessToken,
-              r'V1AuthOtpVerifyPost200Response',
-              'accessToken',
-            ),
-            refreshToken: BuiltValueNullFieldError.checkNotNull(
-              refreshToken,
-              r'V1AuthOtpVerifyPost200Response',
-              'refreshToken',
-            ),
+                accessToken, r'V1AuthOtpVerifyPost200Response', 'accessToken'),
+            refreshToken: BuiltValueNullFieldError.checkNotNull(refreshToken,
+                r'V1AuthOtpVerifyPost200Response', 'refreshToken'),
             user: user.build(),
           );
     } catch (_) {
@@ -136,10 +127,7 @@ class V1AuthOtpVerifyPost200ResponseBuilder
         user.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-          r'V1AuthOtpVerifyPost200Response',
-          _$failedField,
-          e.toString(),
-        );
+            r'V1AuthOtpVerifyPost200Response', _$failedField, e.toString());
       }
       rethrow;
     }

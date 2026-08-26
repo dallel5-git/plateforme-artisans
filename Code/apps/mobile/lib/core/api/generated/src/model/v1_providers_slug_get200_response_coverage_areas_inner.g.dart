@@ -15,24 +15,24 @@ class _$V1ProvidersSlugGet200ResponseCoverageAreasInner
   @override
   final num travelFee;
 
-  factory _$V1ProvidersSlugGet200ResponseCoverageAreasInner([
-    void Function(V1ProvidersSlugGet200ResponseCoverageAreasInnerBuilder)?
-    updates,
-  ]) =>
+  factory _$V1ProvidersSlugGet200ResponseCoverageAreasInner(
+          [void Function(
+                  V1ProvidersSlugGet200ResponseCoverageAreasInnerBuilder)?
+              updates]) =>
       (V1ProvidersSlugGet200ResponseCoverageAreasInnerBuilder()
             ..update(updates))
           ._build();
 
-  _$V1ProvidersSlugGet200ResponseCoverageAreasInner._({
-    required this.governorate,
-    required this.delegation,
-    required this.travelFee,
-  }) : super._();
+  _$V1ProvidersSlugGet200ResponseCoverageAreasInner._(
+      {required this.governorate,
+      required this.delegation,
+      required this.travelFee})
+      : super._();
   @override
   V1ProvidersSlugGet200ResponseCoverageAreasInner rebuild(
-    void Function(V1ProvidersSlugGet200ResponseCoverageAreasInnerBuilder)
-    updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(V1ProvidersSlugGet200ResponseCoverageAreasInnerBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersSlugGet200ResponseCoverageAreasInnerBuilder toBuilder() =>
@@ -60,8 +60,7 @@ class _$V1ProvidersSlugGet200ResponseCoverageAreasInner
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'V1ProvidersSlugGet200ResponseCoverageAreasInner',
-          )
+            r'V1ProvidersSlugGet200ResponseCoverageAreasInner')
           ..add('governorate', governorate)
           ..add('delegation', delegation)
           ..add('travelFee', travelFee))
@@ -71,10 +70,8 @@ class _$V1ProvidersSlugGet200ResponseCoverageAreasInner
 
 class V1ProvidersSlugGet200ResponseCoverageAreasInnerBuilder
     implements
-        Builder<
-          V1ProvidersSlugGet200ResponseCoverageAreasInner,
-          V1ProvidersSlugGet200ResponseCoverageAreasInnerBuilder
-        > {
+        Builder<V1ProvidersSlugGet200ResponseCoverageAreasInner,
+            V1ProvidersSlugGet200ResponseCoverageAreasInnerBuilder> {
   _$V1ProvidersSlugGet200ResponseCoverageAreasInner? _$v;
 
   V1ProvidersSlugGet200ResponseOfferingsInnerCategoryBuilder? _governorate;
@@ -82,17 +79,18 @@ class V1ProvidersSlugGet200ResponseCoverageAreasInnerBuilder
       _$this._governorate ??=
           V1ProvidersSlugGet200ResponseOfferingsInnerCategoryBuilder();
   set governorate(
-    V1ProvidersSlugGet200ResponseOfferingsInnerCategoryBuilder? governorate,
-  ) => _$this._governorate = governorate;
+          V1ProvidersSlugGet200ResponseOfferingsInnerCategoryBuilder?
+              governorate) =>
+      _$this._governorate = governorate;
 
   V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder? _delegation;
   V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder
-  get delegation => _$this._delegation ??=
-      V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder();
+      get delegation => _$this._delegation ??=
+          V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder();
   set delegation(
-    V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder?
-    delegation,
-  ) => _$this._delegation = delegation;
+          V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder?
+              delegation) =>
+      _$this._delegation = delegation;
 
   num? _travelFee;
   num? get travelFee => _$this._travelFee;
@@ -120,9 +118,8 @@ class V1ProvidersSlugGet200ResponseCoverageAreasInnerBuilder
 
   @override
   void update(
-    void Function(V1ProvidersSlugGet200ResponseCoverageAreasInnerBuilder)?
-    updates,
-  ) {
+      void Function(V1ProvidersSlugGet200ResponseCoverageAreasInnerBuilder)?
+          updates) {
     if (updates != null) updates(this);
   }
 
@@ -132,16 +129,14 @@ class V1ProvidersSlugGet200ResponseCoverageAreasInnerBuilder
   _$V1ProvidersSlugGet200ResponseCoverageAreasInner _build() {
     _$V1ProvidersSlugGet200ResponseCoverageAreasInner _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           _$V1ProvidersSlugGet200ResponseCoverageAreasInner._(
             governorate: governorate.build(),
             delegation: delegation.build(),
             travelFee: BuiltValueNullFieldError.checkNotNull(
-              travelFee,
-              r'V1ProvidersSlugGet200ResponseCoverageAreasInner',
-              'travelFee',
-            ),
+                travelFee,
+                r'V1ProvidersSlugGet200ResponseCoverageAreasInner',
+                'travelFee'),
           );
     } catch (_) {
       late String _$failedField;
@@ -152,10 +147,9 @@ class V1ProvidersSlugGet200ResponseCoverageAreasInnerBuilder
         delegation.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-          r'V1ProvidersSlugGet200ResponseCoverageAreasInner',
-          _$failedField,
-          e.toString(),
-        );
+            r'V1ProvidersSlugGet200ResponseCoverageAreasInner',
+            _$failedField,
+            e.toString());
       }
       rethrow;
     }

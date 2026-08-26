@@ -29,9 +29,9 @@ abstract class V1MediaPresignPostRequest
 
   V1MediaPresignPostRequest._();
 
-  factory V1MediaPresignPostRequest([
-    void updates(V1MediaPresignPostRequestBuilder b),
-  ]) = _$V1MediaPresignPostRequest;
+  factory V1MediaPresignPostRequest(
+          [void updates(V1MediaPresignPostRequestBuilder b)]) =
+      _$V1MediaPresignPostRequest;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1MediaPresignPostRequestBuilder b) => b;
@@ -46,7 +46,7 @@ class _$V1MediaPresignPostRequestSerializer
   @override
   final Iterable<Type> types = const [
     V1MediaPresignPostRequest,
-    _$V1MediaPresignPostRequest,
+    _$V1MediaPresignPostRequest
   ];
 
   @override
@@ -80,11 +80,9 @@ class _$V1MediaPresignPostRequestSerializer
     V1MediaPresignPostRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(
-      serializers,
-      object,
-      specifiedType: specifiedType,
-    ).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -100,30 +98,24 @@ class _$V1MediaPresignPostRequestSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'filename':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.filename = valueDes;
           break;
         case r'mimeType':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.mimeType = valueDes;
           break;
         case r'sizeBytes':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(int),
-                  )
-                  as int;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
           result.sizeBytes = valueDes;
           break;
         default:

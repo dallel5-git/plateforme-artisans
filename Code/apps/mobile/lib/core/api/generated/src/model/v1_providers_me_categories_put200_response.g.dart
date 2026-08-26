@@ -10,23 +10,24 @@ class _$V1ProvidersMeCategoriesPut200Response
     extends V1ProvidersMeCategoriesPut200Response {
   @override
   final BuiltList<V1ProvidersMeCategoriesPut200ResponseCategoriesInner>
-  categories;
+      categories;
   @override
   final int completionScore;
 
-  factory _$V1ProvidersMeCategoriesPut200Response([
-    void Function(V1ProvidersMeCategoriesPut200ResponseBuilder)? updates,
-  ]) => (V1ProvidersMeCategoriesPut200ResponseBuilder()..update(updates))
-      ._build();
+  factory _$V1ProvidersMeCategoriesPut200Response(
+          [void Function(V1ProvidersMeCategoriesPut200ResponseBuilder)?
+              updates]) =>
+      (V1ProvidersMeCategoriesPut200ResponseBuilder()..update(updates))
+          ._build();
 
-  _$V1ProvidersMeCategoriesPut200Response._({
-    required this.categories,
-    required this.completionScore,
-  }) : super._();
+  _$V1ProvidersMeCategoriesPut200Response._(
+      {required this.categories, required this.completionScore})
+      : super._();
   @override
   V1ProvidersMeCategoriesPut200Response rebuild(
-    void Function(V1ProvidersMeCategoriesPut200ResponseBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(V1ProvidersMeCategoriesPut200ResponseBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersMeCategoriesPut200ResponseBuilder toBuilder() =>
@@ -52,8 +53,7 @@ class _$V1ProvidersMeCategoriesPut200Response
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'V1ProvidersMeCategoriesPut200Response',
-          )
+            r'V1ProvidersMeCategoriesPut200Response')
           ..add('categories', categories)
           ..add('completionScore', completionScore))
         .toString();
@@ -62,21 +62,19 @@ class _$V1ProvidersMeCategoriesPut200Response
 
 class V1ProvidersMeCategoriesPut200ResponseBuilder
     implements
-        Builder<
-          V1ProvidersMeCategoriesPut200Response,
-          V1ProvidersMeCategoriesPut200ResponseBuilder
-        > {
+        Builder<V1ProvidersMeCategoriesPut200Response,
+            V1ProvidersMeCategoriesPut200ResponseBuilder> {
   _$V1ProvidersMeCategoriesPut200Response? _$v;
 
   ListBuilder<V1ProvidersMeCategoriesPut200ResponseCategoriesInner>?
-  _categories;
+      _categories;
   ListBuilder<V1ProvidersMeCategoriesPut200ResponseCategoriesInner>
-  get categories => _$this._categories ??=
-      ListBuilder<V1ProvidersMeCategoriesPut200ResponseCategoriesInner>();
+      get categories => _$this._categories ??=
+          ListBuilder<V1ProvidersMeCategoriesPut200ResponseCategoriesInner>();
   set categories(
-    ListBuilder<V1ProvidersMeCategoriesPut200ResponseCategoriesInner>?
-    categories,
-  ) => _$this._categories = categories;
+          ListBuilder<V1ProvidersMeCategoriesPut200ResponseCategoriesInner>?
+              categories) =>
+      _$this._categories = categories;
 
   int? _completionScore;
   int? get completionScore => _$this._completionScore;
@@ -104,8 +102,7 @@ class V1ProvidersMeCategoriesPut200ResponseBuilder
 
   @override
   void update(
-    void Function(V1ProvidersMeCategoriesPut200ResponseBuilder)? updates,
-  ) {
+      void Function(V1ProvidersMeCategoriesPut200ResponseBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -115,15 +112,13 @@ class V1ProvidersMeCategoriesPut200ResponseBuilder
   _$V1ProvidersMeCategoriesPut200Response _build() {
     _$V1ProvidersMeCategoriesPut200Response _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           _$V1ProvidersMeCategoriesPut200Response._(
             categories: categories.build(),
             completionScore: BuiltValueNullFieldError.checkNotNull(
-              completionScore,
-              r'V1ProvidersMeCategoriesPut200Response',
-              'completionScore',
-            ),
+                completionScore,
+                r'V1ProvidersMeCategoriesPut200Response',
+                'completionScore'),
           );
     } catch (_) {
       late String _$failedField;
@@ -132,10 +127,9 @@ class V1ProvidersMeCategoriesPut200ResponseBuilder
         categories.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-          r'V1ProvidersMeCategoriesPut200Response',
-          _$failedField,
-          e.toString(),
-        );
+            r'V1ProvidersMeCategoriesPut200Response',
+            _$failedField,
+            e.toString());
       }
       rethrow;
     }

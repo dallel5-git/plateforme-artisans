@@ -10,12 +10,14 @@ environment:
 
 dependencies:
   # FM-02b : dépendances du client Dio/built_value généré (BE-26), fusionné dans l'app sous
-  # lib/core/api/generated/ — voir tooling/scripts/mobile-client.mjs (foldIntoApp). Versions
-  # alignées sur lib/core/api/generated/pubspec.yaml avant fusion (dernière valeur committée).
-  built_collection: ">=5.1.1 <6.0.0"
-  built_value: ">=8.4.0 <9.0.0"
+  # lib/core/api/generated/ — voir tooling/scripts/mobile-client.mjs
+  # (PINNED_GENERATOR_DEPENDENCIES/foldIntoApp). Versions exactes, pas des ranges : doivent
+  # matcher ce que la génération a réellement produit, sinon le code généré (built_value) et la
+  # version réellement bundlée par l'app peuvent diverger silencieusement.
+  built_collection: 5.1.1
+  built_value: 8.12.7
   cupertino_icons: ^1.0.8
-  dio: ^5.7.0
+  dio: 5.11.0
   flutter:
     sdk: flutter
   flutter_localizations:
@@ -23,8 +25,8 @@ dependencies:
   flutter_riverpod: ^2.6.0
   go_router: ^17.5.0
   intl: ^0.20.2
-  one_of: ">=1.5.0 <2.0.0"
-  one_of_serializer: ">=1.5.0 <2.0.0"
+  one_of: 1.5.0
+  one_of_serializer: 1.5.0
   shared_preferences: ^2.5.5
   slang: ^4.19.0
   slang_flutter: ^4.19.0

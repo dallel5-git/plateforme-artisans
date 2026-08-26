@@ -28,9 +28,9 @@ abstract class V1FavoritesGet200Response
 
   V1FavoritesGet200Response._();
 
-  factory V1FavoritesGet200Response([
-    void updates(V1FavoritesGet200ResponseBuilder b),
-  ]) = _$V1FavoritesGet200Response;
+  factory V1FavoritesGet200Response(
+          [void updates(V1FavoritesGet200ResponseBuilder b)]) =
+      _$V1FavoritesGet200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1FavoritesGet200ResponseBuilder b) => b;
@@ -45,7 +45,7 @@ class _$V1FavoritesGet200ResponseSerializer
   @override
   final Iterable<Type> types = const [
     V1FavoritesGet200Response,
-    _$V1FavoritesGet200Response,
+    _$V1FavoritesGet200Response
   ];
 
   @override
@@ -59,9 +59,8 @@ class _$V1FavoritesGet200ResponseSerializer
     yield r'items';
     yield serializers.serialize(
       object.items,
-      specifiedType: const FullType(BuiltList, [
-        FullType(V1FavoritesGet200ResponseItemsInner),
-      ]),
+      specifiedType: const FullType(
+          BuiltList, [FullType(V1FavoritesGet200ResponseItemsInner)]),
     );
     yield r'nextCursor';
     yield serializers.serialize(
@@ -76,11 +75,9 @@ class _$V1FavoritesGet200ResponseSerializer
     V1FavoritesGet200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(
-      serializers,
-      object,
-      specifiedType: specifiedType,
-    ).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -96,23 +93,18 @@ class _$V1FavoritesGet200ResponseSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'items':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(BuiltList, [
-                      FullType(V1FavoritesGet200ResponseItemsInner),
-                    ]),
-                  )
-                  as BuiltList<V1FavoritesGet200ResponseItemsInner>;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+                BuiltList, [FullType(V1FavoritesGet200ResponseItemsInner)]),
+          ) as BuiltList<V1FavoritesGet200ResponseItemsInner>;
           result.items.replace(valueDes);
           break;
         case r'nextCursor':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.nextCursor = valueDes;
           break;
         default:

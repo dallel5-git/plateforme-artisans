@@ -17,10 +17,8 @@ part 'v1_providers_slug_get200_response_coverage_areas_inner_delegation.g.dart';
 @BuiltValue()
 abstract class V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation
     implements
-        Built<
-          V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation,
-          V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder
-        > {
+        Built<V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation,
+            V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder> {
   @BuiltValueField(wireName: r'slug')
   String get slug;
 
@@ -32,32 +30,31 @@ abstract class V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation
 
   V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation._();
 
-  factory V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation([
-    void updates(
-      V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder b,
-    ),
-  ]) = _$V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation;
+  factory V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation(
+          [void updates(
+              V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder
+                  b)]) =
+      _$V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(
-    V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder b,
-  ) => b;
+          V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder b) =>
+      b;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation>
-  get serializer =>
-      _$V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationSerializer();
+      get serializer =>
+          _$V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationSerializer();
 }
 
 class _$V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationSerializer
     implements
         PrimitiveSerializer<
-          V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation
-        > {
+            V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation> {
   @override
   final Iterable<Type> types = const [
     V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation,
-    _$V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation,
+    _$V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation
   ];
 
   @override
@@ -92,11 +89,9 @@ class _$V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationSerializer
     V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegation object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(
-      serializers,
-      object,
-      specifiedType: specifiedType,
-    ).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -105,7 +100,7 @@ class _$V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationSerializer
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
     required V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationBuilder
-    result,
+        result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -113,30 +108,24 @@ class _$V1ProvidersSlugGet200ResponseCoverageAreasInnerDelegationSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'slug':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.slug = valueDes;
           break;
         case r'nameFr':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.nameFr = valueDes;
           break;
         case r'nameAr':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.nameAr = valueDes;
           break;
         default:

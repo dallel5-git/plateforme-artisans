@@ -7,14 +7,14 @@ part of 'v1_contact_events_post_request.dart';
 // **************************************************************************
 
 const V1ContactEventsPostRequestChannelEnum
-_$v1ContactEventsPostRequestChannelEnum_PHONE =
+    _$v1ContactEventsPostRequestChannelEnum_PHONE =
     const V1ContactEventsPostRequestChannelEnum._('PHONE');
 const V1ContactEventsPostRequestChannelEnum
-_$v1ContactEventsPostRequestChannelEnum_WHATSAPP =
+    _$v1ContactEventsPostRequestChannelEnum_WHATSAPP =
     const V1ContactEventsPostRequestChannelEnum._('WHATSAPP');
 
 V1ContactEventsPostRequestChannelEnum
-_$v1ContactEventsPostRequestChannelEnumValueOf(String name) {
+    _$v1ContactEventsPostRequestChannelEnumValueOf(String name) {
   switch (name) {
     case 'PHONE':
       return _$v1ContactEventsPostRequestChannelEnum_PHONE;
@@ -26,32 +26,30 @@ _$v1ContactEventsPostRequestChannelEnumValueOf(String name) {
 }
 
 final BuiltSet<V1ContactEventsPostRequestChannelEnum>
-_$v1ContactEventsPostRequestChannelEnumValues =
-    BuiltSet<V1ContactEventsPostRequestChannelEnum>(
-      const <V1ContactEventsPostRequestChannelEnum>[
-        _$v1ContactEventsPostRequestChannelEnum_PHONE,
-        _$v1ContactEventsPostRequestChannelEnum_WHATSAPP,
-      ],
-    );
+    _$v1ContactEventsPostRequestChannelEnumValues = BuiltSet<
+        V1ContactEventsPostRequestChannelEnum>(const <V1ContactEventsPostRequestChannelEnum>[
+  _$v1ContactEventsPostRequestChannelEnum_PHONE,
+  _$v1ContactEventsPostRequestChannelEnum_WHATSAPP,
+]);
 
 const V1ContactEventsPostRequestSourceScreenEnum
-_$v1ContactEventsPostRequestSourceScreenEnum_search =
+    _$v1ContactEventsPostRequestSourceScreenEnum_search =
     const V1ContactEventsPostRequestSourceScreenEnum._('search');
 const V1ContactEventsPostRequestSourceScreenEnum
-_$v1ContactEventsPostRequestSourceScreenEnum_profile =
+    _$v1ContactEventsPostRequestSourceScreenEnum_profile =
     const V1ContactEventsPostRequestSourceScreenEnum._('profile');
 const V1ContactEventsPostRequestSourceScreenEnum
-_$v1ContactEventsPostRequestSourceScreenEnum_boost =
+    _$v1ContactEventsPostRequestSourceScreenEnum_boost =
     const V1ContactEventsPostRequestSourceScreenEnum._('boost');
 const V1ContactEventsPostRequestSourceScreenEnum
-_$v1ContactEventsPostRequestSourceScreenEnum_ad =
+    _$v1ContactEventsPostRequestSourceScreenEnum_ad =
     const V1ContactEventsPostRequestSourceScreenEnum._('ad');
 const V1ContactEventsPostRequestSourceScreenEnum
-_$v1ContactEventsPostRequestSourceScreenEnum_seoPage =
+    _$v1ContactEventsPostRequestSourceScreenEnum_seoPage =
     const V1ContactEventsPostRequestSourceScreenEnum._('seoPage');
 
 V1ContactEventsPostRequestSourceScreenEnum
-_$v1ContactEventsPostRequestSourceScreenEnumValueOf(String name) {
+    _$v1ContactEventsPostRequestSourceScreenEnumValueOf(String name) {
   switch (name) {
     case 'search':
       return _$v1ContactEventsPostRequestSourceScreenEnum_search;
@@ -69,22 +67,20 @@ _$v1ContactEventsPostRequestSourceScreenEnumValueOf(String name) {
 }
 
 final BuiltSet<V1ContactEventsPostRequestSourceScreenEnum>
-_$v1ContactEventsPostRequestSourceScreenEnumValues =
-    BuiltSet<V1ContactEventsPostRequestSourceScreenEnum>(
-      const <V1ContactEventsPostRequestSourceScreenEnum>[
-        _$v1ContactEventsPostRequestSourceScreenEnum_search,
-        _$v1ContactEventsPostRequestSourceScreenEnum_profile,
-        _$v1ContactEventsPostRequestSourceScreenEnum_boost,
-        _$v1ContactEventsPostRequestSourceScreenEnum_ad,
-        _$v1ContactEventsPostRequestSourceScreenEnum_seoPage,
-      ],
-    );
+    _$v1ContactEventsPostRequestSourceScreenEnumValues = BuiltSet<
+        V1ContactEventsPostRequestSourceScreenEnum>(const <V1ContactEventsPostRequestSourceScreenEnum>[
+  _$v1ContactEventsPostRequestSourceScreenEnum_search,
+  _$v1ContactEventsPostRequestSourceScreenEnum_profile,
+  _$v1ContactEventsPostRequestSourceScreenEnum_boost,
+  _$v1ContactEventsPostRequestSourceScreenEnum_ad,
+  _$v1ContactEventsPostRequestSourceScreenEnum_seoPage,
+]);
 
 Serializer<V1ContactEventsPostRequestChannelEnum>
-_$v1ContactEventsPostRequestChannelEnumSerializer =
+    _$v1ContactEventsPostRequestChannelEnumSerializer =
     _$V1ContactEventsPostRequestChannelEnumSerializer();
 Serializer<V1ContactEventsPostRequestSourceScreenEnum>
-_$v1ContactEventsPostRequestSourceScreenEnumSerializer =
+    _$v1ContactEventsPostRequestSourceScreenEnumSerializer =
     _$V1ContactEventsPostRequestSourceScreenEnumSerializer();
 
 class _$V1ContactEventsPostRequestChannelEnumSerializer
@@ -100,26 +96,23 @@ class _$V1ContactEventsPostRequestChannelEnumSerializer
 
   @override
   final Iterable<Type> types = const <Type>[
-    V1ContactEventsPostRequestChannelEnum,
+    V1ContactEventsPostRequestChannelEnum
   ];
   @override
   final String wireName = 'V1ContactEventsPostRequestChannelEnum';
 
   @override
   Object serialize(
-    Serializers serializers,
-    V1ContactEventsPostRequestChannelEnum object, {
-    FullType specifiedType = FullType.unspecified,
-  }) => _toWire[object.name] ?? object.name;
+          Serializers serializers, V1ContactEventsPostRequestChannelEnum object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      _toWire[object.name] ?? object.name;
 
   @override
   V1ContactEventsPostRequestChannelEnum deserialize(
-    Serializers serializers,
-    Object serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) => V1ContactEventsPostRequestChannelEnum.valueOf(
-    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
-  );
+          Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      V1ContactEventsPostRequestChannelEnum.valueOf(
+          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
 }
 
 class _$V1ContactEventsPostRequestSourceScreenEnumSerializer
@@ -141,26 +134,23 @@ class _$V1ContactEventsPostRequestSourceScreenEnumSerializer
 
   @override
   final Iterable<Type> types = const <Type>[
-    V1ContactEventsPostRequestSourceScreenEnum,
+    V1ContactEventsPostRequestSourceScreenEnum
   ];
   @override
   final String wireName = 'V1ContactEventsPostRequestSourceScreenEnum';
 
   @override
-  Object serialize(
-    Serializers serializers,
-    V1ContactEventsPostRequestSourceScreenEnum object, {
-    FullType specifiedType = FullType.unspecified,
-  }) => _toWire[object.name] ?? object.name;
+  Object serialize(Serializers serializers,
+          V1ContactEventsPostRequestSourceScreenEnum object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      _toWire[object.name] ?? object.name;
 
   @override
   V1ContactEventsPostRequestSourceScreenEnum deserialize(
-    Serializers serializers,
-    Object serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) => V1ContactEventsPostRequestSourceScreenEnum.valueOf(
-    _fromWire[serialized] ?? (serialized is String ? serialized : ''),
-  );
+          Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      V1ContactEventsPostRequestSourceScreenEnum.valueOf(
+          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
 }
 
 class _$V1ContactEventsPostRequest extends V1ContactEventsPostRequest {
@@ -173,20 +163,20 @@ class _$V1ContactEventsPostRequest extends V1ContactEventsPostRequest {
   @override
   final V1ContactEventsPostRequestSourceScreenEnum? sourceScreen;
 
-  factory _$V1ContactEventsPostRequest([
-    void Function(V1ContactEventsPostRequestBuilder)? updates,
-  ]) => (V1ContactEventsPostRequestBuilder()..update(updates))._build();
+  factory _$V1ContactEventsPostRequest(
+          [void Function(V1ContactEventsPostRequestBuilder)? updates]) =>
+      (V1ContactEventsPostRequestBuilder()..update(updates))._build();
 
-  _$V1ContactEventsPostRequest._({
-    required this.providerId,
-    required this.channel,
-    this.categoryId,
-    this.sourceScreen,
-  }) : super._();
+  _$V1ContactEventsPostRequest._(
+      {required this.providerId,
+      required this.channel,
+      this.categoryId,
+      this.sourceScreen})
+      : super._();
   @override
   V1ContactEventsPostRequest rebuild(
-    void Function(V1ContactEventsPostRequestBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(V1ContactEventsPostRequestBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1ContactEventsPostRequestBuilder toBuilder() =>
@@ -278,19 +268,12 @@ class V1ContactEventsPostRequestBuilder
   V1ContactEventsPostRequest build() => _build();
 
   _$V1ContactEventsPostRequest _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         _$V1ContactEventsPostRequest._(
           providerId: BuiltValueNullFieldError.checkNotNull(
-            providerId,
-            r'V1ContactEventsPostRequest',
-            'providerId',
-          ),
+              providerId, r'V1ContactEventsPostRequest', 'providerId'),
           channel: BuiltValueNullFieldError.checkNotNull(
-            channel,
-            r'V1ContactEventsPostRequest',
-            'channel',
-          ),
+              channel, r'V1ContactEventsPostRequest', 'channel'),
           categoryId: categoryId,
           sourceScreen: sourceScreen,
         );

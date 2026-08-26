@@ -19,10 +19,8 @@ part 'v1_providers_me_categories_put200_response_categories_inner.g.dart';
 @BuiltValue()
 abstract class V1ProvidersMeCategoriesPut200ResponseCategoriesInner
     implements
-        Built<
-          V1ProvidersMeCategoriesPut200ResponseCategoriesInner,
-          V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder
-        > {
+        Built<V1ProvidersMeCategoriesPut200ResponseCategoriesInner,
+            V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder> {
   @BuiltValueField(wireName: r'categoryId')
   String get categoryId;
 
@@ -34,30 +32,30 @@ abstract class V1ProvidersMeCategoriesPut200ResponseCategoriesInner
 
   V1ProvidersMeCategoriesPut200ResponseCategoriesInner._();
 
-  factory V1ProvidersMeCategoriesPut200ResponseCategoriesInner([
-    void updates(V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder b),
-  ]) = _$V1ProvidersMeCategoriesPut200ResponseCategoriesInner;
+  factory V1ProvidersMeCategoriesPut200ResponseCategoriesInner(
+          [void updates(
+              V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder b)]) =
+      _$V1ProvidersMeCategoriesPut200ResponseCategoriesInner;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(
-    V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder b,
-  ) => b;
+          V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder b) =>
+      b;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<V1ProvidersMeCategoriesPut200ResponseCategoriesInner>
-  get serializer =>
-      _$V1ProvidersMeCategoriesPut200ResponseCategoriesInnerSerializer();
+      get serializer =>
+          _$V1ProvidersMeCategoriesPut200ResponseCategoriesInnerSerializer();
 }
 
 class _$V1ProvidersMeCategoriesPut200ResponseCategoriesInnerSerializer
     implements
         PrimitiveSerializer<
-          V1ProvidersMeCategoriesPut200ResponseCategoriesInner
-        > {
+            V1ProvidersMeCategoriesPut200ResponseCategoriesInner> {
   @override
   final Iterable<Type> types = const [
     V1ProvidersMeCategoriesPut200ResponseCategoriesInner,
-    _$V1ProvidersMeCategoriesPut200ResponseCategoriesInner,
+    _$V1ProvidersMeCategoriesPut200ResponseCategoriesInner
   ];
 
   @override
@@ -92,11 +90,9 @@ class _$V1ProvidersMeCategoriesPut200ResponseCategoriesInnerSerializer
     V1ProvidersMeCategoriesPut200ResponseCategoriesInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(
-      serializers,
-      object,
-      specifiedType: specifiedType,
-    ).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -112,30 +108,24 @@ class _$V1ProvidersMeCategoriesPut200ResponseCategoriesInnerSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'categoryId':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.categoryId = valueDes;
           break;
         case r'isPrimary':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(bool),
-                  )
-                  as bool;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
           result.isPrimary = valueDes;
           break;
         case r'yearsExperience':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(int),
-                  )
-                  as int;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
           result.yearsExperience = valueDes;
           break;
         default:

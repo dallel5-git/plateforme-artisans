@@ -15,20 +15,20 @@ class _$V1ProvidersSlugGet200ResponseBaseGovernorate
   @override
   final String nameAr;
 
-  factory _$V1ProvidersSlugGet200ResponseBaseGovernorate([
-    void Function(V1ProvidersSlugGet200ResponseBaseGovernorateBuilder)? updates,
-  ]) => (V1ProvidersSlugGet200ResponseBaseGovernorateBuilder()..update(updates))
-      ._build();
+  factory _$V1ProvidersSlugGet200ResponseBaseGovernorate(
+          [void Function(V1ProvidersSlugGet200ResponseBaseGovernorateBuilder)?
+              updates]) =>
+      (V1ProvidersSlugGet200ResponseBaseGovernorateBuilder()..update(updates))
+          ._build();
 
-  _$V1ProvidersSlugGet200ResponseBaseGovernorate._({
-    required this.slug,
-    required this.nameFr,
-    required this.nameAr,
-  }) : super._();
+  _$V1ProvidersSlugGet200ResponseBaseGovernorate._(
+      {required this.slug, required this.nameFr, required this.nameAr})
+      : super._();
   @override
   V1ProvidersSlugGet200ResponseBaseGovernorate rebuild(
-    void Function(V1ProvidersSlugGet200ResponseBaseGovernorateBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(V1ProvidersSlugGet200ResponseBaseGovernorateBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersSlugGet200ResponseBaseGovernorateBuilder toBuilder() =>
@@ -56,8 +56,7 @@ class _$V1ProvidersSlugGet200ResponseBaseGovernorate
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'V1ProvidersSlugGet200ResponseBaseGovernorate',
-          )
+            r'V1ProvidersSlugGet200ResponseBaseGovernorate')
           ..add('slug', slug)
           ..add('nameFr', nameFr)
           ..add('nameAr', nameAr))
@@ -67,10 +66,8 @@ class _$V1ProvidersSlugGet200ResponseBaseGovernorate
 
 class V1ProvidersSlugGet200ResponseBaseGovernorateBuilder
     implements
-        Builder<
-          V1ProvidersSlugGet200ResponseBaseGovernorate,
-          V1ProvidersSlugGet200ResponseBaseGovernorateBuilder
-        > {
+        Builder<V1ProvidersSlugGet200ResponseBaseGovernorate,
+            V1ProvidersSlugGet200ResponseBaseGovernorateBuilder> {
   _$V1ProvidersSlugGet200ResponseBaseGovernorate? _$v;
 
   String? _slug;
@@ -107,8 +104,8 @@ class V1ProvidersSlugGet200ResponseBaseGovernorateBuilder
 
   @override
   void update(
-    void Function(V1ProvidersSlugGet200ResponseBaseGovernorateBuilder)? updates,
-  ) {
+      void Function(V1ProvidersSlugGet200ResponseBaseGovernorateBuilder)?
+          updates) {
     if (updates != null) updates(this);
   }
 
@@ -116,24 +113,14 @@ class V1ProvidersSlugGet200ResponseBaseGovernorateBuilder
   V1ProvidersSlugGet200ResponseBaseGovernorate build() => _build();
 
   _$V1ProvidersSlugGet200ResponseBaseGovernorate _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         _$V1ProvidersSlugGet200ResponseBaseGovernorate._(
           slug: BuiltValueNullFieldError.checkNotNull(
-            slug,
-            r'V1ProvidersSlugGet200ResponseBaseGovernorate',
-            'slug',
-          ),
-          nameFr: BuiltValueNullFieldError.checkNotNull(
-            nameFr,
-            r'V1ProvidersSlugGet200ResponseBaseGovernorate',
-            'nameFr',
-          ),
-          nameAr: BuiltValueNullFieldError.checkNotNull(
-            nameAr,
-            r'V1ProvidersSlugGet200ResponseBaseGovernorate',
-            'nameAr',
-          ),
+              slug, r'V1ProvidersSlugGet200ResponseBaseGovernorate', 'slug'),
+          nameFr: BuiltValueNullFieldError.checkNotNull(nameFr,
+              r'V1ProvidersSlugGet200ResponseBaseGovernorate', 'nameFr'),
+          nameAr: BuiltValueNullFieldError.checkNotNull(nameAr,
+              r'V1ProvidersSlugGet200ResponseBaseGovernorate', 'nameAr'),
         );
     replace(_$result);
     return _$result;

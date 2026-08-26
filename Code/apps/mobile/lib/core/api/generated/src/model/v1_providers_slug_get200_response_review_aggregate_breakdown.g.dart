@@ -19,26 +19,27 @@ class _$V1ProvidersSlugGet200ResponseReviewAggregateBreakdown
   @override
   final int n5;
 
-  factory _$V1ProvidersSlugGet200ResponseReviewAggregateBreakdown([
-    void Function(V1ProvidersSlugGet200ResponseReviewAggregateBreakdownBuilder)?
-    updates,
-  ]) =>
+  factory _$V1ProvidersSlugGet200ResponseReviewAggregateBreakdown(
+          [void Function(
+                  V1ProvidersSlugGet200ResponseReviewAggregateBreakdownBuilder)?
+              updates]) =>
       (V1ProvidersSlugGet200ResponseReviewAggregateBreakdownBuilder()
             ..update(updates))
           ._build();
 
-  _$V1ProvidersSlugGet200ResponseReviewAggregateBreakdown._({
-    required this.n1,
-    required this.n2,
-    required this.n3,
-    required this.n4,
-    required this.n5,
-  }) : super._();
+  _$V1ProvidersSlugGet200ResponseReviewAggregateBreakdown._(
+      {required this.n1,
+      required this.n2,
+      required this.n3,
+      required this.n4,
+      required this.n5})
+      : super._();
   @override
   V1ProvidersSlugGet200ResponseReviewAggregateBreakdown rebuild(
-    void Function(V1ProvidersSlugGet200ResponseReviewAggregateBreakdownBuilder)
-    updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(
+                  V1ProvidersSlugGet200ResponseReviewAggregateBreakdownBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersSlugGet200ResponseReviewAggregateBreakdownBuilder toBuilder() =>
@@ -71,8 +72,7 @@ class _$V1ProvidersSlugGet200ResponseReviewAggregateBreakdown
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'V1ProvidersSlugGet200ResponseReviewAggregateBreakdown',
-          )
+            r'V1ProvidersSlugGet200ResponseReviewAggregateBreakdown')
           ..add('n1', n1)
           ..add('n2', n2)
           ..add('n3', n3)
@@ -84,10 +84,8 @@ class _$V1ProvidersSlugGet200ResponseReviewAggregateBreakdown
 
 class V1ProvidersSlugGet200ResponseReviewAggregateBreakdownBuilder
     implements
-        Builder<
-          V1ProvidersSlugGet200ResponseReviewAggregateBreakdown,
-          V1ProvidersSlugGet200ResponseReviewAggregateBreakdownBuilder
-        > {
+        Builder<V1ProvidersSlugGet200ResponseReviewAggregateBreakdown,
+            V1ProvidersSlugGet200ResponseReviewAggregateBreakdownBuilder> {
   _$V1ProvidersSlugGet200ResponseReviewAggregateBreakdown? _$v;
 
   int? _n1;
@@ -134,9 +132,9 @@ class V1ProvidersSlugGet200ResponseReviewAggregateBreakdownBuilder
 
   @override
   void update(
-    void Function(V1ProvidersSlugGet200ResponseReviewAggregateBreakdownBuilder)?
-    updates,
-  ) {
+      void Function(
+              V1ProvidersSlugGet200ResponseReviewAggregateBreakdownBuilder)?
+          updates) {
     if (updates != null) updates(this);
   }
 
@@ -144,34 +142,18 @@ class V1ProvidersSlugGet200ResponseReviewAggregateBreakdownBuilder
   V1ProvidersSlugGet200ResponseReviewAggregateBreakdown build() => _build();
 
   _$V1ProvidersSlugGet200ResponseReviewAggregateBreakdown _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         _$V1ProvidersSlugGet200ResponseReviewAggregateBreakdown._(
-          n1: BuiltValueNullFieldError.checkNotNull(
-            n1,
-            r'V1ProvidersSlugGet200ResponseReviewAggregateBreakdown',
-            'n1',
-          ),
-          n2: BuiltValueNullFieldError.checkNotNull(
-            n2,
-            r'V1ProvidersSlugGet200ResponseReviewAggregateBreakdown',
-            'n2',
-          ),
-          n3: BuiltValueNullFieldError.checkNotNull(
-            n3,
-            r'V1ProvidersSlugGet200ResponseReviewAggregateBreakdown',
-            'n3',
-          ),
-          n4: BuiltValueNullFieldError.checkNotNull(
-            n4,
-            r'V1ProvidersSlugGet200ResponseReviewAggregateBreakdown',
-            'n4',
-          ),
-          n5: BuiltValueNullFieldError.checkNotNull(
-            n5,
-            r'V1ProvidersSlugGet200ResponseReviewAggregateBreakdown',
-            'n5',
-          ),
+          n1: BuiltValueNullFieldError.checkNotNull(n1,
+              r'V1ProvidersSlugGet200ResponseReviewAggregateBreakdown', 'n1'),
+          n2: BuiltValueNullFieldError.checkNotNull(n2,
+              r'V1ProvidersSlugGet200ResponseReviewAggregateBreakdown', 'n2'),
+          n3: BuiltValueNullFieldError.checkNotNull(n3,
+              r'V1ProvidersSlugGet200ResponseReviewAggregateBreakdown', 'n3'),
+          n4: BuiltValueNullFieldError.checkNotNull(n4,
+              r'V1ProvidersSlugGet200ResponseReviewAggregateBreakdown', 'n4'),
+          n5: BuiltValueNullFieldError.checkNotNull(n5,
+              r'V1ProvidersSlugGet200ResponseReviewAggregateBreakdown', 'n5'),
         );
     replace(_$result);
     return _$result;

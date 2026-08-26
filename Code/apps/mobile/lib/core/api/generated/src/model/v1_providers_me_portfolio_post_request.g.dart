@@ -15,19 +15,17 @@ class _$V1ProvidersMePortfolioPostRequest
   @override
   final String? caption;
 
-  factory _$V1ProvidersMePortfolioPostRequest([
-    void Function(V1ProvidersMePortfolioPostRequestBuilder)? updates,
-  ]) => (V1ProvidersMePortfolioPostRequestBuilder()..update(updates))._build();
+  factory _$V1ProvidersMePortfolioPostRequest(
+          [void Function(V1ProvidersMePortfolioPostRequestBuilder)? updates]) =>
+      (V1ProvidersMePortfolioPostRequestBuilder()..update(updates))._build();
 
-  _$V1ProvidersMePortfolioPostRequest._({
-    required this.mediaId,
-    this.categoryId,
-    this.caption,
-  }) : super._();
+  _$V1ProvidersMePortfolioPostRequest._(
+      {required this.mediaId, this.categoryId, this.caption})
+      : super._();
   @override
   V1ProvidersMePortfolioPostRequest rebuild(
-    void Function(V1ProvidersMePortfolioPostRequestBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(V1ProvidersMePortfolioPostRequestBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersMePortfolioPostRequestBuilder toBuilder() =>
@@ -64,10 +62,8 @@ class _$V1ProvidersMePortfolioPostRequest
 
 class V1ProvidersMePortfolioPostRequestBuilder
     implements
-        Builder<
-          V1ProvidersMePortfolioPostRequest,
-          V1ProvidersMePortfolioPostRequestBuilder
-        > {
+        Builder<V1ProvidersMePortfolioPostRequest,
+            V1ProvidersMePortfolioPostRequestBuilder> {
   _$V1ProvidersMePortfolioPostRequest? _$v;
 
   String? _mediaId;
@@ -104,8 +100,7 @@ class V1ProvidersMePortfolioPostRequestBuilder
 
   @override
   void update(
-    void Function(V1ProvidersMePortfolioPostRequestBuilder)? updates,
-  ) {
+      void Function(V1ProvidersMePortfolioPostRequestBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -113,14 +108,10 @@ class V1ProvidersMePortfolioPostRequestBuilder
   V1ProvidersMePortfolioPostRequest build() => _build();
 
   _$V1ProvidersMePortfolioPostRequest _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         _$V1ProvidersMePortfolioPostRequest._(
           mediaId: BuiltValueNullFieldError.checkNotNull(
-            mediaId,
-            r'V1ProvidersMePortfolioPostRequest',
-            'mediaId',
-          ),
+              mediaId, r'V1ProvidersMePortfolioPostRequest', 'mediaId'),
           categoryId: categoryId,
           caption: caption,
         );

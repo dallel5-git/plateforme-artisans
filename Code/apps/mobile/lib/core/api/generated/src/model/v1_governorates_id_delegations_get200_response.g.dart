@@ -10,19 +10,21 @@ class _$V1GovernoratesIdDelegationsGet200Response
     extends V1GovernoratesIdDelegationsGet200Response {
   @override
   final BuiltList<V1GovernoratesIdDelegationsGet200ResponseDelegationsInner>
-  delegations;
+      delegations;
 
-  factory _$V1GovernoratesIdDelegationsGet200Response([
-    void Function(V1GovernoratesIdDelegationsGet200ResponseBuilder)? updates,
-  ]) => (V1GovernoratesIdDelegationsGet200ResponseBuilder()..update(updates))
-      ._build();
+  factory _$V1GovernoratesIdDelegationsGet200Response(
+          [void Function(V1GovernoratesIdDelegationsGet200ResponseBuilder)?
+              updates]) =>
+      (V1GovernoratesIdDelegationsGet200ResponseBuilder()..update(updates))
+          ._build();
 
   _$V1GovernoratesIdDelegationsGet200Response._({required this.delegations})
-    : super._();
+      : super._();
   @override
   V1GovernoratesIdDelegationsGet200Response rebuild(
-    void Function(V1GovernoratesIdDelegationsGet200ResponseBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(V1GovernoratesIdDelegationsGet200ResponseBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1GovernoratesIdDelegationsGet200ResponseBuilder toBuilder() =>
@@ -46,28 +48,28 @@ class _$V1GovernoratesIdDelegationsGet200Response
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-      r'V1GovernoratesIdDelegationsGet200Response',
-    )..add('delegations', delegations)).toString();
+            r'V1GovernoratesIdDelegationsGet200Response')
+          ..add('delegations', delegations))
+        .toString();
   }
 }
 
 class V1GovernoratesIdDelegationsGet200ResponseBuilder
     implements
-        Builder<
-          V1GovernoratesIdDelegationsGet200Response,
-          V1GovernoratesIdDelegationsGet200ResponseBuilder
-        > {
+        Builder<V1GovernoratesIdDelegationsGet200Response,
+            V1GovernoratesIdDelegationsGet200ResponseBuilder> {
   _$V1GovernoratesIdDelegationsGet200Response? _$v;
 
   ListBuilder<V1GovernoratesIdDelegationsGet200ResponseDelegationsInner>?
-  _delegations;
+      _delegations;
   ListBuilder<V1GovernoratesIdDelegationsGet200ResponseDelegationsInner>
-  get delegations => _$this._delegations ??=
-      ListBuilder<V1GovernoratesIdDelegationsGet200ResponseDelegationsInner>();
+      get delegations => _$this._delegations ??= ListBuilder<
+          V1GovernoratesIdDelegationsGet200ResponseDelegationsInner>();
   set delegations(
-    ListBuilder<V1GovernoratesIdDelegationsGet200ResponseDelegationsInner>?
-    delegations,
-  ) => _$this._delegations = delegations;
+          ListBuilder<
+                  V1GovernoratesIdDelegationsGet200ResponseDelegationsInner>?
+              delegations) =>
+      _$this._delegations = delegations;
 
   V1GovernoratesIdDelegationsGet200ResponseBuilder() {
     V1GovernoratesIdDelegationsGet200Response._defaults(this);
@@ -89,8 +91,8 @@ class V1GovernoratesIdDelegationsGet200ResponseBuilder
 
   @override
   void update(
-    void Function(V1GovernoratesIdDelegationsGet200ResponseBuilder)? updates,
-  ) {
+      void Function(V1GovernoratesIdDelegationsGet200ResponseBuilder)?
+          updates) {
     if (updates != null) updates(this);
   }
 
@@ -100,8 +102,7 @@ class V1GovernoratesIdDelegationsGet200ResponseBuilder
   _$V1GovernoratesIdDelegationsGet200Response _build() {
     _$V1GovernoratesIdDelegationsGet200Response _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           _$V1GovernoratesIdDelegationsGet200Response._(
             delegations: delegations.build(),
           );
@@ -112,10 +113,9 @@ class V1GovernoratesIdDelegationsGet200ResponseBuilder
         delegations.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-          r'V1GovernoratesIdDelegationsGet200Response',
-          _$failedField,
-          e.toString(),
-        );
+            r'V1GovernoratesIdDelegationsGet200Response',
+            _$failedField,
+            e.toString());
       }
       rethrow;
     }

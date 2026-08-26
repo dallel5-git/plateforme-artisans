@@ -17,29 +17,26 @@ class _$V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner
   @override
   final bool isPrimary;
 
-  factory _$V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner([
-    void Function(
-      V1ProvidersSearchGet200ResponseItemsInnerCategoriesInnerBuilder,
-    )?
-    updates,
-  ]) =>
+  factory _$V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner(
+          [void Function(
+                  V1ProvidersSearchGet200ResponseItemsInnerCategoriesInnerBuilder)?
+              updates]) =>
       (V1ProvidersSearchGet200ResponseItemsInnerCategoriesInnerBuilder()
             ..update(updates))
           ._build();
 
-  _$V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner._({
-    required this.slug,
-    required this.nameFr,
-    required this.nameAr,
-    required this.isPrimary,
-  }) : super._();
+  _$V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner._(
+      {required this.slug,
+      required this.nameFr,
+      required this.nameAr,
+      required this.isPrimary})
+      : super._();
   @override
   V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner rebuild(
-    void Function(
-      V1ProvidersSearchGet200ResponseItemsInnerCategoriesInnerBuilder,
-    )
-    updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(
+                  V1ProvidersSearchGet200ResponseItemsInnerCategoriesInnerBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersSearchGet200ResponseItemsInnerCategoriesInnerBuilder toBuilder() =>
@@ -70,8 +67,7 @@ class _$V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner',
-          )
+            r'V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner')
           ..add('slug', slug)
           ..add('nameFr', nameFr)
           ..add('nameAr', nameAr)
@@ -82,10 +78,8 @@ class _$V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner
 
 class V1ProvidersSearchGet200ResponseItemsInnerCategoriesInnerBuilder
     implements
-        Builder<
-          V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner,
-          V1ProvidersSearchGet200ResponseItemsInnerCategoriesInnerBuilder
-        > {
+        Builder<V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner,
+            V1ProvidersSearchGet200ResponseItemsInnerCategoriesInnerBuilder> {
   _$V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner? _$v;
 
   String? _slug;
@@ -127,11 +121,9 @@ class V1ProvidersSearchGet200ResponseItemsInnerCategoriesInnerBuilder
 
   @override
   void update(
-    void Function(
-      V1ProvidersSearchGet200ResponseItemsInnerCategoriesInnerBuilder,
-    )?
-    updates,
-  ) {
+      void Function(
+              V1ProvidersSearchGet200ResponseItemsInnerCategoriesInnerBuilder)?
+          updates) {
     if (updates != null) updates(this);
   }
 
@@ -139,29 +131,24 @@ class V1ProvidersSearchGet200ResponseItemsInnerCategoriesInnerBuilder
   V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner build() => _build();
 
   _$V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         _$V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner._(
           slug: BuiltValueNullFieldError.checkNotNull(
-            slug,
-            r'V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner',
-            'slug',
-          ),
+              slug,
+              r'V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner',
+              'slug'),
           nameFr: BuiltValueNullFieldError.checkNotNull(
-            nameFr,
-            r'V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner',
-            'nameFr',
-          ),
+              nameFr,
+              r'V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner',
+              'nameFr'),
           nameAr: BuiltValueNullFieldError.checkNotNull(
-            nameAr,
-            r'V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner',
-            'nameAr',
-          ),
+              nameAr,
+              r'V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner',
+              'nameAr'),
           isPrimary: BuiltValueNullFieldError.checkNotNull(
-            isPrimary,
-            r'V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner',
-            'isPrimary',
-          ),
+              isPrimary,
+              r'V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner',
+              'isPrimary'),
         );
     replace(_$result);
     return _$result;

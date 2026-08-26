@@ -25,9 +25,9 @@ abstract class V1AuthOtpVerifyPostRequest
 
   V1AuthOtpVerifyPostRequest._();
 
-  factory V1AuthOtpVerifyPostRequest([
-    void updates(V1AuthOtpVerifyPostRequestBuilder b),
-  ]) = _$V1AuthOtpVerifyPostRequest;
+  factory V1AuthOtpVerifyPostRequest(
+          [void updates(V1AuthOtpVerifyPostRequestBuilder b)]) =
+      _$V1AuthOtpVerifyPostRequest;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1AuthOtpVerifyPostRequestBuilder b) => b;
@@ -42,7 +42,7 @@ class _$V1AuthOtpVerifyPostRequestSerializer
   @override
   final Iterable<Type> types = const [
     V1AuthOtpVerifyPostRequest,
-    _$V1AuthOtpVerifyPostRequest,
+    _$V1AuthOtpVerifyPostRequest
   ];
 
   @override
@@ -71,11 +71,9 @@ class _$V1AuthOtpVerifyPostRequestSerializer
     V1AuthOtpVerifyPostRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(
-      serializers,
-      object,
-      specifiedType: specifiedType,
-    ).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -91,21 +89,17 @@ class _$V1AuthOtpVerifyPostRequestSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'phone':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.phone = valueDes;
           break;
         case r'code':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.code = valueDes;
           break;
         default:

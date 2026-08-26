@@ -12,16 +12,16 @@ class _$V1AuthOtpVerifyPostRequest extends V1AuthOtpVerifyPostRequest {
   @override
   final String code;
 
-  factory _$V1AuthOtpVerifyPostRequest([
-    void Function(V1AuthOtpVerifyPostRequestBuilder)? updates,
-  ]) => (V1AuthOtpVerifyPostRequestBuilder()..update(updates))._build();
+  factory _$V1AuthOtpVerifyPostRequest(
+          [void Function(V1AuthOtpVerifyPostRequestBuilder)? updates]) =>
+      (V1AuthOtpVerifyPostRequestBuilder()..update(updates))._build();
 
   _$V1AuthOtpVerifyPostRequest._({required this.phone, required this.code})
-    : super._();
+      : super._();
   @override
   V1AuthOtpVerifyPostRequest rebuild(
-    void Function(V1AuthOtpVerifyPostRequestBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(V1AuthOtpVerifyPostRequestBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1AuthOtpVerifyPostRequestBuilder toBuilder() =>
@@ -94,19 +94,12 @@ class V1AuthOtpVerifyPostRequestBuilder
   V1AuthOtpVerifyPostRequest build() => _build();
 
   _$V1AuthOtpVerifyPostRequest _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         _$V1AuthOtpVerifyPostRequest._(
           phone: BuiltValueNullFieldError.checkNotNull(
-            phone,
-            r'V1AuthOtpVerifyPostRequest',
-            'phone',
-          ),
+              phone, r'V1AuthOtpVerifyPostRequest', 'phone'),
           code: BuiltValueNullFieldError.checkNotNull(
-            code,
-            r'V1AuthOtpVerifyPostRequest',
-            'code',
-          ),
+              code, r'V1AuthOtpVerifyPostRequest', 'code'),
         );
     replace(_$result);
     return _$result;

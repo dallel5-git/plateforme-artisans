@@ -27,10 +27,8 @@ part 'v1_providers_slug_get200_response_offerings_inner.g.dart';
 @BuiltValue()
 abstract class V1ProvidersSlugGet200ResponseOfferingsInner
     implements
-        Built<
-          V1ProvidersSlugGet200ResponseOfferingsInner,
-          V1ProvidersSlugGet200ResponseOfferingsInnerBuilder
-        > {
+        Built<V1ProvidersSlugGet200ResponseOfferingsInner,
+            V1ProvidersSlugGet200ResponseOfferingsInnerBuilder> {
   @BuiltValueField(wireName: r'id')
   String get id;
 
@@ -64,9 +62,10 @@ abstract class V1ProvidersSlugGet200ResponseOfferingsInner
 
   V1ProvidersSlugGet200ResponseOfferingsInner._();
 
-  factory V1ProvidersSlugGet200ResponseOfferingsInner([
-    void updates(V1ProvidersSlugGet200ResponseOfferingsInnerBuilder b),
-  ]) = _$V1ProvidersSlugGet200ResponseOfferingsInner;
+  factory V1ProvidersSlugGet200ResponseOfferingsInner(
+          [void updates(
+              V1ProvidersSlugGet200ResponseOfferingsInnerBuilder b)]) =
+      _$V1ProvidersSlugGet200ResponseOfferingsInner;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1ProvidersSlugGet200ResponseOfferingsInnerBuilder b) =>
@@ -74,7 +73,8 @@ abstract class V1ProvidersSlugGet200ResponseOfferingsInner
 
   @BuiltValueSerializer(custom: true)
   static Serializer<V1ProvidersSlugGet200ResponseOfferingsInner>
-  get serializer => _$V1ProvidersSlugGet200ResponseOfferingsInnerSerializer();
+      get serializer =>
+          _$V1ProvidersSlugGet200ResponseOfferingsInnerSerializer();
 }
 
 class _$V1ProvidersSlugGet200ResponseOfferingsInnerSerializer
@@ -83,7 +83,7 @@ class _$V1ProvidersSlugGet200ResponseOfferingsInnerSerializer
   @override
   final Iterable<Type> types = const [
     V1ProvidersSlugGet200ResponseOfferingsInner,
-    _$V1ProvidersSlugGet200ResponseOfferingsInner,
+    _$V1ProvidersSlugGet200ResponseOfferingsInner
   ];
 
   @override
@@ -102,9 +102,8 @@ class _$V1ProvidersSlugGet200ResponseOfferingsInnerSerializer
     yield r'category';
     yield serializers.serialize(
       object.category,
-      specifiedType: const FullType(
-        V1ProvidersSlugGet200ResponseOfferingsInnerCategory,
-      ),
+      specifiedType:
+          const FullType(V1ProvidersSlugGet200ResponseOfferingsInnerCategory),
     );
     yield r'titleFr';
     yield serializers.serialize(
@@ -135,8 +134,7 @@ class _$V1ProvidersSlugGet200ResponseOfferingsInnerSerializer
     yield serializers.serialize(
       object.priceUnit,
       specifiedType: const FullType(
-        V1ProvidersSlugGet200ResponseOfferingsInnerPriceUnitEnum,
-      ),
+          V1ProvidersSlugGet200ResponseOfferingsInnerPriceUnitEnum),
     );
     yield r'isNegotiable';
     yield serializers.serialize(
@@ -156,11 +154,9 @@ class _$V1ProvidersSlugGet200ResponseOfferingsInnerSerializer
     V1ProvidersSlugGet200ResponseOfferingsInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(
-      serializers,
-      object,
-      specifiedType: specifiedType,
-    ).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -176,97 +172,75 @@ class _$V1ProvidersSlugGet200ResponseOfferingsInnerSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'id':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.id = valueDes;
           break;
         case r'category':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(
-                      V1ProvidersSlugGet200ResponseOfferingsInnerCategory,
-                    ),
-                  )
-                  as V1ProvidersSlugGet200ResponseOfferingsInnerCategory;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+                V1ProvidersSlugGet200ResponseOfferingsInnerCategory),
+          ) as V1ProvidersSlugGet200ResponseOfferingsInnerCategory;
           result.category.replace(valueDes);
           break;
         case r'titleFr':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.titleFr = valueDes;
           break;
         case r'titleAr':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.titleAr = valueDes;
           break;
         case r'description':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.description = valueDes;
           break;
         case r'priceMin':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(num),
-                  )
-                  as num;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
           result.priceMin = valueDes;
           break;
         case r'priceMax':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(num),
-                  )
-                  as num;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
           result.priceMax = valueDes;
           break;
         case r'priceUnit':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(
-                      V1ProvidersSlugGet200ResponseOfferingsInnerPriceUnitEnum,
-                    ),
-                  )
-                  as V1ProvidersSlugGet200ResponseOfferingsInnerPriceUnitEnum;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+                V1ProvidersSlugGet200ResponseOfferingsInnerPriceUnitEnum),
+          ) as V1ProvidersSlugGet200ResponseOfferingsInnerPriceUnitEnum;
           result.priceUnit = valueDes;
           break;
         case r'isNegotiable':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(bool),
-                  )
-                  as bool;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
           result.isNegotiable = valueDes;
           break;
         case r'displayPrice':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.displayPrice = valueDes;
           break;
         default:
@@ -311,28 +285,28 @@ class V1ProvidersSlugGet200ResponseOfferingsInnerPriceUnitEnum
       _$v1ProvidersSlugGet200ResponseOfferingsInnerPriceUnitEnum_DAY;
   @BuiltValueEnumConst(wireName: r'SQUARE_METER')
   static const V1ProvidersSlugGet200ResponseOfferingsInnerPriceUnitEnum
-  SQUARE_METER =
+      SQUARE_METER =
       _$v1ProvidersSlugGet200ResponseOfferingsInnerPriceUnitEnum_SQUARE_METER;
   @BuiltValueEnumConst(wireName: r'LINEAR_METER')
   static const V1ProvidersSlugGet200ResponseOfferingsInnerPriceUnitEnum
-  LINEAR_METER =
+      LINEAR_METER =
       _$v1ProvidersSlugGet200ResponseOfferingsInnerPriceUnitEnum_LINEAR_METER;
   @BuiltValueEnumConst(wireName: r'ON_QUOTE')
   static const V1ProvidersSlugGet200ResponseOfferingsInnerPriceUnitEnum
-  ON_QUOTE =
+      ON_QUOTE =
       _$v1ProvidersSlugGet200ResponseOfferingsInnerPriceUnitEnum_ON_QUOTE;
 
   static Serializer<V1ProvidersSlugGet200ResponseOfferingsInnerPriceUnitEnum>
-  get serializer =>
-      _$v1ProvidersSlugGet200ResponseOfferingsInnerPriceUnitEnumSerializer;
+      get serializer =>
+          _$v1ProvidersSlugGet200ResponseOfferingsInnerPriceUnitEnumSerializer;
 
   const V1ProvidersSlugGet200ResponseOfferingsInnerPriceUnitEnum._(String name)
-    : super(name);
+      : super(name);
 
   static BuiltSet<V1ProvidersSlugGet200ResponseOfferingsInnerPriceUnitEnum>
-  get values =>
-      _$v1ProvidersSlugGet200ResponseOfferingsInnerPriceUnitEnumValues;
+      get values =>
+          _$v1ProvidersSlugGet200ResponseOfferingsInnerPriceUnitEnumValues;
   static V1ProvidersSlugGet200ResponseOfferingsInnerPriceUnitEnum valueOf(
-    String name,
-  ) => _$v1ProvidersSlugGet200ResponseOfferingsInnerPriceUnitEnumValueOf(name);
+          String name) =>
+      _$v1ProvidersSlugGet200ResponseOfferingsInnerPriceUnitEnumValueOf(name);
 }

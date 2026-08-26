@@ -30,10 +30,8 @@ part 'v1_providers_search_get200_response_items_inner.g.dart';
 @BuiltValue()
 abstract class V1ProvidersSearchGet200ResponseItemsInner
     implements
-        Built<
-          V1ProvidersSearchGet200ResponseItemsInner,
-          V1ProvidersSearchGet200ResponseItemsInnerBuilder
-        > {
+        Built<V1ProvidersSearchGet200ResponseItemsInner,
+            V1ProvidersSearchGet200ResponseItemsInnerBuilder> {
   @BuiltValueField(wireName: r'id')
   String get id;
 
@@ -60,12 +58,12 @@ abstract class V1ProvidersSearchGet200ResponseItemsInner
 
   @BuiltValueField(wireName: r'availabilityStatus')
   V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum
-  get availabilityStatus;
+      get availabilityStatus;
   // enum availabilityStatusEnum {  AVAILABLE,  BUSY,  ON_HOLIDAY,  };
 
   @BuiltValueField(wireName: r'categories')
   BuiltList<V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner>
-  get categories;
+      get categories;
 
   @BuiltValueField(wireName: r'score')
   num? get score;
@@ -75,9 +73,9 @@ abstract class V1ProvidersSearchGet200ResponseItemsInner
 
   V1ProvidersSearchGet200ResponseItemsInner._();
 
-  factory V1ProvidersSearchGet200ResponseItemsInner([
-    void updates(V1ProvidersSearchGet200ResponseItemsInnerBuilder b),
-  ]) = _$V1ProvidersSearchGet200ResponseItemsInner;
+  factory V1ProvidersSearchGet200ResponseItemsInner(
+          [void updates(V1ProvidersSearchGet200ResponseItemsInnerBuilder b)]) =
+      _$V1ProvidersSearchGet200ResponseItemsInner;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1ProvidersSearchGet200ResponseItemsInnerBuilder b) =>
@@ -93,7 +91,7 @@ class _$V1ProvidersSearchGet200ResponseItemsInnerSerializer
   @override
   final Iterable<Type> types = const [
     V1ProvidersSearchGet200ResponseItemsInner,
-    _$V1ProvidersSearchGet200ResponseItemsInner,
+    _$V1ProvidersSearchGet200ResponseItemsInner
   ];
 
   @override
@@ -148,15 +146,13 @@ class _$V1ProvidersSearchGet200ResponseItemsInnerSerializer
     yield serializers.serialize(
       object.availabilityStatus,
       specifiedType: const FullType(
-        V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum,
-      ),
+          V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum),
     );
     yield r'categories';
     yield serializers.serialize(
       object.categories,
-      specifiedType: const FullType(BuiltList, [
-        FullType(V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner),
-      ]),
+      specifiedType: const FullType(BuiltList,
+          [FullType(V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner)]),
     );
     if (object.score != null) {
       yield r'score';
@@ -170,8 +166,7 @@ class _$V1ProvidersSearchGet200ResponseItemsInnerSerializer
       yield serializers.serialize(
         object.matchReason,
         specifiedType: const FullType(
-          V1ProvidersSearchGet200ResponseItemsInnerMatchReason,
-        ),
+            V1ProvidersSearchGet200ResponseItemsInnerMatchReason),
       );
     }
   }
@@ -182,11 +177,9 @@ class _$V1ProvidersSearchGet200ResponseItemsInnerSerializer
     V1ProvidersSearchGet200ResponseItemsInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(
-      serializers,
-      object,
-      specifiedType: specifiedType,
-    ).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -202,121 +195,92 @@ class _$V1ProvidersSearchGet200ResponseItemsInnerSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'id':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.id = valueDes;
           break;
         case r'slug':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.slug = valueDes;
           break;
         case r'businessName':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.businessName = valueDes;
           break;
         case r'headline':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.headline = valueDes;
           break;
         case r'isVerified':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(bool),
-                  )
-                  as bool;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
           result.isVerified = valueDes;
           break;
         case r'ratingAvg':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(num),
-                  )
-                  as num;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
           result.ratingAvg = valueDes;
           break;
         case r'ratingCount':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(int),
-                  )
-                  as int;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
           result.ratingCount = valueDes;
           break;
         case r'completionScore':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(int),
-                  )
-                  as int;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
           result.completionScore = valueDes;
           break;
         case r'availabilityStatus':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(
-                      V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum,
-                    ),
-                  )
-                  as V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+                V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum),
+          ) as V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum;
           result.availabilityStatus = valueDes;
           break;
         case r'categories':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(BuiltList, [
-                      FullType(
-                        V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner,
-                      ),
-                    ]),
-                  )
-                  as BuiltList<
-                    V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner
-                  >;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [
+              FullType(V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner)
+            ]),
+          ) as BuiltList<
+              V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner>;
           result.categories.replace(valueDes);
           break;
         case r'score':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(num),
-                  )
-                  as num;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
           result.score = valueDes;
           break;
         case r'matchReason':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(
-                      V1ProvidersSearchGet200ResponseItemsInnerMatchReason,
-                    ),
-                  )
-                  as V1ProvidersSearchGet200ResponseItemsInnerMatchReason;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+                V1ProvidersSearchGet200ResponseItemsInnerMatchReason),
+          ) as V1ProvidersSearchGet200ResponseItemsInnerMatchReason;
           result.matchReason = valueDes.toBuilder();
           break;
         default:
@@ -352,34 +316,32 @@ class V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum
     extends EnumClass {
   @BuiltValueEnumConst(wireName: r'AVAILABLE')
   static const V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum
-  AVAILABLE =
+      AVAILABLE =
       _$v1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum_AVAILABLE;
   @BuiltValueEnumConst(wireName: r'BUSY')
   static const V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum
-  BUSY = _$v1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum_BUSY;
+      BUSY =
+      _$v1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum_BUSY;
   @BuiltValueEnumConst(wireName: r'ON_HOLIDAY')
   static const V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum
-  ON_HOLIDAY =
+      ON_HOLIDAY =
       _$v1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum_ON_HOLIDAY;
 
   static Serializer<
-    V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum
-  >
-  get serializer =>
-      _$v1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnumSerializer;
+          V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum>
+      get serializer =>
+          _$v1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnumSerializer;
 
   const V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum._(
-    String name,
-  ) : super(name);
+      String name)
+      : super(name);
 
   static BuiltSet<
-    V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum
-  >
-  get values =>
-      _$v1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnumValues;
-  static V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum
-  valueOf(String name) =>
+          V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum>
+      get values =>
+          _$v1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnumValues;
+  static V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum valueOf(
+          String name) =>
       _$v1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnumValueOf(
-        name,
-      );
+          name);
 }

@@ -23,28 +23,29 @@ class _$V1ProvidersSearchGet200ResponseItemsInnerMatchReason
   @override
   final num penalty;
 
-  factory _$V1ProvidersSearchGet200ResponseItemsInnerMatchReason([
-    void Function(V1ProvidersSearchGet200ResponseItemsInnerMatchReasonBuilder)?
-    updates,
-  ]) =>
+  factory _$V1ProvidersSearchGet200ResponseItemsInnerMatchReason(
+          [void Function(
+                  V1ProvidersSearchGet200ResponseItemsInnerMatchReasonBuilder)?
+              updates]) =>
       (V1ProvidersSearchGet200ResponseItemsInnerMatchReasonBuilder()
             ..update(updates))
           ._build();
 
-  _$V1ProvidersSearchGet200ResponseItemsInnerMatchReason._({
-    required this.geo,
-    required this.rating,
-    required this.trust,
-    required this.completion,
-    required this.responsiveness,
-    required this.plan,
-    required this.penalty,
-  }) : super._();
+  _$V1ProvidersSearchGet200ResponseItemsInnerMatchReason._(
+      {required this.geo,
+      required this.rating,
+      required this.trust,
+      required this.completion,
+      required this.responsiveness,
+      required this.plan,
+      required this.penalty})
+      : super._();
   @override
   V1ProvidersSearchGet200ResponseItemsInnerMatchReason rebuild(
-    void Function(V1ProvidersSearchGet200ResponseItemsInnerMatchReasonBuilder)
-    updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(
+                  V1ProvidersSearchGet200ResponseItemsInnerMatchReasonBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersSearchGet200ResponseItemsInnerMatchReasonBuilder toBuilder() =>
@@ -81,8 +82,7 @@ class _$V1ProvidersSearchGet200ResponseItemsInnerMatchReason
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'V1ProvidersSearchGet200ResponseItemsInnerMatchReason',
-          )
+            r'V1ProvidersSearchGet200ResponseItemsInnerMatchReason')
           ..add('geo', geo)
           ..add('rating', rating)
           ..add('trust', trust)
@@ -96,10 +96,8 @@ class _$V1ProvidersSearchGet200ResponseItemsInnerMatchReason
 
 class V1ProvidersSearchGet200ResponseItemsInnerMatchReasonBuilder
     implements
-        Builder<
-          V1ProvidersSearchGet200ResponseItemsInnerMatchReason,
-          V1ProvidersSearchGet200ResponseItemsInnerMatchReasonBuilder
-        > {
+        Builder<V1ProvidersSearchGet200ResponseItemsInnerMatchReason,
+            V1ProvidersSearchGet200ResponseItemsInnerMatchReasonBuilder> {
   _$V1ProvidersSearchGet200ResponseItemsInnerMatchReason? _$v;
 
   num? _geo;
@@ -157,9 +155,9 @@ class V1ProvidersSearchGet200ResponseItemsInnerMatchReasonBuilder
 
   @override
   void update(
-    void Function(V1ProvidersSearchGet200ResponseItemsInnerMatchReasonBuilder)?
-    updates,
-  ) {
+      void Function(
+              V1ProvidersSearchGet200ResponseItemsInnerMatchReasonBuilder)?
+          updates) {
     if (updates != null) updates(this);
   }
 
@@ -167,44 +165,30 @@ class V1ProvidersSearchGet200ResponseItemsInnerMatchReasonBuilder
   V1ProvidersSearchGet200ResponseItemsInnerMatchReason build() => _build();
 
   _$V1ProvidersSearchGet200ResponseItemsInnerMatchReason _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         _$V1ProvidersSearchGet200ResponseItemsInnerMatchReason._(
-          geo: BuiltValueNullFieldError.checkNotNull(
-            geo,
-            r'V1ProvidersSearchGet200ResponseItemsInnerMatchReason',
-            'geo',
-          ),
+          geo: BuiltValueNullFieldError.checkNotNull(geo,
+              r'V1ProvidersSearchGet200ResponseItemsInnerMatchReason', 'geo'),
           rating: BuiltValueNullFieldError.checkNotNull(
-            rating,
-            r'V1ProvidersSearchGet200ResponseItemsInnerMatchReason',
-            'rating',
-          ),
-          trust: BuiltValueNullFieldError.checkNotNull(
-            trust,
-            r'V1ProvidersSearchGet200ResponseItemsInnerMatchReason',
-            'trust',
-          ),
+              rating,
+              r'V1ProvidersSearchGet200ResponseItemsInnerMatchReason',
+              'rating'),
+          trust: BuiltValueNullFieldError.checkNotNull(trust,
+              r'V1ProvidersSearchGet200ResponseItemsInnerMatchReason', 'trust'),
           completion: BuiltValueNullFieldError.checkNotNull(
-            completion,
-            r'V1ProvidersSearchGet200ResponseItemsInnerMatchReason',
-            'completion',
-          ),
+              completion,
+              r'V1ProvidersSearchGet200ResponseItemsInnerMatchReason',
+              'completion'),
           responsiveness: BuiltValueNullFieldError.checkNotNull(
-            responsiveness,
-            r'V1ProvidersSearchGet200ResponseItemsInnerMatchReason',
-            'responsiveness',
-          ),
-          plan: BuiltValueNullFieldError.checkNotNull(
-            plan,
-            r'V1ProvidersSearchGet200ResponseItemsInnerMatchReason',
-            'plan',
-          ),
+              responsiveness,
+              r'V1ProvidersSearchGet200ResponseItemsInnerMatchReason',
+              'responsiveness'),
+          plan: BuiltValueNullFieldError.checkNotNull(plan,
+              r'V1ProvidersSearchGet200ResponseItemsInnerMatchReason', 'plan'),
           penalty: BuiltValueNullFieldError.checkNotNull(
-            penalty,
-            r'V1ProvidersSearchGet200ResponseItemsInnerMatchReason',
-            'penalty',
-          ),
+              penalty,
+              r'V1ProvidersSearchGet200ResponseItemsInnerMatchReason',
+              'penalty'),
         );
     replace(_$result);
     return _$result;

@@ -17,10 +17,8 @@ part 'v1_providers_me_categories_put_request_categories_inner.g.dart';
 @BuiltValue()
 abstract class V1ProvidersMeCategoriesPutRequestCategoriesInner
     implements
-        Built<
-          V1ProvidersMeCategoriesPutRequestCategoriesInner,
-          V1ProvidersMeCategoriesPutRequestCategoriesInnerBuilder
-        > {
+        Built<V1ProvidersMeCategoriesPutRequestCategoriesInner,
+            V1ProvidersMeCategoriesPutRequestCategoriesInnerBuilder> {
   @BuiltValueField(wireName: r'categoryId')
   String get categoryId;
 
@@ -32,19 +30,20 @@ abstract class V1ProvidersMeCategoriesPutRequestCategoriesInner
 
   V1ProvidersMeCategoriesPutRequestCategoriesInner._();
 
-  factory V1ProvidersMeCategoriesPutRequestCategoriesInner([
-    void updates(V1ProvidersMeCategoriesPutRequestCategoriesInnerBuilder b),
-  ]) = _$V1ProvidersMeCategoriesPutRequestCategoriesInner;
+  factory V1ProvidersMeCategoriesPutRequestCategoriesInner(
+          [void updates(
+              V1ProvidersMeCategoriesPutRequestCategoriesInnerBuilder b)]) =
+      _$V1ProvidersMeCategoriesPutRequestCategoriesInner;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(
-    V1ProvidersMeCategoriesPutRequestCategoriesInnerBuilder b,
-  ) => b;
+          V1ProvidersMeCategoriesPutRequestCategoriesInnerBuilder b) =>
+      b;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<V1ProvidersMeCategoriesPutRequestCategoriesInner>
-  get serializer =>
-      _$V1ProvidersMeCategoriesPutRequestCategoriesInnerSerializer();
+      get serializer =>
+          _$V1ProvidersMeCategoriesPutRequestCategoriesInnerSerializer();
 }
 
 class _$V1ProvidersMeCategoriesPutRequestCategoriesInnerSerializer
@@ -53,7 +52,7 @@ class _$V1ProvidersMeCategoriesPutRequestCategoriesInnerSerializer
   @override
   final Iterable<Type> types = const [
     V1ProvidersMeCategoriesPutRequestCategoriesInner,
-    _$V1ProvidersMeCategoriesPutRequestCategoriesInner,
+    _$V1ProvidersMeCategoriesPutRequestCategoriesInner
   ];
 
   @override
@@ -89,11 +88,9 @@ class _$V1ProvidersMeCategoriesPutRequestCategoriesInnerSerializer
     V1ProvidersMeCategoriesPutRequestCategoriesInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(
-      serializers,
-      object,
-      specifiedType: specifiedType,
-    ).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -109,30 +106,24 @@ class _$V1ProvidersMeCategoriesPutRequestCategoriesInnerSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'categoryId':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.categoryId = valueDes;
           break;
         case r'isPrimary':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(bool),
-                  )
-                  as bool;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
           result.isPrimary = valueDes;
           break;
         case r'yearsExperience':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(int),
-                  )
-                  as int;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
           result.yearsExperience = valueDes;
           break;
         default:

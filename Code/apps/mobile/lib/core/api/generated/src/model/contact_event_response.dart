@@ -58,7 +58,7 @@ class _$ContactEventResponseSerializer
   @override
   final Iterable<Type> types = const [
     ContactEventResponse,
-    _$ContactEventResponse,
+    _$ContactEventResponse
   ];
 
   @override
@@ -109,11 +109,9 @@ class _$ContactEventResponseSerializer
     ContactEventResponse object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(
-      serializers,
-      object,
-      specifiedType: specifiedType,
-    ).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -129,59 +127,45 @@ class _$ContactEventResponseSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'contactEventId':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.contactEventId = valueDes;
           break;
         case r'providerId':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.providerId = valueDes;
           break;
         case r'channel':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(
-                      ContactEventResponseChannelEnum,
-                    ),
-                  )
-                  as ContactEventResponseChannelEnum;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(ContactEventResponseChannelEnum),
+          ) as ContactEventResponseChannelEnum;
           result.channel = valueDes;
           break;
         case r'phone':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.phone = valueDes;
           break;
         case r'whatsappMessage':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.whatsappMessage = valueDes;
           break;
         case r'deduplicated':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(bool),
-                  )
-                  as bool;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
           result.deduplicated = valueDes;
           break;
         default:

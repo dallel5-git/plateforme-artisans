@@ -21,10 +21,8 @@ part 'v1_providers_slug_get200_response_review_aggregate_breakdown.g.dart';
 @BuiltValue()
 abstract class V1ProvidersSlugGet200ResponseReviewAggregateBreakdown
     implements
-        Built<
-          V1ProvidersSlugGet200ResponseReviewAggregateBreakdown,
-          V1ProvidersSlugGet200ResponseReviewAggregateBreakdownBuilder
-        > {
+        Built<V1ProvidersSlugGet200ResponseReviewAggregateBreakdown,
+            V1ProvidersSlugGet200ResponseReviewAggregateBreakdownBuilder> {
   @BuiltValueField(wireName: r'1')
   int get n1;
 
@@ -42,32 +40,30 @@ abstract class V1ProvidersSlugGet200ResponseReviewAggregateBreakdown
 
   V1ProvidersSlugGet200ResponseReviewAggregateBreakdown._();
 
-  factory V1ProvidersSlugGet200ResponseReviewAggregateBreakdown([
-    void updates(
-      V1ProvidersSlugGet200ResponseReviewAggregateBreakdownBuilder b,
-    ),
-  ]) = _$V1ProvidersSlugGet200ResponseReviewAggregateBreakdown;
+  factory V1ProvidersSlugGet200ResponseReviewAggregateBreakdown(
+      [void updates(
+          V1ProvidersSlugGet200ResponseReviewAggregateBreakdownBuilder
+              b)]) = _$V1ProvidersSlugGet200ResponseReviewAggregateBreakdown;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(
-    V1ProvidersSlugGet200ResponseReviewAggregateBreakdownBuilder b,
-  ) => b;
+          V1ProvidersSlugGet200ResponseReviewAggregateBreakdownBuilder b) =>
+      b;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<V1ProvidersSlugGet200ResponseReviewAggregateBreakdown>
-  get serializer =>
-      _$V1ProvidersSlugGet200ResponseReviewAggregateBreakdownSerializer();
+      get serializer =>
+          _$V1ProvidersSlugGet200ResponseReviewAggregateBreakdownSerializer();
 }
 
 class _$V1ProvidersSlugGet200ResponseReviewAggregateBreakdownSerializer
     implements
         PrimitiveSerializer<
-          V1ProvidersSlugGet200ResponseReviewAggregateBreakdown
-        > {
+            V1ProvidersSlugGet200ResponseReviewAggregateBreakdown> {
   @override
   final Iterable<Type> types = const [
     V1ProvidersSlugGet200ResponseReviewAggregateBreakdown,
-    _$V1ProvidersSlugGet200ResponseReviewAggregateBreakdown,
+    _$V1ProvidersSlugGet200ResponseReviewAggregateBreakdown
   ];
 
   @override
@@ -112,11 +108,9 @@ class _$V1ProvidersSlugGet200ResponseReviewAggregateBreakdownSerializer
     V1ProvidersSlugGet200ResponseReviewAggregateBreakdown object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(
-      serializers,
-      object,
-      specifiedType: specifiedType,
-    ).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -125,7 +119,7 @@ class _$V1ProvidersSlugGet200ResponseReviewAggregateBreakdownSerializer
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
     required V1ProvidersSlugGet200ResponseReviewAggregateBreakdownBuilder
-    result,
+        result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -133,48 +127,38 @@ class _$V1ProvidersSlugGet200ResponseReviewAggregateBreakdownSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'1':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(int),
-                  )
-                  as int;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
           result.n1 = valueDes;
           break;
         case r'2':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(int),
-                  )
-                  as int;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
           result.n2 = valueDes;
           break;
         case r'3':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(int),
-                  )
-                  as int;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
           result.n3 = valueDes;
           break;
         case r'4':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(int),
-                  )
-                  as int;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
           result.n4 = valueDes;
           break;
         case r'5':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(int),
-                  )
-                  as int;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
           result.n5 = valueDes;
           break;
         default:

@@ -20,10 +20,8 @@ part 'v1_providers_me_post200_response.g.dart';
 @BuiltValue()
 abstract class V1ProvidersMePost200Response
     implements
-        Built<
-          V1ProvidersMePost200Response,
-          V1ProvidersMePost200ResponseBuilder
-        > {
+        Built<V1ProvidersMePost200Response,
+            V1ProvidersMePost200ResponseBuilder> {
   @BuiltValueField(wireName: r'accessToken')
   String get accessToken;
 
@@ -35,9 +33,9 @@ abstract class V1ProvidersMePost200Response
 
   V1ProvidersMePost200Response._();
 
-  factory V1ProvidersMePost200Response([
-    void updates(V1ProvidersMePost200ResponseBuilder b),
-  ]) = _$V1ProvidersMePost200Response;
+  factory V1ProvidersMePost200Response(
+          [void updates(V1ProvidersMePost200ResponseBuilder b)]) =
+      _$V1ProvidersMePost200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1ProvidersMePost200ResponseBuilder b) => b;
@@ -52,7 +50,7 @@ class _$V1ProvidersMePost200ResponseSerializer
   @override
   final Iterable<Type> types = const [
     V1ProvidersMePost200Response,
-    _$V1ProvidersMePost200Response,
+    _$V1ProvidersMePost200Response
   ];
 
   @override
@@ -86,11 +84,9 @@ class _$V1ProvidersMePost200ResponseSerializer
     V1ProvidersMePost200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(
-      serializers,
-      object,
-      specifiedType: specifiedType,
-    ).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -106,32 +102,24 @@ class _$V1ProvidersMePost200ResponseSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'accessToken':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.accessToken = valueDes;
           break;
         case r'refreshToken':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.refreshToken = valueDes;
           break;
         case r'provider':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(
-                      V1ProvidersMePost200ResponseProvider,
-                    ),
-                  )
-                  as V1ProvidersMePost200ResponseProvider;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(V1ProvidersMePost200ResponseProvider),
+          ) as V1ProvidersMePost200ResponseProvider;
           result.provider = valueDes.toBuilder();
           break;
         default:

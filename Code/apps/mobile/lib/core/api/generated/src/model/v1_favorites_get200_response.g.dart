@@ -12,16 +12,16 @@ class _$V1FavoritesGet200Response extends V1FavoritesGet200Response {
   @override
   final String nextCursor;
 
-  factory _$V1FavoritesGet200Response([
-    void Function(V1FavoritesGet200ResponseBuilder)? updates,
-  ]) => (V1FavoritesGet200ResponseBuilder()..update(updates))._build();
+  factory _$V1FavoritesGet200Response(
+          [void Function(V1FavoritesGet200ResponseBuilder)? updates]) =>
+      (V1FavoritesGet200ResponseBuilder()..update(updates))._build();
 
   _$V1FavoritesGet200Response._({required this.items, required this.nextCursor})
-    : super._();
+      : super._();
   @override
   V1FavoritesGet200Response rebuild(
-    void Function(V1FavoritesGet200ResponseBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(V1FavoritesGet200ResponseBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1FavoritesGet200ResponseBuilder toBuilder() =>
@@ -98,15 +98,11 @@ class V1FavoritesGet200ResponseBuilder
   _$V1FavoritesGet200Response _build() {
     _$V1FavoritesGet200Response _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           _$V1FavoritesGet200Response._(
             items: items.build(),
             nextCursor: BuiltValueNullFieldError.checkNotNull(
-              nextCursor,
-              r'V1FavoritesGet200Response',
-              'nextCursor',
-            ),
+                nextCursor, r'V1FavoritesGet200Response', 'nextCursor'),
           );
     } catch (_) {
       late String _$failedField;
@@ -115,10 +111,7 @@ class V1FavoritesGet200ResponseBuilder
         items.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-          r'V1FavoritesGet200Response',
-          _$failedField,
-          e.toString(),
-        );
+            r'V1FavoritesGet200Response', _$failedField, e.toString());
       }
       rethrow;
     }

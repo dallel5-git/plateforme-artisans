@@ -15,24 +15,25 @@ class _$V1ProvidersMeCategoriesPut200ResponseCategoriesInner
   @override
   final int yearsExperience;
 
-  factory _$V1ProvidersMeCategoriesPut200ResponseCategoriesInner([
-    void Function(V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder)?
-    updates,
-  ]) =>
+  factory _$V1ProvidersMeCategoriesPut200ResponseCategoriesInner(
+          [void Function(
+                  V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder)?
+              updates]) =>
       (V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder()
             ..update(updates))
           ._build();
 
-  _$V1ProvidersMeCategoriesPut200ResponseCategoriesInner._({
-    required this.categoryId,
-    required this.isPrimary,
-    required this.yearsExperience,
-  }) : super._();
+  _$V1ProvidersMeCategoriesPut200ResponseCategoriesInner._(
+      {required this.categoryId,
+      required this.isPrimary,
+      required this.yearsExperience})
+      : super._();
   @override
   V1ProvidersMeCategoriesPut200ResponseCategoriesInner rebuild(
-    void Function(V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder)
-    updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(
+                  V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder)
+              updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder toBuilder() =>
@@ -61,8 +62,7 @@ class _$V1ProvidersMeCategoriesPut200ResponseCategoriesInner
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'V1ProvidersMeCategoriesPut200ResponseCategoriesInner',
-          )
+            r'V1ProvidersMeCategoriesPut200ResponseCategoriesInner')
           ..add('categoryId', categoryId)
           ..add('isPrimary', isPrimary)
           ..add('yearsExperience', yearsExperience))
@@ -72,10 +72,8 @@ class _$V1ProvidersMeCategoriesPut200ResponseCategoriesInner
 
 class V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder
     implements
-        Builder<
-          V1ProvidersMeCategoriesPut200ResponseCategoriesInner,
-          V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder
-        > {
+        Builder<V1ProvidersMeCategoriesPut200ResponseCategoriesInner,
+            V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder> {
   _$V1ProvidersMeCategoriesPut200ResponseCategoriesInner? _$v;
 
   String? _categoryId;
@@ -113,9 +111,9 @@ class V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder
 
   @override
   void update(
-    void Function(V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder)?
-    updates,
-  ) {
+      void Function(
+              V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder)?
+          updates) {
     if (updates != null) updates(this);
   }
 
@@ -123,24 +121,20 @@ class V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder
   V1ProvidersMeCategoriesPut200ResponseCategoriesInner build() => _build();
 
   _$V1ProvidersMeCategoriesPut200ResponseCategoriesInner _build() {
-    final _$result =
-        _$v ??
+    final _$result = _$v ??
         _$V1ProvidersMeCategoriesPut200ResponseCategoriesInner._(
           categoryId: BuiltValueNullFieldError.checkNotNull(
-            categoryId,
-            r'V1ProvidersMeCategoriesPut200ResponseCategoriesInner',
-            'categoryId',
-          ),
+              categoryId,
+              r'V1ProvidersMeCategoriesPut200ResponseCategoriesInner',
+              'categoryId'),
           isPrimary: BuiltValueNullFieldError.checkNotNull(
-            isPrimary,
-            r'V1ProvidersMeCategoriesPut200ResponseCategoriesInner',
-            'isPrimary',
-          ),
+              isPrimary,
+              r'V1ProvidersMeCategoriesPut200ResponseCategoriesInner',
+              'isPrimary'),
           yearsExperience: BuiltValueNullFieldError.checkNotNull(
-            yearsExperience,
-            r'V1ProvidersMeCategoriesPut200ResponseCategoriesInner',
-            'yearsExperience',
-          ),
+              yearsExperience,
+              r'V1ProvidersMeCategoriesPut200ResponseCategoriesInner',
+              'yearsExperience'),
         );
     replace(_$result);
     return _$result;

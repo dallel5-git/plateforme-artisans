@@ -10,19 +10,19 @@ class _$V1ProvidersMeCoverageAreasPutRequest
     extends V1ProvidersMeCoverageAreasPutRequest {
   @override
   final BuiltList<V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner>
-  coverageAreas;
+      coverageAreas;
 
-  factory _$V1ProvidersMeCoverageAreasPutRequest([
-    void Function(V1ProvidersMeCoverageAreasPutRequestBuilder)? updates,
-  ]) =>
+  factory _$V1ProvidersMeCoverageAreasPutRequest(
+          [void Function(V1ProvidersMeCoverageAreasPutRequestBuilder)?
+              updates]) =>
       (V1ProvidersMeCoverageAreasPutRequestBuilder()..update(updates))._build();
 
   _$V1ProvidersMeCoverageAreasPutRequest._({required this.coverageAreas})
-    : super._();
+      : super._();
   @override
   V1ProvidersMeCoverageAreasPutRequest rebuild(
-    void Function(V1ProvidersMeCoverageAreasPutRequestBuilder) updates,
-  ) => (toBuilder()..update(updates)).build();
+          void Function(V1ProvidersMeCoverageAreasPutRequestBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   V1ProvidersMeCoverageAreasPutRequestBuilder toBuilder() =>
@@ -45,29 +45,27 @@ class _$V1ProvidersMeCoverageAreasPutRequest
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(
-      r'V1ProvidersMeCoverageAreasPutRequest',
-    )..add('coverageAreas', coverageAreas)).toString();
+    return (newBuiltValueToStringHelper(r'V1ProvidersMeCoverageAreasPutRequest')
+          ..add('coverageAreas', coverageAreas))
+        .toString();
   }
 }
 
 class V1ProvidersMeCoverageAreasPutRequestBuilder
     implements
-        Builder<
-          V1ProvidersMeCoverageAreasPutRequest,
-          V1ProvidersMeCoverageAreasPutRequestBuilder
-        > {
+        Builder<V1ProvidersMeCoverageAreasPutRequest,
+            V1ProvidersMeCoverageAreasPutRequestBuilder> {
   _$V1ProvidersMeCoverageAreasPutRequest? _$v;
 
   ListBuilder<V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner>?
-  _coverageAreas;
+      _coverageAreas;
   ListBuilder<V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner>
-  get coverageAreas => _$this._coverageAreas ??=
-      ListBuilder<V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner>();
+      get coverageAreas => _$this._coverageAreas ??=
+          ListBuilder<V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner>();
   set coverageAreas(
-    ListBuilder<V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner>?
-    coverageAreas,
-  ) => _$this._coverageAreas = coverageAreas;
+          ListBuilder<V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner>?
+              coverageAreas) =>
+      _$this._coverageAreas = coverageAreas;
 
   V1ProvidersMeCoverageAreasPutRequestBuilder() {
     V1ProvidersMeCoverageAreasPutRequest._defaults(this);
@@ -89,8 +87,7 @@ class V1ProvidersMeCoverageAreasPutRequestBuilder
 
   @override
   void update(
-    void Function(V1ProvidersMeCoverageAreasPutRequestBuilder)? updates,
-  ) {
+      void Function(V1ProvidersMeCoverageAreasPutRequestBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -100,8 +97,7 @@ class V1ProvidersMeCoverageAreasPutRequestBuilder
   _$V1ProvidersMeCoverageAreasPutRequest _build() {
     _$V1ProvidersMeCoverageAreasPutRequest _$result;
     try {
-      _$result =
-          _$v ??
+      _$result = _$v ??
           _$V1ProvidersMeCoverageAreasPutRequest._(
             coverageAreas: coverageAreas.build(),
           );
@@ -112,10 +108,9 @@ class V1ProvidersMeCoverageAreasPutRequestBuilder
         coverageAreas.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-          r'V1ProvidersMeCoverageAreasPutRequest',
-          _$failedField,
-          e.toString(),
-        );
+            r'V1ProvidersMeCoverageAreasPutRequest',
+            _$failedField,
+            e.toString());
       }
       rethrow;
     }

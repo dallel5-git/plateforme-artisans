@@ -17,10 +17,8 @@ part 'v1_providers_me_portfolio_post_request.g.dart';
 @BuiltValue()
 abstract class V1ProvidersMePortfolioPostRequest
     implements
-        Built<
-          V1ProvidersMePortfolioPostRequest,
-          V1ProvidersMePortfolioPostRequestBuilder
-        > {
+        Built<V1ProvidersMePortfolioPostRequest,
+            V1ProvidersMePortfolioPostRequestBuilder> {
   @BuiltValueField(wireName: r'mediaId')
   String get mediaId;
 
@@ -32,9 +30,9 @@ abstract class V1ProvidersMePortfolioPostRequest
 
   V1ProvidersMePortfolioPostRequest._();
 
-  factory V1ProvidersMePortfolioPostRequest([
-    void updates(V1ProvidersMePortfolioPostRequestBuilder b),
-  ]) = _$V1ProvidersMePortfolioPostRequest;
+  factory V1ProvidersMePortfolioPostRequest(
+          [void updates(V1ProvidersMePortfolioPostRequestBuilder b)]) =
+      _$V1ProvidersMePortfolioPostRequest;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(V1ProvidersMePortfolioPostRequestBuilder b) => b;
@@ -49,7 +47,7 @@ class _$V1ProvidersMePortfolioPostRequestSerializer
   @override
   final Iterable<Type> types = const [
     V1ProvidersMePortfolioPostRequest,
-    _$V1ProvidersMePortfolioPostRequest,
+    _$V1ProvidersMePortfolioPostRequest
   ];
 
   @override
@@ -87,11 +85,9 @@ class _$V1ProvidersMePortfolioPostRequestSerializer
     V1ProvidersMePortfolioPostRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(
-      serializers,
-      object,
-      specifiedType: specifiedType,
-    ).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -107,30 +103,24 @@ class _$V1ProvidersMePortfolioPostRequestSerializer
       final value = serializedList[i + 1];
       switch (key) {
         case r'mediaId':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.mediaId = valueDes;
           break;
         case r'categoryId':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.categoryId = valueDes;
           break;
         case r'caption':
-          final valueDes =
-              serializers.deserialize(
-                    value,
-                    specifiedType: const FullType(String),
-                  )
-                  as String;
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
           result.caption = valueDes;
           break;
         default:
