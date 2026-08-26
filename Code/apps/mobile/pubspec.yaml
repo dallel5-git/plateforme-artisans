@@ -37,8 +37,9 @@ dependencies:
 dev_dependencies:
   build_runner: ^2.15.1
   # FM-02b : build_runner ci-dessus est déjà requis par slang_build_runner (FM-03) — réutilisé
-  # tel quel pour le client généré, qui n'a besoin que de built_value_generator en plus.
-  built_value_generator: ">=8.4.0 <9.0.0"
+  # tel quel pour le client généré, qui n'a besoin que de built_value_generator en plus. Version
+  # exacte, alignée sur PINNED_GENERATOR_DEPENDENCIES (tooling/scripts/mobile-client.mjs).
+  built_value_generator: 8.12.7
   flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
