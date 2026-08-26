@@ -20,7 +20,7 @@ sealed class SanayaApiException implements Exception {
   final Map<String, dynamic>? details;
 
   @override
-  String toString() => '$runtimeType($code): $message';
+  String toString() => 'SanayaApiException($code): $message';
 }
 
 /// Pas de réponse serveur : hors ligne, timeout, DNS, connexion refusée…
@@ -181,7 +181,7 @@ SanayaApiException mapDioExceptionToApiException(DioException error) {
 }
 
 /// Exécute [call] et relance le [SanayaApiException] typé porté par
-/// `DioException.error` (attaché par [ErrorMappingInterceptor]) au lieu du
+/// `DioException.error` (attaché par `ErrorMappingInterceptor`) au lieu du
 /// [DioException] qui l'enveloppe — c'est ce qui permet à un appelant
 /// d'écrire `on UnauthorizedException catch (e)` directement plutôt que de
 /// déballer `DioException.error` à chaque site d'appel. Un [DioException]
