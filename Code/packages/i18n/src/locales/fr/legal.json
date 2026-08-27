@@ -1,1 +1,11 @@
-{}
+{
+  "title": "Mentions légales",
+  "editorTitle": "Éditeur de la plateforme",
+  "editorContent": "Sanaya — Plateforme de mise en relation entre particuliers et artisans tunisiens (Sahel : Sousse, Monastir, Mahdia).",
+  "modelTitle": "Modèle de service",
+  "modelContent": "Sanaya est un service de génération de contacts qualifiés. La plateforme n'encaisse jamais le montant des prestations et n'intervient pas dans le paiement direct du chantier.",
+  "inpdpTitle": "Protection des données personnelles (INPDP)",
+  "inpdpContent": "Conformément à la loi organique n° 2004-63, Sanaya s'engage à protéger la vie privée de ses utilisateurs. Les numéros de téléphone ne sont révélés que lors d'une mise en relation volontaire et tracée.",
+  "rightsTitle": "Vos droits",
+  "rightsContent": "Vous disposez d'un droit d'accès, de rectification et de suppression de vos données personnelles à tout moment."
+}

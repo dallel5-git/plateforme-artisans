@@ -9,8 +9,8 @@ _Sprint S1 · dernière mise à jour : 2026-08-27_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
+| `FM-13` | Favoris et réglages : liste des favoris, réglages (langue, déconnexion, mentions légales) (#56) | 2026-08-27 | `feat/FM-13a-favorites-data-layer` → `feat/FM-13b-favorites-screen` → `feat/FM-13c-settings-screen` | Décomposée en 3 PRs atomiques, branchées depuis `develop` à jour. `FM-13a` : Catalogues i18n FR/AR (`favorites`, `settings`, `legal`), `FavoritesRepository`, `FavoritesListNotifier` (Riverpod AsyncNotifier avec mise à jour optimiste et gestion d'erreurs), `AuthRepository` (déconnexion), `pnpm i18n:check` vert, `flutter analyze` et `flutter test` verts (99/99). |
 
-*(FM-03 — 4/4 PRs mergées #154/#156/#159/#160 — déplacée vers `DONE.md`.)*
 
 ## DEV-2
 

@@ -36,8 +36,10 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	// Translations
 	late final Translations$common$fr common = Translations$common$fr.internal(_root);
 	late final Translations$contact$fr contact = Translations$contact$fr.internal(_root);
-	late final Translations$provider$fr provider = Translations$provider$fr.internal(_root);
+	late final Translations$favorites$fr favorites = Translations$favorites$fr.internal(_root);
+	late final Translations$legal$fr legal = Translations$legal$fr.internal(_root);
 	late final Translations$search$fr search = Translations$search$fr.internal(_root);
+	late final Translations$settings$fr settings = Translations$settings$fr.internal(_root);
 }
 
 // Path: common
@@ -52,7 +54,6 @@ class Translations$common$fr {
 	String get appName => 'Sanaya';
 
 	late final Translations$common$home$fr home = Translations$common$home$fr.internal(_root);
-	late final Translations$common$widgets$fr widgets = Translations$common$widgets$fr.internal(_root);
 }
 
 // Path: contact
@@ -70,14 +71,85 @@ class Translations$contact$fr {
 	String get whatsapp => 'WhatsApp';
 }
 
-// Path: provider
-class Translations$provider$fr {
-	Translations$provider$fr.internal(this._root);
+// Path: favorites
+class Translations$favorites$fr {
+	Translations$favorites$fr.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final Translations$provider$profile$fr profile = Translations$provider$profile$fr.internal(_root);
+
+	/// fr: 'Mes favoris'
+	String get title => 'Mes favoris';
+
+	/// fr: 'Aucun favori pour le moment'
+	String get emptyTitle => 'Aucun favori pour le moment';
+
+	/// fr: 'Enregistrez des artisans pour les retrouver rapidement.'
+	String get emptySubtitle => 'Enregistrez des artisans pour les retrouver rapidement.';
+
+	/// fr: 'Trouver un artisan'
+	String get exploreCta => 'Trouver un artisan';
+
+	/// fr: 'Retirer des favoris'
+	String get removeTooltip => 'Retirer des favoris';
+
+	/// fr: 'Ajouter aux favoris'
+	String get addTooltip => 'Ajouter aux favoris';
+
+	/// fr: 'Artisan retiré des favoris'
+	String get removeSuccess => 'Artisan retiré des favoris';
+
+	/// fr: 'Artisan ajouté aux favoris'
+	String get addSuccess => 'Artisan ajouté aux favoris';
+
+	/// fr: 'Impossible de retirer le favori.'
+	String get removeError => 'Impossible de retirer le favori.';
+
+	/// fr: 'Impossible d'ajouter le favori.'
+	String get addError => 'Impossible d\'ajouter le favori.';
+
+	/// fr: 'Impossible de charger vos favoris.'
+	String get loadError => 'Impossible de charger vos favoris.';
+
+	/// fr: 'Réessayer'
+	String get retry => 'Réessayer';
+}
+
+// Path: legal
+class Translations$legal$fr {
+	Translations$legal$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Mentions légales'
+	String get title => 'Mentions légales';
+
+	/// fr: 'Éditeur de la plateforme'
+	String get editorTitle => 'Éditeur de la plateforme';
+
+	/// fr: 'Sanaya — Plateforme de mise en relation entre particuliers et artisans tunisiens (Sahel : Sousse, Monastir, Mahdia).'
+	String get editorContent => 'Sanaya — Plateforme de mise en relation entre particuliers et artisans tunisiens (Sahel : Sousse, Monastir, Mahdia).';
+
+	/// fr: 'Modèle de service'
+	String get modelTitle => 'Modèle de service';
+
+	/// fr: 'Sanaya est un service de génération de contacts qualifiés. La plateforme n'encaisse jamais le montant des prestations et n'intervient pas dans le paiement direct du chantier.'
+	String get modelContent => 'Sanaya est un service de génération de contacts qualifiés. La plateforme n\'encaisse jamais le montant des prestations et n\'intervient pas dans le paiement direct du chantier.';
+
+	/// fr: 'Protection des données personnelles (INPDP)'
+	String get inpdpTitle => 'Protection des données personnelles (INPDP)';
+
+	/// fr: 'Conformément à la loi organique n° 2004-63, Sanaya s'engage à protéger la vie privée de ses utilisateurs. Les numéros de téléphone ne sont révélés que lors d'une mise en relation volontaire et tracée.'
+	String get inpdpContent => 'Conformément à la loi organique n° 2004-63, Sanaya s\'engage à protéger la vie privée de ses utilisateurs. Les numéros de téléphone ne sont révélés que lors d\'une mise en relation volontaire et tracée.';
+
+	/// fr: 'Vos droits'
+	String get rightsTitle => 'Vos droits';
+
+	/// fr: 'Vous disposez d'un droit d'accès, de rectification et de suppression de vos données personnelles à tout moment.'
+	String get rightsContent => 'Vous disposez d\'un droit d\'accès, de rectification et de suppression de vos données personnelles à tout moment.';
 }
 
 // Path: search
@@ -110,6 +182,69 @@ class Translations$search$fr {
 	String get retry => 'Réessayer';
 }
 
+// Path: settings
+class Translations$settings$fr {
+	Translations$settings$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Réglages'
+	String get title => 'Réglages';
+
+	/// fr: 'Langue'
+	String get languageSection => 'Langue';
+
+	/// fr: 'Français'
+	String get french => 'Français';
+
+	/// fr: 'العربية (تونس)'
+	String get arabic => 'العربية (تونس)';
+
+	/// fr: 'Apparence'
+	String get themeSection => 'Apparence';
+
+	/// fr: 'Système'
+	String get themeSystem => 'Système';
+
+	/// fr: 'Clair'
+	String get themeLight => 'Clair';
+
+	/// fr: 'Sombre'
+	String get themeDark => 'Sombre';
+
+	/// fr: 'Informations & Légal'
+	String get legalSection => 'Informations & Légal';
+
+	/// fr: 'Mentions légales'
+	String get legalNotices => 'Mentions légales';
+
+	/// fr: 'Protection des données (INPDP)'
+	String get privacyPolicy => 'Protection des données (INPDP)';
+
+	/// fr: 'Compte'
+	String get accountSection => 'Compte';
+
+	/// fr: 'Se déconnecter'
+	String get logout => 'Se déconnecter';
+
+	/// fr: 'Déconnexion'
+	String get logoutConfirmTitle => 'Déconnexion';
+
+	/// fr: 'Êtes-vous sûr de vouloir vous déconnecter ?'
+	String get logoutConfirmMessage => 'Êtes-vous sûr de vouloir vous déconnecter ?';
+
+	/// fr: 'Annuler'
+	String get cancel => 'Annuler';
+
+	/// fr: 'Confirmer'
+	String get confirm => 'Confirmer';
+
+	/// fr: 'Version'
+	String get version => 'Version';
+}
+
 // Path: common.home
 class Translations$common$home$fr {
 	Translations$common$home$fr.internal(this._root);
@@ -137,69 +272,6 @@ class Translations$common$home$fr {
 	String get designSystemPreview => 'Vitrine design system';
 }
 
-// Path: common.widgets
-class Translations$common$widgets$fr {
-	Translations$common$widgets$fr.internal(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// fr: 'Vérifié'
-	String get verifiedBadge => 'Vérifié';
-}
-
-// Path: provider.profile
-class Translations$provider$profile$fr {
-	Translations$provider$profile$fr.internal(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// fr: 'Appeler'
-	String get callButton => 'Appeler';
-
-	/// fr: 'WhatsApp'
-	String get whatsappButton => 'WhatsApp';
-
-	/// fr: 'Avis'
-	String get reviewsTitle => 'Avis';
-
-	/// fr: 'Charger plus d'avis'
-	String get loadMoreReviews => 'Charger plus d\'avis';
-
-	/// fr: 'Aucun avis pour le moment.'
-	String get noReviews => 'Aucun avis pour le moment.';
-
-	/// fr: 'Prestations'
-	String get offeringsTitle => 'Prestations';
-
-	/// fr: 'Zones d'intervention'
-	String get coverageTitle => 'Zones d\'intervention';
-
-	/// fr: '{n} an(s) d'expérience'
-	String get yearsExperience => '{n} an(s) d\'expérience';
-
-	/// fr: 'Disponible'
-	String get availableNow => 'Disponible';
-
-	/// fr: 'Occupé'
-	String get busy => 'Occupé';
-
-	/// fr: 'En congé'
-	String get onHoliday => 'En congé';
-
-	/// fr: 'Contact vérifié'
-	String get verifiedContact => 'Contact vérifié';
-
-	/// fr: 'Impossible de charger la fiche.'
-	String get errorLoad => 'Impossible de charger la fiche.';
-
-	/// fr: 'Réessayer'
-	String get retry => 'Réessayer';
-}
-
 /// The flat map containing all translations for locale <fr>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -215,23 +287,29 @@ extension on Translations {
 			'common.home.toggleTheme' => 'Basculer thème clair/sombre',
 			'common.home.toggleLocale' => 'Basculer FR/AR',
 			'common.home.designSystemPreview' => 'Vitrine design system',
-			'common.widgets.verifiedBadge' => 'Vérifié',
 			'contact.call' => 'Appeler',
 			'contact.whatsapp' => 'WhatsApp',
-			'provider.profile.callButton' => 'Appeler',
-			'provider.profile.whatsappButton' => 'WhatsApp',
-			'provider.profile.reviewsTitle' => 'Avis',
-			'provider.profile.loadMoreReviews' => 'Charger plus d\'avis',
-			'provider.profile.noReviews' => 'Aucun avis pour le moment.',
-			'provider.profile.offeringsTitle' => 'Prestations',
-			'provider.profile.coverageTitle' => 'Zones d\'intervention',
-			'provider.profile.yearsExperience' => '{n} an(s) d\'expérience',
-			'provider.profile.availableNow' => 'Disponible',
-			'provider.profile.busy' => 'Occupé',
-			'provider.profile.onHoliday' => 'En congé',
-			'provider.profile.verifiedContact' => 'Contact vérifié',
-			'provider.profile.errorLoad' => 'Impossible de charger la fiche.',
-			'provider.profile.retry' => 'Réessayer',
+			'favorites.title' => 'Mes favoris',
+			'favorites.emptyTitle' => 'Aucun favori pour le moment',
+			'favorites.emptySubtitle' => 'Enregistrez des artisans pour les retrouver rapidement.',
+			'favorites.exploreCta' => 'Trouver un artisan',
+			'favorites.removeTooltip' => 'Retirer des favoris',
+			'favorites.addTooltip' => 'Ajouter aux favoris',
+			'favorites.removeSuccess' => 'Artisan retiré des favoris',
+			'favorites.addSuccess' => 'Artisan ajouté aux favoris',
+			'favorites.removeError' => 'Impossible de retirer le favori.',
+			'favorites.addError' => 'Impossible d\'ajouter le favori.',
+			'favorites.loadError' => 'Impossible de charger vos favoris.',
+			'favorites.retry' => 'Réessayer',
+			'legal.title' => 'Mentions légales',
+			'legal.editorTitle' => 'Éditeur de la plateforme',
+			'legal.editorContent' => 'Sanaya — Plateforme de mise en relation entre particuliers et artisans tunisiens (Sahel : Sousse, Monastir, Mahdia).',
+			'legal.modelTitle' => 'Modèle de service',
+			'legal.modelContent' => 'Sanaya est un service de génération de contacts qualifiés. La plateforme n\'encaisse jamais le montant des prestations et n\'intervient pas dans le paiement direct du chantier.',
+			'legal.inpdpTitle' => 'Protection des données personnelles (INPDP)',
+			'legal.inpdpContent' => 'Conformément à la loi organique n° 2004-63, Sanaya s\'engage à protéger la vie privée de ses utilisateurs. Les numéros de téléphone ne sont révélés que lors d\'une mise en relation volontaire et tracée.',
+			'legal.rightsTitle' => 'Vos droits',
+			'legal.rightsContent' => 'Vous disposez d\'un droit d\'accès, de rectification et de suppression de vos données personnelles à tout moment.',
 			'search.searchPlaceholder' => 'Rechercher un service…',
 			'search.locationPlaceholder' => 'Choisir un gouvernorat',
 			'search.categoriesTitle' => 'Catégories',
@@ -239,6 +317,24 @@ extension on Translations {
 			'search.categoriesError' => 'Impossible de charger les catégories.',
 			'search.locationError' => 'Impossible de charger les gouvernorats.',
 			'search.retry' => 'Réessayer',
+			'settings.title' => 'Réglages',
+			'settings.languageSection' => 'Langue',
+			'settings.french' => 'Français',
+			'settings.arabic' => 'العربية (تونس)',
+			'settings.themeSection' => 'Apparence',
+			'settings.themeSystem' => 'Système',
+			'settings.themeLight' => 'Clair',
+			'settings.themeDark' => 'Sombre',
+			'settings.legalSection' => 'Informations & Légal',
+			'settings.legalNotices' => 'Mentions légales',
+			'settings.privacyPolicy' => 'Protection des données (INPDP)',
+			'settings.accountSection' => 'Compte',
+			'settings.logout' => 'Se déconnecter',
+			'settings.logoutConfirmTitle' => 'Déconnexion',
+			'settings.logoutConfirmMessage' => 'Êtes-vous sûr de vouloir vous déconnecter ?',
+			'settings.cancel' => 'Annuler',
+			'settings.confirm' => 'Confirmer',
+			'settings.version' => 'Version',
 			_ => null,
 		};
 	}
