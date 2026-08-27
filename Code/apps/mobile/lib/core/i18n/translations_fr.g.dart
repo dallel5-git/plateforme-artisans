@@ -52,6 +52,7 @@ class Translations$common$fr {
 	String get appName => 'Sanaya';
 
 	late final Translations$common$home$fr home = Translations$common$home$fr.internal(_root);
+	late final Translations$common$widgets$fr widgets = Translations$common$widgets$fr.internal(_root);
 }
 
 // Path: contact
@@ -136,6 +137,18 @@ class Translations$common$home$fr {
 	String get designSystemPreview => 'Vitrine design system';
 }
 
+// Path: common.widgets
+class Translations$common$widgets$fr {
+	Translations$common$widgets$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Vérifié'
+	String get verifiedBadge => 'Vérifié';
+}
+
 // Path: provider.profile
 class Translations$provider$profile$fr {
 	Translations$provider$profile$fr.internal(this._root);
@@ -202,6 +215,7 @@ extension on Translations {
 			'common.home.toggleTheme' => 'Basculer thème clair/sombre',
 			'common.home.toggleLocale' => 'Basculer FR/AR',
 			'common.home.designSystemPreview' => 'Vitrine design system',
+			'common.widgets.verifiedBadge' => 'Vérifié',
 			'contact.call' => 'Appeler',
 			'contact.whatsapp' => 'WhatsApp',
 			'provider.profile.callButton' => 'Appeler',

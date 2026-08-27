@@ -7,5 +7,8 @@
     "toggleTheme": "تبديل المظهر الفاتح/الداكن",
     "toggleLocale": "تبديل الفرنسية/العربية",
     "designSystemPreview": "معرض نظام التصميم"
+  },
+  "widgets": {
+    "verifiedBadge": "موثّق"
   }
 }
