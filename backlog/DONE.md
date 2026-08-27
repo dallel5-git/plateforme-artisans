@@ -122,6 +122,10 @@
 | `FM-03c` | i18n — miroir des icônes directionnelles : chevron `Icons.chevron_right` sur les 3 boutons de navigation. Pas de wrapper custom — `matchTextDirection` est un champ `IconData` déjà `true` sur cette icône, le miroir RTL est automatique via la `Directionality` ambiante | Claude | #159 | 2026-08-25 |
 | `FM-03d` | i18n — `formatCurrency`/`formatDate` (`lib/core/i18n/format.dart`), miroir Dart de `packages/i18n/src/format.ts`, chiffres occidentaux en AR (comportement par défaut d'`intl`), fuseau Africa/Tunis par décalage fixe UTC+1 | Claude | #160 | 2026-08-25 |
 | `FM-03` | i18n FR/AR `slang`, `Directionality` global, miroir des icônes — parcours complet (4 PRs atomiques ci-dessus). **Vérifié en direct sur device Android réel** : bascule FR/AR live, persistance disque après `force-stop`, chevron miroité en RTL | Claude | #154/#156/#159/#160 | 2026-08-25 |
+| `FM-06a` | Accueil client — couche données : `CatalogRepository` (`/v1/categories`, `/v1/governorates` via le client généré BE-26/FM-02b), persistance du gouvernorat choisi (`SharedPreferences`, patron `locale_persistence.dart`), providers Riverpod | Claude | #165 | 2026-08-26 |
+| `FM-06b` | Accueil client — widgets présentation : `SearchHomeBar`, `CategoryGrid`/`CategoryGridSkeleton` (icônes larges par `iconKey`, teinte `colorHex`), clés `t.search.*` FR/AR. Test 🔒 non-régression verrouillant la grille inversée en arabe | Claude | #166 | 2026-08-26 |
+| `FM-06c` | Accueil client — écran `/client` câblé : `SearchHomeScreen` (états loading/erreur+réessayer/vide/données), `showGovernoratePicker` (feuille modale), persistance du gouvernorat câblée dans `main()`/`SanayaApp` (patron FM-03b). `BootstrapNavSpace.client` retiré (mort) | Claude | #170 | 2026-08-26 |
+| `FM-06` | Accueil client : recherche + grille de catégories depuis l'API — parcours complet (3 PRs atomiques ci-dessus). Les 4 critères d'acceptation de l'issue #35 sont vérifiés par test automatisé (catégories jamais codées en dur, gouvernorat mémorisé, skeleton de chargement, grille inversée en arabe). **Non vérifié sur device Android réel** : aucun appareil connecté dans cet environnement (seuls Chrome/Edge web disponibles) — capture FR/AR à faire dès qu'un device est disponible, même réserve que FM-04a/FM-04b | Claude | #165/#166/#170 | 2026-08-26 |
 
 ---
 
@@ -130,7 +134,7 @@
 | Métrique | Valeur |
 |---|---|
 | Tâches 🔴 P0 planifiées | 43 |
-| Tâches 🔴 P0 terminées | 23 *(+ BE-18, backfill bookkeeping du 2026-08-23 ; + BE-27, GATE 1 vert du 2026-08-24 ; + FM-01, premier lot Flutter vert du 2026-08-25 ; + FM-03, i18n FR/AR vert du 2026-08-25)* |
+| Tâches 🔴 P0 terminées | 24 *(+ BE-18, backfill bookkeeping du 2026-08-23 ; + BE-27, GATE 1 vert du 2026-08-24 ; + FM-01, premier lot Flutter vert du 2026-08-25 ; + FM-03, i18n FR/AR vert du 2026-08-25 ; + FM-06, accueil client vert du 2026-08-26)* |
 | Tâches 🟠 P1 terminées | 1 / 7 *(l'amortisseur : 18 h — BE-24 mergée, backfill bookkeeping du 2026-08-23)* |
 | Heures-homme 🔴 P0 estimées / consommées | 109 h / 10 h *(capacité 112 h)* |
 
