@@ -114,7 +114,10 @@ jobs:
       # raison que l'exclusion analyzer ci-dessus. lib/core/widgets et
       # test/core/widgets ajoutés par FM-04 ; lib/core/api/api_client_provider.dart
       # et lib/features/search (FM-06) ajoutés ici — premier code applicatif sous
-      # ces deux chemins. ⚠️ Fichier précis, jamais `lib/core/api` en entier : ce
+      # ces deux chemins. lib/features/contact et test/features/contact/data
+      # ajoutés par FM-09a (test/features/contact/contact_flow_test.dart,
+      # pré-écrit, reste seul dans son dossier parent — toujours exclu, voir
+      # plus haut). ⚠️ Fichier précis, jamais `lib/core/api` en entier : ce
       # dossier contient aussi `lib/core/api/generated/` (client openapi-generator,
       # SDK Dart 3.12.2 épinglé côté mobile-client-check) — un `dart format`
       # avec un SDK local/CI différent le reformaterait en diff parasite, même
@@ -125,8 +128,9 @@ jobs:
       # planifié. À élargir au fil des tickets FM-* suivants.
       - run: |
           dart format --set-exit-if-changed \
-            lib/app lib/main.dart lib/core/widgets lib/core/api/api_client_provider.dart lib/features/search \
-            test/widget_test.dart test/core/widgets test/features/search
+            lib/app lib/main.dart lib/core/widgets lib/core/api/api_client_provider.dart \
+            lib/features/search lib/features/contact \
+            test/widget_test.dart test/core/widgets test/features/search test/features/contact/data
 
       # FM-03 : lib/core/i18n/*.g.dart est généré par slang depuis
       # packages/i18n/src/locales/ (SO-05). `dart run build_runner build`
@@ -147,9 +151,13 @@ jobs:
       # statique, pas la collecte des tests) et ferait échouer ce job pour une
       # raison sans rapport avec le code de la PR. test/core/widgets ajouté par
       # FM-04 ; test/features/search ajouté par FM-06 (FM-06a n'avait pas
-      # étendu cette liste — corrigé ici). À élargir quand FM-02/FM-09
-      # livrent le code testé.
-      - run: flutter test test/widget_test.dart test/core/widgets test/features/search
+      # étendu cette liste — corrigé ici) ; test/features/contact/data ajouté
+      # par FM-09a (ciblé sur data/, pas tout test/features/contact/, pour ne
+      # pas ramasser contact_flow_test.dart). À élargir quand FM-02/FM-09
+      # livrent le reste du code testé.
+      - run: |
+          flutter test test/widget_test.dart test/core/widgets test/features/search \
+            test/features/contact/data
 
   mobile-client-check:
     name: contrat → client Dart (mobile:client)
