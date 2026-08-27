@@ -117,13 +117,15 @@ jobs:
       # ajoutés par FM-09a ; test/features/contact/contact_flow_test.dart
       # ajouté par FM-09b (remplace le spec pré-écrit qui restait seul, exclu,
       # dans ce dossier — voir le commit FM-09b pour le détail du contrat réel
-      # découvert entre-temps). ⚠️ Fichier précis, jamais `lib/core/api` en
-      # entier : ce dossier contient aussi `lib/core/api/generated/` (client
-      # openapi-generator, SDK Dart 3.12.2 épinglé côté mobile-client-check) —
-      # un `dart format` avec un SDK local/CI différent le reformaterait en
-      # diff parasite, même bug que celui documenté pour mobile-client-check
-      # (vécu ici : premier essai de cette PR incluait `lib/core/api` en
-      # entier, CI rouge).
+      # découvert entre-temps). lib/core/api/auth_token_store.dart et
+      # lib/core/api/interceptors/auth_interceptor.dart + test/core/api
+      # ajoutés par FM-02d (intercepteur auth/refresh single-flight). ⚠️
+      # Fichier précis, jamais `lib/core/api` en entier : ce dossier contient
+      # aussi `lib/core/api/generated/` (client openapi-generator, SDK Dart
+      # 3.12.2 épinglé côté mobile-client-check) — un `dart format` avec un
+      # SDK local/CI différent le reformaterait en diff parasite, même bug
+      # que celui documenté pour mobile-client-check (vécu ici : premier
+      # essai de cette PR incluait `lib/core/api` en entier, CI rouge).
       # test/core/i18n (FM-03) n'est pas encore couvert ici — gap pré-existant,
       # indépendant de FM-04/FM-06, loggé dans backlog/TODO.md § Backlog non
       # planifié. À élargir au fil des tickets FM-* suivants. FM-09c ajoute
@@ -133,9 +135,10 @@ jobs:
       - run: |
           dart format --set-exit-if-changed \
             lib/app lib/main.dart lib/core/widgets lib/core/api/api_client_provider.dart \
+            lib/core/api/auth_token_store.dart lib/core/api/interceptors \
             lib/features/search lib/features/contact lib/features/provider_profile \
             test/widget_test.dart test/core/widgets test/features/search test/features/contact \
-            test/features/provider_profile
+            test/features/provider_profile test/core/api
 
       # FM-03 : lib/core/i18n/*.g.dart est généré par slang depuis
       # packages/i18n/src/locales/ (SO-05). `dart run build_runner build`
@@ -148,17 +151,30 @@ jobs:
       - run: dart run slang
       - run: git diff --exit-code -- lib/core/i18n
 
-      # Ciblé sur une liste explicite, pas un `flutter test` général.
+      # Ciblé sur des chemins précis, pas un `flutter test` général : le test
+      # test/features/contact/contact_flow_test.dart pré-écrit (FM-09) a été
+      # remplacé par FM-09b, plus rien à exclure ici pour cette raison.
       # test/core/widgets ajouté par FM-04 ; test/features/search ajouté par
       # FM-06 (FM-06a n'avait pas étendu cette liste — corrigé ici) ;
       # test/features/contact/data ajouté par FM-09a. test/features/contact
       # (dossier entier, dont contact_flow_test.dart) ajouté par FM-09b : le
       # spec pré-écrit qui y restait seul et exclu a été remplacé par une
       # version conforme au vrai contrat `ContactEventsApi`/`ContactService`.
-      # test/features/provider_profile ajouté par FM-08.
-      - run: |
-          flutter test test/widget_test.dart test/core/widgets test/features/search \
-            test/features/contact test/features/provider_profile
+      # test/features/provider_profile ajouté par FM-08 ; test/core/api par
+      # FM-02c/d.
+      #
+      # FM-02d : une seule invocation avec plusieurs cibles mélangées
+      # (fichier(s) + répertoire(s)) est peu fiable — observé reproductible
+      # localement (des tests d'un répertoire silencieusement non exécutés
+      # selon le mélange exact des arguments, sans erreur ni avertissement,
+      # y compris dans cette liste avant ce commit). Une invocation séparée
+      # par cible est le seul comportement vérifié fiable.
+      - run: flutter test test/widget_test.dart
+      - run: flutter test test/core/widgets
+      - run: flutter test test/core/api
+      - run: flutter test test/features/search
+      - run: flutter test test/features/contact
+      - run: flutter test test/features/provider_profile
 
   mobile-client-check:
     name: contrat → client Dart (mobile:client)
