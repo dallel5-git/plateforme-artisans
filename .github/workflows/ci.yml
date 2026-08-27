@@ -133,8 +133,9 @@ jobs:
       - run: |
           dart format --set-exit-if-changed \
             lib/app lib/main.dart lib/core/widgets lib/core/api/api_client_provider.dart \
-            lib/features/search lib/features/contact \
-            test/widget_test.dart test/core/widgets test/features/search test/features/contact
+            lib/features/search lib/features/contact lib/features/provider_profile \
+            test/widget_test.dart test/core/widgets test/features/search test/features/contact \
+            test/features/provider_profile
 
       # FM-03 : lib/core/i18n/*.g.dart est généré par slang depuis
       # packages/i18n/src/locales/ (SO-05). `dart run build_runner build`
@@ -154,9 +155,10 @@ jobs:
       # (dossier entier, dont contact_flow_test.dart) ajouté par FM-09b : le
       # spec pré-écrit qui y restait seul et exclu a été remplacé par une
       # version conforme au vrai contrat `ContactEventsApi`/`ContactService`.
+      # test/features/provider_profile ajouté par FM-08.
       - run: |
           flutter test test/widget_test.dart test/core/widgets test/features/search \
-            test/features/contact
+            test/features/contact test/features/provider_profile
 
   mobile-client-check:
     name: contrat → client Dart (mobile:client)
