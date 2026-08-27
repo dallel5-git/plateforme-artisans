@@ -3,6 +3,7 @@ import 'package:sanaya/core/api/api_client.dart';
 import 'package:sanaya/core/api/auth_token_store.dart';
 import 'package:sanaya/core/api/generated/api.dart';
 import 'package:sanaya/core/api/interceptors/auth_interceptor.dart';
+import 'package:sanaya/core/api/interceptors/retry_interceptor.dart';
 
 /// Instance partagée — un seul `AuthTokenStore` pour toute l'app, pour que
 /// l'access token qu'il détient en mémoire soit le même que celui que lit
@@ -13,18 +14,25 @@ final authTokenStoreProvider = Provider<AuthTokenStore>(
 
 /// Instance partagée du client généré (BE-26/FM-02b), construite sur le
 /// `Dio` partagé de `buildApiClient()` (FM-02c — URL de base + timeouts
-/// réseau dégradé, `ErrorMappingInterceptor` déjà branché) et `FM-02d` —
-/// `AuthInterceptor` (bearer + refresh transparent single-flight). L'ordre
-/// d'assignation est contraint : `AuthInterceptor.dio` ne peut être fixé
-/// qu'une fois le `Dio` construit (il en a besoin pour rejouer une requête
-/// après refresh), donc après `buildApiClient()`, pas avant. FM-02e y
-/// ajoutera le retry ; ce provider reste le point d'injection unique, seul
-/// le contenu de `buildApiClient()` change.
+/// réseau dégradé, `ErrorMappingInterceptor` déjà branché), `FM-02d` —
+/// `AuthInterceptor` (bearer + refresh transparent single-flight) — et
+/// `FM-02e` — `RetryInterceptor` (backoff sur les `GET` idempotents,
+/// erreurs transitoires uniquement). Ordre : Auth avant Retry, tous deux
+/// avant `ErrorMappingInterceptor` (toujours dernier dans
+/// `buildApiClient()`) — un 401 doit pouvoir déclencher un refresh+rejeu
+/// avant qu'une erreur réseau/5xx ne déclenche un retry, et avant que
+/// l'une ou l'autre ne devienne une `SanayaApiException` définitive.
+/// L'ordre d'assignation de `.dio` est contraint : ni l'un ni l'autre
+/// intercepteur ne peut recevoir son `Dio` avant que `buildApiClient()`
+/// l'ait construit (tous deux en ont besoin pour rejouer une requête via
+/// `dio.fetch`), donc après, jamais avant.
 final apiClientProvider = Provider<SanayaApiClient>((ref) {
   final tokenStore = ref.watch(authTokenStoreProvider);
   final authInterceptor = AuthInterceptor(tokenStore);
-  final dio = buildApiClient(interceptors: [authInterceptor]);
+  final retryInterceptor = RetryInterceptor();
+  final dio = buildApiClient(interceptors: [authInterceptor, retryInterceptor]);
   authInterceptor.dio = dio;
+  retryInterceptor.dio = dio;
   return SanayaApiClient(dio: dio);
 });
 

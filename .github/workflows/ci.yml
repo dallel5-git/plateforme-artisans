@@ -118,8 +118,9 @@ jobs:
       # ajouté par FM-09b (remplace le spec pré-écrit qui restait seul, exclu,
       # dans ce dossier — voir le commit FM-09b pour le détail du contrat réel
       # découvert entre-temps). lib/core/api/auth_token_store.dart et
-      # lib/core/api/interceptors/auth_interceptor.dart + test/core/api
-      # ajoutés par FM-02d (intercepteur auth/refresh single-flight). ⚠️
+      # lib/core/api/interceptors/{auth,retry}_interceptor.dart + test/core/api
+      # ajoutés par FM-02d (auth/refresh single-flight) et FM-02e (retry
+      # GET, backoff). ⚠️
       # Fichier précis, jamais `lib/core/api` en entier : ce dossier contient
       # aussi `lib/core/api/generated/` (client openapi-generator, SDK Dart
       # 3.12.2 épinglé côté mobile-client-check) — un `dart format` avec un
