@@ -114,6 +114,9 @@ class Translations$favorites$fr {
 
 	/// fr: 'Réessayer'
 	String get retry => 'Réessayer';
+
+	/// fr: 'Vérifié'
+	String get verifiedBadge => 'Vérifié';
 }
 
 // Path: legal
@@ -301,6 +304,7 @@ extension on Translations {
 			'favorites.addError' => 'Impossible d\'ajouter le favori.',
 			'favorites.loadError' => 'Impossible de charger vos favoris.',
 			'favorites.retry' => 'Réessayer',
+			'favorites.verifiedBadge' => 'Vérifié',
 			'legal.title' => 'Mentions légales',
 			'legal.editorTitle' => 'Éditeur de la plateforme',
 			'legal.editorContent' => 'Sanaya — Plateforme de mise en relation entre particuliers et artisans tunisiens (Sahel : Sousse, Monastir, Mahdia).',
