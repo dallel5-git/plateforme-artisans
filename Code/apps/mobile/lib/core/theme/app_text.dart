@@ -15,58 +15,58 @@ abstract final class AppText {
       locale.languageCode == 'ar' ? arabicFamily : latinFamily;
 
   static TextStyle display(Locale locale) => TextStyle(
-        fontFamily: familyFor(locale),
-        fontSize: 36.0,
-        height: 1.167,
-        fontWeight: FontWeight.w800,
-      );
+    fontFamily: familyFor(locale),
+    fontSize: 36.0,
+    height: 1.167,
+    fontWeight: FontWeight.w800,
+  );
 
   static TextStyle h1(Locale locale) => TextStyle(
-        fontFamily: familyFor(locale),
-        fontSize: 28.0,
-        height: 1.214,
-        fontWeight: FontWeight.w800,
-      );
+    fontFamily: familyFor(locale),
+    fontSize: 28.0,
+    height: 1.214,
+    fontWeight: FontWeight.w800,
+  );
 
   static TextStyle h2(Locale locale) => TextStyle(
-        fontFamily: familyFor(locale),
-        fontSize: 22.0,
-        height: 1.273,
-        fontWeight: FontWeight.w700,
-      );
+    fontFamily: familyFor(locale),
+    fontSize: 22.0,
+    height: 1.273,
+    fontWeight: FontWeight.w700,
+  );
 
   static TextStyle h3(Locale locale) => TextStyle(
-        fontFamily: familyFor(locale),
-        fontSize: 18.0,
-        height: 1.333,
-        fontWeight: FontWeight.w700,
-      );
+    fontFamily: familyFor(locale),
+    fontSize: 18.0,
+    height: 1.333,
+    fontWeight: FontWeight.w700,
+  );
 
   static TextStyle body(Locale locale) => TextStyle(
-        fontFamily: familyFor(locale),
-        fontSize: 15.0,
-        height: 1.467,
-        fontWeight: FontWeight.w400,
-      );
+    fontFamily: familyFor(locale),
+    fontSize: 15.0,
+    height: 1.467,
+    fontWeight: FontWeight.w400,
+  );
 
   static TextStyle bodyStrong(Locale locale) => TextStyle(
-        fontFamily: familyFor(locale),
-        fontSize: 15.0,
-        height: 1.467,
-        fontWeight: FontWeight.w600,
-      );
+    fontFamily: familyFor(locale),
+    fontSize: 15.0,
+    height: 1.467,
+    fontWeight: FontWeight.w600,
+  );
 
   static TextStyle small(Locale locale) => TextStyle(
-        fontFamily: familyFor(locale),
-        fontSize: 13.0,
-        height: 1.385,
-        fontWeight: FontWeight.w400,
-      );
+    fontFamily: familyFor(locale),
+    fontSize: 13.0,
+    height: 1.385,
+    fontWeight: FontWeight.w400,
+  );
 
   static TextStyle caption(Locale locale) => TextStyle(
-        fontFamily: familyFor(locale),
-        fontSize: 11.0,
-        height: 1.273,
-        fontWeight: FontWeight.w600,
-      );
+    fontFamily: familyFor(locale),
+    fontSize: 11.0,
+    height: 1.273,
+    fontWeight: FontWeight.w600,
+  );
 }

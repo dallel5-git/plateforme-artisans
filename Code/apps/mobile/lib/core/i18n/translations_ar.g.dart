@@ -80,16 +80,17 @@ class Translations$favorites$ar extends Translations$favorites$fr {
 	// Translations
 	@override String get title => 'المفضلات';
 	@override String get emptyTitle => 'لا توجد عناصر مفضلة حتى الآن';
-	@override String get emptySubtitle => 'احفظ الحرفيين لتجدهم بسرعة لاحقًا.';
+	@override String get emptySubtitle => 'احفظ الحرفيين للوصول إليهم بسرعة لاحقاً.';
 	@override String get exploreCta => 'البحث عن حرفي';
 	@override String get removeTooltip => 'إزالة من المفضلات';
 	@override String get addTooltip => 'إضافة إلى المفضلات';
 	@override String get removeSuccess => 'تمت إزالة الحرفي من المفضلات';
 	@override String get addSuccess => 'تمت إضافة الحرفي إلى المفضلات';
-	@override String get removeError => 'تعذر إزالة المفضلة.';
-	@override String get addError => 'تعذر إضافة المفضلة.';
-	@override String get loadError => 'تعذر تحميل المفضلات.';
+	@override String get removeError => 'تعذر إزالة الحرفي من المفضلات.';
+	@override String get addError => 'تعذر إضافة الحرفي إلى المفضلات.';
+	@override String get loadError => 'تعذر تحميل قائمة المفضلات.';
 	@override String get retry => 'إعادة المحاولة';
+	@override String get verifiedBadge => 'موثوق';
 }
 
 // Path: legal
@@ -231,16 +232,17 @@ extension on TranslationsAr {
 			'contact.whatsapp' => 'واتساب',
 			'favorites.title' => 'المفضلات',
 			'favorites.emptyTitle' => 'لا توجد عناصر مفضلة حتى الآن',
-			'favorites.emptySubtitle' => 'احفظ الحرفيين لتجدهم بسرعة لاحقًا.',
+			'favorites.emptySubtitle' => 'احفظ الحرفيين للوصول إليهم بسرعة لاحقاً.',
 			'favorites.exploreCta' => 'البحث عن حرفي',
 			'favorites.removeTooltip' => 'إزالة من المفضلات',
 			'favorites.addTooltip' => 'إضافة إلى المفضلات',
 			'favorites.removeSuccess' => 'تمت إزالة الحرفي من المفضلات',
 			'favorites.addSuccess' => 'تمت إضافة الحرفي إلى المفضلات',
-			'favorites.removeError' => 'تعذر إزالة المفضلة.',
-			'favorites.addError' => 'تعذر إضافة المفضلة.',
-			'favorites.loadError' => 'تعذر تحميل المفضلات.',
+			'favorites.removeError' => 'تعذر إزالة الحرفي من المفضلات.',
+			'favorites.addError' => 'تعذر إضافة الحرفي إلى المفضلات.',
+			'favorites.loadError' => 'تعذر تحميل قائمة المفضلات.',
 			'favorites.retry' => 'إعادة المحاولة',
+			'favorites.verifiedBadge' => 'موثوق',
 			'legal.title' => 'الإشعارات القانونية',
 			'legal.editorTitle' => 'الجهة المشرفة على المنصة',
 			'legal.editorContent' => 'صنايعية — منصة للربط بين الحرفيين والعملاء في تونس (الساحل: سوسة، المنستير، المهدية).',
