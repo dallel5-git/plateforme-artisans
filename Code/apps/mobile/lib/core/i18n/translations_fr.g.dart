@@ -38,6 +38,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$contact$fr contact = Translations$contact$fr.internal(_root);
 	late final Translations$favorites$fr favorites = Translations$favorites$fr.internal(_root);
 	late final Translations$legal$fr legal = Translations$legal$fr.internal(_root);
+	late final Translations$provider$fr provider = Translations$provider$fr.internal(_root);
 	late final Translations$search$fr search = Translations$search$fr.internal(_root);
 	late final Translations$settings$fr settings = Translations$settings$fr.internal(_root);
 }
@@ -54,6 +55,7 @@ class Translations$common$fr {
 	String get appName => 'Sanaya';
 
 	late final Translations$common$home$fr home = Translations$common$home$fr.internal(_root);
+	late final Translations$common$widgets$fr widgets = Translations$common$widgets$fr.internal(_root);
 }
 
 // Path: contact
@@ -150,6 +152,16 @@ class Translations$legal$fr {
 
 	/// fr: 'Vous disposez d'un droit d'accès, de rectification et de suppression de vos données personnelles à tout moment.'
 	String get rightsContent => 'Vous disposez d\'un droit d\'accès, de rectification et de suppression de vos données personnelles à tout moment.';
+}
+
+// Path: provider
+class Translations$provider$fr {
+	Translations$provider$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final Translations$provider$profile$fr profile = Translations$provider$profile$fr.internal(_root);
 }
 
 // Path: search
@@ -272,6 +284,69 @@ class Translations$common$home$fr {
 	String get designSystemPreview => 'Vitrine design system';
 }
 
+// Path: common.widgets
+class Translations$common$widgets$fr {
+	Translations$common$widgets$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Vérifié'
+	String get verifiedBadge => 'Vérifié';
+}
+
+// Path: provider.profile
+class Translations$provider$profile$fr {
+	Translations$provider$profile$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Appeler'
+	String get callButton => 'Appeler';
+
+	/// fr: 'WhatsApp'
+	String get whatsappButton => 'WhatsApp';
+
+	/// fr: 'Avis'
+	String get reviewsTitle => 'Avis';
+
+	/// fr: 'Charger plus d'avis'
+	String get loadMoreReviews => 'Charger plus d\'avis';
+
+	/// fr: 'Aucun avis pour le moment.'
+	String get noReviews => 'Aucun avis pour le moment.';
+
+	/// fr: 'Prestations'
+	String get offeringsTitle => 'Prestations';
+
+	/// fr: 'Zones d'intervention'
+	String get coverageTitle => 'Zones d\'intervention';
+
+	/// fr: '{n} an(s) d'expérience'
+	String get yearsExperience => '{n} an(s) d\'expérience';
+
+	/// fr: 'Disponible'
+	String get availableNow => 'Disponible';
+
+	/// fr: 'Occupé'
+	String get busy => 'Occupé';
+
+	/// fr: 'En congé'
+	String get onHoliday => 'En congé';
+
+	/// fr: 'Contact vérifié'
+	String get verifiedContact => 'Contact vérifié';
+
+	/// fr: 'Impossible de charger la fiche.'
+	String get errorLoad => 'Impossible de charger la fiche.';
+
+	/// fr: 'Réessayer'
+	String get retry => 'Réessayer';
+}
+
 /// The flat map containing all translations for locale <fr>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -287,6 +362,7 @@ extension on Translations {
 			'common.home.toggleTheme' => 'Basculer thème clair/sombre',
 			'common.home.toggleLocale' => 'Basculer FR/AR',
 			'common.home.designSystemPreview' => 'Vitrine design system',
+			'common.widgets.verifiedBadge' => 'Vérifié',
 			'contact.call' => 'Appeler',
 			'contact.whatsapp' => 'WhatsApp',
 			'favorites.title' => 'Mes favoris',
@@ -310,6 +386,20 @@ extension on Translations {
 			'legal.inpdpContent' => 'Conformément à la loi organique n° 2004-63, Sanaya s\'engage à protéger la vie privée de ses utilisateurs. Les numéros de téléphone ne sont révélés que lors d\'une mise en relation volontaire et tracée.',
 			'legal.rightsTitle' => 'Vos droits',
 			'legal.rightsContent' => 'Vous disposez d\'un droit d\'accès, de rectification et de suppression de vos données personnelles à tout moment.',
+			'provider.profile.callButton' => 'Appeler',
+			'provider.profile.whatsappButton' => 'WhatsApp',
+			'provider.profile.reviewsTitle' => 'Avis',
+			'provider.profile.loadMoreReviews' => 'Charger plus d\'avis',
+			'provider.profile.noReviews' => 'Aucun avis pour le moment.',
+			'provider.profile.offeringsTitle' => 'Prestations',
+			'provider.profile.coverageTitle' => 'Zones d\'intervention',
+			'provider.profile.yearsExperience' => '{n} an(s) d\'expérience',
+			'provider.profile.availableNow' => 'Disponible',
+			'provider.profile.busy' => 'Occupé',
+			'provider.profile.onHoliday' => 'En congé',
+			'provider.profile.verifiedContact' => 'Contact vérifié',
+			'provider.profile.errorLoad' => 'Impossible de charger la fiche.',
+			'provider.profile.retry' => 'Réessayer',
 			'search.searchPlaceholder' => 'Rechercher un service…',
 			'search.locationPlaceholder' => 'Choisir un gouvernorat',
 			'search.categoriesTitle' => 'Catégories',
