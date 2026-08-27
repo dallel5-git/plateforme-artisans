@@ -288,5 +288,34 @@ void main() {
         expect(find.byType(VerifiedBadge), findsNothing);
       },
     );
+
+    testWidgets('affiche les libellés traduits en arabe et supporte le RTL', (
+      tester,
+    ) async {
+      final profile = _fakeProfile(
+        slug: 'mohamed-plombier',
+        businessName: 'محمد للسباكة',
+        isVerified: true,
+      );
+      final repo = FakeProviderProfileRepository(profile: profile);
+
+      await tester.pumpWidget(
+        _wrap(
+          const ProviderProfileScreen(slug: 'mohamed-plombier'),
+          repository: repo,
+          locale: const Locale('ar'),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text('محمد للسباكة'), findsWidgets);
+      expect(find.text('إصلاح سباكة'), findsOneWidget);
+      expect(find.text('سوسة المدينة'), findsOneWidget);
+      expect(find.text('اتصال'), findsOneWidget);
+      expect(find.text('واتساب'), findsOneWidget);
+      expect(find.text('الخدمات'), findsOneWidget);
+      expect(find.text('مناطق التدخل'), findsOneWidget);
+      expect(find.text('التقييمات'), findsOneWidget);
+    });
   });
 }
