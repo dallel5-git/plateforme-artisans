@@ -54,6 +54,7 @@ class Translations$common$ar extends Translations$common$fr {
 	// Translations
 	@override String get appName => 'Sanaya';
 	@override late final Translations$common$home$ar home = Translations$common$home$ar._(_root);
+	@override late final Translations$common$widgets$ar widgets = Translations$common$widgets$ar._(_root);
 }
 
 // Path: contact
@@ -108,6 +109,16 @@ class Translations$common$home$ar extends Translations$common$home$fr {
 	@override String get designSystemPreview => 'معرض نظام التصميم';
 }
 
+// Path: common.widgets
+class Translations$common$widgets$ar extends Translations$common$widgets$fr {
+	Translations$common$widgets$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get verifiedBadge => 'موثّق';
+}
+
 // Path: provider.profile
 class Translations$provider$profile$ar extends Translations$provider$profile$fr {
 	Translations$provider$profile$ar._(TranslationsAr root) : this._root = root, super.internal(root);
@@ -146,6 +157,7 @@ extension on TranslationsAr {
 			'common.home.toggleTheme' => 'تبديل المظهر الفاتح/الداكن',
 			'common.home.toggleLocale' => 'تبديل الفرنسية/العربية',
 			'common.home.designSystemPreview' => 'معرض نظام التصميم',
+			'common.widgets.verifiedBadge' => 'موثّق',
 			'contact.call' => 'اتصال',
 			'contact.whatsapp' => 'واتساب',
 			'provider.profile.callButton' => 'اتصال',

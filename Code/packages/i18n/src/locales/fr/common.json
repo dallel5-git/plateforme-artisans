@@ -7,5 +7,8 @@
     "toggleTheme": "Basculer thème clair/sombre",
     "toggleLocale": "Basculer FR/AR",
     "designSystemPreview": "Vitrine design system"
+  },
+  "widgets": {
+    "verifiedBadge": "Vérifié"
   }
 }
