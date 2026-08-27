@@ -14,6 +14,13 @@ analyzer:
     # warnings du générateur de client API pour la même raison. Retirer si
     # le générateur SO-04 est un jour rendu conforme very_good_analysis.
     - lib/core/api/generated/**
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
     # FM-02b : fusionné dans le package de l'app (mobile-client.mjs/foldIntoApp) — n'est plus
     # un paquet Dart autonome séparé. Reste exclu ici parce que le générateur produit toujours
     # quelques avertissements (imports défensifs non utilisés) que `flutter analyze` ne
