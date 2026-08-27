@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sanaya/app/bootstrap_placeholder_screen.dart';
 import 'package:sanaya/app/design_system_preview_screen.dart';
 import 'package:sanaya/app/home_screen.dart';
+import 'package:sanaya/features/provider_profile/presentation/screens/provider_profile_screen.dart';
 import 'package:sanaya/features/search/presentation/search_home_screen.dart';
 
 /// go_router n'a pas d'équivalent aux dossiers parenthésés d'Expo Router —
@@ -25,6 +26,13 @@ final router = GoRouter(
       path: '/client',
       name: 'client-home',
       builder: (_, _) => const SearchHomeScreen(),
+    ),
+    GoRoute(
+      path: '/providers/:slug',
+      name: 'provider-profile',
+      builder: (_, state) => ProviderProfileScreen(
+        slug: state.pathParameters['slug'] ?? '',
+      ),
     ),
     GoRoute(
       path: '/pro',
