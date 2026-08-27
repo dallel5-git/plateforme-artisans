@@ -126,6 +126,10 @@
 | `FM-06b` | Accueil client — widgets présentation : `SearchHomeBar`, `CategoryGrid`/`CategoryGridSkeleton` (icônes larges par `iconKey`, teinte `colorHex`), clés `t.search.*` FR/AR. Test 🔒 non-régression verrouillant la grille inversée en arabe | Claude | #166 | 2026-08-26 |
 | `FM-06c` | Accueil client — écran `/client` câblé : `SearchHomeScreen` (états loading/erreur+réessayer/vide/données), `showGovernoratePicker` (feuille modale), persistance du gouvernorat câblée dans `main()`/`SanayaApp` (patron FM-03b). `BootstrapNavSpace.client` retiré (mort) | Claude | #170 | 2026-08-26 |
 | `FM-06` | Accueil client : recherche + grille de catégories depuis l'API — parcours complet (3 PRs atomiques ci-dessus). Les 4 critères d'acceptation de l'issue #35 sont vérifiés par test automatisé (catégories jamais codées en dur, gouvernorat mémorisé, skeleton de chargement, grille inversée en arabe). **Non vérifié sur device Android réel** : aucun appareil connecté dans cet environnement (seuls Chrome/Edge web disponibles) — capture FR/AR à faire dès qu'un device est disponible, même réserve que FM-04a/FM-04b | Claude | #165/#166/#170 | 2026-08-26 |
+| `FM-09a` | Contact — domaine + file hors ligne : `ContactChannel`, `PendingContact`, `ContactQueue`/`SharedPreferencesContactQueue` (persistance disque réelle, 5 tests), `UrlLauncher`/`UrlLauncherImpl` (`url_launcher` ajouté en `dependencies`, flaggé). Convergence `api_client_provider.dart` vers `buildApiClient()` (FM-02c) | Claude | #172 | 2026-08-27 |
+| `FM-09b` | Contact — `ContactService` : poste `/v1/contact-events` (`Accept-Language` = langue active) avant tout lien natif (P9), ouvre `tel:`/`wa.me` avec le `phone`/`whatsappMessage` renvoyés par le serveur, replie sur `fallbackPhone` + mise en file si le POST échoue (P5), `flushQueue()` sans jamais rouvrir le composeur. Le spec pré-écrit `contact_flow_test.dart` (imprécis face au vrai contrat — `phone` et non `revealedPhone`, `whatsappMessage` déjà localisé côté serveur) est remplacé par une version conforme | Claude | #175 | 2026-08-27 |
+| `FM-09c` | Contact — `ContactButtons` (Appeler/WhatsApp via `AppButton`, variante `whatsapp`) câblé sur `contactServiceProvider` ; namespace i18n `contact` (FR+AR). `contactQueueFlushProvider` : vidage opportuniste de la file au démarrage, câblé dans `main.dart`/`SanayaApp`. Pas encore d'écran pour l'embarquer (FM-08 non mergé) — vérifié par tests widget seuls | Claude | #177 | 2026-08-27 |
+| `FM-09` | ⭐⭐ Contact téléphone/WhatsApp : traçage + file hors ligne — parcours complet (3 PRs atomiques ci-dessus). P9 (trace avant tout lien natif) et P5 (jamais bloquer l'utilisateur hors ligne) vérifiés par test automatisé ; P8 (aucun téléphone avant contact) respecté par construction — le spec pré-écrit avait mal anticipé le contrat réel sur ces trois points, corrigé en `FM-09b`. **Reste à câbler dans une fiche prestataire** dès que FM-08 livre | Claude | #172/#175/#177 | 2026-08-27 |
 
 ---
 
@@ -134,7 +138,7 @@
 | Métrique | Valeur |
 |---|---|
 | Tâches 🔴 P0 planifiées | 43 |
-| Tâches 🔴 P0 terminées | 24 *(+ BE-18, backfill bookkeeping du 2026-08-23 ; + BE-27, GATE 1 vert du 2026-08-24 ; + FM-01, premier lot Flutter vert du 2026-08-25 ; + FM-03, i18n FR/AR vert du 2026-08-25 ; + FM-06, accueil client vert du 2026-08-26)* |
+| Tâches 🔴 P0 terminées | 25 *(+ BE-18, backfill bookkeeping du 2026-08-23 ; + BE-27, GATE 1 vert du 2026-08-24 ; + FM-01, premier lot Flutter vert du 2026-08-25 ; + FM-03, i18n FR/AR vert du 2026-08-25 ; + FM-06, accueil client vert du 2026-08-26 ; + FM-09, contact téléphone/WhatsApp vert du 2026-08-27)* |
 | Tâches 🟠 P1 terminées | 1 / 7 *(l'amortisseur : 18 h — BE-24 mergée, backfill bookkeeping du 2026-08-23)* |
 | Heures-homme 🔴 P0 estimées / consommées | 109 h / 10 h *(capacité 112 h)* |
 
