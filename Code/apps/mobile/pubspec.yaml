@@ -30,6 +30,7 @@ dependencies:
   shared_preferences: ^2.5.5
   slang: ^4.19.0
   slang_flutter: ^4.19.0
+  url_launcher: ^6.3.0
 
 # flutter_lints + very_good_analysis : voir analysis_options.yaml — un seul
 # `include` (very_good_analysis, superset strict) suffit, les deux packages
