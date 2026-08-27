@@ -6,6 +6,7 @@ import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/widgets/app_button.dart';
 import 'package:sanaya/core/widgets/app_card.dart';
+import 'package:sanaya/core/widgets/app_text_field.dart';
 
 /// Écran interne de vérification visuelle du design system (FM-04).
 /// Outil de développement, pas une fonctionnalité produit — grandit au fil
@@ -63,6 +64,24 @@ class DesignSystemPreviewScreen extends ConsumerWidget {
           _Section(
             title: 'AppCard',
             child: AppCard(child: Text(t.common.appName)),
+          ),
+          const SizedBox(height: AppSpacing.xl),
+          const _Section(
+            title: 'AppTextField',
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                AppTextField(
+                  label: 'Numéro de téléphone',
+                  hintText: '+216 22 123 456',
+                ),
+                SizedBox(height: AppSpacing.md),
+                AppTextField(
+                  label: 'Code de vérification',
+                  errorText: 'Code incorrect — il vous reste 2 tentatives',
+                ),
+              ],
+            ),
           ),
         ],
       ),
