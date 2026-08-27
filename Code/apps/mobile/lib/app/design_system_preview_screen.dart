@@ -7,6 +7,8 @@ import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/widgets/app_button.dart';
 import 'package:sanaya/core/widgets/app_card.dart';
 import 'package:sanaya/core/widgets/app_text_field.dart';
+import 'package:sanaya/core/widgets/rating_stars.dart';
+import 'package:sanaya/core/widgets/verified_badge.dart';
 
 /// Écran interne de vérification visuelle du design system (FM-04).
 /// Outil de développement, pas une fonctionnalité produit — grandit au fil
@@ -83,6 +85,20 @@ class DesignSystemPreviewScreen extends ConsumerWidget {
               ],
             ),
           ),
+          const SizedBox(height: AppSpacing.xl),
+          const _Section(
+            title: 'RatingStars',
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                RatingStars(rating: 4.8, reviewCount: 63),
+                SizedBox(height: AppSpacing.sm),
+                RatingStars(rating: 4.2, reviewCount: 18),
+              ],
+            ),
+          ),
+          const SizedBox(height: AppSpacing.xl),
+          const _Section(title: 'VerifiedBadge', child: VerifiedBadge()),
         ],
       ),
     );

@@ -32,7 +32,8 @@ String formatDate(DateTime date, Locale locale) {
 }
 
 /// Miroir Dart de `packages/i18n/src/format.ts#formatNumber`, restreint à un
-/// nombre fixe de décimales (ex. note moyenne "4,8" — jamais "5" pour 5.0).
+/// nombre fixe de décimales (ex. note moyenne "4,8" — jamais "5" pour 5.0,
+/// contrairement à `NumberFormat.decimalPattern` qui tronque les zéros).
 /// Utilisé par `RatingStars` (note) et `ProviderCard` (distance).
 String formatNumber(num value, Locale locale, {int decimalDigits = 1}) {
   final pattern = '0.${'0' * decimalDigits}';
