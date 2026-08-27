@@ -7,6 +7,7 @@ import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/app/router.dart';
 import 'package:sanaya/app/theme.dart';
 import 'package:sanaya/core/i18n/locale_persistence.dart';
+import 'package:sanaya/features/contact/application/contact_providers.dart';
 import 'package:sanaya/features/search/application/catalog_providers.dart';
 import 'package:sanaya/features/search/data/governorate_persistence.dart';
 
@@ -54,7 +55,11 @@ class SanayaApp extends ConsumerWidget {
       ..listen<String?>(
         selectedGovernorateIdProvider,
         (_, next) => next == null ? null : persistGovernorateId(next),
-      );
+      )
+      // FM-09c : vidage opportuniste de la file de contacts hors ligne, une
+      // seule fois au premier build (valeur ignorée — l'échec d'un renvoi
+      // ne doit rien changer à l'affichage, P5).
+      ..watch(contactQueueFlushProvider);
 
     return MaterialApp.router(
       routerConfig: router,

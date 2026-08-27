@@ -16,6 +16,9 @@ dependencies:
   # version réellement bundlée par l'app peuvent diverger silencieusement.
   built_collection: 5.1.1
   built_value: 8.12.7
+  # FM-08 : galerie avec chargement progressif, placeholder skeleton et gestion d'erreur
+  # — cité explicitement dans l'issue FM-08 (#37) et la spec CLAUDE.md mobile §Réseau dégradé.
+  cached_network_image: ^3.4.1
   cupertino_icons: ^1.0.8
   dio: 5.11.0
   flutter:

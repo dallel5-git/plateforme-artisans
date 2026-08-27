@@ -1,1 +1,18 @@
-{}
+{
+  "profile": {
+    "callButton": "اتصال",
+    "whatsappButton": "واتساب",
+    "reviewsTitle": "التقييمات",
+    "loadMoreReviews": "عرض المزيد من التقييمات",
+    "noReviews": "لا توجد تقييمات حتى الآن.",
+    "offeringsTitle": "الخدمات",
+    "coverageTitle": "مناطق التدخل",
+    "yearsExperience": "{n} سنة خبرة",
+    "availableNow": "متوفر",
+    "busy": "مشغول",
+    "onHoliday": "في عطلة",
+    "verifiedContact": "اتصال موثّق",
+    "errorLoad": "تعذّر تحميل بطاقة الحرفي.",
+    "retry": "إعادة المحاولة"
+  }
+}
