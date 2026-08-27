@@ -43,7 +43,6 @@ class TranslationsAr extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final Translations$contact$ar contact = Translations$contact$ar._(_root);
 	@override late final Translations$favorites$ar favorites = Translations$favorites$ar._(_root);
 	@override late final Translations$legal$ar legal = Translations$legal$ar._(_root);
-	@override late final Translations$provider$ar provider = Translations$provider$ar._(_root);
 	@override late final Translations$search$ar search = Translations$search$ar._(_root);
 	@override late final Translations$settings$ar settings = Translations$settings$ar._(_root);
 }
@@ -57,7 +56,6 @@ class Translations$common$ar extends Translations$common$fr {
 	// Translations
 	@override String get appName => 'Sanaya';
 	@override late final Translations$common$home$ar home = Translations$common$home$ar._(_root);
-	@override late final Translations$common$widgets$ar widgets = Translations$common$widgets$ar._(_root);
 }
 
 // Path: contact
@@ -108,16 +106,6 @@ class Translations$legal$ar extends Translations$legal$fr {
 	@override String get inpdpContent => 'وفقًا للقانون الأساسي عدد 63 لسنة 2004، تلتزم صنايعية بحماية خصوصية مستخدميها. لا يتم كشف أرقام الهواتف إلا عند طلب التواصل الطوعي والمسجل.';
 	@override String get rightsTitle => 'حقوقكم';
 	@override String get rightsContent => 'يحق لكم النفاذ إلى بياناتكم الشخصية وتصحيحها أو حذفها في أي وقت.';
-}
-
-// Path: provider
-class Translations$provider$ar extends Translations$provider$fr {
-	Translations$provider$ar._(TranslationsAr root) : this._root = root, super.internal(root);
-
-	final TranslationsAr _root; // ignore: unused_field
-
-	// Translations
-	@override late final Translations$provider$profile$ar profile = Translations$provider$profile$ar._(_root);
 }
 
 // Path: search
@@ -178,39 +166,6 @@ class Translations$common$home$ar extends Translations$common$home$fr {
 	@override String get designSystemPreview => 'معرض نظام التصميم';
 }
 
-// Path: common.widgets
-class Translations$common$widgets$ar extends Translations$common$widgets$fr {
-	Translations$common$widgets$ar._(TranslationsAr root) : this._root = root, super.internal(root);
-
-	final TranslationsAr _root; // ignore: unused_field
-
-	// Translations
-	@override String get verifiedBadge => 'موثّق';
-}
-
-// Path: provider.profile
-class Translations$provider$profile$ar extends Translations$provider$profile$fr {
-	Translations$provider$profile$ar._(TranslationsAr root) : this._root = root, super.internal(root);
-
-	final TranslationsAr _root; // ignore: unused_field
-
-	// Translations
-	@override String get callButton => 'اتصال';
-	@override String get whatsappButton => 'واتساب';
-	@override String get reviewsTitle => 'التقييمات';
-	@override String get loadMoreReviews => 'عرض المزيد من التقييمات';
-	@override String get noReviews => 'لا توجد تقييمات حتى الآن.';
-	@override String get offeringsTitle => 'الخدمات';
-	@override String get coverageTitle => 'مناطق التدخل';
-	@override String get yearsExperience => '{n} سنة خبرة';
-	@override String get availableNow => 'متوفر';
-	@override String get busy => 'مشغول';
-	@override String get onHoliday => 'في عطلة';
-	@override String get verifiedContact => 'اتصال موثّق';
-	@override String get errorLoad => 'تعذّر تحميل بطاقة الحرفي.';
-	@override String get retry => 'إعادة المحاولة';
-}
-
 /// The flat map containing all translations for locale <ar>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -226,7 +181,6 @@ extension on TranslationsAr {
 			'common.home.toggleTheme' => 'تبديل المظهر الفاتح/الداكن',
 			'common.home.toggleLocale' => 'تبديل الفرنسية/العربية',
 			'common.home.designSystemPreview' => 'معرض نظام التصميم',
-			'common.widgets.verifiedBadge' => 'موثّق',
 			'contact.call' => 'اتصال',
 			'contact.whatsapp' => 'واتساب',
 			'favorites.title' => 'المفضلات',
@@ -250,20 +204,6 @@ extension on TranslationsAr {
 			'legal.inpdpContent' => 'وفقًا للقانون الأساسي عدد 63 لسنة 2004، تلتزم صنايعية بحماية خصوصية مستخدميها. لا يتم كشف أرقام الهواتف إلا عند طلب التواصل الطوعي والمسجل.',
 			'legal.rightsTitle' => 'حقوقكم',
 			'legal.rightsContent' => 'يحق لكم النفاذ إلى بياناتكم الشخصية وتصحيحها أو حذفها في أي وقت.',
-			'provider.profile.callButton' => 'اتصال',
-			'provider.profile.whatsappButton' => 'واتساب',
-			'provider.profile.reviewsTitle' => 'التقييمات',
-			'provider.profile.loadMoreReviews' => 'عرض المزيد من التقييمات',
-			'provider.profile.noReviews' => 'لا توجد تقييمات حتى الآن.',
-			'provider.profile.offeringsTitle' => 'الخدمات',
-			'provider.profile.coverageTitle' => 'مناطق التدخل',
-			'provider.profile.yearsExperience' => '{n} سنة خبرة',
-			'provider.profile.availableNow' => 'متوفر',
-			'provider.profile.busy' => 'مشغول',
-			'provider.profile.onHoliday' => 'في عطلة',
-			'provider.profile.verifiedContact' => 'اتصال موثّق',
-			'provider.profile.errorLoad' => 'تعذّر تحميل بطاقة الحرفي.',
-			'provider.profile.retry' => 'إعادة المحاولة',
 			'search.searchPlaceholder' => 'ابحث عن خدمة…',
 			'search.locationPlaceholder' => 'اختر ولاية',
 			'search.categoriesTitle' => 'الفئات',
