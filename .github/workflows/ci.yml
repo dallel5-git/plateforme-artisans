@@ -137,8 +137,9 @@ jobs:
             lib/app lib/main.dart lib/core/widgets lib/core/api/api_client_provider.dart \
             lib/core/api/auth_token_store.dart lib/core/api/interceptors \
             lib/features/search lib/features/contact lib/features/provider_profile \
+            lib/features/onboarding \
             test/widget_test.dart test/core/widgets test/features/search test/features/contact \
-            test/features/provider_profile test/core/api
+            test/features/provider_profile test/core/api test/features/onboarding
 
       # FM-03 : lib/core/i18n/*.g.dart est généré par slang depuis
       # packages/i18n/src/locales/ (SO-05). `dart run build_runner build`
@@ -175,6 +176,8 @@ jobs:
       - run: flutter test test/features/search
       - run: flutter test test/features/contact
       - run: flutter test test/features/provider_profile
+      # FM-11a : une invocation séparée par cible (règle FM-02d — mélange fichier+répertoire peu fiable).
+      - run: flutter test test/features/onboarding
 
   mobile-client-check:
     name: contrat → client Dart (mobile:client)
