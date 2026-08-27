@@ -57,4 +57,24 @@ void main() {
       expect(result, contains('26'));
     });
   });
+
+  group('formatNumber', () {
+    test('formate un nombre avec 1 décimale en FR (virgule)', () {
+      final result = formatNumber(4.8, const Locale('fr'));
+      expect(result, '4,8');
+    });
+
+    test('formate un entier avec 1 décimale en FR (4,0)', () {
+      final result = formatNumber(4, const Locale('fr'));
+      expect(result, '4,0');
+    });
+
+    test(
+      'formate un nombre avec 1 décimale en AR (point, chiffres occidentaux)',
+      () {
+        final result = formatNumber(4.8, const Locale('ar'));
+        expect(result, '4.8');
+      },
+    );
+  });
 }

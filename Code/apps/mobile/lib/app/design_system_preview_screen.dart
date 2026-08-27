@@ -6,6 +6,7 @@ import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/widgets/app_button.dart';
 import 'package:sanaya/core/widgets/app_card.dart';
+import 'package:sanaya/core/widgets/app_text_field.dart';
 import 'package:sanaya/core/widgets/rating_stars.dart';
 import 'package:sanaya/core/widgets/verified_badge.dart';
 
@@ -65,6 +66,24 @@ class DesignSystemPreviewScreen extends ConsumerWidget {
           _Section(
             title: 'AppCard',
             child: AppCard(child: Text(t.common.appName)),
+          ),
+          const SizedBox(height: AppSpacing.xl),
+          const _Section(
+            title: 'AppTextField',
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                AppTextField(
+                  label: 'Numéro de téléphone',
+                  hintText: '+216 22 123 456',
+                ),
+                SizedBox(height: AppSpacing.md),
+                AppTextField(
+                  label: 'Code de vérification',
+                  errorText: 'Code incorrect — il vous reste 2 tentatives',
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: AppSpacing.xl),
           const _Section(

@@ -5,13 +5,6 @@ include: package:very_good_analysis/analysis_options.yaml
 
 analyzer:
   exclude:
-    - test/features/contact/contact_flow_test.dart
-    # FM-09/FM-02 : test pré-écrit qui échoue tant que lib/features/contact/
-    # (ContactService/ContactQueue/UrlLauncher, FM-09) n'existe pas — voulu
-    # (cf. l'entête du fichier). Le client généré et ses exceptions/hooks de
-    # test (groupe « FM-02 — client réseau généré ») sont livrés (FM-02b+) ;
-    # seule la partie FM-09 du fichier reste rouge. Exclu de l'analyse, pas
-    # supprimé. Retirer cette ligne quand FM-09 livre le code testé.
     - lib/core/theme/app_colors.dart
     - lib/core/theme/app_spacing.dart
     - lib/core/theme/app_text.dart
@@ -21,6 +14,13 @@ analyzer:
     # warnings du générateur de client API pour la même raison. Retirer si
     # le générateur SO-04 est un jour rendu conforme very_good_analysis.
     - lib/core/api/generated/**
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
     # FM-02b : fusionné dans le package de l'app (mobile-client.mjs/foldIntoApp) — n'est plus
     # un paquet Dart autonome séparé. Reste exclu ici parce que le générateur produit toujours
     # quelques avertissements (imports défensifs non utilisés) que `flutter analyze` ne

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:sanaya/core/i18n/format.dart';
 import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';

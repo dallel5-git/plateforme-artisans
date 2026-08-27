@@ -1,0 +1,20 @@
+{
+  "title": "الإعدادات",
+  "languageSection": "اللغة",
+  "french": "Français",
+  "arabic": "العربية (تونس)",
+  "themeSection": "المظهر",
+  "themeSystem": "النظام",
+  "themeLight": "فاتح",
+  "themeDark": "داكن",
+  "legalSection": "المعلومات والشروط القانونية",
+  "legalNotices": "الإشعارات القانونية",
+  "privacyPolicy": "حماية البيانات الشخصية (INPDP)",
+  "accountSection": "الحساب",
+  "logout": "تسجيل الخروج",
+  "logoutConfirmTitle": "تسجيل الخروج",
+  "logoutConfirmMessage": "هل أنت متأكد من رغبتك في تسجيل الخروج؟",
+  "cancel": "إلغاء",
+  "confirm": "تأكيد",
+  "version": "الإصدار"
+}
