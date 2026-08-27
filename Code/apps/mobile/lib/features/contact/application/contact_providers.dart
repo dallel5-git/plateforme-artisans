@@ -17,3 +17,13 @@ final contactServiceProvider = Provider<ContactService>(
     launcher: ref.watch(urlLauncherProvider),
   ),
 );
+
+/// Vidage opportuniste de la file au démarrage de l'app (P9 : un contact
+/// mis en file hors ligne ne doit pas attendre le prochain tap pour être
+/// retenté). `FutureProvider` plutôt qu'un appel direct dans `main()` : la
+/// requête a besoin du `Dio` construit via `ProviderScope`, qui n'existe
+/// qu'après `runApp`. Lu une seule fois (`ref.watch` sans consommer la
+/// valeur) au premier build de `SanayaApp` — voir `main.dart`.
+final contactQueueFlushProvider = FutureProvider<void>(
+  (ref) => ref.watch(contactServiceProvider).flushQueue(),
+);
