@@ -1,0 +1,20 @@
+{
+  "title": "Réglages",
+  "languageSection": "Langue",
+  "french": "Français",
+  "arabic": "العربية (تونس)",
+  "themeSection": "Apparence",
+  "themeSystem": "Système",
+  "themeLight": "Clair",
+  "themeDark": "Sombre",
+  "legalSection": "Informations & Légal",
+  "legalNotices": "Mentions légales",
+  "privacyPolicy": "Protection des données (INPDP)",
+  "accountSection": "Compte",
+  "logout": "Se déconnecter",
+  "logoutConfirmTitle": "Déconnexion",
+  "logoutConfirmMessage": "Êtes-vous sûr de vouloir vous déconnecter ?",
+  "cancel": "Annuler",
+  "confirm": "Confirmer",
+  "version": "Version"
+}

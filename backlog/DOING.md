@@ -9,8 +9,8 @@ _Sprint S1 · dernière mise à jour : 2026-08-27_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
+| `FM-13` | Favoris et réglages : liste des favoris, réglages (langue, déconnexion, mentions légales) (#56) | 2026-08-27 | `feat/FM-13a-favorites-data-layer` → `feat/FM-13b-favorites-screen` → `feat/FM-13c-settings-screen` | Décomposée en 3 PRs atomiques, branchées depuis `develop` à jour. `FM-13a` : Catalogues i18n FR/AR (`favorites`, `settings`, `legal`), `FavoritesRepository`, `FavoritesListNotifier` (Riverpod AsyncNotifier avec mise à jour optimiste et gestion d'erreurs), `AuthRepository` (déconnexion), `pnpm i18n:check` vert, `flutter analyze` et `flutter test` verts (99/99). |
 
-*(FM-03 — 4/4 PRs mergées #154/#156/#159/#160 — déplacée vers `DONE.md`.)*
 
 ## DEV-2
 
@@ -22,6 +22,7 @@ _Sprint S1 · dernière mise à jour : 2026-08-27_
 
 *(FM-09 — 3/3 PRs mergées #172/#175/#177 — déplacée vers `DONE.md`. Le spec pré-écrit `test/features/contact/contact_flow_test.dart` (FM-09/FM-02) s'est révélé imprécis face au vrai contrat (`phone` et non `revealedPhone`, `whatsappMessage` déjà localisé côté serveur) — remplacé en `FM-09b` par une version conforme. Pas encore d'écran pour embarquer `ContactButtons` (FM-08 non mergé) — vérifié par tests widget seuls, à câbler dans une fiche prestataire dès que FM-08 livre.)*
 | `FM-08` | Fiche artisan : galerie, tarifs, zones, avis, badge (#37) | 2026-08-27 | `feat/FM-08a-provider-profile-data-layer` (PR #173, en attente de revue) → `feat/FM-08b-provider-profile-widgets` (PR #174, en attente de revue) → `feat/FM-08c-provider-profile-screen` (PR #176, en attente de revue) → `feat/FM-08d-provider-profile-polish-i18n` (PR #178, en attente de revue) | Dépendance `BE-17` fermée. Décomposée en 4 PRs atomiques, branchées depuis `develop` et ciblant `develop` directement (jamais empilées). `FM-08a` (#173, couche data) : `ProviderProfileRepository`, `cached_network_image`, providers Riverpod, traductions FR/AR, CI étendue. `FM-08b` (#174, widgets présentation) : `ProviderGallery`, `OfferingCard`, `CoverageAreaChip`, `AvailabilityChip`, `ReviewTile`, `RatingStars`, `VerifiedBadge`. `FM-08c` (#176, écran `ProviderProfileScreen` + routing) : route `/providers/:slug`, écran complet avec chargement skeleton, gestion d'erreur avec réessai, affichage galerie / prestations / zones / avis avec pagination curseur, barre fixe de contact basse avec boutons Appeler et WhatsApp (point d'extension FM-09). `FM-08d` (#178, polish i18n & RTL) : validation de la parité i18n FR/AR, tests complets sous locale arabe RTL, intégration design system et vérification CI globale. `flutter analyze` et `flutter test` verts (80/80). |
+| `FM-11` | Espace Pro : assistant d'onboarding + `completionScore` en direct (#40) | 2026-08-27 | `feat/FM-11a-onboarding-data-layer` (en cours) → `FM-11b..d` | BE-19 fermée (dépendance levée). Décomposée en 4 PRs atomiques depuis `develop` ciblant `develop`. `FM-11a` (en cours) : `OnboardingRepository` (4 méthodes : createProfile/updateProfile/setCategories/setCoverageAreas via client généré), tests repository (10 cas), CI étendue à `lib/features/onboarding` et `test/features/onboarding`. `flutter analyze`/`flutter test` en cours de vérification. |
 
 *(QA-01 — 5/5 PRs mergées #138/#140/#139/#141–#143 — déplacée vers `DONE.md`. BE-18 et BE-24 : bookkeeping de retard déjà corrigé précédemment.)*
 

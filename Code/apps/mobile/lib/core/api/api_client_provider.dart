@@ -39,3 +39,8 @@ final defaultApiProvider = Provider<DefaultApi>(
 final contactEventsApiProvider = Provider<ContactEventsApi>(
   (ref) => ref.watch(apiClientProvider).getContactEventsApi(),
 );
+
+/// Point d'entrée unique pour `/v1/auth/*` (BE-10, FM-05, FM-13).
+final authApiProvider = Provider<AuthApi>(
+  (ref) => ref.watch(apiClientProvider).getAuthApi(),
+);
