@@ -1,1 +1,18 @@
-{}
+{
+  "profile": {
+    "callButton": "Appeler",
+    "whatsappButton": "WhatsApp",
+    "reviewsTitle": "Avis",
+    "loadMoreReviews": "Charger plus d'avis",
+    "noReviews": "Aucun avis pour le moment.",
+    "offeringsTitle": "Prestations",
+    "coverageTitle": "Zones d'intervention",
+    "yearsExperience": "{n} an(s) d'expérience",
+    "availableNow": "Disponible",
+    "busy": "Occupé",
+    "onHoliday": "En congé",
+    "verifiedContact": "Contact vérifié",
+    "errorLoad": "Impossible de charger la fiche.",
+    "retry": "Réessayer"
+  }
+}
