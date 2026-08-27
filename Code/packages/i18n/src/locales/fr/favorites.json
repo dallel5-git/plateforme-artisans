@@ -1,0 +1,14 @@
+{
+  "title": "Mes favoris",
+  "emptyTitle": "Aucun favori pour le moment",
+  "emptySubtitle": "Enregistrez des artisans pour les retrouver rapidement.",
+  "exploreCta": "Trouver un artisan",
+  "removeTooltip": "Retirer des favoris",
+  "addTooltip": "Ajouter aux favoris",
+  "removeSuccess": "Artisan retiré des favoris",
+  "addSuccess": "Artisan ajouté aux favoris",
+  "removeError": "Impossible de retirer le favori.",
+  "addError": "Impossible d'ajouter le favori.",
+  "loadError": "Impossible de charger vos favoris.",
+  "retry": "Réessayer"
+}
