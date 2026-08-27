@@ -40,6 +40,7 @@ class TranslationsAr extends Translations with BaseTranslations<AppLocale, Trans
 
 	// Translations
 	@override late final Translations$common$ar common = Translations$common$ar._(_root);
+	@override late final Translations$contact$ar contact = Translations$contact$ar._(_root);
 	@override late final Translations$search$ar search = Translations$search$ar._(_root);
 }
 
@@ -52,6 +53,17 @@ class Translations$common$ar extends Translations$common$fr {
 	// Translations
 	@override String get appName => 'Sanaya';
 	@override late final Translations$common$home$ar home = Translations$common$home$ar._(_root);
+}
+
+// Path: contact
+class Translations$contact$ar extends Translations$contact$fr {
+	Translations$contact$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get call => 'اتصال';
+	@override String get whatsapp => 'واتساب';
 }
 
 // Path: search
@@ -100,6 +112,8 @@ extension on TranslationsAr {
 			'common.home.toggleTheme' => 'تبديل المظهر الفاتح/الداكن',
 			'common.home.toggleLocale' => 'تبديل الفرنسية/العربية',
 			'common.home.designSystemPreview' => 'معرض نظام التصميم',
+			'contact.call' => 'اتصال',
+			'contact.whatsapp' => 'واتساب',
 			'search.searchPlaceholder' => 'ابحث عن خدمة…',
 			'search.locationPlaceholder' => 'اختر ولاية',
 			'search.categoriesTitle' => 'الفئات',

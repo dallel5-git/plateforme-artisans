@@ -35,6 +35,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	// Translations
 	late final Translations$common$fr common = Translations$common$fr.internal(_root);
+	late final Translations$contact$fr contact = Translations$contact$fr.internal(_root);
 	late final Translations$search$fr search = Translations$search$fr.internal(_root);
 }
 
@@ -50,6 +51,21 @@ class Translations$common$fr {
 	String get appName => 'Sanaya';
 
 	late final Translations$common$home$fr home = Translations$common$home$fr.internal(_root);
+}
+
+// Path: contact
+class Translations$contact$fr {
+	Translations$contact$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Appeler'
+	String get call => 'Appeler';
+
+	/// fr: 'WhatsApp'
+	String get whatsapp => 'WhatsApp';
 }
 
 // Path: search
@@ -124,6 +140,8 @@ extension on Translations {
 			'common.home.toggleTheme' => 'Basculer thème clair/sombre',
 			'common.home.toggleLocale' => 'Basculer FR/AR',
 			'common.home.designSystemPreview' => 'Vitrine design system',
+			'contact.call' => 'Appeler',
+			'contact.whatsapp' => 'WhatsApp',
 			'search.searchPlaceholder' => 'Rechercher un service…',
 			'search.locationPlaceholder' => 'Choisir un gouvernorat',
 			'search.categoriesTitle' => 'Catégories',
