@@ -74,10 +74,15 @@ class DesignSystemPreviewScreen extends ConsumerWidget {
                 AppTextField(
                   label: 'Numéro de téléphone',
                   hintText: '+216 22 123 456',
+                  keyboardType: TextInputType.phone,
+                  textDirection: TextDirection.ltr,
                 ),
                 SizedBox(height: AppSpacing.md),
                 AppTextField(
                   label: 'Code de vérification',
+                  hintText: '1234',
+                  keyboardType: TextInputType.number,
+                  textDirection: TextDirection.ltr,
                   errorText: 'Code incorrect — il vous reste 2 tentatives',
                 ),
               ],

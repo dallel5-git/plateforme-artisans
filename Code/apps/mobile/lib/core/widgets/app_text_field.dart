@@ -18,6 +18,7 @@ class AppTextField extends StatefulWidget {
     this.keyboardType,
     this.onChanged,
     this.obscureText = false,
+    this.textDirection,
   });
 
   final String? label;
@@ -27,6 +28,15 @@ class AppTextField extends StatefulWidget {
   final TextInputType? keyboardType;
   final ValueChanged<String>? onChanged;
   final bool obscureText;
+
+  /// Surcharge explicite de la direction du *contenu saisi* (pas du label,
+  /// qui suit toujours la locale ambiante). `null` (défaut) hérite de la
+  /// `Directionality` ambiante. À passer en `TextDirection.ltr` par l'écran
+  /// appelant pour un numéro de téléphone / code OTP : ce sont des données
+  /// intrinsèquement LTR — sans ça, l'algorithme bidi Unicode réordonne
+  /// visuellement une chaîne comme « +216 22 123 456 » dans un contexte RTL
+  /// (constaté à l'écran sur device réel, écran vitrine FM-04b en arabe).
+  final TextDirection? textDirection;
 
   @override
   State<AppTextField> createState() => _AppTextFieldState();
@@ -94,38 +104,51 @@ class _AppTextFieldState extends State<AppTextField> {
                     ? [BoxShadow(color: colors.accentSubtle, spreadRadius: 3)]
                     : null,
               ),
-              child: TextField(
-                focusNode: _focusNode,
-                controller: widget.controller,
-                keyboardType: widget.keyboardType,
-                onChanged: widget.onChanged,
-                obscureText: widget.obscureText,
-                style: AppText.body(
-                  locale,
-                ).copyWith(color: colors.textPrimary),
-                decoration: InputDecoration(
-                  hintText: widget.hintText,
-                  errorText: widget.errorText,
-                  errorStyle: AppText.small(locale).copyWith(
-                    color: colors.destructive,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  filled: true,
-                  fillColor: colors.surface,
-                  contentPadding: const EdgeInsetsDirectional.symmetric(
-                    horizontal: AppSpacing.md + 2,
-                    vertical: AppSpacing.md,
-                  ),
-                  border: outlineBorder,
-                  enabledBorder: outlineBorder,
-                  focusedBorder: outlineBorder,
-                  errorBorder: OutlineInputBorder(
-                    borderRadius: const BorderRadius.all(AppRadius.md),
-                    borderSide: BorderSide(color: colors.destructive),
-                  ),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderRadius: const BorderRadius.all(AppRadius.md),
-                    borderSide: BorderSide(color: colors.destructive),
+              // `Directionality` explicite (pas seulement `TextField.
+              // textDirection`, qui ne couvre que la valeur saisie) : le
+              // hint suit sa propre logique de rendu dans `InputDecorator`
+              // et ignore `TextField.textDirection` — sans cet enrobage, un
+              // hint comme « +216 22 123 456 » reste réordonné par
+              // l'algorithme bidi Unicode en contexte RTL malgré la
+              // surcharge (constaté à l'écran, écran vitrine FM-04b en
+              // arabe).
+              child: Directionality(
+                textDirection:
+                    widget.textDirection ?? Directionality.of(context),
+                child: TextField(
+                  focusNode: _focusNode,
+                  controller: widget.controller,
+                  keyboardType: widget.keyboardType,
+                  onChanged: widget.onChanged,
+                  obscureText: widget.obscureText,
+                  textDirection: widget.textDirection,
+                  style: AppText.body(
+                    locale,
+                  ).copyWith(color: colors.textPrimary),
+                  decoration: InputDecoration(
+                    hintText: widget.hintText,
+                    errorText: widget.errorText,
+                    errorStyle: AppText.small(locale).copyWith(
+                      color: colors.destructive,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    filled: true,
+                    fillColor: colors.surface,
+                    contentPadding: const EdgeInsetsDirectional.symmetric(
+                      horizontal: AppSpacing.md + 2,
+                      vertical: AppSpacing.md,
+                    ),
+                    border: outlineBorder,
+                    enabledBorder: outlineBorder,
+                    focusedBorder: outlineBorder,
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: const BorderRadius.all(AppRadius.md),
+                      borderSide: BorderSide(color: colors.destructive),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: const BorderRadius.all(AppRadius.md),
+                      borderSide: BorderSide(color: colors.destructive),
+                    ),
                   ),
                 ),
               ),

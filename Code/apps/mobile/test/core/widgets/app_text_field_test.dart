@@ -52,6 +52,48 @@ void main() {
       expect(size.height, greaterThanOrEqualTo(48.0));
     });
 
+    testWidgets(
+      'textDirection: ltr force le contenu en LTR même en contexte RTL '
+      '(régression — un numéro de téléphone se réordonne visuellement sous '
+      "l'algorithme bidi Unicode en arabe sans cette surcharge, constaté à "
+      "l'écran vitrine)",
+      (tester) async {
+        await tester.pumpWidget(
+          themedApp(
+            const AppTextField(
+              label: 'Numéro de téléphone',
+              hintText: '+216 22 123 456',
+              textDirection: TextDirection.ltr,
+            ),
+            locale: const Locale('ar'),
+          ),
+        );
+
+        final field = tester.widget<TextField>(find.byType(TextField));
+        expect(field.textDirection, TextDirection.ltr);
+      },
+    );
+
+    testWidgets(
+      'sans surcharge, le champ hérite de la Directionality ambiante (rtl '
+      'en arabe)',
+      (tester) async {
+        await tester.pumpWidget(
+          themedApp(
+            const AppTextField(label: 'Service recherché'),
+            locale: const Locale('ar'),
+          ),
+        );
+
+        final field = tester.widget<TextField>(find.byType(TextField));
+        expect(field.textDirection, isNull);
+        expect(
+          Directionality.of(tester.element(find.byType(TextField))),
+          TextDirection.rtl,
+        );
+      },
+    );
+
     testWidgets('focus : le halo (boxShadow) apparaît puis disparaît', (
       tester,
     ) async {
