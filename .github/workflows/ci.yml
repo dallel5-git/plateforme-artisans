@@ -118,15 +118,24 @@ jobs:
       # explicitement (fichiers, pas tout le dossier) : seuls fichiers écrits
       # à la main de lib/core/i18n, le reste (*.g.dart) est généré par slang.
       # Résout SO-09 (gap pré-existant depuis FM-03, jamais couvert par
-      # cette étape). À élargir au fil des tickets FM-* qui ajoutent du code
-      # sous lib/core/{api,i18n}/ et lib/features/.
+      # cette étape). lib/core/api/api_client_provider.dart et
+      # lib/features/search (FM-06) : premier code applicatif sous ces deux
+      # chemins. ⚠️ Fichier précis, jamais `lib/core/api` en entier : ce
+      # dossier contient aussi `lib/core/api/generated/` (client
+      # openapi-generator, SDK Dart 3.12.2 épinglé côté mobile-client-check) —
+      # un `dart format` avec un SDK local/CI différent le reformaterait en
+      # diff parasite, même bug que celui documenté pour mobile-client-check.
+      # À élargir au fil des tickets FM-* qui ajoutent du code sous
+      # lib/core/{api,i18n}/ et lib/features/.
       - run: |
           dart format --set-exit-if-changed \
             lib/app lib/main.dart lib/core/widgets \
             lib/core/i18n/format.dart lib/core/i18n/locale_persistence.dart \
+            lib/core/api/api_client_provider.dart lib/features/search \
             test/widget_test.dart test/core/widgets \
             test/core/i18n/format_test.dart \
-            test/core/i18n/locale_persistence_test.dart
+            test/core/i18n/locale_persistence_test.dart \
+            test/features/search
 
       # FM-03 : lib/core/i18n/*.g.dart est généré par slang depuis
       # packages/i18n/src/locales/ (SO-05). `dart run build_runner build`
@@ -146,9 +155,10 @@ jobs:
       # découvrirait quand même (l'exclusion analyzer n'affecte que l'analyse
       # statique, pas la collecte des tests) et ferait échouer ce job pour une
       # raison sans rapport avec le code de la PR. test/core/widgets ajouté par
-      # FM-04. test/core/i18n ajouté ici (résout SO-09). À élargir quand
-      # FM-02/FM-09 livrent le code testé.
-      - run: flutter test test/widget_test.dart test/core/widgets test/core/i18n
+      # FM-04. test/core/i18n ajouté ici (résout SO-09). test/features/search
+      # ajouté par FM-06 (FM-06a n'avait pas étendu cette liste — corrigé
+      # ici). À élargir quand FM-02/FM-09 livrent le code testé.
+      - run: flutter test test/widget_test.dart test/core/widgets test/core/i18n test/features/search
 
   mobile-client-check:
     name: contrat → client Dart (mobile:client)

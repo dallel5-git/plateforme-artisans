@@ -35,6 +35,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	// Translations
 	late final Translations$common$fr common = Translations$common$fr.internal(_root);
+	late final Translations$search$fr search = Translations$search$fr.internal(_root);
 }
 
 // Path: common
@@ -50,6 +51,33 @@ class Translations$common$fr {
 
 	late final Translations$common$home$fr home = Translations$common$home$fr.internal(_root);
 	late final Translations$common$widgets$fr widgets = Translations$common$widgets$fr.internal(_root);
+}
+
+// Path: search
+class Translations$search$fr {
+	Translations$search$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Rechercher un service…'
+	String get searchPlaceholder => 'Rechercher un service…';
+
+	/// fr: 'Choisir un gouvernorat'
+	String get locationPlaceholder => 'Choisir un gouvernorat';
+
+	/// fr: 'Catégories'
+	String get categoriesTitle => 'Catégories';
+
+	/// fr: 'Aucune catégorie disponible pour le moment.'
+	String get categoriesEmpty => 'Aucune catégorie disponible pour le moment.';
+
+	/// fr: 'Impossible de charger les catégories.'
+	String get categoriesError => 'Impossible de charger les catégories.';
+
+	/// fr: 'Réessayer'
+	String get retry => 'Réessayer';
 }
 
 // Path: common.home
@@ -107,6 +135,12 @@ extension on Translations {
 			'common.home.toggleLocale' => 'Basculer FR/AR',
 			'common.home.designSystemPreview' => 'Vitrine design system',
 			'common.widgets.verifiedBadge' => 'Vérifié',
+			'search.searchPlaceholder' => 'Rechercher un service…',
+			'search.locationPlaceholder' => 'Choisir un gouvernorat',
+			'search.categoriesTitle' => 'Catégories',
+			'search.categoriesEmpty' => 'Aucune catégorie disponible pour le moment.',
+			'search.categoriesError' => 'Impossible de charger les catégories.',
+			'search.retry' => 'Réessayer',
 			_ => null,
 		};
 	}

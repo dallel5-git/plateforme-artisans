@@ -40,6 +40,7 @@ class TranslationsAr extends Translations with BaseTranslations<AppLocale, Trans
 
 	// Translations
 	@override late final Translations$common$ar common = Translations$common$ar._(_root);
+	@override late final Translations$search$ar search = Translations$search$ar._(_root);
 }
 
 // Path: common
@@ -52,6 +53,21 @@ class Translations$common$ar extends Translations$common$fr {
 	@override String get appName => 'Sanaya';
 	@override late final Translations$common$home$ar home = Translations$common$home$ar._(_root);
 	@override late final Translations$common$widgets$ar widgets = Translations$common$widgets$ar._(_root);
+}
+
+// Path: search
+class Translations$search$ar extends Translations$search$fr {
+	Translations$search$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get searchPlaceholder => 'ابحث عن خدمة…';
+	@override String get locationPlaceholder => 'اختر ولاية';
+	@override String get categoriesTitle => 'الفئات';
+	@override String get categoriesEmpty => 'لا توجد فئات متاحة حاليًا.';
+	@override String get categoriesError => 'تعذّر تحميل الفئات.';
+	@override String get retry => 'إعادة المحاولة';
 }
 
 // Path: common.home
@@ -95,6 +111,12 @@ extension on TranslationsAr {
 			'common.home.toggleLocale' => 'تبديل الفرنسية/العربية',
 			'common.home.designSystemPreview' => 'معرض نظام التصميم',
 			'common.widgets.verifiedBadge' => 'موثّق',
+			'search.searchPlaceholder' => 'ابحث عن خدمة…',
+			'search.locationPlaceholder' => 'اختر ولاية',
+			'search.categoriesTitle' => 'الفئات',
+			'search.categoriesEmpty' => 'لا توجد فئات متاحة حاليًا.',
+			'search.categoriesError' => 'تعذّر تحميل الفئات.',
+			'search.retry' => 'إعادة المحاولة',
 			_ => null,
 		};
 	}

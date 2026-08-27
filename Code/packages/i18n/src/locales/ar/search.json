@@ -1,1 +1,8 @@
-{}
+{
+  "searchPlaceholder": "ابحث عن خدمة…",
+  "locationPlaceholder": "اختر ولاية",
+  "categoriesTitle": "الفئات",
+  "categoriesEmpty": "لا توجد فئات متاحة حاليًا.",
+  "categoriesError": "تعذّر تحميل الفئات.",
+  "retry": "إعادة المحاولة"
+}

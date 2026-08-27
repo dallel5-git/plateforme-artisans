@@ -1,1 +1,8 @@
-{}
+{
+  "searchPlaceholder": "Rechercher un service…",
+  "locationPlaceholder": "Choisir un gouvernorat",
+  "categoriesTitle": "Catégories",
+  "categoriesEmpty": "Aucune catégorie disponible pour le moment.",
+  "categoriesError": "Impossible de charger les catégories.",
+  "retry": "Réessayer"
+}
