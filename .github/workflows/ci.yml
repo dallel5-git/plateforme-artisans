@@ -129,13 +129,15 @@ jobs:
       # planifié. À élargir au fil des tickets FM-* suivants. FM-09c ajoute
       # lib/features/contact/presentation et test/features/contact/{application,
       # presentation} — déjà couverts, les deux chemins listés ci-dessus
-      # étant des répertoires entiers.
+      # étant des répertoires entiers. lib/features/onboarding et
+      # test/features/onboarding ajoutés par FM-11a.
       - run: |
           dart format --set-exit-if-changed \
             lib/app lib/main.dart lib/core/widgets lib/core/api/api_client_provider.dart \
             lib/features/search lib/features/contact lib/features/provider_profile \
+            lib/features/onboarding \
             test/widget_test.dart test/core/widgets test/features/search test/features/contact \
-            test/features/provider_profile
+            test/features/provider_profile test/features/onboarding
 
       # FM-03 : lib/core/i18n/*.g.dart est généré par slang depuis
       # packages/i18n/src/locales/ (SO-05). `dart run build_runner build`
@@ -156,9 +158,10 @@ jobs:
       # spec pré-écrit qui y restait seul et exclu a été remplacé par une
       # version conforme au vrai contrat `ContactEventsApi`/`ContactService`.
       # test/features/provider_profile ajouté par FM-08.
+      # test/features/onboarding ajouté par FM-11a.
       - run: |
           flutter test test/widget_test.dart test/core/widgets test/features/search \
-            test/features/contact test/features/provider_profile
+            test/features/contact test/features/provider_profile test/features/onboarding
 
   mobile-client-check:
     name: contrat → client Dart (mobile:client)
