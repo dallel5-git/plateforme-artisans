@@ -13,6 +13,21 @@
     "onHoliday": "في عطلة",
     "verifiedContact": "اتصال موثّق",
     "errorLoad": "تعذّر تحميل بطاقة الحرفي.",
-    "retry": "إعادة المحاولة"
+    "retry": "إعادة المحاولة",
+    "writeReview": "كتابة تقييم",
+    "reviewTitle": "رأيك في هذا الحرفي",
+    "ratingLabel": "تقييمك",
+    "ratingRequired": "يرجى اختيار تقييم من 1 إلى 5 نجوم",
+    "commentLabel": "تعليقك (اختياري)",
+    "commentHint": "شارك تجربتك مع هذا الحرفي...",
+    "submitReview": "نشر التقييم",
+    "submittingReview": "جاري النشر...",
+    "reviewSuccess": "شكراً! تم نشر تقييمك.",
+    "reviewRequiresContact": "يجب أن تكون قد تواصلت مع هذا الحرفي لتتمكن من تقييمه.",
+    "reviewSelfForbidden": "لا يمكنك تقييم حسابك الخاص.",
+    "reviewGenericError": "تعذّر نشر تقييمك. يرجى المحاولة مرة أخرى.",
+    "reviewPromptTitle": "هل تعاملت مع هذا الحرفي؟",
+    "reviewPromptSubtitle": "شارك رأيك لمساعدة المجتمع.",
+    "reviewPromptCta": "ترك تقييم"
   }
 }

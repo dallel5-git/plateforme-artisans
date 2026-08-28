@@ -13,6 +13,21 @@
     "onHoliday": "En congé",
     "verifiedContact": "Contact vérifié",
     "errorLoad": "Impossible de charger la fiche.",
-    "retry": "Réessayer"
+    "retry": "Réessayer",
+    "writeReview": "Donner mon avis",
+    "reviewTitle": "Votre avis sur cet artisan",
+    "ratingLabel": "Votre note",
+    "ratingRequired": "Veuillez sélectionner une note de 1 à 5 étoiles",
+    "commentLabel": "Votre commentaire (optionnel)",
+    "commentHint": "Partagez votre expérience avec cet artisan...",
+    "submitReview": "Publier l'avis",
+    "submittingReview": "Publication en cours...",
+    "reviewSuccess": "Merci ! Votre avis a été publié.",
+    "reviewRequiresContact": "Vous devez avoir contacté cet artisan pour pouvoir laisser un avis.",
+    "reviewSelfForbidden": "Vous ne pouvez pas évaluer votre propre profil.",
+    "reviewGenericError": "Impossible de publier votre avis. Veuillez réessayer.",
+    "reviewPromptTitle": "Avez-vous fait appel à cet artisan ?",
+    "reviewPromptSubtitle": "Partagez votre avis pour aider la communauté.",
+    "reviewPromptCta": "Laisser un avis"
   }
 }
