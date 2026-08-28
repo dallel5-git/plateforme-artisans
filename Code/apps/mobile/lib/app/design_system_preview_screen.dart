@@ -7,6 +7,7 @@ import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/widgets/app_button.dart';
 import 'package:sanaya/core/widgets/app_card.dart';
 import 'package:sanaya/core/widgets/app_text_field.dart';
+import 'package:sanaya/core/widgets/provider_card.dart';
 import 'package:sanaya/core/widgets/rating_stars.dart';
 import 'package:sanaya/core/widgets/verified_badge.dart';
 
@@ -99,6 +100,34 @@ class DesignSystemPreviewScreen extends ConsumerWidget {
           ),
           const SizedBox(height: AppSpacing.xl),
           const _Section(title: 'VerifiedBadge', child: VerifiedBadge()),
+          const SizedBox(height: AppSpacing.xl),
+          _Section(
+            title: 'ProviderCard',
+            child: Column(
+              children: [
+                ProviderCard(
+                  name: 'Karim Ben Salah',
+                  categoryLabel: 'Plomberie',
+                  locationLabel: 'Sousse, Khezama · 2,4 km',
+                  rating: 4.8,
+                  reviewCount: 63,
+                  priceLabel: 'à partir de 40 TND',
+                  isVerified: true,
+                  onTap: () {},
+                ),
+                const SizedBox(height: AppSpacing.sm),
+                ProviderCard(
+                  name: 'Hédi Ferjani',
+                  categoryLabel: 'Peinture',
+                  locationLabel: 'Monastir',
+                  rating: 4.2,
+                  reviewCount: 18,
+                  priceLabel: 'à partir de 25 TND',
+                  onTap: () {},
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
