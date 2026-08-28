@@ -6,7 +6,11 @@ import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/widgets/app_button.dart';
 import 'package:sanaya/core/widgets/app_card.dart';
+import 'package:sanaya/core/widgets/app_skeleton.dart';
 import 'package:sanaya/core/widgets/app_text_field.dart';
+import 'package:sanaya/core/widgets/empty_state.dart';
+import 'package:sanaya/core/widgets/error_state.dart';
+import 'package:sanaya/core/widgets/offline_banner.dart';
 import 'package:sanaya/core/widgets/provider_card.dart';
 import 'package:sanaya/core/widgets/rating_stars.dart';
 import 'package:sanaya/core/widgets/verified_badge.dart';
@@ -127,6 +131,54 @@ class DesignSystemPreviewScreen extends ConsumerWidget {
                 ),
               ],
             ),
+          ),
+          const SizedBox(height: AppSpacing.xl),
+          const _Section(
+            title: 'AppSkeleton',
+            child: Row(
+              children: [
+                AppSkeleton.circle(size: 48),
+                SizedBox(width: AppSpacing.md),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppSkeleton(width: 140),
+                      SizedBox(height: AppSpacing.sm),
+                      AppSkeleton(width: 90),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: AppSpacing.xl),
+          _Section(
+            title: 'EmptyState',
+            child: EmptyState(
+              icon: '🔍',
+              title: 'Aucun artisan trouvé',
+              message: 'Aucun plombier disponible à Mahdia pour ces filtres.',
+              actionLabel: 'Élargir au gouvernorat',
+              onAction: () {},
+            ),
+          ),
+          const SizedBox(height: AppSpacing.xl),
+          _Section(
+            title: 'ErrorState',
+            child: ErrorState(
+              icon: '⚠️',
+              title: 'Connexion perdue',
+              message:
+                  'Impossible de charger les résultats. Vérifie ta connexion.',
+              actionLabel: 'Réessayer',
+              onAction: () {},
+            ),
+          ),
+          const SizedBox(height: AppSpacing.xl),
+          _Section(
+            title: 'OfflineBanner',
+            child: OfflineBanner(onDismiss: () {}),
           ),
         ],
       ),
