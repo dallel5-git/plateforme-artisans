@@ -19,6 +19,9 @@ dependencies:
   # FM-08 : galerie avec chargement progressif, placeholder skeleton et gestion d'erreur
   # — cité explicitement dans l'issue FM-08 (#37) et la spec CLAUDE.md mobile §Réseau dégradé.
   cached_network_image: ^3.4.1
+  # FM-02f : détection de la connectivité réseau — sert au bandeau hors ligne
+  # global, non bloquant (issue #33, CLAUDE.md mobile §Réseau dégradé).
+  connectivity_plus: ^7.3.1
   cupertino_icons: ^1.0.8
   dio: 5.11.0
   flutter:
