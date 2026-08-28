@@ -125,14 +125,19 @@ jobs:
       # FM-09b (remplace le spec pré-écrit qui restait seul, exclu, dans ce
       # dossier — voir le commit FM-09b pour le détail du contrat réel
       # découvert entre-temps). lib/core/api/auth_token_store.dart et
-      # lib/core/api/interceptors/auth_interceptor.dart + test/core/api
-      # ajoutés par FM-02d (intercepteur auth/refresh single-flight).
-      # lib/features/provider_profile ajouté par FM-08 ; lib/features/onboarding
-      # par FM-11a. ⚠️ Fichier précis, jamais `lib/core/api` en entier : ce
-      # dossier contient aussi `lib/core/api/generated/` (client
-      # openapi-generator, SDK Dart 3.12.2 épinglé côté mobile-client-check) —
-      # un `dart format` avec un SDK local/CI différent le reformaterait en
-      # diff parasite, même bug que celui documenté pour mobile-client-check.
+      # lib/core/api/interceptors/{auth,retry}_interceptor.dart + test/core/api
+      # ajoutés par FM-02d (auth/refresh single-flight) et FM-02e (retry
+      # GET, backoff). lib/features/provider_profile ajouté par FM-08 ;
+      # lib/features/onboarding par FM-11a. ⚠️
+      # Fichier précis, jamais `lib/core/api` en entier : ce dossier contient
+      # aussi `lib/core/api/generated/` (client openapi-generator, SDK Dart
+      # 3.12.2 épinglé côté mobile-client-check) — un `dart format` avec un
+      # SDK local/CI différent le reformaterait en diff parasite, même bug
+      # que celui documenté pour mobile-client-check (vécu ici : premier
+      # essai de cette PR incluait `lib/core/api` en entier, CI rouge).
+      # FM-09c ajoute lib/features/contact/presentation et
+      # test/features/contact/{application,presentation} — déjà couverts,
+      # les deux chemins listés ci-dessus étant des répertoires entiers.
       # À élargir au fil des tickets FM-* qui ajoutent du code sous
       # lib/core/{api,i18n}/ et lib/features/.
       - run: |
@@ -142,11 +147,13 @@ jobs:
             lib/core/api/api_client_provider.dart lib/core/api/auth_token_store.dart \
             lib/core/api/interceptors lib/features/search lib/features/contact \
             lib/features/provider_profile lib/features/onboarding \
+            lib/features/favorites lib/features/settings \
             test/widget_test.dart test/core/widgets \
             test/core/i18n/format_test.dart \
             test/core/i18n/locale_persistence_test.dart \
             test/features/search test/features/contact test/features/provider_profile \
-            test/core/api test/features/onboarding
+            test/core/api test/features/onboarding \
+            test/features/favorites test/features/settings
 
       # FM-03 : lib/core/i18n/*.g.dart est généré par slang depuis
       # packages/i18n/src/locales/ (SO-05). `dart run build_runner build`
@@ -186,6 +193,11 @@ jobs:
       - run: flutter test test/features/provider_profile
       # FM-11a : une invocation séparée par cible (règle FM-02d — mélange fichier+répertoire peu fiable).
       - run: flutter test test/features/onboarding
+      # FM-13a/b/c : test/features/favorites et test/features/settings n'avaient été ajoutés
+      # ni ici ni dans dart format ci-dessus par les PRs qui les ont introduits — gap trouvé
+      # et corrigé en même temps qu'un merge non lié (FM-02e), même règle que les autres cibles.
+      - run: flutter test test/features/favorites
+      - run: flutter test test/features/settings
 
   mobile-client-check:
     name: contrat → client Dart (mobile:client)
