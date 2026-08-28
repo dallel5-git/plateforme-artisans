@@ -96,6 +96,13 @@
 | `BE-26b` | Types TS générés depuis `openapi.json` (`web:client`, openapi-typescript) | Claude | #132 | 2026-08-23 |
 | `BE-26` | ⭐ Contrat : `api:contract` (déjà livré) + `mobile:client` + `web:client` — parcours complet (2 PRs atomiques ci-dessus) | Claude | #130/#132 | 2026-08-23 |
 | `BE-26c` | Prérequis `FM-02` : tags OpenAPI (`auth`, `contact-events`) + `AuthTokens`/`ContactEventResponse` enregistrés dans `z.globalRegistry` — le client Dart généré expose `AuthApi`/`ContactEventsApi` par leur nom au lieu d'un `DefaultApi` fourre-tout | Claude | #155 | 2026-08-25 |
+| `FM-02b` | Couche réseau — fusion du client Dart généré (BE-26a) dans l'app `sanaya` : imports `package:sanaya_api_client/...` → `package:sanaya/core/api/generated/...`, `dio`/`built_value`/`built_collection` en `dependencies`, versions épinglées (`PINNED_GENERATOR_DEPENDENCIES`) pour un codegen déterministe | Claude | #162 | 2026-08-25 |
+| `FM-02c` | Couche réseau — `buildApiClient()` (timeouts 10 s/20 s), hiérarchie `SanayaApiException` (mapping `code`→exception typée depuis `packages/constants/error-codes.ts`), `ErrorMappingInterceptor` (toujours dernier dans la chaîne) | Claude | #164 | 2026-08-26 |
+| `FM-02d` | Couche réseau — `AuthTokenStore` (access token en mémoire, refresh token `flutter_secure_storage`, refresh single-flight via `Completer`) + `AuthInterceptor` (bearer + refresh transparent sur 401, rejeu unique, purge sur `REFRESH_TOKEN_REUSED`) | Claude | #180 | 2026-08-27 |
+| `FM-02e` | Couche réseau — `RetryInterceptor` : jusqu'à 2 rejeux avec backoff (300 ms/900 ms) sur `GET` idempotents uniquement, erreurs transitoires seulement (timeout/connexion/5xx, jamais 4xx ni POST/PUT/PATCH/DELETE) | Claude | #187 | 2026-08-28 |
+| `FM-02f` | Couche réseau — `ConnectivityService` (`connectivity_plus`, `ValueNotifier<bool>`) + `connectivityServiceProvider`. Périmètre volontairement limité à la détection ; le widget `OfflineBanner` est laissé à `FM-04e` (chevauchement de périmètre entre les issues #33/#55, réparti par message direct entre sessions avant d'écrire du code) | Claude | #190 | 2026-08-28 |
+| `FM-02g` | Couche réseau — câblage final : ordre des intercepteurs `Auth → Retry → ErrorMapping` confirmé empiriquement, test d'intégration `auth_refresh_concurrency_test.dart` (2 `GET` concurrents avec token expiré → 1 seul refresh, critère d'acceptation de l'issue #33 jusque-là non couvert). Vérifié significatif par mutation temporaire du garde-fou single-flight (le test échoue bien avant revert) | Claude | #193 | 2026-08-28 |
+| `FM-02` | ⭐ Couche réseau : client Dio/built_value généré + intercepteurs — parcours complet (6 PRs atomiques ci-dessus + `BE-26c`). Les 7 critères d'acceptation de l'issue #33 sont vérifiés par test automatisé, y compris le refresh concurrent (`FM-02g`) et le refresh token jamais en `SharedPreferences` (`FM-02d`). Câblage visuel du bandeau hors ligne (`ValueListenableBuilder` sur `connectivityServiceProvider` + `OfflineBanner`/FM-04e) traité séparément une fois les deux dépendances réunies — voir entrée dédiée | Claude | #155/#162/#164/#180/#187/#190/#193 | 2026-08-28 |
 | `BE-18a` | Assemblage pur du nom d'auteur d'avis (`buildReviewAuthorDisplayName`) | Claude | #103 | 2026-08-21 |
 | `BE-18b` | `listPublishedReviewsForProvider` — repository paginé par curseur | Claude | #104 | 2026-08-21 |
 | `BE-18c` | `GET /v1/providers/:slug/reviews` — route | Claude | #105 | 2026-08-21 |
@@ -145,7 +152,7 @@
 | Métrique | Valeur |
 |---|---|
 | Tâches 🔴 P0 planifiées | 43 |
-| Tâches 🔴 P0 terminées | 26 *(+ BE-18, backfill bookkeeping du 2026-08-23 ; + BE-27, GATE 1 vert du 2026-08-24 ; + FM-01, premier lot Flutter vert du 2026-08-25 ; + FM-03, i18n FR/AR vert du 2026-08-25 ; + FM-06, accueil client vert du 2026-08-26 ; + FM-09, contact téléphone/WhatsApp vert du 2026-08-27 ; + FM-04, widgets design system vert du 2026-08-28)* |
+| Tâches 🔴 P0 terminées | 27 *(+ BE-18, backfill bookkeeping du 2026-08-23 ; + BE-27, GATE 1 vert du 2026-08-24 ; + FM-01, premier lot Flutter vert du 2026-08-25 ; + FM-03, i18n FR/AR vert du 2026-08-25 ; + FM-06, accueil client vert du 2026-08-26 ; + FM-09, contact téléphone/WhatsApp vert du 2026-08-27 ; + FM-04, widgets design system vert du 2026-08-28 ; + FM-02, couche réseau vert du 2026-08-28)* |
 | Tâches 🟠 P1 terminées | 1 / 7 *(l'amortisseur : 18 h — BE-24 mergée, backfill bookkeeping du 2026-08-23)* |
 | Heures-homme 🔴 P0 estimées / consommées | 109 h / 10 h *(capacité 112 h)* |
 
