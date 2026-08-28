@@ -34,8 +34,17 @@ class OnboardingNotifier extends AutoDisposeNotifier<OnboardingState> {
         final result = await _repo.createProfile(body);
         updated = result.provider;
       } else {
+        // FM-11c : la version d'origine ne recopiait que `businessName` —
+        // un retour à l'étape profil pour corriger bio/headline/etc.
+        // perdait silencieusement ces champs au PATCH.
         final patchBody = V1ProvidersMePatchRequest(
-          (b) => b..businessName = body.businessName,
+          (b) => b
+            ..businessName = body.businessName
+            ..headline = body.headline
+            ..bio = body.bio
+            ..yearsExperience = body.yearsExperience
+            ..whatsappPhone = body.whatsappPhone
+            ..publicPhone = body.publicPhone,
         );
         updated = await _repo.updateProfile(patchBody);
       }

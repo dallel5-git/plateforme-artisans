@@ -30,19 +30,15 @@ void main() {
       expect(find.text(_tFr.common.home.navPro), findsOneWidget);
     });
 
-    testWidgets('les boutons /auth et /pro mènent à leur placeholder', (
-      tester,
-    ) async {
-      for (final label in [_tFr.common.home.navAuth, _tFr.common.home.navPro]) {
-        router.go('/');
-        await tester.pumpWidget(const ProviderScope(child: SanayaApp()));
-        await tester.pumpAndSettle();
+    testWidgets('le bouton /auth mène à son placeholder', (tester) async {
+      router.go('/');
+      await tester.pumpWidget(const ProviderScope(child: SanayaApp()));
+      await tester.pumpAndSettle();
 
-        await tester.tap(find.text(label));
-        await tester.pumpAndSettle();
+      await tester.tap(find.text(_tFr.common.home.navAuth));
+      await tester.pumpAndSettle();
 
-        expect(find.text(label), findsOneWidget);
-      }
+      expect(find.text(_tFr.common.home.navAuth), findsOneWidget);
     });
 
     testWidgets(
@@ -66,6 +62,30 @@ void main() {
 
         expect(find.text(_tFr.common.home.navClient), findsNothing);
         expect(find.text(_tFr.search.categoriesTitle), findsOneWidget);
+      },
+    );
+
+    testWidgets(
+      "le bouton /pro mène à l'assistant d'onboarding (FM-11c), pas à un "
+      'placeholder',
+      (tester) async {
+        router.go('/');
+        await tester.pumpWidget(
+          ProviderScope(
+            overrides: [
+              categoriesProvider.overrideWith((ref) async => const []),
+              governoratesProvider.overrideWith((ref) async => const []),
+            ],
+            child: const SanayaApp(),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.text(_tFr.common.home.navPro));
+        await tester.pumpAndSettle();
+
+        expect(find.text(_tFr.common.home.navPro), findsNothing);
+        expect(find.text(_tFr.onboarding.wizardTitle), findsOneWidget);
       },
     );
 

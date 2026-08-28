@@ -3,6 +3,7 @@ import 'package:sanaya/app/bootstrap_placeholder_screen.dart';
 import 'package:sanaya/app/design_system_preview_screen.dart';
 import 'package:sanaya/app/home_screen.dart';
 import 'package:sanaya/features/favorites/presentation/favorites_screen.dart';
+import 'package:sanaya/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:sanaya/features/provider_profile/presentation/screens/provider_profile_screen.dart';
 import 'package:sanaya/features/search/presentation/search_home_screen.dart';
 import 'package:sanaya/features/settings/presentation/legal_notice_screen.dart';
@@ -45,10 +46,8 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/pro',
-      name: 'pro-placeholder',
-      builder: (_, _) => const BootstrapPlaceholderScreen(
-        space: BootstrapNavSpace.pro,
-      ),
+      name: 'pro-onboarding',
+      builder: (_, _) => const OnboardingScreen(),
     ),
     GoRoute(
       path: '/settings',

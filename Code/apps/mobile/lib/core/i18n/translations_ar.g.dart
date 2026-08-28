@@ -43,6 +43,7 @@ class TranslationsAr extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final Translations$contact$ar contact = Translations$contact$ar._(_root);
 	@override late final Translations$favorites$ar favorites = Translations$favorites$ar._(_root);
 	@override late final Translations$legal$ar legal = Translations$legal$ar._(_root);
+	@override late final Translations$onboarding$ar onboarding = Translations$onboarding$ar._(_root);
 	@override late final Translations$provider$ar provider = Translations$provider$ar._(_root);
 	@override late final Translations$search$ar search = Translations$search$ar._(_root);
 	@override late final Translations$settings$ar settings = Translations$settings$ar._(_root);
@@ -111,6 +112,51 @@ class Translations$legal$ar extends Translations$legal$fr {
 	@override String get rightsContent => 'يحق لكم النفاذ إلى بياناتكم الشخصية وتصحيحها أو حذفها في أي وقت.';
 }
 
+// Path: onboarding
+class Translations$onboarding$ar extends Translations$onboarding$fr {
+	Translations$onboarding$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get wizardTitle => 'كن مقدّم خدمة';
+	@override String get back => 'رجوع';
+	@override String get next => 'التالي';
+	@override String get retry => 'إعادة المحاولة';
+	@override String get stepProfile => 'الملف الشخصي';
+	@override String get stepCategories => 'الفئات';
+	@override String get stepZones => 'المناطق';
+	@override String get stepSummary => 'الملخّص';
+	@override String get profileBusinessName => 'اسم النشاط';
+	@override String get profileHeadline => 'العنوان (مثال: سبّاك معتمد)';
+	@override String get profileBio => 'نبذة (50 حرفًا على الأقل)';
+	@override String get profileYearsExperience => 'سنوات الخبرة';
+	@override String get profileWhatsapp => 'رقم واتساب';
+	@override String get profilePublicPhone => 'رقم هاتف عام';
+	@override String get profileGovernorate => 'الولاية الرئيسية';
+	@override String get profileGovernorateError => 'تعذّر تحميل الولايات.';
+	@override String get profileSaveError => 'تعذّر حفظ الملف الشخصي. أعد المحاولة.';
+	@override String get categoriesTitle => 'اختر فئاتك';
+	@override String get categoriesPrimaryHint => 'رئيسية';
+	@override String get categoriesEmpty => 'اختر فئة واحدة على الأقل.';
+	@override String get categoriesError => 'تعذّر تحميل الفئات.';
+	@override String get categoriesSaveError => 'تعذّر حفظ الفئات. أعد المحاولة.';
+	@override String get zonesTitle => 'اختر مناطق تدخّلك';
+	@override String get zonesEmpty => 'اختر ولاية واحدة على الأقل.';
+	@override String get zonesError => 'تعذّر تحميل الولايات.';
+	@override String get zonesSaveError => 'تعذّر حفظ المناطق. أعد المحاولة.';
+	@override String get summaryTitle => 'الملخّص';
+	@override String get summaryCompletionLabel => 'الملف مكتمل بنسبة {score} %';
+	@override String get summaryMissingTitle => 'لا يزال ناقصًا:';
+	@override String get summaryPublish => 'نشر ملفي';
+	@override String get summaryPublishError => 'تعذّر النشر. أعد المحاولة.';
+	@override String get summaryPublished => 'تم نشر الملف!';
+	@override String get missingBio => 'نبذة من 50 حرفًا على الأقل';
+	@override String get missingHeadline => 'عنوان';
+	@override String get missingYearsExperience => 'سنوات خبرتك';
+	@override String get missingContactPhone => 'رقم واتساب أو رقم عام';
+}
+
 // Path: provider
 class Translations$provider$ar extends Translations$provider$fr {
 	Translations$provider$ar._(TranslationsAr root) : this._root = root, super.internal(root);
@@ -173,7 +219,7 @@ class Translations$common$home$ar extends Translations$common$home$fr {
 	// Translations
 	@override String get navAuth => 'مساحة المصادقة — قريبًا (FM-05)';
 	@override String get navClient => 'مساحة العميل';
-	@override String get navPro => 'مساحة المحترف — قريبًا (FM-08)';
+	@override String get navPro => 'مساحة المحترف';
 	@override String get toggleTheme => 'تبديل المظهر الفاتح/الداكن';
 	@override String get toggleLocale => 'تبديل الفرنسية/العربية';
 	@override String get designSystemPreview => 'معرض نظام التصميم';
@@ -250,7 +296,7 @@ extension on TranslationsAr {
 			'common.appName' => 'Sanaya',
 			'common.home.navAuth' => 'مساحة المصادقة — قريبًا (FM-05)',
 			'common.home.navClient' => 'مساحة العميل',
-			'common.home.navPro' => 'مساحة المحترف — قريبًا (FM-08)',
+			'common.home.navPro' => 'مساحة المحترف',
 			'common.home.toggleTheme' => 'تبديل المظهر الفاتح/الداكن',
 			'common.home.toggleLocale' => 'تبديل الفرنسية/العربية',
 			'common.home.designSystemPreview' => 'معرض نظام التصميم',
@@ -281,6 +327,42 @@ extension on TranslationsAr {
 			'legal.inpdpContent' => 'وفقًا للقانون الأساسي عدد 63 لسنة 2004، تلتزم صنايعية بحماية خصوصية مستخدميها. لا يتم كشف أرقام الهواتف إلا عند طلب التواصل الطوعي والمسجل.',
 			'legal.rightsTitle' => 'حقوقكم',
 			'legal.rightsContent' => 'يحق لكم النفاذ إلى بياناتكم الشخصية وتصحيحها أو حذفها في أي وقت.',
+			'onboarding.wizardTitle' => 'كن مقدّم خدمة',
+			'onboarding.back' => 'رجوع',
+			'onboarding.next' => 'التالي',
+			'onboarding.retry' => 'إعادة المحاولة',
+			'onboarding.stepProfile' => 'الملف الشخصي',
+			'onboarding.stepCategories' => 'الفئات',
+			'onboarding.stepZones' => 'المناطق',
+			'onboarding.stepSummary' => 'الملخّص',
+			'onboarding.profileBusinessName' => 'اسم النشاط',
+			'onboarding.profileHeadline' => 'العنوان (مثال: سبّاك معتمد)',
+			'onboarding.profileBio' => 'نبذة (50 حرفًا على الأقل)',
+			'onboarding.profileYearsExperience' => 'سنوات الخبرة',
+			'onboarding.profileWhatsapp' => 'رقم واتساب',
+			'onboarding.profilePublicPhone' => 'رقم هاتف عام',
+			'onboarding.profileGovernorate' => 'الولاية الرئيسية',
+			'onboarding.profileGovernorateError' => 'تعذّر تحميل الولايات.',
+			'onboarding.profileSaveError' => 'تعذّر حفظ الملف الشخصي. أعد المحاولة.',
+			'onboarding.categoriesTitle' => 'اختر فئاتك',
+			'onboarding.categoriesPrimaryHint' => 'رئيسية',
+			'onboarding.categoriesEmpty' => 'اختر فئة واحدة على الأقل.',
+			'onboarding.categoriesError' => 'تعذّر تحميل الفئات.',
+			'onboarding.categoriesSaveError' => 'تعذّر حفظ الفئات. أعد المحاولة.',
+			'onboarding.zonesTitle' => 'اختر مناطق تدخّلك',
+			'onboarding.zonesEmpty' => 'اختر ولاية واحدة على الأقل.',
+			'onboarding.zonesError' => 'تعذّر تحميل الولايات.',
+			'onboarding.zonesSaveError' => 'تعذّر حفظ المناطق. أعد المحاولة.',
+			'onboarding.summaryTitle' => 'الملخّص',
+			'onboarding.summaryCompletionLabel' => 'الملف مكتمل بنسبة {score} %',
+			'onboarding.summaryMissingTitle' => 'لا يزال ناقصًا:',
+			'onboarding.summaryPublish' => 'نشر ملفي',
+			'onboarding.summaryPublishError' => 'تعذّر النشر. أعد المحاولة.',
+			'onboarding.summaryPublished' => 'تم نشر الملف!',
+			'onboarding.missingBio' => 'نبذة من 50 حرفًا على الأقل',
+			'onboarding.missingHeadline' => 'عنوان',
+			'onboarding.missingYearsExperience' => 'سنوات خبرتك',
+			'onboarding.missingContactPhone' => 'رقم واتساب أو رقم عام',
 			'provider.profile.callButton' => 'اتصال',
 			'provider.profile.whatsappButton' => 'واتساب',
 			'provider.profile.reviewsTitle' => 'التقييمات',
