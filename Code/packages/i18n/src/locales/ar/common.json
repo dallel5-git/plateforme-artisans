@@ -9,6 +9,10 @@
     "designSystemPreview": "معرض نظام التصميم"
   },
   "widgets": {
-    "verifiedBadge": "موثّق"
+    "verifiedBadge": "موثّق",
+    "offlineBanner": {
+      "message": "أنت تتصفح نتائج محفوظة. سيتم تحديثها عند عودة الاتصال بالشبكة.",
+      "dismiss": "فهمت"
+    }
   }
 }

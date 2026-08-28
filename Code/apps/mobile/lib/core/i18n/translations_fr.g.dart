@@ -297,6 +297,8 @@ class Translations$common$widgets$fr {
 
 	/// fr: 'Vérifié'
 	String get verifiedBadge => 'Vérifié';
+
+	late final Translations$common$widgets$offlineBanner$fr offlineBanner = Translations$common$widgets$offlineBanner$fr.internal(_root);
 }
 
 // Path: provider.profile
@@ -395,6 +397,21 @@ class Translations$provider$profile$fr {
 	String get reviewPromptCta => 'Laisser un avis';
 }
 
+// Path: common.widgets.offlineBanner
+class Translations$common$widgets$offlineBanner$fr {
+	Translations$common$widgets$offlineBanner$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Tu consultes des résultats enregistrés. Ils seront actualisés au retour du réseau.'
+	String get message => 'Tu consultes des résultats enregistrés. Ils seront actualisés au retour du réseau.';
+
+	/// fr: 'Compris'
+	String get dismiss => 'Compris';
+}
+
 /// The flat map containing all translations for locale <fr>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -411,6 +428,8 @@ extension on Translations {
 			'common.home.toggleLocale' => 'Basculer FR/AR',
 			'common.home.designSystemPreview' => 'Vitrine design system',
 			'common.widgets.verifiedBadge' => 'Vérifié',
+			'common.widgets.offlineBanner.message' => 'Tu consultes des résultats enregistrés. Ils seront actualisés au retour du réseau.',
+			'common.widgets.offlineBanner.dismiss' => 'Compris',
 			'contact.call' => 'Appeler',
 			'contact.whatsapp' => 'WhatsApp',
 			'favorites.title' => 'Mes favoris',
