@@ -10,5 +10,6 @@
   "removeError": "Impossible de retirer le favori.",
   "addError": "Impossible d'ajouter le favori.",
   "loadError": "Impossible de charger vos favoris.",
-  "retry": "Réessayer"
+  "retry": "Réessayer",
+  "verifiedBadge": "Vérifié"
 }
