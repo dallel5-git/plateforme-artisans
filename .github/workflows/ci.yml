@@ -127,7 +127,8 @@ jobs:
       # découvert entre-temps). lib/core/api/auth_token_store.dart et
       # lib/core/api/interceptors/{auth,retry}_interceptor.dart + test/core/api
       # ajoutés par FM-02d (auth/refresh single-flight) et FM-02e (retry
-      # GET, backoff). lib/features/provider_profile ajouté par FM-08 ;
+      # GET, backoff). lib/core/connectivity ajouté par FM-02f (détection
+      # hors ligne). lib/features/provider_profile ajouté par FM-08 ;
       # lib/features/onboarding par FM-11a. ⚠️
       # Fichier précis, jamais `lib/core/api` en entier : ce dossier contient
       # aussi `lib/core/api/generated/` (client openapi-generator, SDK Dart
@@ -140,19 +141,23 @@ jobs:
       # les deux chemins listés ci-dessus étant des répertoires entiers.
       # À élargir au fil des tickets FM-* qui ajoutent du code sous
       # lib/core/{api,i18n}/ et lib/features/.
+      # FM-02f : lib/core/connectivity (ConnectivityService + provider), pas
+      # sous lib/core/api — module volontairement découplé de la couche
+      # réseau (détection connectivité, pas de Dio).
       - run: |
           dart format --set-exit-if-changed \
             lib/app lib/main.dart lib/core/widgets \
             lib/core/i18n/format.dart lib/core/i18n/locale_persistence.dart \
             lib/core/api/api_client_provider.dart lib/core/api/auth_token_store.dart \
-            lib/core/api/interceptors lib/features/search lib/features/contact \
+            lib/core/api/interceptors lib/core/connectivity \
+            lib/features/search lib/features/contact \
             lib/features/provider_profile lib/features/onboarding \
             lib/features/favorites lib/features/settings \
             test/widget_test.dart test/core/widgets \
             test/core/i18n/format_test.dart \
             test/core/i18n/locale_persistence_test.dart \
             test/features/search test/features/contact test/features/provider_profile \
-            test/core/api test/features/onboarding \
+            test/core/api test/core/connectivity test/features/onboarding \
             test/features/favorites test/features/settings
 
       # FM-03 : lib/core/i18n/*.g.dart est généré par slang depuis
@@ -188,6 +193,7 @@ jobs:
       - run: flutter test test/core/widgets
       - run: flutter test test/core/i18n
       - run: flutter test test/core/api
+      - run: flutter test test/core/connectivity
       - run: flutter test test/features/search
       - run: flutter test test/features/contact
       - run: flutter test test/features/provider_profile
