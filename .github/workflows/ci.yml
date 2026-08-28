@@ -107,39 +107,46 @@ jobs:
           fi
           echo "✓ dart analyze (lib/core/api/generated) : 0 erreur"
 
-      # Ciblé sur les répertoires réellement écrits à la main, pas `dart format .`
-      # sur tout l'arbre : lib/core/theme/** (généré SO-04) ne passe pas
-      # `dart format` tel quel et n'est pas à nous de reformater — même
-      # raison que l'exclusion analyzer ci-dessus. lib/core/widgets et
-      # test/core/widgets ajoutés par FM-04 ; lib/core/api/api_client_provider.dart
-      # et lib/features/search (FM-06) ajoutés ici — premier code applicatif sous
-      # ces deux chemins. lib/features/contact et test/features/contact/data
-      # ajoutés par FM-09a ; test/features/contact/contact_flow_test.dart
-      # ajouté par FM-09b (remplace le spec pré-écrit qui restait seul, exclu,
-      # dans ce dossier — voir le commit FM-09b pour le détail du contrat réel
+      # Ciblé sur les répertoires/fichiers réellement écrits à la main, pas
+      # `dart format .` sur tout l'arbre : lib/core/theme/** (généré SO-04),
+      # lib/core/i18n/*.g.dart (généré slang) et
+      # test/features/contact/contact_flow_test.dart (pré-écrit FM-09) ne
+      # passent pas `dart format` tel quel et ne sont pas à nous de
+      # reformater — même raison que l'exclusion analyzer ci-dessus.
+      # lib/core/widgets et test/core/widgets ajoutés par FM-04.
+      # lib/core/i18n/{format,locale_persistence}.dart et leurs tests ciblés
+      # explicitement (fichiers, pas tout le dossier) : seuls fichiers écrits
+      # à la main de lib/core/i18n, le reste (*.g.dart) est généré par slang.
+      # Résout SO-09 (gap pré-existant depuis FM-03, jamais couvert par
+      # cette étape). lib/core/api/api_client_provider.dart et
+      # lib/features/search (FM-06) : premier code applicatif sous ces deux
+      # chemins. lib/features/contact et test/features/contact/data ajoutés
+      # par FM-09a ; test/features/contact/contact_flow_test.dart ajouté par
+      # FM-09b (remplace le spec pré-écrit qui restait seul, exclu, dans ce
+      # dossier — voir le commit FM-09b pour le détail du contrat réel
       # découvert entre-temps). lib/core/api/auth_token_store.dart et
       # lib/core/api/interceptors/auth_interceptor.dart + test/core/api
-      # ajoutés par FM-02d (intercepteur auth/refresh single-flight). ⚠️
-      # Fichier précis, jamais `lib/core/api` en entier : ce dossier contient
-      # aussi `lib/core/api/generated/` (client openapi-generator, SDK Dart
-      # 3.12.2 épinglé côté mobile-client-check) — un `dart format` avec un
-      # SDK local/CI différent le reformaterait en diff parasite, même bug
-      # que celui documenté pour mobile-client-check (vécu ici : premier
-      # essai de cette PR incluait `lib/core/api` en entier, CI rouge).
-      # test/core/i18n (FM-03) n'est pas encore couvert ici — gap pré-existant,
-      # indépendant de FM-04/FM-06, loggé dans backlog/TODO.md § Backlog non
-      # planifié. À élargir au fil des tickets FM-* suivants. FM-09c ajoute
-      # lib/features/contact/presentation et test/features/contact/{application,
-      # presentation} — déjà couverts, les deux chemins listés ci-dessus
-      # étant des répertoires entiers.
+      # ajoutés par FM-02d (intercepteur auth/refresh single-flight).
+      # lib/features/provider_profile ajouté par FM-08 ; lib/features/onboarding
+      # par FM-11a. ⚠️ Fichier précis, jamais `lib/core/api` en entier : ce
+      # dossier contient aussi `lib/core/api/generated/` (client
+      # openapi-generator, SDK Dart 3.12.2 épinglé côté mobile-client-check) —
+      # un `dart format` avec un SDK local/CI différent le reformaterait en
+      # diff parasite, même bug que celui documenté pour mobile-client-check.
+      # À élargir au fil des tickets FM-* qui ajoutent du code sous
+      # lib/core/{api,i18n}/ et lib/features/.
       - run: |
           dart format --set-exit-if-changed \
-            lib/app lib/main.dart lib/core/widgets lib/core/api/api_client_provider.dart \
-            lib/core/api/auth_token_store.dart lib/core/api/interceptors \
-            lib/features/search lib/features/contact lib/features/provider_profile \
-            lib/features/onboarding \
-            test/widget_test.dart test/core/widgets test/features/search test/features/contact \
-            test/features/provider_profile test/core/api test/features/onboarding
+            lib/app lib/main.dart lib/core/widgets \
+            lib/core/i18n/format.dart lib/core/i18n/locale_persistence.dart \
+            lib/core/api/api_client_provider.dart lib/core/api/auth_token_store.dart \
+            lib/core/api/interceptors lib/features/search lib/features/contact \
+            lib/features/provider_profile lib/features/onboarding \
+            test/widget_test.dart test/core/widgets \
+            test/core/i18n/format_test.dart \
+            test/core/i18n/locale_persistence_test.dart \
+            test/features/search test/features/contact test/features/provider_profile \
+            test/core/api test/features/onboarding
 
       # FM-03 : lib/core/i18n/*.g.dart est généré par slang depuis
       # packages/i18n/src/locales/ (SO-05). `dart run build_runner build`
@@ -155,14 +162,14 @@ jobs:
       # Ciblé sur des chemins précis, pas un `flutter test` général : le test
       # test/features/contact/contact_flow_test.dart pré-écrit (FM-09) a été
       # remplacé par FM-09b, plus rien à exclure ici pour cette raison.
-      # test/core/widgets ajouté par FM-04 ; test/features/search ajouté par
-      # FM-06 (FM-06a n'avait pas étendu cette liste — corrigé ici) ;
-      # test/features/contact/data ajouté par FM-09a. test/features/contact
-      # (dossier entier, dont contact_flow_test.dart) ajouté par FM-09b : le
-      # spec pré-écrit qui y restait seul et exclu a été remplacé par une
-      # version conforme au vrai contrat `ContactEventsApi`/`ContactService`.
-      # test/features/provider_profile ajouté par FM-08 ; test/core/api par
-      # FM-02c/d.
+      # test/core/widgets ajouté par FM-04 ; test/core/i18n ajouté ici
+      # (résout SO-09) ; test/features/search ajouté par FM-06 (FM-06a
+      # n'avait pas étendu cette liste — corrigé ici) ; test/features/contact/data
+      # ajouté par FM-09a. test/features/contact (dossier entier, dont
+      # contact_flow_test.dart) ajouté par FM-09b : le spec pré-écrit qui y
+      # restait seul et exclu a été remplacé par une version conforme au vrai
+      # contrat `ContactEventsApi`/`ContactService`. test/features/provider_profile
+      # ajouté par FM-08 ; test/core/api par FM-02c/d.
       #
       # FM-02d : une seule invocation avec plusieurs cibles mélangées
       # (fichier(s) + répertoire(s)) est peu fiable — observé reproductible
@@ -172,6 +179,7 @@ jobs:
       # par cible est le seul comportement vérifié fiable.
       - run: flutter test test/widget_test.dart
       - run: flutter test test/core/widgets
+      - run: flutter test test/core/i18n
       - run: flutter test test/core/api
       - run: flutter test test/features/search
       - run: flutter test test/features/contact
