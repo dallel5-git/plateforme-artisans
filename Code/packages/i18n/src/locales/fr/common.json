@@ -9,6 +9,10 @@
     "designSystemPreview": "Vitrine design system"
   },
   "widgets": {
-    "verifiedBadge": "Vérifié"
+    "verifiedBadge": "Vérifié",
+    "offlineBanner": {
+      "message": "Tu consultes des résultats enregistrés. Ils seront actualisés au retour du réseau.",
+      "dismiss": "Compris"
+    }
   }
 }

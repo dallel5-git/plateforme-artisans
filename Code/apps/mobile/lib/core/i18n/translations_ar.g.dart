@@ -187,6 +187,7 @@ class Translations$common$widgets$ar extends Translations$common$widgets$fr {
 
 	// Translations
 	@override String get verifiedBadge => 'موثّق';
+	@override late final Translations$common$widgets$offlineBanner$ar offlineBanner = Translations$common$widgets$offlineBanner$ar._(_root);
 }
 
 // Path: provider.profile
@@ -227,6 +228,17 @@ class Translations$provider$profile$ar extends Translations$provider$profile$fr 
 	@override String get reviewPromptCta => 'ترك تقييم';
 }
 
+// Path: common.widgets.offlineBanner
+class Translations$common$widgets$offlineBanner$ar extends Translations$common$widgets$offlineBanner$fr {
+	Translations$common$widgets$offlineBanner$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get message => 'أنت تتصفح نتائج محفوظة. سيتم تحديثها عند عودة الاتصال بالشبكة.';
+	@override String get dismiss => 'فهمت';
+}
+
 /// The flat map containing all translations for locale <ar>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -243,6 +255,8 @@ extension on TranslationsAr {
 			'common.home.toggleLocale' => 'تبديل الفرنسية/العربية',
 			'common.home.designSystemPreview' => 'معرض نظام التصميم',
 			'common.widgets.verifiedBadge' => 'موثّق',
+			'common.widgets.offlineBanner.message' => 'أنت تتصفح نتائج محفوظة. سيتم تحديثها عند عودة الاتصال بالشبكة.',
+			'common.widgets.offlineBanner.dismiss' => 'فهمت',
 			'contact.call' => 'اتصال',
 			'contact.whatsapp' => 'واتساب',
 			'favorites.title' => 'المفضلات',
