@@ -210,6 +210,21 @@ class Translations$provider$profile$ar extends Translations$provider$profile$fr 
 	@override String get verifiedContact => 'اتصال موثّق';
 	@override String get errorLoad => 'تعذّر تحميل بطاقة الحرفي.';
 	@override String get retry => 'إعادة المحاولة';
+	@override String get writeReview => 'كتابة تقييم';
+	@override String get reviewTitle => 'رأيك في هذا الحرفي';
+	@override String get ratingLabel => 'تقييمك';
+	@override String get ratingRequired => 'يرجى اختيار تقييم من 1 إلى 5 نجوم';
+	@override String get commentLabel => 'تعليقك (اختياري)';
+	@override String get commentHint => 'شارك تجربتك مع هذا الحرفي...';
+	@override String get submitReview => 'نشر التقييم';
+	@override String get submittingReview => 'جاري النشر...';
+	@override String get reviewSuccess => 'شكراً! تم نشر تقييمك.';
+	@override String get reviewRequiresContact => 'يجب أن تكون قد تواصلت مع هذا الحرفي لتتمكن من تقييمه.';
+	@override String get reviewSelfForbidden => 'لا يمكنك تقييم حسابك الخاص.';
+	@override String get reviewGenericError => 'تعذّر نشر تقييمك. يرجى المحاولة مرة أخرى.';
+	@override String get reviewPromptTitle => 'هل تعاملت مع هذا الحرفي؟';
+	@override String get reviewPromptSubtitle => 'شارك رأيك لمساعدة المجتمع.';
+	@override String get reviewPromptCta => 'ترك تقييم';
 }
 
 /// The flat map containing all translations for locale <ar>.
@@ -266,6 +281,21 @@ extension on TranslationsAr {
 			'provider.profile.verifiedContact' => 'اتصال موثّق',
 			'provider.profile.errorLoad' => 'تعذّر تحميل بطاقة الحرفي.',
 			'provider.profile.retry' => 'إعادة المحاولة',
+			'provider.profile.writeReview' => 'كتابة تقييم',
+			'provider.profile.reviewTitle' => 'رأيك في هذا الحرفي',
+			'provider.profile.ratingLabel' => 'تقييمك',
+			'provider.profile.ratingRequired' => 'يرجى اختيار تقييم من 1 إلى 5 نجوم',
+			'provider.profile.commentLabel' => 'تعليقك (اختياري)',
+			'provider.profile.commentHint' => 'شارك تجربتك مع هذا الحرفي...',
+			'provider.profile.submitReview' => 'نشر التقييم',
+			'provider.profile.submittingReview' => 'جاري النشر...',
+			'provider.profile.reviewSuccess' => 'شكراً! تم نشر تقييمك.',
+			'provider.profile.reviewRequiresContact' => 'يجب أن تكون قد تواصلت مع هذا الحرفي لتتمكن من تقييمه.',
+			'provider.profile.reviewSelfForbidden' => 'لا يمكنك تقييم حسابك الخاص.',
+			'provider.profile.reviewGenericError' => 'تعذّر نشر تقييمك. يرجى المحاولة مرة أخرى.',
+			'provider.profile.reviewPromptTitle' => 'هل تعاملت مع هذا الحرفي؟',
+			'provider.profile.reviewPromptSubtitle' => 'شارك رأيك لمساعدة المجتمع.',
+			'provider.profile.reviewPromptCta' => 'ترك تقييم',
 			'search.searchPlaceholder' => 'ابحث عن خدمة…',
 			'search.locationPlaceholder' => 'اختر ولاية',
 			'search.categoriesTitle' => 'الفئات',

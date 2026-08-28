@@ -348,6 +348,51 @@ class Translations$provider$profile$fr {
 
 	/// fr: 'Réessayer'
 	String get retry => 'Réessayer';
+
+	/// fr: 'Donner mon avis'
+	String get writeReview => 'Donner mon avis';
+
+	/// fr: 'Votre avis sur cet artisan'
+	String get reviewTitle => 'Votre avis sur cet artisan';
+
+	/// fr: 'Votre note'
+	String get ratingLabel => 'Votre note';
+
+	/// fr: 'Veuillez sélectionner une note de 1 à 5 étoiles'
+	String get ratingRequired => 'Veuillez sélectionner une note de 1 à 5 étoiles';
+
+	/// fr: 'Votre commentaire (optionnel)'
+	String get commentLabel => 'Votre commentaire (optionnel)';
+
+	/// fr: 'Partagez votre expérience avec cet artisan...'
+	String get commentHint => 'Partagez votre expérience avec cet artisan...';
+
+	/// fr: 'Publier l'avis'
+	String get submitReview => 'Publier l\'avis';
+
+	/// fr: 'Publication en cours...'
+	String get submittingReview => 'Publication en cours...';
+
+	/// fr: 'Merci ! Votre avis a été publié.'
+	String get reviewSuccess => 'Merci ! Votre avis a été publié.';
+
+	/// fr: 'Vous devez avoir contacté cet artisan pour pouvoir laisser un avis.'
+	String get reviewRequiresContact => 'Vous devez avoir contacté cet artisan pour pouvoir laisser un avis.';
+
+	/// fr: 'Vous ne pouvez pas évaluer votre propre profil.'
+	String get reviewSelfForbidden => 'Vous ne pouvez pas évaluer votre propre profil.';
+
+	/// fr: 'Impossible de publier votre avis. Veuillez réessayer.'
+	String get reviewGenericError => 'Impossible de publier votre avis. Veuillez réessayer.';
+
+	/// fr: 'Avez-vous fait appel à cet artisan ?'
+	String get reviewPromptTitle => 'Avez-vous fait appel à cet artisan ?';
+
+	/// fr: 'Partagez votre avis pour aider la communauté.'
+	String get reviewPromptSubtitle => 'Partagez votre avis pour aider la communauté.';
+
+	/// fr: 'Laisser un avis'
+	String get reviewPromptCta => 'Laisser un avis';
 }
 
 /// The flat map containing all translations for locale <fr>.
@@ -404,6 +449,21 @@ extension on Translations {
 			'provider.profile.verifiedContact' => 'Contact vérifié',
 			'provider.profile.errorLoad' => 'Impossible de charger la fiche.',
 			'provider.profile.retry' => 'Réessayer',
+			'provider.profile.writeReview' => 'Donner mon avis',
+			'provider.profile.reviewTitle' => 'Votre avis sur cet artisan',
+			'provider.profile.ratingLabel' => 'Votre note',
+			'provider.profile.ratingRequired' => 'Veuillez sélectionner une note de 1 à 5 étoiles',
+			'provider.profile.commentLabel' => 'Votre commentaire (optionnel)',
+			'provider.profile.commentHint' => 'Partagez votre expérience avec cet artisan...',
+			'provider.profile.submitReview' => 'Publier l\'avis',
+			'provider.profile.submittingReview' => 'Publication en cours...',
+			'provider.profile.reviewSuccess' => 'Merci ! Votre avis a été publié.',
+			'provider.profile.reviewRequiresContact' => 'Vous devez avoir contacté cet artisan pour pouvoir laisser un avis.',
+			'provider.profile.reviewSelfForbidden' => 'Vous ne pouvez pas évaluer votre propre profil.',
+			'provider.profile.reviewGenericError' => 'Impossible de publier votre avis. Veuillez réessayer.',
+			'provider.profile.reviewPromptTitle' => 'Avez-vous fait appel à cet artisan ?',
+			'provider.profile.reviewPromptSubtitle' => 'Partagez votre avis pour aider la communauté.',
+			'provider.profile.reviewPromptCta' => 'Laisser un avis',
 			'search.searchPlaceholder' => 'Rechercher un service…',
 			'search.locationPlaceholder' => 'Choisir un gouvernorat',
 			'search.categoriesTitle' => 'Catégories',
