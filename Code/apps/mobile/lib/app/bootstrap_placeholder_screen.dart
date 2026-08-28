@@ -7,10 +7,11 @@ import 'package:sanaya/core/theme/app_spacing.dart';
 
 /// Groupes de routes encore en bootstrap — remplacés feature par feature
 /// par les tickets FM-05+. `client` a été retiré : `/client` route
-/// désormais vers `SearchHomeScreen` (FM-06).
-enum BootstrapNavSpace { auth, pro }
+/// désormais vers `SearchHomeScreen` (FM-06). `pro` a été retiré : `/pro`
+/// route désormais vers `OnboardingScreen` (FM-11c).
+enum BootstrapNavSpace { auth }
 
-/// Écran provisoire pour les groupes de routes /auth, /client, /pro.
+/// Écran provisoire pour le groupe de routes /auth.
 class BootstrapPlaceholderScreen extends ConsumerWidget {
   const BootstrapPlaceholderScreen({required this.space, super.key});
 
@@ -21,7 +22,6 @@ class BootstrapPlaceholderScreen extends ConsumerWidget {
     final t = ref.watch(translationsProvider);
     final label = switch (space) {
       BootstrapNavSpace.auth => t.common.home.navAuth,
-      BootstrapNavSpace.pro => t.common.home.navPro,
     };
 
     return Scaffold(

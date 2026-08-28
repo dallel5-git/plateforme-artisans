@@ -38,6 +38,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$contact$fr contact = Translations$contact$fr.internal(_root);
 	late final Translations$favorites$fr favorites = Translations$favorites$fr.internal(_root);
 	late final Translations$legal$fr legal = Translations$legal$fr.internal(_root);
+	late final Translations$onboarding$fr onboarding = Translations$onboarding$fr.internal(_root);
 	late final Translations$provider$fr provider = Translations$provider$fr.internal(_root);
 	late final Translations$search$fr search = Translations$search$fr.internal(_root);
 	late final Translations$settings$fr settings = Translations$settings$fr.internal(_root);
@@ -157,6 +158,123 @@ class Translations$legal$fr {
 	String get rightsContent => 'Vous disposez d\'un droit d\'accès, de rectification et de suppression de vos données personnelles à tout moment.';
 }
 
+// Path: onboarding
+class Translations$onboarding$fr {
+	Translations$onboarding$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Devenir prestataire'
+	String get wizardTitle => 'Devenir prestataire';
+
+	/// fr: 'Retour'
+	String get back => 'Retour';
+
+	/// fr: 'Suivant'
+	String get next => 'Suivant';
+
+	/// fr: 'Réessayer'
+	String get retry => 'Réessayer';
+
+	/// fr: 'Profil'
+	String get stepProfile => 'Profil';
+
+	/// fr: 'Catégories'
+	String get stepCategories => 'Catégories';
+
+	/// fr: 'Zones'
+	String get stepZones => 'Zones';
+
+	/// fr: 'Récapitulatif'
+	String get stepSummary => 'Récapitulatif';
+
+	/// fr: 'Nom de l'activité'
+	String get profileBusinessName => 'Nom de l\'activité';
+
+	/// fr: 'Titre (ex. Plombier certifié)'
+	String get profileHeadline => 'Titre (ex. Plombier certifié)';
+
+	/// fr: 'Présentation (au moins 50 caractères)'
+	String get profileBio => 'Présentation (au moins 50 caractères)';
+
+	/// fr: 'Années d'expérience'
+	String get profileYearsExperience => 'Années d\'expérience';
+
+	/// fr: 'Téléphone WhatsApp'
+	String get profileWhatsapp => 'Téléphone WhatsApp';
+
+	/// fr: 'Téléphone public'
+	String get profilePublicPhone => 'Téléphone public';
+
+	/// fr: 'Gouvernorat de rattachement'
+	String get profileGovernorate => 'Gouvernorat de rattachement';
+
+	/// fr: 'Impossible de charger les gouvernorats.'
+	String get profileGovernorateError => 'Impossible de charger les gouvernorats.';
+
+	/// fr: 'Impossible d'enregistrer le profil. Réessayez.'
+	String get profileSaveError => 'Impossible d\'enregistrer le profil. Réessayez.';
+
+	/// fr: 'Choisissez vos catégories'
+	String get categoriesTitle => 'Choisissez vos catégories';
+
+	/// fr: 'Principale'
+	String get categoriesPrimaryHint => 'Principale';
+
+	/// fr: 'Sélectionnez au moins une catégorie.'
+	String get categoriesEmpty => 'Sélectionnez au moins une catégorie.';
+
+	/// fr: 'Impossible de charger les catégories.'
+	String get categoriesError => 'Impossible de charger les catégories.';
+
+	/// fr: 'Impossible d'enregistrer les catégories. Réessayez.'
+	String get categoriesSaveError => 'Impossible d\'enregistrer les catégories. Réessayez.';
+
+	/// fr: 'Choisissez vos zones d'intervention'
+	String get zonesTitle => 'Choisissez vos zones d\'intervention';
+
+	/// fr: 'Sélectionnez au moins un gouvernorat.'
+	String get zonesEmpty => 'Sélectionnez au moins un gouvernorat.';
+
+	/// fr: 'Impossible de charger les gouvernorats.'
+	String get zonesError => 'Impossible de charger les gouvernorats.';
+
+	/// fr: 'Impossible d'enregistrer les zones. Réessayez.'
+	String get zonesSaveError => 'Impossible d\'enregistrer les zones. Réessayez.';
+
+	/// fr: 'Récapitulatif'
+	String get summaryTitle => 'Récapitulatif';
+
+	/// fr: 'Profil complet à {score} %'
+	String get summaryCompletionLabel => 'Profil complet à {score} %';
+
+	/// fr: 'Il manque encore :'
+	String get summaryMissingTitle => 'Il manque encore :';
+
+	/// fr: 'Publier mon profil'
+	String get summaryPublish => 'Publier mon profil';
+
+	/// fr: 'Publication impossible. Réessayez.'
+	String get summaryPublishError => 'Publication impossible. Réessayez.';
+
+	/// fr: 'Profil publié !'
+	String get summaryPublished => 'Profil publié !';
+
+	/// fr: 'Une présentation d'au moins 50 caractères'
+	String get missingBio => 'Une présentation d\'au moins 50 caractères';
+
+	/// fr: 'Un titre'
+	String get missingHeadline => 'Un titre';
+
+	/// fr: 'Vos années d'expérience'
+	String get missingYearsExperience => 'Vos années d\'expérience';
+
+	/// fr: 'Un numéro WhatsApp ou public'
+	String get missingContactPhone => 'Un numéro WhatsApp ou public';
+}
+
 // Path: provider
 class Translations$provider$fr {
 	Translations$provider$fr.internal(this._root);
@@ -274,8 +392,8 @@ class Translations$common$home$fr {
 	/// fr: 'Espace client'
 	String get navClient => 'Espace client';
 
-	/// fr: 'Espace pro — à venir (FM-08)'
-	String get navPro => 'Espace pro — à venir (FM-08)';
+	/// fr: 'Espace pro'
+	String get navPro => 'Espace pro';
 
 	/// fr: 'Basculer thème clair/sombre'
 	String get toggleTheme => 'Basculer thème clair/sombre';
@@ -423,7 +541,7 @@ extension on Translations {
 			'common.appName' => 'Sanaya',
 			'common.home.navAuth' => 'Espace authentification — à venir (FM-05)',
 			'common.home.navClient' => 'Espace client',
-			'common.home.navPro' => 'Espace pro — à venir (FM-08)',
+			'common.home.navPro' => 'Espace pro',
 			'common.home.toggleTheme' => 'Basculer thème clair/sombre',
 			'common.home.toggleLocale' => 'Basculer FR/AR',
 			'common.home.designSystemPreview' => 'Vitrine design system',
@@ -454,6 +572,42 @@ extension on Translations {
 			'legal.inpdpContent' => 'Conformément à la loi organique n° 2004-63, Sanaya s\'engage à protéger la vie privée de ses utilisateurs. Les numéros de téléphone ne sont révélés que lors d\'une mise en relation volontaire et tracée.',
 			'legal.rightsTitle' => 'Vos droits',
 			'legal.rightsContent' => 'Vous disposez d\'un droit d\'accès, de rectification et de suppression de vos données personnelles à tout moment.',
+			'onboarding.wizardTitle' => 'Devenir prestataire',
+			'onboarding.back' => 'Retour',
+			'onboarding.next' => 'Suivant',
+			'onboarding.retry' => 'Réessayer',
+			'onboarding.stepProfile' => 'Profil',
+			'onboarding.stepCategories' => 'Catégories',
+			'onboarding.stepZones' => 'Zones',
+			'onboarding.stepSummary' => 'Récapitulatif',
+			'onboarding.profileBusinessName' => 'Nom de l\'activité',
+			'onboarding.profileHeadline' => 'Titre (ex. Plombier certifié)',
+			'onboarding.profileBio' => 'Présentation (au moins 50 caractères)',
+			'onboarding.profileYearsExperience' => 'Années d\'expérience',
+			'onboarding.profileWhatsapp' => 'Téléphone WhatsApp',
+			'onboarding.profilePublicPhone' => 'Téléphone public',
+			'onboarding.profileGovernorate' => 'Gouvernorat de rattachement',
+			'onboarding.profileGovernorateError' => 'Impossible de charger les gouvernorats.',
+			'onboarding.profileSaveError' => 'Impossible d\'enregistrer le profil. Réessayez.',
+			'onboarding.categoriesTitle' => 'Choisissez vos catégories',
+			'onboarding.categoriesPrimaryHint' => 'Principale',
+			'onboarding.categoriesEmpty' => 'Sélectionnez au moins une catégorie.',
+			'onboarding.categoriesError' => 'Impossible de charger les catégories.',
+			'onboarding.categoriesSaveError' => 'Impossible d\'enregistrer les catégories. Réessayez.',
+			'onboarding.zonesTitle' => 'Choisissez vos zones d\'intervention',
+			'onboarding.zonesEmpty' => 'Sélectionnez au moins un gouvernorat.',
+			'onboarding.zonesError' => 'Impossible de charger les gouvernorats.',
+			'onboarding.zonesSaveError' => 'Impossible d\'enregistrer les zones. Réessayez.',
+			'onboarding.summaryTitle' => 'Récapitulatif',
+			'onboarding.summaryCompletionLabel' => 'Profil complet à {score} %',
+			'onboarding.summaryMissingTitle' => 'Il manque encore :',
+			'onboarding.summaryPublish' => 'Publier mon profil',
+			'onboarding.summaryPublishError' => 'Publication impossible. Réessayez.',
+			'onboarding.summaryPublished' => 'Profil publié !',
+			'onboarding.missingBio' => 'Une présentation d\'au moins 50 caractères',
+			'onboarding.missingHeadline' => 'Un titre',
+			'onboarding.missingYearsExperience' => 'Vos années d\'expérience',
+			'onboarding.missingContactPhone' => 'Un numéro WhatsApp ou public',
 			'provider.profile.callButton' => 'Appeler',
 			'provider.profile.whatsappButton' => 'WhatsApp',
 			'provider.profile.reviewsTitle' => 'Avis',
