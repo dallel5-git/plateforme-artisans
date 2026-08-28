@@ -262,6 +262,7 @@ Reste  : rate-limit par IP à brancher (créé BE-03b dans TODO)
 | 2026-08-15 | **`apps/web` reporté au sprint S2.** Livrer web et mobile en parallèle avec 2 devs demandait 159 h-homme pour 112 disponibles | ADR-003 |
 | 2026-08-15 | Périmètre coupé du MVP : KYC upload, paiements, boosts, régie pub, back-office, push, `ServiceRequest`, recherche vocale | `PLAN-MVP-SEMAINE-1.md` §3 |
 | 2026-08-17 | **Git flow `develop`/`main`** : les features mergent dans `develop` (staging) ; `develop → main` = release de production déclenchée par Oussama | ADR-004 |
+| 2026-08-28 | **FM-02 (couche réseau) livrée en 7 sous-PRs** (`BE-26c`→`FM-02b..g`, ~9h réel contre 4h backlog initial — l'écart vient du bootstrap Flutter absent au démarrage, voir plan FM-02) : client Dio/built_value généré fusionné dans l'app, exceptions typées, `AuthInterceptor` (refresh rotatif single-flight, `flutter_secure_storage`), `RetryInterceptor` (backoff GET idempotents), `ConnectivityService`. Le widget `OfflineBanner` est explicitement laissé à `FM-04e` (chevauchement de périmètre entre les issues #33 et #55, détecté et réparti par message direct entre sessions avant d'écrire du code) — câblage visuel différé à une PR de suivi une fois `FM-04e` livrée | `backlog/DOING.md` FM-02 |
 
 > **Règle** : toute nouvelle ligne ici doit pointer vers un ADR ou un document. Une décision sans trace
 > écrite sera re-débattue dans trois semaines.
