@@ -32,6 +32,12 @@ class AuthFlowNotifier extends AutoDisposeNotifier<AuthFlowState> {
     state = state.copyWith(step: AuthStep.phone, clearError: true);
   }
 
+  /// Retour à la sélection de rôle depuis l'étape téléphone. Pas d'appel
+  /// réseau.
+  void backToRole() {
+    state = state.copyWith(step: AuthStep.role, clearError: true);
+  }
+
   /// Demande un premier code OTP pour [phone]. Avance à l'étape OTP et
   /// arme le compte à rebours de renvoi au succès.
   Future<bool> submitPhone(String phone) async {

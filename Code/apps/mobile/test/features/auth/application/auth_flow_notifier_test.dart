@@ -46,9 +46,11 @@ void main() {
 
   group('selectRole', () {
     test('avance à l’étape téléphone sans appel réseau', () {
-      container.read(authFlowProvider.notifier).selectRole(
-        UserRoleChoice.provider,
-      );
+      container
+          .read(authFlowProvider.notifier)
+          .selectRole(
+            UserRoleChoice.provider,
+          );
 
       final state = container.read(authFlowProvider);
       expect(state.step, AuthStep.phone);
