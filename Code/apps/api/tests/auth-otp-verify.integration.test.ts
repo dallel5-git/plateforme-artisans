@@ -112,6 +112,7 @@ describe('QA-01b — POST /v1/auth/otp/verify (Postgres réel)', () => {
 
     expect(response.statusCode).toBe(401);
     expect(response.json().error.code).toBe('OTP_INVALID');
+    expect(response.json().error.details.attemptsRemaining).toBe(2);
   });
 
   it('bloque après 3 tentatives fausses (429 OTP_TOO_MANY_ATTEMPTS, maxAttempts par défaut)', async () => {
@@ -119,6 +120,7 @@ describe('QA-01b — POST /v1/auth/otp/verify (Postgres réel)', () => {
     const phone = randomTestPhoneTn();
     await createTestOtpCode(phone, { code: '111111' });
 
+    const expectedAttemptsRemaining = [2, 1, 0];
     for (let i = 0; i < 3; i++) {
       const attempt = await app.inject({
         method: 'POST',
@@ -126,6 +128,7 @@ describe('QA-01b — POST /v1/auth/otp/verify (Postgres réel)', () => {
         payload: { phone, code: '999999' },
       });
       expect(attempt.json().error.code).toBe('OTP_INVALID');
+      expect(attempt.json().error.details.attemptsRemaining).toBe(expectedAttemptsRemaining[i]);
     }
 
     const blocked = await app.inject({
