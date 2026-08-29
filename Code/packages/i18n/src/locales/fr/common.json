@@ -1,7 +1,7 @@
 {
   "appName": "Sanaya",
   "home": {
-    "navAuth": "Espace authentification — à venir (FM-05)",
+    "navAuth": "Se connecter",
     "navClient": "Espace client",
     "navPro": "Espace pro — à venir (FM-08)",
     "toggleTheme": "Basculer thème clair/sombre",
@@ -10,5 +10,28 @@
   },
   "widgets": {
     "verifiedBadge": "Vérifié"
+  },
+  "auth": {
+    "title": "Bienvenue sur Sanaya",
+    "roleSubtitle": "Comment souhaitez-vous utiliser Sanaya ?",
+    "clientRole": "Je cherche un artisan",
+    "providerRole": "Je suis artisan",
+    "phoneTitle": "Votre numéro de téléphone",
+    "phoneSubtitle": "Nous vous enverrons un code de confirmation par SMS.",
+    "phoneLabel": "Téléphone",
+    "phoneHint": "22 123 456",
+    "sendCode": "Recevoir le code",
+    "otpTitle": "Vérifiez votre numéro",
+    "otpSubtitle": "Saisissez le code envoyé au {phone}.",
+    "otpLabel": "Code à 6 chiffres",
+    "otpHint": "000000",
+    "verifyCode": "Vérifier le code",
+    "resendCode": "Renvoyer le code",
+    "changePhone": "Modifier le numéro",
+    "phoneInvalid": "Saisissez un numéro tunisien valide.",
+    "otpInvalid": "Le code est invalide ou a expiré.",
+    "rateLimited": "Trop de demandes. Réessayez plus tard.",
+    "networkError": "Connexion impossible. Vérifiez votre réseau.",
+    "genericError": "Une erreur est survenue. Réessayez."
   }
 }

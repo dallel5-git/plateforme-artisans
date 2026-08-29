@@ -1,7 +1,7 @@
 {
   "appName": "Sanaya",
   "home": {
-    "navAuth": "مساحة المصادقة — قريبًا (FM-05)",
+    "navAuth": "تسجيل الدخول",
     "navClient": "مساحة العميل",
     "navPro": "مساحة المحترف — قريبًا (FM-08)",
     "toggleTheme": "تبديل المظهر الفاتح/الداكن",
@@ -10,5 +10,28 @@
   },
   "widgets": {
     "verifiedBadge": "موثّق"
+  },
+  "auth": {
+    "title": "مرحباً بك في Sanaya",
+    "roleSubtitle": "كيف ترغب في استخدام Sanaya؟",
+    "clientRole": "أبحث عن حرفي",
+    "providerRole": "أنا حرفي",
+    "phoneTitle": "رقم هاتفك",
+    "phoneSubtitle": "سنرسل لك رمز تأكيد عبر رسالة قصيرة.",
+    "phoneLabel": "الهاتف",
+    "phoneHint": "22 123 456",
+    "sendCode": "استلام الرمز",
+    "otpTitle": "أكّد رقمك",
+    "otpSubtitle": "أدخل الرمز المُرسل إلى {phone}.",
+    "otpLabel": "رمز من 6 أرقام",
+    "otpHint": "000000",
+    "verifyCode": "تأكيد الرمز",
+    "resendCode": "إعادة إرسال الرمز",
+    "changePhone": "تعديل الرقم",
+    "phoneInvalid": "أدخل رقم هاتف تونسي صالحاً.",
+    "otpInvalid": "الرمز غير صالح أو انتهت صلاحيته.",
+    "rateLimited": "طلبات كثيرة جداً. حاول لاحقاً.",
+    "networkError": "تعذر الاتصال. تحقق من شبكتك.",
+    "genericError": "حدث خطأ. حاول مرة أخرى."
   }
 }

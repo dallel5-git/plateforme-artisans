@@ -46,6 +46,36 @@ class TranslationsAr extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final Translations$provider$ar provider = Translations$provider$ar._(_root);
 	@override late final Translations$search$ar search = Translations$search$ar._(_root);
 	@override late final Translations$settings$ar settings = Translations$settings$ar._(_root);
+	@override late final Translations$auth$ar auth = Translations$auth$ar._(_root);
+}
+
+// Path: auth
+class Translations$auth$ar extends Translations$auth$fr {
+	Translations$auth$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	@override String get title => 'مرحباً بك في Sanaya';
+	@override String get roleSubtitle => 'كيف ترغب في استخدام Sanaya؟';
+	@override String get clientRole => 'أبحث عن حرفي';
+	@override String get providerRole => 'أنا حرفي';
+	@override String get phoneTitle => 'رقم هاتفك';
+	@override String get phoneSubtitle => 'سنرسل لك رمز تأكيد عبر رسالة قصيرة.';
+	@override String get phoneLabel => 'الهاتف';
+	@override String get phoneHint => '22 123 456';
+	@override String get sendCode => 'استلام الرمز';
+	@override String get otpTitle => 'أكّد رقمك';
+	@override String otpSubtitle({required String phone}) => 'أدخل الرمز المُرسل إلى $phone.';
+	@override String get otpLabel => 'رمز من 6 أرقام';
+	@override String get otpHint => '000000';
+	@override String get verifyCode => 'تأكيد الرمز';
+	@override String get resendCode => 'إعادة إرسال الرمز';
+	@override String get changePhone => 'تعديل الرقم';
+	@override String get phoneInvalid => 'أدخل رقم هاتف تونسي صالحاً.';
+	@override String get otpInvalid => 'الرمز غير صالح أو انتهت صلاحيته.';
+	@override String get rateLimited => 'طلبات كثيرة جداً. حاول لاحقاً.';
+	@override String get networkError => 'تعذر الاتصال. تحقق من شبكتك.';
+	@override String get genericError => 'حدث خطأ. حاول مرة أخرى.';
 }
 
 // Path: common
@@ -170,7 +200,7 @@ class Translations$common$home$ar extends Translations$common$home$fr {
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String get navAuth => 'مساحة المصادقة — قريبًا (FM-05)';
+	@override String get navAuth => 'تسجيل الدخول';
 	@override String get navClient => 'مساحة العميل';
 	@override String get navPro => 'مساحة المحترف — قريبًا (FM-08)';
 	@override String get toggleTheme => 'تبديل المظهر الفاتح/الداكن';
@@ -220,7 +250,7 @@ extension on TranslationsAr {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'common.appName' => 'Sanaya',
-			'common.home.navAuth' => 'مساحة المصادقة — قريبًا (FM-05)',
+			'common.home.navAuth' => 'تسجيل الدخول',
 			'common.home.navClient' => 'مساحة العميل',
 			'common.home.navPro' => 'مساحة المحترف — قريبًا (FM-08)',
 			'common.home.toggleTheme' => 'تبديل المظهر الفاتح/الداكن',

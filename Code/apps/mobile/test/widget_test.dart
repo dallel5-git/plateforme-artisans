@@ -30,19 +30,23 @@ void main() {
       expect(find.text(_tFr.common.home.navPro), findsOneWidget);
     });
 
-    testWidgets('les boutons /auth et /pro mènent à leur placeholder', (
+    testWidgets('les boutons /auth et /pro mènent à leur écran dédié', (
       tester,
     ) async {
-      for (final label in [_tFr.common.home.navAuth, _tFr.common.home.navPro]) {
-        router.go('/');
-        await tester.pumpWidget(const ProviderScope(child: SanayaApp()));
-        await tester.pumpAndSettle();
+      await tester.pumpWidget(const ProviderScope(child: SanayaApp()));
+      await tester.pumpAndSettle();
 
-        await tester.tap(find.text(label));
-        await tester.pumpAndSettle();
+      await tester.tap(find.text(_tFr.common.home.navAuth));
+      await tester.pumpAndSettle();
 
-        expect(find.text(label), findsOneWidget);
-      }
+      expect(find.text(_tFr.auth.title), findsOneWidget);
+
+      router.go('/');
+      await tester.pumpAndSettle();
+      await tester.tap(find.text(_tFr.common.home.navPro));
+      await tester.pumpAndSettle();
+
+      expect(find.text(_tFr.common.home.navPro), findsOneWidget);
     });
 
     testWidgets(

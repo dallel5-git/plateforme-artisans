@@ -41,6 +41,36 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$provider$fr provider = Translations$provider$fr.internal(_root);
 	late final Translations$search$fr search = Translations$search$fr.internal(_root);
 	late final Translations$settings$fr settings = Translations$settings$fr.internal(_root);
+	late final Translations$auth$fr auth = Translations$auth$fr.internal(_root);
+}
+
+// Path: auth
+class Translations$auth$fr {
+	Translations$auth$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	String get title => 'Bienvenue sur Sanaya';
+	String get roleSubtitle => 'Comment souhaitez-vous utiliser Sanaya ?';
+	String get clientRole => 'Je cherche un artisan';
+	String get providerRole => 'Je suis artisan';
+	String get phoneTitle => 'Votre numéro de téléphone';
+	String get phoneSubtitle => 'Nous vous enverrons un code de confirmation par SMS.';
+	String get phoneLabel => 'Téléphone';
+	String get phoneHint => '22 123 456';
+	String get sendCode => 'Recevoir le code';
+	String get otpTitle => 'Vérifiez votre numéro';
+	String otpSubtitle({required String phone}) => 'Saisissez le code envoyé au $phone.';
+	String get otpLabel => 'Code à 6 chiffres';
+	String get otpHint => '000000';
+	String get verifyCode => 'Vérifier le code';
+	String get resendCode => 'Renvoyer le code';
+	String get changePhone => 'Modifier le numéro';
+	String get phoneInvalid => 'Saisissez un numéro tunisien valide.';
+	String get otpInvalid => 'Le code est invalide ou a expiré.';
+	String get rateLimited => 'Trop de demandes. Réessayez plus tard.';
+	String get networkError => 'Connexion impossible. Vérifiez votre réseau.';
+	String get genericError => 'Une erreur est survenue. Réessayez.';
 }
 
 // Path: common
@@ -265,8 +295,8 @@ class Translations$common$home$fr {
 
 	// Translations
 
-	/// fr: 'Espace authentification — à venir (FM-05)'
-	String get navAuth => 'Espace authentification — à venir (FM-05)';
+	/// fr: 'Se connecter'
+	String get navAuth => 'Se connecter';
 
 	/// fr: 'Espace client'
 	String get navClient => 'Espace client';
@@ -356,7 +386,7 @@ extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'common.appName' => 'Sanaya',
-			'common.home.navAuth' => 'Espace authentification — à venir (FM-05)',
+			'common.home.navAuth' => 'Se connecter',
 			'common.home.navClient' => 'Espace client',
 			'common.home.navPro' => 'Espace pro — à venir (FM-08)',
 			'common.home.toggleTheme' => 'Basculer thème clair/sombre',

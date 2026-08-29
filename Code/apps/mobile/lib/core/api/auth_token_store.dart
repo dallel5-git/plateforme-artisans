@@ -31,6 +31,20 @@ class AuthTokenStore {
 
   String? get accessToken => _accessToken;
 
+  Future<String?> readRefreshToken() => _secureStorage.read(
+    key: _refreshTokenKey,
+  );
+
+  /// Enregistre une session obtenue après la validation OTP. L'access token
+  /// reste volontairement en mémoire ; seul le refresh token est persistant.
+  Future<void> saveSession({
+    required String accessToken,
+    required String refreshToken,
+  }) async {
+    _accessToken = accessToken;
+    await _secureStorage.write(key: _refreshTokenKey, value: refreshToken);
+  }
+
   static Dio _buildRefreshDio() => Dio(
     BaseOptions(
       baseUrl: ApiEnv.baseUrl,

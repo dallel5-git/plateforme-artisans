@@ -78,6 +78,21 @@ void main() {
   });
 
   group('FM-02d — AuthTokenStore', () {
+    test('saveSession() conserve uniquement le refresh token', () async {
+      await store.saveSession(
+        accessToken: 'access-after-otp',
+        refreshToken: 'refresh-after-otp',
+      );
+
+      expect(store.accessToken, 'access-after-otp');
+      verify(
+        () => secureStorage.write(
+          key: any(named: 'key'),
+          value: 'refresh-after-otp',
+        ),
+      ).called(1);
+    });
+
     test(
       'refresh() réussi met à jour accessToken et persiste le nouveau '
       'refreshToken',

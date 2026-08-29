@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sanaya/app/bootstrap_placeholder_screen.dart';
 import 'package:sanaya/app/design_system_preview_screen.dart';
 import 'package:sanaya/app/home_screen.dart';
+import 'package:sanaya/features/auth/presentation/auth_screen.dart';
 import 'package:sanaya/features/provider_profile/presentation/screens/provider_profile_screen.dart';
 import 'package:sanaya/features/search/presentation/search_home_screen.dart';
 
@@ -17,10 +18,8 @@ final router = GoRouter(
     GoRoute(path: '/', name: 'home', builder: (_, _) => const HomeScreen()),
     GoRoute(
       path: '/auth',
-      name: 'auth-placeholder',
-      builder: (_, _) => const BootstrapPlaceholderScreen(
-        space: BootstrapNavSpace.auth,
-      ),
+      name: 'auth',
+      builder: (_, _) => const AuthScreen(),
     ),
     GoRoute(
       path: '/client',

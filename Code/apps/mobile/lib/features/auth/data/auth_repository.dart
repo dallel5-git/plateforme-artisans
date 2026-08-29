@@ -7,6 +7,29 @@ class AuthRepository {
 
   final AuthApi _authApi;
 
+  Future<void> requestOtp({required String phone}) => unwrapDioErrors(
+    () async {
+      await _authApi.v1AuthOtpRequestPost(
+        v1AuthOtpRequestPostRequest: V1AuthOtpRequestPostRequest(
+          (b) => b..phone = phone,
+        ),
+      );
+    },
+  );
+
+  Future<V1AuthOtpVerifyPost200Response> verifyOtp({
+    required String phone,
+    required String code,
+  }) => unwrapDioErrors(
+    () async => (await _authApi.v1AuthOtpVerifyPost(
+      v1AuthOtpVerifyPostRequest: V1AuthOtpVerifyPostRequest(
+        (b) => b
+          ..phone = phone
+          ..code = code,
+      ),
+    )).data!,
+  );
+
   /// Révoque la session sur le serveur lors de la déconnexion (BE-10d).
   /// Idempotent.
   Future<void> logout({String? refreshToken}) async {

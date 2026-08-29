@@ -9,6 +9,9 @@ class _AuthApiMock extends Mock implements AuthApi {}
 class _FakeV1AuthRefreshPostRequest extends Fake
     implements V1AuthRefreshPostRequest {}
 
+class _FakeV1AuthOtpRequestPostRequest extends Fake
+    implements V1AuthOtpRequestPostRequest {}
+
 Response<T> _okResponse<T>(String path, T data) => Response<T>(
   requestOptions: RequestOptions(path: path),
   statusCode: 200,
@@ -18,6 +21,7 @@ Response<T> _okResponse<T>(String path, T data) => Response<T>(
 void main() {
   setUpAll(() {
     registerFallbackValue(_FakeV1AuthRefreshPostRequest());
+    registerFallbackValue(_FakeV1AuthOtpRequestPostRequest());
   });
 
   late _AuthApiMock authApi;
@@ -68,6 +72,40 @@ void main() {
           v1AuthRefreshPostRequest: any(named: 'v1AuthRefreshPostRequest'),
         ),
       );
+    });
+  });
+
+  group('AuthRepository.requestOtp', () {
+    test('transmet le numéro normalisé à la route OTP générée', () async {
+      when(
+        () => authApi.v1AuthOtpRequestPost(
+          v1AuthOtpRequestPostRequest: any(
+            named: 'v1AuthOtpRequestPostRequest',
+          ),
+        ),
+      ).thenAnswer(
+        (_) async => _okResponse(
+          '/v1/auth/otp/request',
+          V1AuthOtpRequestPost200Response(
+            (b) => b..status = V1AuthOtpRequestPost200ResponseStatusEnum.sent,
+          ),
+        ),
+      );
+
+      await repository.requestOtp(phone: '+21622123456');
+
+      verify(
+        () => authApi.v1AuthOtpRequestPost(
+          v1AuthOtpRequestPostRequest: any(
+            named: 'v1AuthOtpRequestPostRequest',
+            that: isA<V1AuthOtpRequestPostRequest>().having(
+              (request) => request.phone,
+              'phone',
+              '+21622123456',
+            ),
+          ),
+        ),
+      ).called(1);
     });
   });
 }
