@@ -68,6 +68,11 @@ class HomeScreen extends ConsumerWidget {
               label: t.common.home.navPro,
               onTap: () => context.go('/pro'),
             ),
+            const SizedBox(height: AppSpacing.sm),
+            _NavButton(
+              label: t.common.home.navProDashboard,
+              onTap: () => context.go('/pro/dashboard'),
+            ),
           ],
         ),
       ),

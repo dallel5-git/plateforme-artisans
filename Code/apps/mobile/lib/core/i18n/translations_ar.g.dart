@@ -42,6 +42,7 @@ class TranslationsAr extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final Translations$auth$ar auth = Translations$auth$ar._(_root);
 	@override late final Translations$common$ar common = Translations$common$ar._(_root);
 	@override late final Translations$contact$ar contact = Translations$contact$ar._(_root);
+	@override late final Translations$dashboard$ar dashboard = Translations$dashboard$ar._(_root);
 	@override late final Translations$favorites$ar favorites = Translations$favorites$ar._(_root);
 	@override late final Translations$legal$ar legal = Translations$legal$ar._(_root);
 	@override late final Translations$onboarding$ar onboarding = Translations$onboarding$ar._(_root);
@@ -99,6 +100,28 @@ class Translations$contact$ar extends Translations$contact$fr {
 	// Translations
 	@override String get call => 'اتصال';
 	@override String get whatsapp => 'واتساب';
+}
+
+// Path: dashboard
+class Translations$dashboard$ar extends Translations$dashboard$fr {
+	Translations$dashboard$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'لوحة التحكم';
+	@override String get statViews => 'مشاهدات الملف الشخصي';
+	@override String get statUniqueViews => 'زوار فريدون';
+	@override String get statContacts => 'جهات الاتصال';
+	@override String get statRatio => 'مشاهدة → اتصال';
+	@override String get comparisonPreviousPeriod => 'مقارنة بالـ 15 يومًا السابقة';
+	@override String get comparisonNew => 'جديد';
+	@override String get chartTitle => 'المشاهدات خلال 30 يومًا';
+	@override String get chartContactsLabel => 'جهات الاتصال';
+	@override String get chartViewsLabel => 'المشاهدات';
+	@override String get retry => 'إعادة المحاولة';
+	@override String get errorTitle => 'تعذر تحميل لوحة التحكم';
+	@override String get errorMessage => 'تحقق من اتصالك وأعد المحاولة.';
 }
 
 // Path: favorites
@@ -249,6 +272,7 @@ class Translations$common$home$ar extends Translations$common$home$fr {
 	@override String get navAuth => 'مساحة المصادقة — قريبًا (FM-05)';
 	@override String get navClient => 'مساحة العميل';
 	@override String get navPro => 'مساحة المحترف';
+	@override String get navProDashboard => 'مساحة المحترف — لوحة التحكم';
 	@override String get toggleTheme => 'تبديل المظهر الفاتح/الداكن';
 	@override String get toggleLocale => 'تبديل الفرنسية/العربية';
 	@override String get designSystemPreview => 'معرض نظام التصميم';
@@ -345,6 +369,7 @@ extension on TranslationsAr {
 			'common.home.navAuth' => 'مساحة المصادقة — قريبًا (FM-05)',
 			'common.home.navClient' => 'مساحة العميل',
 			'common.home.navPro' => 'مساحة المحترف',
+			'common.home.navProDashboard' => 'مساحة المحترف — لوحة التحكم',
 			'common.home.toggleTheme' => 'تبديل المظهر الفاتح/الداكن',
 			'common.home.toggleLocale' => 'تبديل الفرنسية/العربية',
 			'common.home.designSystemPreview' => 'معرض نظام التصميم',
@@ -353,6 +378,19 @@ extension on TranslationsAr {
 			'common.widgets.offlineBanner.dismiss' => 'فهمت',
 			'contact.call' => 'اتصال',
 			'contact.whatsapp' => 'واتساب',
+			'dashboard.title' => 'لوحة التحكم',
+			'dashboard.statViews' => 'مشاهدات الملف الشخصي',
+			'dashboard.statUniqueViews' => 'زوار فريدون',
+			'dashboard.statContacts' => 'جهات الاتصال',
+			'dashboard.statRatio' => 'مشاهدة → اتصال',
+			'dashboard.comparisonPreviousPeriod' => 'مقارنة بالـ 15 يومًا السابقة',
+			'dashboard.comparisonNew' => 'جديد',
+			'dashboard.chartTitle' => 'المشاهدات خلال 30 يومًا',
+			'dashboard.chartContactsLabel' => 'جهات الاتصال',
+			'dashboard.chartViewsLabel' => 'المشاهدات',
+			'dashboard.retry' => 'إعادة المحاولة',
+			'dashboard.errorTitle' => 'تعذر تحميل لوحة التحكم',
+			'dashboard.errorMessage' => 'تحقق من اتصالك وأعد المحاولة.',
 			'favorites.title' => 'المفضلات',
 			'favorites.emptyTitle' => 'لا توجد عناصر مفضلة حتى الآن',
 			'favorites.emptySubtitle' => 'احفظ الحرفيين للوصول إليهم بسرعة لاحقاً.',

@@ -37,6 +37,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$auth$fr auth = Translations$auth$fr.internal(_root);
 	late final Translations$common$fr common = Translations$common$fr.internal(_root);
 	late final Translations$contact$fr contact = Translations$contact$fr.internal(_root);
+	late final Translations$dashboard$fr dashboard = Translations$dashboard$fr.internal(_root);
 	late final Translations$favorites$fr favorites = Translations$favorites$fr.internal(_root);
 	late final Translations$legal$fr legal = Translations$legal$fr.internal(_root);
 	late final Translations$onboarding$fr onboarding = Translations$onboarding$fr.internal(_root);
@@ -139,6 +140,54 @@ class Translations$contact$fr {
 
 	/// fr: 'WhatsApp'
 	String get whatsapp => 'WhatsApp';
+}
+
+// Path: dashboard
+class Translations$dashboard$fr {
+	Translations$dashboard$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Tableau de bord'
+	String get title => 'Tableau de bord';
+
+	/// fr: 'Vues du profil'
+	String get statViews => 'Vues du profil';
+
+	/// fr: 'Visiteurs uniques'
+	String get statUniqueViews => 'Visiteurs uniques';
+
+	/// fr: 'Contacts'
+	String get statContacts => 'Contacts';
+
+	/// fr: 'Vue → contact'
+	String get statRatio => 'Vue → contact';
+
+	/// fr: 'vs. 15 jours précédents'
+	String get comparisonPreviousPeriod => 'vs. 15 jours précédents';
+
+	/// fr: 'Nouveau'
+	String get comparisonNew => 'Nouveau';
+
+	/// fr: 'Vues sur 30 jours'
+	String get chartTitle => 'Vues sur 30 jours';
+
+	/// fr: 'Contacts'
+	String get chartContactsLabel => 'Contacts';
+
+	/// fr: 'Vues'
+	String get chartViewsLabel => 'Vues';
+
+	/// fr: 'Réessayer'
+	String get retry => 'Réessayer';
+
+	/// fr: 'Impossible de charger le tableau de bord'
+	String get errorTitle => 'Impossible de charger le tableau de bord';
+
+	/// fr: 'Vérifiez votre connexion et réessayez.'
+	String get errorMessage => 'Vérifiez votre connexion et réessayez.';
 }
 
 // Path: favorites
@@ -462,6 +511,9 @@ class Translations$common$home$fr {
 	/// fr: 'Espace pro'
 	String get navPro => 'Espace pro';
 
+	/// fr: 'Espace pro — Tableau de bord'
+	String get navProDashboard => 'Espace pro — Tableau de bord';
+
 	/// fr: 'Basculer thème clair/sombre'
 	String get toggleTheme => 'Basculer thème clair/sombre';
 
@@ -628,6 +680,7 @@ extension on Translations {
 			'common.home.navAuth' => 'Espace authentification — à venir (FM-05)',
 			'common.home.navClient' => 'Espace client',
 			'common.home.navPro' => 'Espace pro',
+			'common.home.navProDashboard' => 'Espace pro — Tableau de bord',
 			'common.home.toggleTheme' => 'Basculer thème clair/sombre',
 			'common.home.toggleLocale' => 'Basculer FR/AR',
 			'common.home.designSystemPreview' => 'Vitrine design system',
@@ -636,6 +689,19 @@ extension on Translations {
 			'common.widgets.offlineBanner.dismiss' => 'Compris',
 			'contact.call' => 'Appeler',
 			'contact.whatsapp' => 'WhatsApp',
+			'dashboard.title' => 'Tableau de bord',
+			'dashboard.statViews' => 'Vues du profil',
+			'dashboard.statUniqueViews' => 'Visiteurs uniques',
+			'dashboard.statContacts' => 'Contacts',
+			'dashboard.statRatio' => 'Vue → contact',
+			'dashboard.comparisonPreviousPeriod' => 'vs. 15 jours précédents',
+			'dashboard.comparisonNew' => 'Nouveau',
+			'dashboard.chartTitle' => 'Vues sur 30 jours',
+			'dashboard.chartContactsLabel' => 'Contacts',
+			'dashboard.chartViewsLabel' => 'Vues',
+			'dashboard.retry' => 'Réessayer',
+			'dashboard.errorTitle' => 'Impossible de charger le tableau de bord',
+			'dashboard.errorMessage' => 'Vérifiez votre connexion et réessayez.',
 			'favorites.title' => 'Mes favoris',
 			'favorites.emptyTitle' => 'Aucun favori pour le moment',
 			'favorites.emptySubtitle' => 'Enregistrez des artisans pour les retrouver rapidement.',

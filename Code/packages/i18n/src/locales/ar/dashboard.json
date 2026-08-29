@@ -1,0 +1,15 @@
+{
+  "title": "لوحة التحكم",
+  "statViews": "مشاهدات الملف الشخصي",
+  "statUniqueViews": "زوار فريدون",
+  "statContacts": "جهات الاتصال",
+  "statRatio": "مشاهدة → اتصال",
+  "comparisonPreviousPeriod": "مقارنة بالـ 15 يومًا السابقة",
+  "comparisonNew": "جديد",
+  "chartTitle": "المشاهدات خلال 30 يومًا",
+  "chartContactsLabel": "جهات الاتصال",
+  "chartViewsLabel": "المشاهدات",
+  "retry": "إعادة المحاولة",
+  "errorTitle": "تعذر تحميل لوحة التحكم",
+  "errorMessage": "تحقق من اتصالك وأعد المحاولة."
+}
