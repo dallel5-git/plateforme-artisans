@@ -96,10 +96,9 @@ class AuthTokenStore {
             ),
           );
       final tokens = response.data!;
-      _accessToken = tokens.accessToken;
-      await _secureStorage.write(
-        key: _refreshTokenKey,
-        value: tokens.refreshToken,
+      await _storeTokens(
+        accessToken: tokens.accessToken,
+        refreshToken: tokens.refreshToken,
       );
       return tokens.accessToken;
     } on DioException catch (e) {
@@ -110,6 +109,22 @@ class AuthTokenStore {
       await clear();
       throw mapDioExceptionToApiException(e);
     }
+  }
+
+  /// Ouvre une nouvelle session : `POST /v1/auth/otp/verify` (FM-05) renvoie
+  /// déjà `accessToken`/`refreshToken` dans sa réponse de succès, donc pas
+  /// besoin d'un aller-retour `refresh` supplémentaire juste après.
+  Future<void> saveSession({
+    required String accessToken,
+    required String refreshToken,
+  }) => _storeTokens(accessToken: accessToken, refreshToken: refreshToken);
+
+  Future<void> _storeTokens({
+    required String accessToken,
+    required String refreshToken,
+  }) async {
+    _accessToken = accessToken;
+    await _secureStorage.write(key: _refreshTokenKey, value: refreshToken);
   }
 
   /// Purge l'access token (mémoire) et le refresh token (stockage

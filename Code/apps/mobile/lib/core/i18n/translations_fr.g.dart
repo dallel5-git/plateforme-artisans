@@ -34,6 +34,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	Translations $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => Translations(meta: meta ?? this.$meta);
 
 	// Translations
+	late final Translations$auth$fr auth = Translations$auth$fr.internal(_root);
 	late final Translations$common$fr common = Translations$common$fr.internal(_root);
 	late final Translations$contact$fr contact = Translations$contact$fr.internal(_root);
 	late final Translations$favorites$fr favorites = Translations$favorites$fr.internal(_root);
@@ -42,6 +43,72 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$provider$fr provider = Translations$provider$fr.internal(_root);
 	late final Translations$search$fr search = Translations$search$fr.internal(_root);
 	late final Translations$settings$fr settings = Translations$settings$fr.internal(_root);
+}
+
+// Path: auth
+class Translations$auth$fr {
+	Translations$auth$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Comment souhaitez-vous utiliser l'application ?'
+	String get roleTitle => 'Comment souhaitez-vous utiliser l\'application ?';
+
+	/// fr: 'Je cherche un artisan'
+	String get roleClient => 'Je cherche un artisan';
+
+	/// fr: 'Je suis artisan'
+	String get roleProvider => 'Je suis artisan';
+
+	/// fr: 'Votre numéro de téléphone'
+	String get phoneTitle => 'Votre numéro de téléphone';
+
+	/// fr: '22 123 456'
+	String get phoneHint => '22 123 456';
+
+	/// fr: 'Numéro de téléphone tunisien invalide'
+	String get phoneInvalid => 'Numéro de téléphone tunisien invalide';
+
+	/// fr: 'Recevoir le code'
+	String get phoneCta => 'Recevoir le code';
+
+	/// fr: 'Code de vérification'
+	String get otpTitle => 'Code de vérification';
+
+	/// fr: 'Un code à 6 chiffres a été envoyé au {phone}'
+	String get otpSubtitle => 'Un code à 6 chiffres a été envoyé au {phone}';
+
+	/// fr: 'Confirmer'
+	String get otpCta => 'Confirmer';
+
+	/// fr: 'Renvoyer le code'
+	String get otpResend => 'Renvoyer le code';
+
+	/// fr: 'Renvoyer dans {seconds}s'
+	String get otpResendCountdown => 'Renvoyer dans {seconds}s';
+
+	/// fr: 'Code invalide, {count} tentative(s) restante(s)'
+	String get otpAttemptsRemaining => 'Code invalide, {count} tentative(s) restante(s)';
+
+	/// fr: 'Code invalide'
+	String get errorOtpInvalid => 'Code invalide';
+
+	/// fr: 'Ce code a expiré, demandez-en un nouveau'
+	String get errorOtpExpired => 'Ce code a expiré, demandez-en un nouveau';
+
+	/// fr: 'Trop de tentatives, demandez un nouveau code'
+	String get errorOtpTooManyAttempts => 'Trop de tentatives, demandez un nouveau code';
+
+	/// fr: 'Trop de demandes, réessayez plus tard'
+	String get errorRateLimitExceeded => 'Trop de demandes, réessayez plus tard';
+
+	/// fr: 'Numéro de téléphone invalide'
+	String get errorValidation => 'Numéro de téléphone invalide';
+
+	/// fr: 'Une erreur est survenue, réessayez'
+	String get errorGeneric => 'Une erreur est survenue, réessayez';
 }
 
 // Path: common
@@ -538,6 +605,25 @@ class Translations$common$widgets$offlineBanner$fr {
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'auth.roleTitle' => 'Comment souhaitez-vous utiliser l\'application ?',
+			'auth.roleClient' => 'Je cherche un artisan',
+			'auth.roleProvider' => 'Je suis artisan',
+			'auth.phoneTitle' => 'Votre numéro de téléphone',
+			'auth.phoneHint' => '22 123 456',
+			'auth.phoneInvalid' => 'Numéro de téléphone tunisien invalide',
+			'auth.phoneCta' => 'Recevoir le code',
+			'auth.otpTitle' => 'Code de vérification',
+			'auth.otpSubtitle' => 'Un code à 6 chiffres a été envoyé au {phone}',
+			'auth.otpCta' => 'Confirmer',
+			'auth.otpResend' => 'Renvoyer le code',
+			'auth.otpResendCountdown' => 'Renvoyer dans {seconds}s',
+			'auth.otpAttemptsRemaining' => 'Code invalide, {count} tentative(s) restante(s)',
+			'auth.errorOtpInvalid' => 'Code invalide',
+			'auth.errorOtpExpired' => 'Ce code a expiré, demandez-en un nouveau',
+			'auth.errorOtpTooManyAttempts' => 'Trop de tentatives, demandez un nouveau code',
+			'auth.errorRateLimitExceeded' => 'Trop de demandes, réessayez plus tard',
+			'auth.errorValidation' => 'Numéro de téléphone invalide',
+			'auth.errorGeneric' => 'Une erreur est survenue, réessayez',
 			'common.appName' => 'Sanaya',
 			'common.home.navAuth' => 'Espace authentification — à venir (FM-05)',
 			'common.home.navClient' => 'Espace client',
