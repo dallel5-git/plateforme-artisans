@@ -1,3 +1,4 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -36,6 +37,12 @@ void main() {
   setUp(() {
     authRepository = _MockAuthRepository();
     authTokenStore = _MockAuthTokenStore();
+    // `submitOtp` arme `authStateProvider` (FM-05d) après succès, ce qui
+    // force son `build()` — sans session à restaurer ici, seul le chemin
+    // "pas de session persistée" nous intéresse pour ces tests.
+    when(
+      () => authTokenStore.restoreSession(),
+    ).thenAnswer((_) async => false);
     container = _makeContainer(
       authRepository: authRepository,
       authTokenStore: authTokenStore,
@@ -134,6 +141,11 @@ void main() {
         when(() => response.accessToken).thenReturn('access-xyz');
         when(() => response.refreshToken).thenReturn('session-id.token-id');
         when(() => response.user).thenReturn(user);
+        when(() => user.roles).thenReturn(
+          BuiltList<V1AuthOtpVerifyPost200ResponseUserRolesEnum>([
+            V1AuthOtpVerifyPost200ResponseUserRolesEnum.CLIENT,
+          ]),
+        );
         when(
           () => authRepository.requestOtp('+21622123456'),
         ).thenAnswer((_) async {});

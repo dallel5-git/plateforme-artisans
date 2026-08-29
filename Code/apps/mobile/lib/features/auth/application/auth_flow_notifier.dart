@@ -3,6 +3,7 @@ import 'package:sanaya/core/api/api_client_provider.dart';
 import 'package:sanaya/core/api/exceptions.dart';
 import 'package:sanaya/features/auth/application/auth_flow_state.dart';
 import 'package:sanaya/features/auth/application/auth_providers.dart';
+import 'package:sanaya/features/auth/application/auth_state_provider.dart';
 
 /// Gère l'état complet du parcours d'authentification OTP (FM-05) :
 /// sélection de rôle → saisie du téléphone → saisie du code → session.
@@ -90,6 +91,14 @@ class AuthFlowNotifier extends AutoDisposeNotifier<AuthFlowState> {
             accessToken: result.accessToken,
             refreshToken: result.refreshToken,
           );
+      // La réponse de vérification porte déjà le rôle — pas besoin d'un
+      // second appel à `/auth/me` pour armer `authStateProvider` (consommé
+      // par la garde `redirect:` de `router`, FM-05d). On attend d'abord
+      // que le bootstrap de session (`AuthStateNotifier.build()`, lancé au
+      // démarrage de l'app) soit résolu — sinon sur un réseau lent (P5) sa
+      // résolution tardive écraserait l'état "authentifié" qu'on pose ici.
+      await ref.read(authStateProvider.future);
+      ref.read(authStateProvider.notifier).setAuthenticated(result.user.roles);
       state = state.copyWith(isSubmitting: false, verifiedUser: result.user);
       return true;
     } on SanayaApiException catch (e) {
