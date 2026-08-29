@@ -18,6 +18,8 @@ class AppTextField extends StatefulWidget {
     this.keyboardType,
     this.onChanged,
     this.obscureText = false,
+    this.maxLines = 1,
+    this.minLines,
   });
 
   final String? label;
@@ -27,6 +29,8 @@ class AppTextField extends StatefulWidget {
   final TextInputType? keyboardType;
   final ValueChanged<String>? onChanged;
   final bool obscureText;
+  final int? maxLines;
+  final int? minLines;
 
   @override
   State<AppTextField> createState() => _AppTextFieldState();
@@ -100,6 +104,8 @@ class _AppTextFieldState extends State<AppTextField> {
                 keyboardType: widget.keyboardType,
                 onChanged: widget.onChanged,
                 obscureText: widget.obscureText,
+                maxLines: widget.maxLines,
+                minLines: widget.minLines,
                 style: AppText.body(
                   locale,
                 ).copyWith(color: colors.textPrimary),
