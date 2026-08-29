@@ -5,14 +5,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/app/theme.dart';
 import 'package:sanaya/core/api/generated/api.dart';
 import 'package:sanaya/core/widgets/verified_badge.dart';
+import 'package:sanaya/features/contact/application/contact_providers.dart';
+import 'package:sanaya/features/contact/domain/contact_channel.dart';
+import 'package:sanaya/features/contact/domain/contact_service.dart';
 import 'package:sanaya/features/provider_profile/application/provider_profile_providers.dart';
 import 'package:sanaya/features/provider_profile/data/provider_profile_repository.dart';
 import 'package:sanaya/features/provider_profile/presentation/screens/provider_profile_screen.dart';
+
+class _ContactServiceMock extends Mock implements ContactService {}
 
 ProviderProfile _fakeProfile({
   required String slug,
@@ -154,11 +161,14 @@ Widget _wrap(
   Widget child, {
   required ProviderProfileRepository repository,
   Locale locale = const Locale('fr'),
+  ContactService? contactService,
 }) {
   return ProviderScope(
     overrides: [
       localeProvider.overrideWith((ref) => locale),
       providerProfileRepositoryProvider.overrideWithValue(repository),
+      if (contactService != null)
+        contactServiceProvider.overrideWithValue(contactService),
     ],
     child: MaterialApp(
       locale: locale,
@@ -177,6 +187,56 @@ Widget _wrap(
       ),
     ),
   );
+}
+
+/// Variante avec un vrai `GoRouter` (pas juste `MaterialApp.home`) pour
+/// vérifier la navigation déclenchée par la carte d'invitation — même
+/// patron que `review_form_screen_test.dart` (route `/` sous-jacente
+/// nécessaire pour tout `pop()` éventuel, même si non utilisé ici).
+({Widget widget, GoRouter router}) _wrapWithRouter({
+  required ProviderProfileRepository repository,
+  required String slug,
+}) {
+  final router = GoRouter(
+    initialLocation: '/providers/$slug',
+    routes: [
+      GoRoute(
+        path: '/providers/:slug',
+        name: 'provider-profile',
+        builder: (_, state) =>
+            ProviderProfileScreen(slug: state.pathParameters['slug'] ?? ''),
+        routes: [
+          GoRoute(
+            path: 'review',
+            name: 'provider-review',
+            builder: (_, _) => const Scaffold(body: Text('review-screen')),
+          ),
+        ],
+      ),
+    ],
+  );
+
+  final widget = ProviderScope(
+    overrides: [
+      providerProfileRepositoryProvider.overrideWithValue(repository),
+    ],
+    child: MaterialApp.router(
+      routerConfig: router,
+      locale: const Locale('fr'),
+      supportedLocales: const [Locale('fr'), Locale('ar')],
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      theme: buildTheme(
+        brightness: Brightness.light,
+        locale: const Locale('fr'),
+      ),
+    ),
+  );
+
+  return (widget: widget, router: router);
 }
 
 void main() {
@@ -317,5 +377,78 @@ void main() {
       expect(find.text('مناطق التدخل'), findsOneWidget);
       expect(find.text('التقييمات'), findsOneWidget);
     });
+
+    testWidgets(
+      'FM-10c — tap sur Appeler poste le contact via ContactButtons (P9)',
+      (tester) async {
+        final profile = _fakeProfile(
+          slug: 'mohamed-plombier',
+          businessName: 'Mohamed Plomberie',
+        );
+        final repo = FakeProviderProfileRepository(profile: profile);
+        final contactService = _ContactServiceMock();
+        registerFallbackValue(ContactChannel.phone);
+        when(
+          () => contactService.contact(
+            providerId: any(named: 'providerId'),
+            channel: any(named: 'channel'),
+            categoryId: any(named: 'categoryId'),
+            sourceScreen: any(named: 'sourceScreen'),
+            locale: any(named: 'locale'),
+            fallbackPhone: any(named: 'fallbackPhone'),
+          ),
+        ).thenAnswer((_) async {});
+
+        await tester.pumpWidget(
+          _wrap(
+            const ProviderProfileScreen(slug: 'mohamed-plombier'),
+            repository: repo,
+            contactService: contactService,
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.text('Appeler'));
+        await tester.pump();
+
+        verify(
+          () => contactService.contact(
+            providerId: 'provider-1',
+            channel: ContactChannel.phone,
+            categoryId: any(named: 'categoryId'),
+            sourceScreen: 'provider_profile',
+            locale: any(named: 'locale'),
+            fallbackPhone: any(named: 'fallbackPhone'),
+          ),
+        ).called(1);
+      },
+    );
+
+    testWidgets(
+      'FM-10c — la carte « Laisser un avis » navigue vers /providers/:slug/review',
+      (tester) async {
+        final profile = _fakeProfile(
+          slug: 'mohamed-plombier',
+          businessName: 'Mohamed Plomberie',
+        );
+        final repo = FakeProviderProfileRepository(profile: profile);
+
+        final env = _wrapWithRouter(
+          repository: repo,
+          slug: 'mohamed-plombier',
+        );
+        await tester.pumpWidget(env.widget);
+        await tester.pumpAndSettle();
+
+        // La carte est plus bas que le viewport de test par défaut
+        // (800x600) — la faire défiler en vue avant le tap.
+        await tester.ensureVisible(find.text('Laisser un avis'));
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Laisser un avis'));
+        await tester.pumpAndSettle();
+
+        expect(find.text('review-screen'), findsOneWidget);
+      },
+    );
   });
 }

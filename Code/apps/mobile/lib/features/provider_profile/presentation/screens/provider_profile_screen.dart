@@ -2,13 +2,16 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/theme/app_text.dart';
 import 'package:sanaya/core/widgets/app_button.dart';
+import 'package:sanaya/core/widgets/app_card.dart';
 import 'package:sanaya/core/widgets/rating_stars.dart';
 import 'package:sanaya/core/widgets/verified_badge.dart';
+import 'package:sanaya/features/contact/presentation/contact_buttons.dart';
 import 'package:sanaya/features/provider_profile/application/provider_profile_providers.dart';
 import 'package:sanaya/features/provider_profile/data/provider_profile_repository.dart';
 import 'package:sanaya/features/provider_profile/presentation/widgets/availability_chip.dart';
@@ -229,6 +232,14 @@ class _ProfileContent extends ConsumerWidget {
                   const SizedBox(height: AppSpacing.xl),
                 ],
 
+                // Invitation à laisser un avis — carte persistante, non
+                // liée à un déclencheur post-contact (aucun suivi côté
+                // client de "avez-vous contacté cet artisan" pour l'instant
+                // — l'éligibilité réelle est vérifiée uniquement côté
+                // serveur, 403 REVIEW_REQUIRES_CONTACT sinon, cf. FM-10a/b).
+                _ReviewPromptCard(slug: slug),
+                const SizedBox(height: AppSpacing.xl),
+
                 // 5. Section Avis clients
                 Text(
                   t.provider.profile.reviewsTitle,
@@ -312,6 +323,12 @@ class _ProfileContent extends ConsumerWidget {
 }
 
 /// Barre fixe basse avec boutons Appeler et WhatsApp (P9 / FM-09).
+/// Câble [ContactButtons] (FM-09c, déjà fonctionnel — trace le
+/// `ContactEvent` avant tout lien natif, file hors ligne P5) dès que le
+/// profil est chargé (il faut `profile.id`, pas seulement `slug`). Avant
+/// FM-10c, ces boutons étaient des stubs morts (`// Point d'extension
+/// FM-09`) : le merge de FM-08/FM-09 n'avait jamais câblé les deux
+/// ensemble — voir note `backlog/DOING.md` FM-08.
 class _ContactBar extends ConsumerWidget {
   const _ContactBar({required this.slug});
 
@@ -321,6 +338,7 @@ class _ContactBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final colors = context.colors;
     final t = ref.watch(translationsProvider);
+    final providerId = ref.watch(providerProfileProvider(slug)).valueOrNull?.id;
 
     return Container(
       padding: const EdgeInsets.all(AppSpacing.md),
@@ -329,29 +347,85 @@ class _ContactBar extends ConsumerWidget {
         border: Border(top: BorderSide(color: colors.border)),
       ),
       child: SafeArea(
-        child: Row(
-          children: [
-            Expanded(
-              child: AppButton(
-                label: t.provider.profile.callButton,
-                icon: const Icon(Icons.phone),
-                onPressed: () {
-                  // Point d'extension FM-09 (contact flow)
-                },
+        child: providerId != null
+            ? ContactButtons(
+                providerId: providerId,
+                sourceScreen: 'provider_profile',
+              )
+            : Row(
+                children: [
+                  Expanded(
+                    child: AppButton(
+                      label: t.provider.profile.callButton,
+                      icon: const Icon(Icons.phone),
+                      onPressed: null,
+                    ),
+                  ),
+                  const SizedBox(width: AppSpacing.md),
+                  Expanded(
+                    child: AppButton(
+                      label: t.provider.profile.whatsappButton,
+                      variant: AppButtonVariant.whatsapp,
+                      onPressed: null,
+                    ),
+                  ),
+                ],
               ),
+      ),
+    );
+  }
+}
+
+/// Invitation à laisser un avis (design non spécifié dans design-system.html
+/// §7/§8 — carte simple `AppCard` réutilisant les clés `reviewPrompt*` déjà
+/// livrées par FM-10a). Aucune vérification d'éligibilité côté client :
+/// c'est `ReviewFormScreen` (FM-10b) qui affichera l'erreur 403 le cas
+/// échéant, conforme au critère d'acceptation de l'issue #39.
+class _ReviewPromptCard extends ConsumerWidget {
+  const _ReviewPromptCard({required this.slug});
+
+  final String slug;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colors = context.colors;
+    final locale = Localizations.localeOf(context);
+    final t = ref.watch(translationsProvider);
+
+    return AppCard(
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  t.provider.profile.reviewPromptTitle,
+                  style: AppText.bodyStrong(
+                    locale,
+                  ).copyWith(color: colors.textPrimary),
+                ),
+                const SizedBox(height: AppSpacing.xxs),
+                Text(
+                  t.provider.profile.reviewPromptSubtitle,
+                  style: AppText.small(
+                    locale,
+                  ).copyWith(color: colors.textSecondary),
+                ),
+              ],
             ),
-            const SizedBox(width: AppSpacing.md),
-            Expanded(
-              child: AppButton(
-                label: t.provider.profile.whatsappButton,
-                variant: AppButtonVariant.whatsapp,
-                onPressed: () {
-                  // Point d'extension FM-09 (contact flow)
-                },
-              ),
+          ),
+          const SizedBox(width: AppSpacing.md),
+          AppButton(
+            label: t.provider.profile.reviewPromptCta,
+            variant: AppButtonVariant.secondary,
+            size: AppButtonSize.small,
+            onPressed: () => context.pushNamed(
+              'provider-review',
+              pathParameters: {'slug': slug},
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
