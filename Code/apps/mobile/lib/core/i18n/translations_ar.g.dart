@@ -39,6 +39,7 @@ class TranslationsAr extends Translations with BaseTranslations<AppLocale, Trans
 	TranslationsAr $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsAr(meta: meta ?? this.$meta);
 
 	// Translations
+	@override late final Translations$auth$ar auth = Translations$auth$ar._(_root);
 	@override late final Translations$common$ar common = Translations$common$ar._(_root);
 	@override late final Translations$contact$ar contact = Translations$contact$ar._(_root);
 	@override late final Translations$favorites$ar favorites = Translations$favorites$ar._(_root);
@@ -47,6 +48,34 @@ class TranslationsAr extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final Translations$provider$ar provider = Translations$provider$ar._(_root);
 	@override late final Translations$search$ar search = Translations$search$ar._(_root);
 	@override late final Translations$settings$ar settings = Translations$settings$ar._(_root);
+}
+
+// Path: auth
+class Translations$auth$ar extends Translations$auth$fr {
+	Translations$auth$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get roleTitle => 'كيف تريد استخدام التطبيق؟';
+	@override String get roleClient => 'أبحث عن حرفي';
+	@override String get roleProvider => 'أنا حرفي';
+	@override String get phoneTitle => 'رقم هاتفك';
+	@override String get phoneHint => '22 123 456';
+	@override String get phoneInvalid => 'رقم هاتف تونسي غير صالح';
+	@override String get phoneCta => 'استلام الرمز';
+	@override String get otpTitle => 'رمز التحقق';
+	@override String get otpSubtitle => 'تم إرسال رمز مكوّن من 6 أرقام إلى {phone}';
+	@override String get otpCta => 'تأكيد';
+	@override String get otpResend => 'إعادة إرسال الرمز';
+	@override String get otpResendCountdown => 'إعادة الإرسال بعد {seconds} ثانية';
+	@override String get otpAttemptsRemaining => 'رمز غير صحيح، تبقّى {count} محاولة/محاولات';
+	@override String get errorOtpInvalid => 'رمز غير صحيح';
+	@override String get errorOtpExpired => 'انتهت صلاحية هذا الرمز، اطلب رمزًا جديدًا';
+	@override String get errorOtpTooManyAttempts => 'محاولات كثيرة جدًا، اطلب رمزًا جديدًا';
+	@override String get errorRateLimitExceeded => 'طلبات كثيرة جدًا، حاول مرة أخرى لاحقًا';
+	@override String get errorValidation => 'رقم الهاتف غير صالح';
+	@override String get errorGeneric => 'حدث خطأ، حاول مرة أخرى';
 }
 
 // Path: common
@@ -293,6 +322,25 @@ class Translations$common$widgets$offlineBanner$ar extends Translations$common$w
 extension on TranslationsAr {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
+			'auth.roleTitle' => 'كيف تريد استخدام التطبيق؟',
+			'auth.roleClient' => 'أبحث عن حرفي',
+			'auth.roleProvider' => 'أنا حرفي',
+			'auth.phoneTitle' => 'رقم هاتفك',
+			'auth.phoneHint' => '22 123 456',
+			'auth.phoneInvalid' => 'رقم هاتف تونسي غير صالح',
+			'auth.phoneCta' => 'استلام الرمز',
+			'auth.otpTitle' => 'رمز التحقق',
+			'auth.otpSubtitle' => 'تم إرسال رمز مكوّن من 6 أرقام إلى {phone}',
+			'auth.otpCta' => 'تأكيد',
+			'auth.otpResend' => 'إعادة إرسال الرمز',
+			'auth.otpResendCountdown' => 'إعادة الإرسال بعد {seconds} ثانية',
+			'auth.otpAttemptsRemaining' => 'رمز غير صحيح، تبقّى {count} محاولة/محاولات',
+			'auth.errorOtpInvalid' => 'رمز غير صحيح',
+			'auth.errorOtpExpired' => 'انتهت صلاحية هذا الرمز، اطلب رمزًا جديدًا',
+			'auth.errorOtpTooManyAttempts' => 'محاولات كثيرة جدًا، اطلب رمزًا جديدًا',
+			'auth.errorRateLimitExceeded' => 'طلبات كثيرة جدًا، حاول مرة أخرى لاحقًا',
+			'auth.errorValidation' => 'رقم الهاتف غير صالح',
+			'auth.errorGeneric' => 'حدث خطأ، حاول مرة أخرى',
 			'common.appName' => 'Sanaya',
 			'common.home.navAuth' => 'مساحة المصادقة — قريبًا (FM-05)',
 			'common.home.navClient' => 'مساحة العميل',
