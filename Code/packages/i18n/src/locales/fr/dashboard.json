@@ -1,0 +1,15 @@
+{
+  "title": "Tableau de bord",
+  "statViews": "Vues du profil",
+  "statUniqueViews": "Visiteurs uniques",
+  "statContacts": "Contacts",
+  "statRatio": "Vue → contact",
+  "comparisonPreviousPeriod": "vs. 15 jours précédents",
+  "comparisonNew": "Nouveau",
+  "chartTitle": "Vues sur 30 jours",
+  "chartContactsLabel": "Contacts",
+  "chartViewsLabel": "Vues",
+  "retry": "Réessayer",
+  "errorTitle": "Impossible de charger le tableau de bord",
+  "errorMessage": "Vérifiez votre connexion et réessayez."
+}

@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sanaya/app/design_system_preview_screen.dart';
 import 'package:sanaya/app/home_screen.dart';
 import 'package:sanaya/features/auth/presentation/auth_screen.dart';
+import 'package:sanaya/features/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:sanaya/features/favorites/presentation/favorites_screen.dart';
 import 'package:sanaya/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:sanaya/features/provider_profile/presentation/screens/provider_profile_screen.dart';
@@ -56,6 +57,13 @@ final router = GoRouter(
       path: '/pro',
       name: 'pro-onboarding',
       builder: (_, _) => const OnboardingScreen(),
+      routes: [
+        GoRoute(
+          path: 'dashboard',
+          name: 'pro-dashboard',
+          builder: (_, _) => const DashboardScreen(),
+        ),
+      ],
     ),
     GoRoute(
       path: '/settings',
