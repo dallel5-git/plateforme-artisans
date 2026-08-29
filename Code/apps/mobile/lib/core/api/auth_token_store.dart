@@ -127,6 +127,12 @@ class AuthTokenStore {
     await _secureStorage.write(key: _refreshTokenKey, value: refreshToken);
   }
 
+  /// Lit le refresh token persistant, pour le transmettre à
+  /// `POST /auth/logout` (FM-05d) avant de purger le stockage avec [clear].
+  /// Jamais exposé ailleurs (pas de logger, pas de log réseau — P8).
+  Future<String?> peekRefreshToken() =>
+      _secureStorage.read(key: _refreshTokenKey);
+
   /// Purge l'access token (mémoire) et le refresh token (stockage
   /// sécurisé) — échec de refresh ou déconnexion explicite (FM-05).
   Future<void> clear() async {
