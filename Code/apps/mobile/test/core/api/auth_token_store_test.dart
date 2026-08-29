@@ -170,5 +170,25 @@ void main() {
         ).called(1);
       },
     );
+
+    test(
+      'saveSession() (FM-05) peuple accessToken et persiste refreshToken '
+      'sans appel réseau',
+      () async {
+        await store.saveSession(
+          accessToken: 'otp-access',
+          refreshToken: 'otp-refresh',
+        );
+
+        expect(store.accessToken, 'otp-access');
+        verify(
+          () => secureStorage.write(
+            key: any(named: 'key'),
+            value: 'otp-refresh',
+          ),
+        ).called(1);
+        expect(adapter.callCount, 0);
+      },
+    );
   });
 }
