@@ -5,6 +5,7 @@ import 'package:sanaya/app/home_screen.dart';
 import 'package:sanaya/features/favorites/presentation/favorites_screen.dart';
 import 'package:sanaya/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:sanaya/features/provider_profile/presentation/screens/provider_profile_screen.dart';
+import 'package:sanaya/features/provider_profile/presentation/screens/review_form_screen.dart';
 import 'package:sanaya/features/search/presentation/search_home_screen.dart';
 import 'package:sanaya/features/settings/presentation/legal_notice_screen.dart';
 import 'package:sanaya/features/settings/presentation/settings_screen.dart';
@@ -43,6 +44,15 @@ final router = GoRouter(
       builder: (_, state) => ProviderProfileScreen(
         slug: state.pathParameters['slug'] ?? '',
       ),
+      routes: [
+        GoRoute(
+          path: 'review',
+          name: 'provider-review',
+          builder: (_, state) => ReviewFormScreen(
+            slug: state.pathParameters['slug'] ?? '',
+          ),
+        ),
+      ],
     ),
     GoRoute(
       path: '/pro',
