@@ -205,7 +205,9 @@ export async function authRoutes(app: FastifyInstance): Promise<void> {
       }
       if (!(await verifyOtp(request.body.code, otp.codeHash))) {
         await incrementOtpAttempts(otp.id);
-        throw new DomainError(OTP_INVALID, 'Code invalide');
+        throw new DomainError(OTP_INVALID, 'Code invalide', {
+          attemptsRemaining: otp.maxAttempts - (otp.attempts + 1),
+        });
       }
       await consumeOtpCode(otp.id);
 
