@@ -1,0 +1,12 @@
+# Copier en `key.properties` (jamais commité, voir .gitignore) pour un build
+# release local sans définir les 4 variables d'environnement équivalentes.
+# Les variables d'environnement priment toujours sur ce fichier — voir
+# Code/docs/05-runbook.md §1.6.
+#
+# storeFile : chemin ABSOLU vers le fichier .jks (cohérent avec la variable
+# d'environnement équivalente, runbook §1.6 — un chemin relatif dépendrait du
+# dossier d'où Gradle est invoqué).
+storeFile=/chemin/absolu/vers/sanaya-release.jks
+storePassword=remplacer-par-le-mot-de-passe-du-magasin
+keyAlias=sanaya-release
+keyPassword=remplacer-par-le-mot-de-passe-de-la-cle
