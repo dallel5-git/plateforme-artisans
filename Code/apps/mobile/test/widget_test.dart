@@ -30,16 +30,21 @@ void main() {
       expect(find.text(_tFr.common.home.navPro), findsOneWidget);
     });
 
-    testWidgets('le bouton /auth mène à son placeholder', (tester) async {
-      router.go('/');
-      await tester.pumpWidget(const ProviderScope(child: SanayaApp()));
-      await tester.pumpAndSettle();
+    testWidgets(
+      "le bouton /auth mène à l'écran de sélection de rôle (FM-05c), "
+      'pas à un placeholder',
+      (tester) async {
+        router.go('/');
+        await tester.pumpWidget(const ProviderScope(child: SanayaApp()));
+        await tester.pumpAndSettle();
 
-      await tester.tap(find.text(_tFr.common.home.navAuth));
-      await tester.pumpAndSettle();
+        await tester.tap(find.text(_tFr.common.home.navAuth));
+        await tester.pumpAndSettle();
 
-      expect(find.text(_tFr.common.home.navAuth), findsOneWidget);
-    });
+        expect(find.text(_tFr.common.home.navAuth), findsNothing);
+        expect(find.text(_tFr.auth.roleTitle), findsOneWidget);
+      },
+    );
 
     testWidgets(
       "le bouton /client mène à l'accueil client (FM-06), pas à un "
