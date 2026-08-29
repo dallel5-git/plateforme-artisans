@@ -41,6 +41,14 @@ class AuthRepository {
     return response.data!;
   }
 
+  /// Profil de l'utilisateur authentifié (FM-05d) — utilisé au démarrage de
+  /// l'app pour déterminer le rôle après restauration de session, la
+  /// réponse d'`otp/verify` ne survivant pas à un redémarrage.
+  Future<V1AuthMeGet200Response> getCurrentUser() async {
+    final response = await unwrapDioErrors(_authApi.v1AuthMeGet);
+    return response.data!;
+  }
+
   /// Révoque la session sur le serveur lors de la déconnexion (BE-10d).
   /// Idempotent.
   Future<void> logout({String? refreshToken}) async {
