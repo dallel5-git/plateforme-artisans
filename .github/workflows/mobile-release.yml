@@ -1,0 +1,97 @@
+# =============================================================================
+# Sanaya — Build Android release signé (FM-14d, issue #42)
+#
+# Déclenchement MANUEL uniquement (workflow_dispatch) : une release n'est
+# jamais un effet de bord d'un push sur develop, c'est une décision explicite
+# (« je distribue cet APK aux beta-testeurs du Sahel maintenant »).
+#
+# Contrat de signature : Code/docs/05-runbook.md §1.6-1.7. Le keystore ne
+# transite JAMAIS par le disque du dépôt ni par un log — décodé dans
+# $RUNNER_TEMP (hors de l'espace de travail git) et supprimé même en cas
+# d'échec (étape `if: always()`).
+# =============================================================================
+name: Build Android release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-release-apk:
+    name: Build + scan APK release
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: Code/apps/mobile
+    steps:
+      - uses: actions/checkout@v5
+
+      # Version épinglée, cohérent avec le job mobile-analyze de ci.yml — un
+      # canal "stable" ferait varier le comportement du build d'une exécution
+      # à l'autre, inacceptable pour un artefact distribué à des humains.
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.44.6"
+          channel: stable
+          cache: true
+
+      - run: flutter pub get
+
+      # Décodage dans $RUNNER_TEMP (nettoyé automatiquement par le runner en
+      # fin de job, mais on le supprime nous-mêmes explicitement plus bas —
+      # défense en profondeur, pas de confiance aveugle dans le cycle de vie
+      # du runner pour un keystore de production).
+      - name: Décoder le keystore de release
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+        run: |
+          if [ -z "$ANDROID_KEYSTORE_BASE64" ]; then
+            echo "::error::Secret ANDROID_KEYSTORE_BASE64 absent — voir Code/docs/05-runbook.md §1.7"
+            exit 1
+          fi
+          echo "$ANDROID_KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/sanaya-release.jks"
+
+      # Variables d'environnement du contrat de signature (FM-14b,
+      # android/app/build.gradle.kts) — jamais de repli sur key.properties
+      # ici, la CI doit toujours passer par ce chemin explicite.
+      - name: flutter build apk --release
+        env:
+          SANAYA_ANDROID_KEYSTORE_FILE: ${{ runner.temp }}/sanaya-release.jks
+          SANAYA_ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          SANAYA_ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          SANAYA_ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: flutter build apk --release
+
+      # FM-14c : mêmes 4 contrôles qu'un développeur lancerait en local,
+      # avec la variable (pas un secret — non sensible, cf. runbook §1.5)
+      # MOBILE_APK_CERT_SHA256 qui permet au 4ᵉ contrôle de comparer
+      # l'empreinte réelle plutôt que se contenter de l'afficher.
+      - name: Vérification anti-secrets (FM-14c)
+        env:
+          MOBILE_APK_CERT_SHA256: ${{ vars.MOBILE_APK_CERT_SHA256 }}
+        # Script et APK référencés relativement au working-directory de
+        # défaut du job (Code/apps/mobile, cf. `defaults.run` ci-dessus).
+        run: |
+          bash ../../tooling/scripts/apk-secret-scan.sh \
+            build/app/outputs/flutter-apk/app-release.apk
+
+      # `if: always()` : un keystore de production ne doit jamais rester sur
+      # disque après ce job, y compris si `flutter build`/le scan échouent.
+      - name: Supprimer le keystore décodé
+        if: always()
+        run: rm -f "$RUNNER_TEMP/sanaya-release.jks"
+
+      - name: Publier l'APK comme artefact du run
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sanaya-release-apk
+          path: Code/apps/mobile/build/app/outputs/flutter-apk/app-release.apk
+          # Rétention courte : c'est un APK de beta-test intermédiaire, pas
+          # un artefact de publication durable (Play Store = S3, hors
+          # périmètre FM-14).
+          retention-days: 14
+          if-no-files-found: error
