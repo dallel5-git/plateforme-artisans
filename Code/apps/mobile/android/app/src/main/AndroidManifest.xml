@@ -1,4 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Sans cette permission, seul le manifest de debug (src/debug/) en
+         disposait — le build release n'aurait eu accès à AUCUN appel réseau
+         (Dio/client API généré), rendant l'app entièrement inutilisable
+         (bug pré-existant découvert en préparant FM-14b, indépendant du
+         build release lui-même). -->
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:label="sanaya"
         android:name="${applicationName}"
