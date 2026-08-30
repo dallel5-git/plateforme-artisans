@@ -218,7 +218,16 @@ scan_apk() {
   if apksigner="$(find_build_tool apksigner)"; then
     local certs sha256
     certs="$("$apksigner" verify --print-certs "$apk" 2>&1 || true)"
-    sha256="$(grep -oE '[0-9A-Fa-f]{2}(:[0-9A-Fa-f]{2}){31}' <<<"$certs" | head -1 | tr -d ':' | tr 'A-F' 'a-f')"
+    # `:?` rend le séparateur optionnel : les versions récentes de build-tools
+    # impriment l'empreinte en hex continu ("SHA-256 digest: 847b49e5..."),
+    # les plus anciennes avec des ":" ("84:7b:49:...") — les deux formats
+    # observés en pratique sur ce poste (build-tools 36.0.0 vs 37.0.0). Sans
+    # le `|| true` final, un APK dont la sortie ne matche aucun des deux (donc
+    # `grep` sans résultat, code de sortie 1) tue silencieusement tout le
+    # script sous `set -e`/`pipefail` — trouvé en testant sur un vrai APK,
+    # pas seulement les fixtures synthétiques du --self-test (même classe de
+    # bug que le motif "-----BEGIN..." documenté plus haut).
+    sha256="$(grep -oE '[0-9A-Fa-f]{2}(:?[0-9A-Fa-f]{2}){31}' <<<"$certs" | head -1 | tr -d ':' | tr 'A-F' 'a-f' || true)"
     if [[ -z "$sha256" ]]; then
       err "apksigner n'a pas pu vérifier la signature de l'APK :"
       printf '%s\n' "$certs"
