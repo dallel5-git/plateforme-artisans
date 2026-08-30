@@ -1,3 +1,4 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -71,6 +72,16 @@ void main() {
       when(() => response.accessToken).thenReturn('access-xyz');
       when(() => response.refreshToken).thenReturn('session-id.token-id');
       when(() => response.user).thenReturn(user);
+      when(() => user.roles).thenReturn(
+        BuiltList<V1AuthOtpVerifyPost200ResponseUserRolesEnum>([
+          V1AuthOtpVerifyPost200ResponseUserRolesEnum.CLIENT,
+        ]),
+      );
+      // FM-05d : `submitOtp` attend la résolution du bootstrap de session
+      // (`authStateProvider`) avant d'y écrire l'état authentifié.
+      when(
+        authTokenStore.restoreSession,
+      ).thenAnswer((_) async => false);
       when(
         () => authRepository.requestOtp('+21622123456'),
       ).thenAnswer((_) async {});

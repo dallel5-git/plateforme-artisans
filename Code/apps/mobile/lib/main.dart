@@ -7,6 +7,8 @@ import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/app/router.dart';
 import 'package:sanaya/app/theme.dart';
 import 'package:sanaya/core/i18n/locale_persistence.dart';
+import 'package:sanaya/features/auth/application/auth_state_provider.dart';
+import 'package:sanaya/features/auth/application/auth_status.dart';
 import 'package:sanaya/features/contact/application/contact_providers.dart';
 import 'package:sanaya/features/search/application/catalog_providers.dart';
 import 'package:sanaya/features/search/data/governorate_persistence.dart';
@@ -59,7 +61,15 @@ class SanayaApp extends ConsumerWidget {
       // FM-09c : vidage opportuniste de la file de contacts hors ligne, une
       // seule fois au premier build (valeur ignorée — l'échec d'un renvoi
       // ne doit rien changer à l'affichage, P5).
-      ..watch(contactQueueFlushProvider);
+      ..watch(contactQueueFlushProvider)
+      // FM-05d : démarre la restauration de session (AuthTokenStore +
+      // GET /auth/me) dès le premier frame, et relaie chaque changement à
+      // `router` (singleton top-level, pas un `Provider<GoRouter>` — voir
+      // router.dart) pour que sa garde `redirect:` se réévalue.
+      ..listen<AsyncValue<AuthStatus>>(
+        authStateProvider,
+        (_, _) => authRouterRefreshListenable.refresh(),
+      );
 
     return MaterialApp.router(
       routerConfig: router,
