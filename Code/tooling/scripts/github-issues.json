@@ -1073,5 +1073,636 @@
     "estimate": 0,
     "deps": [],
     "body": "> **ID backlog** `EP-DURCISSEMENT`\n\n## Contexte\n\nCe qui sépare une application qui marche d'une application qu'on peut exploiter.\n\n## Contient\n\n- [ ] `BE-36` Worker BullMQ : agrégats, expirations, digest hebdomadaire (nécessaire au-delà de ~500 artisans)\n- [ ] `BE-42` Index GIN trigram FR/AR pour la recherche plein texte\n- [ ] `FM-20` Notifications push (Firebase)\n- [ ] `FM-21` Build et publication iOS\n- [ ] `OPS-01` Déploiement staging et production, migrations avant déploiement\n- [ ] `OPS-02` Sauvegardes PITR + **restauration testée trimestriellement**\n- [ ] `OPS-03` Observabilité : Sentry, logs, PostHog\n- [ ] E2E Maestro sur le parcours cœur mobile\n- [ ] `DOC-05` **ADR-005 — annuaire ou place de marché ?** (question 3 du cadrage)\n\n## Critères d'acceptation\n\n- [ ] Décomposée en issues au démarrage du sprint concerné\n- [ ] Chaque issue fille respecte la Definition of Ready\n\n## Références\n\nAnnexe B et D du cadrage\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-15",
+    "title": "[FM-15] Générateur de tokens : élévation, motion, tracking, icônes, nouveaux rôles",
+    "milestone": "M7 — Refonte design mobile complète",
+    "labels": [
+      "type:chore",
+      "lot:mobile",
+      "lot:design",
+      "domaine:providers",
+      "prio:P0",
+      "sprint:S2",
+      "size:M",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 4,
+    "deps": [],
+    "body": "> **ID backlog** `FM-15` · **Estimation** 4 h\n\n## Contexte\n\n`build-tokens.mjs` perd silencieusement `elevation`, `motion`, le `tracking` typographique, `layout.breakpoint` et les poids de police lors de l'export Dart (seuls TS et Tailwind les reçoivent) — c'est le bug SO-08 du backlog non planifié, plus large que documenté. Il manque aussi des rôles de couleur que les planches exigent et qui n'existent dans aucun jeu de rôles actuel. Ce lot est un préalable bloquant : toute la refonte visuelle en dépend et il ne touche que le générateur, pas les écrans.\n\n## Périmètre\n\n- [ ] `tokens.json` : thématiser `elevation` (une série claire + une sombre, aujourd'hui une seule teintée clair) et ajouter `motion` déjà déclaré mais orphelin côté Dart\n- [ ] Ajouter une échelle `iconSize` (xs/sm/md/lg/xl) — ~40 tailles littérales relevées dans le parcours client à corriger dans les lots suivants\n- [ ] Nouveaux rôles sémantiques `AppColors` : `onWhatsapp` (texte blanc garanti sur `whatsapp`, `onAccent` ne convient pas en sombre), `amber`/`onAmber` (fond ambre plein pour le CTA « Renouveler » et l'option de boost sélectionnée), `scrim`/`onScrim` (voile sur image de couverture), `thumbnail`/`thumbnailBorder` (vignette carrée des cartes de liste, doit être plus claire que `surface` en sombre — `surfaceSunken` ne convient pas), `chartBar`/`chartBarHighlight` (histogramme du tableau de bord), `navActive`/`navInactive`/`navBackground` (barre de navigation basse)\n- [ ] Résoudre les deux collisions de valeur en thème sombre : `border` == `surfaceRaised` (aujourd'hui la même couleur, aucune bordure visible) et `sponsored` == `pending` (mêmes deux teintes dans les deux thèmes)\n- [ ] Exporter `letterSpacing` par palier typographique en Dart (déjà dans `tokens.json`, perdu au générateur) et ajouter le palier 16px manquant entre body(15) et h3(18)\n- [ ] Exporter `layout.breakpoint` et `typography.weight` en Dart\n- [ ] Corriger `AppColors.copyWith()`/`lerp()` générés (aujourd'hui `copyWith()` sans paramètre et `lerp()` en palier binaire — le contrat `ThemeExtension` n'est pas honoré)\n- [ ] Mettre à jour `tokens.json` `$meta.source` pour référencer les nouvelles planches (actuellement pointé sur l'extraction du 12/08, antérieure à la direction artistique demandée)\n\n## Hors périmètre (volontairement)\n\n- Ajouter un palier typographique au-delà de display(36px) pour les très gros chiffres — `FontFeature.tabularFigures` suffit pour l'alignement en colonne des 3 chiffres de la carte Performance, traité dans FM-37\n- Régénérer `design-system.html` — traité dans FM-18\n\n## Critères d'acceptation\n\n- [ ] `pnpm tokens:build` régénère `app_colors.dart`/`app_spacing.dart`/`app_text.dart` sans erreur, `pnpm tokens:build:check` passe en CI\n- [ ] Les deux collisions de valeur (border/surfaceRaised, sponsored/pending) ont des valeurs distinctes dans les deux thèmes\n- [ ] `AppElevation.sm/md/lg` (`List<BoxShadow>`) et `AppMotion.durationFast/Base/Slow` + `easingStandard/Decelerate` existent en Dart, thématisés clair/sombre pour l'élévation\n- [ ] `AppIconSize.*` existe et couvre au moins xs(12)/sm(16)/md(20)/lg(24)/xl(32)\n- [ ] Aucun écran existant ne casse (pas de renommage de rôle déjà consommé)\n\n## Références\n\n`Code/packages/design-tokens/tokens.json` · `Code/tooling/scripts/build-tokens.mjs` · backlog non planifié SO-08 (`backlog/TODO.md`)\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-16",
+    "title": "[FM-16] ThemeData complet : TextTheme M3 et sous-thèmes de composants",
+    "milestone": "M7 — Refonte design mobile complète",
+    "labels": [
+      "type:refactor",
+      "lot:mobile",
+      "lot:design",
+      "prio:P0",
+      "sprint:S2",
+      "size:M",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 3,
+    "deps": [
+      "FM-15"
+    ],
+    "body": "> **ID backlog** `FM-16` · **Estimation** 3 h · **Dépend de** `FM-15`\n\n## Contexte\n\n`buildTheme()` ne renseigne que 8 des ~15 slots `TextTheme` de Material 3 — les titres d'`AppBar` (`titleLarge`) retombent sur Roboto, y compris en arabe. Aucun sous-thème de composant n'existe (`appBarTheme`, `bottomSheetTheme`, `dialogTheme`, `chipTheme`, `snackBarTheme`, `dividerTheme`, `navigationBarTheme`…), ce qui a produit 10 `AppBar(backgroundColor: colors.surface)` recopiés à l'identique et des feuilles modales/dialogues qui tombent sur la dérivation algorithmique de `ColorScheme.fromSeed` au lieu des tokens.\n\n## Périmètre\n\n- [ ] Compléter `_textThemeFrom` : titleLarge/Medium/Small, labelLarge/Medium, displayMedium/Small — tous mappés sur `AppText.*` avec la famille par locale\n- [ ] `appBarTheme` (fond `surface`, `titleTextStyle` = h3, `elevation: 0`)\n- [ ] `bottomSheetTheme` (fond `surface`, forme avec `AppRadius.xl` en haut)\n- [ ] `dialogTheme` (fond `surface`)\n- [ ] `chipTheme`, `dividerTheme` (couleur `border`), `snackBarTheme`\n- [ ] `checkboxTheme` / `progressIndicatorTheme` (couleur `accent`)\n- [ ] Supprimer les 10 `AppBar(backgroundColor: colors.surface, ...)` répétés à la main au profit du thème hérité\n\n## Hors périmètre (volontairement)\n\n- `navigationBarTheme` détaillé — traité dans FM-22 avec le widget `AppBottomNav` lui-même, une fois ses rôles de couleur disponibles (FM-15)\n\n## Critères d'acceptation\n\n- [ ] `flutter analyze` zéro warning après suppression des `AppBar(backgroundColor:)` répétés\n- [ ] Un `AppBar` sans style explicite affiche son titre en Manrope (FR) / Noto Kufi Arabic (AR), jamais Roboto — vérifié par un test golden ou un test de style explicite sur `theme.dart`\n- [ ] `showModalBottomSheet` sans `backgroundColor` explicite prend `colors.surface`, pas `surfaceContainerLow`\n- [ ] Tests existants (`test/app/`, `test/widget_test.dart`) toujours verts\n\n## Références\n\n`Code/apps/mobile/lib/app/theme.dart` · Material 3 `ThemeData` component themes\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-17",
+    "title": "[FM-17] Persistance du thème et accessibilité (contraste AA, TextScaler)",
+    "milestone": "M7 — Refonte design mobile complète",
+    "labels": [
+      "type:feat",
+      "lot:mobile",
+      "lot:design",
+      "prio:P0",
+      "sprint:S2",
+      "size:S",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 2,
+    "deps": [
+      "FM-15"
+    ],
+    "body": "> **ID backlog** `FM-17` · **Estimation** 2 h · **Dépend de** `FM-15`\n\n## Contexte\n\n`themeModeProvider` n'est ni pré-chargé ni persisté, contrairement à la langue et au gouvernorat qui suivent le même patron établi (`readInitial*` avant `runApp`, `ref.listen` pour réécrire) — un utilisateur qui choisit « Sombre » le reperd au redémarrage. Par ailleurs aucun test ne vérifie le contraste AA des rôles sémantiques ni le comportement à `TextScaler` élevé, alors que le design system de référence en fait une règle explicite.\n\n## Périmètre\n\n- [ ] `persistThemeMode()`/`readInitialThemeMode()` dans `lib/core/theme/`, même patron que `locale_persistence.dart`\n- [ ] Override dans `main()` + `ref.listen` dans `SanayaApp`, comme `localeProvider`\n- [ ] Script ou test qui calcule le ratio de contraste AA (4,5:1 texte, 3:1 graphique) pour chaque paire rôle-sur-fond réellement utilisée dans l'app, en clair ET en sombre — au minimum `textMuted`/`background`, `rating`/`surface`, `onAccent`/`whatsapp`\n- [ ] Au moins un test widget qui construit un écran représentatif (ex. fiche artisan) avec `MediaQuery(textScaler: TextScaler.linear(1.3))` et vérifie l'absence d'overflow\n\n## Hors périmètre (volontairement)\n\n- Refaire le nuancier visuel complet — traité dans FM-18 (vitrine enrichie)\n\n## Critères d'acceptation\n\n- [ ] Le thème choisi survit à un redémarrage de l'app (test d'intégration ou test unitaire de persistance)\n- [ ] Le script de contraste échoue si une paire retombe sous le seuil AA\n- [ ] Le test `TextScaler` 1.3 passe sur au moins 2 écrans à forte densité de texte\n\n## Références\n\n`Code/apps/mobile/lib/core/i18n/locale_persistence.dart` (patron à reprendre) · `Code/docs/design-system.html` §10\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-18",
+    "title": "[FM-18] Garde-fou CI anti-valeurs-en-dur et vitrine /_ds-preview enrichie",
+    "milestone": "M7 — Refonte design mobile complète",
+    "labels": [
+      "type:chore",
+      "lot:mobile",
+      "lot:design",
+      "prio:P1",
+      "sprint:S2",
+      "size:M",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 3,
+    "deps": [
+      "FM-15",
+      "FM-16"
+    ],
+    "body": "> **ID backlog** `FM-18` · **Estimation** 3 h · **Dépend de** `FM-15`, `FM-16`\n\n## Contexte\n\nLe guard-rail « aucune couleur/taille en dur » est déjà enfreint dans du code mergé (`provider_gallery.dart`, 3 couleurs Material littérales) sans que rien en CI ne l'ait vu. Complèter le design de ~25 écrans va multiplier ce risque par cinq. En parallèle, `/_ds-preview` ne couvre que les 10 widgets `core/widgets/` (aucun widget de feature) et `design-system.html` n'est pas généré depuis `tokens.json` — il a déjà divergé (ombres sombres propres, palette recopiée à la main).\n\n## Périmètre\n\n- [ ] Script `tooling/scripts/style-scan.mjs` (ou règle `dart_code_metrics`/`custom_lint` si plus simple) qui échoue sur `Colors\\.[a-z]` (hors `Colors.transparent`) et `Color(0x` hors `core/theme/` généré — branché en CI\n- [ ] Enrichir `/_ds-preview` : nuancier des rôles avec bascule clair/sombre in situ, échelle typographique visible, tous les widgets de `features/*/presentation/widgets/` déjà livrés (AvailabilityChip, ReviewTile, DashboardStatCard, DashboardTrendChart, FavoriteCard, OtpCodeField, RatingStarsInput…)\n- [ ] Passer toutes les chaînes en dur de `design_system_preview_screen.dart` en clés i18n (namespace `common.devPreview.*` ou équivalent)\n- [ ] Régénérer `Code/docs/design-system.html` depuis `tokens.json` (ajouter comme 8ᵉ cible de `build-tokens.mjs`) au lieu de la palette JS recopiée à la main\n\n## Hors périmètre (volontairement)\n\n- Rendre `/_ds-preview` inaccessible en build de production — traité dans FM-23 (suppression du hub `/`, seul point d'accès actuel)\n\n## Critères d'acceptation\n\n- [ ] Le job CI échoue si un fichier hors `core/theme/` contient une couleur Material littérale — testé en cassant volontairement `provider_gallery.dart` puis en le corrigeant dans la même PR\n- [ ] `pnpm tokens:build:check` échoue si `design-system.html` est édité à la main sans régénération\n- [ ] `/_ds-preview` affiche au moins 20 widgets (10 core + au moins 10 de feature)\n\n## Références\n\nbacklog `TODO.md` note DONE FM-04c (précédent de test source-scan sur `verified_badge.dart`) · `Code/docs/design-system.html`\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-19",
+    "title": "[FM-19] Clés i18n de navigation FR/AR (onglets, segmented control)",
+    "milestone": "M7 — Refonte design mobile complète",
+    "labels": [
+      "type:feat",
+      "lot:mobile",
+      "lot:design",
+      "prio:P0",
+      "sprint:S2",
+      "rtl-ar",
+      "size:S",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 1,
+    "deps": [],
+    "body": "> **ID backlog** `FM-19` · **Estimation** 1 h\n\n## Contexte\n\nLes 8 libellés des deux barres de navigation (Rechercher/Favoris/Historique/Profil côté client, Tableau de bord/Boosts/Avis/Profil côté pro) et le segmented control Client|Pro n'existent dans aucun fichier de locale — seul `common.home.*` existe, et ce sont des libellés de hub de développement. P7 interdit toute chaîne en dur dans une vue : cette tâche doit précéder l'écriture du widget `AppBottomNav` (FM-22).\n\n## Périmètre\n\n- [ ] Ajouter `common.nav.searchTab/favoritesTab/historyTab/profileTab/dashboardTab/boostsTab/reviewsTab` (FR et AR)\n- [ ] Ajouter `common.nav.switchToClient`/`switchToPro` (segmented control)\n- [ ] Ajouter les micro-labels de la barre de recherche à deux champs : `search.serviceLabel`/`search.governorateLabel`\n- [ ] Vérifier la parité avec `Code/tooling/scripts/i18n-check.mjs`\n\n## Critères d'acceptation\n\n- [ ] `pnpm i18n:check` (ou équivalent) confirme zéro clé manquante entre fr/ et ar/\n- [ ] Chaque nouvelle clé a une traduction arabe distincte, pas une copie du français\n\n## Références\n\nP7 (CLAUDE.md §2) · `Code/packages/i18n/src/locales/{fr,ar}/common.json`\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-22",
+    "title": "[FM-22] Widget partagé AppBottomNav (RTL, accessibilité)",
+    "milestone": "M7 — Refonte design mobile complète",
+    "labels": [
+      "type:feat",
+      "lot:mobile",
+      "lot:design",
+      "prio:P0",
+      "sprint:S2",
+      "rtl-ar",
+      "size:S",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 2,
+    "deps": [
+      "FM-15",
+      "FM-19"
+    ],
+    "body": "> **ID backlog** `FM-22` · **Estimation** 2 h · **Dépend de** `FM-15`, `FM-19`\n\n## Contexte\n\nAucun widget de barre de navigation n'existe dans `core/widgets/` ni dans le design system de référence (`design-system.html` n'a que 10 sections, aucune de navigation) — c'est un composant à concevoir avant de l'utiliser dans les deux shells (FM-23/FM-24), pas seulement à coder.\n\n## Périmètre\n\n- [ ] `AppBottomNav` : liste d'items (icône + libellé), index actif, callback de changement, hauteur et cible tactile ≥48dp, `SafeArea` basse incluse\n- [ ] États actif (`navActive`)/inactif (`navInactive`) sur fond `navBackground` (tokens FM-15)\n- [ ] `Semantics` par item : libellé + état sélectionné annoncé\n- [ ] Miroir RTL automatique via `Directionality` (pas de logique manuelle par locale)\n- [ ] Section dédiée dans `design-system.html` (ou sa régénération FM-18)\n\n## Hors périmètre (volontairement)\n\n- La logique de shell (`StatefulShellRoute`) elle-même — traitée dans FM-23/FM-24\n\n## Critères d'acceptation\n\n- [ ] Widget testé en FR et en AR (capture ou test de rendu), 4 items visibles, item actif visuellement distinct\n- [ ] `flutter test` couvre : tap change l'index, `Semantics` porte le libellé et l'état sélectionné\n- [ ] Aucune couleur/taille en dur (passe le garde-fou FM-18 s'il est déjà mergé, sinon revue manuelle)\n\n## Références\n\n`Code/apps/mobile/lib/core/widgets/` · maquettes A1/A2/B3 (barre basse à 4 onglets)\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-23",
+    "title": "[FM-23] Shell client : navigation persistante à 4 onglets + suppression du hub de dev",
+    "milestone": "M7 — Refonte design mobile complète",
+    "labels": [
+      "type:feat",
+      "lot:mobile",
+      "prio:P0",
+      "sprint:S2",
+      "size:L",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 5,
+    "deps": [
+      "FM-22"
+    ],
+    "body": "> **ID backlog** `FM-23` · **Estimation** 5 h · **Dépend de** `FM-22`\n\n## Contexte\n\n`lib/app/router.dart` ne déclare que des `GoRoute` à plat : chaque bascule d'onglet détruirait l'écran et son scroll/ses filtres. Le hub `/` est un placeholder de développement livré en production (libellés « — à venir (FM-05) » visibles par l'utilisateur final) et doit disparaître. Il n'y a non plus aucun état de démarrage pendant que `AuthStatusKind.unknown` se résout (restauration de session), ce qui produit un flash d'écran visible sur réseau 3G, ni d'écran d'erreur de route thémé.\n\n## Périmètre\n\n- [ ] `StatefulShellRoute.indexedStack` à 4 branches : Rechercher (`/client`), Favoris (`/client/favorites`), Historique (`/client/history`, écran placeholder « bientôt disponible » tant que FM-31/BE-45 ne sont pas livrées), Profil (`/client/profile`, FM-32)\n- [ ] Suppression de `HomeScreen`/`home_screen.dart` et de la route `/`\n- [ ] Écran de démarrage (splash applicatif minimal, sans dépendre d'un logo — asset de marque hors périmètre, cf. plan) qui attend la résolution de `AuthStatus` avant de rediriger, en traitant explicitement `AuthStatusKind.unknown`\n- [ ] `errorBuilder` sur le `GoRouter` réutilisant `ErrorState` (thémé, pas la page d'erreur anglaise par défaut de go_router)\n- [ ] `initialLocation` redirige vers `/client` (anonyme) ou `/auth` selon l'état de session, jamais vers un écran de choix de rôle brut\n- [ ] Route `/_ds-preview` retirée du routeur de production ou gardée derrière `kDebugMode`\n- [ ] Réécrire `test/widget_test.dart` (5 cas fondés sur le hub) et `test/app/router_redirect_test.dart` (l.97-121, « `/` affiche le hub ») pour refléter le nouveau shell — ne pas les supprimer sans les remplacer (ADR-006)\n\n## Hors périmètre (volontairement)\n\n- Le shell Pro (FM-24)\n- Le contenu de l'onglet Historique lui-même (FM-31)\n- Le contenu de l'onglet Profil lui-même (FM-32)\n- Le deep-linking entrant (Android App Links / Universal Links) — décision produit et infra hors périmètre de cette refonte\n\n## Critères d'acceptation\n\n- [ ] Un utilisateur anonyme qui lance l'app arrive directement sur l'onglet Rechercher sans jamais voir de hub de développement\n- [ ] Changer d'onglet préserve le scroll et l'état de chaque branche (`IndexedStack`, pas de reconstruction)\n- [ ] Le retour arrière Android depuis un onglet secondaire revient à l'onglet Rechercher avant de quitter l'app (double-retour)\n- [ ] Une route inconnue affiche `ErrorState` thémé, pas la page anglaise par défaut\n- [ ] `flutter test` vert sur les 2 fichiers de test réécrits + tous les tests existants\n\n## Références\n\nmaquettes A1/B3 (barre basse client) · `Code/apps/mobile/lib/app/router.dart` · ADR-006 (non-régression des tests)\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-24",
+    "title": "[FM-24] Shell pro : navigation persistante à 4 onglets, dashboard comme racine",
+    "milestone": "M7 — Refonte design mobile complète",
+    "labels": [
+      "type:feat",
+      "lot:mobile",
+      "prio:P0",
+      "sprint:S2",
+      "size:M",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 4,
+    "deps": [
+      "FM-22"
+    ],
+    "body": "> **ID backlog** `FM-24` · **Estimation** 4 h · **Dépend de** `FM-22`\n\n## Contexte\n\n`/pro` construit aujourd'hui `OnboardingScreen` sans condition : un artisan déjà publié qui rouvre l'app retombe dans l'assistant de création de profil avec des champs vides. Il n'y a aucune garde de route sur l'espace pro (`/pro`/`/pro/dashboard` accessibles à un utilisateur anonyme, provoquant un 401 affiché comme une erreur réseau générique).\n\n## Périmètre\n\n- [ ] `StatefulShellRoute.indexedStack` à 4 branches : Tableau de bord (`/pro/dashboard`), Boosts (`/pro/boosts`, coquille FM-40), Avis (`/pro/reviews`, FM-39), Profil (`/pro/profile`, FM-38)\n- [ ] `/pro` (racine) redirige vers `/pro/dashboard` si un profil existe, sinon vers l'assistant d'onboarding (`/pro/onboarding`, ex-`OnboardingScreen` déplacé) — note : tant que `GET /v1/providers/me` n'existe pas (BE-44), utiliser un état local (`publicationStatus` en mémoire après publication) en repli documenté\n- [ ] `redirect:` par branche : un utilisateur non authentifié ou sans rôle PROVIDER atteignant `/pro/*` est renvoyé vers un état « devenir prestataire », pas vers une erreur 401 générique\n\n## Hors périmètre (volontairement)\n\n- Le contenu des onglets Boosts/Avis/Profil eux-mêmes — traité respectivement dans FM-40/FM-39/FM-38\n\n## Critères d'acceptation\n\n- [ ] Un artisan publié qui relance l'app arrive directement sur le tableau de bord\n- [ ] Un utilisateur anonyme qui force l'URL `/pro/dashboard` est redirigé, jamais montré un 401 brut\n- [ ] `test/app/router_redirect_test.dart` mis à jour et vert (le cas actuel « session restaurée PROVIDER → onboarding » devient conditionnel à l'absence de profil)\n\n## Références\n\nmaquette A2/C2 (barre basse pro) · `Code/apps/mobile/lib/app/router.dart`\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-25",
+    "title": "[FM-25] Corriger la déconnexion et ajouter la bascule Client ↔ Pro",
+    "milestone": "M7 — Refonte design mobile complète",
+    "labels": [
+      "type:fix",
+      "lot:mobile",
+      "prio:P0",
+      "sprint:S2",
+      "size:S",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 2,
+    "deps": [
+      "FM-23",
+      "FM-24"
+    ],
+    "body": "> **ID backlog** `FM-25` · **Estimation** 2 h · **Dépend de** `FM-23`, `FM-24`\n\n## Contexte\n\n`SettingsScreen._confirmLogout` appelle `authRepository.logout()` SANS argument, or cette méthode est entièrement gardée par un `if (refreshToken != null)` — appelée sans argument, elle ne fait rien : ni révocation serveur, ni purge du token store, ni changement d'état. La méthode correcte, `AuthStateNotifier.signOut()`, existe et révoque/purge réellement, mais n'est appelée nulle part. Par ailleurs aucune surface n'expose de bascule entre l'espace client et l'espace pro, alors que `apps/mobile/CLAUDE.md` pose « un artisan est aussi un client » comme principe fondateur.\n\n## Périmètre\n\n- [ ] Remplacer l'appel à `logout()` par `ref.read(authStateProvider.notifier).signOut()` dans l'écran Réglages/Profil (FM-32/FM-38)\n- [ ] Test de régression qui reproduit le bug (déconnexion suivie d'une navigation vers une route protégée : la garde doit voir `unauthenticated`)\n- [ ] Point de bascule Client↔Pro pour un compte avec le rôle PROVIDER : entrée dans l'écran Profil (FM-32/FM-38), pas de segmented control dédié en dehors de l'écran Boosts (A6) qui reste son propre cas (FM-40)\n\n## Critères d'acceptation\n\n- [ ] Après déconnexion, toute tentative d'accès à `/client/*` ou `/pro/*` redirige vers `/auth`\n- [ ] Test de régression écrit AVANT le correctif, vu rouge, puis corrigé — commit conjoint (POLITIQUE-PROJET §6 règle 2), porte `// régression #<issue>`\n- [ ] Un artisan authentifié peut atteindre l'espace client et revenir à l'espace pro sans se déconnecter\n\n## Références\n\n`Code/apps/mobile/lib/features/auth/data/auth_repository.dart` · `Code/apps/mobile/lib/features/auth/application/auth_state_provider.dart` · `Code/apps/mobile/CLAUDE.md` §Rôle\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-26",
+    "title": "[FM-26] Câbler les écrans déjà construits mais orphelins",
+    "milestone": "M7 — Refonte design mobile complète",
+    "labels": [
+      "type:fix",
+      "lot:mobile",
+      "prio:P0",
+      "sprint:S2",
+      "size:S",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 2,
+    "deps": [
+      "FM-23"
+    ],
+    "body": "> **ID backlog** `FM-26` · **Estimation** 2 h · **Dépend de** `FM-23`\n\n## Contexte\n\nTrois écrans complets et testés sont aujourd'hui inatteignables depuis l'interface : Favoris, la fiche artisan (deux points d'entrée déclarés mais jamais branchés) et le bouton d'ajout aux favoris (le repository et le notifier existent, aucune vue ne les appelle). C'est le gain le plus rapide de toute la refonte — quelques lignes chacun.\n\n## Périmètre\n\n- [ ] `CategoryGrid.onTap` dans `search_home_screen.dart` (aujourd'hui `(_) {}`) navigue vers l'écran de résultats filtré par catégorie (dépend de FM-28, sinon navigue directement vers `/providers/:slug` si une seule correspondance — à trancher au moment de FM-28)\n- [ ] `FavoriteCard` dans `favorites_screen.dart` reçoit enfin son `onTap` (navigation vers `/providers/:slug`)\n- [ ] Bouton cœur sur `ProviderCard` (une fois adopté par FM-27/28) et sur `ProviderProfileScreen`, appelant `addFavorite`/`removeFavorite` selon `isFavoriteProvider`\n- [ ] L'état vide de `FavoritesScreen` (`context.go('/client')`) devient une bascule d'onglet vers Rechercher (`context.go('/client')` reste valide avec un shell à onglets, mais vérifier qu'il ne remplace pas la pile de façon incompatible)\n\n## Critères d'acceptation\n\n- [ ] Un artisan peut être ajouté aux favoris depuis la fiche artisan et depuis la liste de résultats, puis retiré depuis l'écran Favoris\n- [ ] Taper une catégorie ou une carte favori ouvre la fiche artisan correspondante\n- [ ] Tests widget mis à jour sur les 3 points de navigation\n\n## Références\n\naudit du 2026-08-31 : `favorites_repository.dart:28`, `favorites_providers.dart:51-53`, `favorite_card.dart:21`\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-27",
+    "title": "[FM-27] Widgets partagés de recherche : chip de filtre, carte artisan, barre de recherche",
+    "milestone": "M7 — Refonte design mobile complète",
+    "labels": [
+      "type:feat",
+      "lot:mobile",
+      "lot:design",
+      "prio:P0",
+      "sprint:S2",
+      "size:M",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 3,
+    "deps": [
+      "FM-15",
+      "FM-16"
+    ],
+    "body": "> **ID backlog** `FM-27` · **Estimation** 3 h · **Dépend de** `FM-15`, `FM-16`\n\n## Contexte\n\nAucun composant de filtre n'existe (4 pilules de l'app sont toutes en lecture seule). `ProviderCard` — « le composant le plus vu du produit » selon son propre commentaire — n'est monté sur AUCUN écran de production et rend un avatar d'initiales au lieu de la vignette carrée des maquettes A1/B3. `SearchHomeBar` ne correspond à aucune des deux variantes de maquette (A1 : deux champs côte à côte avec micro-labels · B3 : une seule barre arrondie).\n\n## Périmètre\n\n- [ ] `AppFilterChip` : état actif (pilule `accent` pleine) / inactif (contour `border`), utilisable pour Vérifié/Note 4+/Urgence\n- [ ] Réaligner `ProviderCard` sur la maquette : vignette carrée (`thumbnail`, token FM-15) avec repli sur initiales si aucune image, badge vérifié accolé au nom, bouton favori, ligne catégorie·ville\n- [ ] Trancher et implémenter UNE référence de barre de recherche pour l'écran de résultats : la variante à deux champs (A1), qui correspond déjà à la direction actuelle de `SearchHomeBar` — **hypothèse retenue par défaut, à corriger en revue si le lead préfère la barre unique de B3** (voir plan, section Arbitrages). Remplacer le `TextField` brut par `AppTextField`\n- [ ] Retirer `ProviderCard`/`EmptyState`/`OfflineBanner`/`AppSkeleton` de la liste des widgets \"vitrine seulement\" en les import-testant depuis un écran réel (FM-28)\n\n## Hors périmètre (volontairement)\n\n- L'écran de résultats lui-même — FM-28\n- La variante barre unique B3 si elle n'est pas retenue — à consigner dans `backlog/TODO.md` comme différée\n\n## Critères d'acceptation\n\n- [ ] `AppFilterChip` testé actif/inactif, FR et AR\n- [ ] `ProviderCard` affiche une vignette carrée (image réseau avec placeholder `thumbnail` et repli erreur), pas un cercle d'initiales\n- [ ] Aucune couleur/taille en dur (passe le garde-fou FM-18)\n\n## Références\n\nmaquettes A1 (chips + carte), B3 (barre de recherche) · `Code/apps/mobile/lib/core/widgets/provider_card.dart`\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-28",
+    "title": "[FM-28] Écran de résultats de recherche : pagination, filtres, cache disque",
+    "milestone": "M7 — Refonte design mobile complète",
+    "labels": [
+      "type:feat",
+      "lot:mobile",
+      "prio:P0",
+      "sprint:S2",
+      "size:L",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 5,
+    "deps": [
+      "FM-27",
+      "FM-23"
+    ],
+    "body": "> **ID backlog** `FM-28` · **Estimation** 5 h · **Dépend de** `FM-27`, `FM-23`\n\n## Contexte\n\nC'est l'écran central absent du produit (FM-07 jamais démarrée). Contrairement au TODO périmé du code (« dépend de BE-16, non livré »), `GET /v1/providers/search` est déjà exposé et généré côté client (`v1ProvidersSearchGet`) : rien ne bloque plus côté backend. Sans cet écran, le parcours recherche → fiche → contact reste coupé en deux et l'onglet racine du shell client (FM-23) n'a rien à afficher au-delà de la grille de catégories.\n\n## Périmètre\n\n- [ ] `SearchResultsScreen` (nouvelle route sous l'onglet Rechercher du shell, ex. `/client/results`) : `ListView.builder` + pagination par curseur (`cursor`/`limit`, jamais de `Column`+`map`)\n- [ ] Rangée de `AppFilterChip` (FM-27) : Vérifié, Note 4+, Urgence — mappés sur les paramètres réels de `v1ProvidersSearchGet` (vérifier au contrat lesquels existent ; si `urgence`/`acceptsEmergency` n'est pas filtrable côté API, l'afficher désactivé avec un état « bientôt disponible » plutôt que de l'omettre silencieusement)\n- [ ] Cache disque des résultats ET des fiches déjà consultées (`hive`/`drift`/`sqflite` à choisir — aucune dépendance de persistance structurée n'existe encore, seul `shared_preferences` pour des clés simples) : les résultats restent consultables en mode avion (critère d'acceptation de l'issue #36 d'origine)\n- [ ] États skeleton (liste de `ProviderCard` grisées, PAS un spinner), vide avec action « élargir au gouvernorat », erreur avec « Réessayer »\n- [ ] `OfflineBanner` monté en haut de cet écran (premier câblage réel du composant)\n\n## Hors périmètre (volontairement)\n\n- Le tri (hors périmètre des maquettes fournies)\n- La recherche vocale (EP-VOCAL, S3+)\n\n## Critères d'acceptation\n\n- [ ] Défilement fluide sur émulateur bridé en CPU (critère de l'issue d'origine #36)\n- [ ] Les résultats déjà chargés restent consultables en mode avion\n- [ ] L'état vide propose une action utile, pas seulement un message\n- [ ] Aucun écran blanc sur erreur réseau — `OfflineBanner` visible si le device est hors ligne au lieu de l'état d'erreur générique\n- [ ] Test d'intégration ou widget couvrant : chargement → page suivante → mode avion → résultat encore visible\n\n## Références\n\nissue #36 (FM-07) · `v1ProvidersSearchGet` (`lib/core/api/generated/src/api/default_api.dart`) · P5 (CLAUDE.md §2)\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-29",
+    "title": "[FM-29] Refonte fiche artisan : couverture plein-écran et avatar superposé (RTL)",
+    "milestone": "M7 — Refonte design mobile complète",
+    "labels": [
+      "type:refactor",
+      "lot:mobile",
+      "lot:design",
+      "prio:P0",
+      "sprint:S2",
+      "rtl-ar",
+      "size:M",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 3,
+    "deps": [
+      "FM-15"
+    ],
+    "body": "> **ID backlog** `FM-29` · **Estimation** 3 h · **Dépend de** `FM-15`\n\n## Contexte\n\nLa fiche artisan pose aujourd'hui un `AppBar` Material au-dessus d'un carrousel de 220px, alors que A4/B4 montrent une image de couverture qui va jusqu'en haut d'écran avec un avatar rond superposé chevauchant le bas de l'image (à droite en RTL). `provider_gallery.dart` contient par ailleurs les 3 seules couleurs Material en dur de toute la couche `features/` (`Colors.black54/white/white54`), à corriger avec les rôles `scrim`/`onScrim` de FM-15.\n\n## Périmètre\n\n- [ ] Retirer l'`AppBar` de `ProviderProfileScreen`, laisser la couverture aller jusqu'en haut (bouton retour flottant à la place, sur voile `scrim`)\n- [ ] Avatar rond superposé chevauchant le bas de la couverture, aligné à droite en RTL (`AlignmentDirectional`) — nécessite un champ d'avatar dédié côté API : si absent du contrat (`V1ProvidersSlugGet200Response` n'expose que `gallery`), utiliser la première image de la galerie en repli et noter l'écart en commentaire\n- [ ] Corriger les 3 couleurs en dur avec `colors.scrim`/`colors.onScrim` (FM-15)\n- [ ] Remplacer le squelette fait main (`_ProfileSkeleton`, hauteurs en dur) par `AppSkeleton`\n- [ ] Remplacer le `CircularProgressIndicator.adaptive` de chargement d'image par `AppSkeleton`\n\n## Hors périmètre (volontairement)\n\n- Le contenu de la barre de contact — FM-30\n- Le formulaire d'avis — FM-30\n\n## Critères d'acceptation\n\n- [ ] Rendu conforme en thème sombre (A4) et en arabe/RTL (B4) : avatar à droite, paragraphe de bio `textAlign` justifié à droite en arabe\n- [ ] Aucune couleur Material littérale restante dans `provider_gallery.dart` (le garde-fou FM-18, une fois mergé, doit passer sur ce fichier)\n- [ ] Test widget avec `Locale('ar')` vérifiant l'alignement de l'avatar\n\n## Références\n\nmaquettes A4/B4 · `Code/apps/mobile/lib/features/provider_profile/presentation/widgets/provider_gallery.dart`\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-30",
+    "title": "[FM-30] Refonte contact et avis : variante bouton contour, en-tête d'identité",
+    "milestone": "M7 — Refonte design mobile complète",
+    "labels": [
+      "type:refactor",
+      "lot:mobile",
+      "lot:design",
+      "prio:P1",
+      "sprint:S2",
+      "rtl-ar",
+      "size:S",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 2,
+    "deps": [
+      "FM-15",
+      "FM-29"
+    ],
+    "body": "> **ID backlog** `FM-30` · **Estimation** 2 h · **Dépend de** `FM-15`, `FM-29`\n\n## Contexte\n\n`AppButtonVariant.whatsapp` est un fond vert plein ; les maquettes A4/B4 veulent Appeler en bleu plein (action principale) et WhatsApp en contour vert (action secondaire) — l'ordre [Call, WhatsApp] déjà codé est conservé **par défaut** car il correspond à la hiérarchie voulue et se miroite correctement en RTL via `Row`+`Directionality` sans logique manuelle (voir plan, Arbitrages). Le formulaire d'avis n'a par ailleurs aucun en-tête d'identité (vignette + nom + « Contact vérifié · il y a N jours ») alors que le profil est déjà chargé en mémoire à cet endroit.\n\n## Périmètre\n\n- [ ] Nouvelle variante `AppButtonVariant.outlineWhatsapp` (contour `whatsapp`, texte `whatsapp`, fond transparent) dans `app_button.dart`\n- [ ] `ContactButtons` : Appeler en `primary`, WhatsApp en `outlineWhatsapp`\n- [ ] En-tête de `ReviewFormScreen` : vignette (avatar de FM-29 en repli), `businessName`, libellé `verifiedContact` déjà traduit mais jamais consommé ici — le « il y a 2 jours » doit venir du serveur déjà calculé (P3), sinon omettre la partie relative plutôt que de la calculer côté Dart\n\n## Hors périmètre (volontairement)\n\n- Les notes par critère (Ponctualité/Qualité du travail) de B5 — nécessitent une évolution de contrat API, à ouvrir comme issue backend séparée si retenues ; non incluses ici faute de champ disponible\n\n## Critères d'acceptation\n\n- [ ] `AppButton` a 6 variantes testées (ajout de `outlineWhatsapp`)\n- [ ] La fiche artisan en arabe affiche Appeler à droite, WhatsApp à gauche (vérifié par un test widget en `Locale('ar')`)\n- [ ] Le formulaire d'avis affiche qui l'on note avant la première étoile\n\n## Références\n\nmaquettes A4/B4 (contact) · A5/B5 (en-tête d'avis) · `Code/apps/mobile/lib/core/widgets/app_button.dart`\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-31",
+    "title": "[FM-31] Onglet Historique client",
+    "milestone": "M7 — Refonte design mobile complète",
+    "labels": [
+      "type:feat",
+      "lot:mobile",
+      "prio:P1",
+      "sprint:S2",
+      "blocked",
+      "size:M",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 3,
+    "deps": [
+      "FM-23"
+    ],
+    "body": "> **ID backlog** `FM-31` · **Estimation** 3 h · **Dépend de** `FM-23`\n\n## Contexte\n\nQuatrième — en réalité troisième — onglet de la barre client (A1/B3). Aucun concept d'historique n'existe dans le produit alors que retrouver un artisan contacté est la fonction de rétention la plus évidente d'un modèle lead-generation, et le déclencheur naturel du dépôt d'avis. ⛔ Bloqué : le contrat n'expose que `POST /v1/contact-events` (écriture), aucun `GET` de lecture — voir `BE-45`.\n\n## Périmètre\n\n- [ ] Écran `ClientHistoryScreen` sous `/client/history` : liste des artisans contactés, triée par date de contact décroissante, avec le canal (Appel/WhatsApp) et un raccourci vers le dépôt d'avis si aucun avis n'est encore posé\n- [ ] États skeleton/vide (« Vous n'avez encore contacté aucun artisan » + CTA vers Rechercher)/erreur\n- [ ] En attendant `BE-45`, l'onglet peut afficher un état « Bientôt disponible » shippable dès FM-23 — cette issue couvre l'écran final une fois l'API prête\n\n## Critères d'acceptation\n\n- [ ] L'écran affiche la liste réelle une fois `BE-45` livrée, avec pagination par curseur\n- [ ] Taper une entrée ouvre la fiche artisan correspondante\n- [ ] Le CTA de dépôt d'avis n'apparaît que si aucun avis n'a encore été posé pour ce contact\n\n## Références\n\nmaquette A1/B3 (onglet Historique) · `BE-45` (dépendance bloquante)\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-32",
+    "title": "[FM-32] Onglet Profil client",
+    "milestone": "M7 — Refonte design mobile complète",
+    "labels": [
+      "type:feat",
+      "lot:mobile",
+      "prio:P0",
+      "sprint:S2",
+      "size:S",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 2,
+    "deps": [
+      "FM-23",
+      "FM-25"
+    ],
+    "body": "> **ID backlog** `FM-32` · **Estimation** 2 h · **Dépend de** `FM-23`, `FM-25`\n\n## Contexte\n\nQuatrième onglet client. `SettingsScreen` porte déjà langue/thème/mentions légales/déconnexion mais est aujourd'hui inatteignable (aucun appelant) et ne montre aucune identité utilisateur. `GET /v1/auth/me` est déjà disponible.\n\n## Périmètre\n\n- [ ] `ClientProfileScreen` sous `/client/profile` : en-tête d'identité (nom/téléphone masqué depuis `GET /v1/auth/me`), puis les sections déjà construites de `SettingsScreen` (langue, thème — désormais persisté via FM-17, mentions légales, déconnexion via `signOut()` — FM-25)\n- [ ] Fusionner `SettingsScreen` dans cet écran plutôt que de dupliquer (déplacer, pas copier) ; `/settings` peut rediriger vers `/client/profile` pour compat des liens existants ou être retiré du routeur\n\n## Critères d'acceptation\n\n- [ ] Un client authentifié voit son numéro masqué et peut changer de langue/thème/se déconnecter depuis cet onglet\n- [ ] Les tests de `settings_screen_test.dart` migrés et verts sur le nouvel écran\n\n## Références\n\nmaquette A1/B3 (onglet Profil) · `Code/apps/mobile/lib/features/settings/presentation/settings_screen.dart` (contenu à reprendre)\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-33",
+    "title": "[FM-33] Refonte de l'authentification : marque, mention légale, bouton Confirmer",
+    "milestone": "M7 — Refonte design mobile complète",
+    "labels": [
+      "type:refactor",
+      "lot:mobile",
+      "lot:design",
+      "prio:P0",
+      "sprint:S2",
+      "size:M",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 3,
+    "deps": [
+      "FM-15",
+      "FM-16"
+    ],
+    "body": "> **ID backlog** `FM-33` · **Estimation** 3 h · **Dépend de** `FM-15`, `FM-16`\n\n## Contexte\n\nL'étape de sélection de rôle (`AuthStep.role`) n'apparaît dans aucune des maquettes A3/B1 (qui ouvrent directement sur la saisie du numéro) — **hypothèse retenue par défaut : la supprimer**, le rôle réel étant de toute façon déterminé côté serveur, pas par ce choix (voir plan, Arbitrages). Il manque par ailleurs le sous-titre, la mention légale CGU/confidentialité (B1), le bouton « Confirmer » de l'écran OTP (déjà traduit, jamais affiché — la soumission est aujourd'hui 100% automatique à la 6ᵉ touche, ce qui consomme une tentative sur 3 sans confirmation possible) et le format mm:ss du compte à rebours.\n\n## Périmètre\n\n- [ ] Retirer `AuthStep.role`/`RoleSelectionStep` du flux (le rôle sert uniquement à l'aiguillage post-connexion, déjà géré par la garde `redirect:` sur `GET /auth/me`) — si le lead préfère le garder, cette tâche se limite alors à le redessiner dans le style des planches\n- [ ] `phone_entry_step.dart` : sous-titre `auth.phoneSubtitle` (nouvelle clé), filet séparant `+216` du champ (nouveau `prefix` sur `AppTextField`, FM-27/16 selon dépendance), mention légale `auth.legalConsent` centrée en bas avec lien vers `LegalNoticeScreen`\n- [ ] `otp_step.dart` : bouton `AppButton` « Confirmer » (clé `otpCta` déjà traduite) en plus de la soumission auto à la 6ᵉ touche — les deux chemins restent valides, le bouton permet de corriger avant envoi\n- [ ] Fonction `formatCountdown(seconds) → mm:ss` dans `lib/core/i18n/format.dart`, clé `otpResendCountdown` mise à jour au format « Renvoyer le code ({mmss}) »\n- [ ] Remplacer `Theme.of(context).textTheme.*` par `AppText.*` dans les 3 widgets d'auth (seuls de l'app dans ce cas)\n- [ ] Réécrire les tests d'auth cassés par le retrait de l'étape rôle\n\n## Hors périmètre (volontairement)\n\n- Le logo/tuile de marque (asset visuel absent de `assets/`, à fournir par le lead — sans lui, garder un espace réservé neutre plutôt qu'une image manquante)\n\n## Critères d'acceptation\n\n- [ ] La saisie du numéro affiche sous-titre + mention légale + `+216` séparé par un filet\n- [ ] L'écran OTP affiche un bouton Confirmer ET soumet automatiquement à la 6ᵉ touche\n- [ ] Le compte à rebours affiche `0:47`, pas `47s`\n- [ ] `flutter test` vert sur `test/features/auth/`\n\n## Références\n\nmaquettes A3/B1 (saisie numéro) · B2 (code OTP) · `Code/apps/mobile/lib/features/auth/presentation/`\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-34",
+    "title": "[FM-34] Refonte onboarding pro : étapes, catégories sélectionnables, plafonds",
+    "milestone": "M7 — Refonte design mobile complète",
+    "labels": [
+      "type:refactor",
+      "lot:mobile",
+      "lot:design",
+      "prio:P0",
+      "sprint:S2",
+      "size:M",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 4,
+    "deps": [
+      "FM-15",
+      "FM-16",
+      "FM-24"
+    ],
+    "body": "> **ID backlog** `FM-34` · **Estimation** 4 h · **Dépend de** `FM-15`, `FM-16`, `FM-24`\n\n## Contexte\n\nQuatre sources donnent quatre décomptes d'étapes différents (code : 4 · issue FM-11 d'origine : 5 · ADR-003 : 3 · maquette C1 : « sur 7 »). Le « 7 » de C1 correspond très probablement aux 7 critères de `calculateCompletionScore`, pas à des étapes — **hypothèse retenue par défaut : garder un parcours à étapes réelles (profil/catégories/zones/photos/récapitulatif = 5, cf. FM-35), afficher « Étape N sur 5 » et NE PAS reprendre le « sur 7 » littéral de la maquette, réservé à un futur indicateur de complétude séparé** (voir plan, Arbitrages, à corriger si le lead tranche autrement). Par ailleurs les plafonds serveur (3 catégories, 1 gouvernorat) ne sont ni appliqués ni expliqués côté client : l'artisan est bloqué sans comprendre pourquoi.\n\n## Périmètre\n\n- [ ] `OnboardingProgressHeader` : « Étape N sur 5 » + barre SEGMENTÉE (un segment par étape) + libellé de l'étape courante aligné à droite — séparé de `completionScore` qui reste affiché ailleurs (récapitulatif) mais plus ici\n- [ ] Carte de catégorie sélectionnable (nouveau composant partagé, cf. FM-41) : fond `accentSubtle` si sélectionnée, badge « Principal » sur la catégorie principale, ✓ sur les suivantes — remplace le `Checkbox`+`ChoiceChip` bruts\n- [ ] Plafond de 3 catégories appliqué côté UI (désactiver la sélection au-delà, sous-titre « 3 catégories maximum en offre gratuite »), avec le message d'erreur serveur (`details.limit`) affiché si l'utilisateur le dépasse malgré tout\n- [ ] Même traitement pour le plafond de 1 gouvernorat sur l'étape zones\n- [ ] Remplacer les deux `CircularProgressIndicator` (catégories, zones) par `AppSkeleton`, et les erreurs ad hoc par `ErrorState`\n- [ ] Namespace `errors.json` : au moins le mapping `VALIDATION_ERROR` avec `details.limit` interpolé\n\n## Hors périmètre (volontairement)\n\n- L'étape tarifs (bloquée par l'absence d'endpoint d'écriture `offerings` — voir `BE-47`, hors périmètre tant que non livré)\n- L'étape photos (traitée séparément dans FM-35, backend déjà prêt)\n\n## Critères d'acceptation\n\n- [ ] Un artisan qui essaie de sélectionner une 4ᵉ catégorie voit l'option désactivée avec une explication, pas un blocage silencieux au moment de sauvegarder\n- [ ] Même critère pour un 2ᵉ gouvernorat\n- [ ] L'en-tête affiche « Étape N sur 5 » avec le bon N à chaque étape\n- [ ] `flutter test` vert sur `test/features/onboarding/`\n\n## Références\n\nmaquette C1 · `Code/apps/api/src/routes/providers.ts:661-666,718-723` (plafonds serveur) · `Code/packages/core/src/providers/completion-score.ts`\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-35",
+    "title": "[FM-35] Étape photos/portfolio de l'onboarding (upload + compression)",
+    "milestone": "M7 — Refonte design mobile complète",
+    "labels": [
+      "type:feat",
+      "lot:mobile",
+      "prio:P0",
+      "sprint:S2",
+      "size:M",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 3,
+    "deps": [
+      "FM-34"
+    ],
+    "body": "> **ID backlog** `FM-35` · **Estimation** 3 h · **Dépend de** `FM-34`\n\n## Contexte\n\nContrairement aux tarifs, le backend est entièrement prêt (`POST /v1/media/presign`, `POST /v1/media/{id}/process`, `POST`/`DELETE /providers/me/portfolio`, BE-20a→d livrées) mais aucun code mobile ne les appelle — c'est un pur manque côté app. Sans upload, toute fiche hors seed de démonstration n'aura aucune photo, alors que A4/B4 ouvrent justement sur une image de couverture plein écran.\n\n## Périmètre\n\n- [ ] Nouvelle étape `OnboardingStep.photos` entre zones et récapitulatif\n- [ ] `image_picker` (ou équivalent déjà dans l'écosystème Flutter standard) + compression avant upload — max 1600px, qualité 80, conforme à `apps/mobile/CLAUDE.md`\n- [ ] Flux `presign` → upload direct → `process` → `POST /providers/me/portfolio`, avec état de progression par image et gestion d'erreur par image (pas d'échec global si une seule image échoue)\n- [ ] Quota FREE (5 photos, `plan-limits.ts`) affiché et appliqué côté UI\n- [ ] Suppression d'une photo déjà uploadée (`DELETE /providers/me/portfolio/{id}`)\n\n## Critères d'acceptation\n\n- [ ] Un artisan peut ajouter jusqu'à 5 photos, en voir la progression d'upload, et en supprimer une\n- [ ] Une image dépassant le quota affiche un message explicite, pas un échec silencieux\n- [ ] Test d'intégration du flux presign→process→portfolio avec un mock du client généré\n\n## Références\n\n`backlog/DONE.md` (BE-20a→d livrées) · `Code/packages/core/src/billing/plan-limits.ts` · `apps/mobile/CLAUDE.md` (compression images)\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-36",
+    "title": "[FM-36] Reprise de l'onboarding après fermeture de l'application",
+    "milestone": "M7 — Refonte design mobile complète",
+    "labels": [
+      "type:feat",
+      "lot:mobile",
+      "prio:P1",
+      "sprint:S2",
+      "blocked",
+      "size:S",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 2,
+    "deps": [
+      "FM-34"
+    ],
+    "body": "> **ID backlog** `FM-36` · **Estimation** 2 h · **Dépend de** `FM-34`\n\n## Contexte\n\nCritère d'acceptation de l'issue FM-11 d'origine (« sauvegarde à chaque étape, reprise possible ») jamais tenu au-delà de la session en cours : `OnboardingNotifier` documente lui-même la limite (« reprise : session-memory uniquement »). ⛔ Bloqué par `GET /v1/providers/me`, absent du contrat — voir `BE-44`, la dépendance transverse la plus structurante de tout l'espace pro (elle débloque aussi FM-37/38/39).\n\n## Périmètre\n\n- [ ] Au montage de `OnboardingScreen`, appeler `GET /providers/me` (une fois `BE-44` livrée) et pré-remplir chaque étape depuis la réponse plutôt que depuis l'état local vide\n- [ ] Si aucun profil n'existe encore (404 ou champ `publicationStatus` absent), démarrer à l'étape 1 comme aujourd'hui\n\n## Critères d'acceptation\n\n- [ ] Un artisan qui a rempli les 2 premières étapes puis tué l'app retrouve ses données au relancement, sur la bonne étape\n- [ ] Un nouvel artisan sans profil démarre toujours à l'étape 1\n\n## Références\n\n`Code/apps/mobile/lib/features/onboarding/application/onboarding_notifier.dart:17` · `BE-44` (dépendance bloquante)\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-37",
+    "title": "[FM-37] Refonte tableau de bord pro : salutation, carte KPI, histogramme",
+    "milestone": "M7 — Refonte design mobile complète",
+    "labels": [
+      "type:refactor",
+      "lot:mobile",
+      "lot:design",
+      "prio:P0",
+      "sprint:S2",
+      "size:M",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 4,
+    "deps": [
+      "FM-15",
+      "FM-16",
+      "FM-24"
+    ],
+    "body": "> **ID backlog** `FM-37` · **Estimation** 4 h · **Dépend de** `FM-15`, `FM-16`, `FM-24`\n\n## Contexte\n\nLe tableau de bord actuel n'a rien de la structure A2/C2 : pas de salutation « Bonjour, <nom> », pas de badge de disponibilité, 4 tuiles dispersées au lieu d'une carte bleue pleine regroupant 3 chiffres, une courbe au lieu d'un histogramme de 7 barres, aucun état vide pour l'artisan fraîchement publié (cas majoritaire au lancement avec 20 artisans de seed).\n\n## Périmètre\n\n- [ ] En-tête « Bonjour, <businessName ou prénom> » — nécessite de lire son propre nom : en attendant `BE-44`, replier sur `GET /auth/me` (prénom) plutôt que de bloquer tout l'écran\n- [ ] Badge de disponibilité (`AvailabilityChip` promu en composant commutable, cf. FM-38 pour l'écriture réelle — ici l'affichage seul, en lecture, tant que `BE-44` n'expose pas l'état courant)\n- [ ] `DashboardStatCard` : nouvelle variante `onAccent` regroupant 3 métriques dans une seule `AppCard` à fond `accent` plein (au lieu de 4 tuiles séparées) — **la ventilation Appels/WhatsApp de la maquette dépend de `BE-46`** ; en son absence, afficher Vues/Contacts/Ratio (métriques déjà disponibles)\n- [ ] Nouveau widget `AppBarChart` (7 barres, une mise en avant en `chartBarHighlight`) remplaçant `DashboardTrendChart` pour la fenêtre 7 jours — la courbe 30 jours existante peut rester en complément ou être retirée, à trancher en revue\n- [ ] État vide explicite si `totals.profileViews == 0` : message encourageant plutôt que des zéros bruts\n\n## Hors périmètre (volontairement)\n\n- La carte Pack Pro/Renouveler — traitée dans FM-40 (dépend d'EP-BILLING)\n\n## Critères d'acceptation\n\n- [ ] L'en-tête affiche un nom réel, jamais un espace vide ni un placeholder de développement\n- [ ] Un artisan à 0 vue voit un message d'accueil, pas 3 cartes à zéro\n- [ ] L'histogramme affiche 7 barres avec la barre du jour courant mise en avant\n- [ ] `flutter test` vert sur `test/features/dashboard/`\n\n## Références\n\nmaquettes A2/C2 · `BE-44` (nom/disponibilité), `BE-46` (ventilation canaux) — dépendances partielles, non totalement bloquantes\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-38",
+    "title": "[FM-38] Écran Profil pro : édition post-onboarding et disponibilité commutable",
+    "milestone": "M7 — Refonte design mobile complète",
+    "labels": [
+      "type:feat",
+      "lot:mobile",
+      "prio:P0",
+      "sprint:S2",
+      "blocked",
+      "size:M",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 3,
+    "deps": [
+      "FM-24"
+    ],
+    "body": "> **ID backlog** `FM-38` · **Estimation** 3 h · **Dépend de** `FM-24`\n\n## Contexte\n\nAujourd'hui la seule façon de corriger sa bio ou son téléphone est de retraverser l'assistant d'onboarding avec des champs vides (FM-36 le corrige partiellement). Le badge de disponibilité n'a jamais d'`onChanged`, alors que `PATCH /v1/providers/me` accepte déjà `availabilityStatus`. ⛔ Bloqué en lecture par `GET /v1/providers/me` (`BE-44`) pour pré-remplir l'écran ; l'écriture (`PATCH`) est déjà disponible et peut être développée en parallèle.\n\n## Périmètre\n\n- [ ] `ProProfileScreen` sous `/pro/profile` (4ᵉ onglet) : formulaire d'édition réutilisant les champs de `OnboardingProfileStep`, pré-rempli depuis `GET /providers/me`\n- [ ] Badge de disponibilité commutable (AVAILABLE/BUSY/ON_HOLIDAY) avec écriture `PATCH /providers/me`\n- [ ] Champs de disponibilité fine (`availableAgainAt`, `acceptsEmergency`, `workingHours`) — au moins `acceptsEmergency`, qui alimente le chip « Urgence » des résultats de recherche (FM-28) et resterait sinon un filtre client sans artisan opt-in\n- [ ] Bouton « Voir ma fiche telle que la voit un client » → `/providers/:slug` (nécessite de connaître son propre slug, donc `BE-44`)\n- [ ] Accès aux réglages (langue/thème/déconnexion, réutilise le contenu de FM-32)\n\n## Critères d'acceptation\n\n- [ ] Un artisan peut modifier sa bio sans repasser par l'onboarding et voir le changement reflété sur sa fiche publique\n- [ ] Basculer sa disponibilité en Occupé se reflète immédiatement sur la fiche publique (invalider `providerProfileProvider`)\n- [ ] Activer « Accepte les urgences » rend l'artisan trouvable par le futur filtre Urgence\n\n## Références\n\nmaquette A2/C2 (4ᵉ onglet pro) · `BE-44` (dépendance bloquante pour la lecture)\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-39",
+    "title": "[FM-39] Écran Avis reçus (pro)",
+    "milestone": "M7 — Refonte design mobile complète",
+    "labels": [
+      "type:feat",
+      "lot:mobile",
+      "prio:P1",
+      "sprint:S2",
+      "blocked",
+      "size:S",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 2,
+    "deps": [
+      "FM-24"
+    ],
+    "body": "> **ID backlog** `FM-39` · **Estimation** 2 h · **Dépend de** `FM-24`\n\n## Contexte\n\nTroisième onglet pro. L'artisan n'a aujourd'hui aucun moyen de consulter les avis qui le concernent sans connaître son propre slug public. ⛔ Bloqué par `GET /v1/providers/me` (`BE-44`) pour connaître ce slug ; la lecture des avis elle-même réutilise `GET /providers/{slug}/reviews`, déjà au contrat.\n\n## Périmètre\n\n- [ ] `ProReviewsScreen` sous `/pro/reviews` : réutilise `providerReviewsProvider` avec le slug de l'artisan connecté (via `BE-44`)\n- [ ] Skeleton/vide (« Aucun avis reçu pour l'instant »)/erreur\n- [ ] Répondre à un avis reçu — hors périmètre tant que `BE-22b` (modèle `ReviewReply`) n'est pas livré ; noter le point d'extension dans l'écran (bouton désactivé ou masqué) sans bloquer le reste\n\n## Hors périmètre (volontairement)\n\n- La réponse de l'artisan à un avis (BE-22b, backlog non planifié)\n\n## Critères d'acceptation\n\n- [ ] L'artisan voit la liste paginée de ses propres avis, dans le même style que la fiche publique (`ReviewTile` réutilisé)\n- [ ] L'écran affiche un état vide explicite pour un artisan sans avis\n\n## Références\n\nmaquette A2 (3ᵉ onglet pro) · `BE-44` (dépendance bloquante) · `backlog/TODO.md` BE-22b (réponse aux avis, non planifiée)\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-40",
+    "title": "[FM-40] Écran Boosts/crédits — coquille visuelle (sans tunnel de paiement)",
+    "milestone": "M7 — Refonte design mobile complète",
+    "labels": [
+      "type:feat",
+      "lot:mobile",
+      "lot:design",
+      "prio:P2",
+      "sprint:S3+",
+      "needs-decision",
+      "size:M",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 3,
+    "deps": [
+      "FM-15",
+      "FM-16",
+      "FM-24"
+    ],
+    "body": "> **ID backlog** `FM-40` · **Estimation** 3 h · **Dépend de** `FM-15`, `FM-16`, `FM-24`\n\n## Contexte\n\n⛔ Le tunnel d'achat réel dépend d'EP-BILLING (BE-32/34/35), bloqué par l'ADR-004 non tranchée (moyens de paiement, question 2 du cadrage). Cette issue couvre UNIQUEMENT la coquille et les états visuels des maquettes A6/C3 : solde de crédits, bouton Acheter (désactivé ou vers un état « bientôt disponible »), section Activer un boost avec options sélectionnables, sans aucune écriture réelle de paiement ou de crédit.\n\n## Périmètre\n\n- [ ] Segmented control Client|Pro en en-tête (nouveau composant, cf. FM-41)\n- [ ] Carte « Solde de crédits » avec valeur figée à 0 tant que `BE-34` n'existe pas, bouton Acheter menant à un état « Bientôt disponible »\n- [ ] Cartes d'option de boost sélectionnables (24h/7j) avec état sélectionné (fond `amber`, token FM-15) — contenu statique, aucun appel réseau\n- [ ] Namespace i18n `billing.*` rempli pour tout le vocabulaire visible (FR et AR) — aujourd'hui `{}` dans les deux langues\n\n## Hors périmètre (volontairement)\n\n- Tout appel réseau réel de crédit/paiement — dépend d'EP-BILLING/ADR-004\n- L'écran Abonnement/Pack Pro détaillé — issue séparée à ouvrir une fois BE-32 planifiée\n\n## Critères d'acceptation\n\n- [ ] Les 2 planches (A6 sombre, C3 clair) sont rendues à l'identique visuellement, sans qu'aucun bouton ne déclenche un appel réseau de paiement\n- [ ] `billing.json` FR et AR n'est plus `{}`\n- [ ] Revue explicite du guard-rail ADR-002 sur cet écran avant merge\n\n## 🚧 Guard-rails\n\n- ⚠️ **Guard-rail ADR-002** : aucun élément de cet écran ne doit suggérer que payer rend « vérifié » — vérifié par le test de non-régression déjà actif `verified_badge_test.dart` (aucune mention de `Subscription` dans `verified_badge.dart`)\n- Le boost est explicitement étiqueté « Sponsorisé », jamais présenté comme modifiant le classement de recherche\n\n## Références\n\nmaquettes A6/C3 · `EP-BILLING` (issues-data.py) · ADR-002 (badge gratuit)\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-41",
+    "title": "[FM-41] Composants partagés transverses : Badge, carte sélectionnable, bottom sheet",
+    "milestone": "M7 — Refonte design mobile complète",
+    "labels": [
+      "type:feat",
+      "lot:mobile",
+      "lot:design",
+      "prio:P0",
+      "sprint:S2",
+      "size:M",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 3,
+    "deps": [
+      "FM-15",
+      "FM-16"
+    ],
+    "body": "> **ID backlog** `FM-41` · **Estimation** 3 h · **Dépend de** `FM-15`, `FM-16`\n\n## Contexte\n\nCinq pilules ad hoc (`AvailabilityChip`, `CoverageAreaChip`, `DashboardComparisonChip._Chip`, la copie dans `ReviewTile`, celle dans `provider_gallery.dart`) réimplémentent le même composant que FM-04f décrivait déjà et personne n'a construit. Deux feuilles modales divergentes existent pour sélectionner un gouvernorat. Trois écrans traitent différemment le même motif de barre d'action fixe en bas.\n\n## Périmètre\n\n- [ ] `AppBadge` générique (variantes pending/danger/neutral/sponsored/verified) — clôture FM-04f ; migrer les 5 réimplémentations pour qu'elles le consomment\n- [ ] `AppSelectableCard` : carte avec état sélectionné (fond `accentSubtle`), badge optionnel (« Principal »), utilisée par FM-34 (catégories) et FM-40 (boosts)\n- [ ] `AppBottomSheet` : poignée de glissement, titre, `SafeArea`, états loading/vide/erreur — remplace `governorate_picker_sheet.dart` ET le sélecteur dupliqué de `onboarding_profile_step.dart`\n- [ ] `AppSectionHeader`/`AppDivider` partagés (aujourd'hui `_SectionHeader` privé dans `settings_screen.dart`, recopié différemment ailleurs)\n- [ ] `StickyActionBar` : conteneur `surface` + filet supérieur + `SafeArea`, généralisant `_ContactBar` (aujourd'hui privé à la fiche artisan) — utilisé par FM-30 (contact), FM-30 (publier l'avis), FM-34 (Continuer), FM-40 (Activer le boost)\n\n## Critères d'acceptation\n\n- [ ] Les 5 pilules ad hoc sont remplacées par `AppBadge` (grep négatif sur les implémentations privées)\n- [ ] Une seule implémentation de feuille modale de sélection dans tout le dépôt\n- [ ] `AppSelectableCard` testé sélectionné/non sélectionné, FR et AR\n\n## Références\n\nbacklog non planifié FM-04f · audit du 2026-08-31 (doublons `etats-widgets`)\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-42",
+    "title": "[FM-42] Adoption systématique EmptyState/ErrorState/AppSkeleton + bandeau hors ligne",
+    "milestone": "M7 — Refonte design mobile complète",
+    "labels": [
+      "type:refactor",
+      "lot:mobile",
+      "prio:P0",
+      "sprint:S2",
+      "size:M",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 3,
+    "deps": [
+      "FM-23",
+      "FM-24",
+      "FM-41"
+    ],
+    "body": "> **ID backlog** `FM-42` · **Estimation** 3 h · **Dépend de** `FM-23`, `FM-24`, `FM-41`\n\n## Contexte\n\n`EmptyState` n'est utilisé par aucun écran de production, `ErrorState` par un seul, et 3 des 4 squelettes existants recopient `Container(surfaceSunken)` à la main au lieu d'`AppSkeleton` — 8 réimplémentations locales identifiées par l'audit. `OfflineBanner` et `ConnectivityService` sont tous deux livrés et testés mais ne sont jamais reliés : le service n'a aucun consommateur.\n\n## Périmètre\n\n- [ ] Remplacer les 8 réimplémentations locales (`_CategoriesError`/`_CategoriesEmpty` dans `search_home_screen.dart`, `_FavoritesEmptyView`/`_FavoritesErrorView`, `_ProfileError`, les erreurs ad hoc de l'onboarding déjà traitées par FM-34, l'erreur d'avis de la fiche artisan) par `EmptyState`/`ErrorState`\n- [ ] Corriger le bug distinct relevé en chemin : `provider_profile_screen.dart` affiche une erreur de chargement des avis comme « Aucun avis pour le moment » — la branche `error` doit utiliser `ErrorState` avec un vrai bouton Réessayer\n- [ ] Remplacer les 3 squelettes faits main (`FavoriteCardSkeleton`, `ProviderGallerySkeleton`, `CategoryGridSkeleton`) par des compositions d'`AppSkeleton`\n- [ ] Monter `OfflineBanner` au niveau des deux shells (FM-23/FM-24), au-dessus des onglets, piloté par `connectivityServiceProvider` — un seul point de câblage plutôt qu'un par écran\n\n## Critères d'acceptation\n\n- [ ] `grep 'EmptyState('` et `grep 'ErrorState('` renvoient au moins un usage par écran de liste (résultats, favoris, avis, avis reçus pro)\n- [ ] Couper le réseau (mode avion) fait apparaître `OfflineBanner` sur n'importe quel écran des deux shells, sans qu'aucun écran individuel n'ait à le coder\n- [ ] Le test de régression du bug avis-erreur-affiché-comme-vide passe (écrit avant le correctif, vu rouge, `// régression #<issue>`)\n\n## Références\n\naudit du 2026-08-31 (`etats-widgets`, note 6a/6b) · `Code/apps/mobile/lib/core/connectivity/connectivity_provider.dart`\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "FM-43",
+    "title": "[FM-43] Passe accessibilité : Semantics, TextScaler, contraste",
+    "milestone": "M7 — Refonte design mobile complète",
+    "labels": [
+      "type:chore",
+      "lot:mobile",
+      "prio:P1",
+      "sprint:S2",
+      "size:M",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 3,
+    "deps": [
+      "FM-22",
+      "FM-27",
+      "FM-29",
+      "FM-33",
+      "FM-34",
+      "FM-37"
+    ],
+    "body": "> **ID backlog** `FM-43` · **Estimation** 3 h · **Dépend de** `FM-22`, `FM-27`, `FM-29`, `FM-33`, `FM-34`, `FM-37`\n\n## Contexte\n\nUne seule annotation `Semantics` existe dans toute l'application (`category_grid.dart:70`). Les boutons de contact, les étoiles de notation, les badges et les puces de variation sont muets pour un lecteur d'écran — un angle mort complet sur un produit visant l'usage sur chantier, potentiellement avec des gants. Cette issue passe après les refontes visuelles pour éviter de retravailler deux fois les mêmes widgets ; elle peut néanmoins démarrer en parallèle sur les widgets déjà stables (RatingStars, VerifiedBadge).\n\n## Périmètre\n\n- [ ] `Semantics`/`semanticLabel` sur : `RatingStars`/`RatingStarsInput` (note annoncée en texte, pas 5 icônes muettes), `VerifiedBadge`, `AppBadge` (FM-41), `ContactButtons`, `AppBottomNav` (déjà couvert par FM-22, vérifier ici), les 6 cases `OtpCodeField`\n- [ ] Appliquer `AppLayout.touchTarget` (48dp) aux `Checkbox`/cases interactives de l'onboarding, aujourd'hui non vérifiées\n- [ ] Étendre le test `TextScaler` 1.3 de FM-17 à au moins 3 écrans supplémentaires (résultats, tableau de bord, onboarding)\n- [ ] Documenter la checklist d'accessibilité dans `apps/mobile/CLAUDE.md` (absente aujourd'hui de la checklist de PR) pour qu'elle soit opposable en revue comme l'i18n\n\n## Critères d'acceptation\n\n- [ ] Un lecteur d'écran (TalkBack) annonce correctement la note, le badge vérifié et l'état de chaque bouton de contact\n- [ ] `flutter analyze` ne signale aucune cible tactile sous 48dp sur les écrans audités\n- [ ] `apps/mobile/CLAUDE.md` référence désormais une checklist a11y\n\n## Références\n\naudit du 2026-08-31 (`a11y-motion` partiel + occurrences relevées dans `parcours-client`/`parcours-pro`/`etats-widgets`)\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-44",
+    "title": "[BE-44] GET /v1/providers/me — lire son propre profil artisan",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:feat",
+      "lot:backend",
+      "domaine:providers",
+      "prio:P0",
+      "sprint:S2",
+      "contrat-api",
+      "size:M",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 3,
+    "deps": [],
+    "body": "> **ID backlog** `BE-44` · **Estimation** 3 h\n\n## Contexte\n\nDépendance transverse la plus structurante identifiée par l'audit design mobile du 2026-08-31 : sans cette route, un artisan connecté ne peut lire ni son `businessName` (salutation du tableau de bord), ni son `availabilityStatus` (badge commutable), ni son propre `slug` (aperçu de fiche, avis reçus), ni pré-remplir l'onboarding pour le reprendre après fermeture de l'app. Elle débloque à elle seule FM-36/37/38/39. Absente de `backlog/TODO.md` — ce n'est pas un report assumé, c'est un trou détecté a posteriori.\n\n## Périmètre\n\n- [ ] `GET /v1/providers/me` : renvoie le `ProviderProfile` complet du compte authentifié (même forme que `GET /providers/{slug}` côté champs, plus les champs privés utiles à l'édition : `availabilityStatus`, `availableAgainAt`, `acceptsEmergency`, `workingHours`, `publicationStatus`, `completionScore`)\n- [ ] 401 si non authentifié, 403 si le compte n'a pas le rôle PROVIDER\n- [ ] Régénérer `contracts/openapi.json` et le client Dart\n\n## Critères d'acceptation\n\n- [ ] Test d'intégration : profil existant → 200 avec les champs privés ; aucun profil créé → 404 explicite (pas un 500) ; rôle CLIENT → 403\n- [ ] `pnpm api:contract --check` vert après régénération\n- [ ] Aucune donnée d'un AUTRE artisan ne fuite (la route ne prend aucun paramètre, l'identité vient exclusivement du token)\n\n## Références\n\naudit design mobile 2026-08-31 (note transverse n°1, section `parcours-pro`) · P3 (CLAUDE.md §2, l'API renvoie ce que le mobile doit afficher déjà calculé)\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-45",
+    "title": "[BE-45] GET /v1/contact-events — historique de lecture pour le client",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:feat",
+      "lot:backend",
+      "domaine:contact",
+      "prio:P1",
+      "sprint:S2",
+      "contrat-api",
+      "size:M",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 3,
+    "deps": [],
+    "body": "> **ID backlog** `BE-45` · **Estimation** 3 h\n\n## Contexte\n\n`POST /v1/contact-events` existe (écriture, P9) mais aucune route de lecture ne permet à un client de retrouver les artisans qu'il a contactés — débloque l'onglet Historique côté mobile (FM-31), le déclencheur naturel du dépôt d'avis.\n\n## Périmètre\n\n- [ ] `GET /v1/contact-events` : pagination par curseur, filtrée sur `userId = ` l'utilisateur authentifié, triée par `createdAt` décroissant\n- [ ] Chaque item renvoie déjà les libellés calculés nécessaires à l'affichage (nom/slug/vignette de l'artisan, canal, date) — P3 : pas de second appel `GET /providers/:slug` par item côté mobile\n- [ ] Champ indiquant si un avis a déjà été posé pour ce contact (pour le CTA conditionnel de FM-31)\n\n## Critères d'acceptation\n\n- [ ] Test d'intégration : un utilisateur ne voit que SES propres contacts, jamais ceux d'un autre compte\n- [ ] Pagination par curseur testée sur >1 page\n- [ ] `pnpm api:contract --check` vert\n\n## Références\n\naudit design mobile 2026-08-31 (`navigation`, gap « Onglet Historique ») · P9 (CLAUDE.md §2)\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-46",
+    "title": "[BE-46] Ventilation des contacts par canal dans GET /providers/me/stats",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:feat",
+      "lot:backend",
+      "domaine:analytics",
+      "prio:P2",
+      "sprint:S2",
+      "contrat-api",
+      "size:S",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 2,
+    "deps": [],
+    "body": "> **ID backlog** `BE-46` · **Estimation** 2 h\n\n## Contexte\n\nLa maquette A2 affiche « 47 Appels / 63 WhatsApp » ; l'API n'expose aujourd'hui qu'un total `contacts` agrégé. La donnée est déjà collectée (`ContactEvent.channel: PHONE|WHATSAPP`), seule l'agrégation par canal manque — voisin de `BE-43` déjà noté au backlog non planifié pour `DailyProviderStat`.\n\n## Périmètre\n\n- [ ] Étendre `GET /v1/providers/me/stats` avec `contactsByChannel: { phone, whatsapp }` dans `totals` (et éventuellement dans la série journalière si l'histogramme de FM-37 en a besoin)\n- [ ] `packages/core/src/analytics/provider-stats.ts` : ventiler l'agrégation existante par `channel` sans dupliquer la logique de comptage\n\n## Critères d'acceptation\n\n- [ ] Test unitaire `packages/core` : un jeu de `ContactEvent` mixte produit le bon compte par canal\n- [ ] Aucun changement de forme cassant pour les consommateurs existants du champ `contacts` agrégé (additif, pas de breaking change)\n\n## Références\n\naudit design mobile 2026-08-31 (`parcours-pro`, gap « Ventilation des contacts ») · voisin de `BE-43` (backlog non planifié)\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
+  },
+  {
+    "id": "BE-47",
+    "title": "[BE-47] Écriture des offerings (tarifs) sous /providers/me/*",
+    "milestone": "M1 — Backend Core API",
+    "labels": [
+      "type:feat",
+      "lot:backend",
+      "domaine:providers",
+      "prio:P2",
+      "sprint:S2",
+      "contrat-api",
+      "size:M",
+      "refonte-design-mobile"
+    ],
+    "assignee": "oussama",
+    "estimate": 3,
+    "deps": [],
+    "body": "> **ID backlog** `BE-47` · **Estimation** 3 h\n\n## Contexte\n\nLa fiche artisan publique lit déjà `offerings` avec `displayPrice`, mais aucune route d'écriture n'existe sous `/providers/me/*` — c'est le seul vrai manque BACKEND (non planifié) qui bloque une étape entière des maquettes (tarifs, listée au périmètre de l'issue FM-11 d'origine mais jamais livrée).\n\n## Périmètre\n\n- [ ] `POST`/`PATCH`/`DELETE /v1/providers/me/offerings` : titre, description, prix en millimes (jamais de float, P4/§4.1), affichage optionnel du prix\n- [ ] Validation métier dans `packages/core` (pas dans la route, P3) — au minimum un prix positif et un titre non vide\n- [ ] Régénérer `contracts/openapi.json` et le client Dart\n\n## Critères d'acceptation\n\n- [ ] Test d'intégration cas passant + au moins un cas d'erreur (prix négatif rejeté)\n- [ ] `pnpm api:contract --check` vert\n- [ ] `calculateCompletionScore` peut être étendu pour noter ce champ si le lead le décide — hors périmètre de cette issue, à ouvrir séparément\n\n## Références\n\naudit design mobile 2026-08-31 (`parcours-pro`, gap « Étape Tarifs ») · `backlog/DONE.md:149`\n\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>"
   }
 ]
