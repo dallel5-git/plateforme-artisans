@@ -174,6 +174,21 @@
 
 ---
 
+## Hors sprint S1 — Milestone M7 (refonte design mobile)
+
+| ID | Tâche | Qui | PR | Terminé le |
+|---|---|---|---|---|
+| `FM-15a` | Générateur de tokens — socle de tests : extrait `resolveTokens()`/`buildOutputs()` en fonctions pures exportées de `build-tokens.mjs` (comportement inchangé), premier `vitest.config.ts` de `packages/design-tokens` | Claude | #246 | 2026-09-02 |
+| `FM-15g` | Générateur de tokens — corrige `AppColors.copyWith()`/`lerp()`, jusqu'ici un no-op littéral et un saut binaire ne respectant pas le contrat `ThemeExtension` ; génère désormais un paramètre nullable et un `Color.lerp()` par rôle sémantique | Claude | #247 | 2026-09-02 |
+| `FM-15c` | Générateur de tokens — échelle `AppIconSize` (xs 12/sm 16/md 20/lg 24/xl 32), exportée en TS et Dart | Claude | #248 | 2026-09-02 |
+| `FM-15b` | Générateur de tokens — `AppElevation` thématisé clair/sombre (`ThemeExtension` avec `copyWith`/`lerp` corrects) et `AppMotion` (durées/easings), tous deux absents du Dart jusqu'ici (bug SO-08). Corrige au passage `resolveTree()`, qui convertissait silencieusement les tableaux en objets lors de la résolution des alias | Claude | #249 | 2026-09-02 |
+| `FM-15f` | Générateur de tokens — `letterSpacing` par palier typographique (converti d'em vers px absolus), nouveau palier `subtitle` (16px) entre `body` et `h3`, `AppFontWeight`, et `layout.breakpoint` exportés en Dart | Claude | #250 | 2026-09-02 |
+| `FM-15d` | Générateur de tokens — 12 nouveaux rôles sémantiques `AppColors` requis par les nouvelles maquettes (`onWhatsapp`, `amber`/`onAmber`, `scrim`/`onScrim`, `thumbnail`/`thumbnailBorder`, `chartBar`/`chartBarHighlight`, `navActive`/`navInactive`/`navBackground`) — pur ajout dans `tokens.json`, aucun changement de générateur (boucles déjà génériques) | Claude | #251 | 2026-09-02 |
+| `FM-15e` | Générateur de tokens — corrige les deux collisions de valeur `dark.border`==`dark.surfaceRaised` et `sponsored`==`pending` (clair et sombre), test-first sur le vrai `tokens.json` | Claude | #252 | 2026-09-02 |
+| `FM-15` | ⭐ Générateur de tokens : élévation, motion, tracking, icônes, nouveaux rôles (#214) — parcours complet (7 PRs atomiques ci-dessus). Prérequis bloquant de la refonte visuelle (FM-16/FM-18/FM-37) : les 6 critères d'acceptation sont vérifiés (`pnpm tokens:build:check` vert, les 2 collisions résolues, `AppElevation`/`AppMotion` thématisés en Dart, `AppIconSize` couvre xs→xl, aucun rôle déjà consommé renommé). Généralise et remplace `SO-08` (retirée de `TODO.md`). `$meta.source` de `tokens.json` marqué `TODO(FM-15x)` — référence exacte des nouvelles maquettes non fournie en session, à corriger dès qu'elle est connue | Claude | #246/#247/#248/#249/#250/#251/#252 | 2026-09-02 |
+
+---
+
 ## Compteur du sprint S1
 
 | Métrique | Valeur |
