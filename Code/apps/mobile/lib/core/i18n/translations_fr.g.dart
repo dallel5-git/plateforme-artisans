@@ -648,6 +648,63 @@ class Translations$common$devPreview$fr {
 
 	/// fr: 'Réessayer'
 	String get errorAction => 'Réessayer';
+
+	/// fr: 'Rôles de couleur'
+	String get sectionColorRoles => 'Rôles de couleur';
+
+	/// fr: 'Clair'
+	String get swatchLight => 'Clair';
+
+	/// fr: 'Sombre'
+	String get swatchDark => 'Sombre';
+
+	/// fr: 'Typographie'
+	String get sectionTypography => 'Typographie';
+
+	/// fr: 'AvailabilityChip'
+	String get sectionAvailabilityChip => 'AvailabilityChip';
+
+	/// fr: 'ReviewTile'
+	String get sectionReviewTile => 'ReviewTile';
+
+	/// fr: 'OfferingCard'
+	String get sectionOfferingCard => 'OfferingCard';
+
+	/// fr: 'ProviderGallery'
+	String get sectionProviderGallery => 'ProviderGallery';
+
+	/// fr: 'DashboardStatCard'
+	String get sectionDashboardStatCard => 'DashboardStatCard';
+
+	/// fr: 'DashboardTrendChart'
+	String get sectionDashboardTrendChart => 'DashboardTrendChart';
+
+	/// fr: 'DashboardComparisonChip'
+	String get sectionDashboardComparisonChip => 'DashboardComparisonChip';
+
+	/// fr: 'RatingStarsInput'
+	String get sectionRatingStarsInput => 'RatingStarsInput';
+
+	/// fr: 'OtpCodeField'
+	String get sectionOtpCodeField => 'OtpCodeField';
+
+	/// fr: 'CoverageAreaChip'
+	String get sectionCoverageAreaChip => 'CoverageAreaChip';
+
+	/// fr: 'CategoryGrid'
+	String get sectionCategoryGrid => 'CategoryGrid';
+
+	/// fr: 'CategoryGridSkeleton'
+	String get sectionCategoryGridSkeleton => 'CategoryGridSkeleton';
+
+	/// fr: 'FavoriteCardSkeleton'
+	String get sectionFavoriteCardSkeleton => 'FavoriteCardSkeleton';
+
+	/// fr: 'Vues du profil'
+	String get statViewsLabel => 'Vues du profil';
+
+	/// fr: 'Nouveau'
+	String get statNewLabel => 'Nouveau';
 }
 
 // Path: provider.profile
@@ -833,6 +890,25 @@ extension on Translations {
 			'common.devPreview.errorTitle' => 'Connexion perdue',
 			'common.devPreview.errorMessage' => 'Impossible de charger les résultats. Vérifie ta connexion.',
 			'common.devPreview.errorAction' => 'Réessayer',
+			'common.devPreview.sectionColorRoles' => 'Rôles de couleur',
+			'common.devPreview.swatchLight' => 'Clair',
+			'common.devPreview.swatchDark' => 'Sombre',
+			'common.devPreview.sectionTypography' => 'Typographie',
+			'common.devPreview.sectionAvailabilityChip' => 'AvailabilityChip',
+			'common.devPreview.sectionReviewTile' => 'ReviewTile',
+			'common.devPreview.sectionOfferingCard' => 'OfferingCard',
+			'common.devPreview.sectionProviderGallery' => 'ProviderGallery',
+			'common.devPreview.sectionDashboardStatCard' => 'DashboardStatCard',
+			'common.devPreview.sectionDashboardTrendChart' => 'DashboardTrendChart',
+			'common.devPreview.sectionDashboardComparisonChip' => 'DashboardComparisonChip',
+			'common.devPreview.sectionRatingStarsInput' => 'RatingStarsInput',
+			'common.devPreview.sectionOtpCodeField' => 'OtpCodeField',
+			'common.devPreview.sectionCoverageAreaChip' => 'CoverageAreaChip',
+			'common.devPreview.sectionCategoryGrid' => 'CategoryGrid',
+			'common.devPreview.sectionCategoryGridSkeleton' => 'CategoryGridSkeleton',
+			'common.devPreview.sectionFavoriteCardSkeleton' => 'FavoriteCardSkeleton',
+			'common.devPreview.statViewsLabel' => 'Vues du profil',
+			'common.devPreview.statNewLabel' => 'Nouveau',
 			'contact.call' => 'Appeler',
 			'contact.whatsapp' => 'WhatsApp',
 			'dashboard.title' => 'Tableau de bord',

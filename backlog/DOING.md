@@ -18,6 +18,23 @@ _(aucune tâche DEV-1 en cours — `FM-05` et `FM-10` terminées, déplacées ve
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
 
+*(FM-18d — Enrichit `/_ds-preview` (issue #217, dernière sous-tâche) : nuancier des 34 rôles
+`AppColors` avec bascule clair/sombre locale au widget (n'affecte jamais `themeModeProvider` — la
+vitrine ne doit pas changer le thème de toute l'app pour comparer les deux jeux de rôles), échelle
+typographique complète (9 paliers `AppText.*`), et 13 widgets de `features/*/presentation/widgets/`
+jamais montrés jusqu'ici (`AvailabilityChip`, `ReviewTile`, `OfferingCard`, `ProviderGallery`,
+`DashboardStatCard`, `DashboardTrendChart`, `DashboardComparisonChip`, `RatingStarsInput`,
+`OtpCodeField`, `CoverageAreaChip`, `CategoryGrid`, `CategoryGridSkeleton`,
+`FavoriteCardSkeleton`) — largement au-dessus du plancher de 10 du critère d'acceptation. Exclus
+volontairement : widgets couplés à des providers réseau ou des écrans à part entière plutôt que des
+composants atomiques (`FavoriteCard`, `GovernoratePickerSheet`, les étapes onboarding/auth). Bâtie
+sur `feat/FM-18c-i18n-preview-screen` (fusionnée localement, pas stackée en PR — les deux touchent
+lourdement le même fichier) : ~18 nouvelles clés `common.devPreview.*` pour le chrome UI (titres de
+section, libellés de bascule) ; les données factices bilingues alimentant les modèles générés
+(nom d'avis, titre de prestation, catégories) restent des littéraux Dart, même convention que les
+fixtures de test — pas des chaînes UI de l'écran. `flutter test` 340/340. PR à ouvrir — déplacée
+vers `DONE.md` une fois mergée.)*
+
 *(FM-18c — `design_system_preview_screen.dart` respecte enfin la règle « aucune chaîne en dur » :
 ~34 clés `common.devPreview.*` (namespace `packages/i18n/src/locales/{fr,ar}/common.json`), y
 compris les titres de section (décision : un outil de dev n'est pas exempté de la règle). Piège

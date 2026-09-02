@@ -50,6 +50,25 @@
     "emptyAction": "توسيع البحث إلى الولاية",
     "errorTitle": "انقطع الاتصال",
     "errorMessage": "تعذّر تحميل النتائج. تحقق من اتصالك.",
-    "errorAction": "إعادة المحاولة"
+    "errorAction": "إعادة المحاولة",
+    "sectionColorRoles": "أدوار الألوان",
+    "swatchLight": "فاتح",
+    "swatchDark": "داكن",
+    "sectionTypography": "الطباعة",
+    "sectionAvailabilityChip": "AvailabilityChip",
+    "sectionReviewTile": "ReviewTile",
+    "sectionOfferingCard": "OfferingCard",
+    "sectionProviderGallery": "ProviderGallery",
+    "sectionDashboardStatCard": "DashboardStatCard",
+    "sectionDashboardTrendChart": "DashboardTrendChart",
+    "sectionDashboardComparisonChip": "DashboardComparisonChip",
+    "sectionRatingStarsInput": "RatingStarsInput",
+    "sectionOtpCodeField": "OtpCodeField",
+    "sectionCoverageAreaChip": "CoverageAreaChip",
+    "sectionCategoryGrid": "CategoryGrid",
+    "sectionCategoryGridSkeleton": "CategoryGridSkeleton",
+    "sectionFavoriteCardSkeleton": "FavoriteCardSkeleton",
+    "statViewsLabel": "زيارات الملف الشخصي",
+    "statNewLabel": "جديد"
   }
 }
