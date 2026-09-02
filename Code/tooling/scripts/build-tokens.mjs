@@ -14,66 +14,68 @@
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 const ROOT = resolve(process.cwd());
 const SRC = resolve(ROOT, 'packages/design-tokens/tokens.json');
 const CHECK = process.argv.includes('--check');
 
-const tokens = JSON.parse(readFileSync(SRC, 'utf8'));
-
 /* ------------------------------------------------------------------ */
 /* Résolution des alias {color.brand.500}                              */
 /* ------------------------------------------------------------------ */
-const deref = (value, depth = 0) => {
-  if (depth > 10) throw new Error(`Alias circulaire : ${value}`);
-  if (typeof value !== 'string' || !value.startsWith('{')) return value;
-  const path = value.slice(1, -1).split('.');
-  let node = tokens;
-  for (const key of path) {
-    node = node?.[key];
-    if (node === undefined) throw new Error(`Alias introuvable : ${value}`);
-  }
-  return deref(node, depth + 1);
-};
+export function resolveTokens(rawTokens) {
+  const deref = (value, depth = 0) => {
+    if (depth > 10) throw new Error(`Alias circulaire : ${value}`);
+    if (typeof value !== 'string' || !value.startsWith('{')) return value;
+    const path = value.slice(1, -1).split('.');
+    let node = rawTokens;
+    for (const key of path) {
+      node = node?.[key];
+      if (node === undefined) throw new Error(`Alias introuvable : ${value}`);
+    }
+    return deref(node, depth + 1);
+  };
 
-const resolveTree = (node) =>
-  Object.fromEntries(
-    Object.entries(node).map(([k, v]) => [
-      k,
-      typeof v === 'object' && v !== null ? resolveTree(v) : deref(v),
-    ]),
+  const resolveTree = (node) =>
+    Object.fromEntries(
+      Object.entries(node).map(([k, v]) => [
+        k,
+        typeof v === 'object' && v !== null ? resolveTree(v) : deref(v),
+      ]),
+    );
+
+  return resolveTree(
+    Object.fromEntries(Object.entries(rawTokens).filter(([k]) => !k.startsWith('$'))),
   );
+}
 
-const t = resolveTree(
-  Object.fromEntries(Object.entries(tokens).filter(([k]) => !k.startsWith('$'))),
-);
-
-const BANNER_TS = `// ⚠️ FICHIER GÉNÉRÉ — NE PAS ÉDITER À LA MAIN.
+export function buildOutputs(t) {
+  const BANNER_TS = `// ⚠️ FICHIER GÉNÉRÉ — NE PAS ÉDITER À LA MAIN.
 // Source : packages/design-tokens/tokens.json
 // Régénérer : pnpm tokens:build
 `;
-const BANNER_DART = `// ⚠️ FICHIER GÉNÉRÉ — NE PAS ÉDITER À LA MAIN.
+  const BANNER_DART = `// ⚠️ FICHIER GÉNÉRÉ — NE PAS ÉDITER À LA MAIN.
 // Source : packages/design-tokens/tokens.json
 // Régénérer : pnpm tokens:build
 // ignore_for_file: constant_identifier_names
 `;
 
-const camel = (s) => s.replace(/[-_](\w)/g, (_, c) => c.toUpperCase());
-const dartName = (s) => {
-  const c = camel(s);
-  return /^\d/.test(c) ? `s${c}` : c;
-};
-const hexToDart = (hex) => `Color(0xFF${hex.replace('#', '').toUpperCase()})`;
+  const camel = (s) => s.replace(/[-_](\w)/g, (_, c) => c.toUpperCase());
+  const dartName = (s) => {
+    const c = camel(s);
+    return /^\d/.test(c) ? `s${c}` : c;
+  };
+  const hexToDart = (hex) => `Color(0xFF${hex.replace('#', '').toUpperCase()})`;
 
-/* ------------------------------------------------------------------ */
-/* Cible 1 — TypeScript : couleurs                                     */
-/* ------------------------------------------------------------------ */
-const tsColors = `${BANNER_TS}
+  /* ------------------------------------------------------------------ */
+  /* Cible 1 — TypeScript : couleurs                                     */
+  /* ------------------------------------------------------------------ */
+  const tsColors = `${BANNER_TS}
 export const palette = ${JSON.stringify(
-  Object.fromEntries(Object.entries(t.color).filter(([k]) => k !== 'semantic')),
-  null,
-  2,
-)} as const;
+    Object.fromEntries(Object.entries(t.color).filter(([k]) => k !== 'semantic')),
+    null,
+    2,
+  )} as const;
 
 export const semantic = ${JSON.stringify(t.color.semantic, null, 2)} as const;
 
@@ -81,25 +83,25 @@ export type ColorScheme = keyof typeof semantic;
 export type SemanticColor = keyof typeof semantic.light;
 `;
 
-/* ------------------------------------------------------------------ */
-/* Cible 2 — TypeScript : espacements, rayons, typographie             */
-/* ------------------------------------------------------------------ */
-const tsSpacing = `${BANNER_TS}
+  /* ------------------------------------------------------------------ */
+  /* Cible 2 — TypeScript : espacements, rayons, typographie             */
+  /* ------------------------------------------------------------------ */
+  const tsSpacing = `${BANNER_TS}
 export const spacing = ${JSON.stringify(t.spacing, null, 2)} as const;
 export const radius  = ${JSON.stringify(t.radius, null, 2)} as const;
 export const elevation = ${JSON.stringify(t.elevation, null, 2)} as const;
 export const layout = ${JSON.stringify(t.layout, null, 2)} as const;
 `;
 
-const tsTypography = `${BANNER_TS}
+  const tsTypography = `${BANNER_TS}
 export const typography = ${JSON.stringify(t.typography, null, 2)} as const;
 export const motion = ${JSON.stringify(t.motion, null, 2)} as const;
 `;
 
-/* ------------------------------------------------------------------ */
-/* Cible 3 — Preset Tailwind                                           */
-/* ------------------------------------------------------------------ */
-const tailwindPreset = `${BANNER_TS}
+  /* ------------------------------------------------------------------ */
+  /* Cible 3 — Preset Tailwind                                           */
+  /* ------------------------------------------------------------------ */
+  const tailwindPreset = `${BANNER_TS}
 const { palette, semantic } = require('./src/colors');
 const { spacing, radius, elevation } = require('./src/spacing');
 const { typography } = require('./src/typography');
@@ -138,34 +140,34 @@ module.exports = {
 };
 `;
 
-/* ------------------------------------------------------------------ */
-/* Cible 4 — Dart : couleurs                                           */
-/* ------------------------------------------------------------------ */
-const dartScheme = (scheme) =>
-  Object.entries(t.color.semantic[scheme])
-    .map(([k, v]) => `    ${dartName(k)}: const ${hexToDart(v)},`)
+  /* ------------------------------------------------------------------ */
+  /* Cible 4 — Dart : couleurs                                           */
+  /* ------------------------------------------------------------------ */
+  const dartScheme = (scheme) =>
+    Object.entries(t.color.semantic[scheme])
+      .map(([k, v]) => `    ${dartName(k)}: const ${hexToDart(v)},`)
+      .join('\n');
+
+  const semanticFields = Object.keys(t.color.semantic.light)
+    .map((k) => `  final Color ${dartName(k)};`)
     .join('\n');
 
-const semanticFields = Object.keys(t.color.semantic.light)
-  .map((k) => `  final Color ${dartName(k)};`)
-  .join('\n');
+  const semanticCtor = Object.keys(t.color.semantic.light)
+    .map((k) => `    required this.${dartName(k)},`)
+    .join('\n');
 
-const semanticCtor = Object.keys(t.color.semantic.light)
-  .map((k) => `    required this.${dartName(k)},`)
-  .join('\n');
+  const paletteConsts = Object.entries(t.color)
+    .filter(([k]) => k !== 'semantic')
+    .map(
+      ([group, shades]) =>
+        `  // ${group}\n` +
+        Object.entries(shades)
+          .map(([shade, hex]) => `  static const ${dartName(group)}${shade} = ${hexToDart(hex)};`)
+          .join('\n'),
+    )
+    .join('\n\n');
 
-const paletteConsts = Object.entries(t.color)
-  .filter(([k]) => k !== 'semantic')
-  .map(
-    ([group, shades]) =>
-      `  // ${group}\n` +
-      Object.entries(shades)
-        .map(([shade, hex]) => `  static const ${dartName(group)}${shade} = ${hexToDart(hex)};`)
-        .join('\n'),
-  )
-  .join('\n\n');
-
-const dartColors = `${BANNER_DART}
+  const dartColors = `${BANNER_DART}
 import 'package:flutter/material.dart';
 
 /// Palette brute. À n'utiliser que pour construire un [AppColors].
@@ -205,12 +207,12 @@ extension AppColorsX on BuildContext {
 }
 `;
 
-/* ------------------------------------------------------------------ */
-/* Cible 5 — Dart : espacements, rayons, typographie                   */
-/* ------------------------------------------------------------------ */
-const px = (v) => parseFloat(String(v).replace('px', ''));
+  /* ------------------------------------------------------------------ */
+  /* Cible 5 — Dart : espacements, rayons, typographie                   */
+  /* ------------------------------------------------------------------ */
+  const px = (v) => parseFloat(String(v).replace('px', ''));
 
-const dartSpacing = `${BANNER_DART}
+  const dartSpacing = `${BANNER_DART}
 import 'package:flutter/widgets.dart';
 
 abstract final class AppSpacing {
@@ -232,7 +234,7 @@ abstract final class AppLayout {
 }
 `;
 
-const dartText = `${BANNER_DART}
+  const dartText = `${BANNER_DART}
 import 'package:flutter/material.dart';
 
 /// Échelle typographique. \`fontFamily\` est choisi automatiquement selon la
@@ -257,36 +259,44 @@ ${Object.entries(t.typography.scale)
 }
 `;
 
+  return {
+    'packages/design-tokens/src/colors.ts': tsColors,
+    'packages/design-tokens/src/spacing.ts': tsSpacing,
+    'packages/design-tokens/src/typography.ts': tsTypography,
+    'packages/design-tokens/tailwind-preset.js': tailwindPreset,
+    'apps/mobile/lib/core/theme/app_colors.dart': dartColors,
+    'apps/mobile/lib/core/theme/app_spacing.dart': dartSpacing,
+    'apps/mobile/lib/core/theme/app_text.dart': dartText,
+  };
+}
+
 /* ------------------------------------------------------------------ */
 /* Écriture                                                            */
 /* ------------------------------------------------------------------ */
-const outputs = {
-  'packages/design-tokens/src/colors.ts': tsColors,
-  'packages/design-tokens/src/spacing.ts': tsSpacing,
-  'packages/design-tokens/src/typography.ts': tsTypography,
-  'packages/design-tokens/tailwind-preset.js': tailwindPreset,
-  'apps/mobile/lib/core/theme/app_colors.dart': dartColors,
-  'apps/mobile/lib/core/theme/app_spacing.dart': dartSpacing,
-  'apps/mobile/lib/core/theme/app_text.dart': dartText,
-};
+function main() {
+  const tokens = JSON.parse(readFileSync(SRC, 'utf8'));
+  const outputs = buildOutputs(resolveTokens(tokens));
 
-let stale = [];
-for (const [rel, content] of Object.entries(outputs)) {
-  const path = resolve(ROOT, rel);
+  let stale = [];
+  for (const [rel, content] of Object.entries(outputs)) {
+    const path = resolve(ROOT, rel);
+    if (CHECK) {
+      if (!existsSync(path) || readFileSync(path, 'utf8') !== content) stale.push(rel);
+    } else {
+      mkdirSync(dirname(path), { recursive: true });
+      writeFileSync(path, content, 'utf8');
+      console.log(`✓ ${rel}`);
+    }
+  }
+
   if (CHECK) {
-    if (!existsSync(path) || readFileSync(path, 'utf8') !== content) stale.push(rel);
-  } else {
-    mkdirSync(dirname(path), { recursive: true });
-    writeFileSync(path, content, 'utf8');
-    console.log(`✓ ${rel}`);
+    if (stale.length) {
+      console.error('✗ Design tokens périmés. Lancer `pnpm tokens:build` et commiter :');
+      stale.forEach((f) => console.error(`  - ${f}`));
+      process.exit(1);
+    }
+    console.log('✓ Design tokens à jour');
   }
 }
 
-if (CHECK) {
-  if (stale.length) {
-    console.error('✗ Design tokens périmés. Lancer `pnpm tokens:build` et commiter :');
-    stale.forEach((f) => console.error(`  - ${f}`));
-    process.exit(1);
-  }
-  console.log('✓ Design tokens à jour');
-}
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) main();
