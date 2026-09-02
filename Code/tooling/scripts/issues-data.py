@@ -22,6 +22,12 @@ M3 = "M3 — Web SEO & Acquisition"
 M4 = "M4 — Confiance & Back-office"
 M5 = "M5 — Monétisation"
 M6 = "M6 — Différenciation & Lancement"
+M7 = "M7 — Refonte design mobile complète"
+
+# Label technique servant UNIQUEMENT à scoper `gh-seed-issues.sh` sur ce lot
+# (ONLY=refonte-design-mobile) sans toucher aux ~90 issues déjà créées pour
+# S1-S6. Ne pas réutiliser pour autre chose.
+REFONTE = "refonte-design-mobile"
 
 
 def size(h):
@@ -933,6 +939,927 @@ A(E("EP-DURCISSEMENT", "Durcissement, observabilité et préparation au lancemen
 
 
 # =============================================================================
+# REFONTE DESIGN MOBILE COMPLÈTE — audit du 2026-08-31 (Claude, cf. session)
+#
+# Contexte : audit exhaustif de apps/mobile confronté aux planches de
+# maquette fournies par le lead (A. thème sombre — 6 écrans, B. espace
+# client clair — 5 écrans dont 1 en arabe/RTL, C. espace artisan clair —
+# 3 écrans, D. back-office web — hors périmètre mobile). Conclusion de
+# l'audit : le design system existe (tokens, thème clair/sombre, RTL au
+# niveau MaterialApp, parité i18n FR/AR) mais n'est presque pas consommé,
+# et la moitié des écrans centraux (résultats de recherche, barre de
+# navigation, historique, profil client/pro, boosts) n'existent pas.
+# Détail complet : `Code/docs/PLAN-REFONTE-DESIGN-MOBILE.md`.
+#
+# Séquence : Fondations (FM-15→18) → Shell de navigation (FM-19,22→25) →
+# câblage des écrans orphelins (FM-26) → Résultats (FM-27→28) → Fiche/
+# contact/avis (FM-29→32) → Auth (FM-33) → Onboarding pro (FM-34→36) →
+# Pilotage pro (FM-37→39) → Monétisation coquille (FM-40) → Transverse
+# (FM-41→43). 4 issues backend (BE-44→47) débloquent des écrans pro.
+#
+# Assignation : "oussama" partout (DEV-2 sur ce lot, cf. mémoire de
+# session) — à corriger à la main si Chayma en reprend une partie.
+# =============================================================================
+
+A(I("FM-15", "Générateur de tokens : élévation, motion, tracking, icônes, nouveaux rôles",
+    M7, ["type:chore", "lot:mobile", "lot:design", "domaine:providers", "prio:P0", "sprint:S2"],
+    OUSSAMA, 4, [],
+    "`build-tokens.mjs` perd silencieusement `elevation`, `motion`, le `tracking` "
+    "typographique, `layout.breakpoint` et les poids de police lors de l'export Dart "
+    "(seuls TS et Tailwind les reçoivent) — c'est le bug SO-08 du backlog non planifié, "
+    "plus large que documenté. Il manque aussi des rôles de couleur que les planches "
+    "exigent et qui n'existent dans aucun jeu de rôles actuel. Ce lot est un préalable "
+    "bloquant : toute la refonte visuelle en dépend et il ne touche que le générateur, "
+    "pas les écrans.",
+    ["`tokens.json` : thématiser `elevation` (une série claire + une sombre, aujourd'hui "
+     "une seule teintée clair) et ajouter `motion` déjà déclaré mais orphelin côté Dart",
+     "Ajouter une échelle `iconSize` (xs/sm/md/lg/xl) — ~40 tailles littérales relevées "
+     "dans le parcours client à corriger dans les lots suivants",
+     "Nouveaux rôles sémantiques `AppColors` : `onWhatsapp` (texte blanc garanti sur "
+     "`whatsapp`, `onAccent` ne convient pas en sombre), `amber`/`onAmber` (fond ambre "
+     "plein pour le CTA « Renouveler » et l'option de boost sélectionnée), `scrim`/"
+     "`onScrim` (voile sur image de couverture), `thumbnail`/`thumbnailBorder` "
+     "(vignette carrée des cartes de liste, doit être plus claire que `surface` en "
+     "sombre — `surfaceSunken` ne convient pas), `chartBar`/`chartBarHighlight` "
+     "(histogramme du tableau de bord), `navActive`/`navInactive`/`navBackground` "
+     "(barre de navigation basse)",
+     "Résoudre les deux collisions de valeur en thème sombre : `border` == "
+     "`surfaceRaised` (aujourd'hui la même couleur, aucune bordure visible) et "
+     "`sponsored` == `pending` (mêmes deux teintes dans les deux thèmes)",
+     "Exporter `letterSpacing` par palier typographique en Dart (déjà dans `tokens.json`, "
+     "perdu au générateur) et ajouter le palier 16px manquant entre body(15) et h3(18)",
+     "Exporter `layout.breakpoint` et `typography.weight` en Dart",
+     "Corriger `AppColors.copyWith()`/`lerp()` générés (aujourd'hui `copyWith()` sans "
+     "paramètre et `lerp()` en palier binaire — le contrat `ThemeExtension` n'est pas "
+     "honoré)",
+     "Mettre à jour `tokens.json` `$meta.source` pour référencer les nouvelles planches "
+     "(actuellement pointé sur l'extraction du 12/08, antérieure à la direction "
+     "artistique demandée)"],
+    ["Ajouter un palier typographique au-delà de display(36px) pour les très gros "
+     "chiffres — `FontFeature.tabularFigures` suffit pour l'alignement en colonne des "
+     "3 chiffres de la carte Performance, traité dans FM-37",
+     "Régénérer `design-system.html` — traité dans FM-18"],
+    ["`pnpm tokens:build` régénère `app_colors.dart`/`app_spacing.dart`/`app_text.dart` "
+     "sans erreur, `pnpm tokens:build:check` passe en CI",
+     "Les deux collisions de valeur (border/surfaceRaised, sponsored/pending) ont des "
+     "valeurs distinctes dans les deux thèmes",
+     "`AppElevation.sm/md/lg` (`List<BoxShadow>`) et `AppMotion.durationFast/Base/Slow` "
+     "+ `easingStandard/Decelerate` existent en Dart, thématisés clair/sombre pour "
+     "l'élévation",
+     "`AppIconSize.*` existe et couvre au moins xs(12)/sm(16)/md(20)/lg(24)/xl(32)",
+     "Aucun écran existant ne casse (pas de renommage de rôle déjà consommé)"],
+    "`Code/packages/design-tokens/tokens.json` · `Code/tooling/scripts/build-tokens.mjs` · "
+    "backlog non planifié SO-08 (`backlog/TODO.md`)"))
+
+A(I("FM-16", "ThemeData complet : TextTheme M3 et sous-thèmes de composants",
+    M7, ["type:refactor", "lot:mobile", "lot:design", "prio:P0", "sprint:S2"],
+    OUSSAMA, 3, ["FM-15"],
+    "`buildTheme()` ne renseigne que 8 des ~15 slots `TextTheme` de Material 3 — les "
+    "titres d'`AppBar` (`titleLarge`) retombent sur Roboto, y compris en arabe. Aucun "
+    "sous-thème de composant n'existe (`appBarTheme`, `bottomSheetTheme`, `dialogTheme`, "
+    "`chipTheme`, `snackBarTheme`, `dividerTheme`, `navigationBarTheme`…), ce qui a "
+    "produit 10 `AppBar(backgroundColor: colors.surface)` recopiés à l'identique et des "
+    "feuilles modales/dialogues qui tombent sur la dérivation algorithmique de "
+    "`ColorScheme.fromSeed` au lieu des tokens.",
+    ["Compléter `_textThemeFrom` : titleLarge/Medium/Small, labelLarge/Medium, "
+     "displayMedium/Small — tous mappés sur `AppText.*` avec la famille par locale",
+     "`appBarTheme` (fond `surface`, `titleTextStyle` = h3, `elevation: 0`)",
+     "`bottomSheetTheme` (fond `surface`, forme avec `AppRadius.xl` en haut)",
+     "`dialogTheme` (fond `surface`)",
+     "`chipTheme`, `dividerTheme` (couleur `border`), `snackBarTheme`",
+     "`checkboxTheme` / `progressIndicatorTheme` (couleur `accent`)",
+     "Supprimer les 10 `AppBar(backgroundColor: colors.surface, ...)` répétés à la main "
+     "au profit du thème hérité"],
+    ["`navigationBarTheme` détaillé — traité dans FM-22 avec le widget `AppBottomNav` "
+     "lui-même, une fois ses rôles de couleur disponibles (FM-15)"],
+    ["`flutter analyze` zéro warning après suppression des `AppBar(backgroundColor:)` "
+     "répétés",
+     "Un `AppBar` sans style explicite affiche son titre en Manrope (FR) / Noto Kufi "
+     "Arabic (AR), jamais Roboto — vérifié par un test golden ou un test de style "
+     "explicite sur `theme.dart`",
+     "`showModalBottomSheet` sans `backgroundColor` explicite prend `colors.surface`, "
+     "pas `surfaceContainerLow`",
+     "Tests existants (`test/app/`, `test/widget_test.dart`) toujours verts"],
+    "`Code/apps/mobile/lib/app/theme.dart` · Material 3 `ThemeData` component themes"))
+
+A(I("FM-17", "Persistance du thème et accessibilité (contraste AA, TextScaler)",
+    M7, ["type:feat", "lot:mobile", "lot:design", "prio:P0", "sprint:S2"],
+    OUSSAMA, 2, ["FM-15"],
+    "`themeModeProvider` n'est ni pré-chargé ni persisté, contrairement à la langue et "
+    "au gouvernorat qui suivent le même patron établi (`readInitial*` avant `runApp`, "
+    "`ref.listen` pour réécrire) — un utilisateur qui choisit « Sombre » le reperd au "
+    "redémarrage. Par ailleurs aucun test ne vérifie le contraste AA des rôles "
+    "sémantiques ni le comportement à `TextScaler` élevé, alors que le design system "
+    "de référence en fait une règle explicite.",
+    ["`persistThemeMode()`/`readInitialThemeMode()` dans `lib/core/theme/`, même patron "
+     "que `locale_persistence.dart`",
+     "Override dans `main()` + `ref.listen` dans `SanayaApp`, comme `localeProvider`",
+     "Script ou test qui calcule le ratio de contraste AA (4,5:1 texte, 3:1 graphique) "
+     "pour chaque paire rôle-sur-fond réellement utilisée dans l'app, en clair ET en "
+     "sombre — au minimum `textMuted`/`background`, `rating`/`surface`, `onAccent`/"
+     "`whatsapp`",
+     "Au moins un test widget qui construit un écran représentatif (ex. fiche artisan) "
+     "avec `MediaQuery(textScaler: TextScaler.linear(1.3))` et vérifie l'absence "
+     "d'overflow"],
+    ["Refaire le nuancier visuel complet — traité dans FM-18 (vitrine enrichie)"],
+    ["Le thème choisi survit à un redémarrage de l'app (test d'intégration ou test "
+     "unitaire de persistance)",
+     "Le script de contraste échoue si une paire retombe sous le seuil AA",
+     "Le test `TextScaler` 1.3 passe sur au moins 2 écrans à forte densité de texte"],
+    "`Code/apps/mobile/lib/core/i18n/locale_persistence.dart` (patron à reprendre) · "
+    "`Code/docs/design-system.html` §10"))
+
+A(I("FM-18", "Garde-fou CI anti-valeurs-en-dur et vitrine /_ds-preview enrichie",
+    M7, ["type:chore", "lot:mobile", "lot:design", "prio:P1", "sprint:S2"],
+    OUSSAMA, 3, ["FM-15", "FM-16"],
+    "Le guard-rail « aucune couleur/taille en dur » est déjà enfreint dans du code "
+    "mergé (`provider_gallery.dart`, 3 couleurs Material littérales) sans que rien en "
+    "CI ne l'ait vu. Complèter le design de ~25 écrans va multiplier ce risque par "
+    "cinq. En parallèle, `/_ds-preview` ne couvre que les 10 widgets `core/widgets/` "
+    "(aucun widget de feature) et `design-system.html` n'est pas généré depuis "
+    "`tokens.json` — il a déjà divergé (ombres sombres propres, palette recopiée à la "
+    "main).",
+    ["Script `tooling/scripts/style-scan.mjs` (ou règle `dart_code_metrics`/`custom_lint` "
+     "si plus simple) qui échoue sur `Colors\\.[a-z]` (hors `Colors.transparent`) et "
+     "`Color(0x` hors `core/theme/` généré — branché en CI",
+     "Enrichir `/_ds-preview` : nuancier des rôles avec bascule clair/sombre in situ, "
+     "échelle typographique visible, tous les widgets de `features/*/presentation/"
+     "widgets/` déjà livrés (AvailabilityChip, ReviewTile, DashboardStatCard, "
+     "DashboardTrendChart, FavoriteCard, OtpCodeField, RatingStarsInput…)",
+     "Passer toutes les chaînes en dur de `design_system_preview_screen.dart` en clés "
+     "i18n (namespace `common.devPreview.*` ou équivalent)",
+     "Régénérer `Code/docs/design-system.html` depuis `tokens.json` (ajouter comme "
+     "8ᵉ cible de `build-tokens.mjs`) au lieu de la palette JS recopiée à la main"],
+    ["Rendre `/_ds-preview` inaccessible en build de production — traité dans FM-23 "
+     "(suppression du hub `/`, seul point d'accès actuel)"],
+    ["Le job CI échoue si un fichier hors `core/theme/` contient une couleur Material "
+     "littérale — testé en cassant volontairement `provider_gallery.dart` puis en le "
+     "corrigeant dans la même PR",
+     "`pnpm tokens:build:check` échoue si `design-system.html` est édité à la main sans "
+     "régénération",
+     "`/_ds-preview` affiche au moins 20 widgets (10 core + au moins 10 de feature)"],
+    "backlog `TODO.md` note DONE FM-04c (précédent de test source-scan sur "
+    "`verified_badge.dart`) · `Code/docs/design-system.html`"))
+
+A(I("FM-19", "Clés i18n de navigation FR/AR (onglets, segmented control)",
+    M7, ["type:feat", "lot:mobile", "lot:design", "prio:P0", "sprint:S2", "rtl-ar"],
+    OUSSAMA, 1, [],
+    "Les 8 libellés des deux barres de navigation (Rechercher/Favoris/Historique/Profil "
+    "côté client, Tableau de bord/Boosts/Avis/Profil côté pro) et le segmented control "
+    "Client|Pro n'existent dans aucun fichier de locale — seul `common.home.*` existe, "
+    "et ce sont des libellés de hub de développement. P7 interdit toute chaîne en dur "
+    "dans une vue : cette tâche doit précéder l'écriture du widget `AppBottomNav` "
+    "(FM-22).",
+    ["Ajouter `common.nav.searchTab/favoritesTab/historyTab/profileTab/"
+     "dashboardTab/boostsTab/reviewsTab` (FR et AR)",
+     "Ajouter `common.nav.switchToClient`/`switchToPro` (segmented control)",
+     "Ajouter les micro-labels de la barre de recherche à deux champs : "
+     "`search.serviceLabel`/`search.governorateLabel`",
+     "Vérifier la parité avec `Code/tooling/scripts/i18n-check.mjs`"],
+    [],
+    ["`pnpm i18n:check` (ou équivalent) confirme zéro clé manquante entre fr/ et ar/",
+     "Chaque nouvelle clé a une traduction arabe distincte, pas une copie du français"],
+    "P7 (CLAUDE.md §2) · `Code/packages/i18n/src/locales/{fr,ar}/common.json`"))
+
+A(I("FM-22", "Widget partagé AppBottomNav (RTL, accessibilité)",
+    M7, ["type:feat", "lot:mobile", "lot:design", "prio:P0", "sprint:S2", "rtl-ar"],
+    OUSSAMA, 2, ["FM-15", "FM-19"],
+    "Aucun widget de barre de navigation n'existe dans `core/widgets/` ni dans le "
+    "design system de référence (`design-system.html` n'a que 10 sections, aucune de "
+    "navigation) — c'est un composant à concevoir avant de l'utiliser dans les deux "
+    "shells (FM-23/FM-24), pas seulement à coder.",
+    ["`AppBottomNav` : liste d'items (icône + libellé), index actif, callback de "
+     "changement, hauteur et cible tactile ≥48dp, `SafeArea` basse incluse",
+     "États actif (`navActive`)/inactif (`navInactive`) sur fond `navBackground` "
+     "(tokens FM-15)",
+     "`Semantics` par item : libellé + état sélectionné annoncé",
+     "Miroir RTL automatique via `Directionality` (pas de logique manuelle par locale)",
+     "Section dédiée dans `design-system.html` (ou sa régénération FM-18)"],
+    ["La logique de shell (`StatefulShellRoute`) elle-même — traitée dans FM-23/FM-24"],
+    ["Widget testé en FR et en AR (capture ou test de rendu), 4 items visibles, item "
+     "actif visuellement distinct",
+     "`flutter test` couvre : tap change l'index, `Semantics` porte le libellé et l'état "
+     "sélectionné",
+     "Aucune couleur/taille en dur (passe le garde-fou FM-18 s'il est déjà mergé, sinon "
+     "revue manuelle)"],
+    "`Code/apps/mobile/lib/core/widgets/` · maquettes A1/A2/B3 (barre basse à 4 onglets)"))
+
+A(I("FM-23", "Shell client : navigation persistante à 4 onglets + suppression du hub de dev",
+    M7, ["type:feat", "lot:mobile", "prio:P0", "sprint:S2"],
+    OUSSAMA, 5, ["FM-22"],
+    "`lib/app/router.dart` ne déclare que des `GoRoute` à plat : chaque bascule "
+    "d'onglet détruirait l'écran et son scroll/ses filtres. Le hub `/` est un "
+    "placeholder de développement livré en production (libellés « — à venir (FM-05) » "
+    "visibles par l'utilisateur final) et doit disparaître. Il n'y a non plus aucun "
+    "état de démarrage pendant que `AuthStatusKind.unknown` se résout (restauration de "
+    "session), ce qui produit un flash d'écran visible sur réseau 3G, ni d'écran "
+    "d'erreur de route thémé.",
+    ["`StatefulShellRoute.indexedStack` à 4 branches : Rechercher (`/client`), Favoris "
+     "(`/client/favorites`), Historique (`/client/history`, écran placeholder « bientôt "
+     "disponible » tant que FM-31/BE-45 ne sont pas livrées), Profil (`/client/profile`, "
+     "FM-32)",
+     "Suppression de `HomeScreen`/`home_screen.dart` et de la route `/`",
+     "Écran de démarrage (splash applicatif minimal, sans dépendre d'un logo — asset "
+     "de marque hors périmètre, cf. plan) qui attend la résolution de `AuthStatus` "
+     "avant de rediriger, en traitant explicitement `AuthStatusKind.unknown`",
+     "`errorBuilder` sur le `GoRouter` réutilisant `ErrorState` (thémé, pas la page "
+     "d'erreur anglaise par défaut de go_router)",
+     "`initialLocation` redirige vers `/client` (anonyme) ou `/auth` selon l'état de "
+     "session, jamais vers un écran de choix de rôle brut",
+     "Route `/_ds-preview` retirée du routeur de production ou gardée derrière "
+     "`kDebugMode`",
+     "Réécrire `test/widget_test.dart` (5 cas fondés sur le hub) et "
+     "`test/app/router_redirect_test.dart` (l.97-121, « `/` affiche le hub ») pour "
+     "refléter le nouveau shell — ne pas les supprimer sans les remplacer (ADR-006)"],
+    ["Le shell Pro (FM-24)", "Le contenu de l'onglet Historique lui-même (FM-31)",
+     "Le contenu de l'onglet Profil lui-même (FM-32)",
+     "Le deep-linking entrant (Android App Links / Universal Links) — décision produit "
+     "et infra hors périmètre de cette refonte"],
+    ["Un utilisateur anonyme qui lance l'app arrive directement sur l'onglet Rechercher "
+     "sans jamais voir de hub de développement",
+     "Changer d'onglet préserve le scroll et l'état de chaque branche "
+     "(`IndexedStack`, pas de reconstruction)",
+     "Le retour arrière Android depuis un onglet secondaire revient à l'onglet "
+     "Rechercher avant de quitter l'app (double-retour)",
+     "Une route inconnue affiche `ErrorState` thémé, pas la page anglaise par défaut",
+     "`flutter test` vert sur les 2 fichiers de test réécrits + tous les tests "
+     "existants"],
+    "maquettes A1/B3 (barre basse client) · `Code/apps/mobile/lib/app/router.dart` · "
+    "ADR-006 (non-régression des tests)"))
+
+A(I("FM-24", "Shell pro : navigation persistante à 4 onglets, dashboard comme racine",
+    M7, ["type:feat", "lot:mobile", "prio:P0", "sprint:S2"],
+    OUSSAMA, 4, ["FM-22"],
+    "`/pro` construit aujourd'hui `OnboardingScreen` sans condition : un artisan déjà "
+    "publié qui rouvre l'app retombe dans l'assistant de création de profil avec des "
+    "champs vides. Il n'y a aucune garde de route sur l'espace pro (`/pro`/"
+    "`/pro/dashboard` accessibles à un utilisateur anonyme, provoquant un 401 affiché "
+    "comme une erreur réseau générique).",
+    ["`StatefulShellRoute.indexedStack` à 4 branches : Tableau de bord "
+     "(`/pro/dashboard`), Boosts (`/pro/boosts`, coquille FM-40), Avis "
+     "(`/pro/reviews`, FM-39), Profil (`/pro/profile`, FM-38)",
+     "`/pro` (racine) redirige vers `/pro/dashboard` si un profil existe, sinon vers "
+     "l'assistant d'onboarding (`/pro/onboarding`, ex-`OnboardingScreen` déplacé) — "
+     "note : tant que `GET /v1/providers/me` n'existe pas (BE-44), utiliser un état "
+     "local (`publicationStatus` en mémoire après publication) en repli documenté",
+     "`redirect:` par branche : un utilisateur non authentifié ou sans rôle PROVIDER "
+     "atteignant `/pro/*` est renvoyé vers un état « devenir prestataire », pas vers "
+     "une erreur 401 générique"],
+    ["Le contenu des onglets Boosts/Avis/Profil eux-mêmes — traité respectivement "
+     "dans FM-40/FM-39/FM-38"],
+    ["Un artisan publié qui relance l'app arrive directement sur le tableau de bord",
+     "Un utilisateur anonyme qui force l'URL `/pro/dashboard` est redirigé, jamais "
+     "montré un 401 brut",
+     "`test/app/router_redirect_test.dart` mis à jour et vert (le cas actuel « session "
+     "restaurée PROVIDER → onboarding » devient conditionnel à l'absence de profil)"],
+    "maquette A2/C2 (barre basse pro) · `Code/apps/mobile/lib/app/router.dart`"))
+
+A(I("FM-25", "Corriger la déconnexion et ajouter la bascule Client ↔ Pro",
+    M7, ["type:fix", "lot:mobile", "prio:P0", "sprint:S2"],
+    OUSSAMA, 2, ["FM-23", "FM-24"],
+    "`SettingsScreen._confirmLogout` appelle `authRepository.logout()` SANS argument, "
+    "or cette méthode est entièrement gardée par un `if (refreshToken != null)` — "
+    "appelée sans argument, elle ne fait rien : ni révocation serveur, ni purge du "
+    "token store, ni changement d'état. La méthode correcte, `AuthStateNotifier."
+    "signOut()`, existe et révoque/purge réellement, mais n'est appelée nulle part. "
+    "Par ailleurs aucune surface n'expose de bascule entre l'espace client et l'espace "
+    "pro, alors que `apps/mobile/CLAUDE.md` pose « un artisan est aussi un client » "
+    "comme principe fondateur.",
+    ["Remplacer l'appel à `logout()` par `ref.read(authStateProvider.notifier)."
+     "signOut()` dans l'écran Réglages/Profil (FM-32/FM-38)",
+     "Test de régression qui reproduit le bug (déconnexion suivie d'une navigation "
+     "vers une route protégée : la garde doit voir `unauthenticated`)",
+     "Point de bascule Client↔Pro pour un compte avec le rôle PROVIDER : entrée dans "
+     "l'écran Profil (FM-32/FM-38), pas de segmented control dédié en dehors de "
+     "l'écran Boosts (A6) qui reste son propre cas (FM-40)"],
+    [],
+    ["Après déconnexion, toute tentative d'accès à `/client/*` ou `/pro/*` redirige "
+     "vers `/auth`",
+     "Test de régression écrit AVANT le correctif, vu rouge, puis corrigé — commit "
+     "conjoint (POLITIQUE-PROJET §6 règle 2), porte `// régression #<issue>`",
+     "Un artisan authentifié peut atteindre l'espace client et revenir à l'espace pro "
+     "sans se déconnecter"],
+    "`Code/apps/mobile/lib/features/auth/data/auth_repository.dart` · "
+    "`Code/apps/mobile/lib/features/auth/application/auth_state_provider.dart` · "
+    "`Code/apps/mobile/CLAUDE.md` §Rôle"))
+
+A(I("FM-26", "Câbler les écrans déjà construits mais orphelins",
+    M7, ["type:fix", "lot:mobile", "prio:P0", "sprint:S2"],
+    OUSSAMA, 2, ["FM-23"],
+    "Trois écrans complets et testés sont aujourd'hui inatteignables depuis "
+    "l'interface : Favoris, la fiche artisan (deux points d'entrée déclarés mais "
+    "jamais branchés) et le bouton d'ajout aux favoris (le repository et le "
+    "notifier existent, aucune vue ne les appelle). C'est le gain le plus rapide de "
+    "toute la refonte — quelques lignes chacun.",
+    ["`CategoryGrid.onTap` dans `search_home_screen.dart` (aujourd'hui `(_) {}`) "
+     "navigue vers l'écran de résultats filtré par catégorie (dépend de FM-28, sinon "
+     "navigue directement vers `/providers/:slug` si une seule correspondance — à "
+     "trancher au moment de FM-28)",
+     "`FavoriteCard` dans `favorites_screen.dart` reçoit enfin son `onTap` "
+     "(navigation vers `/providers/:slug`)",
+     "Bouton cœur sur `ProviderCard` (une fois adopté par FM-27/28) et sur "
+     "`ProviderProfileScreen`, appelant `addFavorite`/`removeFavorite` selon "
+     "`isFavoriteProvider`",
+     "L'état vide de `FavoritesScreen` (`context.go('/client')`) devient une bascule "
+     "d'onglet vers Rechercher (`context.go('/client')` reste valide avec un shell à "
+     "onglets, mais vérifier qu'il ne remplace pas la pile de façon incompatible)"],
+    [],
+    ["Un artisan peut être ajouté aux favoris depuis la fiche artisan et depuis la "
+     "liste de résultats, puis retiré depuis l'écran Favoris",
+     "Taper une catégorie ou une carte favori ouvre la fiche artisan correspondante",
+     "Tests widget mis à jour sur les 3 points de navigation"],
+    "audit du 2026-08-31 : `favorites_repository.dart:28`, `favorites_providers.dart:"
+    "51-53`, `favorite_card.dart:21`"))
+
+A(I("FM-27", "Widgets partagés de recherche : chip de filtre, carte artisan, barre de recherche",
+    M7, ["type:feat", "lot:mobile", "lot:design", "prio:P0", "sprint:S2"],
+    OUSSAMA, 3, ["FM-15", "FM-16"],
+    "Aucun composant de filtre n'existe (4 pilules de l'app sont toutes en lecture "
+    "seule). `ProviderCard` — « le composant le plus vu du produit » selon son propre "
+    "commentaire — n'est monté sur AUCUN écran de production et rend un avatar "
+    "d'initiales au lieu de la vignette carrée des maquettes A1/B3. "
+    "`SearchHomeBar` ne correspond à aucune des deux variantes de maquette (A1 : deux "
+    "champs côte à côte avec micro-labels · B3 : une seule barre arrondie).",
+    ["`AppFilterChip` : état actif (pilule `accent` pleine) / inactif (contour "
+     "`border`), utilisable pour Vérifié/Note 4+/Urgence",
+     "Réaligner `ProviderCard` sur la maquette : vignette carrée (`thumbnail`, token "
+     "FM-15) avec repli sur initiales si aucune image, badge vérifié accolé au nom, "
+     "bouton favori, ligne catégorie·ville",
+     "Trancher et implémenter UNE référence de barre de recherche pour l'écran de "
+     "résultats : la variante à deux champs (A1), qui correspond déjà à la direction "
+     "actuelle de `SearchHomeBar` — **hypothèse retenue par défaut, à corriger en "
+     "revue si le lead préfère la barre unique de B3** (voir plan, section "
+     "Arbitrages). Remplacer le `TextField` brut par `AppTextField`",
+     "Retirer `ProviderCard`/`EmptyState`/`OfflineBanner`/`AppSkeleton` de la liste "
+     "des widgets \"vitrine seulement\" en les import-testant depuis un écran réel "
+     "(FM-28)"],
+    ["L'écran de résultats lui-même — FM-28", "La variante barre unique B3 si elle "
+     "n'est pas retenue — à consigner dans `backlog/TODO.md` comme différée"],
+    ["`AppFilterChip` testé actif/inactif, FR et AR",
+     "`ProviderCard` affiche une vignette carrée (image réseau avec placeholder "
+     "`thumbnail` et repli erreur), pas un cercle d'initiales",
+     "Aucune couleur/taille en dur (passe le garde-fou FM-18)"],
+    "maquettes A1 (chips + carte), B3 (barre de recherche) · "
+    "`Code/apps/mobile/lib/core/widgets/provider_card.dart`"))
+
+A(I("FM-28", "Écran de résultats de recherche : pagination, filtres, cache disque",
+    M7, ["type:feat", "lot:mobile", "prio:P0", "sprint:S2"],
+    OUSSAMA, 5, ["FM-27", "FM-23"],
+    "C'est l'écran central absent du produit (FM-07 jamais démarrée). Contrairement "
+    "au TODO périmé du code (« dépend de BE-16, non livré »), `GET /v1/providers/"
+    "search` est déjà exposé et généré côté client (`v1ProvidersSearchGet`) : rien "
+    "ne bloque plus côté backend. Sans cet écran, le parcours recherche → fiche → "
+    "contact reste coupé en deux et l'onglet racine du shell client (FM-23) n'a rien "
+    "à afficher au-delà de la grille de catégories.",
+    ["`SearchResultsScreen` (nouvelle route sous l'onglet Rechercher du shell, ex. "
+     "`/client/results`) : `ListView.builder` + pagination par curseur (`cursor`/"
+     "`limit`, jamais de `Column`+`map`)",
+     "Rangée de `AppFilterChip` (FM-27) : Vérifié, Note 4+, Urgence — mappés sur les "
+     "paramètres réels de `v1ProvidersSearchGet` (vérifier au contrat lesquels "
+     "existent ; si `urgence`/`acceptsEmergency` n'est pas filtrable côté API, "
+     "l'afficher désactivé avec un état « bientôt disponible » plutôt que de "
+     "l'omettre silencieusement)",
+     "Cache disque des résultats ET des fiches déjà consultées (`hive`/`drift`/"
+     "`sqflite` à choisir — aucune dépendance de persistance structurée n'existe "
+     "encore, seul `shared_preferences` pour des clés simples) : les résultats "
+     "restent consultables en mode avion (critère d'acceptation de l'issue #36 "
+     "d'origine)",
+     "États skeleton (liste de `ProviderCard` grisées, PAS un spinner), vide avec "
+     "action « élargir au gouvernorat », erreur avec « Réessayer »",
+     "`OfflineBanner` monté en haut de cet écran (premier câblage réel du composant)"],
+    ["Le tri (hors périmètre des maquettes fournies)",
+     "La recherche vocale (EP-VOCAL, S3+)"],
+    ["Défilement fluide sur émulateur bridé en CPU (critère de l'issue d'origine #36)",
+     "Les résultats déjà chargés restent consultables en mode avion",
+     "L'état vide propose une action utile, pas seulement un message",
+     "Aucun écran blanc sur erreur réseau — `OfflineBanner` visible si le device est "
+     "hors ligne au lieu de l'état d'erreur générique",
+     "Test d'intégration ou widget couvrant : chargement → page suivante → mode "
+     "avion → résultat encore visible"],
+    "issue #36 (FM-07) · `v1ProvidersSearchGet` (`lib/core/api/generated/src/api/"
+    "default_api.dart`) · P5 (CLAUDE.md §2)"))
+
+A(I("FM-29", "Refonte fiche artisan : couverture plein-écran et avatar superposé (RTL)",
+    M7, ["type:refactor", "lot:mobile", "lot:design", "prio:P0", "sprint:S2", "rtl-ar"],
+    OUSSAMA, 3, ["FM-15"],
+    "La fiche artisan pose aujourd'hui un `AppBar` Material au-dessus d'un carrousel "
+    "de 220px, alors que A4/B4 montrent une image de couverture qui va jusqu'en haut "
+    "d'écran avec un avatar rond superposé chevauchant le bas de l'image (à droite en "
+    "RTL). `provider_gallery.dart` contient par ailleurs les 3 seules couleurs "
+    "Material en dur de toute la couche `features/` (`Colors.black54/white/white54`), "
+    "à corriger avec les rôles `scrim`/`onScrim` de FM-15.",
+    ["Retirer l'`AppBar` de `ProviderProfileScreen`, laisser la couverture aller "
+     "jusqu'en haut (bouton retour flottant à la place, sur voile `scrim`)",
+     "Avatar rond superposé chevauchant le bas de la couverture, aligné à droite en "
+     "RTL (`AlignmentDirectional`) — nécessite un champ d'avatar dédié côté API : si "
+     "absent du contrat (`V1ProvidersSlugGet200Response` n'expose que `gallery`), "
+     "utiliser la première image de la galerie en repli et noter l'écart en commentaire",
+     "Corriger les 3 couleurs en dur avec `colors.scrim`/`colors.onScrim` (FM-15)",
+     "Remplacer le squelette fait main (`_ProfileSkeleton`, hauteurs en dur) par "
+     "`AppSkeleton`",
+     "Remplacer le `CircularProgressIndicator.adaptive` de chargement d'image par "
+     "`AppSkeleton`"],
+    ["Le contenu de la barre de contact — FM-30", "Le formulaire d'avis — FM-30"],
+    ["Rendu conforme en thème sombre (A4) et en arabe/RTL (B4) : avatar à droite, "
+     "paragraphe de bio `textAlign` justifié à droite en arabe",
+     "Aucune couleur Material littérale restante dans `provider_gallery.dart` (le "
+     "garde-fou FM-18, une fois mergé, doit passer sur ce fichier)",
+     "Test widget avec `Locale('ar')` vérifiant l'alignement de l'avatar"],
+    "maquettes A4/B4 · `Code/apps/mobile/lib/features/provider_profile/presentation/"
+    "widgets/provider_gallery.dart`"))
+
+A(I("FM-30", "Refonte contact et avis : variante bouton contour, en-tête d'identité",
+    M7, ["type:refactor", "lot:mobile", "lot:design", "prio:P1", "sprint:S2", "rtl-ar"],
+    OUSSAMA, 2, ["FM-15", "FM-29"],
+    "`AppButtonVariant.whatsapp` est un fond vert plein ; les maquettes A4/B4 "
+    "veulent Appeler en bleu plein (action principale) et WhatsApp en contour vert "
+    "(action secondaire) — l'ordre [Call, WhatsApp] déjà codé est conservé "
+    "**par défaut** car il correspond à la hiérarchie voulue et se miroite "
+    "correctement en RTL via `Row`+`Directionality` sans logique manuelle (voir plan, "
+    "Arbitrages). Le formulaire d'avis n'a par ailleurs aucun en-tête d'identité "
+    "(vignette + nom + « Contact vérifié · il y a N jours ») alors que le profil est "
+    "déjà chargé en mémoire à cet endroit.",
+    ["Nouvelle variante `AppButtonVariant.outlineWhatsapp` (contour `whatsapp`, texte "
+     "`whatsapp`, fond transparent) dans `app_button.dart`",
+     "`ContactButtons` : Appeler en `primary`, WhatsApp en `outlineWhatsapp`",
+     "En-tête de `ReviewFormScreen` : vignette (avatar de FM-29 en repli), "
+     "`businessName`, libellé `verifiedContact` déjà traduit mais jamais consommé ici "
+     "— le « il y a 2 jours » doit venir du serveur déjà calculé (P3), sinon omettre "
+     "la partie relative plutôt que de la calculer côté Dart"],
+    ["Les notes par critère (Ponctualité/Qualité du travail) de B5 — nécessitent une "
+     "évolution de contrat API, à ouvrir comme issue backend séparée si retenues ; "
+     "non incluses ici faute de champ disponible"],
+    ["`AppButton` a 6 variantes testées (ajout de `outlineWhatsapp`)",
+     "La fiche artisan en arabe affiche Appeler à droite, WhatsApp à gauche "
+     "(vérifié par un test widget en `Locale('ar')`)",
+     "Le formulaire d'avis affiche qui l'on note avant la première étoile"],
+    "maquettes A4/B4 (contact) · A5/B5 (en-tête d'avis) · "
+    "`Code/apps/mobile/lib/core/widgets/app_button.dart`"))
+
+A(I("FM-31", "Onglet Historique client",
+    M7, ["type:feat", "lot:mobile", "prio:P1", "sprint:S2", "blocked"],
+    OUSSAMA, 3, ["FM-23"],
+    "Quatrième — en réalité troisième — onglet de la barre client (A1/B3). Aucun "
+    "concept d'historique n'existe dans le produit alors que retrouver un artisan "
+    "contacté est la fonction de rétention la plus évidente d'un modèle "
+    "lead-generation, et le déclencheur naturel du dépôt d'avis. ⛔ Bloqué : le "
+    "contrat n'expose que `POST /v1/contact-events` (écriture), aucun `GET` de "
+    "lecture — voir `BE-45`.",
+    ["Écran `ClientHistoryScreen` sous `/client/history` : liste des artisans "
+     "contactés, triée par date de contact décroissante, avec le canal (Appel/"
+     "WhatsApp) et un raccourci vers le dépôt d'avis si aucun avis n'est encore posé",
+     "États skeleton/vide (« Vous n'avez encore contacté aucun artisan » + CTA vers "
+     "Rechercher)/erreur",
+     "En attendant `BE-45`, l'onglet peut afficher un état « Bientôt disponible » "
+     "shippable dès FM-23 — cette issue couvre l'écran final une fois l'API prête"],
+    [],
+    ["L'écran affiche la liste réelle une fois `BE-45` livrée, avec pagination par "
+     "curseur",
+     "Taper une entrée ouvre la fiche artisan correspondante",
+     "Le CTA de dépôt d'avis n'apparaît que si aucun avis n'a encore été posé pour ce "
+     "contact"],
+    "maquette A1/B3 (onglet Historique) · `BE-45` (dépendance bloquante)"))
+
+A(I("FM-32", "Onglet Profil client",
+    M7, ["type:feat", "lot:mobile", "prio:P0", "sprint:S2"],
+    OUSSAMA, 2, ["FM-23", "FM-25"],
+    "Quatrième onglet client. `SettingsScreen` porte déjà langue/thème/mentions "
+    "légales/déconnexion mais est aujourd'hui inatteignable (aucun appelant) et ne "
+    "montre aucune identité utilisateur. `GET /v1/auth/me` est déjà disponible.",
+    ["`ClientProfileScreen` sous `/client/profile` : en-tête d'identité (nom/"
+     "téléphone masqué depuis `GET /v1/auth/me`), puis les sections déjà construites "
+     "de `SettingsScreen` (langue, thème — désormais persisté via FM-17, mentions "
+     "légales, déconnexion via `signOut()` — FM-25)",
+     "Fusionner `SettingsScreen` dans cet écran plutôt que de dupliquer (déplacer, "
+     "pas copier) ; `/settings` peut rediriger vers `/client/profile` pour compat "
+     "des liens existants ou être retiré du routeur"],
+    [],
+    ["Un client authentifié voit son numéro masqué et peut changer de langue/thème/"
+     "se déconnecter depuis cet onglet",
+     "Les tests de `settings_screen_test.dart` migrés et verts sur le nouvel écran"],
+    "maquette A1/B3 (onglet Profil) · `Code/apps/mobile/lib/features/settings/"
+    "presentation/settings_screen.dart` (contenu à reprendre)"))
+
+A(I("FM-33", "Refonte de l'authentification : marque, mention légale, bouton Confirmer",
+    M7, ["type:refactor", "lot:mobile", "lot:design", "prio:P0", "sprint:S2"],
+    OUSSAMA, 3, ["FM-15", "FM-16"],
+    "L'étape de sélection de rôle (`AuthStep.role`) n'apparaît dans aucune des "
+    "maquettes A3/B1 (qui ouvrent directement sur la saisie du numéro) — "
+    "**hypothèse retenue par défaut : la supprimer**, le rôle réel étant de toute "
+    "façon déterminé côté serveur, pas par ce choix (voir plan, Arbitrages). Il "
+    "manque par ailleurs le sous-titre, la mention légale CGU/confidentialité (B1), "
+    "le bouton « Confirmer » de l'écran OTP (déjà traduit, jamais affiché — la "
+    "soumission est aujourd'hui 100% automatique à la 6ᵉ touche, ce qui consomme une "
+    "tentative sur 3 sans confirmation possible) et le format mm:ss du compte à "
+    "rebours.",
+    ["Retirer `AuthStep.role`/`RoleSelectionStep` du flux (le rôle sert uniquement à "
+     "l'aiguillage post-connexion, déjà géré par la garde `redirect:` sur "
+     "`GET /auth/me`) — si le lead préfère le garder, cette tâche se limite alors à "
+     "le redessiner dans le style des planches",
+     "`phone_entry_step.dart` : sous-titre `auth.phoneSubtitle` (nouvelle clé), filet "
+     "séparant `+216` du champ (nouveau `prefix` sur `AppTextField`, FM-27/16 selon "
+     "dépendance), mention légale `auth.legalConsent` centrée en bas avec lien vers "
+     "`LegalNoticeScreen`",
+     "`otp_step.dart` : bouton `AppButton` « Confirmer » (clé `otpCta` déjà traduite) "
+     "en plus de la soumission auto à la 6ᵉ touche — les deux chemins restent valides, "
+     "le bouton permet de corriger avant envoi",
+     "Fonction `formatCountdown(seconds) → mm:ss` dans `lib/core/i18n/format.dart`, "
+     "clé `otpResendCountdown` mise à jour au format « Renvoyer le code ({mmss}) »",
+     "Remplacer `Theme.of(context).textTheme.*` par `AppText.*` dans les 3 widgets "
+     "d'auth (seuls de l'app dans ce cas)",
+     "Réécrire les tests d'auth cassés par le retrait de l'étape rôle"],
+    ["Le logo/tuile de marque (asset visuel absent de `assets/`, à fournir par le "
+     "lead — sans lui, garder un espace réservé neutre plutôt qu'une image manquante)"],
+    ["La saisie du numéro affiche sous-titre + mention légale + `+216` séparé par un "
+     "filet",
+     "L'écran OTP affiche un bouton Confirmer ET soumet automatiquement à la 6ᵉ "
+     "touche",
+     "Le compte à rebours affiche `0:47`, pas `47s`",
+     "`flutter test` vert sur `test/features/auth/`"],
+    "maquettes A3/B1 (saisie numéro) · B2 (code OTP) · "
+    "`Code/apps/mobile/lib/features/auth/presentation/`"))
+
+A(I("FM-34", "Refonte onboarding pro : étapes, catégories sélectionnables, plafonds",
+    M7, ["type:refactor", "lot:mobile", "lot:design", "prio:P0", "sprint:S2"],
+    OUSSAMA, 4, ["FM-15", "FM-16", "FM-24"],
+    "Quatre sources donnent quatre décomptes d'étapes différents (code : 4 · issue "
+    "FM-11 d'origine : 5 · ADR-003 : 3 · maquette C1 : « sur 7 »). Le « 7 » de C1 "
+    "correspond très probablement aux 7 critères de `calculateCompletionScore`, pas "
+    "à des étapes — **hypothèse retenue par défaut : garder un parcours à étapes "
+    "réelles (profil/catégories/zones/photos/récapitulatif = 5, cf. FM-35), afficher "
+    "« Étape N sur 5 » et NE PAS reprendre le « sur 7 » littéral de la maquette, "
+    "réservé à un futur indicateur de complétude séparé** (voir plan, Arbitrages, à "
+    "corriger si le lead tranche autrement). Par ailleurs les plafonds serveur (3 "
+    "catégories, 1 gouvernorat) ne sont ni appliqués ni expliqués côté client : "
+    "l'artisan est bloqué sans comprendre pourquoi.",
+    ["`OnboardingProgressHeader` : « Étape N sur 5 » + barre SEGMENTÉE (un segment "
+     "par étape) + libellé de l'étape courante aligné à droite — séparé de "
+     "`completionScore` qui reste affiché ailleurs (récapitulatif) mais plus ici",
+     "Carte de catégorie sélectionnable (nouveau composant partagé, cf. FM-41) : fond "
+     "`accentSubtle` si sélectionnée, badge « Principal » sur la catégorie "
+     "principale, ✓ sur les suivantes — remplace le `Checkbox`+`ChoiceChip` bruts",
+     "Plafond de 3 catégories appliqué côté UI (désactiver la sélection au-delà, "
+     "sous-titre « 3 catégories maximum en offre gratuite »), avec le message "
+     "d'erreur serveur (`details.limit`) affiché si l'utilisateur le dépasse malgré "
+     "tout",
+     "Même traitement pour le plafond de 1 gouvernorat sur l'étape zones",
+     "Remplacer les deux `CircularProgressIndicator` (catégories, zones) par "
+     "`AppSkeleton`, et les erreurs ad hoc par `ErrorState`",
+     "Namespace `errors.json` : au moins le mapping `VALIDATION_ERROR` avec "
+     "`details.limit` interpolé"],
+    ["L'étape tarifs (bloquée par l'absence d'endpoint d'écriture `offerings` — voir "
+     "`BE-47`, hors périmètre tant que non livré)",
+     "L'étape photos (traitée séparément dans FM-35, backend déjà prêt)"],
+    ["Un artisan qui essaie de sélectionner une 4ᵉ catégorie voit l'option désactivée "
+     "avec une explication, pas un blocage silencieux au moment de sauvegarder",
+     "Même critère pour un 2ᵉ gouvernorat",
+     "L'en-tête affiche « Étape N sur 5 » avec le bon N à chaque étape",
+     "`flutter test` vert sur `test/features/onboarding/`"],
+    "maquette C1 · `Code/apps/api/src/routes/providers.ts:661-666,718-723` (plafonds "
+    "serveur) · `Code/packages/core/src/providers/completion-score.ts`"))
+
+A(I("FM-35", "Étape photos/portfolio de l'onboarding (upload + compression)",
+    M7, ["type:feat", "lot:mobile", "prio:P0", "sprint:S2"],
+    OUSSAMA, 3, ["FM-34"],
+    "Contrairement aux tarifs, le backend est entièrement prêt (`POST /v1/media/"
+    "presign`, `POST /v1/media/{id}/process`, `POST`/`DELETE /providers/me/"
+    "portfolio`, BE-20a→d livrées) mais aucun code mobile ne les appelle — c'est un "
+    "pur manque côté app. Sans upload, toute fiche hors seed de démonstration n'aura "
+    "aucune photo, alors que A4/B4 ouvrent justement sur une image de couverture "
+    "plein écran.",
+    ["Nouvelle étape `OnboardingStep.photos` entre zones et récapitulatif",
+     "`image_picker` (ou équivalent déjà dans l'écosystème Flutter standard) + "
+     "compression avant upload — max 1600px, qualité 80, conforme à "
+     "`apps/mobile/CLAUDE.md`",
+     "Flux `presign` → upload direct → `process` → `POST /providers/me/portfolio`, "
+     "avec état de progression par image et gestion d'erreur par image (pas "
+     "d'échec global si une seule image échoue)",
+     "Quota FREE (5 photos, `plan-limits.ts`) affiché et appliqué côté UI",
+     "Suppression d'une photo déjà uploadée (`DELETE /providers/me/portfolio/{id}`)"],
+    [],
+    ["Un artisan peut ajouter jusqu'à 5 photos, en voir la progression d'upload, et "
+     "en supprimer une",
+     "Une image dépassant le quota affiche un message explicite, pas un échec "
+     "silencieux",
+     "Test d'intégration du flux presign→process→portfolio avec un mock du client "
+     "généré"],
+    "`backlog/DONE.md` (BE-20a→d livrées) · `Code/packages/core/src/billing/"
+    "plan-limits.ts` · `apps/mobile/CLAUDE.md` (compression images)"))
+
+A(I("FM-36", "Reprise de l'onboarding après fermeture de l'application",
+    M7, ["type:feat", "lot:mobile", "prio:P1", "sprint:S2", "blocked"],
+    OUSSAMA, 2, ["FM-34"],
+    "Critère d'acceptation de l'issue FM-11 d'origine (« sauvegarde à chaque étape, "
+    "reprise possible ») jamais tenu au-delà de la session en cours : "
+    "`OnboardingNotifier` documente lui-même la limite (« reprise : session-memory "
+    "uniquement »). ⛔ Bloqué par `GET /v1/providers/me`, absent du contrat — voir "
+    "`BE-44`, la dépendance transverse la plus structurante de tout l'espace pro "
+    "(elle débloque aussi FM-37/38/39).",
+    ["Au montage de `OnboardingScreen`, appeler `GET /providers/me` (une fois "
+     "`BE-44` livrée) et pré-remplir chaque étape depuis la réponse plutôt que depuis "
+     "l'état local vide",
+     "Si aucun profil n'existe encore (404 ou champ `publicationStatus` absent), "
+     "démarrer à l'étape 1 comme aujourd'hui"],
+    [],
+    ["Un artisan qui a rempli les 2 premières étapes puis tué l'app retrouve ses "
+     "données au relancement, sur la bonne étape",
+     "Un nouvel artisan sans profil démarre toujours à l'étape 1"],
+    "`Code/apps/mobile/lib/features/onboarding/application/onboarding_notifier.dart:17` "
+    "· `BE-44` (dépendance bloquante)"))
+
+A(I("FM-37", "Refonte tableau de bord pro : salutation, carte KPI, histogramme",
+    M7, ["type:refactor", "lot:mobile", "lot:design", "prio:P0", "sprint:S2"],
+    OUSSAMA, 4, ["FM-15", "FM-16", "FM-24"],
+    "Le tableau de bord actuel n'a rien de la structure A2/C2 : pas de salutation "
+    "« Bonjour, <nom> », pas de badge de disponibilité, 4 tuiles dispersées au lieu "
+    "d'une carte bleue pleine regroupant 3 chiffres, une courbe au lieu d'un "
+    "histogramme de 7 barres, aucun état vide pour l'artisan fraîchement publié (cas "
+    "majoritaire au lancement avec 20 artisans de seed).",
+    ["En-tête « Bonjour, <businessName ou prénom> » — nécessite de lire son propre "
+     "nom : en attendant `BE-44`, replier sur `GET /auth/me` (prénom) plutôt que de "
+     "bloquer tout l'écran",
+     "Badge de disponibilité (`AvailabilityChip` promu en composant commutable, cf. "
+     "FM-38 pour l'écriture réelle — ici l'affichage seul, en lecture, tant que "
+     "`BE-44` n'expose pas l'état courant)",
+     "`DashboardStatCard` : nouvelle variante `onAccent` regroupant 3 métriques dans "
+     "une seule `AppCard` à fond `accent` plein (au lieu de 4 tuiles séparées) — "
+     "**la ventilation Appels/WhatsApp de la maquette dépend de `BE-46`** ; en son "
+     "absence, afficher Vues/Contacts/Ratio (métriques déjà disponibles)",
+     "Nouveau widget `AppBarChart` (7 barres, une mise en avant en `chartBarHighlight`) "
+     "remplaçant `DashboardTrendChart` pour la fenêtre 7 jours — la courbe 30 jours "
+     "existante peut rester en complément ou être retirée, à trancher en revue",
+     "État vide explicite si `totals.profileViews == 0` : message encourageant "
+     "plutôt que des zéros bruts"],
+    ["La carte Pack Pro/Renouveler — traitée dans FM-40 (dépend d'EP-BILLING)"],
+    ["L'en-tête affiche un nom réel, jamais un espace vide ni un placeholder de "
+     "développement",
+     "Un artisan à 0 vue voit un message d'accueil, pas 3 cartes à zéro",
+     "L'histogramme affiche 7 barres avec la barre du jour courant mise en avant",
+     "`flutter test` vert sur `test/features/dashboard/`"],
+    "maquettes A2/C2 · `BE-44` (nom/disponibilité), `BE-46` (ventilation canaux) — "
+    "dépendances partielles, non totalement bloquantes"))
+
+A(I("FM-38", "Écran Profil pro : édition post-onboarding et disponibilité commutable",
+    M7, ["type:feat", "lot:mobile", "prio:P0", "sprint:S2", "blocked"],
+    OUSSAMA, 3, ["FM-24"],
+    "Aujourd'hui la seule façon de corriger sa bio ou son téléphone est de "
+    "retraverser l'assistant d'onboarding avec des champs vides (FM-36 le corrige "
+    "partiellement). Le badge de disponibilité n'a jamais d'`onChanged`, alors que "
+    "`PATCH /v1/providers/me` accepte déjà `availabilityStatus`. ⛔ Bloqué en lecture "
+    "par `GET /v1/providers/me` (`BE-44`) pour pré-remplir l'écran ; l'écriture "
+    "(`PATCH`) est déjà disponible et peut être développée en parallèle.",
+    ["`ProProfileScreen` sous `/pro/profile` (4ᵉ onglet) : formulaire d'édition "
+     "réutilisant les champs de `OnboardingProfileStep`, pré-rempli depuis "
+     "`GET /providers/me`",
+     "Badge de disponibilité commutable (AVAILABLE/BUSY/ON_HOLIDAY) avec écriture "
+     "`PATCH /providers/me`",
+     "Champs de disponibilité fine (`availableAgainAt`, `acceptsEmergency`, "
+     "`workingHours`) — au moins `acceptsEmergency`, qui alimente le chip « Urgence » "
+     "des résultats de recherche (FM-28) et resterait sinon un filtre client sans "
+     "artisan opt-in",
+     "Bouton « Voir ma fiche telle que la voit un client » → `/providers/:slug` "
+     "(nécessite de connaître son propre slug, donc `BE-44`)",
+     "Accès aux réglages (langue/thème/déconnexion, réutilise le contenu de FM-32)"],
+    [],
+    ["Un artisan peut modifier sa bio sans repasser par l'onboarding et voir le "
+     "changement reflété sur sa fiche publique",
+     "Basculer sa disponibilité en Occupé se reflète immédiatement sur la fiche "
+     "publique (invalider `providerProfileProvider`)",
+     "Activer « Accepte les urgences » rend l'artisan trouvable par le futur filtre "
+     "Urgence"],
+    "maquette A2/C2 (4ᵉ onglet pro) · `BE-44` (dépendance bloquante pour la lecture)"))
+
+A(I("FM-39", "Écran Avis reçus (pro)",
+    M7, ["type:feat", "lot:mobile", "prio:P1", "sprint:S2", "blocked"],
+    OUSSAMA, 2, ["FM-24"],
+    "Troisième onglet pro. L'artisan n'a aujourd'hui aucun moyen de consulter les "
+    "avis qui le concernent sans connaître son propre slug public. ⛔ Bloqué par "
+    "`GET /v1/providers/me` (`BE-44`) pour connaître ce slug ; la lecture des avis "
+    "elle-même réutilise `GET /providers/{slug}/reviews`, déjà au contrat.",
+    ["`ProReviewsScreen` sous `/pro/reviews` : réutilise `providerReviewsProvider` "
+     "avec le slug de l'artisan connecté (via `BE-44`)",
+     "Skeleton/vide (« Aucun avis reçu pour l'instant »)/erreur",
+     "Répondre à un avis reçu — hors périmètre tant que `BE-22b` (modèle "
+     "`ReviewReply`) n'est pas livré ; noter le point d'extension dans l'écran "
+     "(bouton désactivé ou masqué) sans bloquer le reste"],
+    ["La réponse de l'artisan à un avis (BE-22b, backlog non planifié)"],
+    ["L'artisan voit la liste paginée de ses propres avis, dans le même style que "
+     "la fiche publique (`ReviewTile` réutilisé)",
+     "L'écran affiche un état vide explicite pour un artisan sans avis"],
+    "maquette A2 (3ᵉ onglet pro) · `BE-44` (dépendance bloquante) · `backlog/"
+    "TODO.md` BE-22b (réponse aux avis, non planifiée)"))
+
+A(I("FM-40", "Écran Boosts/crédits — coquille visuelle (sans tunnel de paiement)",
+    M7, ["type:feat", "lot:mobile", "lot:design", "prio:P2", "sprint:S3+", "needs-decision"],
+    OUSSAMA, 3, ["FM-15", "FM-16", "FM-24"],
+    "⛔ Le tunnel d'achat réel dépend d'EP-BILLING (BE-32/34/35), bloqué par l'ADR-004 "
+    "non tranchée (moyens de paiement, question 2 du cadrage). Cette issue couvre "
+    "UNIQUEMENT la coquille et les états visuels des maquettes A6/C3 : solde de "
+    "crédits, bouton Acheter (désactivé ou vers un état « bientôt disponible »), "
+    "section Activer un boost avec options sélectionnables, sans aucune écriture "
+    "réelle de paiement ou de crédit.",
+    ["Segmented control Client|Pro en en-tête (nouveau composant, cf. FM-41)",
+     "Carte « Solde de crédits » avec valeur figée à 0 tant que `BE-34` n'existe pas, "
+     "bouton Acheter menant à un état « Bientôt disponible »",
+     "Cartes d'option de boost sélectionnables (24h/7j) avec état sélectionné "
+     "(fond `amber`, token FM-15) — contenu statique, aucun appel réseau",
+     "Namespace i18n `billing.*` rempli pour tout le vocabulaire visible (FR et AR) "
+     "— aujourd'hui `{}` dans les deux langues"],
+    ["Tout appel réseau réel de crédit/paiement — dépend d'EP-BILLING/ADR-004",
+     "L'écran Abonnement/Pack Pro détaillé — issue séparée à ouvrir une fois "
+     "BE-32 planifiée"],
+    ["Les 2 planches (A6 sombre, C3 clair) sont rendues à l'identique visuellement, "
+     "sans qu'aucun bouton ne déclenche un appel réseau de paiement",
+     "`billing.json` FR et AR n'est plus `{}`",
+     "Revue explicite du guard-rail ADR-002 sur cet écran avant merge"],
+    "maquettes A6/C3 · `EP-BILLING` (issues-data.py) · ADR-002 (badge gratuit)",
+    ["⚠️ **Guard-rail ADR-002** : aucun élément de cet écran ne doit suggérer que "
+     "payer rend « vérifié » — vérifié par le test de non-régression déjà actif "
+     "`verified_badge_test.dart` (aucune mention de `Subscription` dans "
+     "`verified_badge.dart`)",
+     "Le boost est explicitement étiqueté « Sponsorisé », jamais présenté comme "
+     "modifiant le classement de recherche"]))
+
+A(I("FM-41", "Composants partagés transverses : Badge, carte sélectionnable, bottom sheet",
+    M7, ["type:feat", "lot:mobile", "lot:design", "prio:P0", "sprint:S2"],
+    OUSSAMA, 3, ["FM-15", "FM-16"],
+    "Cinq pilules ad hoc (`AvailabilityChip`, `CoverageAreaChip`, "
+    "`DashboardComparisonChip._Chip`, la copie dans `ReviewTile`, celle dans "
+    "`provider_gallery.dart`) réimplémentent le même composant que FM-04f décrivait "
+    "déjà et personne n'a construit. Deux feuilles modales divergentes existent pour "
+    "sélectionner un gouvernorat. Trois écrans traitent différemment le même motif "
+    "de barre d'action fixe en bas.",
+    ["`AppBadge` générique (variantes pending/danger/neutral/sponsored/verified) — "
+     "clôture FM-04f ; migrer les 5 réimplémentations pour qu'elles le consomment",
+     "`AppSelectableCard` : carte avec état sélectionné (fond `accentSubtle`), badge "
+     "optionnel (« Principal »), utilisée par FM-34 (catégories) et FM-40 (boosts)",
+     "`AppBottomSheet` : poignée de glissement, titre, `SafeArea`, états loading/"
+     "vide/erreur — remplace `governorate_picker_sheet.dart` ET le sélecteur "
+     "dupliqué de `onboarding_profile_step.dart`",
+     "`AppSectionHeader`/`AppDivider` partagés (aujourd'hui `_SectionHeader` privé "
+     "dans `settings_screen.dart`, recopié différemment ailleurs)",
+     "`StickyActionBar` : conteneur `surface` + filet supérieur + `SafeArea`, "
+     "généralisant `_ContactBar` (aujourd'hui privé à la fiche artisan) — utilisé par "
+     "FM-30 (contact), FM-30 (publier l'avis), FM-34 (Continuer), FM-40 (Activer le "
+     "boost)"],
+    [],
+    ["Les 5 pilules ad hoc sont remplacées par `AppBadge` (grep négatif sur les "
+     "implémentations privées)",
+     "Une seule implémentation de feuille modale de sélection dans tout le dépôt",
+     "`AppSelectableCard` testé sélectionné/non sélectionné, FR et AR"],
+    "backlog non planifié FM-04f · audit du 2026-08-31 (doublons `etats-widgets`)"))
+
+A(I("FM-42", "Adoption systématique EmptyState/ErrorState/AppSkeleton + bandeau hors ligne",
+    M7, ["type:refactor", "lot:mobile", "prio:P0", "sprint:S2"],
+    OUSSAMA, 3, ["FM-23", "FM-24", "FM-41"],
+    "`EmptyState` n'est utilisé par aucun écran de production, `ErrorState` par un "
+    "seul, et 3 des 4 squelettes existants recopient `Container(surfaceSunken)` à la "
+    "main au lieu d'`AppSkeleton` — 8 réimplémentations locales identifiées par "
+    "l'audit. `OfflineBanner` et `ConnectivityService` sont tous deux livrés et "
+    "testés mais ne sont jamais reliés : le service n'a aucun consommateur.",
+    ["Remplacer les 8 réimplémentations locales (`_CategoriesError`/`_CategoriesEmpty` "
+     "dans `search_home_screen.dart`, `_FavoritesEmptyView`/`_FavoritesErrorView`, "
+     "`_ProfileError`, les erreurs ad hoc de l'onboarding déjà traitées par FM-34, "
+     "l'erreur d'avis de la fiche artisan) par `EmptyState`/`ErrorState`",
+     "Corriger le bug distinct relevé en chemin : `provider_profile_screen.dart` "
+     "affiche une erreur de chargement des avis comme « Aucun avis pour le moment » "
+     "— la branche `error` doit utiliser `ErrorState` avec un vrai bouton Réessayer",
+     "Remplacer les 3 squelettes faits main (`FavoriteCardSkeleton`, "
+     "`ProviderGallerySkeleton`, `CategoryGridSkeleton`) par des compositions "
+     "d'`AppSkeleton`",
+     "Monter `OfflineBanner` au niveau des deux shells (FM-23/FM-24), au-dessus des "
+     "onglets, piloté par `connectivityServiceProvider` — un seul point de câblage "
+     "plutôt qu'un par écran"],
+    [],
+    ["`grep 'EmptyState('` et `grep 'ErrorState('` renvoient au moins un usage par "
+     "écran de liste (résultats, favoris, avis, avis reçus pro)",
+     "Couper le réseau (mode avion) fait apparaître `OfflineBanner` sur n'importe "
+     "quel écran des deux shells, sans qu'aucun écran individuel n'ait à le coder",
+     "Le test de régression du bug avis-erreur-affiché-comme-vide passe (écrit "
+     "avant le correctif, vu rouge, `// régression #<issue>`)"],
+    "audit du 2026-08-31 (`etats-widgets`, note 6a/6b) · "
+    "`Code/apps/mobile/lib/core/connectivity/connectivity_provider.dart`"))
+
+A(I("FM-43", "Passe accessibilité : Semantics, TextScaler, contraste",
+    M7, ["type:chore", "lot:mobile", "prio:P1", "sprint:S2"],
+    OUSSAMA, 3, ["FM-22", "FM-27", "FM-29", "FM-33", "FM-34", "FM-37"],
+    "Une seule annotation `Semantics` existe dans toute l'application "
+    "(`category_grid.dart:70`). Les boutons de contact, les étoiles de notation, les "
+    "badges et les puces de variation sont muets pour un lecteur d'écran — un angle "
+    "mort complet sur un produit visant l'usage sur chantier, potentiellement avec "
+    "des gants. Cette issue passe après les refontes visuelles pour éviter de "
+    "retravailler deux fois les mêmes widgets ; elle peut néanmoins démarrer en "
+    "parallèle sur les widgets déjà stables (RatingStars, VerifiedBadge).",
+    ["`Semantics`/`semanticLabel` sur : `RatingStars`/`RatingStarsInput` (note "
+     "annoncée en texte, pas 5 icônes muettes), `VerifiedBadge`, `AppBadge` (FM-41), "
+     "`ContactButtons`, `AppBottomNav` (déjà couvert par FM-22, vérifier ici), les 6 "
+     "cases `OtpCodeField`",
+     "Appliquer `AppLayout.touchTarget` (48dp) aux `Checkbox`/cases interactives de "
+     "l'onboarding, aujourd'hui non vérifiées",
+     "Étendre le test `TextScaler` 1.3 de FM-17 à au moins 3 écrans supplémentaires "
+     "(résultats, tableau de bord, onboarding)",
+     "Documenter la checklist d'accessibilité dans `apps/mobile/CLAUDE.md` (absente "
+     "aujourd'hui de la checklist de PR) pour qu'elle soit opposable en revue comme "
+     "l'i18n"],
+    [],
+    ["Un lecteur d'écran (TalkBack) annonce correctement la note, le badge vérifié "
+     "et l'état de chaque bouton de contact",
+     "`flutter analyze` ne signale aucune cible tactile sous 48dp sur les écrans "
+     "audités",
+     "`apps/mobile/CLAUDE.md` référence désormais une checklist a11y"],
+    "audit du 2026-08-31 (`a11y-motion` partiel + occurrences relevées dans "
+    "`parcours-client`/`parcours-pro`/`etats-widgets`)"))
+
+# --- Issues backend débloquant l'espace pro (identifiées par l'audit design) -------
+
+A(I("BE-44", "GET /v1/providers/me — lire son propre profil artisan",
+    M1, ["type:feat", "lot:backend", "domaine:providers", "prio:P0", "sprint:S2", "contrat-api"],
+    OUSSAMA, 3, [],
+    "Dépendance transverse la plus structurante identifiée par l'audit design mobile "
+    "du 2026-08-31 : sans cette route, un artisan connecté ne peut lire ni son "
+    "`businessName` (salutation du tableau de bord), ni son `availabilityStatus` "
+    "(badge commutable), ni son propre `slug` (aperçu de fiche, avis reçus), ni "
+    "pré-remplir l'onboarding pour le reprendre après fermeture de l'app. Elle "
+    "débloque à elle seule FM-36/37/38/39. Absente de `backlog/TODO.md` — ce n'est "
+    "pas un report assumé, c'est un trou détecté a posteriori.",
+    ["`GET /v1/providers/me` : renvoie le `ProviderProfile` complet du compte "
+     "authentifié (même forme que `GET /providers/{slug}` côté champs, plus les "
+     "champs privés utiles à l'édition : `availabilityStatus`, `availableAgainAt`, "
+     "`acceptsEmergency`, `workingHours`, `publicationStatus`, `completionScore`)",
+     "401 si non authentifié, 403 si le compte n'a pas le rôle PROVIDER",
+     "Régénérer `contracts/openapi.json` et le client Dart"],
+    [],
+    ["Test d'intégration : profil existant → 200 avec les champs privés ; aucun "
+     "profil créé → 404 explicite (pas un 500) ; rôle CLIENT → 403",
+     "`pnpm api:contract --check` vert après régénération",
+     "Aucune donnée d'un AUTRE artisan ne fuite (la route ne prend aucun paramètre, "
+     "l'identité vient exclusivement du token)"],
+    "audit design mobile 2026-08-31 (note transverse n°1, section `parcours-pro`) · "
+    "P3 (CLAUDE.md §2, l'API renvoie ce que le mobile doit afficher déjà calculé)"))
+
+A(I("BE-45", "GET /v1/contact-events — historique de lecture pour le client",
+    M1, ["type:feat", "lot:backend", "domaine:contact", "prio:P1", "sprint:S2", "contrat-api"],
+    OUSSAMA, 3, [],
+    "`POST /v1/contact-events` existe (écriture, P9) mais aucune route de lecture ne "
+    "permet à un client de retrouver les artisans qu'il a contactés — débloque "
+    "l'onglet Historique côté mobile (FM-31), le déclencheur naturel du dépôt d'avis.",
+    ["`GET /v1/contact-events` : pagination par curseur, filtrée sur "
+     "`userId = ` l'utilisateur authentifié, triée par `createdAt` décroissant",
+     "Chaque item renvoie déjà les libellés calculés nécessaires à l'affichage "
+     "(nom/slug/vignette de l'artisan, canal, date) — P3 : pas de second appel "
+     "`GET /providers/:slug` par item côté mobile",
+     "Champ indiquant si un avis a déjà été posé pour ce contact (pour le CTA "
+     "conditionnel de FM-31)"],
+    [],
+    ["Test d'intégration : un utilisateur ne voit que SES propres contacts, jamais "
+     "ceux d'un autre compte",
+     "Pagination par curseur testée sur >1 page",
+     "`pnpm api:contract --check` vert"],
+    "audit design mobile 2026-08-31 (`navigation`, gap « Onglet Historique ») · P9 "
+    "(CLAUDE.md §2)"))
+
+A(I("BE-46", "Ventilation des contacts par canal dans GET /providers/me/stats",
+    M1, ["type:feat", "lot:backend", "domaine:analytics", "prio:P2", "sprint:S2", "contrat-api"],
+    OUSSAMA, 2, [],
+    "La maquette A2 affiche « 47 Appels / 63 WhatsApp » ; l'API n'expose aujourd'hui "
+    "qu'un total `contacts` agrégé. La donnée est déjà collectée (`ContactEvent."
+    "channel: PHONE|WHATSAPP`), seule l'agrégation par canal manque — voisin de "
+    "`BE-43` déjà noté au backlog non planifié pour `DailyProviderStat`.",
+    ["Étendre `GET /v1/providers/me/stats` avec `contactsByChannel: { phone, "
+     "whatsapp }` dans `totals` (et éventuellement dans la série journalière si "
+     "l'histogramme de FM-37 en a besoin)",
+     "`packages/core/src/analytics/provider-stats.ts` : ventiler l'agrégation "
+     "existante par `channel` sans dupliquer la logique de comptage"],
+    [],
+    ["Test unitaire `packages/core` : un jeu de `ContactEvent` mixte produit le bon "
+     "compte par canal",
+     "Aucun changement de forme cassant pour les consommateurs existants du champ "
+     "`contacts` agrégé (additif, pas de breaking change)"],
+    "audit design mobile 2026-08-31 (`parcours-pro`, gap « Ventilation des "
+    "contacts ») · voisin de `BE-43` (backlog non planifié)"))
+
+A(I("BE-47", "Écriture des offerings (tarifs) sous /providers/me/*",
+    M1, ["type:feat", "lot:backend", "domaine:providers", "prio:P2", "sprint:S2", "contrat-api"],
+    OUSSAMA, 3, [],
+    "La fiche artisan publique lit déjà `offerings` avec `displayPrice`, mais aucune "
+    "route d'écriture n'existe sous `/providers/me/*` — c'est le seul vrai manque "
+    "BACKEND (non planifié) qui bloque une étape entière des maquettes (tarifs, "
+    "listée au périmètre de l'issue FM-11 d'origine mais jamais livrée).",
+    ["`POST`/`PATCH`/`DELETE /v1/providers/me/offerings` : titre, description, prix "
+     "en millimes (jamais de float, P4/§4.1), affichage optionnel du prix",
+     "Validation métier dans `packages/core` (pas dans la route, P3) — au minimum un "
+     "prix positif et un titre non vide",
+     "Régénérer `contracts/openapi.json` et le client Dart"],
+    [],
+    ["Test d'intégration cas passant + au moins un cas d'erreur (prix négatif "
+     "rejeté)",
+     "`pnpm api:contract --check` vert",
+     "`calculateCompletionScore` peut être étendu pour noter ce champ si le lead le "
+     "décide — hors périmètre de cette issue, à ouvrir séparément"],
+    "audit design mobile 2026-08-31 (`parcours-pro`, gap « Étape Tarifs ») · "
+    "`backlog/DONE.md:149`"))
+
+# =============================================================================
 # Rendu du corps d'issue
 # =============================================================================
 def body(it):
@@ -954,6 +1881,23 @@ def body(it):
     p.append("\n---\n<sub>Issue générée depuis `tooling/scripts/issues-data.py` — "
              "source unique : `backlog/TODO.md`. Voir `CLAUDE.md` pour les guard-rails globaux.</sub>")
     return "\n".join(p)
+
+
+# Marque toutes les issues du lot "refonte design mobile" avec le label REFONTE,
+# pour que `ONLY=refonte-design-mobile gh-seed-issues.sh` ne touche qu'elles —
+# les ~90 issues S1-S6 déjà créées sur GitHub restent intactes.
+REFONTE_IDS = {
+    "FM-15", "FM-16", "FM-17", "FM-18", "FM-19", "FM-22", "FM-23", "FM-24",
+    "FM-25", "FM-26", "FM-27", "FM-28", "FM-29", "FM-30", "FM-31", "FM-32",
+    "FM-33", "FM-34", "FM-35", "FM-36", "FM-37", "FM-38", "FM-39", "FM-40",
+    "FM-41", "FM-42", "FM-43", "BE-44", "BE-45", "BE-46", "BE-47",
+}
+for _it in ISSUES:
+    if _it["id"] in REFONTE_IDS:
+        _it["labels"].append(REFONTE)
+missing = REFONTE_IDS - {it["id"] for it in ISSUES}
+if missing:
+    sys.exit(f"issues-data.py: REFONTE_IDS introuvables dans ISSUES : {sorted(missing)}")
 
 
 out = []

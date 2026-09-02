@@ -63,6 +63,50 @@
 
 ---
 
+## LOT REFONTE — Design mobile complet · milestone M7 · ~93 h
+
+> Sprint S1 a livré le MVP mobile fonctionnel, pas le design complet des maquettes du
+> lead. Audit exhaustif + découpage détaillé : `Code/docs/PLAN-REFONTE-DESIGN-MOBILE.md`.
+> Issues GitHub `FM-15`→`FM-19`, `FM-22`→`FM-43`, `BE-44`→`BE-47` (milestone M7, hors
+> `BE-44`→`BE-47` qui restent en M1). Label GitHub `refonte-design-mobile` pour les
+> retrouver toutes.
+
+| ID | Tâche | Est. | Dépend de |
+|---|---|---|---|
+| `FM-15` | Générateur de tokens : élévation, motion, tracking, icônes, nouveaux rôles | 4 h | — |
+| `FM-16` | ThemeData complet : TextTheme M3 et sous-thèmes de composants | 3 h | FM-15 |
+| `FM-17` | Persistance du thème et accessibilité (contraste AA, TextScaler) | 2 h | FM-15 |
+| `FM-18` | Garde-fou CI anti-valeurs-en-dur et vitrine `/_ds-preview` enrichie | 3 h | FM-15, FM-16 |
+| `FM-19` | Clés i18n de navigation FR/AR | 1 h | — |
+| `FM-22` | Widget partagé `AppBottomNav` | 2 h | FM-15, FM-19 |
+| `FM-23` | Shell client : navigation à 4 onglets + suppression du hub de dev | 5 h | FM-22 |
+| `FM-24` | Shell pro : navigation à 4 onglets, dashboard comme racine | 4 h | FM-22 |
+| `FM-25` | Corriger la déconnexion + bascule Client ↔ Pro | 2 h | FM-23, FM-24 |
+| `FM-26` | Câbler les écrans déjà construits mais orphelins | 2 h | FM-23 |
+| `FM-27` | Widgets partagés de recherche : chip de filtre, carte artisan, barre | 3 h | FM-15, FM-16 |
+| `FM-28` | Écran de résultats de recherche : pagination, filtres, cache disque | 5 h | FM-27, FM-23 |
+| `FM-29` | Refonte fiche artisan : couverture plein-écran et avatar (RTL) | 3 h | FM-15 |
+| `FM-30` | Refonte contact et avis : bouton contour, en-tête d'identité | 2 h | FM-15, FM-29 |
+| `FM-31` | Onglet Historique client ⚠️ bloqué par `BE-45` | 3 h | FM-23 |
+| `FM-32` | Onglet Profil client | 2 h | FM-23, FM-25 |
+| `FM-33` | Refonte authentification : marque, mention légale, bouton Confirmer | 3 h | FM-15, FM-16 |
+| `FM-34` | Refonte onboarding pro : étapes, catégories, plafonds | 4 h | FM-15, FM-16, FM-24 |
+| `FM-35` | Étape photos/portfolio de l'onboarding | 3 h | FM-34 |
+| `FM-36` | Reprise de l'onboarding après fermeture ⚠️ bloqué par `BE-44` | 2 h | FM-34 |
+| `FM-37` | Refonte tableau de bord pro : salutation, KPI, histogramme | 4 h | FM-15, FM-16, FM-24 |
+| `FM-38` | Écran Profil pro : édition et disponibilité commutable ⚠️ bloqué par `BE-44` | 3 h | FM-24 |
+| `FM-39` | Écran Avis reçus (pro) ⚠️ bloqué par `BE-44` | 2 h | FM-24 |
+| `FM-40` | Écran Boosts/crédits — coquille visuelle ⚠️ bloqué par EP-BILLING/ADR-004 | 3 h | FM-15, FM-16, FM-24 |
+| `FM-41` | Composants partagés transverses : Badge, carte sélectionnable, bottom sheet | 3 h | FM-15, FM-16 |
+| `FM-42` | Adoption systématique des états + bandeau hors ligne | 3 h | FM-23, FM-24, FM-41 |
+| `FM-43` | Passe accessibilité : Semantics, TextScaler, contraste | 3 h | FM-22, FM-27, FM-29, FM-33, FM-34, FM-37 |
+| `BE-44` | `GET /v1/providers/me` — lire son propre profil (débloque 4 issues mobiles) | 3 h | — |
+| `BE-45` | `GET /v1/contact-events` — historique de lecture | 3 h | — |
+| `BE-46` | Ventilation des contacts par canal dans les stats | 2 h | — |
+| `BE-47` | Écriture des `offerings` (tarifs) sous `/providers/me/*` | 3 h | — |
+
+---
+
 ## ⚪ Reporté au sprint S2 — **ne pas commencer**
 
 ### Lot WEB — priorité n°1 de S2 (~35 h, backend déjà prêt)
