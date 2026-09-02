@@ -25,7 +25,8 @@ seule vraie violation trouvée (`provider_gallery.dart`, 3 littéraux) en réuti
 `scrim`/`onScrim` (FM-15d, jusqu'ici inutilisés dans l'app — aucun nouveau token). Critère
 d'acceptation vérifié en local : casser volontairement `provider_gallery.dart` → le scan et le
 nouveau test Dart échouent tous les deux, corriger → les deux repassent au vert. `flutter test`
-336/336. PR à ouvrir — déplacée vers `DONE.md` une fois mergée.)*
+336/336. PR #261 ouverte contre `develop`, en attente de revue — déplacée vers `DONE.md` une fois
+mergée.)*
 
 *(FM-17 — 2/2 PRs mergées #258/#259 — déplacée vers `DONE.md`.)*
 
