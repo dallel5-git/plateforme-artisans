@@ -29,16 +29,11 @@ class DashboardScreen extends ConsumerWidget {
     final statsAsync = ref.watch(dashboardStatsProvider);
     final t = ref.watch(translationsProvider);
     final colors = context.colors;
-    final locale = Localizations.localeOf(context);
 
     return Scaffold(
       backgroundColor: colors.background,
       appBar: AppBar(
-        backgroundColor: colors.surface,
-        title: Text(
-          t.dashboard.title,
-          style: AppText.h3(locale).copyWith(color: colors.textPrimary),
-        ),
+        title: Text(t.dashboard.title),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => context.go('/pro'),

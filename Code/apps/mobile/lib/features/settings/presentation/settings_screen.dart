@@ -27,13 +27,7 @@ class SettingsScreen extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: colors.background,
-      appBar: AppBar(
-        backgroundColor: colors.surface,
-        title: Text(
-          t.settings.title,
-          style: AppText.h3(locale).copyWith(color: colors.textPrimary),
-        ),
-      ),
+      appBar: AppBar(title: Text(t.settings.title)),
       body: ListView(
         padding: const EdgeInsets.all(AppSpacing.md),
         children: [
@@ -154,7 +148,6 @@ class SettingsScreen extends ConsumerWidget {
     final shouldLogout = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        backgroundColor: colors.surface,
         title: Text(
           t.settings.logoutConfirmTitle,
           style: AppText.h3(locale).copyWith(color: colors.textPrimary),

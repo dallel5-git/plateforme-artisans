@@ -18,7 +18,6 @@ class HomeScreen extends ConsumerWidget {
     return Scaffold(
       backgroundColor: context.colors.background,
       appBar: AppBar(
-        backgroundColor: context.colors.surface,
         actions: [
           IconButton(
             tooltip: t.common.home.toggleLocale,

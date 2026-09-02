@@ -74,7 +74,6 @@
 | ID | Tâche | Est. | Dépend de |
 |---|---|---|---|
 | `FM-15` | Générateur de tokens : élévation, motion, tracking, icônes, nouveaux rôles | 4 h | — |
-| `FM-16` | ThemeData complet : TextTheme M3 et sous-thèmes de composants | 3 h | FM-15 |
 | `FM-17` | Persistance du thème et accessibilité (contraste AA, TextScaler) | 2 h | FM-15 |
 | `FM-18` | Garde-fou CI anti-valeurs-en-dur et vitrine `/_ds-preview` enrichie | 3 h | FM-15, FM-16 |
 | `FM-19` | Clés i18n de navigation FR/AR | 1 h | — |
