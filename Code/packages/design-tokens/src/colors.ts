@@ -82,7 +82,19 @@ export const semantic = {
     "destructive-subtle": "#FDECEC",
     "rating": "#C77800",
     "sponsored": "#A9640A",
-    "whatsapp": "#128C7E"
+    "whatsapp": "#128C7E",
+    "on-whatsapp": "#FFFFFF",
+    "amber": "#C77800",
+    "on-amber": "#FFFFFF",
+    "scrim": "#2B2F36",
+    "on-scrim": "#FFFFFF",
+    "thumbnail": "#F3F2ED",
+    "thumbnail-border": "#E9ECF0",
+    "chart-bar": "#95B4F0",
+    "chart-bar-highlight": "#3B6FE0",
+    "nav-active": "#3B6FE0",
+    "nav-inactive": "#78818F",
+    "nav-background": "#FFFFFF"
   },
   "dark": {
     "background": "#0A0D12",
@@ -107,7 +119,19 @@ export const semantic = {
     "destructive-subtle": "#2E1414",
     "rating": "#F5A623",
     "sponsored": "#E8A72B",
-    "whatsapp": "#25D366"
+    "whatsapp": "#25D366",
+    "on-whatsapp": "#FFFFFF",
+    "amber": "#F5A623",
+    "on-amber": "#141A24",
+    "scrim": "#05070A",
+    "on-scrim": "#FFFFFF",
+    "thumbnail": "#232C39",
+    "thumbnail-border": "#343D4B",
+    "chart-bar": "#2A57C4",
+    "chart-bar-highlight": "#6690E8",
+    "nav-active": "#6690E8",
+    "nav-inactive": "#A8B0BD",
+    "nav-background": "#141A24"
   }
 } as const;
 

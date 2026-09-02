@@ -89,6 +89,18 @@ class AppColors extends ThemeExtension<AppColors> {
   final Color rating;
   final Color sponsored;
   final Color whatsapp;
+  final Color onWhatsapp;
+  final Color amber;
+  final Color onAmber;
+  final Color scrim;
+  final Color onScrim;
+  final Color thumbnail;
+  final Color thumbnailBorder;
+  final Color chartBar;
+  final Color chartBarHighlight;
+  final Color navActive;
+  final Color navInactive;
+  final Color navBackground;
 
   const AppColors({
     required this.background,
@@ -114,6 +126,18 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.rating,
     required this.sponsored,
     required this.whatsapp,
+    required this.onWhatsapp,
+    required this.amber,
+    required this.onAmber,
+    required this.scrim,
+    required this.onScrim,
+    required this.thumbnail,
+    required this.thumbnailBorder,
+    required this.chartBar,
+    required this.chartBarHighlight,
+    required this.navActive,
+    required this.navInactive,
+    required this.navBackground,
   });
 
   static const light = AppColors(
@@ -140,6 +164,18 @@ class AppColors extends ThemeExtension<AppColors> {
     rating: const Color(0xFFC77800),
     sponsored: const Color(0xFFA9640A),
     whatsapp: const Color(0xFF128C7E),
+    onWhatsapp: const Color(0xFFFFFFFF),
+    amber: const Color(0xFFC77800),
+    onAmber: const Color(0xFFFFFFFF),
+    scrim: const Color(0xFF2B2F36),
+    onScrim: const Color(0xFFFFFFFF),
+    thumbnail: const Color(0xFFF3F2ED),
+    thumbnailBorder: const Color(0xFFE9ECF0),
+    chartBar: const Color(0xFF95B4F0),
+    chartBarHighlight: const Color(0xFF3B6FE0),
+    navActive: const Color(0xFF3B6FE0),
+    navInactive: const Color(0xFF78818F),
+    navBackground: const Color(0xFFFFFFFF),
   );
 
   static const dark = AppColors(
@@ -166,6 +202,18 @@ class AppColors extends ThemeExtension<AppColors> {
     rating: const Color(0xFFF5A623),
     sponsored: const Color(0xFFE8A72B),
     whatsapp: const Color(0xFF25D366),
+    onWhatsapp: const Color(0xFFFFFFFF),
+    amber: const Color(0xFFF5A623),
+    onAmber: const Color(0xFF141A24),
+    scrim: const Color(0xFF05070A),
+    onScrim: const Color(0xFFFFFFFF),
+    thumbnail: const Color(0xFF232C39),
+    thumbnailBorder: const Color(0xFF343D4B),
+    chartBar: const Color(0xFF2A57C4),
+    chartBarHighlight: const Color(0xFF6690E8),
+    navActive: const Color(0xFF6690E8),
+    navInactive: const Color(0xFFA8B0BD),
+    navBackground: const Color(0xFF141A24),
   );
 
   @override
@@ -193,6 +241,18 @@ class AppColors extends ThemeExtension<AppColors> {
     Color? rating,
     Color? sponsored,
     Color? whatsapp,
+    Color? onWhatsapp,
+    Color? amber,
+    Color? onAmber,
+    Color? scrim,
+    Color? onScrim,
+    Color? thumbnail,
+    Color? thumbnailBorder,
+    Color? chartBar,
+    Color? chartBarHighlight,
+    Color? navActive,
+    Color? navInactive,
+    Color? navBackground,
   }) => AppColors(
     background: background ?? this.background,
     surface: surface ?? this.surface,
@@ -217,6 +277,18 @@ class AppColors extends ThemeExtension<AppColors> {
     rating: rating ?? this.rating,
     sponsored: sponsored ?? this.sponsored,
     whatsapp: whatsapp ?? this.whatsapp,
+    onWhatsapp: onWhatsapp ?? this.onWhatsapp,
+    amber: amber ?? this.amber,
+    onAmber: onAmber ?? this.onAmber,
+    scrim: scrim ?? this.scrim,
+    onScrim: onScrim ?? this.onScrim,
+    thumbnail: thumbnail ?? this.thumbnail,
+    thumbnailBorder: thumbnailBorder ?? this.thumbnailBorder,
+    chartBar: chartBar ?? this.chartBar,
+    chartBarHighlight: chartBarHighlight ?? this.chartBarHighlight,
+    navActive: navActive ?? this.navActive,
+    navInactive: navInactive ?? this.navInactive,
+    navBackground: navBackground ?? this.navBackground,
   );
 
   @override
@@ -246,6 +318,18 @@ class AppColors extends ThemeExtension<AppColors> {
       rating: Color.lerp(this.rating, other.rating, t)!,
       sponsored: Color.lerp(this.sponsored, other.sponsored, t)!,
       whatsapp: Color.lerp(this.whatsapp, other.whatsapp, t)!,
+      onWhatsapp: Color.lerp(this.onWhatsapp, other.onWhatsapp, t)!,
+      amber: Color.lerp(this.amber, other.amber, t)!,
+      onAmber: Color.lerp(this.onAmber, other.onAmber, t)!,
+      scrim: Color.lerp(this.scrim, other.scrim, t)!,
+      onScrim: Color.lerp(this.onScrim, other.onScrim, t)!,
+      thumbnail: Color.lerp(this.thumbnail, other.thumbnail, t)!,
+      thumbnailBorder: Color.lerp(this.thumbnailBorder, other.thumbnailBorder, t)!,
+      chartBar: Color.lerp(this.chartBar, other.chartBar, t)!,
+      chartBarHighlight: Color.lerp(this.chartBarHighlight, other.chartBarHighlight, t)!,
+      navActive: Color.lerp(this.navActive, other.navActive, t)!,
+      navInactive: Color.lerp(this.navInactive, other.navInactive, t)!,
+      navBackground: Color.lerp(this.navBackground, other.navBackground, t)!,
     );
   }
 }
