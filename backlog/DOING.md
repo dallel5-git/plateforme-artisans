@@ -30,8 +30,8 @@ WCAG (`test/support/wcag_contrast.dart` + `test/core/theme/contrast_test.dart`) 
 citée par l'issue) et `ProviderCard`, FR+AR : ont révélé 4 vrais débordements `RenderFlex` (pas des
 tokens, du layout Dart pur) — corrigés en route par `Flexible`/ellipsis dans `app_button.dart`,
 `provider_card.dart`, `rating_stars.dart`, `provider_profile_screen.dart` et `offering_card.dart`.
-`flutter test` 330/330, `flutter analyze` zéro warning. PR à ouvrir — déplacée vers `DONE.md` une
-fois mergée.)*
+`flutter test` 330/330, `flutter analyze` zéro warning. PR #259 ouverte contre `develop`, en attente
+de revue — déplacée vers `DONE.md` une fois mergée.)*
 
 *(FM-16 — 3/3 PRs mergées #254/#255/#256 — déplacée vers `DONE.md`. Piège **stacked PR** rencontré :
 `FM-16c` (#256, base `feat/FM-16b-sous-themes-composants`) a fusionné 17 s *après* que #255 (même
