@@ -28,10 +28,7 @@ class DesignSystemPreviewScreen extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: context.colors.background,
-      appBar: AppBar(
-        backgroundColor: context.colors.surface,
-        title: Text(t.common.home.designSystemPreview),
-      ),
+      appBar: AppBar(title: Text(t.common.home.designSystemPreview)),
       body: ListView(
         padding: const EdgeInsets.all(AppSpacing.lg),
         children: [
