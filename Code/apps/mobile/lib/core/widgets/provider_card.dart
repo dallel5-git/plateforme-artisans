@@ -88,13 +88,22 @@ class ProviderCard extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        RatingStars(rating: rating, reviewCount: reviewCount),
+                        Flexible(
+                          child: RatingStars(
+                            rating: rating,
+                            reviewCount: reviewCount,
+                          ),
+                        ),
                         if (priceLabel != null)
-                          Text(
-                            priceLabel!,
-                            style: AppText.small(
-                              locale,
-                            ).copyWith(color: colors.accent, height: 1),
+                          Flexible(
+                            child: Text(
+                              priceLabel!,
+                              style: AppText.small(
+                                locale,
+                              ).copyWith(color: colors.accent, height: 1),
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.end,
+                            ),
                           ),
                       ],
                     ),

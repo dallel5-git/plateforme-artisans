@@ -162,10 +162,13 @@ class _ProfileContent extends ConsumerWidget {
                         color: colors.textMuted,
                       ),
                       const SizedBox(width: AppSpacing.xs),
-                      Text(
-                        yearsExpText,
-                        style: AppText.small(locale).copyWith(
-                          color: colors.textSecondary,
+                      Flexible(
+                        child: Text(
+                          yearsExpText,
+                          style: AppText.small(locale).copyWith(
+                            color: colors.textSecondary,
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ],

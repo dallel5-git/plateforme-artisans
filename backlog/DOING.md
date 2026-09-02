@@ -18,6 +18,21 @@ _(aucune tâche DEV-1 en cours — `FM-05` et `FM-10` terminées, déplacées ve
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
 
+*(FM-17a — Persistance de `themeModeProvider` (même patron que `localeProvider`/
+`selectedGovernorateIdProvider`). `flutter test` 316/316, `flutter analyze` zéro warning. PR #258
+ouverte contre `develop`, en attente de revue.)*
+
+*(FM-17b — Contraste AA + TextScaler 1.3 (issue #216, sous-tâche 2/2 de FM-17). Script de contraste
+WCAG (`test/support/wcag_contrast.dart` + `test/core/theme/contrast_test.dart`) : couverture élargie
+à toutes les paires `on*/base` (décidé avec Oussama), 4 vraies paires sous le seuil AA trouvées et
+épinglées comme dette connue plutôt que corrigées ici (touche `tokens.json`, hors périmètre — voir
+`FM-17c` dans `TODO.md`). Tests `TextScaler.linear(1.3)` sur `ProviderProfileScreen` (fiche artisan,
+citée par l'issue) et `ProviderCard`, FR+AR : ont révélé 4 vrais débordements `RenderFlex` (pas des
+tokens, du layout Dart pur) — corrigés en route par `Flexible`/ellipsis dans `app_button.dart`,
+`provider_card.dart`, `rating_stars.dart`, `provider_profile_screen.dart` et `offering_card.dart`.
+`flutter test` 330/330, `flutter analyze` zéro warning. PR à ouvrir — déplacée vers `DONE.md` une
+fois mergée.)*
+
 *(FM-16 — 3/3 PRs mergées #254/#255/#256 — déplacée vers `DONE.md`. Piège **stacked PR** rencontré :
 `FM-16c` (#256, base `feat/FM-16b-sous-themes-composants`) a fusionné 17 s *après* que #255 (même
 branche → `develop`) avait déjà fusionné — GitHub affichait les deux PRs « MERGED », mais le contenu

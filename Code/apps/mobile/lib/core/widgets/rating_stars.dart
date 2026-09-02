@@ -35,9 +35,14 @@ class RatingStars extends StatelessWidget {
             size: size,
           ),
         const SizedBox(width: AppSpacing.xs),
-        Text(
-          reviewCount != null ? '$ratingLabel ($reviewCount)' : ratingLabel,
-          style: AppText.small(locale).copyWith(color: colors.textSecondary),
+        Flexible(
+          child: Text(
+            reviewCount != null ? '$ratingLabel ($reviewCount)' : ratingLabel,
+            style: AppText.small(
+              locale,
+            ).copyWith(color: colors.textSecondary),
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
       ],
     );
