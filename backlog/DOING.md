@@ -18,6 +18,21 @@ _(aucune tâche DEV-1 en cours — `FM-05` et `FM-10` terminées, déplacées ve
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
 
+*(FM-18b — `docs/design-system.html` généré depuis `tokens.json` (10ᵉ target de `build-tokens.mjs`),
+remplace les 2 copies à la main (bloc CSS `:root` + objet JS `SEM`) qui avaient divergé — le
+`--c-border` sombre recopié était `#1F2733`, la vraie valeur actuelle est `#2A3441` ; 12 rôles
+ajoutés par FM-15d (`onWhatsapp`, `amber`/`onAmber`, `scrim`/`onScrim`, `thumbnail*`, `chartBar*`,
+`nav*`) étaient absents. Regroupement éditorial du nuancier (§1) conservé tel quel + un 6ᵉ groupe
+« Autres rôles » calculé automatiquement pour tout rôle non couvert (future-proof, aucune retouche
+du générateur nécessaire au prochain rôle ajouté à `tokens.json`). Critère d'acceptation vérifié en
+local : casser volontairement une valeur dans le HTML committé → `tokens:build:check` échoue,
+restaurer → repasse au vert. `pnpm test` (design-tokens) 27/27. PR à ouvrir — déplacée vers
+`DONE.md` une fois mergée.)*
+
+*(FM-18a — voir la branche `feat/FM-18a-style-scan-guard-rail`, PR #261, CI verte, en attente de
+revue — cette branche a été créée depuis `develop` avant que FM-18a ne soit mergé, donc sa note
+DOING n'apparaît pas ici.)*
+
 *(FM-17 — 2/2 PRs mergées #258/#259 — déplacée vers `DONE.md`.)*
 
 *(FM-16 — 3/3 PRs mergées #254/#255/#256 — déplacée vers `DONE.md`. Piège **stacked PR** rencontré :

@@ -37,7 +37,7 @@ describe('resolveTokens', () => {
 });
 
 describe('buildOutputs', () => {
-  it('retourne exactement les 9 fichiers générés connus', () => {
+  it('retourne exactement les 10 fichiers générés connus', () => {
     const t = resolveTokens(minimalTokens());
     const outputs = buildOutputs(t);
     expect(Object.keys(outputs).sort()).toEqual(
@@ -51,8 +51,32 @@ describe('buildOutputs', () => {
         'apps/mobile/lib/core/theme/app_motion.dart',
         'apps/mobile/lib/core/theme/app_spacing.dart',
         'apps/mobile/lib/core/theme/app_text.dart',
+        'docs/design-system.html',
       ].sort(),
     );
+  });
+
+  // FM-18b : docs/design-system.html n'a plus qu'une seule source de vérité —
+  // avant cette PR, la palette y était recopiée à la main à 2 endroits
+  // (bloc CSS :root + objet JS SEM), et avait divergé de tokens.json.
+  it('génère docs/design-system.html avec les couleurs sémantiques réelles, pas de valeur recopiée à la main', () => {
+    const t = resolveTokens(minimalTokens());
+    const html = buildOutputs(t)['docs/design-system.html'];
+
+    expect(html).toContain(`--c-background: ${t.color.semantic.light.background};`);
+    expect(html).toContain(`--c-accent: ${t.color.semantic.light.accent};`);
+    expect(html).toContain(JSON.stringify(t.color.semantic.light.background));
+  });
+
+  it('range dans « Autres rôles » tout rôle sémantique non couvert par le regroupement éditorial', () => {
+    const raw = minimalTokens();
+    raw.color.semantic.light.newRole = '{color.neutral.0}';
+    raw.color.semantic.dark.newRole = '{color.neutral.900}';
+    const t = resolveTokens(raw);
+    const html = buildOutputs(t)['docs/design-system.html'];
+
+    expect(html).toContain('"Autres rôles"');
+    expect(html).toContain('"newRole"');
   });
 
   it('génère la palette brute Dart avec conversion hex correcte', () => {
