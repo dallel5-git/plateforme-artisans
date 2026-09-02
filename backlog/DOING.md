@@ -31,7 +31,8 @@ FM-15b — SDK Dart local différent) — écartés (`git checkout --`), seuls l
 `test/app/design_system_preview_screen_test.dart` (FR + AR, non-régression : une chaîne française
 codée en dur apparaîtrait aussi en arabe) — a aussi fermé un gap CI pré-existant, `test/app/`
 n'était pas dans la liste `dart format --set-exit-if-changed` de `ci.yml` malgré 2 fichiers déjà
-présents. `flutter test` 337/337. PR à ouvrir — déplacée vers `DONE.md` une fois mergée.)*
+présents. `flutter test` 337/337. PR #263 ouverte contre `develop`, en attente de revue — déplacée
+vers `DONE.md` une fois mergée.)*
 
 *(FM-17 — 2/2 PRs mergées #258/#259 — déplacée vers `DONE.md`.)*
 
