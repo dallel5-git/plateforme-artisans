@@ -169,11 +169,85 @@ class AppColors extends ThemeExtension<AppColors> {
   );
 
   @override
-  AppColors copyWith() => this;
+  AppColors copyWith({
+    Color? background,
+    Color? surface,
+    Color? surfaceRaised,
+    Color? surfaceSunken,
+    Color? border,
+    Color? borderStrong,
+    Color? textPrimary,
+    Color? textSecondary,
+    Color? textMuted,
+    Color? textInverse,
+    Color? accent,
+    Color? accentHover,
+    Color? accentSubtle,
+    Color? onAccent,
+    Color? verified,
+    Color? verifiedSubtle,
+    Color? pending,
+    Color? pendingSubtle,
+    Color? destructive,
+    Color? destructiveSubtle,
+    Color? rating,
+    Color? sponsored,
+    Color? whatsapp,
+  }) => AppColors(
+    background: background ?? this.background,
+    surface: surface ?? this.surface,
+    surfaceRaised: surfaceRaised ?? this.surfaceRaised,
+    surfaceSunken: surfaceSunken ?? this.surfaceSunken,
+    border: border ?? this.border,
+    borderStrong: borderStrong ?? this.borderStrong,
+    textPrimary: textPrimary ?? this.textPrimary,
+    textSecondary: textSecondary ?? this.textSecondary,
+    textMuted: textMuted ?? this.textMuted,
+    textInverse: textInverse ?? this.textInverse,
+    accent: accent ?? this.accent,
+    accentHover: accentHover ?? this.accentHover,
+    accentSubtle: accentSubtle ?? this.accentSubtle,
+    onAccent: onAccent ?? this.onAccent,
+    verified: verified ?? this.verified,
+    verifiedSubtle: verifiedSubtle ?? this.verifiedSubtle,
+    pending: pending ?? this.pending,
+    pendingSubtle: pendingSubtle ?? this.pendingSubtle,
+    destructive: destructive ?? this.destructive,
+    destructiveSubtle: destructiveSubtle ?? this.destructiveSubtle,
+    rating: rating ?? this.rating,
+    sponsored: sponsored ?? this.sponsored,
+    whatsapp: whatsapp ?? this.whatsapp,
+  );
 
   @override
-  AppColors lerp(ThemeExtension<AppColors>? other, double t) =>
-      other is AppColors ? (t < 0.5 ? this : other) : this;
+  AppColors lerp(ThemeExtension<AppColors>? other, double t) {
+    if (other is! AppColors) return this;
+    return AppColors(
+      background: Color.lerp(this.background, other.background, t)!,
+      surface: Color.lerp(this.surface, other.surface, t)!,
+      surfaceRaised: Color.lerp(this.surfaceRaised, other.surfaceRaised, t)!,
+      surfaceSunken: Color.lerp(this.surfaceSunken, other.surfaceSunken, t)!,
+      border: Color.lerp(this.border, other.border, t)!,
+      borderStrong: Color.lerp(this.borderStrong, other.borderStrong, t)!,
+      textPrimary: Color.lerp(this.textPrimary, other.textPrimary, t)!,
+      textSecondary: Color.lerp(this.textSecondary, other.textSecondary, t)!,
+      textMuted: Color.lerp(this.textMuted, other.textMuted, t)!,
+      textInverse: Color.lerp(this.textInverse, other.textInverse, t)!,
+      accent: Color.lerp(this.accent, other.accent, t)!,
+      accentHover: Color.lerp(this.accentHover, other.accentHover, t)!,
+      accentSubtle: Color.lerp(this.accentSubtle, other.accentSubtle, t)!,
+      onAccent: Color.lerp(this.onAccent, other.onAccent, t)!,
+      verified: Color.lerp(this.verified, other.verified, t)!,
+      verifiedSubtle: Color.lerp(this.verifiedSubtle, other.verifiedSubtle, t)!,
+      pending: Color.lerp(this.pending, other.pending, t)!,
+      pendingSubtle: Color.lerp(this.pendingSubtle, other.pendingSubtle, t)!,
+      destructive: Color.lerp(this.destructive, other.destructive, t)!,
+      destructiveSubtle: Color.lerp(this.destructiveSubtle, other.destructiveSubtle, t)!,
+      rating: Color.lerp(this.rating, other.rating, t)!,
+      sponsored: Color.lerp(this.sponsored, other.sponsored, t)!,
+      whatsapp: Color.lerp(this.whatsapp, other.whatsapp, t)!,
+    );
+  }
 }
 
 extension AppColorsX on BuildContext {

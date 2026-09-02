@@ -157,6 +157,18 @@ module.exports = {
     .map((k) => `    required this.${dartName(k)},`)
     .join('\n');
 
+  const semanticCopyWithParams = Object.keys(t.color.semantic.light)
+    .map((k) => `    Color? ${dartName(k)},`)
+    .join('\n');
+
+  const semanticCopyWithBody = Object.keys(t.color.semantic.light)
+    .map((k) => `    ${dartName(k)}: ${dartName(k)} ?? this.${dartName(k)},`)
+    .join('\n');
+
+  const semanticLerpBody = Object.keys(t.color.semantic.light)
+    .map((k) => `      ${dartName(k)}: Color.lerp(this.${dartName(k)}, other.${dartName(k)}, t)!,`)
+    .join('\n');
+
   const paletteConsts = Object.entries(t.color)
     .filter(([k]) => k !== 'semantic')
     .map(
@@ -196,11 +208,19 @@ ${dartScheme('dark')}
   );
 
   @override
-  AppColors copyWith() => this;
+  AppColors copyWith({
+${semanticCopyWithParams}
+  }) => AppColors(
+${semanticCopyWithBody}
+  );
 
   @override
-  AppColors lerp(ThemeExtension<AppColors>? other, double t) =>
-      other is AppColors ? (t < 0.5 ? this : other) : this;
+  AppColors lerp(ThemeExtension<AppColors>? other, double t) {
+    if (other is! AppColors) return this;
+    return AppColors(
+${semanticLerpBody}
+    );
+  }
 }
 
 extension AppColorsX on BuildContext {
