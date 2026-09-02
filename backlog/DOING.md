@@ -18,6 +18,21 @@ _(aucune tâche DEV-1 en cours — `FM-05` et `FM-10` terminées, déplacées ve
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
 
+*(FM-18c — `design_system_preview_screen.dart` respecte enfin la règle « aucune chaîne en dur » :
+~34 clés `common.devPreview.*` (namespace `packages/i18n/src/locales/{fr,ar}/common.json`), y
+compris les titres de section (décision : un outil de dev n'est pas exempté de la règle). Piège
+outillage découvert en route : `dart run build_runner build -d` ne lit **pas** `slang.yaml` (son
+`options.config` build_runner arrive vide, retombe sur les valeurs par défaut de `slang`, dont
+`input_file_pattern: .i18n.json` — introuvable puisque ce projet utilise `.json` nu) ; la bonne
+commande est `dart run slang`, qui lit le fichier directement. A aussi produit ~60 fichiers
+`lib/core/api/generated/**.g.dart` reformatés en bruit parasite (même classe de bug que FM-06b/
+FM-15b — SDK Dart local différent) — écartés (`git checkout --`), seuls les 3 fichiers
+`translations*.g.dart` réellement issus de `dart run slang` sont conservés. Nouveau test
+`test/app/design_system_preview_screen_test.dart` (FR + AR, non-régression : une chaîne française
+codée en dur apparaîtrait aussi en arabe) — a aussi fermé un gap CI pré-existant, `test/app/`
+n'était pas dans la liste `dart format --set-exit-if-changed` de `ci.yml` malgré 2 fichiers déjà
+présents. `flutter test` 337/337. PR à ouvrir — déplacée vers `DONE.md` une fois mergée.)*
+
 *(FM-17 — 2/2 PRs mergées #258/#259 — déplacée vers `DONE.md`.)*
 
 *(FM-16 — 3/3 PRs mergées #254/#255/#256 — déplacée vers `DONE.md`. Piège **stacked PR** rencontré :

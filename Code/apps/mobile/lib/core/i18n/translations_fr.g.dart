@@ -125,6 +125,7 @@ class Translations$common$fr {
 
 	late final Translations$common$home$fr home = Translations$common$home$fr.internal(_root);
 	late final Translations$common$widgets$fr widgets = Translations$common$widgets$fr.internal(_root);
+	late final Translations$common$devPreview$fr devPreview = Translations$common$devPreview$fr.internal(_root);
 }
 
 // Path: contact
@@ -538,6 +539,117 @@ class Translations$common$widgets$fr {
 	late final Translations$common$widgets$offlineBanner$fr offlineBanner = Translations$common$widgets$offlineBanner$fr.internal(_root);
 }
 
+// Path: common.devPreview
+class Translations$common$devPreview$fr {
+	Translations$common$devPreview$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'AppButton'
+	String get sectionAppButton => 'AppButton';
+
+	/// fr: 'AppCard'
+	String get sectionAppCard => 'AppCard';
+
+	/// fr: 'AppTextField'
+	String get sectionAppTextField => 'AppTextField';
+
+	/// fr: 'RatingStars'
+	String get sectionRatingStars => 'RatingStars';
+
+	/// fr: 'VerifiedBadge'
+	String get sectionVerifiedBadge => 'VerifiedBadge';
+
+	/// fr: 'ProviderCard'
+	String get sectionProviderCard => 'ProviderCard';
+
+	/// fr: 'AppSkeleton'
+	String get sectionAppSkeleton => 'AppSkeleton';
+
+	/// fr: 'EmptyState'
+	String get sectionEmptyState => 'EmptyState';
+
+	/// fr: 'ErrorState'
+	String get sectionErrorState => 'ErrorState';
+
+	/// fr: 'OfflineBanner'
+	String get sectionOfflineBanner => 'OfflineBanner';
+
+	/// fr: 'Primary'
+	String get buttonPrimary => 'Primary';
+
+	/// fr: 'Disabled'
+	String get buttonDisabled => 'Disabled';
+
+	/// fr: 'Secondary'
+	String get buttonSecondary => 'Secondary';
+
+	/// fr: 'Ghost'
+	String get buttonGhost => 'Ghost';
+
+	/// fr: 'WhatsApp'
+	String get buttonWhatsapp => 'WhatsApp';
+
+	/// fr: 'Danger'
+	String get buttonDanger => 'Danger';
+
+	/// fr: 'Numéro de téléphone'
+	String get phoneLabel => 'Numéro de téléphone';
+
+	/// fr: '+216 22 123 456'
+	String get phoneHint => '+216 22 123 456';
+
+	/// fr: 'Code de vérification'
+	String get otpLabel => 'Code de vérification';
+
+	/// fr: 'Code incorrect — il vous reste 2 tentatives'
+	String get otpError => 'Code incorrect — il vous reste 2 tentatives';
+
+	/// fr: 'Karim Ben Salah'
+	String get sampleProvider1Name => 'Karim Ben Salah';
+
+	/// fr: 'Plomberie'
+	String get sampleProvider1Category => 'Plomberie';
+
+	/// fr: 'Sousse, Khezama · 2,4 km'
+	String get sampleProvider1Location => 'Sousse, Khezama · 2,4 km';
+
+	/// fr: 'à partir de 40 TND'
+	String get sampleProvider1Price => 'à partir de 40 TND';
+
+	/// fr: 'Hédi Ferjani'
+	String get sampleProvider2Name => 'Hédi Ferjani';
+
+	/// fr: 'Peinture'
+	String get sampleProvider2Category => 'Peinture';
+
+	/// fr: 'Monastir'
+	String get sampleProvider2Location => 'Monastir';
+
+	/// fr: 'à partir de 25 TND'
+	String get sampleProvider2Price => 'à partir de 25 TND';
+
+	/// fr: 'Aucun artisan trouvé'
+	String get emptyTitle => 'Aucun artisan trouvé';
+
+	/// fr: 'Aucun plombier disponible à Mahdia pour ces filtres.'
+	String get emptyMessage => 'Aucun plombier disponible à Mahdia pour ces filtres.';
+
+	/// fr: 'Élargir au gouvernorat'
+	String get emptyAction => 'Élargir au gouvernorat';
+
+	/// fr: 'Connexion perdue'
+	String get errorTitle => 'Connexion perdue';
+
+	/// fr: 'Impossible de charger les résultats. Vérifie ta connexion.'
+	String get errorMessage => 'Impossible de charger les résultats. Vérifie ta connexion.';
+
+	/// fr: 'Réessayer'
+	String get errorAction => 'Réessayer';
+}
+
 // Path: provider.profile
 class Translations$provider$profile$fr {
 	Translations$provider$profile$fr.internal(this._root);
@@ -687,6 +799,40 @@ extension on Translations {
 			'common.widgets.verifiedBadge' => 'Vérifié',
 			'common.widgets.offlineBanner.message' => 'Tu consultes des résultats enregistrés. Ils seront actualisés au retour du réseau.',
 			'common.widgets.offlineBanner.dismiss' => 'Compris',
+			'common.devPreview.sectionAppButton' => 'AppButton',
+			'common.devPreview.sectionAppCard' => 'AppCard',
+			'common.devPreview.sectionAppTextField' => 'AppTextField',
+			'common.devPreview.sectionRatingStars' => 'RatingStars',
+			'common.devPreview.sectionVerifiedBadge' => 'VerifiedBadge',
+			'common.devPreview.sectionProviderCard' => 'ProviderCard',
+			'common.devPreview.sectionAppSkeleton' => 'AppSkeleton',
+			'common.devPreview.sectionEmptyState' => 'EmptyState',
+			'common.devPreview.sectionErrorState' => 'ErrorState',
+			'common.devPreview.sectionOfflineBanner' => 'OfflineBanner',
+			'common.devPreview.buttonPrimary' => 'Primary',
+			'common.devPreview.buttonDisabled' => 'Disabled',
+			'common.devPreview.buttonSecondary' => 'Secondary',
+			'common.devPreview.buttonGhost' => 'Ghost',
+			'common.devPreview.buttonWhatsapp' => 'WhatsApp',
+			'common.devPreview.buttonDanger' => 'Danger',
+			'common.devPreview.phoneLabel' => 'Numéro de téléphone',
+			'common.devPreview.phoneHint' => '+216 22 123 456',
+			'common.devPreview.otpLabel' => 'Code de vérification',
+			'common.devPreview.otpError' => 'Code incorrect — il vous reste 2 tentatives',
+			'common.devPreview.sampleProvider1Name' => 'Karim Ben Salah',
+			'common.devPreview.sampleProvider1Category' => 'Plomberie',
+			'common.devPreview.sampleProvider1Location' => 'Sousse, Khezama · 2,4 km',
+			'common.devPreview.sampleProvider1Price' => 'à partir de 40 TND',
+			'common.devPreview.sampleProvider2Name' => 'Hédi Ferjani',
+			'common.devPreview.sampleProvider2Category' => 'Peinture',
+			'common.devPreview.sampleProvider2Location' => 'Monastir',
+			'common.devPreview.sampleProvider2Price' => 'à partir de 25 TND',
+			'common.devPreview.emptyTitle' => 'Aucun artisan trouvé',
+			'common.devPreview.emptyMessage' => 'Aucun plombier disponible à Mahdia pour ces filtres.',
+			'common.devPreview.emptyAction' => 'Élargir au gouvernorat',
+			'common.devPreview.errorTitle' => 'Connexion perdue',
+			'common.devPreview.errorMessage' => 'Impossible de charger les résultats. Vérifie ta connexion.',
+			'common.devPreview.errorAction' => 'Réessayer',
 			'contact.call' => 'Appeler',
 			'contact.whatsapp' => 'WhatsApp',
 			'dashboard.title' => 'Tableau de bord',
