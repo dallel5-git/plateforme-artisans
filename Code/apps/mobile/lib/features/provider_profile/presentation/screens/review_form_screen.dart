@@ -69,13 +69,7 @@ class _ReviewFormScreenState extends ConsumerState<ReviewFormScreen> {
 
     return Scaffold(
       backgroundColor: colors.background,
-      appBar: AppBar(
-        backgroundColor: colors.surface,
-        title: Text(
-          t.provider.profile.reviewTitle,
-          style: AppText.h3(locale).copyWith(color: colors.textPrimary),
-        ),
-      ),
+      appBar: AppBar(title: Text(t.provider.profile.reviewTitle)),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.lg),
         child: Column(

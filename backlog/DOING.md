@@ -18,6 +18,14 @@ _(aucune tâche DEV-1 en cours — `FM-05` et `FM-10` terminées, déplacées ve
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
 
+*(FM-16 — 3/3 PRs mergées #254/#255/#256 — déplacée vers `DONE.md`. Piège **stacked PR** rencontré :
+`FM-16c` (#256, base `feat/FM-16b-sous-themes-composants`) a fusionné 17 s *après* que #255 (même
+branche → `develop`) avait déjà fusionné — GitHub affichait les deux PRs « MERGED », mais le contenu
+de FM-16c n'avait en réalité jamais atteint `develop` (vérifié par lecture directe du fichier sur
+`origin/develop` après coup, precedent identique documenté sur `BE-27`). Corrigé par une PR de
+rattrapage dédiée (`fix/FM-16c-land-on-develop`) fusionnant le contenu réel de la branche stale vers
+`develop`, diff vérifié identique aux 12 fichiers attendus avant ouverture.)*
+
 *(FM-15 — 7/7 PRs mergées #246/#247/#248/#249/#250/#251/#252 — déplacée vers `DONE.md`. Prérequis bloquant de la refonte visuelle mobile (milestone M7) : `build-tokens.mjs` exportait `elevation`/`motion`/tracking/`layout.breakpoint`/poids de police en TS/Tailwind mais jamais en Dart (SO-08, généralisée). Découpée en 7 sous-PRs atomiques par *concern* plutôt que par couche (précédent FM-02) : socle de tests d'abord (FM-15a, bloquant pour toutes les suivantes), puis fix `copyWith`/`lerp` et `AppIconSize` (aucune dépendance design), puis élévation/motion et typographie/layout, puis nouveaux rôles et correction des collisions — ces deux dernières séquencées volontairement après les PRs touchant `app_colors.dart` pour éviter que `merge=ours` (`.gitattributes`, fichiers générés) n'écrase un fix par un autre. Deux conflits `backlog/DOING.md`/`fixtures.mjs` rencontrés en cascade (une seule ligne partagée éditée par plusieurs branches successives) — résolus par fusion de `develop` + régénération, jamais par rebase/force-push.)*
 
 *(FM-04 — 6/6 PRs mergées #163/#167/#168/#169/#188/#191 — déplacée vers `DONE.md`. Les 10 widgets de l'issue #55 sont livrés. `feat/FM-04c-rating-stars-verified-badge` était restée bloquée en fusion locale non résolue pendant la revue (`origin/develop` avait avancé de 24 commits, dont FM-08b qui avait entre-temps introduit ses propres copies de `rating_stars.dart`/`verified_badge.dart`) — fusion refaite proprement, conflits résolus par union des chemins CI. `FM-04e` (dernière tranche) : `AppSkeleton`, `EmptyState`/`ErrorState` (design-system.html §8), `OfflineBanner` (bandeau fin non bloquant — tranché en faveur de la description `CLAUDE.md` mobile plutôt que la carte plein écran du mockup §8). **Non vérifié sur device Android réel** dans cet environnement.)*

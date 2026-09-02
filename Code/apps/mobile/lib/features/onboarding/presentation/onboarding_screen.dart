@@ -134,7 +134,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     return Scaffold(
       backgroundColor: context.colors.background,
       appBar: AppBar(
-        backgroundColor: context.colors.surface,
         title: Text(t.onboarding.wizardTitle),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),

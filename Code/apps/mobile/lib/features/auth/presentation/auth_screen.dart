@@ -53,7 +53,6 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
       appBar: state.step == AuthStep.role
           ? null
           : AppBar(
-              backgroundColor: context.colors.surface,
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back),
                 onPressed: state.step == AuthStep.phone

@@ -13,18 +13,11 @@ class LegalNoticeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colors = context.colors;
-    final locale = Localizations.localeOf(context);
     final t = ref.watch(translationsProvider);
 
     return Scaffold(
       backgroundColor: colors.background,
-      appBar: AppBar(
-        backgroundColor: colors.surface,
-        title: Text(
-          t.legal.title,
-          style: AppText.h3(locale).copyWith(color: colors.textPrimary),
-        ),
-      ),
+      appBar: AppBar(title: Text(t.legal.title)),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.md),
         child: Column(
