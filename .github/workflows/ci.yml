@@ -61,6 +61,7 @@ jobs:
       - run: pnpm tokens:build:check
       - run: pnpm web:client:check
       - run: pnpm i18n:check
+      - run: pnpm style:scan
 
   mobile-analyze:
     name: mobile — flutter analyze · dart format · test

@@ -18,6 +18,16 @@ _(aucune tâche DEV-1 en cours — `FM-05` et `FM-10` terminées, déplacées ve
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
 
+*(FM-18a — Garde-fou CI `style-scan.mjs` (même patron que `i18n-check.mjs`, pas le patron
+`verified_badge_test.dart` — scan transversal, pas l'invariant d'un widget) : échoue sur
+`Colors\.[a-z]`/`Color(0x` hors `lib/core/theme/`, branché en CI (`static-checks`). Corrige la
+seule vraie violation trouvée (`provider_gallery.dart`, 3 littéraux) en réutilisant les rôles
+`scrim`/`onScrim` (FM-15d, jusqu'ici inutilisés dans l'app — aucun nouveau token). Critère
+d'acceptation vérifié en local : casser volontairement `provider_gallery.dart` → le scan et le
+nouveau test Dart échouent tous les deux, corriger → les deux repassent au vert. `flutter test`
+336/336. PR #261 ouverte contre `develop`, en attente de revue — déplacée vers `DONE.md` une fois
+mergée.)*
+
 *(FM-17 — 2/2 PRs mergées #258/#259 — déplacée vers `DONE.md`.)*
 
 *(FM-16 — 3/3 PRs mergées #254/#255/#256 — déplacée vers `DONE.md`. Piège **stacked PR** rencontré :
