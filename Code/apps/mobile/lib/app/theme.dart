@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_elevation.dart';
+import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/theme/app_text.dart';
 
 /// Construit un [ThemeData] clair ou sombre en ne consommant que les
@@ -45,6 +46,60 @@ ThemeData buildTheme({
     colorScheme: colorScheme,
     scaffoldBackgroundColor: colors.background,
     textTheme: _textThemeFrom(colors, locale),
+    appBarTheme: AppBarTheme(
+      backgroundColor: colors.surface,
+      foregroundColor: colors.textPrimary,
+      elevation: 0,
+      scrolledUnderElevation: 0,
+      titleTextStyle: AppText.h3(locale).copyWith(color: colors.textPrimary),
+      iconTheme: IconThemeData(color: colors.textPrimary),
+    ),
+    // backgroundColor et modalBackgroundColor sont tous les deux fixés sur
+    // colors.surface pour qu'une showModalBottomSheet() sans style explicite
+    // ne retombe pas sur colorScheme.surfaceContainerLow (dérivation M3 par
+    // défaut) — aucun rôle AppColors dédié n'existe pour ce palier.
+    bottomSheetTheme: BottomSheetThemeData(
+      backgroundColor: colors.surface,
+      modalBackgroundColor: colors.surface,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: AppRadius.xl),
+      ),
+    ),
+    dialogTheme: DialogThemeData(backgroundColor: colors.surface),
+    chipTheme: ChipThemeData(
+      backgroundColor: colors.surfaceRaised,
+      selectedColor: colors.accentSubtle,
+      side: BorderSide(color: colors.border),
+      labelStyle: AppText.small(locale).copyWith(color: colors.textPrimary),
+    ),
+    dividerTheme: DividerThemeData(
+      color: colors.border,
+      thickness: 1,
+      space: 1,
+    ),
+    // Pas de rôle AppColors dédié type « inverseSurface » : textPrimary/
+    // textInverse forment la paire fond sombre/texte clair la plus proche.
+    snackBarTheme: SnackBarThemeData(
+      backgroundColor: colors.textPrimary,
+      contentTextStyle: AppText.body(
+        locale,
+      ).copyWith(color: colors.textInverse),
+      behavior: SnackBarBehavior.floating,
+    ),
+    checkboxTheme: CheckboxThemeData(
+      fillColor: WidgetStateProperty.resolveWith(
+        (states) => states.contains(WidgetState.selected)
+            ? colors.accent
+            : Colors.transparent,
+      ),
+      checkColor: WidgetStateProperty.all(colors.onAccent),
+      side: BorderSide(color: colors.border, width: 1.5),
+    ),
+    progressIndicatorTheme: ProgressIndicatorThemeData(
+      color: colors.accent,
+      linearTrackColor: colors.accentSubtle,
+      circularTrackColor: colors.accentSubtle,
+    ),
   );
 }
 
