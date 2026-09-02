@@ -33,3 +33,11 @@ abstract final class AppLayout {
   static const double touchTarget = 48.0;
   static const double containerMax = 1200.0;
 }
+
+abstract final class AppIconSize {
+  static const double xs = 12.0;
+  static const double sm = 16.0;
+  static const double md = 20.0;
+  static const double lg = 24.0;
+  static const double xl = 32.0;
+}
