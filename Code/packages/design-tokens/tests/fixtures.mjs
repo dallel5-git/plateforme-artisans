@@ -14,6 +14,7 @@ export const minimalTokens = () => ({
   },
   spacing: { md: '12px' },
   radius: { md: '10px' },
+  iconSize: { xs: '12px', sm: '16px', md: '20px', lg: '24px', xl: '32px' },
   typography: {
     family: { latin: 'Manrope', arabic: 'Noto Kufi Arabic', mono: 'JetBrains Mono' },
     weight: { regular: 400, bold: 700 },

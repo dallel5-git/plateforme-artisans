@@ -105,6 +105,7 @@ export const spacing = ${JSON.stringify(t.spacing, null, 2)} as const;
 export const radius  = ${JSON.stringify(t.radius, null, 2)} as const;
 export const elevation = ${JSON.stringify({ light: elevationCss('light'), dark: elevationCss('dark') }, null, 2)} as const;
 export const layout = ${JSON.stringify(t.layout, null, 2)} as const;
+export const iconSize = ${JSON.stringify(t.iconSize, null, 2)} as const;
 `;
 
   const tsTypography = `${BANNER_TS}
@@ -172,6 +173,18 @@ module.exports = {
     .map((k) => `    required this.${dartName(k)},`)
     .join('\n');
 
+  const semanticCopyWithParams = Object.keys(t.color.semantic.light)
+    .map((k) => `    Color? ${dartName(k)},`)
+    .join('\n');
+
+  const semanticCopyWithBody = Object.keys(t.color.semantic.light)
+    .map((k) => `    ${dartName(k)}: ${dartName(k)} ?? this.${dartName(k)},`)
+    .join('\n');
+
+  const semanticLerpBody = Object.keys(t.color.semantic.light)
+    .map((k) => `      ${dartName(k)}: Color.lerp(this.${dartName(k)}, other.${dartName(k)}, t)!,`)
+    .join('\n');
+
   const paletteConsts = Object.entries(t.color)
     .filter(([k]) => k !== 'semantic')
     .map(
@@ -211,11 +224,19 @@ ${dartScheme('dark')}
   );
 
   @override
-  AppColors copyWith() => this;
+  AppColors copyWith({
+${semanticCopyWithParams}
+  }) => AppColors(
+${semanticCopyWithBody}
+  );
 
   @override
-  AppColors lerp(ThemeExtension<AppColors>? other, double t) =>
-      other is AppColors ? (t < 0.5 ? this : other) : this;
+  AppColors lerp(ThemeExtension<AppColors>? other, double t) {
+    if (other is! AppColors) return this;
+    return AppColors(
+${semanticLerpBody}
+    );
+  }
 }
 
 extension AppColorsX on BuildContext {
@@ -332,6 +353,12 @@ abstract final class AppLayout {
   /// Cible tactile minimale — accessibilité et usage sur chantier (gants, écran sale).
   static const double touchTarget = ${px(t.layout.touchTarget).toFixed(1)};
   static const double containerMax = ${px(t.layout.containerMax).toFixed(1)};
+}
+
+abstract final class AppIconSize {
+${Object.entries(t.iconSize)
+  .map(([k, v]) => `  static const double ${dartName(k)} = ${px(v).toFixed(1)};`)
+  .join('\n')}
 }
 `;
 
