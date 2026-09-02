@@ -12,6 +12,7 @@ Widget themedApp(
   Widget child, {
   Brightness brightness = Brightness.light,
   Locale locale = const Locale('fr'),
+  TextScaler? textScaler,
 }) {
   return MaterialApp(
     locale: locale,
@@ -22,6 +23,15 @@ Widget themedApp(
       GlobalCupertinoLocalizations.delegate,
     ],
     theme: buildTheme(brightness: brightness, locale: locale),
+    // FM-17b : point d'injection recommandé par Flutter pour forcer un
+    // textScaler en test — un MediaQuery posé hors de MaterialApp serait
+    // écrasé par celui que WidgetsApp construit lui-même.
+    builder: textScaler == null
+        ? null
+        : (context, child) => MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaler: textScaler),
+            child: child!,
+          ),
     home: child,
   );
 }

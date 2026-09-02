@@ -45,13 +45,17 @@ class AppButton extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         if (icon != null) ...[icon!, const SizedBox(width: AppSpacing.sm)],
-        Text(
-          label,
-          style: (isSmall ? AppText.small(locale) : AppText.bodyStrong(locale))
-              .copyWith(
-                color: palette.foreground,
-                fontWeight: FontWeight.w600,
-              ),
+        Flexible(
+          child: Text(
+            label,
+            style:
+                (isSmall ? AppText.small(locale) : AppText.bodyStrong(locale))
+                    .copyWith(
+                      color: palette.foreground,
+                      fontWeight: FontWeight.w600,
+                    ),
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
       ],
     );

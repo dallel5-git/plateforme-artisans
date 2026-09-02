@@ -42,10 +42,14 @@ class OfferingCard extends StatelessWidget {
               ),
               if (offering.displayPrice.isNotEmpty) ...[
                 const SizedBox(width: AppSpacing.sm),
-                Text(
-                  offering.displayPrice,
-                  style: AppText.bodyStrong(locale).copyWith(
-                    color: colors.accent,
+                Flexible(
+                  child: Text(
+                    offering.displayPrice,
+                    style: AppText.bodyStrong(locale).copyWith(
+                      color: colors.accent,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.end,
                   ),
                 ),
               ],
