@@ -32,8 +32,8 @@ sur `feat/FM-18c-i18n-preview-screen` (fusionnée localement, pas stackée en PR
 lourdement le même fichier) : ~18 nouvelles clés `common.devPreview.*` pour le chrome UI (titres de
 section, libellés de bascule) ; les données factices bilingues alimentant les modèles générés
 (nom d'avis, titre de prestation, catégories) restent des littéraux Dart, même convention que les
-fixtures de test — pas des chaînes UI de l'écran. `flutter test` 340/340. PR à ouvrir — déplacée
-vers `DONE.md` une fois mergée.)*
+fixtures de test — pas des chaînes UI de l'écran. `flutter test` 340/340. PR #264 ouverte contre
+`develop`, dépend de #263 (FM-18c) — déplacée vers `DONE.md` une fois les deux mergées.)*
 
 *(FM-18c — `design_system_preview_screen.dart` respecte enfin la règle « aucune chaîne en dur » :
 ~34 clés `common.devPreview.*` (namespace `packages/i18n/src/locales/{fr,ar}/common.json`), y
