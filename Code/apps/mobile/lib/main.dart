@@ -7,6 +7,7 @@ import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/app/router.dart';
 import 'package:sanaya/app/theme.dart';
 import 'package:sanaya/core/i18n/locale_persistence.dart';
+import 'package:sanaya/core/theme/theme_persistence.dart';
 import 'package:sanaya/features/auth/application/auth_state_provider.dart';
 import 'package:sanaya/features/auth/application/auth_status.dart';
 import 'package:sanaya/features/contact/application/contact_providers.dart';
@@ -17,6 +18,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final initialLocale = await readInitialLocale();
   final initialGovernorateId = await readInitialGovernorateId();
+  final initialThemeMode = await readInitialThemeMode();
 
   // FM-03d : DateFormat lève une exception tant que les données de locale
   // ne sont pas chargées — fait une seule fois au bootstrap pour les deux
@@ -33,6 +35,8 @@ Future<void> main() async {
         selectedGovernorateIdProvider.overrideWith(
           (ref) => initialGovernorateId,
         ),
+        // FM-17a : idem.
+        themeModeProvider.overrideWith((ref) => initialThemeMode),
       ],
       child: const SanayaApp(),
     ),
@@ -57,6 +61,12 @@ class SanayaApp extends ConsumerWidget {
       ..listen<String?>(
         selectedGovernorateIdProvider,
         (_, next) => next == null ? null : persistGovernorateId(next),
+      )
+      // FM-17a : même patron — la lecture initiale se fait une seule fois
+      // avant runApp (voir main() ci-dessus).
+      ..listen<ThemeMode>(
+        themeModeProvider,
+        (_, next) => persistThemeMode(next),
       )
       // FM-09c : vidage opportuniste de la file de contacts hors ligne, une
       // seule fois au premier build (valeur ignorée — l'échec d'un renvoi
