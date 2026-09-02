@@ -33,30 +33,36 @@ class DesignSystemPreviewScreen extends ConsumerWidget {
         padding: const EdgeInsets.all(AppSpacing.lg),
         children: [
           _Section(
-            title: 'AppButton',
+            title: t.common.devPreview.sectionAppButton,
             child: Wrap(
               spacing: AppSpacing.sm,
               runSpacing: AppSpacing.sm,
               children: [
-                AppButton(label: 'Primary', onPressed: () {}),
-                const AppButton(label: 'Disabled', onPressed: null),
                 AppButton(
-                  label: 'Secondary',
+                  label: t.common.devPreview.buttonPrimary,
+                  onPressed: () {},
+                ),
+                AppButton(
+                  label: t.common.devPreview.buttonDisabled,
+                  onPressed: null,
+                ),
+                AppButton(
+                  label: t.common.devPreview.buttonSecondary,
                   onPressed: () {},
                   variant: AppButtonVariant.secondary,
                 ),
                 AppButton(
-                  label: 'Ghost',
+                  label: t.common.devPreview.buttonGhost,
                   onPressed: () {},
                   variant: AppButtonVariant.ghost,
                 ),
                 AppButton(
-                  label: 'WhatsApp',
+                  label: t.common.devPreview.buttonWhatsapp,
                   onPressed: () {},
                   variant: AppButtonVariant.whatsapp,
                 ),
                 AppButton(
-                  label: 'Danger',
+                  label: t.common.devPreview.buttonDanger,
                   onPressed: () {},
                   variant: AppButtonVariant.danger,
                   size: AppButtonSize.small,
@@ -66,31 +72,31 @@ class DesignSystemPreviewScreen extends ConsumerWidget {
           ),
           const SizedBox(height: AppSpacing.xl),
           _Section(
-            title: 'AppCard',
+            title: t.common.devPreview.sectionAppCard,
             child: AppCard(child: Text(t.common.appName)),
           ),
           const SizedBox(height: AppSpacing.xl),
-          const _Section(
-            title: 'AppTextField',
+          _Section(
+            title: t.common.devPreview.sectionAppTextField,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 AppTextField(
-                  label: 'Numéro de téléphone',
-                  hintText: '+216 22 123 456',
+                  label: t.common.devPreview.phoneLabel,
+                  hintText: t.common.devPreview.phoneHint,
                 ),
-                SizedBox(height: AppSpacing.md),
+                const SizedBox(height: AppSpacing.md),
                 AppTextField(
-                  label: 'Code de vérification',
-                  errorText: 'Code incorrect — il vous reste 2 tentatives',
+                  label: t.common.devPreview.otpLabel,
+                  errorText: t.common.devPreview.otpError,
                 ),
               ],
             ),
           ),
           const SizedBox(height: AppSpacing.xl),
-          const _Section(
-            title: 'RatingStars',
-            child: Column(
+          _Section(
+            title: t.common.devPreview.sectionRatingStars,
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 RatingStars(rating: 4.8, reviewCount: 63),
@@ -100,39 +106,42 @@ class DesignSystemPreviewScreen extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: AppSpacing.xl),
-          const _Section(title: 'VerifiedBadge', child: VerifiedBadge()),
+          _Section(
+            title: t.common.devPreview.sectionVerifiedBadge,
+            child: const VerifiedBadge(),
+          ),
           const SizedBox(height: AppSpacing.xl),
           _Section(
-            title: 'ProviderCard',
+            title: t.common.devPreview.sectionProviderCard,
             child: Column(
               children: [
                 ProviderCard(
-                  name: 'Karim Ben Salah',
-                  categoryLabel: 'Plomberie',
-                  locationLabel: 'Sousse, Khezama · 2,4 km',
+                  name: t.common.devPreview.sampleProvider1Name,
+                  categoryLabel: t.common.devPreview.sampleProvider1Category,
+                  locationLabel: t.common.devPreview.sampleProvider1Location,
                   rating: 4.8,
                   reviewCount: 63,
-                  priceLabel: 'à partir de 40 TND',
+                  priceLabel: t.common.devPreview.sampleProvider1Price,
                   isVerified: true,
                   onTap: () {},
                 ),
                 const SizedBox(height: AppSpacing.sm),
                 ProviderCard(
-                  name: 'Hédi Ferjani',
-                  categoryLabel: 'Peinture',
-                  locationLabel: 'Monastir',
+                  name: t.common.devPreview.sampleProvider2Name,
+                  categoryLabel: t.common.devPreview.sampleProvider2Category,
+                  locationLabel: t.common.devPreview.sampleProvider2Location,
                   rating: 4.2,
                   reviewCount: 18,
-                  priceLabel: 'à partir de 25 TND',
+                  priceLabel: t.common.devPreview.sampleProvider2Price,
                   onTap: () {},
                 ),
               ],
             ),
           ),
           const SizedBox(height: AppSpacing.xl),
-          const _Section(
-            title: 'AppSkeleton',
-            child: Row(
+          _Section(
+            title: t.common.devPreview.sectionAppSkeleton,
+            child: const Row(
               children: [
                 AppSkeleton.circle(size: 48),
                 SizedBox(width: AppSpacing.md),
@@ -151,30 +160,29 @@ class DesignSystemPreviewScreen extends ConsumerWidget {
           ),
           const SizedBox(height: AppSpacing.xl),
           _Section(
-            title: 'EmptyState',
+            title: t.common.devPreview.sectionEmptyState,
             child: EmptyState(
               icon: '🔍',
-              title: 'Aucun artisan trouvé',
-              message: 'Aucun plombier disponible à Mahdia pour ces filtres.',
-              actionLabel: 'Élargir au gouvernorat',
+              title: t.common.devPreview.emptyTitle,
+              message: t.common.devPreview.emptyMessage,
+              actionLabel: t.common.devPreview.emptyAction,
               onAction: () {},
             ),
           ),
           const SizedBox(height: AppSpacing.xl),
           _Section(
-            title: 'ErrorState',
+            title: t.common.devPreview.sectionErrorState,
             child: ErrorState(
               icon: '⚠️',
-              title: 'Connexion perdue',
-              message:
-                  'Impossible de charger les résultats. Vérifie ta connexion.',
-              actionLabel: 'Réessayer',
+              title: t.common.devPreview.errorTitle,
+              message: t.common.devPreview.errorMessage,
+              actionLabel: t.common.devPreview.errorAction,
               onAction: () {},
             ),
           ),
           const SizedBox(height: AppSpacing.xl),
           _Section(
-            title: 'OfflineBanner',
+            title: t.common.devPreview.sectionOfflineBanner,
             child: OfflineBanner(onDismiss: () {}),
           ),
         ],

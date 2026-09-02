@@ -18,16 +18,23 @@ _(aucune tâche DEV-1 en cours — `FM-05` et `FM-10` terminées, déplacées ve
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
 
-*(FM-18b — `docs/design-system.html` généré depuis `tokens.json` (10ᵉ target de `build-tokens.mjs`),
-remplace les 2 copies à la main (bloc CSS `:root` + objet JS `SEM`) qui avaient divergé — le
-`--c-border` sombre recopié était `#1F2733`, la vraie valeur actuelle est `#2A3441` ; 12 rôles
-ajoutés par FM-15d (`onWhatsapp`, `amber`/`onAmber`, `scrim`/`onScrim`, `thumbnail*`, `chartBar*`,
-`nav*`) étaient absents. Regroupement éditorial du nuancier (§1) conservé tel quel + un 6ᵉ groupe
-« Autres rôles » calculé automatiquement pour tout rôle non couvert (future-proof, aucune retouche
-du générateur nécessaire au prochain rôle ajouté à `tokens.json`). Critère d'acceptation vérifié en
-local : casser volontairement une valeur dans le HTML committé → `tokens:build:check` échoue,
-restaurer → repasse au vert. `pnpm test` (design-tokens) 27/27. PR #262 ouverte contre `develop`,
-en attente de revue — déplacée vers `DONE.md` une fois mergée.)*
+*(FM-18c — `design_system_preview_screen.dart` respecte enfin la règle « aucune chaîne en dur » :
+~34 clés `common.devPreview.*` (namespace `packages/i18n/src/locales/{fr,ar}/common.json`), y
+compris les titres de section (décision : un outil de dev n'est pas exempté de la règle). Piège
+outillage découvert en route : `dart run build_runner build -d` ne lit **pas** `slang.yaml` (son
+`options.config` build_runner arrive vide, retombe sur les valeurs par défaut de `slang`, dont
+`input_file_pattern: .i18n.json` — introuvable puisque ce projet utilise `.json` nu) ; la bonne
+commande est `dart run slang`, qui lit le fichier directement. A aussi produit ~60 fichiers
+`lib/core/api/generated/**.g.dart` reformatés en bruit parasite (même classe de bug que FM-06b/
+FM-15b — SDK Dart local différent) — écartés (`git checkout --`), seuls les 3 fichiers
+`translations*.g.dart` réellement issus de `dart run slang` sont conservés. Nouveau test
+`test/app/design_system_preview_screen_test.dart` (FR + AR, non-régression : une chaîne française
+codée en dur apparaîtrait aussi en arabe) — a aussi fermé un gap CI pré-existant, `test/app/`
+n'était pas dans la liste `dart format --set-exit-if-changed` de `ci.yml` malgré 2 fichiers déjà
+présents. `flutter test` 337/337. PR #263 ouverte contre `develop`, en attente de revue — déplacée
+vers `DONE.md` une fois mergée.)*
+
+*(FM-18b — 1 PR mergée #262 — déplacée vers `DONE.md`.)*
 
 *(FM-18a — 1 PR mergée #261 — déplacée vers `DONE.md`.)*
 
