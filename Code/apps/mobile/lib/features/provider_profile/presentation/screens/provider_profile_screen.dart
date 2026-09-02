@@ -35,18 +35,11 @@ class ProviderProfileScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final profileAsync = ref.watch(providerProfileProvider(slug));
     final colors = context.colors;
-    final locale = Localizations.localeOf(context);
 
     return Scaffold(
       backgroundColor: colors.background,
       appBar: AppBar(
-        backgroundColor: colors.surface,
-        elevation: 0,
-        scrolledUnderElevation: 0,
-        title: Text(
-          profileAsync.valueOrNull?.businessName ?? '',
-          style: AppText.h3(locale).copyWith(color: colors.textPrimary),
-        ),
+        title: Text(profileAsync.valueOrNull?.businessName ?? ''),
       ),
       body: profileAsync.when(
         loading: () => const _ProfileSkeleton(),
