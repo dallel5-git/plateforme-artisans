@@ -17,6 +17,7 @@ _(aucune tâche DEV-1 en cours — `FM-05` et `FM-10` terminées, déplacées ve
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
+| `FM-19` | Clés i18n de navigation FR/AR (onglets, segmented control) | 2026-09-02 | `feat/FM-19-i18n-nav-keys` | PR ouverte, en attente de revue |
 
 *(FM-18b — `docs/design-system.html` généré depuis `tokens.json` (10ᵉ target de `build-tokens.mjs`),
 remplace les 2 copies à la main (bloc CSS `:root` + objet JS `SEM`) qui avaient divergé — le

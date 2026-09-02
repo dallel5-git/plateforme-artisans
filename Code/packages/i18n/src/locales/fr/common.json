@@ -15,5 +15,16 @@
       "message": "Tu consultes des résultats enregistrés. Ils seront actualisés au retour du réseau.",
       "dismiss": "Compris"
     }
+  },
+  "nav": {
+    "searchTab": "Rechercher",
+    "favoritesTab": "Favoris",
+    "historyTab": "Historique",
+    "profileTab": "Profil",
+    "dashboardTab": "Tableau de bord",
+    "boostsTab": "Boosts",
+    "reviewsTab": "Avis",
+    "switchToClient": "Passer en mode client",
+    "switchToPro": "Passer en mode pro"
   }
 }

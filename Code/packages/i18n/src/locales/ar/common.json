@@ -15,5 +15,16 @@
       "message": "أنت تتصفح نتائج محفوظة. سيتم تحديثها عند عودة الاتصال بالشبكة.",
       "dismiss": "فهمت"
     }
+  },
+  "nav": {
+    "searchTab": "بحث",
+    "favoritesTab": "المفضلة",
+    "historyTab": "السجل",
+    "profileTab": "الملف الشخصي",
+    "dashboardTab": "لوحة التحكم",
+    "boostsTab": "التعزيزات",
+    "reviewsTab": "التقييمات",
+    "switchToClient": "التبديل إلى وضع العميل",
+    "switchToPro": "التبديل إلى وضع المحترف"
   }
 }
