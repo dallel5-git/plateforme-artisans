@@ -16,6 +16,17 @@
       "dismiss": "Compris"
     }
   },
+  "nav": {
+    "searchTab": "Rechercher",
+    "favoritesTab": "Favoris",
+    "historyTab": "Historique",
+    "profileTab": "Profil",
+    "dashboardTab": "Tableau de bord",
+    "boostsTab": "Boosts",
+    "reviewsTab": "Avis",
+    "switchToClient": "Passer en mode client",
+    "switchToPro": "Passer en mode pro"
+  },
   "devPreview": {
     "sectionAppButton": "AppButton",
     "sectionAppCard": "AppCard",

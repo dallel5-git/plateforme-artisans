@@ -89,6 +89,7 @@ class Translations$common$ar extends Translations$common$fr {
 	@override String get appName => 'Sanaya';
 	@override late final Translations$common$home$ar home = Translations$common$home$ar._(_root);
 	@override late final Translations$common$widgets$ar widgets = Translations$common$widgets$ar._(_root);
+	@override late final Translations$common$nav$ar nav = Translations$common$nav$ar._(_root);
 	@override late final Translations$common$devPreview$ar devPreview = Translations$common$devPreview$ar._(_root);
 }
 
@@ -229,6 +230,8 @@ class Translations$search$ar extends Translations$search$fr {
 	// Translations
 	@override String get searchPlaceholder => 'ابحث عن خدمة…';
 	@override String get locationPlaceholder => 'اختر ولاية';
+	@override String get serviceLabel => 'الخدمة';
+	@override String get governorateLabel => 'الولاية';
 	@override String get categoriesTitle => 'الفئات';
 	@override String get categoriesEmpty => 'لا توجد فئات متاحة حاليًا.';
 	@override String get categoriesError => 'تعذّر تحميل الفئات.';
@@ -288,6 +291,24 @@ class Translations$common$widgets$ar extends Translations$common$widgets$fr {
 	// Translations
 	@override String get verifiedBadge => 'موثّق';
 	@override late final Translations$common$widgets$offlineBanner$ar offlineBanner = Translations$common$widgets$offlineBanner$ar._(_root);
+}
+
+// Path: common.nav
+class Translations$common$nav$ar extends Translations$common$nav$fr {
+	Translations$common$nav$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get searchTab => 'بحث';
+	@override String get favoritesTab => 'المفضلة';
+	@override String get historyTab => 'السجل';
+	@override String get profileTab => 'الملف الشخصي';
+	@override String get dashboardTab => 'لوحة التحكم';
+	@override String get boostsTab => 'التعزيزات';
+	@override String get reviewsTab => 'التقييمات';
+	@override String get switchToClient => 'التبديل إلى وضع العميل';
+	@override String get switchToPro => 'التبديل إلى وضع المحترف';
 }
 
 // Path: common.devPreview
@@ -439,6 +460,15 @@ extension on TranslationsAr {
 			'common.widgets.verifiedBadge' => 'موثّق',
 			'common.widgets.offlineBanner.message' => 'أنت تتصفح نتائج محفوظة. سيتم تحديثها عند عودة الاتصال بالشبكة.',
 			'common.widgets.offlineBanner.dismiss' => 'فهمت',
+			'common.nav.searchTab' => 'بحث',
+			'common.nav.favoritesTab' => 'المفضلة',
+			'common.nav.historyTab' => 'السجل',
+			'common.nav.profileTab' => 'الملف الشخصي',
+			'common.nav.dashboardTab' => 'لوحة التحكم',
+			'common.nav.boostsTab' => 'التعزيزات',
+			'common.nav.reviewsTab' => 'التقييمات',
+			'common.nav.switchToClient' => 'التبديل إلى وضع العميل',
+			'common.nav.switchToPro' => 'التبديل إلى وضع المحترف',
 			'common.devPreview.sectionAppButton' => 'AppButton',
 			'common.devPreview.sectionAppCard' => 'AppCard',
 			'common.devPreview.sectionAppTextField' => 'AppTextField',
@@ -596,6 +626,8 @@ extension on TranslationsAr {
 			'provider.profile.reviewPromptCta' => 'ترك تقييم',
 			'search.searchPlaceholder' => 'ابحث عن خدمة…',
 			'search.locationPlaceholder' => 'اختر ولاية',
+			'search.serviceLabel' => 'الخدمة',
+			'search.governorateLabel' => 'الولاية',
 			'search.categoriesTitle' => 'الفئات',
 			'search.categoriesEmpty' => 'لا توجد فئات متاحة حاليًا.',
 			'search.categoriesError' => 'تعذّر تحميل الفئات.',

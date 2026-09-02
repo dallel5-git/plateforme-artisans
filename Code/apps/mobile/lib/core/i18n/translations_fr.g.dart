@@ -125,6 +125,7 @@ class Translations$common$fr {
 
 	late final Translations$common$home$fr home = Translations$common$home$fr.internal(_root);
 	late final Translations$common$widgets$fr widgets = Translations$common$widgets$fr.internal(_root);
+	late final Translations$common$nav$fr nav = Translations$common$nav$fr.internal(_root);
 	late final Translations$common$devPreview$fr devPreview = Translations$common$devPreview$fr.internal(_root);
 }
 
@@ -416,6 +417,12 @@ class Translations$search$fr {
 	/// fr: 'Choisir un gouvernorat'
 	String get locationPlaceholder => 'Choisir un gouvernorat';
 
+	/// fr: 'Service'
+	String get serviceLabel => 'Service';
+
+	/// fr: 'Gouvernorat'
+	String get governorateLabel => 'Gouvernorat';
+
 	/// fr: 'Catégories'
 	String get categoriesTitle => 'Catégories';
 
@@ -537,6 +544,42 @@ class Translations$common$widgets$fr {
 	String get verifiedBadge => 'Vérifié';
 
 	late final Translations$common$widgets$offlineBanner$fr offlineBanner = Translations$common$widgets$offlineBanner$fr.internal(_root);
+}
+
+// Path: common.nav
+class Translations$common$nav$fr {
+	Translations$common$nav$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Rechercher'
+	String get searchTab => 'Rechercher';
+
+	/// fr: 'Favoris'
+	String get favoritesTab => 'Favoris';
+
+	/// fr: 'Historique'
+	String get historyTab => 'Historique';
+
+	/// fr: 'Profil'
+	String get profileTab => 'Profil';
+
+	/// fr: 'Tableau de bord'
+	String get dashboardTab => 'Tableau de bord';
+
+	/// fr: 'Boosts'
+	String get boostsTab => 'Boosts';
+
+	/// fr: 'Avis'
+	String get reviewsTab => 'Avis';
+
+	/// fr: 'Passer en mode client'
+	String get switchToClient => 'Passer en mode client';
+
+	/// fr: 'Passer en mode pro'
+	String get switchToPro => 'Passer en mode pro';
 }
 
 // Path: common.devPreview
@@ -856,6 +899,15 @@ extension on Translations {
 			'common.widgets.verifiedBadge' => 'Vérifié',
 			'common.widgets.offlineBanner.message' => 'Tu consultes des résultats enregistrés. Ils seront actualisés au retour du réseau.',
 			'common.widgets.offlineBanner.dismiss' => 'Compris',
+			'common.nav.searchTab' => 'Rechercher',
+			'common.nav.favoritesTab' => 'Favoris',
+			'common.nav.historyTab' => 'Historique',
+			'common.nav.profileTab' => 'Profil',
+			'common.nav.dashboardTab' => 'Tableau de bord',
+			'common.nav.boostsTab' => 'Boosts',
+			'common.nav.reviewsTab' => 'Avis',
+			'common.nav.switchToClient' => 'Passer en mode client',
+			'common.nav.switchToPro' => 'Passer en mode pro',
 			'common.devPreview.sectionAppButton' => 'AppButton',
 			'common.devPreview.sectionAppCard' => 'AppCard',
 			'common.devPreview.sectionAppTextField' => 'AppTextField',
@@ -1013,6 +1065,8 @@ extension on Translations {
 			'provider.profile.reviewPromptCta' => 'Laisser un avis',
 			'search.searchPlaceholder' => 'Rechercher un service…',
 			'search.locationPlaceholder' => 'Choisir un gouvernorat',
+			'search.serviceLabel' => 'Service',
+			'search.governorateLabel' => 'Gouvernorat',
 			'search.categoriesTitle' => 'Catégories',
 			'search.categoriesEmpty' => 'Aucune catégorie disponible pour le moment.',
 			'search.categoriesError' => 'Impossible de charger les catégories.',
