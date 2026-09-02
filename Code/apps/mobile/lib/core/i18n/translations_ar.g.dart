@@ -43,9 +43,12 @@ class TranslationsAr extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final Translations$common$ar common = Translations$common$ar._(_root);
 	@override late final Translations$contact$ar contact = Translations$contact$ar._(_root);
 	@override late final Translations$dashboard$ar dashboard = Translations$dashboard$ar._(_root);
+	@override late final Translations$errors$ar errors = Translations$errors$ar._(_root);
 	@override late final Translations$favorites$ar favorites = Translations$favorites$ar._(_root);
+	@override late final Translations$history$ar history = Translations$history$ar._(_root);
 	@override late final Translations$legal$ar legal = Translations$legal$ar._(_root);
 	@override late final Translations$onboarding$ar onboarding = Translations$onboarding$ar._(_root);
+	@override late final Translations$profile$ar profile = Translations$profile$ar._(_root);
 	@override late final Translations$provider$ar provider = Translations$provider$ar._(_root);
 	@override late final Translations$search$ar search = Translations$search$ar._(_root);
 	@override late final Translations$settings$ar settings = Translations$settings$ar._(_root);
@@ -126,6 +129,18 @@ class Translations$dashboard$ar extends Translations$dashboard$fr {
 	@override String get errorMessage => 'تحقق من اتصالك وأعد المحاولة.';
 }
 
+// Path: errors
+class Translations$errors$ar extends Translations$errors$fr {
+	Translations$errors$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get routeNotFoundTitle => 'الصفحة غير موجودة';
+	@override String get routeNotFoundMessage => 'هذه الصفحة غير موجودة أو لم تعد متاحة.';
+	@override String get routeNotFoundAction => 'العودة إلى الصفحة الرئيسية';
+}
+
 // Path: favorites
 class Translations$favorites$ar extends Translations$favorites$fr {
 	Translations$favorites$ar._(TranslationsAr root) : this._root = root, super.internal(root);
@@ -146,6 +161,18 @@ class Translations$favorites$ar extends Translations$favorites$fr {
 	@override String get loadError => 'تعذر تحميل قائمة المفضلات.';
 	@override String get retry => 'إعادة المحاولة';
 	@override String get verifiedBadge => 'موثوق';
+}
+
+// Path: history
+class Translations$history$ar extends Translations$history$fr {
+	Translations$history$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'السجل';
+	@override String get emptyTitle => 'السجل قريباً';
+	@override String get emptyMessage => 'ستجد هنا قريباً سجل تبادلاتك مع الحرفيين.';
 }
 
 // Path: legal
@@ -209,6 +236,18 @@ class Translations$onboarding$ar extends Translations$onboarding$fr {
 	@override String get missingHeadline => 'عنوان';
 	@override String get missingYearsExperience => 'سنوات خبرتك';
 	@override String get missingContactPhone => 'رقم واتساب أو رقم عام';
+}
+
+// Path: profile
+class Translations$profile$ar extends Translations$profile$fr {
+	Translations$profile$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'الملف الشخصي';
+	@override String get emptyTitle => 'الملف الشخصي قريباً';
+	@override String get emptyMessage => 'ستتوفر إدارة حسابك قريباً.';
 }
 
 // Path: provider
@@ -539,6 +578,9 @@ extension on TranslationsAr {
 			'dashboard.retry' => 'إعادة المحاولة',
 			'dashboard.errorTitle' => 'تعذر تحميل لوحة التحكم',
 			'dashboard.errorMessage' => 'تحقق من اتصالك وأعد المحاولة.',
+			'errors.routeNotFoundTitle' => 'الصفحة غير موجودة',
+			'errors.routeNotFoundMessage' => 'هذه الصفحة غير موجودة أو لم تعد متاحة.',
+			'errors.routeNotFoundAction' => 'العودة إلى الصفحة الرئيسية',
 			'favorites.title' => 'المفضلات',
 			'favorites.emptyTitle' => 'لا توجد عناصر مفضلة حتى الآن',
 			'favorites.emptySubtitle' => 'احفظ الحرفيين للوصول إليهم بسرعة لاحقاً.',
@@ -552,6 +594,9 @@ extension on TranslationsAr {
 			'favorites.loadError' => 'تعذر تحميل قائمة المفضلات.',
 			'favorites.retry' => 'إعادة المحاولة',
 			'favorites.verifiedBadge' => 'موثوق',
+			'history.title' => 'السجل',
+			'history.emptyTitle' => 'السجل قريباً',
+			'history.emptyMessage' => 'ستجد هنا قريباً سجل تبادلاتك مع الحرفيين.',
 			'legal.title' => 'الإشعارات القانونية',
 			'legal.editorTitle' => 'الجهة المشرفة على المنصة',
 			'legal.editorContent' => 'صنايعية — منصة للربط بين الحرفيين والعملاء في تونس (الساحل: سوسة، المنستير، المهدية).',
@@ -597,6 +642,9 @@ extension on TranslationsAr {
 			'onboarding.missingHeadline' => 'عنوان',
 			'onboarding.missingYearsExperience' => 'سنوات خبرتك',
 			'onboarding.missingContactPhone' => 'رقم واتساب أو رقم عام',
+			'profile.title' => 'الملف الشخصي',
+			'profile.emptyTitle' => 'الملف الشخصي قريباً',
+			'profile.emptyMessage' => 'ستتوفر إدارة حسابك قريباً.',
 			'provider.profile.callButton' => 'اتصال',
 			'provider.profile.whatsappButton' => 'واتساب',
 			'provider.profile.reviewsTitle' => 'التقييمات',

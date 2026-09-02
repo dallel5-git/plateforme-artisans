@@ -1,13 +1,17 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sanaya/app/design_system_preview_screen.dart';
 import 'package:sanaya/app/home_screen.dart';
+import 'package:sanaya/app/providers.dart';
+import 'package:sanaya/core/widgets/error_state.dart';
 import 'package:sanaya/features/auth/application/auth_state_provider.dart';
 import 'package:sanaya/features/auth/presentation/auth_screen.dart';
 import 'package:sanaya/features/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:sanaya/features/favorites/presentation/favorites_screen.dart';
+import 'package:sanaya/features/history/presentation/history_placeholder_screen.dart';
 import 'package:sanaya/features/onboarding/presentation/onboarding_screen.dart';
+import 'package:sanaya/features/profile/presentation/profile_placeholder_screen.dart';
 import 'package:sanaya/features/provider_profile/presentation/screens/provider_profile_screen.dart';
 import 'package:sanaya/features/provider_profile/presentation/screens/review_form_screen.dart';
 import 'package:sanaya/features/search/presentation/search_home_screen.dart';
@@ -51,6 +55,7 @@ final router = GoRouter(
     if (!onEntryRoute) return null;
     return status.isProvider ? '/pro' : '/client';
   },
+  errorBuilder: (_, _) => const _RouteNotFoundScreen(),
   routes: [
     GoRoute(path: '/', name: 'home', builder: (_, _) => const HomeScreen()),
     GoRoute(
@@ -67,6 +72,18 @@ final router = GoRouter(
           path: 'favorites',
           name: 'client-favorites',
           builder: (_, _) => const FavoritesScreen(),
+        ),
+        // FM-23a : atteignables dès maintenant pour être testables — FM-23b
+        // les convertira en branches de `StatefulShellRoute.indexedStack`.
+        GoRoute(
+          path: 'history',
+          name: 'client-history',
+          builder: (_, _) => const HistoryPlaceholderScreen(),
+        ),
+        GoRoute(
+          path: 'profile',
+          name: 'client-profile',
+          builder: (_, _) => const ProfilePlaceholderScreen(),
         ),
       ],
     ),
@@ -117,3 +134,26 @@ final router = GoRouter(
     ),
   ],
 );
+
+/// Route inconnue → `ErrorState` thémé (design-system.html §8), pas la page
+/// anglaise par défaut de go_router.
+class _RouteNotFoundScreen extends ConsumerWidget {
+  const _RouteNotFoundScreen();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(translationsProvider);
+
+    return Scaffold(
+      body: Center(
+        child: ErrorState(
+          icon: '🔍',
+          title: t.errors.routeNotFoundTitle,
+          message: t.errors.routeNotFoundMessage,
+          actionLabel: t.errors.routeNotFoundAction,
+          onAction: () => router.go('/client'),
+        ),
+      ),
+    );
+  }
+}
