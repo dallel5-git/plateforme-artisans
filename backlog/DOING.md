@@ -17,6 +17,8 @@ _(aucune tâche DEV-1 en cours — `FM-05` et `FM-10` terminées, déplacées ve
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
+| `FM-15` | Générateur de tokens : élévation, motion, tracking, icônes, nouveaux rôles (#214) — découpée en 7 sous-PRs `FM-15a`(socle tests)/`FM-15g`(fix copyWith/lerp)/`FM-15c`(iconSize)/`FM-15f`(typo/layout)/`FM-15b`(élévation+motion)/`FM-15d`(nouveaux rôles)/`FM-15e`(fix collisions) + `FM-15x` clôture | 2026-09-02 | `chore/FM-15a-tokens-test-harness` | En cours — FM-15a |
+
 *(FM-04 — 6/6 PRs mergées #163/#167/#168/#169/#188/#191 — déplacée vers `DONE.md`. Les 10 widgets de l'issue #55 sont livrés. `feat/FM-04c-rating-stars-verified-badge` était restée bloquée en fusion locale non résolue pendant la revue (`origin/develop` avait avancé de 24 commits, dont FM-08b qui avait entre-temps introduit ses propres copies de `rating_stars.dart`/`verified_badge.dart`) — fusion refaite proprement, conflits résolus par union des chemins CI. `FM-04e` (dernière tranche) : `AppSkeleton`, `EmptyState`/`ErrorState` (design-system.html §8), `OfflineBanner` (bandeau fin non bloquant — tranché en faveur de la description `CLAUDE.md` mobile plutôt que la carte plein écran du mockup §8). **Non vérifié sur device Android réel** dans cet environnement.)*
 
 *(FM-06 — 3/3 PRs mergées #165/#166/#170 — déplacée vers `DONE.md`. `FM-06b` avait un conflit `backlog/DOING.md` avec `fix/FM-04a-app-button-shrinkwrap` (#167, résolu par rebase) et un vrai bug CI (`dart format --set-exit-if-changed lib/core/api` en entier balayait `lib/core/api/generated/`, reformaté par un SDK Dart local différent de celui épinglé — corrigé en ciblant `lib/core/api/api_client_provider.dart` précisément).)*

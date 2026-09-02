@@ -2,5 +2,12 @@
   "name": "@repo/design-tokens",
   "version": "0.0.0",
   "private": true,
-  "description": "tokens.json → preset Tailwind (TS) et thème Dart, générés par tooling/scripts/build-tokens.mjs (SO-04)."
+  "type": "module",
+  "description": "tokens.json → preset Tailwind (TS) et thème Dart, générés par tooling/scripts/build-tokens.mjs (SO-04).",
+  "scripts": {
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "vitest": "4.1.11"
+  }
 }
