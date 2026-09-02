@@ -17,6 +17,7 @@ _(aucune tâche DEV-1 en cours — `FM-05` et `FM-10` terminées, déplacées ve
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
+| `FM-17a` | Persistance du thème (`themeModeProvider`) — même patron que `localeProvider`/`selectedGovernorateIdProvider` | 2026-09-02 | `feat/FM-17a-persistance-theme` | En cours — implémentation + tests verts, PR à ouvrir |
 
 *(FM-16 — 3/3 PRs mergées #254/#255/#256 — déplacée vers `DONE.md`. Piège **stacked PR** rencontré :
 `FM-16c` (#256, base `feat/FM-16b-sous-themes-composants`) a fusionné 17 s *après* que #255 (même
