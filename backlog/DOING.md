@@ -17,7 +17,9 @@ _(aucune tâche DEV-1 en cours — `FM-05` et `FM-10` terminées, déplacées ve
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `FM-19` | Clés i18n de navigation FR/AR (onglets, segmented control) | 2026-09-02 | `feat/FM-19-i18n-nav-keys` | PR #266 ouverte contre `develop`, en attente de revue |
+
+*(FM-19 — 1 PR mergée #266 — déplacée vers `DONE.md`. Voir `DONE.md` pour le piège de merge
+`common.json` rencontré et sa correction.)*
 
 *(FM-18 — 4/4 PRs mergées #261/#262/#263/#264 — déplacée vers `DONE.md`. Trois conflits
 `backlog/DOING.md` en cascade rencontrés au fil des merges successifs (#261 puis #262 puis #263,
