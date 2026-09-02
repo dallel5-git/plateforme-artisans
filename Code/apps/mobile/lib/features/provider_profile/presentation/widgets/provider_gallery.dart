@@ -88,9 +88,9 @@ class _ProviderGalleryState extends State<ProviderGallery> {
                   horizontal: AppSpacing.sm,
                   vertical: AppSpacing.xxs,
                 ),
-                decoration: const BoxDecoration(
-                  color: Colors.black54,
-                  borderRadius: BorderRadius.all(AppRadius.pill),
+                decoration: BoxDecoration(
+                  color: colors.scrim,
+                  borderRadius: const BorderRadius.all(AppRadius.pill),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -103,8 +103,8 @@ class _ProviderGalleryState extends State<ProviderGallery> {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: _currentIndex == index
-                            ? Colors.white
-                            : Colors.white54,
+                            ? colors.onScrim
+                            : colors.onScrim.withValues(alpha: 0.54),
                       ),
                     ),
                   ),
