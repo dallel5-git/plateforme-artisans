@@ -26,8 +26,8 @@ ajoutés par FM-15d (`onWhatsapp`, `amber`/`onAmber`, `scrim`/`onScrim`, `thumbn
 « Autres rôles » calculé automatiquement pour tout rôle non couvert (future-proof, aucune retouche
 du générateur nécessaire au prochain rôle ajouté à `tokens.json`). Critère d'acceptation vérifié en
 local : casser volontairement une valeur dans le HTML committé → `tokens:build:check` échoue,
-restaurer → repasse au vert. `pnpm test` (design-tokens) 27/27. PR à ouvrir — déplacée vers
-`DONE.md` une fois mergée.)*
+restaurer → repasse au vert. `pnpm test` (design-tokens) 27/27. PR #262 ouverte contre `develop`,
+en attente de revue — déplacée vers `DONE.md` une fois mergée.)*
 
 *(FM-18a — voir la branche `feat/FM-18a-style-scan-guard-rail`, PR #261, CI verte, en attente de
 revue — cette branche a été créée depuis `develop` avant que FM-18a ne soit mergé, donc sa note
