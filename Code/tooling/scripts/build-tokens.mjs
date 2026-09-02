@@ -800,7 +800,28 @@ code.k{font-family:ui-monospace,monospace;font-size:12px;background:var(--c-surf
 </section>
 
 <section>
-  <h2 class="sec">10. Règles d'usage — à relire avant chaque PR</h2>
+  <h2 class="sec">10. Navigation</h2>
+  <p class="sec"><code class="k">AppBottomNav</code> (FM-22) — barre basse partagée, cible tactile ≥ 48 px, SafeArea basse incluse. Aucune logique RTL manuelle : le miroir est automatique sous <code class="k">Directionality.rtl</code>.</p>
+  <div class="card pad">
+    <div style="display:flex;background:var(--c-nav-background);border-radius:var(--r-lg);overflow:hidden">
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px;color:var(--c-nav-active);font-weight:600">
+        <span style="font-size:20px">🔍</span><span style="font-size:12px">Rechercher</span>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px;color:var(--c-nav-inactive)">
+        <span style="font-size:20px">🤍</span><span style="font-size:12px">Favoris</span>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px;color:var(--c-nav-inactive)">
+        <span style="font-size:20px">🕒</span><span style="font-size:12px">Historique</span>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px;color:var(--c-nav-inactive)">
+        <span style="font-size:20px">👤</span><span style="font-size:12px">Profil</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">11. Règles d'usage — à relire avant chaque PR</h2>
   <div class="card pad">
     <ul style="padding-inline-start:20px;display:grid;gap:10px;font-size:14px">
       <li><strong>Zéro valeur en dur.</strong> <code class="k">AppColors.accent</code> / <code class="k">bg-accent</code>, jamais <code class="k">#3B6FE0</code>.</li>

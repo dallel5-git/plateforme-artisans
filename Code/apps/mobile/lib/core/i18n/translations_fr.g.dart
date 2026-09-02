@@ -620,6 +620,9 @@ class Translations$common$devPreview$fr {
 	/// fr: 'OfflineBanner'
 	String get sectionOfflineBanner => 'OfflineBanner';
 
+	/// fr: 'AppBottomNav'
+	String get sectionAppBottomNav => 'AppBottomNav';
+
 	/// fr: 'Primary'
 	String get buttonPrimary => 'Primary';
 
@@ -918,6 +921,7 @@ extension on Translations {
 			'common.devPreview.sectionEmptyState' => 'EmptyState',
 			'common.devPreview.sectionErrorState' => 'ErrorState',
 			'common.devPreview.sectionOfflineBanner' => 'OfflineBanner',
+			'common.devPreview.sectionAppBottomNav' => 'AppBottomNav',
 			'common.devPreview.buttonPrimary' => 'Primary',
 			'common.devPreview.buttonDisabled' => 'Disabled',
 			'common.devPreview.buttonSecondary' => 'Secondary',

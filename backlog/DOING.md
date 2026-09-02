@@ -17,6 +17,7 @@ _(aucune tâche DEV-1 en cours — `FM-05` et `FM-10` terminées, déplacées ve
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
+| `FM-22` | Widget partagé `AppBottomNav` | 2026-09-02 | `feat/FM-22-app-bottom-nav` | Widget + tests (tap, Semantics, RTL) + `design-system.html` §10 + vitrine `/_ds-preview` prêts, `flutter analyze`/`test`/`tokens:build:check`/`i18n:check` verts. PR à ouvrir vers `develop`. **Vérification visuelle FR/AR non faite sur device réel** — aucun appareil Android ni web configuré dans cet environnement (voir note PR). |
 
 *(FM-19 — 1 PR mergée #266 — déplacée vers `DONE.md`. Voir `DONE.md` pour le piège de merge
 `common.json` rencontré et sa correction.)*
