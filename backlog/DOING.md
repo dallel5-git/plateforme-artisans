@@ -33,23 +33,14 @@ lourdement le même fichier) : ~18 nouvelles clés `common.devPreview.*` pour le
 section, libellés de bascule) ; les données factices bilingues alimentant les modèles générés
 (nom d'avis, titre de prestation, catégories) restent des littéraux Dart, même convention que les
 fixtures de test — pas des chaînes UI de l'écran. `flutter test` 340/340. PR #264 ouverte contre
-`develop`, dépend de #263 (FM-18c) — déplacée vers `DONE.md` une fois les deux mergées.)*
+`develop` — déplacée vers `DONE.md` une fois mergée (dernière sous-tâche de FM-18, closera aussi le
+ticket parent).)*
 
-*(FM-18c — `design_system_preview_screen.dart` respecte enfin la règle « aucune chaîne en dur » :
-~34 clés `common.devPreview.*` (namespace `packages/i18n/src/locales/{fr,ar}/common.json`), y
-compris les titres de section (décision : un outil de dev n'est pas exempté de la règle). Piège
-outillage découvert en route : `dart run build_runner build -d` ne lit **pas** `slang.yaml` (son
-`options.config` build_runner arrive vide, retombe sur les valeurs par défaut de `slang`, dont
-`input_file_pattern: .i18n.json` — introuvable puisque ce projet utilise `.json` nu) ; la bonne
-commande est `dart run slang`, qui lit le fichier directement. A aussi produit ~60 fichiers
-`lib/core/api/generated/**.g.dart` reformatés en bruit parasite (même classe de bug que FM-06b/
-FM-15b — SDK Dart local différent) — écartés (`git checkout --`), seuls les 3 fichiers
-`translations*.g.dart` réellement issus de `dart run slang` sont conservés. Nouveau test
-`test/app/design_system_preview_screen_test.dart` (FR + AR, non-régression : une chaîne française
-codée en dur apparaîtrait aussi en arabe) — a aussi fermé un gap CI pré-existant, `test/app/`
-n'était pas dans la liste `dart format --set-exit-if-changed` de `ci.yml` malgré 2 fichiers déjà
-présents. `flutter test` 337/337. PR #263 ouverte contre `develop`, en attente de revue — déplacée
-vers `DONE.md` une fois mergée.)*
+*(FM-18c — 1 PR mergée #263 — déplacée vers `DONE.md`.)*
+
+*(FM-18b — 1 PR mergée #262 — déplacée vers `DONE.md`.)*
+
+*(FM-18a — 1 PR mergée #261 — déplacée vers `DONE.md`.)*
 
 *(FM-17 — 2/2 PRs mergées #258/#259 — déplacée vers `DONE.md`.)*
 
