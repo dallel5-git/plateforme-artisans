@@ -50,6 +50,25 @@
     "emptyAction": "Élargir au gouvernorat",
     "errorTitle": "Connexion perdue",
     "errorMessage": "Impossible de charger les résultats. Vérifie ta connexion.",
-    "errorAction": "Réessayer"
+    "errorAction": "Réessayer",
+    "sectionColorRoles": "Rôles de couleur",
+    "swatchLight": "Clair",
+    "swatchDark": "Sombre",
+    "sectionTypography": "Typographie",
+    "sectionAvailabilityChip": "AvailabilityChip",
+    "sectionReviewTile": "ReviewTile",
+    "sectionOfferingCard": "OfferingCard",
+    "sectionProviderGallery": "ProviderGallery",
+    "sectionDashboardStatCard": "DashboardStatCard",
+    "sectionDashboardTrendChart": "DashboardTrendChart",
+    "sectionDashboardComparisonChip": "DashboardComparisonChip",
+    "sectionRatingStarsInput": "RatingStarsInput",
+    "sectionOtpCodeField": "OtpCodeField",
+    "sectionCoverageAreaChip": "CoverageAreaChip",
+    "sectionCategoryGrid": "CategoryGrid",
+    "sectionCategoryGridSkeleton": "CategoryGridSkeleton",
+    "sectionFavoriteCardSkeleton": "FavoriteCardSkeleton",
+    "statViewsLabel": "Vues du profil",
+    "statNewLabel": "Nouveau"
   }
 }

@@ -331,6 +331,25 @@ class Translations$common$devPreview$ar extends Translations$common$devPreview$f
 	@override String get errorTitle => 'انقطع الاتصال';
 	@override String get errorMessage => 'تعذّر تحميل النتائج. تحقق من اتصالك.';
 	@override String get errorAction => 'إعادة المحاولة';
+	@override String get sectionColorRoles => 'أدوار الألوان';
+	@override String get swatchLight => 'فاتح';
+	@override String get swatchDark => 'داكن';
+	@override String get sectionTypography => 'الطباعة';
+	@override String get sectionAvailabilityChip => 'AvailabilityChip';
+	@override String get sectionReviewTile => 'ReviewTile';
+	@override String get sectionOfferingCard => 'OfferingCard';
+	@override String get sectionProviderGallery => 'ProviderGallery';
+	@override String get sectionDashboardStatCard => 'DashboardStatCard';
+	@override String get sectionDashboardTrendChart => 'DashboardTrendChart';
+	@override String get sectionDashboardComparisonChip => 'DashboardComparisonChip';
+	@override String get sectionRatingStarsInput => 'RatingStarsInput';
+	@override String get sectionOtpCodeField => 'OtpCodeField';
+	@override String get sectionCoverageAreaChip => 'CoverageAreaChip';
+	@override String get sectionCategoryGrid => 'CategoryGrid';
+	@override String get sectionCategoryGridSkeleton => 'CategoryGridSkeleton';
+	@override String get sectionFavoriteCardSkeleton => 'FavoriteCardSkeleton';
+	@override String get statViewsLabel => 'زيارات الملف الشخصي';
+	@override String get statNewLabel => 'جديد';
 }
 
 // Path: provider.profile
@@ -454,6 +473,25 @@ extension on TranslationsAr {
 			'common.devPreview.errorTitle' => 'انقطع الاتصال',
 			'common.devPreview.errorMessage' => 'تعذّر تحميل النتائج. تحقق من اتصالك.',
 			'common.devPreview.errorAction' => 'إعادة المحاولة',
+			'common.devPreview.sectionColorRoles' => 'أدوار الألوان',
+			'common.devPreview.swatchLight' => 'فاتح',
+			'common.devPreview.swatchDark' => 'داكن',
+			'common.devPreview.sectionTypography' => 'الطباعة',
+			'common.devPreview.sectionAvailabilityChip' => 'AvailabilityChip',
+			'common.devPreview.sectionReviewTile' => 'ReviewTile',
+			'common.devPreview.sectionOfferingCard' => 'OfferingCard',
+			'common.devPreview.sectionProviderGallery' => 'ProviderGallery',
+			'common.devPreview.sectionDashboardStatCard' => 'DashboardStatCard',
+			'common.devPreview.sectionDashboardTrendChart' => 'DashboardTrendChart',
+			'common.devPreview.sectionDashboardComparisonChip' => 'DashboardComparisonChip',
+			'common.devPreview.sectionRatingStarsInput' => 'RatingStarsInput',
+			'common.devPreview.sectionOtpCodeField' => 'OtpCodeField',
+			'common.devPreview.sectionCoverageAreaChip' => 'CoverageAreaChip',
+			'common.devPreview.sectionCategoryGrid' => 'CategoryGrid',
+			'common.devPreview.sectionCategoryGridSkeleton' => 'CategoryGridSkeleton',
+			'common.devPreview.sectionFavoriteCardSkeleton' => 'FavoriteCardSkeleton',
+			'common.devPreview.statViewsLabel' => 'زيارات الملف الشخصي',
+			'common.devPreview.statNewLabel' => 'جديد',
 			'contact.call' => 'اتصال',
 			'contact.whatsapp' => 'واتساب',
 			'dashboard.title' => 'لوحة التحكم',
