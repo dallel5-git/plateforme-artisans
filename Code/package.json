@@ -25,6 +25,7 @@
     "api:contract": "turbo run api:contract",
     "api:contract:check": "turbo run api:contract -- --check",
     "i18n:check": "node tooling/scripts/i18n-check.mjs",
+    "style:scan": "node tooling/scripts/style-scan.mjs",
     "tokens:build": "node tooling/scripts/build-tokens.mjs",
     "tokens:build:check": "node tooling/scripts/build-tokens.mjs --check",
     "mobile:client": "node tooling/scripts/mobile-client.mjs",
