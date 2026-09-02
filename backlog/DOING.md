@@ -18,29 +18,11 @@ _(aucune tâche DEV-1 en cours — `FM-05` et `FM-10` terminées, déplacées ve
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
 
-*(FM-18d — Enrichit `/_ds-preview` (issue #217, dernière sous-tâche) : nuancier des 34 rôles
-`AppColors` avec bascule clair/sombre locale au widget (n'affecte jamais `themeModeProvider` — la
-vitrine ne doit pas changer le thème de toute l'app pour comparer les deux jeux de rôles), échelle
-typographique complète (9 paliers `AppText.*`), et 13 widgets de `features/*/presentation/widgets/`
-jamais montrés jusqu'ici (`AvailabilityChip`, `ReviewTile`, `OfferingCard`, `ProviderGallery`,
-`DashboardStatCard`, `DashboardTrendChart`, `DashboardComparisonChip`, `RatingStarsInput`,
-`OtpCodeField`, `CoverageAreaChip`, `CategoryGrid`, `CategoryGridSkeleton`,
-`FavoriteCardSkeleton`) — largement au-dessus du plancher de 10 du critère d'acceptation. Exclus
-volontairement : widgets couplés à des providers réseau ou des écrans à part entière plutôt que des
-composants atomiques (`FavoriteCard`, `GovernoratePickerSheet`, les étapes onboarding/auth). Bâtie
-sur `feat/FM-18c-i18n-preview-screen` (fusionnée localement, pas stackée en PR — les deux touchent
-lourdement le même fichier) : ~18 nouvelles clés `common.devPreview.*` pour le chrome UI (titres de
-section, libellés de bascule) ; les données factices bilingues alimentant les modèles générés
-(nom d'avis, titre de prestation, catégories) restent des littéraux Dart, même convention que les
-fixtures de test — pas des chaînes UI de l'écran. `flutter test` 340/340. PR #264 ouverte contre
-`develop` — déplacée vers `DONE.md` une fois mergée (dernière sous-tâche de FM-18, closera aussi le
-ticket parent).)*
-
-*(FM-18c — 1 PR mergée #263 — déplacée vers `DONE.md`.)*
-
-*(FM-18b — 1 PR mergée #262 — déplacée vers `DONE.md`.)*
-
-*(FM-18a — 1 PR mergée #261 — déplacée vers `DONE.md`.)*
+*(FM-18 — 4/4 PRs mergées #261/#262/#263/#264 — déplacée vers `DONE.md`. Trois conflits
+`backlog/DOING.md` en cascade rencontrés au fil des merges successifs (#261 puis #262 puis #263,
+chacun invalidant la résolution précédente sur `feat/FM-18d-enrichir-ds-preview` qui les touchait
+tous) — résolus à chaque fois par fusion de `develop` + re-vérification complète (jamais par
+rebase/force-push), même méthode que FM-15/FM-16.)*
 
 *(FM-17 — 2/2 PRs mergées #258/#259 — déplacée vers `DONE.md`.)*
 
