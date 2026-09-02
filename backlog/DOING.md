@@ -29,9 +29,7 @@ local : casser volontairement une valeur dans le HTML committé → `tokens:buil
 restaurer → repasse au vert. `pnpm test` (design-tokens) 27/27. PR #262 ouverte contre `develop`,
 en attente de revue — déplacée vers `DONE.md` une fois mergée.)*
 
-*(FM-18a — voir la branche `feat/FM-18a-style-scan-guard-rail`, PR #261, CI verte, en attente de
-revue — cette branche a été créée depuis `develop` avant que FM-18a ne soit mergé, donc sa note
-DOING n'apparaît pas ici.)*
+*(FM-18a — 1 PR mergée #261 — déplacée vers `DONE.md`.)*
 
 *(FM-17 — 2/2 PRs mergées #258/#259 — déplacée vers `DONE.md`.)*
 
