@@ -8,6 +8,7 @@ import 'package:sanaya/core/i18n/translations.g.dart';
 import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/theme/app_text.dart';
+import 'package:sanaya/core/widgets/app_bottom_nav.dart';
 import 'package:sanaya/core/widgets/app_button.dart';
 import 'package:sanaya/core/widgets/app_card.dart';
 import 'package:sanaya/core/widgets/app_skeleton.dart';
@@ -327,6 +328,11 @@ class DesignSystemPreviewScreen extends ConsumerWidget {
             title: t.common.devPreview.sectionFavoriteCardSkeleton,
             child: const FavoriteCardSkeleton(),
           ),
+          const SizedBox(height: AppSpacing.xl),
+          _Section(
+            title: t.common.devPreview.sectionAppBottomNav,
+            child: _AppBottomNavShowcase(t: t),
+          ),
         ],
       ),
     );
@@ -499,6 +505,48 @@ class _ColorSwatch extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// Vitrine interactive d'`AppBottomNav` (FM-22) — état local pour illustrer
+/// le changement d'onglet actif au tap, sur les 4 onglets du shell client
+/// (`t.common.nav.*`, FM-19).
+class _AppBottomNavShowcase extends StatefulWidget {
+  const _AppBottomNavShowcase({required this.t});
+
+  final Translations t;
+
+  @override
+  State<_AppBottomNavShowcase> createState() => _AppBottomNavShowcaseState();
+}
+
+class _AppBottomNavShowcaseState extends State<_AppBottomNavShowcase> {
+  int _currentIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = widget.t;
+    final items = [
+      AppBottomNavItem(icon: Icons.search, label: t.common.nav.searchTab),
+      AppBottomNavItem(
+        icon: Icons.favorite_border,
+        label: t.common.nav.favoritesTab,
+      ),
+      AppBottomNavItem(icon: Icons.history, label: t.common.nav.historyTab),
+      AppBottomNavItem(
+        icon: Icons.person_outline,
+        label: t.common.nav.profileTab,
+      ),
+    ];
+
+    return ClipRRect(
+      borderRadius: const BorderRadius.all(AppRadius.md),
+      child: AppBottomNav(
+        items: items,
+        currentIndex: _currentIndex,
+        onTap: (index) => setState(() => _currentIndex = index),
       ),
     );
   }

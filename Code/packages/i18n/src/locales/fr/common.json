@@ -38,6 +38,7 @@
     "sectionEmptyState": "EmptyState",
     "sectionErrorState": "ErrorState",
     "sectionOfflineBanner": "OfflineBanner",
+    "sectionAppBottomNav": "AppBottomNav",
     "buttonPrimary": "Primary",
     "buttonDisabled": "Disabled",
     "buttonSecondary": "Secondary",

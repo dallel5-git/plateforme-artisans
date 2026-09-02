@@ -328,6 +328,7 @@ class Translations$common$devPreview$ar extends Translations$common$devPreview$f
 	@override String get sectionEmptyState => 'EmptyState';
 	@override String get sectionErrorState => 'ErrorState';
 	@override String get sectionOfflineBanner => 'OfflineBanner';
+	@override String get sectionAppBottomNav => 'AppBottomNav';
 	@override String get buttonPrimary => 'أساسي';
 	@override String get buttonDisabled => 'معطّل';
 	@override String get buttonSecondary => 'ثانوي';
@@ -479,6 +480,7 @@ extension on TranslationsAr {
 			'common.devPreview.sectionEmptyState' => 'EmptyState',
 			'common.devPreview.sectionErrorState' => 'ErrorState',
 			'common.devPreview.sectionOfflineBanner' => 'OfflineBanner',
+			'common.devPreview.sectionAppBottomNav' => 'AppBottomNav',
 			'common.devPreview.buttonPrimary' => 'أساسي',
 			'common.devPreview.buttonDisabled' => 'معطّل',
 			'common.devPreview.buttonSecondary' => 'ثانوي',
