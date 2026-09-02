@@ -19,6 +19,7 @@ abstract final class AppText {
         fontSize: 36.0,
         height: 1.167,
         fontWeight: FontWeight.w800,
+        letterSpacing: -0.720,
       );
 
   static TextStyle h1(Locale locale) => TextStyle(
@@ -26,6 +27,7 @@ abstract final class AppText {
         fontSize: 28.0,
         height: 1.214,
         fontWeight: FontWeight.w800,
+        letterSpacing: -0.560,
       );
 
   static TextStyle h2(Locale locale) => TextStyle(
@@ -33,6 +35,7 @@ abstract final class AppText {
         fontSize: 22.0,
         height: 1.273,
         fontWeight: FontWeight.w700,
+        letterSpacing: -0.220,
       );
 
   static TextStyle h3(Locale locale) => TextStyle(
@@ -40,6 +43,15 @@ abstract final class AppText {
         fontSize: 18.0,
         height: 1.333,
         fontWeight: FontWeight.w700,
+        letterSpacing: 0.000,
+      );
+
+  static TextStyle subtitle(Locale locale) => TextStyle(
+        fontFamily: familyFor(locale),
+        fontSize: 16.0,
+        height: 1.500,
+        fontWeight: FontWeight.w600,
+        letterSpacing: 0.000,
       );
 
   static TextStyle body(Locale locale) => TextStyle(
@@ -47,6 +59,7 @@ abstract final class AppText {
         fontSize: 15.0,
         height: 1.467,
         fontWeight: FontWeight.w400,
+        letterSpacing: 0.000,
       );
 
   static TextStyle bodyStrong(Locale locale) => TextStyle(
@@ -54,6 +67,7 @@ abstract final class AppText {
         fontSize: 15.0,
         height: 1.467,
         fontWeight: FontWeight.w600,
+        letterSpacing: 0.000,
       );
 
   static TextStyle small(Locale locale) => TextStyle(
@@ -61,6 +75,7 @@ abstract final class AppText {
         fontSize: 13.0,
         height: 1.385,
         fontWeight: FontWeight.w400,
+        letterSpacing: 0.000,
       );
 
   static TextStyle caption(Locale locale) => TextStyle(
@@ -68,5 +83,14 @@ abstract final class AppText {
         fontSize: 11.0,
         height: 1.273,
         fontWeight: FontWeight.w600,
+        letterSpacing: 0.440,
       );
+}
+
+abstract final class AppFontWeight {
+  static const regular = FontWeight.w400;
+  static const medium = FontWeight.w500;
+  static const semibold = FontWeight.w600;
+  static const bold = FontWeight.w700;
+  static const extrabold = FontWeight.w800;
 }

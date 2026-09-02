@@ -32,6 +32,10 @@ abstract final class AppLayout {
   /// Cible tactile minimale — accessibilité et usage sur chantier (gants, écran sale).
   static const double touchTarget = 48.0;
   static const double containerMax = 1200.0;
+  static const double breakpointSm = 480.0;
+  static const double breakpointMd = 768.0;
+  static const double breakpointLg = 1024.0;
+  static const double breakpointXl = 1280.0;
 }
 
 abstract final class AppIconSize {
