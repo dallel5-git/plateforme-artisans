@@ -38,9 +38,12 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$common$fr common = Translations$common$fr.internal(_root);
 	late final Translations$contact$fr contact = Translations$contact$fr.internal(_root);
 	late final Translations$dashboard$fr dashboard = Translations$dashboard$fr.internal(_root);
+	late final Translations$errors$fr errors = Translations$errors$fr.internal(_root);
 	late final Translations$favorites$fr favorites = Translations$favorites$fr.internal(_root);
+	late final Translations$history$fr history = Translations$history$fr.internal(_root);
 	late final Translations$legal$fr legal = Translations$legal$fr.internal(_root);
 	late final Translations$onboarding$fr onboarding = Translations$onboarding$fr.internal(_root);
+	late final Translations$profile$fr profile = Translations$profile$fr.internal(_root);
 	late final Translations$provider$fr provider = Translations$provider$fr.internal(_root);
 	late final Translations$search$fr search = Translations$search$fr.internal(_root);
 	late final Translations$settings$fr settings = Translations$settings$fr.internal(_root);
@@ -192,6 +195,24 @@ class Translations$dashboard$fr {
 	String get errorMessage => 'Vérifiez votre connexion et réessayez.';
 }
 
+// Path: errors
+class Translations$errors$fr {
+	Translations$errors$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Page introuvable'
+	String get routeNotFoundTitle => 'Page introuvable';
+
+	/// fr: 'Cette page n'existe pas ou n'est plus disponible.'
+	String get routeNotFoundMessage => 'Cette page n\'existe pas ou n\'est plus disponible.';
+
+	/// fr: 'Retour à l'accueil'
+	String get routeNotFoundAction => 'Retour à l\'accueil';
+}
+
 // Path: favorites
 class Translations$favorites$fr {
 	Translations$favorites$fr.internal(this._root);
@@ -238,6 +259,24 @@ class Translations$favorites$fr {
 
 	/// fr: 'Vérifié'
 	String get verifiedBadge => 'Vérifié';
+}
+
+// Path: history
+class Translations$history$fr {
+	Translations$history$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Historique'
+	String get title => 'Historique';
+
+	/// fr: 'Historique bientôt disponible'
+	String get emptyTitle => 'Historique bientôt disponible';
+
+	/// fr: 'Retrouvez ici l'historique de vos échanges avec les artisans dès que cette fonctionnalité sera prête.'
+	String get emptyMessage => 'Retrouvez ici l\'historique de vos échanges avec les artisans dès que cette fonctionnalité sera prête.';
 }
 
 // Path: legal
@@ -391,6 +430,24 @@ class Translations$onboarding$fr {
 
 	/// fr: 'Un numéro WhatsApp ou public'
 	String get missingContactPhone => 'Un numéro WhatsApp ou public';
+}
+
+// Path: profile
+class Translations$profile$fr {
+	Translations$profile$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Profil'
+	String get title => 'Profil';
+
+	/// fr: 'Profil bientôt disponible'
+	String get emptyTitle => 'Profil bientôt disponible';
+
+	/// fr: 'La gestion de votre compte arrive prochainement.'
+	String get emptyMessage => 'La gestion de votre compte arrive prochainement.';
 }
 
 // Path: provider
@@ -980,6 +1037,9 @@ extension on Translations {
 			'dashboard.retry' => 'Réessayer',
 			'dashboard.errorTitle' => 'Impossible de charger le tableau de bord',
 			'dashboard.errorMessage' => 'Vérifiez votre connexion et réessayez.',
+			'errors.routeNotFoundTitle' => 'Page introuvable',
+			'errors.routeNotFoundMessage' => 'Cette page n\'existe pas ou n\'est plus disponible.',
+			'errors.routeNotFoundAction' => 'Retour à l\'accueil',
 			'favorites.title' => 'Mes favoris',
 			'favorites.emptyTitle' => 'Aucun favori pour le moment',
 			'favorites.emptySubtitle' => 'Enregistrez des artisans pour les retrouver rapidement.',
@@ -993,6 +1053,9 @@ extension on Translations {
 			'favorites.loadError' => 'Impossible de charger vos favoris.',
 			'favorites.retry' => 'Réessayer',
 			'favorites.verifiedBadge' => 'Vérifié',
+			'history.title' => 'Historique',
+			'history.emptyTitle' => 'Historique bientôt disponible',
+			'history.emptyMessage' => 'Retrouvez ici l\'historique de vos échanges avec les artisans dès que cette fonctionnalité sera prête.',
 			'legal.title' => 'Mentions légales',
 			'legal.editorTitle' => 'Éditeur de la plateforme',
 			'legal.editorContent' => 'Sanaya — Plateforme de mise en relation entre particuliers et artisans tunisiens (Sahel : Sousse, Monastir, Mahdia).',
@@ -1038,6 +1101,9 @@ extension on Translations {
 			'onboarding.missingHeadline' => 'Un titre',
 			'onboarding.missingYearsExperience' => 'Vos années d\'expérience',
 			'onboarding.missingContactPhone' => 'Un numéro WhatsApp ou public',
+			'profile.title' => 'Profil',
+			'profile.emptyTitle' => 'Profil bientôt disponible',
+			'profile.emptyMessage' => 'La gestion de votre compte arrive prochainement.',
 			'provider.profile.callButton' => 'Appeler',
 			'provider.profile.whatsappButton' => 'WhatsApp',
 			'provider.profile.reviewsTitle' => 'Avis',

@@ -1,1 +1,5 @@
-{}
+{
+  "routeNotFoundTitle": "Page introuvable",
+  "routeNotFoundMessage": "Cette page n'existe pas ou n'est plus disponible.",
+  "routeNotFoundAction": "Retour à l'accueil"
+}
