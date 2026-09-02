@@ -9,60 +9,84 @@
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Kufi+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root[data-theme="light"] {
-      --c-background: #FCFCFA;
-      --c-surface: #FFFFFF;
-      --c-surface-raised: #FFFFFF;
-      --c-surface-sunken: #F3F2ED;
-      --c-border: #E9ECF0;
-      --c-border-strong: #D3D7DE;
-      --c-text-primary: #141A24;
-      --c-text-secondary: #525C6B;
-      --c-text-muted: #78818F;
-      --c-text-inverse: #FFFFFF;
-      --c-accent: #3B6FE0;
-      --c-accent-hover: #2A57C4;
-      --c-accent-subtle: #EEF3FD;
-      --c-on-accent: #FFFFFF;
-      --c-verified: #1E7F4C;
-      --c-verified-subtle: #E8F6EE;
-      --c-pending: #A9640A;
-      --c-pending-subtle: #FEF5E6;
-      --c-destructive: #D93B3B;
-      --c-destructive-subtle: #FDECEC;
-      --c-rating: #C77800;
-      --c-sponsored: #A9640A;
-      --c-whatsapp: #128C7E;
-  --shadow-sm: 0 1px 2px rgba(20,26,36,.06);
-  --shadow-md: 0 4px 12px rgba(20,26,36,.08);
-  --shadow-lg: 0 12px 32px rgba(20,26,36,.12);
+  --c-background: #FCFCFA;
+  --c-surface: #FFFFFF;
+  --c-surface-raised: #FFFFFF;
+  --c-surface-sunken: #F3F2ED;
+  --c-border: #E9ECF0;
+  --c-border-strong: #D3D7DE;
+  --c-text-primary: #141A24;
+  --c-text-secondary: #525C6B;
+  --c-text-muted: #78818F;
+  --c-text-inverse: #FFFFFF;
+  --c-accent: #3B6FE0;
+  --c-accent-hover: #2A57C4;
+  --c-accent-subtle: #EEF3FD;
+  --c-on-accent: #FFFFFF;
+  --c-verified: #1E7F4C;
+  --c-verified-subtle: #E8F6EE;
+  --c-pending: #A9640A;
+  --c-pending-subtle: #FEF5E6;
+  --c-destructive: #D93B3B;
+  --c-destructive-subtle: #FDECEC;
+  --c-rating: #C77800;
+  --c-sponsored: #B8860B;
+  --c-whatsapp: #128C7E;
+  --c-on-whatsapp: #FFFFFF;
+  --c-amber: #C77800;
+  --c-on-amber: #FFFFFF;
+  --c-scrim: #2B2F36;
+  --c-on-scrim: #FFFFFF;
+  --c-thumbnail: #F3F2ED;
+  --c-thumbnail-border: #E9ECF0;
+  --c-chart-bar: #95B4F0;
+  --c-chart-bar-highlight: #3B6FE0;
+  --c-nav-active: #3B6FE0;
+  --c-nav-inactive: #78818F;
+  --c-nav-background: #FFFFFF;
+  --shadow-sm: 0px 1px 2px 0px rgba(20, 26, 36, 0.06);
+  --shadow-md: 0px 4px 12px 0px rgba(20, 26, 36, 0.08);
+  --shadow-lg: 0px 12px 32px 0px rgba(20, 26, 36, 0.12);
 }
 :root[data-theme="dark"] {
-      --c-background: #0A0D12;
-      --c-surface: #141A24;
-      --c-surface-raised: #1F2733;
-      --c-surface-sunken: #11161F;
-      --c-border: #1F2733;
-      --c-border-strong: #343D4B;
-      --c-text-primary: #FCFCFA;
-      --c-text-secondary: #A8B0BD;
-      --c-text-muted: #78818F;
-      --c-text-inverse: #141A24;
-      --c-accent: #6690E8;
-      --c-accent-hover: #95B4F0;
-      --c-accent-subtle: #1A2440;
-      --c-on-accent: #0A0D12;
-      --c-verified: #3FBF7F;
-      --c-verified-subtle: #0F2A1C;
-      --c-pending: #E8A72B;
-      --c-pending-subtle: #2E2210;
-      --c-destructive: #F26D6D;
-      --c-destructive-subtle: #2E1414;
-      --c-rating: #F5A623;
-      --c-sponsored: #E8A72B;
-      --c-whatsapp: #25D366;
-  --shadow-sm: 0 1px 2px rgba(0,0,0,.4);
-  --shadow-md: 0 4px 12px rgba(0,0,0,.5);
-  --shadow-lg: 0 12px 32px rgba(0,0,0,.6);
+  --c-background: #0A0D12;
+  --c-surface: #141A24;
+  --c-surface-raised: #1F2733;
+  --c-surface-sunken: #11161F;
+  --c-border: #2A3441;
+  --c-border-strong: #343D4B;
+  --c-text-primary: #FCFCFA;
+  --c-text-secondary: #A8B0BD;
+  --c-text-muted: #78818F;
+  --c-text-inverse: #141A24;
+  --c-accent: #6690E8;
+  --c-accent-hover: #95B4F0;
+  --c-accent-subtle: #1A2440;
+  --c-on-accent: #0A0D12;
+  --c-verified: #3FBF7F;
+  --c-verified-subtle: #0F2A1C;
+  --c-pending: #E8A72B;
+  --c-pending-subtle: #2E2210;
+  --c-destructive: #F26D6D;
+  --c-destructive-subtle: #2E1414;
+  --c-rating: #F5A623;
+  --c-sponsored: #C99A2E;
+  --c-whatsapp: #25D366;
+  --c-on-whatsapp: #FFFFFF;
+  --c-amber: #F5A623;
+  --c-on-amber: #141A24;
+  --c-scrim: #05070A;
+  --c-on-scrim: #FFFFFF;
+  --c-thumbnail: #232C39;
+  --c-thumbnail-border: #343D4B;
+  --c-chart-bar: #2A57C4;
+  --c-chart-bar-highlight: #6690E8;
+  --c-nav-active: #6690E8;
+  --c-nav-inactive: #A8B0BD;
+  --c-nav-background: #141A24;
+  --shadow-sm: 0px 1px 2px 0px rgba(0, 0, 0, 0.32);
+  --shadow-md: 0px 4px 12px 0px rgba(0, 0, 0, 0.40);
+  --shadow-lg: 0px 12px 32px 0px rgba(0, 0, 0, 0.48);
 }
 :root{
   --s-xxs:2px; --s-xs:4px; --s-sm:8px; --s-md:12px; --s-lg:16px; --s-xl:24px; --s-2xl:32px; --s-3xl:48px;
@@ -413,14 +437,8 @@ code.k{font-family:ui-monospace,monospace;font-size:12px;background:var(--c-surf
 </div>
 
 <script>
-const SEM = {"light": {"background": "#FCFCFA", "surface": "#FFFFFF", "surface-raised": "#FFFFFF", "surface-sunken": "#F3F2ED", "border": "#E9ECF0", "border-strong": "#D3D7DE", "text-primary": "#141A24", "text-secondary": "#525C6B", "text-muted": "#78818F", "text-inverse": "#FFFFFF", "accent": "#3B6FE0", "accent-hover": "#2A57C4", "accent-subtle": "#EEF3FD", "on-accent": "#FFFFFF", "verified": "#1E7F4C", "verified-subtle": "#E8F6EE", "pending": "#A9640A", "pending-subtle": "#FEF5E6", "destructive": "#D93B3B", "destructive-subtle": "#FDECEC", "rating": "#C77800", "sponsored": "#A9640A", "whatsapp": "#128C7E"}, "dark": {"background": "#0A0D12", "surface": "#141A24", "surface-raised": "#1F2733", "surface-sunken": "#11161F", "border": "#1F2733", "border-strong": "#343D4B", "text-primary": "#FCFCFA", "text-secondary": "#A8B0BD", "text-muted": "#78818F", "text-inverse": "#141A24", "accent": "#6690E8", "accent-hover": "#95B4F0", "accent-subtle": "#1A2440", "on-accent": "#0A0D12", "verified": "#3FBF7F", "verified-subtle": "#0F2A1C", "pending": "#E8A72B", "pending-subtle": "#2E2210", "destructive": "#F26D6D", "destructive-subtle": "#2E1414", "rating": "#F5A623", "sponsored": "#E8A72B", "whatsapp": "#25D366"}};
-const groups = [
-  ['Fonds & surfaces', ['background','surface','surface-raised','surface-sunken','border','border-strong']],
-  ['Texte', ['text-primary','text-secondary','text-muted','text-inverse']],
-  ['Accent', ['accent','accent-hover','accent-subtle','on-accent']],
-  ['Statuts', ['verified','verified-subtle','pending','pending-subtle','destructive','destructive-subtle']],
-  ['Spécifiques produit', ['rating','sponsored','whatsapp']],
-];
+const SEM = {"light":{"background":"#FCFCFA","surface":"#FFFFFF","surface-raised":"#FFFFFF","surface-sunken":"#F3F2ED","border":"#E9ECF0","border-strong":"#D3D7DE","text-primary":"#141A24","text-secondary":"#525C6B","text-muted":"#78818F","text-inverse":"#FFFFFF","accent":"#3B6FE0","accent-hover":"#2A57C4","accent-subtle":"#EEF3FD","on-accent":"#FFFFFF","verified":"#1E7F4C","verified-subtle":"#E8F6EE","pending":"#A9640A","pending-subtle":"#FEF5E6","destructive":"#D93B3B","destructive-subtle":"#FDECEC","rating":"#C77800","sponsored":"#B8860B","whatsapp":"#128C7E","on-whatsapp":"#FFFFFF","amber":"#C77800","on-amber":"#FFFFFF","scrim":"#2B2F36","on-scrim":"#FFFFFF","thumbnail":"#F3F2ED","thumbnail-border":"#E9ECF0","chart-bar":"#95B4F0","chart-bar-highlight":"#3B6FE0","nav-active":"#3B6FE0","nav-inactive":"#78818F","nav-background":"#FFFFFF"},"dark":{"background":"#0A0D12","surface":"#141A24","surface-raised":"#1F2733","surface-sunken":"#11161F","border":"#2A3441","border-strong":"#343D4B","text-primary":"#FCFCFA","text-secondary":"#A8B0BD","text-muted":"#78818F","text-inverse":"#141A24","accent":"#6690E8","accent-hover":"#95B4F0","accent-subtle":"#1A2440","on-accent":"#0A0D12","verified":"#3FBF7F","verified-subtle":"#0F2A1C","pending":"#E8A72B","pending-subtle":"#2E2210","destructive":"#F26D6D","destructive-subtle":"#2E1414","rating":"#F5A623","sponsored":"#C99A2E","whatsapp":"#25D366","on-whatsapp":"#FFFFFF","amber":"#F5A623","on-amber":"#141A24","scrim":"#05070A","on-scrim":"#FFFFFF","thumbnail":"#232C39","thumbnail-border":"#343D4B","chart-bar":"#2A57C4","chart-bar-highlight":"#6690E8","nav-active":"#6690E8","nav-inactive":"#A8B0BD","nav-background":"#141A24"}};
+const groups = [["Fonds & surfaces",["background","surface","surface-raised","surface-sunken","border","border-strong"]],["Texte",["text-primary","text-secondary","text-muted","text-inverse"]],["Accent",["accent","accent-hover","accent-subtle","on-accent"]],["Statuts",["verified","verified-subtle","pending","pending-subtle","destructive","destructive-subtle"]],["Spécifiques produit",["rating","sponsored","whatsapp"]],["Autres rôles",["on-whatsapp","amber","on-amber","scrim","on-scrim","thumbnail","thumbnail-border","chart-bar","chart-bar-highlight","nav-active","nav-inactive","nav-background"]]];
 function renderSwatches(){
   const theme = document.documentElement.dataset.theme;
   const vals = SEM[theme];

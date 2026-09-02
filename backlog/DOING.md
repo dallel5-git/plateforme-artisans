@@ -34,6 +34,8 @@ n'était pas dans la liste `dart format --set-exit-if-changed` de `ci.yml` malgr
 présents. `flutter test` 337/337. PR #263 ouverte contre `develop`, en attente de revue — déplacée
 vers `DONE.md` une fois mergée.)*
 
+*(FM-18b — 1 PR mergée #262 — déplacée vers `DONE.md`.)*
+
 *(FM-18a — 1 PR mergée #261 — déplacée vers `DONE.md`.)*
 
 *(FM-17 — 2/2 PRs mergées #258/#259 — déplacée vers `DONE.md`.)*
