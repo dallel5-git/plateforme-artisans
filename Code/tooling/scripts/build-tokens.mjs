@@ -91,6 +91,7 @@ export const spacing = ${JSON.stringify(t.spacing, null, 2)} as const;
 export const radius  = ${JSON.stringify(t.radius, null, 2)} as const;
 export const elevation = ${JSON.stringify(t.elevation, null, 2)} as const;
 export const layout = ${JSON.stringify(t.layout, null, 2)} as const;
+export const iconSize = ${JSON.stringify(t.iconSize, null, 2)} as const;
 `;
 
   const tsTypography = `${BANNER_TS}
@@ -251,6 +252,12 @@ abstract final class AppLayout {
   /// Cible tactile minimale — accessibilité et usage sur chantier (gants, écran sale).
   static const double touchTarget = ${px(t.layout.touchTarget).toFixed(1)};
   static const double containerMax = ${px(t.layout.containerMax).toFixed(1)};
+}
+
+abstract final class AppIconSize {
+${Object.entries(t.iconSize)
+  .map(([k, v]) => `  static const double ${dartName(k)} = ${px(v).toFixed(1)};`)
+  .join('\n')}
 }
 `;
 
