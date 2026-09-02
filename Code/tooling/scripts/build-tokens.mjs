@@ -36,13 +36,16 @@ export function resolveTokens(rawTokens) {
     return deref(node, depth + 1);
   };
 
-  const resolveTree = (node) =>
-    Object.fromEntries(
+  const resolveTree = (node) => {
+    if (Array.isArray(node))
+      return node.map((v) => (typeof v === 'object' && v !== null ? resolveTree(v) : deref(v)));
+    return Object.fromEntries(
       Object.entries(node).map(([k, v]) => [
         k,
         typeof v === 'object' && v !== null ? resolveTree(v) : deref(v),
       ]),
     );
+  };
 
   return resolveTree(
     Object.fromEntries(Object.entries(rawTokens).filter(([k]) => !k.startsWith('$'))),
@@ -66,6 +69,7 @@ export function buildOutputs(t) {
     return /^\d/.test(c) ? `s${c}` : c;
   };
   const hexToDart = (hex) => `Color(0xFF${hex.replace('#', '').toUpperCase()})`;
+  const px = (v) => parseFloat(String(v).replace('px', ''));
 
   /* ------------------------------------------------------------------ */
   /* Cible 1 — TypeScript : couleurs                                     */
@@ -86,10 +90,20 @@ export type SemanticColor = keyof typeof semantic.light;
   /* ------------------------------------------------------------------ */
   /* Cible 2 — TypeScript : espacements, rayons, typographie             */
   /* ------------------------------------------------------------------ */
+  const cssShadow = (layers) =>
+    layers.length
+      ? layers.map((l) => `${l.x} ${l.y} ${l.blur} ${l.spread} ${l.color}`).join(', ')
+      : 'none';
+
+  const elevationCss = (scheme) =>
+    Object.fromEntries(
+      Object.entries(t.elevation[scheme]).map(([k, layers]) => [k, cssShadow(layers)]),
+    );
+
   const tsSpacing = `${BANNER_TS}
 export const spacing = ${JSON.stringify(t.spacing, null, 2)} as const;
 export const radius  = ${JSON.stringify(t.radius, null, 2)} as const;
-export const elevation = ${JSON.stringify(t.elevation, null, 2)} as const;
+export const elevation = ${JSON.stringify({ light: elevationCss('light'), dark: elevationCss('dark') }, null, 2)} as const;
 export const layout = ${JSON.stringify(t.layout, null, 2)} as const;
 `;
 
@@ -127,7 +141,9 @@ module.exports = {
       },
       spacing,
       borderRadius: radius,
-      boxShadow: elevation,
+      // Thème clair uniquement : zéro consommateur Tailwind aujourd'hui.
+      // Le mode sombre (variables CSS) est câblé par FM-18 avec design-system.html.
+      boxShadow: elevation.light,
       fontFamily: {
         sans:   [typography.family.latin, 'system-ui', 'sans-serif'],
         arabic: [typography.family.arabic, typography.family.latin, 'sans-serif'],
@@ -208,10 +224,95 @@ extension AppColorsX on BuildContext {
 `;
 
   /* ------------------------------------------------------------------ */
+  /* Cible 4bis — Dart : élévation + motion                              */
+  /* ------------------------------------------------------------------ */
+  const rgbaToDart = (css) => {
+    const m = css.match(/rgba?\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)\s*,?\s*([\d.]+)?\s*\)/);
+    if (!m) throw new Error(`Couleur d'ombre non reconnue : ${css}`);
+    const [, r, g, b, a = '1'] = m;
+    return `Color.fromRGBO(${r}, ${g}, ${b}, ${a})`;
+  };
+
+  const boxShadowDart = (l) =>
+    `BoxShadow(offset: Offset(${px(l.x).toFixed(1)}, ${px(l.y).toFixed(1)}), blurRadius: ${px(l.blur).toFixed(1)}, spreadRadius: ${px(l.spread).toFixed(1)}, color: ${rgbaToDart(l.color)})`;
+
+  const elevationKeys = Object.keys(t.elevation.light);
+
+  const elevationLerpBody = elevationKeys
+    .map(
+      (k) =>
+        `      ${dartName(k)}: BoxShadow.lerpList(this.${dartName(k)}, other.${dartName(k)}, t) ?? this.${dartName(k)},`,
+    )
+    .join('\n');
+
+  const dartElevation = `${BANNER_DART}
+import 'package:flutter/material.dart';
+
+/// Ombres portées thématisées. Injecté dans le ThemeData via [ThemeExtension].
+@immutable
+class AppElevation extends ThemeExtension<AppElevation> {
+${elevationKeys.map((k) => `  final List<BoxShadow> ${dartName(k)};`).join('\n')}
+
+  const AppElevation({
+${elevationKeys.map((k) => `    required this.${dartName(k)},`).join('\n')}
+  });
+
+  static const light = AppElevation(
+${Object.entries(t.elevation.light)
+  .map(([k, layers]) => `    ${dartName(k)}: const [${layers.map(boxShadowDart).join(', ')}],`)
+  .join('\n')}
+  );
+
+  static const dark = AppElevation(
+${Object.entries(t.elevation.dark)
+  .map(([k, layers]) => `    ${dartName(k)}: const [${layers.map(boxShadowDart).join(', ')}],`)
+  .join('\n')}
+  );
+
+  @override
+  AppElevation copyWith({
+${elevationKeys.map((k) => `    List<BoxShadow>? ${dartName(k)},`).join('\n')}
+  }) => AppElevation(
+${elevationKeys.map((k) => `    ${dartName(k)}: ${dartName(k)} ?? this.${dartName(k)},`).join('\n')}
+  );
+
+  @override
+  AppElevation lerp(ThemeExtension<AppElevation>? other, double t) {
+    if (other is! AppElevation) return this;
+    return AppElevation(
+${elevationLerpBody}
+    );
+  }
+}
+
+extension AppElevationX on BuildContext {
+  AppElevation get elevation => Theme.of(this).extension<AppElevation>()!;
+}
+`;
+
+  const msDart = (v) => `Duration(milliseconds: ${parseInt(v, 10)})`;
+  const cubicDart = (css) => {
+    const m = css.match(/cubic-bezier\(([^)]+)\)/);
+    if (!m) throw new Error(`Easing non reconnu : ${css}`);
+    const [a, b, c, d] = m[1].split(',').map((n) => parseFloat(n));
+    return `Cubic(${a}, ${b}, ${c}, ${d})`;
+  };
+
+  const dartMotion = `${BANNER_DART}
+import 'package:flutter/animation.dart';
+
+abstract final class AppMotion {
+  static const durationFast = ${msDart(t.motion.duration.fast)};
+  static const durationBase = ${msDart(t.motion.duration.base)};
+  static const durationSlow = ${msDart(t.motion.duration.slow)};
+  static const easingStandard = ${cubicDart(t.motion.easing.standard)};
+  static const easingDecelerate = ${cubicDart(t.motion.easing.decelerate)};
+}
+`;
+
+  /* ------------------------------------------------------------------ */
   /* Cible 5 — Dart : espacements, rayons, typographie                   */
   /* ------------------------------------------------------------------ */
-  const px = (v) => parseFloat(String(v).replace('px', ''));
-
   const dartSpacing = `${BANNER_DART}
 import 'package:flutter/widgets.dart';
 
@@ -265,6 +366,8 @@ ${Object.entries(t.typography.scale)
     'packages/design-tokens/src/typography.ts': tsTypography,
     'packages/design-tokens/tailwind-preset.js': tailwindPreset,
     'apps/mobile/lib/core/theme/app_colors.dart': dartColors,
+    'apps/mobile/lib/core/theme/app_elevation.dart': dartElevation,
+    'apps/mobile/lib/core/theme/app_motion.dart': dartMotion,
     'apps/mobile/lib/core/theme/app_spacing.dart': dartSpacing,
     'apps/mobile/lib/core/theme/app_text.dart': dartText,
   };

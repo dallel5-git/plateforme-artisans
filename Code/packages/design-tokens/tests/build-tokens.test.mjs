@@ -1,34 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { resolveTokens, buildOutputs } from '../../../tooling/scripts/build-tokens.mjs';
-
-const minimalTokens = () => ({
-  $meta: { name: 'test', version: '0.0.0', source: 'fixture', targets: [] },
-  color: {
-    brand: { 500: '#3B6FE0' },
-    neutral: { 0: '#FFFFFF', 900: '#141A24' },
-    success: { 500: '#1E7F4C' },
-    warning: { 500: '#A9640A' },
-    danger: { 500: '#D93B3B' },
-    info: { 500: '#2C7BE5' },
-    semantic: {
-      light: { background: '{color.neutral.0}', accent: '{color.brand.500}' },
-      dark: { background: '{color.neutral.900}', accent: '{color.brand.500}' },
-    },
-  },
-  spacing: { md: '12px' },
-  radius: { md: '10px' },
-  typography: {
-    family: { latin: 'Manrope', arabic: 'Noto Kufi Arabic', mono: 'JetBrains Mono' },
-    weight: { regular: 400, bold: 700 },
-    scale: { body: { size: '15px', lineHeight: '22px', weight: 400, tracking: '0' } },
-  },
-  elevation: { none: 'none', sm: '0 1px 2px rgba(20, 26, 36, 0.06)' },
-  motion: {
-    duration: { fast: '120ms', base: '200ms', slow: '320ms' },
-    easing: { standard: 'cubic-bezier(0.2, 0, 0, 1)', decelerate: 'cubic-bezier(0, 0, 0, 1)' },
-  },
-  layout: { touchTarget: '48px', containerMax: '1200px', breakpoint: { sm: '480px' } },
-});
+import { minimalTokens } from './fixtures.mjs';
 
 describe('resolveTokens', () => {
   it('déréférence un alias imbriqué {color.group.shade}', () => {
@@ -54,10 +26,18 @@ describe('resolveTokens', () => {
     raw.color.semantic.light.background = '{color.semantic.light.accent}';
     expect(() => resolveTokens(raw)).toThrow(/Alias circulaire/);
   });
+
+  it('préserve les tableaux (ex. couches elevation), ne les convertit pas en objet', () => {
+    const t = resolveTokens(minimalTokens());
+    expect(Array.isArray(t.elevation.light.sm)).toBe(true);
+    expect(t.elevation.light.sm[0].color).toBe('rgba(20, 26, 36, 0.06)');
+    expect(Array.isArray(t.elevation.light.none)).toBe(true);
+    expect(t.elevation.light.none).toHaveLength(0);
+  });
 });
 
 describe('buildOutputs', () => {
-  it('retourne exactement les 7 fichiers générés connus', () => {
+  it('retourne exactement les 9 fichiers générés connus', () => {
     const t = resolveTokens(minimalTokens());
     const outputs = buildOutputs(t);
     expect(Object.keys(outputs).sort()).toEqual(
@@ -67,6 +47,8 @@ describe('buildOutputs', () => {
         'packages/design-tokens/src/typography.ts',
         'packages/design-tokens/tailwind-preset.js',
         'apps/mobile/lib/core/theme/app_colors.dart',
+        'apps/mobile/lib/core/theme/app_elevation.dart',
+        'apps/mobile/lib/core/theme/app_motion.dart',
         'apps/mobile/lib/core/theme/app_spacing.dart',
         'apps/mobile/lib/core/theme/app_text.dart',
       ].sort(),

@@ -6,6 +6,8 @@ include: package:very_good_analysis/analysis_options.yaml
 analyzer:
   exclude:
     - lib/core/theme/app_colors.dart
+    - lib/core/theme/app_elevation.dart
+    - lib/core/theme/app_motion.dart
     - lib/core/theme/app_spacing.dart
     - lib/core/theme/app_text.dart
     # SO-04 : générés depuis packages/design-tokens/tokens.json, jamais

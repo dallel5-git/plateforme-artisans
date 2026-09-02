@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:sanaya/core/theme/app_colors.dart';
+import 'package:sanaya/core/theme/app_elevation.dart';
 import 'package:sanaya/core/theme/app_text.dart';
 
 /// Construit un [ThemeData] clair ou sombre en ne consommant que les
@@ -13,6 +14,9 @@ ThemeData buildTheme({
   final colors = brightness == Brightness.light
       ? AppColors.light
       : AppColors.dark;
+  final elevation = brightness == Brightness.light
+      ? AppElevation.light
+      : AppElevation.dark;
 
   // Les rôles M3 sans correspondant direct dans AppColors (tertiary,
   // surfaceContainer*…) restent sur la dérivation algorithmique de
@@ -37,7 +41,7 @@ ThemeData buildTheme({
   return ThemeData(
     useMaterial3: true,
     brightness: brightness,
-    extensions: [colors],
+    extensions: [colors, elevation],
     colorScheme: colorScheme,
     scaffoldBackgroundColor: colors.background,
     textTheme: _textThemeFrom(colors, locale),
