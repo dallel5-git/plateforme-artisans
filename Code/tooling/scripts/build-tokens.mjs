@@ -353,6 +353,10 @@ abstract final class AppLayout {
   /// Cible tactile minimale — accessibilité et usage sur chantier (gants, écran sale).
   static const double touchTarget = ${px(t.layout.touchTarget).toFixed(1)};
   static const double containerMax = ${px(t.layout.containerMax).toFixed(1)};
+  static const double breakpointSm = ${px(t.layout.breakpoint.sm).toFixed(1)};
+  static const double breakpointMd = ${px(t.layout.breakpoint.md).toFixed(1)};
+  static const double breakpointLg = ${px(t.layout.breakpoint.lg).toFixed(1)};
+  static const double breakpointXl = ${px(t.layout.breakpoint.xl).toFixed(1)};
 }
 
 abstract final class AppIconSize {
@@ -361,6 +365,8 @@ ${Object.entries(t.iconSize)
   .join('\n')}
 }
 `;
+
+  const trackingPx = (tracking, sizePx) => parseFloat(tracking) * sizePx;
 
   const dartText = `${BANNER_DART}
 import 'package:flutter/material.dart';
@@ -381,9 +387,16 @@ ${Object.entries(t.typography.scale)
         fontSize: ${px(s.size).toFixed(1)},
         height: ${(px(s.lineHeight) / px(s.size)).toFixed(3)},
         fontWeight: FontWeight.w${s.weight},
+        letterSpacing: ${trackingPx(s.tracking, px(s.size)).toFixed(3)},
       );`,
   )
   .join('\n\n')}
+}
+
+abstract final class AppFontWeight {
+${Object.entries(t.typography.weight)
+  .map(([k, v]) => `  static const ${dartName(k)} = FontWeight.w${v};`)
+  .join('\n')}
 }
 `;
 

@@ -40,6 +40,12 @@ export const typography = {
       "weight": 700,
       "tracking": "0"
     },
+    "subtitle": {
+      "size": "16px",
+      "lineHeight": "24px",
+      "weight": 600,
+      "tracking": "0"
+    },
     "body": {
       "size": "15px",
       "lineHeight": "22px",
