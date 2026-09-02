@@ -89,6 +89,7 @@ class Translations$common$ar extends Translations$common$fr {
 	@override String get appName => 'Sanaya';
 	@override late final Translations$common$home$ar home = Translations$common$home$ar._(_root);
 	@override late final Translations$common$widgets$ar widgets = Translations$common$widgets$ar._(_root);
+	@override late final Translations$common$devPreview$ar devPreview = Translations$common$devPreview$ar._(_root);
 }
 
 // Path: contact
@@ -289,6 +290,68 @@ class Translations$common$widgets$ar extends Translations$common$widgets$fr {
 	@override late final Translations$common$widgets$offlineBanner$ar offlineBanner = Translations$common$widgets$offlineBanner$ar._(_root);
 }
 
+// Path: common.devPreview
+class Translations$common$devPreview$ar extends Translations$common$devPreview$fr {
+	Translations$common$devPreview$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get sectionAppButton => 'AppButton';
+	@override String get sectionAppCard => 'AppCard';
+	@override String get sectionAppTextField => 'AppTextField';
+	@override String get sectionRatingStars => 'RatingStars';
+	@override String get sectionVerifiedBadge => 'VerifiedBadge';
+	@override String get sectionProviderCard => 'ProviderCard';
+	@override String get sectionAppSkeleton => 'AppSkeleton';
+	@override String get sectionEmptyState => 'EmptyState';
+	@override String get sectionErrorState => 'ErrorState';
+	@override String get sectionOfflineBanner => 'OfflineBanner';
+	@override String get buttonPrimary => 'أساسي';
+	@override String get buttonDisabled => 'معطّل';
+	@override String get buttonSecondary => 'ثانوي';
+	@override String get buttonGhost => 'شفاف';
+	@override String get buttonWhatsapp => 'واتساب';
+	@override String get buttonDanger => 'خطر';
+	@override String get phoneLabel => 'رقم الهاتف';
+	@override String get phoneHint => '+216 22 123 456';
+	@override String get otpLabel => 'رمز التحقق';
+	@override String get otpError => 'رمز غير صحيح — تبقى لك محاولتان';
+	@override String get sampleProvider1Name => 'كريم بن صالح';
+	@override String get sampleProvider1Category => 'سباكة';
+	@override String get sampleProvider1Location => 'سوسة، خزامة · 2,4 كم';
+	@override String get sampleProvider1Price => 'ابتداءً من 40 د.ت';
+	@override String get sampleProvider2Name => 'الهادي الفرجاني';
+	@override String get sampleProvider2Category => 'دهان';
+	@override String get sampleProvider2Location => 'المنستير';
+	@override String get sampleProvider2Price => 'ابتداءً من 25 د.ت';
+	@override String get emptyTitle => 'لم يتم العثور على أي حرفي';
+	@override String get emptyMessage => 'لا يوجد سبّاك متاح في المهدية لهذه المرشحات.';
+	@override String get emptyAction => 'توسيع البحث إلى الولاية';
+	@override String get errorTitle => 'انقطع الاتصال';
+	@override String get errorMessage => 'تعذّر تحميل النتائج. تحقق من اتصالك.';
+	@override String get errorAction => 'إعادة المحاولة';
+	@override String get sectionColorRoles => 'أدوار الألوان';
+	@override String get swatchLight => 'فاتح';
+	@override String get swatchDark => 'داكن';
+	@override String get sectionTypography => 'الطباعة';
+	@override String get sectionAvailabilityChip => 'AvailabilityChip';
+	@override String get sectionReviewTile => 'ReviewTile';
+	@override String get sectionOfferingCard => 'OfferingCard';
+	@override String get sectionProviderGallery => 'ProviderGallery';
+	@override String get sectionDashboardStatCard => 'DashboardStatCard';
+	@override String get sectionDashboardTrendChart => 'DashboardTrendChart';
+	@override String get sectionDashboardComparisonChip => 'DashboardComparisonChip';
+	@override String get sectionRatingStarsInput => 'RatingStarsInput';
+	@override String get sectionOtpCodeField => 'OtpCodeField';
+	@override String get sectionCoverageAreaChip => 'CoverageAreaChip';
+	@override String get sectionCategoryGrid => 'CategoryGrid';
+	@override String get sectionCategoryGridSkeleton => 'CategoryGridSkeleton';
+	@override String get sectionFavoriteCardSkeleton => 'FavoriteCardSkeleton';
+	@override String get statViewsLabel => 'زيارات الملف الشخصي';
+	@override String get statNewLabel => 'جديد';
+}
+
 // Path: provider.profile
 class Translations$provider$profile$ar extends Translations$provider$profile$fr {
 	Translations$provider$profile$ar._(TranslationsAr root) : this._root = root, super.internal(root);
@@ -376,6 +439,59 @@ extension on TranslationsAr {
 			'common.widgets.verifiedBadge' => 'موثّق',
 			'common.widgets.offlineBanner.message' => 'أنت تتصفح نتائج محفوظة. سيتم تحديثها عند عودة الاتصال بالشبكة.',
 			'common.widgets.offlineBanner.dismiss' => 'فهمت',
+			'common.devPreview.sectionAppButton' => 'AppButton',
+			'common.devPreview.sectionAppCard' => 'AppCard',
+			'common.devPreview.sectionAppTextField' => 'AppTextField',
+			'common.devPreview.sectionRatingStars' => 'RatingStars',
+			'common.devPreview.sectionVerifiedBadge' => 'VerifiedBadge',
+			'common.devPreview.sectionProviderCard' => 'ProviderCard',
+			'common.devPreview.sectionAppSkeleton' => 'AppSkeleton',
+			'common.devPreview.sectionEmptyState' => 'EmptyState',
+			'common.devPreview.sectionErrorState' => 'ErrorState',
+			'common.devPreview.sectionOfflineBanner' => 'OfflineBanner',
+			'common.devPreview.buttonPrimary' => 'أساسي',
+			'common.devPreview.buttonDisabled' => 'معطّل',
+			'common.devPreview.buttonSecondary' => 'ثانوي',
+			'common.devPreview.buttonGhost' => 'شفاف',
+			'common.devPreview.buttonWhatsapp' => 'واتساب',
+			'common.devPreview.buttonDanger' => 'خطر',
+			'common.devPreview.phoneLabel' => 'رقم الهاتف',
+			'common.devPreview.phoneHint' => '+216 22 123 456',
+			'common.devPreview.otpLabel' => 'رمز التحقق',
+			'common.devPreview.otpError' => 'رمز غير صحيح — تبقى لك محاولتان',
+			'common.devPreview.sampleProvider1Name' => 'كريم بن صالح',
+			'common.devPreview.sampleProvider1Category' => 'سباكة',
+			'common.devPreview.sampleProvider1Location' => 'سوسة، خزامة · 2,4 كم',
+			'common.devPreview.sampleProvider1Price' => 'ابتداءً من 40 د.ت',
+			'common.devPreview.sampleProvider2Name' => 'الهادي الفرجاني',
+			'common.devPreview.sampleProvider2Category' => 'دهان',
+			'common.devPreview.sampleProvider2Location' => 'المنستير',
+			'common.devPreview.sampleProvider2Price' => 'ابتداءً من 25 د.ت',
+			'common.devPreview.emptyTitle' => 'لم يتم العثور على أي حرفي',
+			'common.devPreview.emptyMessage' => 'لا يوجد سبّاك متاح في المهدية لهذه المرشحات.',
+			'common.devPreview.emptyAction' => 'توسيع البحث إلى الولاية',
+			'common.devPreview.errorTitle' => 'انقطع الاتصال',
+			'common.devPreview.errorMessage' => 'تعذّر تحميل النتائج. تحقق من اتصالك.',
+			'common.devPreview.errorAction' => 'إعادة المحاولة',
+			'common.devPreview.sectionColorRoles' => 'أدوار الألوان',
+			'common.devPreview.swatchLight' => 'فاتح',
+			'common.devPreview.swatchDark' => 'داكن',
+			'common.devPreview.sectionTypography' => 'الطباعة',
+			'common.devPreview.sectionAvailabilityChip' => 'AvailabilityChip',
+			'common.devPreview.sectionReviewTile' => 'ReviewTile',
+			'common.devPreview.sectionOfferingCard' => 'OfferingCard',
+			'common.devPreview.sectionProviderGallery' => 'ProviderGallery',
+			'common.devPreview.sectionDashboardStatCard' => 'DashboardStatCard',
+			'common.devPreview.sectionDashboardTrendChart' => 'DashboardTrendChart',
+			'common.devPreview.sectionDashboardComparisonChip' => 'DashboardComparisonChip',
+			'common.devPreview.sectionRatingStarsInput' => 'RatingStarsInput',
+			'common.devPreview.sectionOtpCodeField' => 'OtpCodeField',
+			'common.devPreview.sectionCoverageAreaChip' => 'CoverageAreaChip',
+			'common.devPreview.sectionCategoryGrid' => 'CategoryGrid',
+			'common.devPreview.sectionCategoryGridSkeleton' => 'CategoryGridSkeleton',
+			'common.devPreview.sectionFavoriteCardSkeleton' => 'FavoriteCardSkeleton',
+			'common.devPreview.statViewsLabel' => 'زيارات الملف الشخصي',
+			'common.devPreview.statNewLabel' => 'جديد',
 			'contact.call' => 'اتصال',
 			'contact.whatsapp' => 'واتساب',
 			'dashboard.title' => 'لوحة التحكم',

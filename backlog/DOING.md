@@ -19,18 +19,11 @@ _(aucune tâche DEV-1 en cours — `FM-05` et `FM-10` terminées, déplacées ve
 |---|---|---|---|---|
 | `FM-19` | Clés i18n de navigation FR/AR (onglets, segmented control) | 2026-09-02 | `feat/FM-19-i18n-nav-keys` | PR #266 ouverte contre `develop`, en attente de revue |
 
-*(FM-18b — `docs/design-system.html` généré depuis `tokens.json` (10ᵉ target de `build-tokens.mjs`),
-remplace les 2 copies à la main (bloc CSS `:root` + objet JS `SEM`) qui avaient divergé — le
-`--c-border` sombre recopié était `#1F2733`, la vraie valeur actuelle est `#2A3441` ; 12 rôles
-ajoutés par FM-15d (`onWhatsapp`, `amber`/`onAmber`, `scrim`/`onScrim`, `thumbnail*`, `chartBar*`,
-`nav*`) étaient absents. Regroupement éditorial du nuancier (§1) conservé tel quel + un 6ᵉ groupe
-« Autres rôles » calculé automatiquement pour tout rôle non couvert (future-proof, aucune retouche
-du générateur nécessaire au prochain rôle ajouté à `tokens.json`). Critère d'acceptation vérifié en
-local : casser volontairement une valeur dans le HTML committé → `tokens:build:check` échoue,
-restaurer → repasse au vert. `pnpm test` (design-tokens) 27/27. PR #262 ouverte contre `develop`,
-en attente de revue — déplacée vers `DONE.md` une fois mergée.)*
-
-*(FM-18a — 1 PR mergée #261 — déplacée vers `DONE.md`.)*
+*(FM-18 — 4/4 PRs mergées #261/#262/#263/#264 — déplacée vers `DONE.md`. Trois conflits
+`backlog/DOING.md` en cascade rencontrés au fil des merges successifs (#261 puis #262 puis #263,
+chacun invalidant la résolution précédente sur `feat/FM-18d-enrichir-ds-preview` qui les touchait
+tous) — résolus à chaque fois par fusion de `develop` + re-vérification complète (jamais par
+rebase/force-push), même méthode que FM-15/FM-16.)*
 
 *(FM-17 — 2/2 PRs mergées #258/#259 — déplacée vers `DONE.md`.)*
 

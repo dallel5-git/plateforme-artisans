@@ -145,6 +145,10 @@ jobs:
       # FM-02f : lib/core/connectivity (ConnectivityService + provider), pas
       # sous lib/core/api — module volontairement découplé de la couche
       # réseau (détection connectivité, pas de Dio).
+      # FM-18c : test/app ajouté (gap pré-existant — test/app/theme_test.dart
+      # et router_redirect_test.dart n'étaient déjà pas couverts avant ce
+      # ticket, jamais fermé depuis ; fermé ici en ajoutant le premier test
+      # de design_system_preview_screen.dart sous ce même dossier).
       - run: |
           dart format --set-exit-if-changed \
             lib/app lib/main.dart lib/core/widgets \
@@ -154,7 +158,7 @@ jobs:
             lib/features/search lib/features/contact \
             lib/features/provider_profile lib/features/onboarding \
             lib/features/favorites lib/features/settings \
-            test/widget_test.dart test/core/widgets \
+            test/widget_test.dart test/core/widgets test/app \
             test/core/i18n/format_test.dart \
             test/core/i18n/locale_persistence_test.dart \
             test/features/search test/features/contact test/features/provider_profile \
