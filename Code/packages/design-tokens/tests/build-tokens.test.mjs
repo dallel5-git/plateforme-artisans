@@ -26,10 +26,18 @@ describe('resolveTokens', () => {
     raw.color.semantic.light.background = '{color.semantic.light.accent}';
     expect(() => resolveTokens(raw)).toThrow(/Alias circulaire/);
   });
+
+  it('préserve les tableaux (ex. couches elevation), ne les convertit pas en objet', () => {
+    const t = resolveTokens(minimalTokens());
+    expect(Array.isArray(t.elevation.light.sm)).toBe(true);
+    expect(t.elevation.light.sm[0].color).toBe('rgba(20, 26, 36, 0.06)');
+    expect(Array.isArray(t.elevation.light.none)).toBe(true);
+    expect(t.elevation.light.none).toHaveLength(0);
+  });
 });
 
 describe('buildOutputs', () => {
-  it('retourne exactement les 7 fichiers générés connus', () => {
+  it('retourne exactement les 9 fichiers générés connus', () => {
     const t = resolveTokens(minimalTokens());
     const outputs = buildOutputs(t);
     expect(Object.keys(outputs).sort()).toEqual(
@@ -39,6 +47,8 @@ describe('buildOutputs', () => {
         'packages/design-tokens/src/typography.ts',
         'packages/design-tokens/tailwind-preset.js',
         'apps/mobile/lib/core/theme/app_colors.dart',
+        'apps/mobile/lib/core/theme/app_elevation.dart',
+        'apps/mobile/lib/core/theme/app_motion.dart',
         'apps/mobile/lib/core/theme/app_spacing.dart',
         'apps/mobile/lib/core/theme/app_text.dart',
       ].sort(),

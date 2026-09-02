@@ -33,8 +33,10 @@ Code/packages/design-tokens/src/colors.ts       linguist-generated=true -diff me
 Code/packages/design-tokens/src/spacing.ts      linguist-generated=true -diff merge=ours
 Code/packages/design-tokens/src/typography.ts   linguist-generated=true -diff merge=ours
 Code/packages/design-tokens/tailwind-preset.js  linguist-generated=true -diff merge=ours
-Code/apps/mobile/lib/core/theme/app_colors.dart  linguist-generated=true -diff merge=ours
-Code/apps/mobile/lib/core/theme/app_spacing.dart linguist-generated=true -diff merge=ours
+Code/apps/mobile/lib/core/theme/app_colors.dart    linguist-generated=true -diff merge=ours
+Code/apps/mobile/lib/core/theme/app_elevation.dart linguist-generated=true -diff merge=ours
+Code/apps/mobile/lib/core/theme/app_motion.dart    linguist-generated=true -diff merge=ours
+Code/apps/mobile/lib/core/theme/app_spacing.dart   linguist-generated=true -diff merge=ours
 Code/apps/mobile/lib/core/theme/app_text.dart    linguist-generated=true -diff merge=ours
 
 # --- Client Prisma généré ---------------------------------------------------

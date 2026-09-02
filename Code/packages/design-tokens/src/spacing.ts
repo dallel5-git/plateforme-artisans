@@ -24,10 +24,18 @@ export const radius  = {
   "pill": "999px"
 } as const;
 export const elevation = {
-  "none": "none",
-  "sm": "0 1px 2px rgba(20, 26, 36, 0.06)",
-  "md": "0 4px 12px rgba(20, 26, 36, 0.08)",
-  "lg": "0 12px 32px rgba(20, 26, 36, 0.12)"
+  "light": {
+    "none": "none",
+    "sm": "0px 1px 2px 0px rgba(20, 26, 36, 0.06)",
+    "md": "0px 4px 12px 0px rgba(20, 26, 36, 0.08)",
+    "lg": "0px 12px 32px 0px rgba(20, 26, 36, 0.12)"
+  },
+  "dark": {
+    "none": "none",
+    "sm": "0px 1px 2px 0px rgba(0, 0, 0, 0.32)",
+    "md": "0px 4px 12px 0px rgba(0, 0, 0, 0.40)",
+    "lg": "0px 12px 32px 0px rgba(0, 0, 0, 0.48)"
+  }
 } as const;
 export const layout = {
   "touchTarget": "48px",

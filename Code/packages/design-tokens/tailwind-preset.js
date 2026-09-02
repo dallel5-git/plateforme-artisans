@@ -27,7 +27,9 @@ module.exports = {
       },
       spacing,
       borderRadius: radius,
-      boxShadow: elevation,
+      // Thème clair uniquement : zéro consommateur Tailwind aujourd'hui.
+      // Le mode sombre (variables CSS) est câblé par FM-18 avec design-system.html.
+      boxShadow: elevation.light,
       fontFamily: {
         sans:   [typography.family.latin, 'system-ui', 'sans-serif'],
         arabic: [typography.family.arabic, typography.family.latin, 'sans-serif'],

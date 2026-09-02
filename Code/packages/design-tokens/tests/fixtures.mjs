@@ -20,7 +20,16 @@ export const minimalTokens = () => ({
     weight: { regular: 400, bold: 700 },
     scale: { body: { size: '15px', lineHeight: '22px', weight: 400, tracking: '0' } },
   },
-  elevation: { none: 'none', sm: '0 1px 2px rgba(20, 26, 36, 0.06)' },
+  elevation: {
+    light: {
+      none: [],
+      sm: [{ x: '0px', y: '1px', blur: '2px', spread: '0px', color: 'rgba(20, 26, 36, 0.06)' }],
+    },
+    dark: {
+      none: [],
+      sm: [{ x: '0px', y: '1px', blur: '2px', spread: '0px', color: 'rgba(0, 0, 0, 0.32)' }],
+    },
+  },
   motion: {
     duration: { fast: '120ms', base: '200ms', slow: '320ms' },
     easing: { standard: 'cubic-bezier(0.2, 0, 0, 1)', decelerate: 'cubic-bezier(0, 0, 0, 1)' },
