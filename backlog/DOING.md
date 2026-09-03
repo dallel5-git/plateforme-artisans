@@ -3,13 +3,14 @@
 > ⚠️ **Maximum 2 tâches par développeur.** Si vous en avez 3, vous n'en finissez aucune.
 > Mise à jour obligatoire **en fin de chaque journée**.
 
-_Sprint S1 · dernière mise à jour : 2026-09-02_
+_Sprint S1 · dernière mise à jour : 2026-09-03_
 
 ## DEV-1
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
 | `BE-44` | `GET /v1/providers/me` — lire son propre profil artisan | 2026-09-03 | `feat/BE-44-providers-me-get` | PR ouverte. L'essentiel existait déjà (`providerMeSchema`, `findProviderProfileByUserId`, `requireOwnProfile`, codes d'erreur) — route + tests + contrat régénéré. Effet de bord détecté et corrigé : la régénération du client Dart a fait migrer le type de retour de `PATCH /providers/me` de `V1ProvidersMePost200ResponseProvider` vers `V1ProvidersMeGet200Response` (openapi-generator ne déduplique un schéma dupliqué qu'entre réponses racine, pas avec un champ imbriqué comme `POST`'s `.provider`) — cassait la compilation mobile (`onboarding_repository.dart`/`onboarding_notifier.dart`). Corrigé par une conversion via les sérialiseurs générés dans `OnboardingRepository.updateProfile()`, sans toucher au typedef `ProviderMe` existant ni au code déjà écrit contre lui. `flutter analyze`/`flutter test` (352/352) et `pnpm --filter api test` (131/131) verts. |
+| `BE-45` | `GET /v1/contact-events` — historique de lecture (débloque `FM-31`) | 2026-09-03 | `feat/BE-45-contact-events-history` | PR ouverte. Nouveau `select` dédié `clientHistorySelect` (`contact-event.repository.ts`) plutôt qu'élargissement du `select` module-level existant, qui a des appelants réels (BE-16). Hydratation par lots providers/catégories (même patron que `loadFavoritesPage`, BE-25c) — `categoryName` résolu FR/AR à la volée, `hasReview` lu directement via la relation 1-1 `review` de `ContactEvent` (pas de second `select`/requête). 3 tests d'intégration Postgres réels : isolation stricte par client, pagination par curseur sur 3 lignes/limit=2, résolution catégorie + `hasReview`. Contrat régénéré, client Dart régénéré sans collision de schéma cette fois (types `V1ContactEventsGet200Response*` neufs, contrairement à l'effet de bord `PATCH`/`GET` de BE-44 ci-dessus). `pnpm typecheck`/`lint`/`format:check` verts, `flutter analyze` zéro warning. |
 
 _(aucune autre tâche DEV-1 en cours — `FM-05` et `FM-10` terminées, déplacées vers `DONE.md`)_
 
@@ -19,6 +20,7 @@ _(aucune autre tâche DEV-1 en cours — `FM-05` et `FM-10` terminées, déplac�
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
 | `FM-24` | Shell pro : navigation à 4 onglets, dashboard comme racine | 2026-09-03 | `feat/FM-24c-pro-shell-integration` | 2/3 PRs mergées (#274 persistance, #275 placeholders) — PR #276 (`FM-24c`, intégration routeur) ouverte contre `develop`, en attente de revue |
+| `BE-47` | Écriture des `offerings` (tarifs) sous `/providers/me/*` | 2026-09-03 | `feat/BE-47a-offerings-core-validation`, `feat/BE-47b-offerings-repository`, `feat/BE-47c-offerings-routes` | 2/3 PRs mergées (#277 core, #279 repository) — PR #281 (`BE-47c`, routes + contrat OpenAPI + client Dart + `schema.d.ts` web) ouverte contre `develop`, en attente de revue. Label GitHub #244 corrigé avant de démarrer (`prio:P2` → `prio:P1`, même reliquat du découpage de charge S1 que `BE-46`, sans lien avec le lot `refonte-design-mobile` actif). Décision de périmètre validée avec Oussama : `ServiceOffering` existe déjà en base (bilingue `titleFr`/`titleAr`, `priceMin`/`priceMax` en `Decimal(10,3)` TND — écart déjà documenté dans `pricing.ts` pour BE-17) — écrit sur ce schéma existant, sans migration vers un entier millimes (l'issue décrivait littéralement « titre »/« prix en millimes », qui n'existe pas). Pas de rate-limit dédié sur les 3 routes (même bucket que profil/catégories/zones/portfolio — édition de sa propre ressource, P10 cible explicitement OTP/contacts/avis/uploads). `pnpm --filter @repo/core test` (191/191), `pnpm --filter @repo/db test` (46/46), `pnpm --filter api test` (142/142), `pnpm api:contract --check`, `flutter analyze` verts. |
 
 *(FM-23 — 2/2 PRs mergées #270/#271 — déplacée vers `DONE.md`. **Vérification visuelle FR/AR sur
 device Android réel toujours à faire** — non disponible dans l'environnement où les PRs ont été

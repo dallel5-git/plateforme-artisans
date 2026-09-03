@@ -29,6 +29,9 @@ Serializers _$serializers = (Serializers().toBuilder()
       ..add(V1AuthOtpVerifyPostRequest.serializer)
       ..add(V1AuthRefreshPostRequest.serializer)
       ..add(V1CategoriesGet200Response.serializer)
+      ..add(V1ContactEventsGet200Response.serializer)
+      ..add(V1ContactEventsGet200ResponseItemsInner.serializer)
+      ..add(V1ContactEventsGet200ResponseItemsInnerChannelEnum.serializer)
       ..add(V1ContactEventsPostRequest.serializer)
       ..add(V1ContactEventsPostRequestChannelEnum.serializer)
       ..add(V1ContactEventsPostRequestSourceScreenEnum.serializer)
@@ -128,6 +131,10 @@ Serializers _$serializers = (Serializers().toBuilder()
             const FullType(V1AuthOtpVerifyPost200ResponseUserRolesEnum)
           ]),
           () => ListBuilder<V1AuthOtpVerifyPost200ResponseUserRolesEnum>())
+      ..addBuilderFactory(
+          const FullType(BuiltList,
+              const [const FullType(V1ContactEventsGet200ResponseItemsInner)]),
+          () => ListBuilder<V1ContactEventsGet200ResponseItemsInner>())
       ..addBuilderFactory(
           const FullType(BuiltList,
               const [const FullType(V1FavoritesGet200ResponseItemsInner)]),

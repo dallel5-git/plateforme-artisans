@@ -155,3 +155,56 @@ export async function listContactEventTimestampsForProvider(
     orderBy: { createdAt: 'asc' },
   });
 }
+
+const clientHistorySelect = {
+  id: true,
+  providerId: true,
+  categoryId: true,
+  channel: true,
+  createdAt: true,
+  review: { select: { id: true } },
+} as const;
+
+export interface ClientContactEvent {
+  id: string;
+  providerId: string;
+  categoryId: string | null;
+  channel: ContactChannel;
+  createdAt: Date;
+  hasReview: boolean;
+}
+
+// BE-45 : historique de lecture du client authentifié (US-C-09) — `select` dédié plutôt
+// qu'élargissement du `select` module-level ci-dessus (BE-16, celui-ci a des appelants réels :
+// createContactEvent/findRecentContactEvent/listContactEventsForProvider). `clientId` est
+// indexé (schema.prisma, `@@index([clientId, createdAt(sort: Desc)])`) : même stratégie de
+// pagination par curseur que `listContactEventsForProvider` ci-dessus.
+export async function listContactEventsForClient(
+  clientId: string,
+  options: { cursor?: string; limit?: number } = {},
+  db: DbClient = prisma,
+): Promise<PaginatedResult<ClientContactEvent>> {
+  const limit = resolveLimit(options.limit);
+  const keysetWhere = buildKeysetWhere('createdAt', 'desc', options.cursor);
+  const baseWhere = { clientId };
+
+  const rows = await db.contactEvent.findMany({
+    where: keysetWhere ? { ...baseWhere, ...keysetWhere } : baseWhere,
+    select: clientHistorySelect,
+    orderBy: buildKeysetOrderBy('createdAt', 'desc'),
+    take: limit + 1,
+  });
+
+  const page = buildPage(rows, limit, (row) => row.createdAt.toISOString());
+  return {
+    items: page.items.map((row) => ({
+      id: row.id,
+      providerId: row.providerId,
+      categoryId: row.categoryId,
+      channel: row.channel,
+      createdAt: row.createdAt,
+      hasReview: row.review !== null,
+    })),
+    nextCursor: page.nextCursor,
+  };
+}
