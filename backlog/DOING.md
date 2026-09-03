@@ -17,7 +17,10 @@ _(aucune tâche DEV-1 en cours — `FM-05` et `FM-10` terminées, déplacées ve
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `FM-23` | Shell client : navigation à 4 onglets + suppression du hub de dev | 2026-09-02 | `feat/FM-23b-shell-navigation` | Découpée en 2 PRs atomiques (précédent FM-15/FM-18). `FM-23a` (placeholders Historique/Profil + errorBuilder, additif) mergée — PR #270. `FM-23b` (`StatefulShellRoute.indexedStack` 4 branches, `SplashScreen`, suppression du hub, `test/widget_test.dart`/`test/app/router_redirect_test.dart` réécrits + `test/app/shell_navigation_test.dart` nouveau) prête — PR à ouvrir, `flutter test` 355/355, `flutter analyze` zéro warning. **Vérification visuelle FR/AR sur device réel toujours à faire** (même limite que FM-22). |
+
+*(FM-23 — 2/2 PRs mergées #270/#271 — déplacée vers `DONE.md`. **Vérification visuelle FR/AR sur
+device Android réel toujours à faire** — non disponible dans l'environnement où les PRs ont été
+préparées, voir `DONE.md`.)*
 
 *(FM-22 — 1 PR mergée #268 — déplacée vers `DONE.md`. **Vérification visuelle FR/AR sur device
 Android réel toujours à faire** — non disponible dans l'environnement où la PR a été préparée, voir
