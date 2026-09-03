@@ -54,6 +54,7 @@ import 'package:sanaya/core/api/generated/src/model/v1_providers_me_coverage_are
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_coverage_areas_put200_response_coverage_areas_inner.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_coverage_areas_put_request.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_coverage_areas_put_request_coverage_areas_inner.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_providers_me_get200_response.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_patch_request.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_portfolio_post200_response.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_portfolio_post_request.dart';
@@ -123,6 +124,7 @@ part 'serializers.g.dart';
   V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner,
   V1ProvidersMeCoverageAreasPutRequest,
   V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner,
+  V1ProvidersMeGet200Response,
   V1ProvidersMePatchRequest,
   V1ProvidersMePortfolioPost200Response,
   V1ProvidersMePortfolioPostRequest,

@@ -26,11 +26,11 @@ import 'package:sanaya/core/api/generated/src/model/v1_providers_me_categories_p
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_categories_put_request.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_coverage_areas_put200_response.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_coverage_areas_put_request.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_providers_me_get200_response.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_patch_request.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_portfolio_post200_response.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_portfolio_post_request.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_post200_response.dart';
-import 'package:sanaya/core/api/generated/src/model/v1_providers_me_post200_response_provider.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_post_request.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_stats_get200_response.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_search_get200_response.dart';
@@ -1109,6 +1109,80 @@ class DefaultApi {
     );
   }
 
+  /// v1ProvidersMeGet
+  /// Profil artisan complet de l&#39;utilisateur authentifié (vue propriétaire : mêmes champs que la fiche publique, plus les champs privés utiles à l’édition — availabilityStatus, availableAgainAt, acceptsEmergency, workingHours, publicationStatus, completionScore). BE-44.
+  ///
+  /// Parameters:
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future] containing a [Response] with a [V1ProvidersMeGet200Response] as data
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<V1ProvidersMeGet200Response>> v1ProvidersMeGet({
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path = r'/v1/providers/me';
+    final _options = Options(
+      method: r'GET',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+    );
+
+    final _response = await _dio.request<Object>(
+      _path,
+      options: _options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    V1ProvidersMeGet200Response? _responseData;
+
+    try {
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(V1ProvidersMeGet200Response),
+            ) as V1ProvidersMeGet200Response;
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<V1ProvidersMeGet200Response>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
   /// v1ProvidersMePatch
   /// Met à jour le profil artisan de l&#39;utilisateur authentifié. &#x60;completionScore&#x60; est recalculé à chaque appel ; publier (&#x60;publicationStatus: PUBLISHED&#x60;) est refusé sous 60 % de complétude, avec la liste des champs manquants.
   ///
@@ -1121,9 +1195,9 @@ class DefaultApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [V1ProvidersMePost200ResponseProvider] as data
+  /// Returns a [Future] containing a [Response] with a [V1ProvidersMeGet200Response] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<V1ProvidersMePost200ResponseProvider>> v1ProvidersMePatch({
+  Future<Response<V1ProvidersMeGet200Response>> v1ProvidersMePatch({
     required V1ProvidersMePatchRequest v1ProvidersMePatchRequest,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -1173,7 +1247,7 @@ class DefaultApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    V1ProvidersMePost200ResponseProvider? _responseData;
+    V1ProvidersMeGet200Response? _responseData;
 
     try {
       final rawResponse = _response.data;
@@ -1181,9 +1255,8 @@ class DefaultApi {
           ? null
           : _serializers.deserialize(
               rawResponse,
-              specifiedType:
-                  const FullType(V1ProvidersMePost200ResponseProvider),
-            ) as V1ProvidersMePost200ResponseProvider;
+              specifiedType: const FullType(V1ProvidersMeGet200Response),
+            ) as V1ProvidersMeGet200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -1194,7 +1267,7 @@ class DefaultApi {
       );
     }
 
-    return Response<V1ProvidersMePost200ResponseProvider>(
+    return Response<V1ProvidersMeGet200Response>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

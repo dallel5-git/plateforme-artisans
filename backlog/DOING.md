@@ -9,8 +9,9 @@ _Sprint S1 · dernière mise à jour : 2026-09-02_
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
+| `BE-44` | `GET /v1/providers/me` — lire son propre profil artisan | 2026-09-03 | `feat/BE-44-providers-me-get` | PR ouverte. L'essentiel existait déjà (`providerMeSchema`, `findProviderProfileByUserId`, `requireOwnProfile`, codes d'erreur) — route + tests + contrat régénéré. Effet de bord détecté et corrigé : la régénération du client Dart a fait migrer le type de retour de `PATCH /providers/me` de `V1ProvidersMePost200ResponseProvider` vers `V1ProvidersMeGet200Response` (openapi-generator ne déduplique un schéma dupliqué qu'entre réponses racine, pas avec un champ imbriqué comme `POST`'s `.provider`) — cassait la compilation mobile (`onboarding_repository.dart`/`onboarding_notifier.dart`). Corrigé par une conversion via les sérialiseurs générés dans `OnboardingRepository.updateProfile()`, sans toucher au typedef `ProviderMe` existant ni au code déjà écrit contre lui. `flutter analyze`/`flutter test` (352/352) et `pnpm --filter api test` (131/131) verts. |
 
-_(aucune tâche DEV-1 en cours — `FM-05` et `FM-10` terminées, déplacées vers `DONE.md`)_
+_(aucune autre tâche DEV-1 en cours — `FM-05` et `FM-10` terminées, déplacées vers `DONE.md`)_
 
 
 ## DEV-2

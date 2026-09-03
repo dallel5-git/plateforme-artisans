@@ -1,0 +1,671 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'v1_providers_me_get200_response.dart';
+
+// **************************************************************************
+// BuiltValueGenerator
+// **************************************************************************
+
+const V1ProvidersMeGet200ResponsePublicationStatusEnum
+    _$v1ProvidersMeGet200ResponsePublicationStatusEnum_DRAFT =
+    const V1ProvidersMeGet200ResponsePublicationStatusEnum._('DRAFT');
+const V1ProvidersMeGet200ResponsePublicationStatusEnum
+    _$v1ProvidersMeGet200ResponsePublicationStatusEnum_PUBLISHED =
+    const V1ProvidersMeGet200ResponsePublicationStatusEnum._('PUBLISHED');
+const V1ProvidersMeGet200ResponsePublicationStatusEnum
+    _$v1ProvidersMeGet200ResponsePublicationStatusEnum_HIDDEN =
+    const V1ProvidersMeGet200ResponsePublicationStatusEnum._('HIDDEN');
+const V1ProvidersMeGet200ResponsePublicationStatusEnum
+    _$v1ProvidersMeGet200ResponsePublicationStatusEnum_SUSPENDED =
+    const V1ProvidersMeGet200ResponsePublicationStatusEnum._('SUSPENDED');
+
+V1ProvidersMeGet200ResponsePublicationStatusEnum
+    _$v1ProvidersMeGet200ResponsePublicationStatusEnumValueOf(String name) {
+  switch (name) {
+    case 'DRAFT':
+      return _$v1ProvidersMeGet200ResponsePublicationStatusEnum_DRAFT;
+    case 'PUBLISHED':
+      return _$v1ProvidersMeGet200ResponsePublicationStatusEnum_PUBLISHED;
+    case 'HIDDEN':
+      return _$v1ProvidersMeGet200ResponsePublicationStatusEnum_HIDDEN;
+    case 'SUSPENDED':
+      return _$v1ProvidersMeGet200ResponsePublicationStatusEnum_SUSPENDED;
+    default:
+      throw ArgumentError(name);
+  }
+}
+
+final BuiltSet<V1ProvidersMeGet200ResponsePublicationStatusEnum>
+    _$v1ProvidersMeGet200ResponsePublicationStatusEnumValues = BuiltSet<
+        V1ProvidersMeGet200ResponsePublicationStatusEnum>(const <V1ProvidersMeGet200ResponsePublicationStatusEnum>[
+  _$v1ProvidersMeGet200ResponsePublicationStatusEnum_DRAFT,
+  _$v1ProvidersMeGet200ResponsePublicationStatusEnum_PUBLISHED,
+  _$v1ProvidersMeGet200ResponsePublicationStatusEnum_HIDDEN,
+  _$v1ProvidersMeGet200ResponsePublicationStatusEnum_SUSPENDED,
+]);
+
+const V1ProvidersMeGet200ResponseAvailabilityStatusEnum
+    _$v1ProvidersMeGet200ResponseAvailabilityStatusEnum_AVAILABLE =
+    const V1ProvidersMeGet200ResponseAvailabilityStatusEnum._('AVAILABLE');
+const V1ProvidersMeGet200ResponseAvailabilityStatusEnum
+    _$v1ProvidersMeGet200ResponseAvailabilityStatusEnum_BUSY =
+    const V1ProvidersMeGet200ResponseAvailabilityStatusEnum._('BUSY');
+const V1ProvidersMeGet200ResponseAvailabilityStatusEnum
+    _$v1ProvidersMeGet200ResponseAvailabilityStatusEnum_ON_HOLIDAY =
+    const V1ProvidersMeGet200ResponseAvailabilityStatusEnum._('ON_HOLIDAY');
+
+V1ProvidersMeGet200ResponseAvailabilityStatusEnum
+    _$v1ProvidersMeGet200ResponseAvailabilityStatusEnumValueOf(String name) {
+  switch (name) {
+    case 'AVAILABLE':
+      return _$v1ProvidersMeGet200ResponseAvailabilityStatusEnum_AVAILABLE;
+    case 'BUSY':
+      return _$v1ProvidersMeGet200ResponseAvailabilityStatusEnum_BUSY;
+    case 'ON_HOLIDAY':
+      return _$v1ProvidersMeGet200ResponseAvailabilityStatusEnum_ON_HOLIDAY;
+    default:
+      throw ArgumentError(name);
+  }
+}
+
+final BuiltSet<V1ProvidersMeGet200ResponseAvailabilityStatusEnum>
+    _$v1ProvidersMeGet200ResponseAvailabilityStatusEnumValues = BuiltSet<
+        V1ProvidersMeGet200ResponseAvailabilityStatusEnum>(const <V1ProvidersMeGet200ResponseAvailabilityStatusEnum>[
+  _$v1ProvidersMeGet200ResponseAvailabilityStatusEnum_AVAILABLE,
+  _$v1ProvidersMeGet200ResponseAvailabilityStatusEnum_BUSY,
+  _$v1ProvidersMeGet200ResponseAvailabilityStatusEnum_ON_HOLIDAY,
+]);
+
+Serializer<V1ProvidersMeGet200ResponsePublicationStatusEnum>
+    _$v1ProvidersMeGet200ResponsePublicationStatusEnumSerializer =
+    _$V1ProvidersMeGet200ResponsePublicationStatusEnumSerializer();
+Serializer<V1ProvidersMeGet200ResponseAvailabilityStatusEnum>
+    _$v1ProvidersMeGet200ResponseAvailabilityStatusEnumSerializer =
+    _$V1ProvidersMeGet200ResponseAvailabilityStatusEnumSerializer();
+
+class _$V1ProvidersMeGet200ResponsePublicationStatusEnumSerializer
+    implements
+        PrimitiveSerializer<V1ProvidersMeGet200ResponsePublicationStatusEnum> {
+  static const Map<String, Object> _toWire = const <String, Object>{
+    'DRAFT': 'DRAFT',
+    'PUBLISHED': 'PUBLISHED',
+    'HIDDEN': 'HIDDEN',
+    'SUSPENDED': 'SUSPENDED',
+  };
+  static const Map<Object, String> _fromWire = const <Object, String>{
+    'DRAFT': 'DRAFT',
+    'PUBLISHED': 'PUBLISHED',
+    'HIDDEN': 'HIDDEN',
+    'SUSPENDED': 'SUSPENDED',
+  };
+
+  @override
+  final Iterable<Type> types = const <Type>[
+    V1ProvidersMeGet200ResponsePublicationStatusEnum
+  ];
+  @override
+  final String wireName = 'V1ProvidersMeGet200ResponsePublicationStatusEnum';
+
+  @override
+  Object serialize(Serializers serializers,
+          V1ProvidersMeGet200ResponsePublicationStatusEnum object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      _toWire[object.name] ?? object.name;
+
+  @override
+  V1ProvidersMeGet200ResponsePublicationStatusEnum deserialize(
+          Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      V1ProvidersMeGet200ResponsePublicationStatusEnum.valueOf(
+          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+}
+
+class _$V1ProvidersMeGet200ResponseAvailabilityStatusEnumSerializer
+    implements
+        PrimitiveSerializer<V1ProvidersMeGet200ResponseAvailabilityStatusEnum> {
+  static const Map<String, Object> _toWire = const <String, Object>{
+    'AVAILABLE': 'AVAILABLE',
+    'BUSY': 'BUSY',
+    'ON_HOLIDAY': 'ON_HOLIDAY',
+  };
+  static const Map<Object, String> _fromWire = const <Object, String>{
+    'AVAILABLE': 'AVAILABLE',
+    'BUSY': 'BUSY',
+    'ON_HOLIDAY': 'ON_HOLIDAY',
+  };
+
+  @override
+  final Iterable<Type> types = const <Type>[
+    V1ProvidersMeGet200ResponseAvailabilityStatusEnum
+  ];
+  @override
+  final String wireName = 'V1ProvidersMeGet200ResponseAvailabilityStatusEnum';
+
+  @override
+  Object serialize(Serializers serializers,
+          V1ProvidersMeGet200ResponseAvailabilityStatusEnum object,
+          {FullType specifiedType = FullType.unspecified}) =>
+      _toWire[object.name] ?? object.name;
+
+  @override
+  V1ProvidersMeGet200ResponseAvailabilityStatusEnum deserialize(
+          Serializers serializers, Object serialized,
+          {FullType specifiedType = FullType.unspecified}) =>
+      V1ProvidersMeGet200ResponseAvailabilityStatusEnum.valueOf(
+          _fromWire[serialized] ?? (serialized is String ? serialized : ''));
+}
+
+class _$V1ProvidersMeGet200Response extends V1ProvidersMeGet200Response {
+  @override
+  final String id;
+  @override
+  final String slug;
+  @override
+  final String businessName;
+  @override
+  final String headline;
+  @override
+  final String bio;
+  @override
+  final int yearsExperience;
+  @override
+  final String whatsappPhone;
+  @override
+  final String publicPhone;
+  @override
+  final BuiltList<V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum>
+      spokenLanguages;
+  @override
+  final String baseGovernorateId;
+  @override
+  final String baseDelegationId;
+  @override
+  final num latitude;
+  @override
+  final num longitude;
+  @override
+  final V1ProvidersMeGet200ResponsePublicationStatusEnum publicationStatus;
+  @override
+  final V1ProvidersMeGet200ResponseAvailabilityStatusEnum availabilityStatus;
+  @override
+  final DateTime availableAgainAt;
+  @override
+  final bool acceptsEmergency;
+  @override
+  final BuiltMap<String, JsonObject?> workingHours;
+  @override
+  final bool isVerified;
+  @override
+  final DateTime verifiedAt;
+  @override
+  final num ratingAvg;
+  @override
+  final int ratingCount;
+  @override
+  final int totalProfileViews;
+  @override
+  final int totalContacts;
+  @override
+  final int completionScore;
+  @override
+  final num rankingScore;
+  @override
+  final DateTime lastActiveAt;
+  @override
+  final DateTime createdAt;
+  @override
+  final DateTime updatedAt;
+
+  factory _$V1ProvidersMeGet200Response(
+          [void Function(V1ProvidersMeGet200ResponseBuilder)? updates]) =>
+      (V1ProvidersMeGet200ResponseBuilder()..update(updates))._build();
+
+  _$V1ProvidersMeGet200Response._(
+      {required this.id,
+      required this.slug,
+      required this.businessName,
+      required this.headline,
+      required this.bio,
+      required this.yearsExperience,
+      required this.whatsappPhone,
+      required this.publicPhone,
+      required this.spokenLanguages,
+      required this.baseGovernorateId,
+      required this.baseDelegationId,
+      required this.latitude,
+      required this.longitude,
+      required this.publicationStatus,
+      required this.availabilityStatus,
+      required this.availableAgainAt,
+      required this.acceptsEmergency,
+      required this.workingHours,
+      required this.isVerified,
+      required this.verifiedAt,
+      required this.ratingAvg,
+      required this.ratingCount,
+      required this.totalProfileViews,
+      required this.totalContacts,
+      required this.completionScore,
+      required this.rankingScore,
+      required this.lastActiveAt,
+      required this.createdAt,
+      required this.updatedAt})
+      : super._();
+  @override
+  V1ProvidersMeGet200Response rebuild(
+          void Function(V1ProvidersMeGet200ResponseBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  V1ProvidersMeGet200ResponseBuilder toBuilder() =>
+      V1ProvidersMeGet200ResponseBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is V1ProvidersMeGet200Response &&
+        id == other.id &&
+        slug == other.slug &&
+        businessName == other.businessName &&
+        headline == other.headline &&
+        bio == other.bio &&
+        yearsExperience == other.yearsExperience &&
+        whatsappPhone == other.whatsappPhone &&
+        publicPhone == other.publicPhone &&
+        spokenLanguages == other.spokenLanguages &&
+        baseGovernorateId == other.baseGovernorateId &&
+        baseDelegationId == other.baseDelegationId &&
+        latitude == other.latitude &&
+        longitude == other.longitude &&
+        publicationStatus == other.publicationStatus &&
+        availabilityStatus == other.availabilityStatus &&
+        availableAgainAt == other.availableAgainAt &&
+        acceptsEmergency == other.acceptsEmergency &&
+        workingHours == other.workingHours &&
+        isVerified == other.isVerified &&
+        verifiedAt == other.verifiedAt &&
+        ratingAvg == other.ratingAvg &&
+        ratingCount == other.ratingCount &&
+        totalProfileViews == other.totalProfileViews &&
+        totalContacts == other.totalContacts &&
+        completionScore == other.completionScore &&
+        rankingScore == other.rankingScore &&
+        lastActiveAt == other.lastActiveAt &&
+        createdAt == other.createdAt &&
+        updatedAt == other.updatedAt;
+  }
+
+  @override
+  int get hashCode {
+    var _$hash = 0;
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, slug.hashCode);
+    _$hash = $jc(_$hash, businessName.hashCode);
+    _$hash = $jc(_$hash, headline.hashCode);
+    _$hash = $jc(_$hash, bio.hashCode);
+    _$hash = $jc(_$hash, yearsExperience.hashCode);
+    _$hash = $jc(_$hash, whatsappPhone.hashCode);
+    _$hash = $jc(_$hash, publicPhone.hashCode);
+    _$hash = $jc(_$hash, spokenLanguages.hashCode);
+    _$hash = $jc(_$hash, baseGovernorateId.hashCode);
+    _$hash = $jc(_$hash, baseDelegationId.hashCode);
+    _$hash = $jc(_$hash, latitude.hashCode);
+    _$hash = $jc(_$hash, longitude.hashCode);
+    _$hash = $jc(_$hash, publicationStatus.hashCode);
+    _$hash = $jc(_$hash, availabilityStatus.hashCode);
+    _$hash = $jc(_$hash, availableAgainAt.hashCode);
+    _$hash = $jc(_$hash, acceptsEmergency.hashCode);
+    _$hash = $jc(_$hash, workingHours.hashCode);
+    _$hash = $jc(_$hash, isVerified.hashCode);
+    _$hash = $jc(_$hash, verifiedAt.hashCode);
+    _$hash = $jc(_$hash, ratingAvg.hashCode);
+    _$hash = $jc(_$hash, ratingCount.hashCode);
+    _$hash = $jc(_$hash, totalProfileViews.hashCode);
+    _$hash = $jc(_$hash, totalContacts.hashCode);
+    _$hash = $jc(_$hash, completionScore.hashCode);
+    _$hash = $jc(_$hash, rankingScore.hashCode);
+    _$hash = $jc(_$hash, lastActiveAt.hashCode);
+    _$hash = $jc(_$hash, createdAt.hashCode);
+    _$hash = $jc(_$hash, updatedAt.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper(r'V1ProvidersMeGet200Response')
+          ..add('id', id)
+          ..add('slug', slug)
+          ..add('businessName', businessName)
+          ..add('headline', headline)
+          ..add('bio', bio)
+          ..add('yearsExperience', yearsExperience)
+          ..add('whatsappPhone', whatsappPhone)
+          ..add('publicPhone', publicPhone)
+          ..add('spokenLanguages', spokenLanguages)
+          ..add('baseGovernorateId', baseGovernorateId)
+          ..add('baseDelegationId', baseDelegationId)
+          ..add('latitude', latitude)
+          ..add('longitude', longitude)
+          ..add('publicationStatus', publicationStatus)
+          ..add('availabilityStatus', availabilityStatus)
+          ..add('availableAgainAt', availableAgainAt)
+          ..add('acceptsEmergency', acceptsEmergency)
+          ..add('workingHours', workingHours)
+          ..add('isVerified', isVerified)
+          ..add('verifiedAt', verifiedAt)
+          ..add('ratingAvg', ratingAvg)
+          ..add('ratingCount', ratingCount)
+          ..add('totalProfileViews', totalProfileViews)
+          ..add('totalContacts', totalContacts)
+          ..add('completionScore', completionScore)
+          ..add('rankingScore', rankingScore)
+          ..add('lastActiveAt', lastActiveAt)
+          ..add('createdAt', createdAt)
+          ..add('updatedAt', updatedAt))
+        .toString();
+  }
+}
+
+class V1ProvidersMeGet200ResponseBuilder
+    implements
+        Builder<V1ProvidersMeGet200Response,
+            V1ProvidersMeGet200ResponseBuilder> {
+  _$V1ProvidersMeGet200Response? _$v;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  String? _slug;
+  String? get slug => _$this._slug;
+  set slug(String? slug) => _$this._slug = slug;
+
+  String? _businessName;
+  String? get businessName => _$this._businessName;
+  set businessName(String? businessName) => _$this._businessName = businessName;
+
+  String? _headline;
+  String? get headline => _$this._headline;
+  set headline(String? headline) => _$this._headline = headline;
+
+  String? _bio;
+  String? get bio => _$this._bio;
+  set bio(String? bio) => _$this._bio = bio;
+
+  int? _yearsExperience;
+  int? get yearsExperience => _$this._yearsExperience;
+  set yearsExperience(int? yearsExperience) =>
+      _$this._yearsExperience = yearsExperience;
+
+  String? _whatsappPhone;
+  String? get whatsappPhone => _$this._whatsappPhone;
+  set whatsappPhone(String? whatsappPhone) =>
+      _$this._whatsappPhone = whatsappPhone;
+
+  String? _publicPhone;
+  String? get publicPhone => _$this._publicPhone;
+  set publicPhone(String? publicPhone) => _$this._publicPhone = publicPhone;
+
+  ListBuilder<V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum>?
+      _spokenLanguages;
+  ListBuilder<V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum>
+      get spokenLanguages => _$this._spokenLanguages ??= ListBuilder<
+          V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum>();
+  set spokenLanguages(
+          ListBuilder<V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum>?
+              spokenLanguages) =>
+      _$this._spokenLanguages = spokenLanguages;
+
+  String? _baseGovernorateId;
+  String? get baseGovernorateId => _$this._baseGovernorateId;
+  set baseGovernorateId(String? baseGovernorateId) =>
+      _$this._baseGovernorateId = baseGovernorateId;
+
+  String? _baseDelegationId;
+  String? get baseDelegationId => _$this._baseDelegationId;
+  set baseDelegationId(String? baseDelegationId) =>
+      _$this._baseDelegationId = baseDelegationId;
+
+  num? _latitude;
+  num? get latitude => _$this._latitude;
+  set latitude(num? latitude) => _$this._latitude = latitude;
+
+  num? _longitude;
+  num? get longitude => _$this._longitude;
+  set longitude(num? longitude) => _$this._longitude = longitude;
+
+  V1ProvidersMeGet200ResponsePublicationStatusEnum? _publicationStatus;
+  V1ProvidersMeGet200ResponsePublicationStatusEnum? get publicationStatus =>
+      _$this._publicationStatus;
+  set publicationStatus(
+          V1ProvidersMeGet200ResponsePublicationStatusEnum?
+              publicationStatus) =>
+      _$this._publicationStatus = publicationStatus;
+
+  V1ProvidersMeGet200ResponseAvailabilityStatusEnum? _availabilityStatus;
+  V1ProvidersMeGet200ResponseAvailabilityStatusEnum? get availabilityStatus =>
+      _$this._availabilityStatus;
+  set availabilityStatus(
+          V1ProvidersMeGet200ResponseAvailabilityStatusEnum?
+              availabilityStatus) =>
+      _$this._availabilityStatus = availabilityStatus;
+
+  DateTime? _availableAgainAt;
+  DateTime? get availableAgainAt => _$this._availableAgainAt;
+  set availableAgainAt(DateTime? availableAgainAt) =>
+      _$this._availableAgainAt = availableAgainAt;
+
+  bool? _acceptsEmergency;
+  bool? get acceptsEmergency => _$this._acceptsEmergency;
+  set acceptsEmergency(bool? acceptsEmergency) =>
+      _$this._acceptsEmergency = acceptsEmergency;
+
+  MapBuilder<String, JsonObject?>? _workingHours;
+  MapBuilder<String, JsonObject?> get workingHours =>
+      _$this._workingHours ??= MapBuilder<String, JsonObject?>();
+  set workingHours(MapBuilder<String, JsonObject?>? workingHours) =>
+      _$this._workingHours = workingHours;
+
+  bool? _isVerified;
+  bool? get isVerified => _$this._isVerified;
+  set isVerified(bool? isVerified) => _$this._isVerified = isVerified;
+
+  DateTime? _verifiedAt;
+  DateTime? get verifiedAt => _$this._verifiedAt;
+  set verifiedAt(DateTime? verifiedAt) => _$this._verifiedAt = verifiedAt;
+
+  num? _ratingAvg;
+  num? get ratingAvg => _$this._ratingAvg;
+  set ratingAvg(num? ratingAvg) => _$this._ratingAvg = ratingAvg;
+
+  int? _ratingCount;
+  int? get ratingCount => _$this._ratingCount;
+  set ratingCount(int? ratingCount) => _$this._ratingCount = ratingCount;
+
+  int? _totalProfileViews;
+  int? get totalProfileViews => _$this._totalProfileViews;
+  set totalProfileViews(int? totalProfileViews) =>
+      _$this._totalProfileViews = totalProfileViews;
+
+  int? _totalContacts;
+  int? get totalContacts => _$this._totalContacts;
+  set totalContacts(int? totalContacts) =>
+      _$this._totalContacts = totalContacts;
+
+  int? _completionScore;
+  int? get completionScore => _$this._completionScore;
+  set completionScore(int? completionScore) =>
+      _$this._completionScore = completionScore;
+
+  num? _rankingScore;
+  num? get rankingScore => _$this._rankingScore;
+  set rankingScore(num? rankingScore) => _$this._rankingScore = rankingScore;
+
+  DateTime? _lastActiveAt;
+  DateTime? get lastActiveAt => _$this._lastActiveAt;
+  set lastActiveAt(DateTime? lastActiveAt) =>
+      _$this._lastActiveAt = lastActiveAt;
+
+  DateTime? _createdAt;
+  DateTime? get createdAt => _$this._createdAt;
+  set createdAt(DateTime? createdAt) => _$this._createdAt = createdAt;
+
+  DateTime? _updatedAt;
+  DateTime? get updatedAt => _$this._updatedAt;
+  set updatedAt(DateTime? updatedAt) => _$this._updatedAt = updatedAt;
+
+  V1ProvidersMeGet200ResponseBuilder() {
+    V1ProvidersMeGet200Response._defaults(this);
+  }
+
+  V1ProvidersMeGet200ResponseBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _id = $v.id;
+      _slug = $v.slug;
+      _businessName = $v.businessName;
+      _headline = $v.headline;
+      _bio = $v.bio;
+      _yearsExperience = $v.yearsExperience;
+      _whatsappPhone = $v.whatsappPhone;
+      _publicPhone = $v.publicPhone;
+      _spokenLanguages = $v.spokenLanguages.toBuilder();
+      _baseGovernorateId = $v.baseGovernorateId;
+      _baseDelegationId = $v.baseDelegationId;
+      _latitude = $v.latitude;
+      _longitude = $v.longitude;
+      _publicationStatus = $v.publicationStatus;
+      _availabilityStatus = $v.availabilityStatus;
+      _availableAgainAt = $v.availableAgainAt;
+      _acceptsEmergency = $v.acceptsEmergency;
+      _workingHours = $v.workingHours.toBuilder();
+      _isVerified = $v.isVerified;
+      _verifiedAt = $v.verifiedAt;
+      _ratingAvg = $v.ratingAvg;
+      _ratingCount = $v.ratingCount;
+      _totalProfileViews = $v.totalProfileViews;
+      _totalContacts = $v.totalContacts;
+      _completionScore = $v.completionScore;
+      _rankingScore = $v.rankingScore;
+      _lastActiveAt = $v.lastActiveAt;
+      _createdAt = $v.createdAt;
+      _updatedAt = $v.updatedAt;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(V1ProvidersMeGet200Response other) {
+    _$v = other as _$V1ProvidersMeGet200Response;
+  }
+
+  @override
+  void update(void Function(V1ProvidersMeGet200ResponseBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  V1ProvidersMeGet200Response build() => _build();
+
+  _$V1ProvidersMeGet200Response _build() {
+    _$V1ProvidersMeGet200Response _$result;
+    try {
+      _$result = _$v ??
+          _$V1ProvidersMeGet200Response._(
+            id: BuiltValueNullFieldError.checkNotNull(
+                id, r'V1ProvidersMeGet200Response', 'id'),
+            slug: BuiltValueNullFieldError.checkNotNull(
+                slug, r'V1ProvidersMeGet200Response', 'slug'),
+            businessName: BuiltValueNullFieldError.checkNotNull(
+                businessName, r'V1ProvidersMeGet200Response', 'businessName'),
+            headline: BuiltValueNullFieldError.checkNotNull(
+                headline, r'V1ProvidersMeGet200Response', 'headline'),
+            bio: BuiltValueNullFieldError.checkNotNull(
+                bio, r'V1ProvidersMeGet200Response', 'bio'),
+            yearsExperience: BuiltValueNullFieldError.checkNotNull(
+                yearsExperience,
+                r'V1ProvidersMeGet200Response',
+                'yearsExperience'),
+            whatsappPhone: BuiltValueNullFieldError.checkNotNull(
+                whatsappPhone, r'V1ProvidersMeGet200Response', 'whatsappPhone'),
+            publicPhone: BuiltValueNullFieldError.checkNotNull(
+                publicPhone, r'V1ProvidersMeGet200Response', 'publicPhone'),
+            spokenLanguages: spokenLanguages.build(),
+            baseGovernorateId: BuiltValueNullFieldError.checkNotNull(
+                baseGovernorateId,
+                r'V1ProvidersMeGet200Response',
+                'baseGovernorateId'),
+            baseDelegationId: BuiltValueNullFieldError.checkNotNull(
+                baseDelegationId,
+                r'V1ProvidersMeGet200Response',
+                'baseDelegationId'),
+            latitude: BuiltValueNullFieldError.checkNotNull(
+                latitude, r'V1ProvidersMeGet200Response', 'latitude'),
+            longitude: BuiltValueNullFieldError.checkNotNull(
+                longitude, r'V1ProvidersMeGet200Response', 'longitude'),
+            publicationStatus: BuiltValueNullFieldError.checkNotNull(
+                publicationStatus,
+                r'V1ProvidersMeGet200Response',
+                'publicationStatus'),
+            availabilityStatus: BuiltValueNullFieldError.checkNotNull(
+                availabilityStatus,
+                r'V1ProvidersMeGet200Response',
+                'availabilityStatus'),
+            availableAgainAt: BuiltValueNullFieldError.checkNotNull(
+                availableAgainAt,
+                r'V1ProvidersMeGet200Response',
+                'availableAgainAt'),
+            acceptsEmergency: BuiltValueNullFieldError.checkNotNull(
+                acceptsEmergency,
+                r'V1ProvidersMeGet200Response',
+                'acceptsEmergency'),
+            workingHours: workingHours.build(),
+            isVerified: BuiltValueNullFieldError.checkNotNull(
+                isVerified, r'V1ProvidersMeGet200Response', 'isVerified'),
+            verifiedAt: BuiltValueNullFieldError.checkNotNull(
+                verifiedAt, r'V1ProvidersMeGet200Response', 'verifiedAt'),
+            ratingAvg: BuiltValueNullFieldError.checkNotNull(
+                ratingAvg, r'V1ProvidersMeGet200Response', 'ratingAvg'),
+            ratingCount: BuiltValueNullFieldError.checkNotNull(
+                ratingCount, r'V1ProvidersMeGet200Response', 'ratingCount'),
+            totalProfileViews: BuiltValueNullFieldError.checkNotNull(
+                totalProfileViews,
+                r'V1ProvidersMeGet200Response',
+                'totalProfileViews'),
+            totalContacts: BuiltValueNullFieldError.checkNotNull(
+                totalContacts, r'V1ProvidersMeGet200Response', 'totalContacts'),
+            completionScore: BuiltValueNullFieldError.checkNotNull(
+                completionScore,
+                r'V1ProvidersMeGet200Response',
+                'completionScore'),
+            rankingScore: BuiltValueNullFieldError.checkNotNull(
+                rankingScore, r'V1ProvidersMeGet200Response', 'rankingScore'),
+            lastActiveAt: BuiltValueNullFieldError.checkNotNull(
+                lastActiveAt, r'V1ProvidersMeGet200Response', 'lastActiveAt'),
+            createdAt: BuiltValueNullFieldError.checkNotNull(
+                createdAt, r'V1ProvidersMeGet200Response', 'createdAt'),
+            updatedAt: BuiltValueNullFieldError.checkNotNull(
+                updatedAt, r'V1ProvidersMeGet200Response', 'updatedAt'),
+          );
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'spokenLanguages';
+        spokenLanguages.build();
+
+        _$failedField = 'workingHours';
+        workingHours.build();
+      } catch (e) {
+        throw BuiltValueNestedFieldError(
+            r'V1ProvidersMeGet200Response', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+// ignore_for_file: deprecated_member_use_from_same_package,type=lint

@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **whatsappPhone** | **String** |  | [optional] 
 **publicPhone** | **String** |  | [optional] 
 **availabilityStatus** | **String** |  | [optional] 
-**availableAgainAt** | [**BuiltMap&lt;String, JsonObject&gt;**](JsonObject.md) |  | [optional] 
+**availableAgainAt** | [**JsonObject**](.md) |  | [optional] 
 **acceptsEmergency** | **bool** |  | [optional] 
 **workingHours** | [**BuiltMap&lt;String, JsonObject&gt;**](JsonObject.md) |  | [optional] 
 **publicationStatus** | **String** |  | [optional] 
