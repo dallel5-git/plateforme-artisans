@@ -658,6 +658,28 @@ export async function addServiceOffering(
   return toOffering(row);
 }
 
+export interface UpdateServiceOfferingInput {
+  titleFr?: string;
+  titleAr?: string | null;
+  description?: string | null;
+  priceMin?: number | null;
+  priceMax?: number | null;
+  priceUnit?: PriceUnit;
+  isNegotiable?: boolean;
+}
+
+// BE-47b : `categoryId` n'est volontairement pas modifiable ici — `onDelete: Restrict` sur la
+// relation `category` (schema.prisma:369) en fait un choix figé à la création, pas un champ
+// d'édition.
+export async function updateServiceOffering(
+  id: string,
+  input: UpdateServiceOfferingInput,
+  db: DbClient = prisma,
+): Promise<ServiceOffering> {
+  const row = await db.serviceOffering.update({ where: { id }, data: input, select: offeringSelect });
+  return toOffering(row);
+}
+
 export async function removeServiceOffering(id: string, db: DbClient = prisma): Promise<void> {
   await db.serviceOffering.update({
     where: { id },
