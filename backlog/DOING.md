@@ -18,6 +18,7 @@ _(aucune autre tâche DEV-1 en cours — `FM-05` et `FM-10` terminées, déplac�
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
+| `FM-24a` | Persistance du statut de publication (sous-tâche 1/3 de FM-24) | 2026-09-03 | `feat/FM-24a-publication-status-persistence` | En cours |
 
 *(FM-23 — 2/2 PRs mergées #270/#271 — déplacée vers `DONE.md`. **Vérification visuelle FR/AR sur
 device Android réel toujours à faire** — non disponible dans l'environnement où les PRs ont été
