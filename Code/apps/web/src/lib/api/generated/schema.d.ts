@@ -1288,6 +1288,162 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/providers/me/offerings": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Ajoute une offre (tarif) au profil de l'artisan authentifié. */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        categoryId: string;
+                        titleFr: string;
+                        titleAr?: string;
+                        description?: string;
+                        priceMin?: number;
+                        priceMax?: number;
+                        /** @enum {string} */
+                        priceUnit?: "FIXED" | "HOUR" | "DAY" | "SQUARE_METER" | "LINEAR_METER" | "ON_QUOTE";
+                        isNegotiable?: boolean;
+                    };
+                };
+            };
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            category: {
+                                slug: string;
+                                nameFr: string;
+                                nameAr: string;
+                            };
+                            titleFr: string;
+                            titleAr: string | null;
+                            description: string | null;
+                            priceMin: number | null;
+                            priceMax: number | null;
+                            /** @enum {string} */
+                            priceUnit: "FIXED" | "HOUR" | "DAY" | "SQUARE_METER" | "LINEAR_METER" | "ON_QUOTE";
+                            isNegotiable: boolean;
+                            displayPrice: string;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/providers/me/offerings/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** @description Retire une offre de l'artisan authentifié (désactivation, pas de suppression physique). */
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        /** @description Modifie une offre de l'artisan authentifié (catégorie non modifiable). */
+        patch: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        titleFr?: string;
+                        titleAr?: string | null;
+                        description?: string | null;
+                        priceMin?: number | null;
+                        priceMax?: number | null;
+                        /** @enum {string} */
+                        priceUnit?: "FIXED" | "HOUR" | "DAY" | "SQUARE_METER" | "LINEAR_METER" | "ON_QUOTE";
+                        isNegotiable?: boolean;
+                    };
+                };
+            };
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            category: {
+                                slug: string;
+                                nameFr: string;
+                                nameAr: string;
+                            };
+                            titleFr: string;
+                            titleAr: string | null;
+                            description: string | null;
+                            priceMin: number | null;
+                            priceMax: number | null;
+                            /** @enum {string} */
+                            priceUnit: "FIXED" | "HOUR" | "DAY" | "SQUARE_METER" | "LINEAR_METER" | "ON_QUOTE";
+                            isNegotiable: boolean;
+                            displayPrice: string;
+                        };
+                    };
+                };
+            };
+        };
+        trace?: never;
+    };
     "/v1/providers/me/stats": {
         parameters: {
             query?: never;

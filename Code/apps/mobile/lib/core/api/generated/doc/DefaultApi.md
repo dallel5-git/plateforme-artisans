@@ -23,6 +23,9 @@ Method | HTTP request | Description
 [**v1ProvidersMeCategoriesPut**](DefaultApi.md#v1providersmecategoriesput) | **PUT** /v1/providers/me/categories | 
 [**v1ProvidersMeCoverageAreasPut**](DefaultApi.md#v1providersmecoverageareasput) | **PUT** /v1/providers/me/coverage-areas | 
 [**v1ProvidersMeGet**](DefaultApi.md#v1providersmeget) | **GET** /v1/providers/me | 
+[**v1ProvidersMeOfferingsIdDelete**](DefaultApi.md#v1providersmeofferingsiddelete) | **DELETE** /v1/providers/me/offerings/{id} | 
+[**v1ProvidersMeOfferingsIdPatch**](DefaultApi.md#v1providersmeofferingsidpatch) | **PATCH** /v1/providers/me/offerings/{id} | 
+[**v1ProvidersMeOfferingsPost**](DefaultApi.md#v1providersmeofferingspost) | **POST** /v1/providers/me/offerings | 
 [**v1ProvidersMePatch**](DefaultApi.md#v1providersmepatch) | **PATCH** /v1/providers/me | 
 [**v1ProvidersMePortfolioIdDelete**](DefaultApi.md#v1providersmeportfolioiddelete) | **DELETE** /v1/providers/me/portfolio/{id} | 
 [**v1ProvidersMePortfolioPost**](DefaultApi.md#v1providersmeportfoliopost) | **POST** /v1/providers/me/portfolio | 
@@ -617,6 +620,136 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **v1ProvidersMeOfferingsIdDelete**
+> v1ProvidersMeOfferingsIdDelete(id)
+
+
+
+Retire une offre de l'artisan authentifié (désactivation, pas de suppression physique).
+
+### Example
+```dart
+import 'package:sanaya_api_client/api.dart';
+
+final api = SanayaApiClient().getDefaultApi();
+final String id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+
+try {
+    api.v1ProvidersMeOfferingsIdDelete(id);
+} catch on DioException (e) {
+    print('Exception when calling DefaultApi->v1ProvidersMeOfferingsIdDelete: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **v1ProvidersMeOfferingsIdPatch**
+> V1ProvidersMeOfferingsPost200Response v1ProvidersMeOfferingsIdPatch(id, v1ProvidersMeOfferingsIdPatchRequest)
+
+
+
+Modifie une offre de l'artisan authentifié (catégorie non modifiable).
+
+### Example
+```dart
+import 'package:sanaya_api_client/api.dart';
+
+final api = SanayaApiClient().getDefaultApi();
+final String id = 38400000-8cf0-11bd-b23e-10b96e4ef00d; // String | 
+final V1ProvidersMeOfferingsIdPatchRequest v1ProvidersMeOfferingsIdPatchRequest = ; // V1ProvidersMeOfferingsIdPatchRequest | 
+
+try {
+    final response = api.v1ProvidersMeOfferingsIdPatch(id, v1ProvidersMeOfferingsIdPatchRequest);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling DefaultApi->v1ProvidersMeOfferingsIdPatch: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **v1ProvidersMeOfferingsIdPatchRequest** | [**V1ProvidersMeOfferingsIdPatchRequest**](V1ProvidersMeOfferingsIdPatchRequest.md)|  | 
+
+### Return type
+
+[**V1ProvidersMeOfferingsPost200Response**](V1ProvidersMeOfferingsPost200Response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **v1ProvidersMeOfferingsPost**
+> V1ProvidersMeOfferingsPost200Response v1ProvidersMeOfferingsPost(v1ProvidersMeOfferingsPostRequest)
+
+
+
+Ajoute une offre (tarif) au profil de l'artisan authentifié.
+
+### Example
+```dart
+import 'package:sanaya_api_client/api.dart';
+
+final api = SanayaApiClient().getDefaultApi();
+final V1ProvidersMeOfferingsPostRequest v1ProvidersMeOfferingsPostRequest = ; // V1ProvidersMeOfferingsPostRequest | 
+
+try {
+    final response = api.v1ProvidersMeOfferingsPost(v1ProvidersMeOfferingsPostRequest);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling DefaultApi->v1ProvidersMeOfferingsPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **v1ProvidersMeOfferingsPostRequest** | [**V1ProvidersMeOfferingsPostRequest**](V1ProvidersMeOfferingsPostRequest.md)|  | 
+
+### Return type
+
+[**V1ProvidersMeOfferingsPost200Response**](V1ProvidersMeOfferingsPost200Response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
