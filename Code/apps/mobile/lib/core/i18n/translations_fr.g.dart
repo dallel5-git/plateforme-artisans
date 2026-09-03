@@ -469,6 +469,9 @@ class Translations$proProfile$fr {
 
 	/// fr: 'Modifiez vos informations et votre disponibilité dès que cette fonctionnalité sera prête.'
 	String get emptyMessage => 'Modifiez vos informations et votre disponibilité dès que cette fonctionnalité sera prête.';
+
+	/// fr: 'Retour à l'espace Client'
+	String get switchToClientSpace => 'Retour à l\'espace Client';
 }
 
 // Path: profile
@@ -487,6 +490,9 @@ class Translations$profile$fr {
 
 	/// fr: 'La gestion de votre compte arrive prochainement.'
 	String get emptyMessage => 'La gestion de votre compte arrive prochainement.';
+
+	/// fr: 'Passer en espace Pro'
+	String get switchToProSpace => 'Passer en espace Pro';
 }
 
 // Path: provider
@@ -1168,9 +1174,11 @@ extension on Translations {
 			'proProfile.title' => 'Profil',
 			'proProfile.emptyTitle' => 'Édition du profil bientôt disponible',
 			'proProfile.emptyMessage' => 'Modifiez vos informations et votre disponibilité dès que cette fonctionnalité sera prête.',
+			'proProfile.switchToClientSpace' => 'Retour à l\'espace Client',
 			'profile.title' => 'Profil',
 			'profile.emptyTitle' => 'Profil bientôt disponible',
 			'profile.emptyMessage' => 'La gestion de votre compte arrive prochainement.',
+			'profile.switchToProSpace' => 'Passer en espace Pro',
 			'provider.profile.callButton' => 'Appeler',
 			'provider.profile.whatsappButton' => 'WhatsApp',
 			'provider.profile.reviewsTitle' => 'Avis',

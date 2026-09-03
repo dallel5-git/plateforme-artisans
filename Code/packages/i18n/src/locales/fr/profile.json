@@ -1,5 +1,6 @@
 {
   "title": "Profil",
   "emptyTitle": "Profil bientôt disponible",
-  "emptyMessage": "La gestion de votre compte arrive prochainement."
+  "emptyMessage": "La gestion de votre compte arrive prochainement.",
+  "switchToProSpace": "Passer en espace Pro"
 }
