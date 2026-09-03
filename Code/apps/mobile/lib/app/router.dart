@@ -1,9 +1,11 @@
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sanaya/app/client_shell_screen.dart';
 import 'package:sanaya/app/design_system_preview_screen.dart';
-import 'package:sanaya/app/home_screen.dart';
 import 'package:sanaya/app/providers.dart';
+import 'package:sanaya/app/splash_screen.dart';
 import 'package:sanaya/core/widgets/error_state.dart';
 import 'package:sanaya/features/auth/application/auth_state_provider.dart';
 import 'package:sanaya/features/auth/presentation/auth_screen.dart';
@@ -35,55 +37,97 @@ final authRouterRefreshListenable = GoRouterRefreshListenable();
 /// les groupes (auth)/(client)/(pro) de l'issue FM-01 sont traduits en
 /// préfixes de chemin visibles, cohérent avec la justification même du
 /// choix de go_router dans l'ADR-001 ("aligne le modèle mental sur celui du
-/// Web"). `redirect:` (FM-05d) ne fait qu'éviter à un utilisateur déjà
-/// authentifié de repasser par `/auth` ou le hub `/` — il ne bloque pas
-/// l'accès anonyme à `/client`/`/pro` (recherche publique, hors périmètre
-/// FM-05 : seul le contact d'un artisan ou la publication d'un profil
-/// nécessitent une session, gérés ailleurs).
+/// Web"). `redirect:` (FM-05d, étendu FM-23) ne fait qu'éviter à un
+/// utilisateur déjà authentifié de repasser par `/auth` ou le splash `/` —
+/// il ne bloque pas l'accès anonyme à `/client`/`/pro` (recherche publique,
+/// hors périmètre FM-05 : seul le contact d'un artisan ou la publication
+/// d'un profil nécessitent une session, gérés ailleurs).
 final router = GoRouter(
   initialLocation: '/',
   refreshListenable: authRouterRefreshListenable,
   redirect: (context, state) {
-    final status = ProviderScope.containerOf(
-      context,
-      listen: false,
-    ).read(authStateProvider).valueOrNull;
-    if (status == null || !status.isAuthenticated) return null;
+    final container = ProviderScope.containerOf(context, listen: false);
+    final auth = container.read(authStateProvider);
+    final onSplash = state.matchedLocation == '/';
 
-    final onEntryRoute =
-        state.matchedLocation == '/' || state.matchedLocation == '/auth';
+    // FM-23 : tant que la restauration de session n'est pas résolue,
+    // rester sur (ou revenir vers) le splash — évite le flash d'écran sur
+    // réseau lent que produisait l'ancien `valueOrNull == null` (il
+    // confondait "en cours" et "pas de session").
+    if (auth.isLoading) return onSplash ? null : '/';
+
+    final status = auth.valueOrNull;
+    if (status == null || !status.isAuthenticated) {
+      // Résolu, anonyme : le splash laisse place à la recherche publique
+      // (gratuite pour le particulier, CLAUDE.md racine) — jamais à un
+      // écran de choix de rôle brut (l'ancien hub à 3 boutons).
+      return onSplash ? '/client' : null;
+    }
+
+    final onEntryRoute = onSplash || state.matchedLocation == '/auth';
     if (!onEntryRoute) return null;
     return status.isProvider ? '/pro' : '/client';
   },
   errorBuilder: (_, _) => const _RouteNotFoundScreen(),
   routes: [
-    GoRoute(path: '/', name: 'home', builder: (_, _) => const HomeScreen()),
+    GoRoute(
+      path: '/',
+      name: 'splash',
+      builder: (_, _) => const SplashScreen(),
+    ),
     GoRoute(
       path: '/auth',
       name: 'auth',
       builder: (_, _) => const AuthScreen(),
     ),
-    GoRoute(
-      path: '/client',
-      name: 'client-home',
-      builder: (_, _) => const SearchHomeScreen(),
-      routes: [
-        GoRoute(
-          path: 'favorites',
-          name: 'client-favorites',
-          builder: (_, _) => const FavoritesScreen(),
+    StatefulShellRoute.indexedStack(
+      builder: (_, _, navigationShell) =>
+          ClientShellScreen(navigationShell: navigationShell),
+      branches: [
+        // `pageBuilder: NoTransitionPage` sur les 4 branches : `goBranch()`
+        // bascule instantanément via l'`IndexedStack` du shell — une
+        // transition de page animée par défaut laisserait une page
+        // fantôme intercepter les taps pendant sa durée (constaté en test,
+        // recette standard `StatefulShellRoute`).
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/client',
+              name: 'client-home',
+              pageBuilder: (_, _) =>
+                  const NoTransitionPage(child: SearchHomeScreen()),
+            ),
+          ],
         ),
-        // FM-23a : atteignables dès maintenant pour être testables — FM-23b
-        // les convertira en branches de `StatefulShellRoute.indexedStack`.
-        GoRoute(
-          path: 'history',
-          name: 'client-history',
-          builder: (_, _) => const HistoryPlaceholderScreen(),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/client/favorites',
+              name: 'client-favorites',
+              pageBuilder: (_, _) =>
+                  const NoTransitionPage(child: FavoritesScreen()),
+            ),
+          ],
         ),
-        GoRoute(
-          path: 'profile',
-          name: 'client-profile',
-          builder: (_, _) => const ProfilePlaceholderScreen(),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/client/history',
+              name: 'client-history',
+              pageBuilder: (_, _) =>
+                  const NoTransitionPage(child: HistoryPlaceholderScreen()),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/client/profile',
+              name: 'client-profile',
+              pageBuilder: (_, _) =>
+                  const NoTransitionPage(child: ProfilePlaceholderScreen()),
+            ),
+          ],
         ),
       ],
     ),
@@ -127,11 +171,15 @@ final router = GoRouter(
         ),
       ],
     ),
-    GoRoute(
-      path: '/_ds-preview',
-      name: 'ds-preview',
-      builder: (_, _) => const DesignSystemPreviewScreen(),
-    ),
+    // FM-23 : la vitrine interne n'est plus atteignable en production —
+    // seul l'icône palette du hub y menait, et le hub disparaît avec ce
+    // ticket. Reste accessible par URL/deep-link en debug.
+    if (kDebugMode)
+      GoRoute(
+        path: '/_ds-preview',
+        name: 'ds-preview',
+        builder: (_, _) => const DesignSystemPreviewScreen(),
+      ),
   ],
 );
 
