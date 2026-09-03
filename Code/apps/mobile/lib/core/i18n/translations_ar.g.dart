@@ -40,6 +40,7 @@ class TranslationsAr extends Translations with BaseTranslations<AppLocale, Trans
 
 	// Translations
 	@override late final Translations$auth$ar auth = Translations$auth$ar._(_root);
+	@override late final Translations$boosts$ar boosts = Translations$boosts$ar._(_root);
 	@override late final Translations$common$ar common = Translations$common$ar._(_root);
 	@override late final Translations$contact$ar contact = Translations$contact$ar._(_root);
 	@override late final Translations$dashboard$ar dashboard = Translations$dashboard$ar._(_root);
@@ -48,8 +49,10 @@ class TranslationsAr extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final Translations$history$ar history = Translations$history$ar._(_root);
 	@override late final Translations$legal$ar legal = Translations$legal$ar._(_root);
 	@override late final Translations$onboarding$ar onboarding = Translations$onboarding$ar._(_root);
+	@override late final Translations$proProfile$ar proProfile = Translations$proProfile$ar._(_root);
 	@override late final Translations$profile$ar profile = Translations$profile$ar._(_root);
 	@override late final Translations$provider$ar provider = Translations$provider$ar._(_root);
+	@override late final Translations$reviews$ar reviews = Translations$reviews$ar._(_root);
 	@override late final Translations$search$ar search = Translations$search$ar._(_root);
 	@override late final Translations$settings$ar settings = Translations$settings$ar._(_root);
 }
@@ -80,6 +83,18 @@ class Translations$auth$ar extends Translations$auth$fr {
 	@override String get errorRateLimitExceeded => 'طلبات كثيرة جدًا، حاول مرة أخرى لاحقًا';
 	@override String get errorValidation => 'رقم الهاتف غير صالح';
 	@override String get errorGeneric => 'حدث خطأ، حاول مرة أخرى';
+}
+
+// Path: boosts
+class Translations$boosts$ar extends Translations$boosts$fr {
+	Translations$boosts$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'التعزيزات';
+	@override String get emptyTitle => 'التعزيزات قريباً';
+	@override String get emptyMessage => 'أبرز ملفك في نتائج البحث بمجرد أن تصبح هذه الميزة جاهزة.';
 }
 
 // Path: common
@@ -238,6 +253,18 @@ class Translations$onboarding$ar extends Translations$onboarding$fr {
 	@override String get missingContactPhone => 'رقم واتساب أو رقم عام';
 }
 
+// Path: proProfile
+class Translations$proProfile$ar extends Translations$proProfile$fr {
+	Translations$proProfile$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'الملف الشخصي';
+	@override String get emptyTitle => 'تعديل الملف الشخصي قريباً';
+	@override String get emptyMessage => 'عدّل معلوماتك وتوفّرك بمجرد أن تصبح هذه الميزة جاهزة.';
+}
+
 // Path: profile
 class Translations$profile$ar extends Translations$profile$fr {
 	Translations$profile$ar._(TranslationsAr root) : this._root = root, super.internal(root);
@@ -258,6 +285,18 @@ class Translations$provider$ar extends Translations$provider$fr {
 
 	// Translations
 	@override late final Translations$provider$profile$ar profile = Translations$provider$profile$ar._(_root);
+}
+
+// Path: reviews
+class Translations$reviews$ar extends Translations$reviews$fr {
+	Translations$reviews$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'التقييمات';
+	@override String get emptyTitle => 'التقييمات المستلمة قريباً';
+	@override String get emptyMessage => 'ستجد هنا قريباً التقييمات التي تركها عملاؤك.';
 }
 
 // Path: search
@@ -490,6 +529,9 @@ extension on TranslationsAr {
 			'auth.errorRateLimitExceeded' => 'طلبات كثيرة جدًا، حاول مرة أخرى لاحقًا',
 			'auth.errorValidation' => 'رقم الهاتف غير صالح',
 			'auth.errorGeneric' => 'حدث خطأ، حاول مرة أخرى',
+			'boosts.title' => 'التعزيزات',
+			'boosts.emptyTitle' => 'التعزيزات قريباً',
+			'boosts.emptyMessage' => 'أبرز ملفك في نتائج البحث بمجرد أن تصبح هذه الميزة جاهزة.',
 			'common.appName' => 'Sanaya',
 			'common.home.navAuth' => 'مساحة المصادقة — قريبًا (FM-05)',
 			'common.home.navClient' => 'مساحة العميل',
@@ -644,6 +686,9 @@ extension on TranslationsAr {
 			'onboarding.missingHeadline' => 'عنوان',
 			'onboarding.missingYearsExperience' => 'سنوات خبرتك',
 			'onboarding.missingContactPhone' => 'رقم واتساب أو رقم عام',
+			'proProfile.title' => 'الملف الشخصي',
+			'proProfile.emptyTitle' => 'تعديل الملف الشخصي قريباً',
+			'proProfile.emptyMessage' => 'عدّل معلوماتك وتوفّرك بمجرد أن تصبح هذه الميزة جاهزة.',
 			'profile.title' => 'الملف الشخصي',
 			'profile.emptyTitle' => 'الملف الشخصي قريباً',
 			'profile.emptyMessage' => 'ستتوفر إدارة حسابك قريباً.',
@@ -676,6 +721,9 @@ extension on TranslationsAr {
 			'provider.profile.reviewPromptTitle' => 'هل تعاملت مع هذا الحرفي؟',
 			'provider.profile.reviewPromptSubtitle' => 'شارك رأيك لمساعدة المجتمع.',
 			'provider.profile.reviewPromptCta' => 'ترك تقييم',
+			'reviews.title' => 'التقييمات',
+			'reviews.emptyTitle' => 'التقييمات المستلمة قريباً',
+			'reviews.emptyMessage' => 'ستجد هنا قريباً التقييمات التي تركها عملاؤك.',
 			'search.searchPlaceholder' => 'ابحث عن خدمة…',
 			'search.locationPlaceholder' => 'اختر ولاية',
 			'search.serviceLabel' => 'الخدمة',

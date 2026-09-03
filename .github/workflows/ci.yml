@@ -149,6 +149,11 @@ jobs:
       # et router_redirect_test.dart n'étaient déjà pas couverts avant ce
       # ticket, jamais fermé depuis ; fermé ici en ajoutant le premier test
       # de design_system_preview_screen.dart sous ce même dossier).
+      # FM-24b : lib/features/history et lib/features/profile (+ leurs tests)
+      # ajoutés par FM-23a/FM-23b n'avaient jamais été ajoutés ici ni à la
+      # liste `flutter test` ci-dessous — gap trouvé et corrigé en même temps
+      # que l'ajout de lib/features/{boosts,reviews,pro_profile} (placeholders
+      # pro), même règle que FM-13a/b/c ci-dessus.
       - run: |
           dart format --set-exit-if-changed \
             lib/app lib/main.dart lib/core/widgets \
@@ -158,12 +163,16 @@ jobs:
             lib/features/search lib/features/contact \
             lib/features/provider_profile lib/features/onboarding \
             lib/features/favorites lib/features/settings \
+            lib/features/history lib/features/profile \
+            lib/features/boosts lib/features/reviews lib/features/pro_profile \
             test/widget_test.dart test/core/widgets test/app \
             test/core/i18n/format_test.dart \
             test/core/i18n/locale_persistence_test.dart \
             test/features/search test/features/contact test/features/provider_profile \
             test/core/api test/core/connectivity test/features/onboarding \
-            test/features/favorites test/features/settings
+            test/features/favorites test/features/settings \
+            test/features/history test/features/profile \
+            test/features/boosts test/features/reviews test/features/pro_profile
 
       # FM-03 : lib/core/i18n/*.g.dart est généré par slang depuis
       # packages/i18n/src/locales/ (SO-05). `dart run build_runner build`
@@ -209,6 +218,15 @@ jobs:
       # et corrigé en même temps qu'un merge non lié (FM-02e), même règle que les autres cibles.
       - run: flutter test test/features/favorites
       - run: flutter test test/features/settings
+      # FM-24b : test/features/history et test/features/profile (FM-23a/FM-23b)
+      # n'étaient pas non plus couverts ici — même gap que ci-dessus, corrigé
+      # au passage. test/features/{boosts,reviews,pro_profile} : placeholders
+      # pro (FM-24b).
+      - run: flutter test test/features/history
+      - run: flutter test test/features/profile
+      - run: flutter test test/features/boosts
+      - run: flutter test test/features/reviews
+      - run: flutter test test/features/pro_profile
 
   mobile-client-check:
     name: contrat → client Dart (mobile:client)
