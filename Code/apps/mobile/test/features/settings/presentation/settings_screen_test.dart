@@ -5,19 +5,28 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/app/theme.dart';
+import 'package:sanaya/core/api/api_client_provider.dart';
+import 'package:sanaya/core/api/auth_token_store.dart';
 import 'package:sanaya/core/i18n/locale_persistence.dart';
 import 'package:sanaya/features/auth/application/auth_providers.dart';
+import 'package:sanaya/features/auth/application/auth_state_provider.dart';
+import 'package:sanaya/features/auth/application/auth_status.dart';
 import 'package:sanaya/features/auth/data/auth_repository.dart';
 import 'package:sanaya/features/settings/presentation/settings_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class _AuthRepositoryMock extends Mock implements AuthRepository {}
 
+class _AuthTokenStoreMock extends Mock implements AuthTokenStore {}
+
 void main() {
   late _AuthRepositoryMock authRepository;
+  late _AuthTokenStoreMock authTokenStore;
 
   setUp(() {
     authRepository = _AuthRepositoryMock();
+    authTokenStore = _AuthTokenStoreMock();
+    when(authTokenStore.restoreSession).thenAnswer((_) async => false);
     SharedPreferences.setMockInitialValues({});
   });
 
@@ -55,6 +64,7 @@ void main() {
         final container = ProviderContainer(
           overrides: [
             authRepositoryProvider.overrideWithValue(authRepository),
+            authTokenStoreProvider.overrideWithValue(authTokenStore),
           ],
         );
         addTearDown(container.dispose);
@@ -120,14 +130,27 @@ void main() {
     });
 
     testWidgets(
+      // régression #222 : le call-site appelait authRepository.logout()
+      // sans argument (no-op garanti par le guard `refreshToken != null`).
+      // Ce test vérifie désormais le vrai chemin de déconnexion,
+      // AuthStateNotifier.signOut(), qui révoque + purge + change l'état.
       'le bouton de déconnexion ouvre le dialogue de confirmation '
-      'et appelle logout()',
+      'et appelle signOut()',
       (tester) async {
-        when(() => authRepository.logout()).thenAnswer((_) async {});
+        when(
+          authTokenStore.peekRefreshToken,
+        ).thenAnswer((_) async => 'session-id.refresh-token');
+        when(
+          () => authRepository.logout(
+            refreshToken: any(named: 'refreshToken'),
+          ),
+        ).thenAnswer((_) async {});
+        when(authTokenStore.clear).thenAnswer((_) async {});
 
         final container = ProviderContainer(
           overrides: [
             authRepositoryProvider.overrideWithValue(authRepository),
+            authTokenStoreProvider.overrideWithValue(authTokenStore),
           ],
         );
         addTearDown(container.dispose);
@@ -150,7 +173,11 @@ void main() {
         await tester.tap(find.text('Annuler'));
         await tester.pumpAndSettle();
 
-        verifyNever(() => authRepository.logout());
+        verifyNever(
+          () => authRepository.logout(
+            refreshToken: any(named: 'refreshToken'),
+          ),
+        );
         expect(find.text('Déconnexion'), findsNothing);
 
         // 4. Réouverture et confirmation
@@ -160,7 +187,16 @@ void main() {
         await tester.tap(find.text('Confirmer'));
         await tester.pumpAndSettle();
 
-        verify(() => authRepository.logout()).called(1);
+        verify(
+          () => authRepository.logout(
+            refreshToken: 'session-id.refresh-token',
+          ),
+        ).called(1);
+        verify(authTokenStore.clear).called(1);
+        expect(
+          container.read(authStateProvider).value?.kind,
+          AuthStatusKind.unauthenticated,
+        );
       },
     );
   });
