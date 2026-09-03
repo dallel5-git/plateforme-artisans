@@ -7,5 +7,7 @@
   "categoriesEmpty": "Aucune catégorie disponible pour le moment.",
   "categoriesError": "Impossible de charger les catégories.",
   "locationError": "Impossible de charger les gouvernorats.",
-  "retry": "Réessayer"
+  "retry": "Réessayer",
+  "filterRatingMin": "Note 4+",
+  "filterUrgent": "Urgence"
 }
