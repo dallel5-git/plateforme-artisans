@@ -263,6 +263,7 @@ class Translations$proProfile$ar extends Translations$proProfile$fr {
 	@override String get title => 'الملف الشخصي';
 	@override String get emptyTitle => 'تعديل الملف الشخصي قريباً';
 	@override String get emptyMessage => 'عدّل معلوماتك وتوفّرك بمجرد أن تصبح هذه الميزة جاهزة.';
+	@override String get switchToClientSpace => 'العودة إلى مساحة العميل';
 }
 
 // Path: profile
@@ -275,6 +276,7 @@ class Translations$profile$ar extends Translations$profile$fr {
 	@override String get title => 'الملف الشخصي';
 	@override String get emptyTitle => 'الملف الشخصي قريباً';
 	@override String get emptyMessage => 'ستتوفر إدارة حسابك قريباً.';
+	@override String get switchToProSpace => 'التبديل إلى مساحة المحترفين';
 }
 
 // Path: provider
@@ -689,9 +691,11 @@ extension on TranslationsAr {
 			'proProfile.title' => 'الملف الشخصي',
 			'proProfile.emptyTitle' => 'تعديل الملف الشخصي قريباً',
 			'proProfile.emptyMessage' => 'عدّل معلوماتك وتوفّرك بمجرد أن تصبح هذه الميزة جاهزة.',
+			'proProfile.switchToClientSpace' => 'العودة إلى مساحة العميل',
 			'profile.title' => 'الملف الشخصي',
 			'profile.emptyTitle' => 'الملف الشخصي قريباً',
 			'profile.emptyMessage' => 'ستتوفر إدارة حسابك قريباً.',
+			'profile.switchToProSpace' => 'التبديل إلى مساحة المحترفين',
 			'provider.profile.callButton' => 'اتصال',
 			'provider.profile.whatsappButton' => 'واتساب',
 			'provider.profile.reviewsTitle' => 'التقييمات',

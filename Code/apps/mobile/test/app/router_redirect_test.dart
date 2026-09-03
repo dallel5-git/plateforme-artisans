@@ -265,6 +265,132 @@ void main() {
   );
 
   testWidgets(
+    // régression #222 : SettingsScreen._confirmLogout appelait
+    // authRepository.logout() SANS argument — no-op garanti par le
+    // `if (refreshToken != null)` de AuthRepository.logout(), donc
+    // authStateProvider ne repassait jamais à unauthenticated et la garde
+    // /pro/* (FM-24) ne se déclenchait jamais après déconnexion.
+    'RÉGRESSION #222 : se déconnecter depuis les Réglages en session '
+    'PROVIDER sur /pro/dashboard fait voir la garde /auth ensuite',
+    (tester) async {
+      final authRepository = _MockAuthRepository();
+      final authTokenStore = _MockAuthTokenStore();
+      when(authTokenStore.restoreSession).thenAnswer((_) async => true);
+      final me = _MockMeResponse();
+      when(() => me.roles).thenReturn(
+        BuiltList<V1AuthOtpVerifyPost200ResponseUserRolesEnum>([
+          V1AuthOtpVerifyPost200ResponseUserRolesEnum.PROVIDER,
+        ]),
+      );
+      when(authRepository.getCurrentUser).thenAnswer((_) async => me);
+      when(
+        authTokenStore.peekRefreshToken,
+      ).thenAnswer((_) async => 'session-id.refresh-token');
+      when(
+        () => authRepository.logout(
+          refreshToken: any(named: 'refreshToken'),
+        ),
+      ).thenAnswer((_) async {});
+      when(authTokenStore.clear).thenAnswer((_) async {});
+
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            authRepositoryProvider.overrideWithValue(authRepository),
+            authTokenStoreProvider.overrideWithValue(authTokenStore),
+            categoriesProvider.overrideWith((ref) async => const []),
+            governoratesProvider.overrideWith((ref) async => const []),
+            hasPublishedProfileProvider.overrideWith((ref) => true),
+          ],
+          child: const SanayaApp(),
+        ),
+      );
+      await pumpPastSplash(tester);
+      router.go('/auth');
+      await tester.pumpAndSettle();
+      expect(find.text(t.dashboard.title), findsWidgets);
+
+      router.go('/settings');
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text(t.settings.logout));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text(t.settings.confirm));
+      await tester.pumpAndSettle();
+
+      // La garde ne réagit qu'à une navigation (`redirect:` s'exécute à
+      // chaque changement de route ou via `authRouterRefreshListenable`) —
+      // on force explicitement une tentative sur la route protégée.
+      router.go('/pro/dashboard');
+      await tester.pumpAndSettle();
+
+      expect(find.text(t.dashboard.title), findsNothing);
+      expect(find.text(t.auth.roleTitle), findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    "FM-25 — un artisan authentifié atteint l'espace client et revient à "
+    "l'espace pro sans se déconnecter",
+    (tester) async {
+      final authRepository = _MockAuthRepository();
+      final authTokenStore = _MockAuthTokenStore();
+      when(authTokenStore.restoreSession).thenAnswer((_) async => true);
+      final me = _MockMeResponse();
+      when(() => me.roles).thenReturn(
+        BuiltList<V1AuthOtpVerifyPost200ResponseUserRolesEnum>([
+          V1AuthOtpVerifyPost200ResponseUserRolesEnum.PROVIDER,
+        ]),
+      );
+      when(authRepository.getCurrentUser).thenAnswer((_) async => me);
+
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            authRepositoryProvider.overrideWithValue(authRepository),
+            authTokenStoreProvider.overrideWithValue(authTokenStore),
+            categoriesProvider.overrideWith((ref) async => const []),
+            governoratesProvider.overrideWith((ref) async => const []),
+            hasPublishedProfileProvider.overrideWith((ref) => true),
+          ],
+          child: const SanayaApp(),
+        ),
+      );
+      await pumpPastSplash(tester);
+      router.go('/auth');
+      await tester.pumpAndSettle();
+      expect(find.text(t.dashboard.title), findsWidgets);
+
+      // Le bouton "Retour à l'espace Client" / "Passer en espace Pro" ne
+      // fait qu'un `context.go(...)` (widget testé isolément dans
+      // profile_placeholder_screen_test.dart /
+      // pro_profile_placeholder_screen_test.dart) — ce qui compte ici,
+      // niveau routeur, c'est que `redirect:` ne s'y oppose pas et
+      // n'exige aucune ré-authentification pour un PROVIDER qui navigue
+      // volontairement entre ses deux espaces.
+      router.go('/client');
+      await tester.pumpAndSettle();
+
+      expect(find.text(t.search.categoriesTitle), findsOneWidget);
+      expect(find.text(t.common.nav.profileTab), findsOneWidget);
+      expect(find.text(t.auth.roleTitle), findsNothing);
+
+      router.go('/pro');
+      await tester.pumpAndSettle();
+
+      // Retour direct sur le dashboard (profil déjà publié dans ce test) —
+      // aucune ré-authentification, la session n'a jamais changé d'état.
+      expect(find.text(t.dashboard.title), findsWidgets);
+      expect(find.text(t.auth.roleTitle), findsNothing);
+      verifyNever(
+        () => authRepository.logout(
+          refreshToken: any(named: 'refreshToken'),
+        ),
+      );
+    },
+  );
+
+  testWidgets(
     'aucune session : le splash redirige vers le shell client (anonyme), '
     'jamais vers un écran de choix de rôle brut',
     (tester) async {

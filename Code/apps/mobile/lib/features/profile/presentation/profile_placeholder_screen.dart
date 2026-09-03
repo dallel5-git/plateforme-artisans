@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/core/theme/app_colors.dart';
+import 'package:sanaya/core/theme/app_spacing.dart';
+import 'package:sanaya/core/widgets/app_button.dart';
 import 'package:sanaya/core/widgets/empty_state.dart';
+import 'package:sanaya/features/auth/application/auth_state_provider.dart';
 
 /// Onglet Profil (`/client/profile`) — contenu réel = `FM-32`. Porte pour
 /// l'instant les 2 réglages relogés depuis l'ancien hub de dev (`FM-23`) :
 /// bascule langue FR/AR et bascule thème clair/sombre — sans quoi ces
-/// réglages disparaîtraient de l'app à la suppression du hub.
+/// réglages disparaîtraient de l'app à la suppression du hub. Porte aussi
+/// (FM-25) la bascule vers l'espace pro pour un compte avec le rôle
+/// PROVIDER — « un artisan est aussi un client » (CLAUDE.md mobile §Rôle) :
+/// `redirect:` (router.dart) route déjà `/pro` vers le dashboard ou
+/// l'onboarding selon `hasPublishedProfileProvider`, ce bouton ne fait donc
+/// qu'y naviguer, sans logique métier dupliquée ici.
 class ProfilePlaceholderScreen extends ConsumerWidget {
   const ProfilePlaceholderScreen({super.key});
 
@@ -17,6 +26,8 @@ class ProfilePlaceholderScreen extends ConsumerWidget {
     final locale = ref.watch(localeProvider);
     final themeMode = ref.watch(themeModeProvider);
     final t = ref.watch(translationsProvider);
+    final isProvider =
+        ref.watch(authStateProvider).valueOrNull?.isProvider ?? false;
 
     return Scaffold(
       backgroundColor: context.colors.background,
@@ -42,10 +53,23 @@ class ProfilePlaceholderScreen extends ConsumerWidget {
         ],
       ),
       body: Center(
-        child: EmptyState(
-          icon: '👤',
-          title: t.profile.emptyTitle,
-          message: t.profile.emptyMessage,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            EmptyState(
+              icon: '👤',
+              title: t.profile.emptyTitle,
+              message: t.profile.emptyMessage,
+            ),
+            if (isProvider) ...[
+              const SizedBox(height: AppSpacing.lg),
+              AppButton(
+                label: t.profile.switchToProSpace,
+                variant: AppButtonVariant.secondary,
+                onPressed: () => context.go('/pro'),
+              ),
+            ],
+          ],
         ),
       ),
     );
