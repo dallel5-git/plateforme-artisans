@@ -1472,6 +1472,10 @@ export interface paths {
                                 profileViews: number;
                                 uniqueProfileViews: number;
                                 contacts: number;
+                                contactsByChannel: {
+                                    phone: number;
+                                    whatsapp: number;
+                                };
                                 viewToContactRatio: number;
                             };
                             series: {

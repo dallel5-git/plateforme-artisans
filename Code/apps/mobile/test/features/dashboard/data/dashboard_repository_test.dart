@@ -25,6 +25,8 @@ void main() {
           ..totals.profileViews = 120
           ..totals.uniqueProfileViews = 90
           ..totals.contacts = 12
+          ..totals.contactsByChannel.phone = 8
+          ..totals.contactsByChannel.whatsapp = 4
           ..totals.viewToContactRatio = 0.1,
       );
       final fakeResponse = Response<ProviderStats>(

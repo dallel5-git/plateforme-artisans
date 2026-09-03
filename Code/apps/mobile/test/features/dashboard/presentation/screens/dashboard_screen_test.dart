@@ -35,6 +35,8 @@ ProviderStats _buildStats() {
       ..totals.profileViews = 450
       ..totals.uniqueProfileViews = 405
       ..totals.contacts = 90
+      ..totals.contactsByChannel.phone = 60
+      ..totals.contactsByChannel.whatsapp = 30
       ..totals.viewToContactRatio = 0.2
       ..series = ListBuilder<ProviderStatsSeriesPoint>(
         points,
@@ -133,6 +135,8 @@ void main() {
           ..totals.profileViews = 5
           ..totals.uniqueProfileViews = 5
           ..totals.contacts = 1
+          ..totals.contactsByChannel.phone = 1
+          ..totals.contactsByChannel.whatsapp = 0
           ..totals.viewToContactRatio = 0.2
           ..series = ListBuilder<ProviderStatsSeriesPoint>(
             points,

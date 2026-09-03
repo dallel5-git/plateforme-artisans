@@ -4,6 +4,7 @@
 
 // ignore_for_file: unused_element
 import 'package:built_collection/built_collection.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_providers_me_stats_get200_response_totals_contacts_by_channel.dart';
 import 'package:built_value/json_object.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -16,6 +17,7 @@ part 'v1_providers_me_stats_get200_response_totals.g.dart';
 /// * [profileViews]
 /// * [uniqueProfileViews]
 /// * [contacts]
+/// * [contactsByChannel]
 /// * [viewToContactRatio]
 @BuiltValue()
 abstract class V1ProvidersMeStatsGet200ResponseTotals
@@ -30,6 +32,9 @@ abstract class V1ProvidersMeStatsGet200ResponseTotals
 
   @BuiltValueField(wireName: r'contacts')
   int get contacts;
+
+  @BuiltValueField(wireName: r'contactsByChannel')
+  V1ProvidersMeStatsGet200ResponseTotalsContactsByChannel get contactsByChannel;
 
   @BuiltValueField(wireName: r'viewToContactRatio')
   num get viewToContactRatio;
@@ -78,6 +83,12 @@ class _$V1ProvidersMeStatsGet200ResponseTotalsSerializer
     yield serializers.serialize(
       object.contacts,
       specifiedType: const FullType(int),
+    );
+    yield r'contactsByChannel';
+    yield serializers.serialize(
+      object.contactsByChannel,
+      specifiedType: const FullType(
+          V1ProvidersMeStatsGet200ResponseTotalsContactsByChannel),
     );
     yield r'viewToContactRatio';
     yield serializers.serialize(
@@ -129,6 +140,14 @@ class _$V1ProvidersMeStatsGet200ResponseTotalsSerializer
             specifiedType: const FullType(int),
           ) as int;
           result.contacts = valueDes;
+          break;
+        case r'contactsByChannel':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(
+                V1ProvidersMeStatsGet200ResponseTotalsContactsByChannel),
+          ) as V1ProvidersMeStatsGet200ResponseTotalsContactsByChannel;
+          result.contactsByChannel = valueDes.toBuilder();
           break;
         case r'viewToContactRatio':
           final valueDes = serializers.deserialize(

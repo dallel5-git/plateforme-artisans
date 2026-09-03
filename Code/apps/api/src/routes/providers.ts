@@ -1009,7 +1009,7 @@ export async function providersRoutes(app: FastifyInstance): Promise<void> {
 
       return buildProviderStats(
         dailyStats,
-        contactEvents.map((event) => event.createdAt),
+        contactEvents.map((event) => ({ createdAt: event.createdAt, channel: event.channel })),
         range,
       );
     },
