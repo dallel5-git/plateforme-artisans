@@ -30,94 +30,105 @@ class FavoriteCard extends ConsumerWidget {
     final locale = Localizations.localeOf(context);
     final t = ref.watch(translationsProvider);
 
-    return AppCard(
-      padding: const EdgeInsets.all(AppSpacing.md),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    // Material(transparency) + InkWell : même pattern que ProviderCard
+    // (core/widgets/provider_card.dart) — l'IconButton de retrait reste
+    // cliquable indépendamment, Flutter arbitre déjà correctement un geste
+    // tap sur un enfant avec sa propre zone de gestes dans un InkWell parent.
+    return Material(
+      type: MaterialType.transparency,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: const BorderRadius.all(AppRadius.lg),
+        child: AppCard(
+          padding: const EdgeInsets.all(AppSpacing.md),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Flexible(
-                          child: Text(
-                            item.businessName,
-                            style: AppText.bodyStrong(locale).copyWith(
-                              color: colors.textPrimary,
-                              fontWeight: FontWeight.bold,
+                        Row(
+                          children: [
+                            Flexible(
+                              child: Text(
+                                item.businessName,
+                                style: AppText.bodyStrong(locale).copyWith(
+                                  color: colors.textPrimary,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
+                            if (item.isVerified) ...[
+                              const SizedBox(width: AppSpacing.xs),
+                              const VerifiedBadge(),
+                            ],
+                          ],
                         ),
-                        if (item.isVerified) ...[
-                          const SizedBox(width: AppSpacing.xs),
-                          const VerifiedBadge(),
-                        ],
+                        const SizedBox(height: AppSpacing.xxs),
+                        Text(
+                          item.headline,
+                          style: AppText.small(locale).copyWith(
+                            color: colors.textSecondary,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(height: AppSpacing.xs),
+                        RatingStars(
+                          rating: item.ratingAvg.toDouble(),
+                          reviewCount: item.ratingCount.toInt(),
+                        ),
                       ],
                     ),
-                    const SizedBox(height: AppSpacing.xxs),
-                    Text(
-                      item.headline,
-                      style: AppText.small(locale).copyWith(
-                        color: colors.textSecondary,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.favorite,
+                      color: colors.accent,
                     ),
-                    const SizedBox(height: AppSpacing.xs),
-                    RatingStars(
-                      rating: item.ratingAvg.toDouble(),
-                      reviewCount: item.ratingCount.toInt(),
-                    ),
-                  ],
-                ),
+                    tooltip: t.favorites.removeTooltip,
+                    onPressed: () async {
+                      try {
+                        await ref
+                            .read(favoritesListProvider.notifier)
+                            .removeFavorite(item.providerId);
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(t.favorites.removeSuccess),
+                              duration: const Duration(seconds: 2),
+                            ),
+                          );
+                        }
+                      } on Object {
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(t.favorites.removeError),
+                              backgroundColor: colors.destructive,
+                            ),
+                          );
+                        }
+                      }
+                    },
+                  ),
+                ],
               ),
-              IconButton(
-                icon: Icon(
-                  Icons.favorite,
-                  color: colors.accent,
-                ),
-                tooltip: t.favorites.removeTooltip,
-                onPressed: () async {
-                  try {
-                    await ref
-                        .read(favoritesListProvider.notifier)
-                        .removeFavorite(item.providerId);
-                    if (context.mounted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(t.favorites.removeSuccess),
-                          duration: const Duration(seconds: 2),
-                        ),
-                      );
-                    }
-                  } on Object {
-                    if (context.mounted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(t.favorites.removeError),
-                          backgroundColor: colors.destructive,
-                        ),
-                      );
-                    }
-                  }
-                },
+              const SizedBox(height: AppSpacing.md),
+              ContactButtons(
+                providerId: item.providerId,
+                sourceScreen: 'favorites',
               ),
             ],
           ),
-          const SizedBox(height: AppSpacing.md),
-          ContactButtons(
-            providerId: item.providerId,
-            sourceScreen: 'favorites',
-          ),
-        ],
+        ),
       ),
     );
   }

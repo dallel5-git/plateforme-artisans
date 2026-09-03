@@ -137,13 +137,15 @@ export async function countContactEventsForProvider(
 
 export interface ContactEventTimestamp {
   createdAt: Date;
+  channel: ContactChannel;
 }
 
 // BE-24 : lecture brute pour `GET /providers/me/stats`. Le regroupement par jour calendaire UTC
 // (même convention que `resolveViewDate`, BE-23) est fait côté `@repo/core` — DailyProviderStat
 // n'a jamais écrit phoneClicks/whatsappClicks (BE-21 n'incrémente que
 // ProviderProfile.totalContacts), donc les contacts de la série 30 j sont agrégés ici en lecture
-// seule, sans toucher au code d'écriture déjà mergé.
+// seule, sans toucher au code d'écriture déjà mergé. `channel` sélectionné depuis BE-46 (ventilation
+// par canal dans les totaux, agrégée elle aussi côté `@repo/core`).
 export async function listContactEventTimestampsForProvider(
   providerId: string,
   range: { from: Date; to: Date },
@@ -151,7 +153,7 @@ export async function listContactEventTimestampsForProvider(
 ): Promise<ContactEventTimestamp[]> {
   return db.contactEvent.findMany({
     where: { providerId, createdAt: { gte: range.from, lte: range.to } },
-    select: { createdAt: true },
+    select: { createdAt: true, channel: true },
     orderBy: { createdAt: 'asc' },
   });
 }

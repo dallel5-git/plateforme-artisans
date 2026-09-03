@@ -95,6 +95,7 @@ Serializers _$serializers = (Serializers().toBuilder()
       ..add(V1ProvidersMeStatsGet200Response.serializer)
       ..add(V1ProvidersMeStatsGet200ResponseSeriesInner.serializer)
       ..add(V1ProvidersMeStatsGet200ResponseTotals.serializer)
+      ..add(V1ProvidersMeStatsGet200ResponseTotalsContactsByChannel.serializer)
       ..add(V1ProvidersSearchGet200Response.serializer)
       ..add(V1ProvidersSearchGet200ResponseItemsInner.serializer)
       ..add(V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum

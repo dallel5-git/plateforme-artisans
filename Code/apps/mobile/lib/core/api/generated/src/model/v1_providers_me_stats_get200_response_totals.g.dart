@@ -15,6 +15,9 @@ class _$V1ProvidersMeStatsGet200ResponseTotals
   @override
   final int contacts;
   @override
+  final V1ProvidersMeStatsGet200ResponseTotalsContactsByChannel
+      contactsByChannel;
+  @override
   final num viewToContactRatio;
 
   factory _$V1ProvidersMeStatsGet200ResponseTotals(
@@ -27,6 +30,7 @@ class _$V1ProvidersMeStatsGet200ResponseTotals
       {required this.profileViews,
       required this.uniqueProfileViews,
       required this.contacts,
+      required this.contactsByChannel,
       required this.viewToContactRatio})
       : super._();
   @override
@@ -46,6 +50,7 @@ class _$V1ProvidersMeStatsGet200ResponseTotals
         profileViews == other.profileViews &&
         uniqueProfileViews == other.uniqueProfileViews &&
         contacts == other.contacts &&
+        contactsByChannel == other.contactsByChannel &&
         viewToContactRatio == other.viewToContactRatio;
   }
 
@@ -55,6 +60,7 @@ class _$V1ProvidersMeStatsGet200ResponseTotals
     _$hash = $jc(_$hash, profileViews.hashCode);
     _$hash = $jc(_$hash, uniqueProfileViews.hashCode);
     _$hash = $jc(_$hash, contacts.hashCode);
+    _$hash = $jc(_$hash, contactsByChannel.hashCode);
     _$hash = $jc(_$hash, viewToContactRatio.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -67,6 +73,7 @@ class _$V1ProvidersMeStatsGet200ResponseTotals
           ..add('profileViews', profileViews)
           ..add('uniqueProfileViews', uniqueProfileViews)
           ..add('contacts', contacts)
+          ..add('contactsByChannel', contactsByChannel)
           ..add('viewToContactRatio', viewToContactRatio))
         .toString();
   }
@@ -91,6 +98,16 @@ class V1ProvidersMeStatsGet200ResponseTotalsBuilder
   int? get contacts => _$this._contacts;
   set contacts(int? contacts) => _$this._contacts = contacts;
 
+  V1ProvidersMeStatsGet200ResponseTotalsContactsByChannelBuilder?
+      _contactsByChannel;
+  V1ProvidersMeStatsGet200ResponseTotalsContactsByChannelBuilder
+      get contactsByChannel => _$this._contactsByChannel ??=
+          V1ProvidersMeStatsGet200ResponseTotalsContactsByChannelBuilder();
+  set contactsByChannel(
+          V1ProvidersMeStatsGet200ResponseTotalsContactsByChannelBuilder?
+              contactsByChannel) =>
+      _$this._contactsByChannel = contactsByChannel;
+
   num? _viewToContactRatio;
   num? get viewToContactRatio => _$this._viewToContactRatio;
   set viewToContactRatio(num? viewToContactRatio) =>
@@ -106,6 +123,7 @@ class V1ProvidersMeStatsGet200ResponseTotalsBuilder
       _profileViews = $v.profileViews;
       _uniqueProfileViews = $v.uniqueProfileViews;
       _contacts = $v.contacts;
+      _contactsByChannel = $v.contactsByChannel.toBuilder();
       _viewToContactRatio = $v.viewToContactRatio;
       _$v = null;
     }
@@ -127,21 +145,37 @@ class V1ProvidersMeStatsGet200ResponseTotalsBuilder
   V1ProvidersMeStatsGet200ResponseTotals build() => _build();
 
   _$V1ProvidersMeStatsGet200ResponseTotals _build() {
-    final _$result = _$v ??
-        _$V1ProvidersMeStatsGet200ResponseTotals._(
-          profileViews: BuiltValueNullFieldError.checkNotNull(profileViews,
-              r'V1ProvidersMeStatsGet200ResponseTotals', 'profileViews'),
-          uniqueProfileViews: BuiltValueNullFieldError.checkNotNull(
-              uniqueProfileViews,
-              r'V1ProvidersMeStatsGet200ResponseTotals',
-              'uniqueProfileViews'),
-          contacts: BuiltValueNullFieldError.checkNotNull(
-              contacts, r'V1ProvidersMeStatsGet200ResponseTotals', 'contacts'),
-          viewToContactRatio: BuiltValueNullFieldError.checkNotNull(
-              viewToContactRatio,
-              r'V1ProvidersMeStatsGet200ResponseTotals',
-              'viewToContactRatio'),
-        );
+    _$V1ProvidersMeStatsGet200ResponseTotals _$result;
+    try {
+      _$result = _$v ??
+          _$V1ProvidersMeStatsGet200ResponseTotals._(
+            profileViews: BuiltValueNullFieldError.checkNotNull(profileViews,
+                r'V1ProvidersMeStatsGet200ResponseTotals', 'profileViews'),
+            uniqueProfileViews: BuiltValueNullFieldError.checkNotNull(
+                uniqueProfileViews,
+                r'V1ProvidersMeStatsGet200ResponseTotals',
+                'uniqueProfileViews'),
+            contacts: BuiltValueNullFieldError.checkNotNull(contacts,
+                r'V1ProvidersMeStatsGet200ResponseTotals', 'contacts'),
+            contactsByChannel: contactsByChannel.build(),
+            viewToContactRatio: BuiltValueNullFieldError.checkNotNull(
+                viewToContactRatio,
+                r'V1ProvidersMeStatsGet200ResponseTotals',
+                'viewToContactRatio'),
+          );
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'contactsByChannel';
+        contactsByChannel.build();
+      } catch (e) {
+        throw BuiltValueNestedFieldError(
+            r'V1ProvidersMeStatsGet200ResponseTotals',
+            _$failedField,
+            e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

@@ -3,6 +3,8 @@
 // phoneClicks/whatsappClicks dans `DailyProviderStat`, voir `BE-43`) sur une série continue :
 // chaque jour de `range` apparaît, à zéro s'il n'a aucun événement. Sans ce zero-fill un graphe
 // mobile afficherait des trous trompeurs — critère d'acceptation explicite de l'issue BE-24.
+import type { ContactChannel } from '@repo/db';
+
 import { resolveViewDate } from './profile-view.js';
 
 export interface ProviderStatsDailyInput {
@@ -16,6 +18,11 @@ export interface ProviderStatsRange {
   to: Date;
 }
 
+export interface ProviderStatsContactInput {
+  createdAt: Date;
+  channel: ContactChannel;
+}
+
 export interface ProviderStatsDayPoint {
   date: Date;
   profileViews: number;
@@ -23,10 +30,16 @@ export interface ProviderStatsDayPoint {
   contacts: number;
 }
 
+export interface ProviderStatsContactsByChannel {
+  phone: number;
+  whatsapp: number;
+}
+
 export interface ProviderStatsTotals {
   profileViews: number;
   uniqueProfileViews: number;
   contacts: number;
+  contactsByChannel: ProviderStatsContactsByChannel;
   viewToContactRatio: number;
 }
 
@@ -43,7 +56,7 @@ function dayKey(date: Date): string {
 
 export function buildProviderStats(
   dailyStats: ProviderStatsDailyInput[],
-  contactTimestamps: Date[],
+  contactEvents: ProviderStatsContactInput[],
   range: ProviderStatsRange,
 ): ProviderStats {
   const viewsByDay = new Map<string, { profileViews: number; uniqueProfileViews: number }>();
@@ -54,15 +67,25 @@ export function buildProviderStats(
     });
   }
 
+  const start = resolveViewDate(range.from);
+  const end = resolveViewDate(range.to);
+
   const contactsByDay = new Map<string, number>();
-  for (const timestamp of contactTimestamps) {
-    const key = dayKey(timestamp);
+  // BE-46 : `IN_APP_MESSAGE` n'incrémente ni `phone` ni `whatsapp` (canal jamais émis en pratique —
+  // rejeté en 400 par `POST /contact-events` depuis BE-21) mais reste compté ici, comme avant, dans
+  // le total `contacts` journalier. Un événement hors de `range` est ignoré ici comme il l'est déjà
+  // implicitement pour `contacts` (jamais lu par la boucle `series` ci-dessous).
+  const contactsByChannel: ProviderStatsContactsByChannel = { phone: 0, whatsapp: 0 };
+  for (const event of contactEvents) {
+    const eventDay = resolveViewDate(event.createdAt).getTime();
+    const key = dayKey(event.createdAt);
     contactsByDay.set(key, (contactsByDay.get(key) ?? 0) + 1);
+    if (eventDay < start.getTime() || eventDay > end.getTime()) continue;
+    if (event.channel === 'PHONE_CALL') contactsByChannel.phone += 1;
+    else if (event.channel === 'WHATSAPP') contactsByChannel.whatsapp += 1;
   }
 
   const series: ProviderStatsDayPoint[] = [];
-  const start = resolveViewDate(range.from);
-  const end = resolveViewDate(range.to);
 
   for (let cursorMs = start.getTime(); cursorMs <= end.getTime(); cursorMs += ONE_DAY_MS) {
     const cursor = new Date(cursorMs);
@@ -89,7 +112,7 @@ export function buildProviderStats(
   const viewToContactRatio =
     totals.uniqueProfileViews > 0 ? totals.contacts / totals.uniqueProfileViews : 0;
 
-  return { totals: { ...totals, viewToContactRatio }, series };
+  return { totals: { ...totals, contactsByChannel, viewToContactRatio }, series };
 }
 
 // AC BE-24 : « série journalière sur 30 jours ». `to` reste l'instant réel (pas tronqué à
