@@ -12,6 +12,7 @@ import 'package:sanaya/core/widgets/app_card.dart';
 import 'package:sanaya/core/widgets/rating_stars.dart';
 import 'package:sanaya/core/widgets/verified_badge.dart';
 import 'package:sanaya/features/contact/presentation/contact_buttons.dart';
+import 'package:sanaya/features/favorites/application/favorites_providers.dart';
 import 'package:sanaya/features/provider_profile/application/provider_profile_providers.dart';
 import 'package:sanaya/features/provider_profile/data/provider_profile_repository.dart';
 import 'package:sanaya/features/provider_profile/presentation/widgets/availability_chip.dart';
@@ -118,6 +119,7 @@ class _ProfileContent extends ConsumerWidget {
                     ),
                     const SizedBox(width: AppSpacing.sm),
                     AvailabilityChip(status: profile.availabilityStatus),
+                    _FavoriteButton(providerId: profile.id),
                   ],
                 ),
                 const SizedBox(height: AppSpacing.sm),
@@ -314,6 +316,67 @@ class _ProfileContent extends ConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+/// Bouton favori de la fiche artisan (FM-26b). Purement présentation +
+/// appel au notifier existant — même provider `isFavoriteProvider`/
+/// `favoritesListProvider` que `FavoriteCard` (écran Favoris, FM-13).
+class _FavoriteButton extends ConsumerWidget {
+  const _FavoriteButton({required this.providerId});
+
+  final String providerId;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colors = context.colors;
+    final t = ref.watch(translationsProvider);
+    final isFavorite = ref.watch(isFavoriteProvider(providerId));
+
+    return IconButton(
+      icon: Icon(
+        isFavorite ? Icons.favorite : Icons.favorite_border,
+        color: colors.accent,
+      ),
+      tooltip: isFavorite ? t.favorites.removeTooltip : t.favorites.addTooltip,
+      onPressed: () async {
+        final notifier = ref.read(favoritesListProvider.notifier);
+        try {
+          if (isFavorite) {
+            await notifier.removeFavorite(providerId);
+            if (context.mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(t.favorites.removeSuccess),
+                  duration: const Duration(seconds: 2),
+                ),
+              );
+            }
+          } else {
+            await notifier.addFavorite(providerId);
+            if (context.mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(t.favorites.addSuccess),
+                  duration: const Duration(seconds: 2),
+                ),
+              );
+            }
+          }
+        } on Object {
+          if (context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  isFavorite ? t.favorites.removeError : t.favorites.addError,
+                ),
+                backgroundColor: colors.destructive,
+              ),
+            );
+          }
+        }
+      },
     );
   }
 }
