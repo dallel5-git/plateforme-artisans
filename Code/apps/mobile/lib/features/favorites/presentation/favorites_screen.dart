@@ -45,7 +45,11 @@ class FavoritesScreen extends ConsumerWidget {
                   title: t.favorites.emptyTitle,
                   subtitle: t.favorites.emptySubtitle,
                   ctaLabel: t.favorites.exploreCta,
-                  onExploreTap: () => context.go('/client'),
+                  // FM-23 : sous le shell, changer d'onglet (index 0 =
+                  // Rechercher) plutôt que de re-résoudre toute la route
+                  // depuis la racine.
+                  onExploreTap: () =>
+                      StatefulNavigationShell.of(context).goBranch(0),
                 )
               : ListView.separated(
                   padding: const EdgeInsets.all(AppSpacing.md),

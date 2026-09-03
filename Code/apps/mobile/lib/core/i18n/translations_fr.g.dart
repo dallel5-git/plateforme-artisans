@@ -637,6 +637,9 @@ class Translations$common$nav$fr {
 
 	/// fr: 'Passer en mode pro'
 	String get switchToPro => 'Passer en mode pro';
+
+	/// fr: 'Appuyez à nouveau pour quitter'
+	String get exitConfirmation => 'Appuyez à nouveau pour quitter';
 }
 
 // Path: common.devPreview
@@ -968,6 +971,7 @@ extension on Translations {
 			'common.nav.reviewsTab' => 'Avis',
 			'common.nav.switchToClient' => 'Passer en mode client',
 			'common.nav.switchToPro' => 'Passer en mode pro',
+			'common.nav.exitConfirmation' => 'Appuyez à nouveau pour quitter',
 			'common.devPreview.sectionAppButton' => 'AppButton',
 			'common.devPreview.sectionAppCard' => 'AppCard',
 			'common.devPreview.sectionAppTextField' => 'AppTextField',

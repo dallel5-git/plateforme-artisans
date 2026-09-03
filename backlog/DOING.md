@@ -19,6 +19,10 @@ _(aucune autre tâche DEV-1 en cours — `FM-05` et `FM-10` terminées, déplac�
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
 
+*(FM-23 — 2/2 PRs mergées #270/#271 — déplacée vers `DONE.md`. **Vérification visuelle FR/AR sur
+device Android réel toujours à faire** — non disponible dans l'environnement où les PRs ont été
+préparées, voir `DONE.md`.)*
+
 *(FM-22 — 1 PR mergée #268 — déplacée vers `DONE.md`. **Vérification visuelle FR/AR sur device
 Android réel toujours à faire** — non disponible dans l'environnement où la PR a été préparée, voir
 `DONE.md`.)*

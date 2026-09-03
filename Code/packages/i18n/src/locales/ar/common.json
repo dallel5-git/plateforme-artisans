@@ -25,7 +25,8 @@
     "boostsTab": "التعزيزات",
     "reviewsTab": "التقييمات",
     "switchToClient": "التبديل إلى وضع العميل",
-    "switchToPro": "التبديل إلى وضع المحترف"
+    "switchToPro": "التبديل إلى وضع المحترف",
+    "exitConfirmation": "اضغط مرة أخرى للخروج"
   },
   "devPreview": {
     "sectionAppButton": "AppButton",

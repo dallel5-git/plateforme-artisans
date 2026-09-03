@@ -25,7 +25,8 @@
     "boostsTab": "Boosts",
     "reviewsTab": "Avis",
     "switchToClient": "Passer en mode client",
-    "switchToPro": "Passer en mode pro"
+    "switchToPro": "Passer en mode pro",
+    "exitConfirmation": "Appuyez à nouveau pour quitter"
   },
   "devPreview": {
     "sectionAppButton": "AppButton",
