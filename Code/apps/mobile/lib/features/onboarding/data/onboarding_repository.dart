@@ -1,3 +1,4 @@
+import 'package:built_value/serializer.dart';
 import 'package:sanaya/core/api/generated/api.dart';
 
 // Alias de lisibilité — types générés par openapi-generator, pas de
@@ -41,7 +42,7 @@ class OnboardingRepository {
     final response = await _api.v1ProvidersMePatch(
       v1ProvidersMePatchRequest: body,
     );
-    return response.data!;
+    return _asProviderMe(response.data!);
   }
 
   /// Remplace le set complet de catégories (une seule `isPrimary: true`,
@@ -66,4 +67,25 @@ class OnboardingRepository {
     );
     return response.data!;
   }
+}
+
+/// `PATCH` et `GET /providers/me` (BE-44) renvoient toutes deux exactement
+/// `providerMeSchema` côté serveur — comme `POST /providers/me` en imbriquant
+/// une copie sous `provider`. Mais openapi-generator ne déduplique le type
+/// Dart généré qu'entre schémas de réponse racine : `PATCH`/`GET` partagent
+/// désormais un même type ([ProviderMe] reste alias sur celui de `POST`, par
+/// stabilité pour tout le code déjà écrit contre lui), alors que le `provider`
+/// imbriqué de `POST` reste un type distinct. Convertit via les sérialiseurs
+/// générés plutôt que de dupliquer la vingtaine de champs à la main (P4
+/// CLAUDE.md).
+ProviderMe _asProviderMe(V1ProvidersMeGet200Response provider) {
+  final json = standardSerializers.serialize(
+    provider,
+    specifiedType: const FullType(V1ProvidersMeGet200Response),
+  );
+  return standardSerializers.deserialize(
+        json,
+        specifiedType: const FullType(ProviderMe),
+      )!
+      as ProviderMe;
 }

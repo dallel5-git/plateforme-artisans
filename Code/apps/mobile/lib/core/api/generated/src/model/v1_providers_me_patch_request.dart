@@ -51,7 +51,7 @@ abstract class V1ProvidersMePatchRequest
   // enum availabilityStatusEnum {  AVAILABLE,  BUSY,  ON_HOLIDAY,  };
 
   @BuiltValueField(wireName: r'availableAgainAt')
-  BuiltMap<String, JsonObject?>? get availableAgainAt;
+  JsonObject? get availableAgainAt;
 
   @BuiltValueField(wireName: r'acceptsEmergency')
   bool? get acceptsEmergency;
@@ -147,8 +147,7 @@ class _$V1ProvidersMePatchRequestSerializer
       yield r'availableAgainAt';
       yield serializers.serialize(
         object.availableAgainAt,
-        specifiedType: const FullType(
-            BuiltMap, [FullType(String), FullType.nullable(JsonObject)]),
+        specifiedType: const FullType(JsonObject),
       );
     }
     if (object.acceptsEmergency != null) {
@@ -252,10 +251,9 @@ class _$V1ProvidersMePatchRequestSerializer
         case r'availableAgainAt':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(
-                BuiltMap, [FullType(String), FullType.nullable(JsonObject)]),
-          ) as BuiltMap<String, JsonObject?>;
-          result.availableAgainAt.replace(valueDes);
+            specifiedType: const FullType(JsonObject),
+          ) as JsonObject;
+          result.availableAgainAt = valueDes;
           break;
         case r'acceptsEmergency':
           final valueDes = serializers.deserialize(

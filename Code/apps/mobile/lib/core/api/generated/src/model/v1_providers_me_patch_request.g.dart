@@ -155,7 +155,7 @@ class _$V1ProvidersMePatchRequest extends V1ProvidersMePatchRequest {
   @override
   final V1ProvidersMePatchRequestAvailabilityStatusEnum? availabilityStatus;
   @override
-  final BuiltMap<String, JsonObject?>? availableAgainAt;
+  final JsonObject? availableAgainAt;
   @override
   final bool? acceptsEmergency;
   @override
@@ -281,10 +281,9 @@ class V1ProvidersMePatchRequestBuilder
               availabilityStatus) =>
       _$this._availabilityStatus = availabilityStatus;
 
-  MapBuilder<String, JsonObject?>? _availableAgainAt;
-  MapBuilder<String, JsonObject?> get availableAgainAt =>
-      _$this._availableAgainAt ??= MapBuilder<String, JsonObject?>();
-  set availableAgainAt(MapBuilder<String, JsonObject?>? availableAgainAt) =>
+  JsonObject? _availableAgainAt;
+  JsonObject? get availableAgainAt => _$this._availableAgainAt;
+  set availableAgainAt(JsonObject? availableAgainAt) =>
       _$this._availableAgainAt = availableAgainAt;
 
   bool? _acceptsEmergency;
@@ -319,7 +318,7 @@ class V1ProvidersMePatchRequestBuilder
       _whatsappPhone = $v.whatsappPhone;
       _publicPhone = $v.publicPhone;
       _availabilityStatus = $v.availabilityStatus;
-      _availableAgainAt = $v.availableAgainAt?.toBuilder();
+      _availableAgainAt = $v.availableAgainAt;
       _acceptsEmergency = $v.acceptsEmergency;
       _workingHours = $v.workingHours?.toBuilder();
       _publicationStatus = $v.publicationStatus;
@@ -353,7 +352,7 @@ class V1ProvidersMePatchRequestBuilder
             whatsappPhone: whatsappPhone,
             publicPhone: publicPhone,
             availabilityStatus: availabilityStatus,
-            availableAgainAt: _availableAgainAt?.build(),
+            availableAgainAt: availableAgainAt,
             acceptsEmergency: acceptsEmergency,
             workingHours: _workingHours?.build(),
             publicationStatus: publicationStatus,
@@ -361,9 +360,6 @@ class V1ProvidersMePatchRequestBuilder
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'availableAgainAt';
-        _availableAgainAt?.build();
-
         _$failedField = 'workingHours';
         _workingHours?.build();
       } catch (e) {

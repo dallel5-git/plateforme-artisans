@@ -84,6 +84,7 @@ Class | Method | HTTP request | Description
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersIdReviewsPost**](doc/DefaultApi.md#v1providersidreviewspost) | **POST** /v1/providers/{id}/reviews | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMeCategoriesPut**](doc/DefaultApi.md#v1providersmecategoriesput) | **PUT** /v1/providers/me/categories | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMeCoverageAreasPut**](doc/DefaultApi.md#v1providersmecoverageareasput) | **PUT** /v1/providers/me/coverage-areas | 
+[*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMeGet**](doc/DefaultApi.md#v1providersmeget) | **GET** /v1/providers/me | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMePatch**](doc/DefaultApi.md#v1providersmepatch) | **PATCH** /v1/providers/me | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMePortfolioIdDelete**](doc/DefaultApi.md#v1providersmeportfolioiddelete) | **DELETE** /v1/providers/me/portfolio/{id} | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMePortfolioPost**](doc/DefaultApi.md#v1providersmeportfoliopost) | **POST** /v1/providers/me/portfolio | 
@@ -135,6 +136,7 @@ Class | Method | HTTP request | Description
  - [V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner](doc/V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner.md)
  - [V1ProvidersMeCoverageAreasPutRequest](doc/V1ProvidersMeCoverageAreasPutRequest.md)
  - [V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner](doc/V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner.md)
+ - [V1ProvidersMeGet200Response](doc/V1ProvidersMeGet200Response.md)
  - [V1ProvidersMePatchRequest](doc/V1ProvidersMePatchRequest.md)
  - [V1ProvidersMePortfolioPost200Response](doc/V1ProvidersMePortfolioPost200Response.md)
  - [V1ProvidersMePortfolioPostRequest](doc/V1ProvidersMePortfolioPostRequest.md)

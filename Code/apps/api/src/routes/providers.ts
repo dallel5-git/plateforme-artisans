@@ -88,6 +88,7 @@ import {
   portfolioItemIdParamsSchema,
   portfolioItemResponseSchema,
   providerIdParamsSchema,
+  providerMeSchema,
   providerPublicProfileSchema,
   providerReviewCreateResponseSchema,
   providerReviewListResponseSchema,
@@ -557,6 +558,28 @@ export async function providersRoutes(app: FastifyInstance): Promise<void> {
       const provider = await requireOwnProfile(user.id);
 
       return { ...tokens, provider };
+    },
+  );
+
+  typedApp.get(
+    '/providers/me',
+    {
+      preHandler: [app.requireRole('PROVIDER')],
+      schema: {
+        description:
+          "Profil artisan complet de l'utilisateur authentifié (vue propriétaire : mêmes " +
+          'champs que la fiche publique, plus les champs privés utiles à l’édition — ' +
+          'availabilityStatus, availableAgainAt, acceptsEmergency, workingHours, ' +
+          'publicationStatus, completionScore). BE-44.',
+        response: { 200: providerMeSchema },
+      },
+    },
+    async (request) => {
+      if (!request.user) {
+        throw new DomainError(UNAUTHORIZED, 'Non authentifié');
+      }
+
+      return requireOwnProfile(request.user.sub);
     },
   );
 

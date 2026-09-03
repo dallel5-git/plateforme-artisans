@@ -14,7 +14,7 @@ import 'package:sanaya/features/onboarding/data/onboarding_repository.dart';
 /// - `previousStep()` → navigation arrière sans appel réseau
 ///
 /// `completionScore` : toujours celui renvoyé par l'API (P3 CLAUDE.md).
-/// Reprise : session-memory uniquement (GET /providers/me absent de BE-19).
+/// Reprise après fermeture de l'app : `GET /providers/me` (BE-44) — câblage laissé à FM-36.
 class OnboardingNotifier extends AutoDisposeNotifier<OnboardingState> {
   @override
   OnboardingState build() => OnboardingState.initial;

@@ -54,6 +54,7 @@ export 'package:sanaya/core/api/generated/src/model/v1_providers_me_coverage_are
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_coverage_areas_put200_response_coverage_areas_inner.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_coverage_areas_put_request.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_coverage_areas_put_request_coverage_areas_inner.dart';
+export 'package:sanaya/core/api/generated/src/model/v1_providers_me_get200_response.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_patch_request.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_portfolio_post200_response.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_portfolio_post_request.dart';

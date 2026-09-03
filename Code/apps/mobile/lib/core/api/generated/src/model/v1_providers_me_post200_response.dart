@@ -120,7 +120,7 @@ class _$V1ProvidersMePost200ResponseSerializer
             value,
             specifiedType: const FullType(V1ProvidersMePost200ResponseProvider),
           ) as V1ProvidersMePost200ResponseProvider;
-          result.provider = valueDes.toBuilder();
+          result.provider.replace(valueDes);
           break;
         default:
           unhandled.add(key);
