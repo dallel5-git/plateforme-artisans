@@ -80,7 +80,6 @@
 | `FM-22` | Widget partagé `AppBottomNav` | 2 h | FM-15, FM-19 |
 | `FM-23` | Shell client : navigation à 4 onglets + suppression du hub de dev | 5 h | FM-22 |
 | `FM-24` | Shell pro : navigation à 4 onglets, dashboard comme racine | 4 h | FM-22 |
-| `FM-25` | Corriger la déconnexion + bascule Client ↔ Pro | 2 h | FM-23, FM-24 |
 | `FM-26` | Câbler les écrans déjà construits mais orphelins | 2 h | FM-23 |
 | `FM-27` | Widgets partagés de recherche : chip de filtre, carte artisan, barre | 3 h | FM-15, FM-16 |
 | `FM-28` | Écran de résultats de recherche : pagination, filtres, cache disque | 5 h | FM-27, FM-23 |
