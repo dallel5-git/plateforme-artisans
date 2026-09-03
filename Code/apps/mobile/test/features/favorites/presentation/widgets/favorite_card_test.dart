@@ -37,6 +37,7 @@ void main() {
   Widget buildTestWidget({
     required FavoriteItem item,
     Locale locale = const Locale('fr'),
+    VoidCallback? onTap,
   }) {
     return ProviderScope(
       overrides: [
@@ -45,7 +46,7 @@ void main() {
       ],
       child: themedApp(
         Scaffold(
-          body: FavoriteCard(item: item),
+          body: FavoriteCard(item: item, onTap: onTap),
         ),
         locale: locale,
       ),
@@ -90,6 +91,24 @@ void main() {
 
       verify(() => repository.removeFavorite('prov-1')).called(1);
     });
+
+    testWidgets(
+      'le tap sur la carte (hors bouton favori) déclenche onTap sans '
+      'retirer le favori',
+      (tester) async {
+        var tapped = false;
+        await tester.pumpWidget(
+          buildTestWidget(item: sampleItem, onTap: () => tapped = true),
+        );
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.text('Sami Plomberie'));
+        await tester.pump();
+
+        expect(tapped, isTrue);
+        verifyNever(() => repository.removeFavorite(any()));
+      },
+    );
 
     testWidgets('se rend sans exception en arabe (RTL)', (tester) async {
       await tester.pumpWidget(
