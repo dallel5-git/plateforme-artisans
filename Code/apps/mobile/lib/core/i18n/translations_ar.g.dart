@@ -348,6 +348,7 @@ class Translations$common$nav$ar extends Translations$common$nav$fr {
 	@override String get reviewsTab => 'التقييمات';
 	@override String get switchToClient => 'التبديل إلى وضع العميل';
 	@override String get switchToPro => 'التبديل إلى وضع المحترف';
+	@override String get exitConfirmation => 'اضغط مرة أخرى للخروج';
 }
 
 // Path: common.devPreview
@@ -509,6 +510,7 @@ extension on TranslationsAr {
 			'common.nav.reviewsTab' => 'التقييمات',
 			'common.nav.switchToClient' => 'التبديل إلى وضع العميل',
 			'common.nav.switchToPro' => 'التبديل إلى وضع المحترف',
+			'common.nav.exitConfirmation' => 'اضغط مرة أخرى للخروج',
 			'common.devPreview.sectionAppButton' => 'AppButton',
 			'common.devPreview.sectionAppCard' => 'AppCard',
 			'common.devPreview.sectionAppTextField' => 'AppTextField',

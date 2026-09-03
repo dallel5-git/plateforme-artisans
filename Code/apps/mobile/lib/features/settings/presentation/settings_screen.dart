@@ -183,7 +183,7 @@ class SettingsScreen extends ConsumerWidget {
       if (context.mounted) {
         final router = GoRouter.maybeOf(context);
         if (router != null) {
-          context.go('/');
+          context.go('/client');
         }
       }
     }

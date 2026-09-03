@@ -1,109 +1,138 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 
 import 'package:sanaya/app/router.dart';
+import 'package:sanaya/core/api/api_client_provider.dart';
+import 'package:sanaya/core/api/auth_token_store.dart';
 import 'package:sanaya/core/i18n/translations.g.dart';
 import 'package:sanaya/core/theme/app_text.dart';
+import 'package:sanaya/features/auth/application/auth_providers.dart';
+import 'package:sanaya/features/auth/data/auth_repository.dart';
 import 'package:sanaya/features/search/application/catalog_providers.dart';
 import 'package:sanaya/main.dart';
 
 final Translations _tFr = AppLocale.fr.buildSync();
 final Translations _tAr = AppLocale.ar.buildSync();
 
+class _MockAuthRepository extends Mock implements AuthRepository {}
+
+class _MockAuthTokenStore extends Mock implements AuthTokenStore {}
+
+/// `SplashScreen` affiche un `CircularProgressIndicator` indéterminé —
+/// `pumpAndSettle()` ne se termine jamais tant qu'il est à l'écran (son
+/// animation se reprogramme indéfiniment). On pompe donc un budget de temps
+/// borné pour laisser `authStateProvider` résoudre et `redirect:` faire
+/// quitter le splash, avant tout `pumpAndSettle()`.
+Future<void> pumpPastSplash(WidgetTester tester) async {
+  await tester.pump();
+  for (var i = 0; i < 10; i++) {
+    await tester.pump(const Duration(milliseconds: 100));
+  }
+}
+
+/// Invoque directement `onPressed` plutôt qu'un `tester.tap()` par
+/// coordonnées : les `Navigator`/`Overlay` imbriqués de chaque branche
+/// `StatefulShellRoute` (premier usage dans ce repo) rendent le calcul de
+/// position par `tester.tap()` peu fiable sur les icônes d'AppBar d'une
+/// branche tout juste rejointe (« derived an Offset that would not hit
+/// test »), alors que le bouton est bien monté et son callback intact.
+Future<void> tapIconButton(WidgetTester tester, IconData icon) async {
+  final button = tester.widget<IconButton>(
+    find.ancestor(of: find.byIcon(icon), matching: find.byType(IconButton)),
+  );
+  button.onPressed!();
+  await tester.pumpAndSettle();
+}
+
 void main() {
   // `router` (lib/app/router.dart) est un singleton top-level — son état de
   // navigation survit d'un test à l'autre dans le même isolate. On revient
-  // explicitement à '/' avant chaque test qui suppose partir de l'accueil.
+  // explicitement à '/' avant chaque test qui suppose partir du splash.
   setUp(() => router.go('/'));
 
-  group("FM-01d — écran d'accueil, thème, navigation", () {
-    testWidgets('affiche le titre et les 3 boutons de navigation', (
-      tester,
-    ) async {
-      await tester.pumpWidget(const ProviderScope(child: SanayaApp()));
-      await tester.pumpAndSettle();
+  Widget buildApp() {
+    // `restoreSession()` (implémentation réelle, `flutter_secure_storage`)
+    // n'aboutit jamais dans le harnais de test (aucun handler de canal de
+    // plateforme enregistré) — `authStateProvider` resterait indéfiniment
+    // en `AsyncLoading`, et le splash ne serait jamais quitté. Le mock
+    // simule une absence de session, résolue immédiatement (même patron
+    // que `test/app/router_redirect_test.dart`).
+    final authTokenStore = _MockAuthTokenStore();
+    when(authTokenStore.restoreSession).thenAnswer((_) async => false);
 
-      expect(find.text(_tFr.common.appName), findsOneWidget);
-      expect(find.text(_tFr.common.home.navAuth), findsOneWidget);
-      expect(find.text(_tFr.common.home.navClient), findsOneWidget);
-      expect(find.text(_tFr.common.home.navPro), findsOneWidget);
-    });
+    return ProviderScope(
+      overrides: [
+        authRepositoryProvider.overrideWithValue(_MockAuthRepository()),
+        authTokenStoreProvider.overrideWithValue(authTokenStore),
+        categoriesProvider.overrideWith((ref) async => const []),
+        governoratesProvider.overrideWith((ref) async => const []),
+      ],
+      child: const SanayaApp(),
+    );
+  }
+
+  group('FM-23 — splash puis atterrissage anonyme sur le shell client', () {
+    testWidgets(
+      'un utilisateur anonyme atterrit sur l’onglet Rechercher avec les 4 '
+      'onglets visibles, jamais sur un hub de dev',
+      (tester) async {
+        await tester.pumpWidget(buildApp());
+        await pumpPastSplash(tester);
+
+        expect(find.text(_tFr.search.categoriesTitle), findsOneWidget);
+        expect(find.text(_tFr.common.nav.searchTab), findsOneWidget);
+        expect(find.text(_tFr.common.nav.favoritesTab), findsOneWidget);
+        expect(find.text(_tFr.common.nav.historyTab), findsOneWidget);
+        expect(find.text(_tFr.common.nav.profileTab), findsOneWidget);
+      },
+    );
 
     testWidgets(
-      "le bouton /auth mène à l'écran de sélection de rôle (FM-05c), "
-      'pas à un placeholder',
+      '/auth reste atteignable directement et mène à la sélection de rôle '
+      '(FM-05c)',
       (tester) async {
-        router.go('/');
-        await tester.pumpWidget(const ProviderScope(child: SanayaApp()));
+        await tester.pumpWidget(buildApp());
+        await pumpPastSplash(tester);
+
+        router.go('/auth');
         await tester.pumpAndSettle();
 
-        await tester.tap(find.text(_tFr.common.home.navAuth));
-        await tester.pumpAndSettle();
-
-        expect(find.text(_tFr.common.home.navAuth), findsNothing);
         expect(find.text(_tFr.auth.roleTitle), findsOneWidget);
       },
     );
 
     testWidgets(
-      "le bouton /client mène à l'accueil client (FM-06), pas à un "
-      'placeholder',
+      '/pro reste atteignable directement et mène à l’assistant '
+      'd’onboarding (FM-11c)',
       (tester) async {
-        router.go('/');
-        await tester.pumpWidget(
-          ProviderScope(
-            overrides: [
-              categoriesProvider.overrideWith((ref) async => const []),
-              governoratesProvider.overrideWith((ref) async => const []),
-            ],
-            child: const SanayaApp(),
-          ),
-        );
+        await tester.pumpWidget(buildApp());
+        await pumpPastSplash(tester);
+
+        router.go('/pro');
         await tester.pumpAndSettle();
 
-        await tester.tap(find.text(_tFr.common.home.navClient));
-        await tester.pumpAndSettle();
-
-        expect(find.text(_tFr.common.home.navClient), findsNothing);
-        expect(find.text(_tFr.search.categoriesTitle), findsOneWidget);
-      },
-    );
-
-    testWidgets(
-      "le bouton /pro mène à l'assistant d'onboarding (FM-11c), pas à un "
-      'placeholder',
-      (tester) async {
-        router.go('/');
-        await tester.pumpWidget(
-          ProviderScope(
-            overrides: [
-              categoriesProvider.overrideWith((ref) async => const []),
-              governoratesProvider.overrideWith((ref) async => const []),
-            ],
-            child: const SanayaApp(),
-          ),
-        );
-        await tester.pumpAndSettle();
-
-        await tester.tap(find.text(_tFr.common.home.navPro));
-        await tester.pumpAndSettle();
-
-        expect(find.text(_tFr.common.home.navPro), findsNothing);
         expect(find.text(_tFr.onboarding.wizardTitle), findsOneWidget);
       },
     );
+  });
 
-    testWidgets('le bouton thème bascule clair ↔ sombre', (tester) async {
-      await tester.pumpWidget(const ProviderScope(child: SanayaApp()));
+  group('FM-23 — réglages relogés sur l’onglet Profil', () {
+    testWidgets('le bouton thème (onglet Profil) bascule clair ↔ sombre', (
+      tester,
+    ) async {
+      await tester.pumpWidget(buildApp());
+      await pumpPastSplash(tester);
+
+      await tester.tap(find.text(_tFr.common.nav.profileTab));
       await tester.pumpAndSettle();
 
       // Défaut ThemeMode.system → l'icône affiche l'état "clair" (le bouton
       // ne distingue system/light qu'après un premier choix explicite).
       expect(find.byIcon(Icons.light_mode), findsOneWidget);
 
-      await tester.tap(find.byIcon(Icons.light_mode));
-      await tester.pumpAndSettle();
+      await tapIconButton(tester, Icons.light_mode);
 
       expect(find.byIcon(Icons.dark_mode), findsOneWidget);
     });
@@ -111,29 +140,32 @@ void main() {
 
   group('FM-03a — bascule de langue en direct', () {
     testWidgets(
-      'changer la langue affiche les chaînes AR et bascule en RTL '
-      'sans redémarrage',
+      'changer la langue depuis l’onglet Profil affiche les chaînes AR et '
+      'bascule en RTL sans redémarrage',
       (tester) async {
-        await tester.pumpWidget(const ProviderScope(child: SanayaApp()));
+        await tester.pumpWidget(buildApp());
+        await pumpPastSplash(tester);
+
+        await tester.tap(find.text(_tFr.common.nav.profileTab));
         await tester.pumpAndSettle();
 
-        expect(find.text(_tFr.common.home.navAuth), findsOneWidget);
+        // `find.widgetWithText(AppBar, ...)` plutôt que `find.text(...)` :
+        // le libellé de l'onglet et le titre de l'AppBar sont tous deux
+        // « Profil » en français, ambigu pour un simple `find.text`.
+        final appBarFr = find.widgetWithText(AppBar, _tFr.profile.title);
+        expect(appBarFr, findsOneWidget);
         expect(
-          Directionality.of(
-            tester.element(find.text(_tFr.common.home.navAuth)),
-          ),
+          Directionality.of(tester.element(appBarFr)),
           TextDirection.ltr,
         );
 
-        await tester.tap(find.byIcon(Icons.language));
-        await tester.pumpAndSettle();
+        await tapIconButton(tester, Icons.language);
 
-        expect(find.text(_tFr.common.home.navAuth), findsNothing);
-        expect(find.text(_tAr.common.home.navAuth), findsOneWidget);
+        expect(find.widgetWithText(AppBar, _tFr.profile.title), findsNothing);
+        final appBarAr = find.widgetWithText(AppBar, _tAr.profile.title);
+        expect(appBarAr, findsOneWidget);
         expect(
-          Directionality.of(
-            tester.element(find.text(_tAr.common.home.navAuth)),
-          ),
+          Directionality.of(tester.element(appBarAr)),
           TextDirection.rtl,
         );
       },
@@ -142,11 +174,11 @@ void main() {
 
   group('FM-03c — miroir des icônes directionnelles', () {
     testWidgets(
-      'le chevron des boutons de navigation se miroite en RTL (AR) et '
-      'pas en LTR (FR)',
+      'le chevron de la barre de recherche (accueil client) se miroite en '
+      'RTL (AR) et pas en LTR (FR)',
       (tester) async {
-        await tester.pumpWidget(const ProviderScope(child: SanayaApp()));
-        await tester.pumpAndSettle();
+        await tester.pumpWidget(buildApp());
+        await pumpPastSplash(tester);
 
         final chevronFinder = find.byIcon(Icons.chevron_right).first;
         final chevronWidget = tester.widget<Icon>(chevronFinder);
@@ -159,25 +191,24 @@ void main() {
           Directionality.of(tester.element(chevronFinder)),
           TextDirection.ltr,
         );
-        expect(
-          find.descendant(of: chevronFinder, matching: find.byType(Transform)),
-          findsNothing,
-        );
 
-        await tester.tap(find.byIcon(Icons.language));
+        // L'onglet Rechercher reste monté sous l'IndexedStack du shell — la
+        // bascule de langue depuis l'onglet Profil suffit, sans revenir sur
+        // l'onglet Rechercher au préalable. `skipOffstage: false` : les
+        // Finders ignorent par défaut les descendants d'un `Offstage`
+        // (branche inactive du shell), qui n'ont donc plus rien à voir avec
+        // la visibilité réelle recherchée ici (état RTL préservé même hors
+        // écran).
+        await tester.tap(find.text(_tFr.common.nav.profileTab));
         await tester.pumpAndSettle();
+        await tapIconButton(tester, Icons.language);
 
-        final chevronFinderAr = find.byIcon(Icons.chevron_right).first;
+        final chevronFinderAr = find
+            .byIcon(Icons.chevron_right, skipOffstage: false)
+            .first;
         expect(
           Directionality.of(tester.element(chevronFinderAr)),
           TextDirection.rtl,
-        );
-        expect(
-          find.descendant(
-            of: chevronFinderAr,
-            matching: find.byType(Transform),
-          ),
-          findsOneWidget,
         );
       },
     );
@@ -206,9 +237,7 @@ void main() {
 
     testWidgets(
       'les 4 poids Noto Kufi Arabic (AR) se chargent sans exception',
-      (
-        tester,
-      ) async {
+      (tester) async {
         const locale = Locale('ar');
         await tester.pumpWidget(
           MaterialApp(

@@ -144,7 +144,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
             if (state.isFirstStep) {
-              context.go('/');
+              context.go('/client');
             } else {
               ref.read(onboardingProvider.notifier).previousStep();
             }
