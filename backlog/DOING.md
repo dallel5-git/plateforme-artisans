@@ -18,7 +18,7 @@ _(aucune autre tâche DEV-1 en cours — `FM-05` et `FM-10` terminées, déplac�
 
 | ID | Tâche | Démarré le | Branche | État / blocage |
 |---|---|---|---|---|
-| `FM-24` | Shell pro : navigation à 4 onglets, dashboard comme racine | 2026-09-03 | `feat/FM-24c-pro-shell-integration` | 2/3 PRs mergées (#274 persistance, #275 placeholders) — `FM-24c` (intégration routeur) en cours |
+| `FM-24` | Shell pro : navigation à 4 onglets, dashboard comme racine | 2026-09-03 | `feat/FM-24c-pro-shell-integration` | 2/3 PRs mergées (#274 persistance, #275 placeholders) — PR #276 (`FM-24c`, intégration routeur) ouverte contre `develop`, en attente de revue |
 
 *(FM-23 — 2/2 PRs mergées #270/#271 — déplacée vers `DONE.md`. **Vérification visuelle FR/AR sur
 device Android réel toujours à faire** — non disponible dans l'environnement où les PRs ont été
