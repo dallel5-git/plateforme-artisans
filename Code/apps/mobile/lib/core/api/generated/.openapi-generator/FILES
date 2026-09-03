@@ -20,6 +20,8 @@ doc/V1AuthOtpVerifyPost200ResponseUser.md
 doc/V1AuthOtpVerifyPostRequest.md
 doc/V1AuthRefreshPostRequest.md
 doc/V1CategoriesGet200Response.md
+doc/V1ContactEventsGet200Response.md
+doc/V1ContactEventsGet200ResponseItemsInner.md
 doc/V1ContactEventsPostRequest.md
 doc/V1FavoritesGet200Response.md
 doc/V1FavoritesGet200ResponseItemsInner.md
@@ -102,6 +104,8 @@ lib/src/model/v1_auth_otp_verify_post200_response_user.dart
 lib/src/model/v1_auth_otp_verify_post_request.dart
 lib/src/model/v1_auth_refresh_post_request.dart
 lib/src/model/v1_categories_get200_response.dart
+lib/src/model/v1_contact_events_get200_response.dart
+lib/src/model/v1_contact_events_get200_response_items_inner.dart
 lib/src/model/v1_contact_events_post_request.dart
 lib/src/model/v1_favorites_get200_response.dart
 lib/src/model/v1_favorites_get200_response_items_inner.dart
@@ -176,6 +180,8 @@ test/v1_auth_otp_verify_post200_response_user_test.dart
 test/v1_auth_otp_verify_post_request_test.dart
 test/v1_auth_refresh_post_request_test.dart
 test/v1_categories_get200_response_test.dart
+test/v1_contact_events_get200_response_items_inner_test.dart
+test/v1_contact_events_get200_response_test.dart
 test/v1_contact_events_post_request_test.dart
 test/v1_favorites_get200_response_items_inner_test.dart
 test/v1_favorites_get200_response_test.dart

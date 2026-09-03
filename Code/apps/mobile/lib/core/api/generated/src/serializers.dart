@@ -30,6 +30,8 @@ import 'package:sanaya/core/api/generated/src/model/v1_auth_otp_verify_post200_r
 import 'package:sanaya/core/api/generated/src/model/v1_auth_otp_verify_post_request.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_auth_refresh_post_request.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_categories_get200_response.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_contact_events_get200_response.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_contact_events_get200_response_items_inner.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_contact_events_post_request.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_favorites_get200_response.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_favorites_get200_response_items_inner.dart';
@@ -103,6 +105,8 @@ part 'serializers.g.dart';
   V1AuthOtpVerifyPostRequest,
   V1AuthRefreshPostRequest,
   V1CategoriesGet200Response,
+  V1ContactEventsGet200Response,
+  V1ContactEventsGet200ResponseItemsInner,
   V1ContactEventsPostRequest,
   V1FavoritesGet200Response,
   V1FavoritesGet200ResponseItemsInner,

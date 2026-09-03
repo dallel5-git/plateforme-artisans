@@ -127,6 +127,7 @@ export {
   hashIp,
   buildWhatsAppMessage,
   buildContactEventLog,
+  buildContactHistoryListItem,
 } from './contacts/index.js';
 export type {
   ContactChannel as CoreContactChannel,
@@ -134,6 +135,9 @@ export type {
   BuildSessionFingerprintInput,
   BuildWhatsAppMessageInput,
   BuildContactEventLogInput,
+  ContactHistoryRecord,
+  ContactHistoryProviderSummary,
+  ContactHistoryListItem,
 } from './contacts/index.js';
 
 export { buildFavoriteListItem } from './favorites/list-item.js';
