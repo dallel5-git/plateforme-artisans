@@ -12,6 +12,7 @@ import 'package:sanaya/core/api/generated/api.dart';
 import 'package:sanaya/core/i18n/translations.g.dart';
 import 'package:sanaya/features/auth/application/auth_providers.dart';
 import 'package:sanaya/features/auth/data/auth_repository.dart';
+import 'package:sanaya/features/onboarding/application/onboarding_providers.dart';
 import 'package:sanaya/features/search/application/catalog_providers.dart';
 import 'package:sanaya/main.dart';
 
@@ -79,9 +80,12 @@ void main() {
   );
 
   testWidgets(
-    'session restaurée (rôle PROVIDER) : /auth redirige vers l’onboarding '
-    'pro, pas l’écran de rôle',
+    'session restaurée (rôle PROVIDER, profil PAS encore publié) : /auth '
+    'redirige vers l’onboarding pro, pas l’écran de rôle',
     (tester) async {
+      // FM-24 : hasPublishedProfileProvider par défaut (false, aucun override
+      // ci-dessous) — c'est le cas « pas encore de profil » que ce test
+      // verrouille explicitement, distinct du cas « déjà publié » ci-après.
       final authRepository = _MockAuthRepository();
       final authTokenStore = _MockAuthTokenStore();
       when(authTokenStore.restoreSession).thenAnswer((_) async => true);
@@ -110,6 +114,119 @@ void main() {
 
       expect(find.text(t.auth.roleTitle), findsNothing);
       expect(find.text(t.onboarding.wizardTitle), findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    'session restaurée (rôle PROVIDER, profil déjà publié) : /auth redirige '
+    'directement vers le shell pro (dashboard), pas l’onboarding',
+    (tester) async {
+      final authRepository = _MockAuthRepository();
+      final authTokenStore = _MockAuthTokenStore();
+      when(authTokenStore.restoreSession).thenAnswer((_) async => true);
+      final me = _MockMeResponse();
+      when(() => me.roles).thenReturn(
+        BuiltList<V1AuthOtpVerifyPost200ResponseUserRolesEnum>([
+          V1AuthOtpVerifyPost200ResponseUserRolesEnum.PROVIDER,
+        ]),
+      );
+      when(authRepository.getCurrentUser).thenAnswer((_) async => me);
+
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            authRepositoryProvider.overrideWithValue(authRepository),
+            authTokenStoreProvider.overrideWithValue(authTokenStore),
+            categoriesProvider.overrideWith((ref) async => const []),
+            governoratesProvider.overrideWith((ref) async => const []),
+            hasPublishedProfileProvider.overrideWith((ref) => true),
+          ],
+          child: const SanayaApp(),
+        ),
+      );
+      await pumpPastSplash(tester);
+      router.go('/auth');
+      await tester.pumpAndSettle();
+
+      expect(find.text(t.onboarding.wizardTitle), findsNothing);
+      // `t.dashboard.title` et `t.common.nav.dashboardTab` sont la même
+      // chaîne FR ("Tableau de bord") — apparaît deux fois à l'écran
+      // (AppBar + onglet actif), d'où `findsWidgets` plutôt que
+      // `findsOneWidget`. Les onglets confirment le shell pro affiché.
+      expect(find.text(t.dashboard.title), findsWidgets);
+      expect(find.text(t.common.nav.boostsTab), findsOneWidget);
+      expect(find.text(t.common.nav.reviewsTab), findsOneWidget);
+      expect(find.text(t.common.nav.profileTab), findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    'FM-24 — anonyme forçant /pro/dashboard est redirigé vers /auth, '
+    'jamais montré un 401 brut',
+    (tester) async {
+      final authRepository = _MockAuthRepository();
+      final authTokenStore = _MockAuthTokenStore();
+      when(authTokenStore.restoreSession).thenAnswer((_) async => false);
+
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            authRepositoryProvider.overrideWithValue(authRepository),
+            authTokenStoreProvider.overrideWithValue(authTokenStore),
+            categoriesProvider.overrideWith((ref) async => const []),
+            governoratesProvider.overrideWith((ref) async => const []),
+          ],
+          child: const SanayaApp(),
+        ),
+      );
+      await pumpPastSplash(tester);
+      router.go('/pro/dashboard');
+      await tester.pumpAndSettle();
+
+      expect(find.text(t.dashboard.title), findsNothing);
+      expect(find.text(t.auth.roleTitle), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    },
+  );
+
+  testWidgets(
+    'FM-24 — CLIENT authentifié forçant /pro/dashboard est redirigé vers '
+    'son propre espace client, jamais montré un 401 brut',
+    (tester) async {
+      final authRepository = _MockAuthRepository();
+      final authTokenStore = _MockAuthTokenStore();
+      when(authTokenStore.restoreSession).thenAnswer((_) async => true);
+      final me = _MockMeResponse();
+      when(() => me.roles).thenReturn(
+        BuiltList<V1AuthOtpVerifyPost200ResponseUserRolesEnum>([
+          V1AuthOtpVerifyPost200ResponseUserRolesEnum.CLIENT,
+        ]),
+      );
+      when(authRepository.getCurrentUser).thenAnswer((_) async => me);
+
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            authRepositoryProvider.overrideWithValue(authRepository),
+            authTokenStoreProvider.overrideWithValue(authTokenStore),
+            categoriesProvider.overrideWith((ref) async => const []),
+            governoratesProvider.overrideWith((ref) async => const []),
+          ],
+          child: const SanayaApp(),
+        ),
+      );
+      await pumpPastSplash(tester);
+      router.go('/pro/dashboard');
+      await tester.pumpAndSettle();
+
+      // Pas /auth : un CLIENT déjà authentifié qui atterrirait sur /auth en
+      // repartirait de toute façon aussitôt vers /client (règle
+      // `onEntryRoute` pré-existante) — autant y aller directement plutôt
+      // que d'afficher furtivement un écran de ré-authentification trompeur.
+      expect(find.text(t.dashboard.title), findsNothing);
+      expect(find.text(t.auth.roleTitle), findsNothing);
+      expect(find.text(t.search.categoriesTitle), findsOneWidget);
+      expect(tester.takeException(), isNull);
     },
   );
 

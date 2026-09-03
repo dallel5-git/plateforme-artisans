@@ -154,6 +154,10 @@ jobs:
       # liste `flutter test` ci-dessous — gap trouvé et corrigé en même temps
       # que l'ajout de lib/features/{boosts,reviews,pro_profile} (placeholders
       # pro), même règle que FM-13a/b/c ci-dessus.
+      # FM-24c : lib/features/dashboard (+ ses tests) ajouté par FM-12,
+      # jamais couvert non plus ici — même gap, trouvé en modifiant
+      # dashboard_screen.dart (retrait du bouton retour, devenu incohérent
+      # une fois le dashboard embarqué dans le shell pro).
       - run: |
           dart format --set-exit-if-changed \
             lib/app lib/main.dart lib/core/widgets \
@@ -165,6 +169,7 @@ jobs:
             lib/features/favorites lib/features/settings \
             lib/features/history lib/features/profile \
             lib/features/boosts lib/features/reviews lib/features/pro_profile \
+            lib/features/dashboard \
             test/widget_test.dart test/core/widgets test/app \
             test/core/i18n/format_test.dart \
             test/core/i18n/locale_persistence_test.dart \
@@ -172,7 +177,8 @@ jobs:
             test/core/api test/core/connectivity test/features/onboarding \
             test/features/favorites test/features/settings \
             test/features/history test/features/profile \
-            test/features/boosts test/features/reviews test/features/pro_profile
+            test/features/boosts test/features/reviews test/features/pro_profile \
+            test/features/dashboard
 
       # FM-03 : lib/core/i18n/*.g.dart est généré par slang depuis
       # packages/i18n/src/locales/ (SO-05). `dart run build_runner build`
@@ -204,6 +210,15 @@ jobs:
       # y compris dans cette liste avant ce commit). Une invocation séparée
       # par cible est le seul comportement vérifié fiable.
       - run: flutter test test/widget_test.dart
+      # FM-24c : test/app (theme_test.dart, router_redirect_test.dart,
+      # shell_navigation_test.dart, router_error_builder_test.dart,
+      # design_system_preview_screen_test.dart, pro_shell_navigation_test.dart)
+      # était présent dans la liste `dart format` ci-dessus (depuis FM-18c)
+      # mais n'avait JAMAIS été ajouté à une commande `flutter test` — gap
+      # trouvé en ajoutant pro_shell_navigation_test.dart, resté invisible
+      # tout ce temps faute d'exécution CI. Corrigé ici, même règle que les
+      # gaps FM-02e/FM-13a-c ci-dessous.
+      - run: flutter test test/app
       - run: flutter test test/core/widgets
       - run: flutter test test/core/i18n
       - run: flutter test test/core/api
@@ -227,6 +242,8 @@ jobs:
       - run: flutter test test/features/boosts
       - run: flutter test test/features/reviews
       - run: flutter test test/features/pro_profile
+      # FM-24c : test/features/dashboard (FM-12) — même gap que ci-dessus.
+      - run: flutter test test/features/dashboard
 
   mobile-client-check:
     name: contrat → client Dart (mobile:client)

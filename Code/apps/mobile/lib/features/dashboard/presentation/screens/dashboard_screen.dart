@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/core/i18n/format.dart';
 import 'package:sanaya/core/i18n/translations.g.dart';
@@ -32,13 +31,7 @@ class DashboardScreen extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: colors.background,
-      appBar: AppBar(
-        title: Text(t.dashboard.title),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.go('/pro'),
-        ),
-      ),
+      appBar: AppBar(title: Text(t.dashboard.title)),
       body: statsAsync.when(
         loading: () => const _DashboardSkeleton(),
         error: (error, _) => ErrorState(
