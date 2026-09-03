@@ -100,9 +100,7 @@
 | `FM-42` | Adoption systématique des états + bandeau hors ligne | 3 h | FM-23, FM-24, FM-41 |
 | `FM-43` | Passe accessibilité : Semantics, TextScaler, contraste | 3 h | FM-22, FM-27, FM-29, FM-33, FM-34, FM-37 |
 | `BE-44` | `GET /v1/providers/me` — lire son propre profil (débloque 4 issues mobiles) | 3 h | — |
-| `BE-45` | `GET /v1/contact-events` — historique de lecture | 3 h | — |
 | `BE-46` | Ventilation des contacts par canal dans les stats | 2 h | — |
-| `BE-47` | Écriture des `offerings` (tarifs) sous `/providers/me/*` | 3 h | — |
 
 ---
 

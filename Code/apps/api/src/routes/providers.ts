@@ -21,6 +21,7 @@ import {
   calculateCompletionScore,
   can,
   DomainError,
+  formatDisplayPrice,
   FREE_PLAN_MAX_CATEGORIES,
   FREE_PLAN_MAX_GOVERNORATES,
   FREE_PLAN_MAX_PORTFOLIO_ITEMS,
@@ -34,12 +35,14 @@ import {
   resolveProviderStatsRange,
   scoreCandidates,
   signAccessToken,
+  validateOfferingInput,
   type NormalizedSearchFilters,
   type RankingWeights,
   type ScoredCandidate,
 } from '@repo/core';
 import {
   addPortfolioItem,
+  addServiceOffering,
   addUserRole,
   createProviderProfile,
   createReview,
@@ -70,21 +73,27 @@ import {
   lockProviderProfileForReviewWrite,
   recomputeRatingAggregate,
   removePortfolioItem,
+  removeServiceOffering,
   replaceCoverageAreas,
   replaceProviderCategories,
   searchProviderProfiles,
   updateProviderProfile,
+  updateServiceOffering,
   withTransaction,
+  type Category,
   type ProviderProfileOwnerView,
   type PublicReviewListItem,
   type SearchCandidate,
+  type ServiceOffering,
 } from '@repo/db';
 import { normalizePhoneTn, slugify } from '@repo/utils';
 import {
   attachPortfolioItemSchema,
+  createOfferingBodySchema,
   createProviderMeResponseSchema,
   createProviderMeSchema,
   createProviderReviewBodySchema,
+  offeringIdParamsSchema,
   portfolioItemIdParamsSchema,
   portfolioItemResponseSchema,
   providerIdParamsSchema,
@@ -95,12 +104,14 @@ import {
   providerReviewsQuerySchema,
   providerSearchQuerySchema,
   providerSearchResponseSchema,
+  providerServiceOfferingSchema,
   providerSlugParamsSchema,
   providerStatsResponseSchema,
   putProviderCategoriesResponseSchema,
   putProviderCategoriesSchema,
   putProviderCoverageAreasResponseSchema,
   putProviderCoverageAreasSchema,
+  updateOfferingBodySchema,
   updateProviderMeResponseSchema,
   updateProviderMeSchema,
   type CreateProviderReviewBody,
@@ -158,6 +169,43 @@ async function requireOwnProfile(userId: string): Promise<ProviderProfileOwnerVi
     throw new DomainError(PROVIDER_PROFILE_NOT_FOUND, 'Profil artisan introuvable');
   }
   return profile;
+}
+
+// BE-47 : mise en forme simple (pas de règle métier) — même shape que la fiche publique
+// (`providerServiceOfferingSchema`), pour que le mobile n'ait pas deux formats d'offering à gérer.
+function toOfferingResponse(offering: ServiceOffering, category: Category) {
+  return {
+    id: offering.id,
+    category: { slug: category.slug, nameFr: category.nameFr, nameAr: category.nameAr },
+    titleFr: offering.titleFr,
+    titleAr: offering.titleAr,
+    description: offering.description,
+    priceMin: offering.priceMin,
+    priceMax: offering.priceMax,
+    priceUnit: offering.priceUnit,
+    isNegotiable: offering.isNegotiable,
+    displayPrice: formatDisplayPrice(offering),
+  };
+}
+
+async function requireOwnCategory(providerCategoryId: string): Promise<Category> {
+  const [category] = await findCategoriesByIds([providerCategoryId]);
+  if (!category) {
+    throw new DomainError(NOT_FOUND, 'Catégorie introuvable', { field: 'categoryId' });
+  }
+  return category;
+}
+
+async function requireOwnOffering(
+  providerId: string,
+  offeringId: string,
+): Promise<ServiceOffering> {
+  const offerings = await listServiceOfferings(providerId);
+  const offering = offerings.find((candidate) => candidate.id === offeringId);
+  if (!offering) {
+    throw new DomainError(NOT_FOUND, 'Offre introuvable', { field: 'id' });
+  }
+  return offering;
 }
 
 const RANKING_WEIGHTS_KEY = 'ranking.weights';
@@ -851,6 +899,84 @@ export async function providersRoutes(app: FastifyInstance): Promise<void> {
       }
 
       await removePortfolioItem(item.id);
+      reply.code(204);
+    },
+  );
+
+  typedApp.post(
+    '/providers/me/offerings',
+    {
+      preHandler: [app.requireRole('PROVIDER')],
+      schema: {
+        description: "Ajoute une offre (tarif) au profil de l'artisan authentifié.",
+        body: createOfferingBodySchema,
+        response: { 200: providerServiceOfferingSchema },
+      },
+    },
+    async (request) => {
+      if (!request.user) {
+        throw new DomainError(UNAUTHORIZED, 'Non authentifié');
+      }
+
+      const current = await requireOwnProfile(request.user.sub);
+      const category = await requireOwnCategory(request.body.categoryId);
+      validateOfferingInput(request.body);
+
+      const offering = await addServiceOffering({ ...request.body, providerId: current.id });
+      return toOfferingResponse(offering, category);
+    },
+  );
+
+  typedApp.patch(
+    '/providers/me/offerings/:id',
+    {
+      preHandler: [app.requireRole('PROVIDER')],
+      schema: {
+        description: "Modifie une offre de l'artisan authentifié (catégorie non modifiable).",
+        params: offeringIdParamsSchema,
+        body: updateOfferingBodySchema,
+        response: { 200: providerServiceOfferingSchema },
+      },
+    },
+    async (request) => {
+      if (!request.user) {
+        throw new DomainError(UNAUTHORIZED, 'Non authentifié');
+      }
+
+      const current = await requireOwnProfile(request.user.sub);
+      const existing = await requireOwnOffering(current.id, request.params.id);
+      const category = await requireOwnCategory(existing.categoryId);
+
+      validateOfferingInput({
+        titleFr: request.body.titleFr ?? existing.titleFr,
+        priceMin: request.body.priceMin === undefined ? existing.priceMin : request.body.priceMin,
+        priceMax: request.body.priceMax === undefined ? existing.priceMax : request.body.priceMax,
+      });
+
+      const offering = await updateServiceOffering(existing.id, request.body);
+      return toOfferingResponse(offering, category);
+    },
+  );
+
+  typedApp.delete(
+    '/providers/me/offerings/:id',
+    {
+      preHandler: [app.requireRole('PROVIDER')],
+      schema: {
+        description:
+          "Retire une offre de l'artisan authentifié (désactivation, pas de suppression physique).",
+        params: offeringIdParamsSchema,
+      },
+    },
+    async (request, reply) => {
+      if (!request.user) {
+        throw new DomainError(UNAUTHORIZED, 'Non authentifié');
+      }
+
+      const current = await requireOwnProfile(request.user.sub);
+      const existing = await requireOwnOffering(current.id, request.params.id);
+
+      await removeServiceOffering(existing.id);
       reply.code(204);
     },
   );

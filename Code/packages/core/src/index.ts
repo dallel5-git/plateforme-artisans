@@ -100,6 +100,9 @@ export type {
 export { formatDisplayPrice } from './providers/pricing.js';
 export type { OfferingPriceInput } from './providers/pricing.js';
 
+export { validateOfferingInput } from './providers/offerings.js';
+export type { OfferingWriteInput } from './providers/offerings.js';
+
 export { parseReviewCountByStar, buildReviewAggregate } from './reviews/aggregate.js';
 export type { ReviewStarBreakdown, ReviewAggregate } from './reviews/aggregate.js';
 
@@ -124,6 +127,7 @@ export {
   hashIp,
   buildWhatsAppMessage,
   buildContactEventLog,
+  buildContactHistoryListItem,
 } from './contacts/index.js';
 export type {
   ContactChannel as CoreContactChannel,
@@ -131,6 +135,9 @@ export type {
   BuildSessionFingerprintInput,
   BuildWhatsAppMessageInput,
   BuildContactEventLogInput,
+  ContactHistoryRecord,
+  ContactHistoryProviderSummary,
+  ContactHistoryListItem,
 } from './contacts/index.js';
 
 export { buildFavoriteListItem } from './favorites/list-item.js';

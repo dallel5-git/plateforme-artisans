@@ -10,7 +10,7 @@ import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/theme/app_text.dart';
 import 'package:sanaya/core/widgets/app_button.dart';
 import 'package:sanaya/core/widgets/app_card.dart';
-import 'package:sanaya/features/auth/application/auth_providers.dart';
+import 'package:sanaya/features/auth/application/auth_state_provider.dart';
 
 /// Écran des réglages de l'application (FM-13).
 /// Gère la langue avec bascule immédiate et persistance, l'apparence,
@@ -178,12 +178,15 @@ class SettingsScreen extends ConsumerWidget {
     );
 
     if (shouldLogout == true && context.mounted) {
-      final authRepo = ref.read(authRepositoryProvider);
-      await authRepo.logout();
+      // régression #222 : authRepository.logout() sans argument était un
+      // no-op (gardé par `if (refreshToken != null)`) — ni révocation
+      // serveur, ni purge du token store, ni changement d'état. Seul
+      // AuthStateNotifier.signOut() fait réellement les trois.
+      await ref.read(authStateProvider.notifier).signOut();
       if (context.mounted) {
         final router = GoRouter.maybeOf(context);
         if (router != null) {
-          context.go('/client');
+          context.go('/auth');
         }
       }
     }

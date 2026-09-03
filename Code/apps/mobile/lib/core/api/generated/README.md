@@ -70,6 +70,7 @@ Class | Method | HTTP request | Description
 [*AuthApi*](doc/AuthApi.md) | [**v1AuthOtpRequestPost**](doc/AuthApi.md#v1authotprequestpost) | **POST** /v1/auth/otp/request | 
 [*AuthApi*](doc/AuthApi.md) | [**v1AuthOtpVerifyPost**](doc/AuthApi.md#v1authotpverifypost) | **POST** /v1/auth/otp/verify | 
 [*AuthApi*](doc/AuthApi.md) | [**v1AuthRefreshPost**](doc/AuthApi.md#v1authrefreshpost) | **POST** /v1/auth/refresh | 
+[*ContactEventsApi*](doc/ContactEventsApi.md) | [**v1ContactEventsGet**](doc/ContactEventsApi.md#v1contacteventsget) | **GET** /v1/contact-events | 
 [*ContactEventsApi*](doc/ContactEventsApi.md) | [**v1ContactEventsPost**](doc/ContactEventsApi.md#v1contacteventspost) | **POST** /v1/contact-events | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1CategoriesGet**](doc/DefaultApi.md#v1categoriesget) | **GET** /v1/categories | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1FavoritesGet**](doc/DefaultApi.md#v1favoritesget) | **GET** /v1/favorites | 
@@ -85,6 +86,9 @@ Class | Method | HTTP request | Description
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMeCategoriesPut**](doc/DefaultApi.md#v1providersmecategoriesput) | **PUT** /v1/providers/me/categories | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMeCoverageAreasPut**](doc/DefaultApi.md#v1providersmecoverageareasput) | **PUT** /v1/providers/me/coverage-areas | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMeGet**](doc/DefaultApi.md#v1providersmeget) | **GET** /v1/providers/me | 
+[*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMeOfferingsIdDelete**](doc/DefaultApi.md#v1providersmeofferingsiddelete) | **DELETE** /v1/providers/me/offerings/{id} | 
+[*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMeOfferingsIdPatch**](doc/DefaultApi.md#v1providersmeofferingsidpatch) | **PATCH** /v1/providers/me/offerings/{id} | 
+[*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMeOfferingsPost**](doc/DefaultApi.md#v1providersmeofferingspost) | **POST** /v1/providers/me/offerings | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMePatch**](doc/DefaultApi.md#v1providersmepatch) | **PATCH** /v1/providers/me | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMePortfolioIdDelete**](doc/DefaultApi.md#v1providersmeportfolioiddelete) | **DELETE** /v1/providers/me/portfolio/{id} | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMePortfolioPost**](doc/DefaultApi.md#v1providersmeportfoliopost) | **POST** /v1/providers/me/portfolio | 
@@ -112,6 +116,8 @@ Class | Method | HTTP request | Description
  - [V1AuthOtpVerifyPostRequest](doc/V1AuthOtpVerifyPostRequest.md)
  - [V1AuthRefreshPostRequest](doc/V1AuthRefreshPostRequest.md)
  - [V1CategoriesGet200Response](doc/V1CategoriesGet200Response.md)
+ - [V1ContactEventsGet200Response](doc/V1ContactEventsGet200Response.md)
+ - [V1ContactEventsGet200ResponseItemsInner](doc/V1ContactEventsGet200ResponseItemsInner.md)
  - [V1ContactEventsPostRequest](doc/V1ContactEventsPostRequest.md)
  - [V1FavoritesGet200Response](doc/V1FavoritesGet200Response.md)
  - [V1FavoritesGet200ResponseItemsInner](doc/V1FavoritesGet200ResponseItemsInner.md)
@@ -137,6 +143,9 @@ Class | Method | HTTP request | Description
  - [V1ProvidersMeCoverageAreasPutRequest](doc/V1ProvidersMeCoverageAreasPutRequest.md)
  - [V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner](doc/V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner.md)
  - [V1ProvidersMeGet200Response](doc/V1ProvidersMeGet200Response.md)
+ - [V1ProvidersMeOfferingsIdPatchRequest](doc/V1ProvidersMeOfferingsIdPatchRequest.md)
+ - [V1ProvidersMeOfferingsPost200Response](doc/V1ProvidersMeOfferingsPost200Response.md)
+ - [V1ProvidersMeOfferingsPostRequest](doc/V1ProvidersMeOfferingsPostRequest.md)
  - [V1ProvidersMePatchRequest](doc/V1ProvidersMePatchRequest.md)
  - [V1ProvidersMePortfolioPost200Response](doc/V1ProvidersMePortfolioPost200Response.md)
  - [V1ProvidersMePortfolioPostRequest](doc/V1ProvidersMePortfolioPostRequest.md)

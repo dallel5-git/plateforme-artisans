@@ -20,6 +20,8 @@ doc/V1AuthOtpVerifyPost200ResponseUser.md
 doc/V1AuthOtpVerifyPostRequest.md
 doc/V1AuthRefreshPostRequest.md
 doc/V1CategoriesGet200Response.md
+doc/V1ContactEventsGet200Response.md
+doc/V1ContactEventsGet200ResponseItemsInner.md
 doc/V1ContactEventsPostRequest.md
 doc/V1FavoritesGet200Response.md
 doc/V1FavoritesGet200ResponseItemsInner.md
@@ -45,6 +47,9 @@ doc/V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner.md
 doc/V1ProvidersMeCoverageAreasPutRequest.md
 doc/V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner.md
 doc/V1ProvidersMeGet200Response.md
+doc/V1ProvidersMeOfferingsIdPatchRequest.md
+doc/V1ProvidersMeOfferingsPost200Response.md
+doc/V1ProvidersMeOfferingsPostRequest.md
 doc/V1ProvidersMePatchRequest.md
 doc/V1ProvidersMePortfolioPost200Response.md
 doc/V1ProvidersMePortfolioPostRequest.md
@@ -100,6 +105,8 @@ lib/src/model/v1_auth_otp_verify_post200_response_user.dart
 lib/src/model/v1_auth_otp_verify_post_request.dart
 lib/src/model/v1_auth_refresh_post_request.dart
 lib/src/model/v1_categories_get200_response.dart
+lib/src/model/v1_contact_events_get200_response.dart
+lib/src/model/v1_contact_events_get200_response_items_inner.dart
 lib/src/model/v1_contact_events_post_request.dart
 lib/src/model/v1_favorites_get200_response.dart
 lib/src/model/v1_favorites_get200_response_items_inner.dart
@@ -125,6 +132,9 @@ lib/src/model/v1_providers_me_coverage_areas_put200_response_coverage_areas_inne
 lib/src/model/v1_providers_me_coverage_areas_put_request.dart
 lib/src/model/v1_providers_me_coverage_areas_put_request_coverage_areas_inner.dart
 lib/src/model/v1_providers_me_get200_response.dart
+lib/src/model/v1_providers_me_offerings_id_patch_request.dart
+lib/src/model/v1_providers_me_offerings_post200_response.dart
+lib/src/model/v1_providers_me_offerings_post_request.dart
 lib/src/model/v1_providers_me_patch_request.dart
 lib/src/model/v1_providers_me_portfolio_post200_response.dart
 lib/src/model/v1_providers_me_portfolio_post_request.dart
@@ -172,6 +182,8 @@ test/v1_auth_otp_verify_post200_response_user_test.dart
 test/v1_auth_otp_verify_post_request_test.dart
 test/v1_auth_refresh_post_request_test.dart
 test/v1_categories_get200_response_test.dart
+test/v1_contact_events_get200_response_items_inner_test.dart
+test/v1_contact_events_get200_response_test.dart
 test/v1_contact_events_post_request_test.dart
 test/v1_favorites_get200_response_items_inner_test.dart
 test/v1_favorites_get200_response_test.dart
@@ -197,6 +209,9 @@ test/v1_providers_me_coverage_areas_put200_response_test.dart
 test/v1_providers_me_coverage_areas_put_request_coverage_areas_inner_test.dart
 test/v1_providers_me_coverage_areas_put_request_test.dart
 test/v1_providers_me_get200_response_test.dart
+test/v1_providers_me_offerings_id_patch_request_test.dart
+test/v1_providers_me_offerings_post200_response_test.dart
+test/v1_providers_me_offerings_post_request_test.dart
 test/v1_providers_me_patch_request_test.dart
 test/v1_providers_me_portfolio_post200_response_test.dart
 test/v1_providers_me_portfolio_post_request_test.dart

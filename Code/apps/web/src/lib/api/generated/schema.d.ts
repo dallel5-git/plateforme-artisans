@@ -1288,6 +1288,162 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/providers/me/offerings": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Ajoute une offre (tarif) au profil de l'artisan authentifié. */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        categoryId: string;
+                        titleFr: string;
+                        titleAr?: string;
+                        description?: string;
+                        priceMin?: number;
+                        priceMax?: number;
+                        /** @enum {string} */
+                        priceUnit?: "FIXED" | "HOUR" | "DAY" | "SQUARE_METER" | "LINEAR_METER" | "ON_QUOTE";
+                        isNegotiable?: boolean;
+                    };
+                };
+            };
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            category: {
+                                slug: string;
+                                nameFr: string;
+                                nameAr: string;
+                            };
+                            titleFr: string;
+                            titleAr: string | null;
+                            description: string | null;
+                            priceMin: number | null;
+                            priceMax: number | null;
+                            /** @enum {string} */
+                            priceUnit: "FIXED" | "HOUR" | "DAY" | "SQUARE_METER" | "LINEAR_METER" | "ON_QUOTE";
+                            isNegotiable: boolean;
+                            displayPrice: string;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/providers/me/offerings/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** @description Retire une offre de l'artisan authentifié (désactivation, pas de suppression physique). */
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        /** @description Modifie une offre de l'artisan authentifié (catégorie non modifiable). */
+        patch: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        titleFr?: string;
+                        titleAr?: string | null;
+                        description?: string | null;
+                        priceMin?: number | null;
+                        priceMax?: number | null;
+                        /** @enum {string} */
+                        priceUnit?: "FIXED" | "HOUR" | "DAY" | "SQUARE_METER" | "LINEAR_METER" | "ON_QUOTE";
+                        isNegotiable?: boolean;
+                    };
+                };
+            };
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            category: {
+                                slug: string;
+                                nameFr: string;
+                                nameAr: string;
+                            };
+                            titleFr: string;
+                            titleAr: string | null;
+                            description: string | null;
+                            priceMin: number | null;
+                            priceMax: number | null;
+                            /** @enum {string} */
+                            priceUnit: "FIXED" | "HOUR" | "DAY" | "SQUARE_METER" | "LINEAR_METER" | "ON_QUOTE";
+                            isNegotiable: boolean;
+                            displayPrice: string;
+                        };
+                    };
+                };
+            };
+        };
+        trace?: never;
+    };
     "/v1/providers/me/stats": {
         parameters: {
             query?: never;
@@ -1349,7 +1505,46 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get?: never;
+        /** @description Historique des contacts du client authentifié (US-C-09), trié par date décroissante, pagination par curseur. Chaque item porte déjà les libellés d'affichage (P3, pas de second appel GET /providers/:slug côté mobile) et `hasReview` pour le CTA de dépôt d'avis (FM-31). */
+        get: {
+            parameters: {
+                query?: {
+                    cursor?: string;
+                    limit?: number;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            items: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                providerId: string;
+                                slug: string;
+                                businessName: string;
+                                categoryName: string | null;
+                                /** @enum {string} */
+                                channel: "PHONE" | "WHATSAPP";
+                                /** Format: date-time */
+                                contactedAt: string;
+                                hasReview: boolean;
+                            }[];
+                            nextCursor: string | null;
+                        };
+                    };
+                };
+            };
+        };
         put?: never;
         /** @description Révèle le numéro d'un prestataire et trace l'événement (P9). Canal PHONE ou WHATSAPP uniquement. Déduplique deux clics de la même session sur le même artisan/canal en 30 min. Rate-limit 30/j par identité et par IP. */
         post: {

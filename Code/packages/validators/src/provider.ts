@@ -198,6 +198,39 @@ export const providerServiceOfferingSchema = z.object({
   displayPrice: z.string(),
 });
 
+// =====================================================================
+//  BE-47 : écriture des offerings (`POST`/`PATCH`/`DELETE /v1/providers/me/offerings`)
+// =====================================================================
+
+export const createOfferingBodySchema = z.object({
+  categoryId: z.uuid(),
+  titleFr: z.string().min(1).max(160),
+  titleAr: z.string().max(160).optional(),
+  description: z.string().max(2000).optional(),
+  priceMin: z.number().positive().optional(),
+  priceMax: z.number().positive().optional(),
+  priceUnit: priceUnitSchema.optional(),
+  isNegotiable: z.boolean().optional(),
+});
+export type CreateOfferingBodyInput = z.infer<typeof createOfferingBodySchema>;
+
+// `categoryId` n'est volontairement pas éditable ici — voir la même remarque sur
+// `updateServiceOffering` (packages/db/src/repositories/provider-profile.repository.ts).
+export const updateOfferingBodySchema = z.object({
+  titleFr: z.string().min(1).max(160).optional(),
+  titleAr: z.string().max(160).nullable().optional(),
+  description: z.string().max(2000).nullable().optional(),
+  priceMin: z.number().positive().nullable().optional(),
+  priceMax: z.number().positive().nullable().optional(),
+  priceUnit: priceUnitSchema.optional(),
+  isNegotiable: z.boolean().optional(),
+});
+export type UpdateOfferingBodyInput = z.infer<typeof updateOfferingBodySchema>;
+
+export const offeringIdParamsSchema = z.object({
+  id: z.uuid(),
+});
+
 export const providerCoverageAreaSchema = z.object({
   governorate: geoRefSchema,
   delegation: delegationRefSchema.nullable(),

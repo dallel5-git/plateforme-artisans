@@ -31,3 +31,33 @@ export type ContactEventResponse = z.infer<typeof contactEventResponseSchema>;
 // (`V1ContactEventsPost200Response`) au lieu de `ContactEventResponse`. Même mécanisme que
 // `categoryTreeNodeSchema` (packages/validators/src/catalog.ts).
 z.globalRegistry.add(contactEventResponseSchema, { id: 'ContactEventResponse' });
+
+// BE-45 : mêmes conventions que favoritesQuerySchema (favorite.ts) pour cursor/limit.
+export const contactEventsQuerySchema = z.object({
+  cursor: z.string().optional(),
+  limit: z.coerce.number().int().min(1).max(50).optional().default(20),
+});
+export type ContactEventsQuery = z.infer<typeof contactEventsQuerySchema>;
+
+// BE-45 : historique de lecture (US-C-09) — libellés déjà calculés (P3, pas de second appel
+// GET /providers/:slug par item côté mobile). `categoryName` est null quand le contact n'a pas
+// précisé de catégorie (POST /contact-events, `categoryId` optionnel). `hasReview` pilote le CTA
+// conditionnel « déposer un avis » de FM-31.
+export const contactEventHistoryItemSchema = z.object({
+  id: z.uuid(),
+  providerId: z.uuid(),
+  slug: z.string(),
+  businessName: z.string(),
+  categoryName: z.string().nullable(),
+  channel: contactChannelSchema,
+  contactedAt: z.date(),
+  hasReview: z.boolean(),
+});
+export type ContactEventHistoryItem = z.infer<typeof contactEventHistoryItemSchema>;
+
+// AC BE-45 (cf. favoriteListResponseSchema, BE-25) : jamais un tableau nu.
+export const contactEventHistoryListResponseSchema = z.object({
+  items: z.array(contactEventHistoryItemSchema),
+  nextCursor: z.string().nullable(),
+});
+export type ContactEventHistoryListResponse = z.infer<typeof contactEventHistoryListResponseSchema>;

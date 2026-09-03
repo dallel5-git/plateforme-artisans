@@ -1,5 +1,6 @@
 {
   "title": "Profil",
   "emptyTitle": "Édition du profil bientôt disponible",
-  "emptyMessage": "Modifiez vos informations et votre disponibilité dès que cette fonctionnalité sera prête."
+  "emptyMessage": "Modifiez vos informations et votre disponibilité dès que cette fonctionnalité sera prête.",
+  "switchToClientSpace": "Retour à l'espace Client"
 }

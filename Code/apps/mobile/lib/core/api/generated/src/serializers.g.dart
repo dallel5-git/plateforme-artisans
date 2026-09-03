@@ -29,6 +29,9 @@ Serializers _$serializers = (Serializers().toBuilder()
       ..add(V1AuthOtpVerifyPostRequest.serializer)
       ..add(V1AuthRefreshPostRequest.serializer)
       ..add(V1CategoriesGet200Response.serializer)
+      ..add(V1ContactEventsGet200Response.serializer)
+      ..add(V1ContactEventsGet200ResponseItemsInner.serializer)
+      ..add(V1ContactEventsGet200ResponseItemsInnerChannelEnum.serializer)
       ..add(V1ContactEventsPostRequest.serializer)
       ..add(V1ContactEventsPostRequestChannelEnum.serializer)
       ..add(V1ContactEventsPostRequestSourceScreenEnum.serializer)
@@ -69,6 +72,12 @@ Serializers _$serializers = (Serializers().toBuilder()
       ..add(V1ProvidersMeGet200Response.serializer)
       ..add(V1ProvidersMeGet200ResponseAvailabilityStatusEnum.serializer)
       ..add(V1ProvidersMeGet200ResponsePublicationStatusEnum.serializer)
+      ..add(V1ProvidersMeOfferingsIdPatchRequest.serializer)
+      ..add(V1ProvidersMeOfferingsIdPatchRequestPriceUnitEnum.serializer)
+      ..add(V1ProvidersMeOfferingsPost200Response.serializer)
+      ..add(V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum.serializer)
+      ..add(V1ProvidersMeOfferingsPostRequest.serializer)
+      ..add(V1ProvidersMeOfferingsPostRequestPriceUnitEnum.serializer)
       ..add(V1ProvidersMePatchRequest.serializer)
       ..add(V1ProvidersMePatchRequestAvailabilityStatusEnum.serializer)
       ..add(V1ProvidersMePatchRequestPublicationStatusEnum.serializer)
@@ -129,6 +138,10 @@ Serializers _$serializers = (Serializers().toBuilder()
             const FullType(V1AuthOtpVerifyPost200ResponseUserRolesEnum)
           ]),
           () => ListBuilder<V1AuthOtpVerifyPost200ResponseUserRolesEnum>())
+      ..addBuilderFactory(
+          const FullType(BuiltList,
+              const [const FullType(V1ContactEventsGet200ResponseItemsInner)]),
+          () => ListBuilder<V1ContactEventsGet200ResponseItemsInner>())
       ..addBuilderFactory(
           const FullType(BuiltList,
               const [const FullType(V1FavoritesGet200ResponseItemsInner)]),
