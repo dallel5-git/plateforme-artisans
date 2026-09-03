@@ -70,6 +70,7 @@ Class | Method | HTTP request | Description
 [*AuthApi*](doc/AuthApi.md) | [**v1AuthOtpRequestPost**](doc/AuthApi.md#v1authotprequestpost) | **POST** /v1/auth/otp/request | 
 [*AuthApi*](doc/AuthApi.md) | [**v1AuthOtpVerifyPost**](doc/AuthApi.md#v1authotpverifypost) | **POST** /v1/auth/otp/verify | 
 [*AuthApi*](doc/AuthApi.md) | [**v1AuthRefreshPost**](doc/AuthApi.md#v1authrefreshpost) | **POST** /v1/auth/refresh | 
+[*ContactEventsApi*](doc/ContactEventsApi.md) | [**v1ContactEventsGet**](doc/ContactEventsApi.md#v1contacteventsget) | **GET** /v1/contact-events | 
 [*ContactEventsApi*](doc/ContactEventsApi.md) | [**v1ContactEventsPost**](doc/ContactEventsApi.md#v1contacteventspost) | **POST** /v1/contact-events | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1CategoriesGet**](doc/DefaultApi.md#v1categoriesget) | **GET** /v1/categories | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1FavoritesGet**](doc/DefaultApi.md#v1favoritesget) | **GET** /v1/favorites | 
@@ -112,6 +113,8 @@ Class | Method | HTTP request | Description
  - [V1AuthOtpVerifyPostRequest](doc/V1AuthOtpVerifyPostRequest.md)
  - [V1AuthRefreshPostRequest](doc/V1AuthRefreshPostRequest.md)
  - [V1CategoriesGet200Response](doc/V1CategoriesGet200Response.md)
+ - [V1ContactEventsGet200Response](doc/V1ContactEventsGet200Response.md)
+ - [V1ContactEventsGet200ResponseItemsInner](doc/V1ContactEventsGet200ResponseItemsInner.md)
  - [V1ContactEventsPostRequest](doc/V1ContactEventsPostRequest.md)
  - [V1FavoritesGet200Response](doc/V1FavoritesGet200Response.md)
  - [V1FavoritesGet200ResponseItemsInner](doc/V1FavoritesGet200ResponseItemsInner.md)
