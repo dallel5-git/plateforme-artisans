@@ -317,6 +317,8 @@ class Translations$search$ar extends Translations$search$fr {
 	@override String get categoriesError => 'تعذّر تحميل الفئات.';
 	@override String get locationError => 'تعذّر تحميل الولايات.';
 	@override String get retry => 'إعادة المحاولة';
+	@override String get filterRatingMin => 'تقييم 4+';
+	@override String get filterUrgent => 'عاجل';
 }
 
 // Path: settings
@@ -737,6 +739,8 @@ extension on TranslationsAr {
 			'search.categoriesError' => 'تعذّر تحميل الفئات.',
 			'search.locationError' => 'تعذّر تحميل الولايات.',
 			'search.retry' => 'إعادة المحاولة',
+			'search.filterRatingMin' => 'تقييم 4+',
+			'search.filterUrgent' => 'عاجل',
 			'settings.title' => 'الإعدادات',
 			'settings.languageSection' => 'اللغة',
 			'settings.french' => 'Français',

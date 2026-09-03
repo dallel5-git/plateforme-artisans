@@ -557,6 +557,12 @@ class Translations$search$fr {
 
 	/// fr: 'Réessayer'
 	String get retry => 'Réessayer';
+
+	/// fr: 'Note 4+'
+	String get filterRatingMin => 'Note 4+';
+
+	/// fr: 'Urgence'
+	String get filterUrgent => 'Urgence';
 }
 
 // Path: settings
@@ -1220,6 +1226,8 @@ extension on Translations {
 			'search.categoriesError' => 'Impossible de charger les catégories.',
 			'search.locationError' => 'Impossible de charger les gouvernorats.',
 			'search.retry' => 'Réessayer',
+			'search.filterRatingMin' => 'Note 4+',
+			'search.filterUrgent' => 'Urgence',
 			'settings.title' => 'Réglages',
 			'settings.languageSection' => 'Langue',
 			'settings.french' => 'Français',
