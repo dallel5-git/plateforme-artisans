@@ -15,11 +15,15 @@ import 'package:sanaya/core/widgets/verified_badge.dart';
 import 'package:sanaya/features/contact/application/contact_providers.dart';
 import 'package:sanaya/features/contact/domain/contact_channel.dart';
 import 'package:sanaya/features/contact/domain/contact_service.dart';
+import 'package:sanaya/features/favorites/application/favorites_providers.dart';
+import 'package:sanaya/features/favorites/data/favorites_repository.dart';
 import 'package:sanaya/features/provider_profile/application/provider_profile_providers.dart';
 import 'package:sanaya/features/provider_profile/data/provider_profile_repository.dart';
 import 'package:sanaya/features/provider_profile/presentation/screens/provider_profile_screen.dart';
 
 class _ContactServiceMock extends Mock implements ContactService {}
+
+class _FavoritesRepositoryMock extends Mock implements FavoritesRepository {}
 
 ProviderProfile _fakeProfile({
   required String slug,
@@ -162,6 +166,7 @@ Widget _wrap(
   required ProviderProfileRepository repository,
   Locale locale = const Locale('fr'),
   ContactService? contactService,
+  FavoritesRepository? favoritesRepository,
 }) {
   return ProviderScope(
     overrides: [
@@ -169,6 +174,8 @@ Widget _wrap(
       providerProfileRepositoryProvider.overrideWithValue(repository),
       if (contactService != null)
         contactServiceProvider.overrideWithValue(contactService),
+      if (favoritesRepository != null)
+        favoritesRepositoryProvider.overrideWithValue(favoritesRepository),
     ],
     child: MaterialApp(
       locale: locale,
@@ -448,6 +455,94 @@ void main() {
         await tester.pumpAndSettle();
 
         expect(find.text('review-screen'), findsOneWidget);
+      },
+    );
+
+    testWidgets(
+      'FM-26b — tap sur le bouton favori (non favori) ajoute aux favoris',
+      (tester) async {
+        final profile = _fakeProfile(
+          slug: 'mohamed-plombier',
+          businessName: 'Mohamed Plomberie',
+        );
+        final repo = FakeProviderProfileRepository(profile: profile);
+        final favoritesRepository = _FavoritesRepositoryMock();
+        when(favoritesRepository.fetchFavorites).thenAnswer(
+          (_) async => FavoritesResponse((b) => b..nextCursor = ''),
+        );
+        when(
+          () => favoritesRepository.addFavorite('provider-1'),
+        ).thenAnswer((_) async {});
+
+        await tester.pumpWidget(
+          _wrap(
+            const ProviderProfileScreen(slug: 'mohamed-plombier'),
+            repository: repo,
+            favoritesRepository: favoritesRepository,
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        expect(find.byIcon(Icons.favorite_border), findsOneWidget);
+
+        await tester.tap(find.byIcon(Icons.favorite_border));
+        await tester.pumpAndSettle();
+
+        verify(() => favoritesRepository.addFavorite('provider-1')).called(1);
+      },
+    );
+
+    testWidgets(
+      'FM-26b — tap sur le bouton favori (déjà favori) retire des favoris',
+      (tester) async {
+        final profile = _fakeProfile(
+          slug: 'mohamed-plombier',
+          businessName: 'Mohamed Plomberie',
+        );
+        final repo = FakeProviderProfileRepository(profile: profile);
+        final favoritesRepository = _FavoritesRepositoryMock();
+        const availableStatus =
+            V1FavoritesGet200ResponseItemsInnerAvailabilityStatusEnum.AVAILABLE;
+        final favoriteItem = FavoriteItem(
+          (item) => item
+            ..providerId = 'provider-1'
+            ..slug = 'mohamed-plombier'
+            ..businessName = 'Mohamed Plomberie'
+            ..headline = 'Plombier'
+            ..isVerified = false
+            ..ratingAvg = 4.5
+            ..ratingCount = 10
+            ..availabilityStatus = availableStatus
+            ..favoritedAt = DateTime.utc(2026, 8, 26),
+        );
+        when(favoritesRepository.fetchFavorites).thenAnswer(
+          (_) async => FavoritesResponse(
+            (b) => b
+              ..items.add(favoriteItem)
+              ..nextCursor = '',
+          ),
+        );
+        when(
+          () => favoritesRepository.removeFavorite('provider-1'),
+        ).thenAnswer((_) async {});
+
+        await tester.pumpWidget(
+          _wrap(
+            const ProviderProfileScreen(slug: 'mohamed-plombier'),
+            repository: repo,
+            favoritesRepository: favoritesRepository,
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        expect(find.byIcon(Icons.favorite), findsOneWidget);
+
+        await tester.tap(find.byIcon(Icons.favorite));
+        await tester.pumpAndSettle();
+
+        verify(
+          () => favoritesRepository.removeFavorite('provider-1'),
+        ).called(1);
       },
     );
   });
