@@ -870,7 +870,63 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get?: never;
+        /** @description Profil artisan complet de l'utilisateur authentifié (vue propriétaire : mêmes champs que la fiche publique, plus les champs privés utiles à l’édition — availabilityStatus, availableAgainAt, acceptsEmergency, workingHours, publicationStatus, completionScore). BE-44. */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            slug: string;
+                            businessName: string;
+                            headline: string | null;
+                            bio: string | null;
+                            yearsExperience: number | null;
+                            whatsappPhone: string | null;
+                            publicPhone: string | null;
+                            spokenLanguages: ("FR" | "AR" | "EN")[];
+                            /** Format: uuid */
+                            baseGovernorateId: string;
+                            baseDelegationId: string | null;
+                            latitude: number | null;
+                            longitude: number | null;
+                            /** @enum {string} */
+                            publicationStatus: "DRAFT" | "PUBLISHED" | "HIDDEN" | "SUSPENDED";
+                            /** @enum {string} */
+                            availabilityStatus: "AVAILABLE" | "BUSY" | "ON_HOLIDAY";
+                            availableAgainAt: string | null;
+                            acceptsEmergency: boolean;
+                            workingHours: unknown | null;
+                            isVerified: boolean;
+                            verifiedAt: string | null;
+                            ratingAvg: number;
+                            ratingCount: number;
+                            totalProfileViews: number;
+                            totalContacts: number;
+                            completionScore: number;
+                            rankingScore: number;
+                            lastActiveAt: string | null;
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: date-time */
+                            updatedAt: string;
+                        };
+                    };
+                };
+            };
+        };
         put?: never;
         /** @description Crée le profil artisan de l'utilisateur authentifié. Le promeut PROVIDER s'il ne l'est pas déjà (US-P-01 : devenir prestataire sans créer un second compte) et émet un nouveau couple de tokens reflétant ce rôle. */
         post: {
