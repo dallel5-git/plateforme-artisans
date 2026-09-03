@@ -64,6 +64,7 @@ export 'package:sanaya/core/api/generated/src/model/v1_providers_me_post_request
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_stats_get200_response.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_stats_get200_response_series_inner.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_stats_get200_response_totals.dart';
+export 'package:sanaya/core/api/generated/src/model/v1_providers_me_stats_get200_response_totals_contacts_by_channel.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_search_get200_response.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_search_get200_response_items_inner.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_search_get200_response_items_inner_categories_inner.dart';

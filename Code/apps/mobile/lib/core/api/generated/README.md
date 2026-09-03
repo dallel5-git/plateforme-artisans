@@ -146,6 +146,7 @@ Class | Method | HTTP request | Description
  - [V1ProvidersMeStatsGet200Response](doc/V1ProvidersMeStatsGet200Response.md)
  - [V1ProvidersMeStatsGet200ResponseSeriesInner](doc/V1ProvidersMeStatsGet200ResponseSeriesInner.md)
  - [V1ProvidersMeStatsGet200ResponseTotals](doc/V1ProvidersMeStatsGet200ResponseTotals.md)
+ - [V1ProvidersMeStatsGet200ResponseTotalsContactsByChannel](doc/V1ProvidersMeStatsGet200ResponseTotalsContactsByChannel.md)
  - [V1ProvidersSearchGet200Response](doc/V1ProvidersSearchGet200Response.md)
  - [V1ProvidersSearchGet200ResponseItemsInner](doc/V1ProvidersSearchGet200ResponseItemsInner.md)
  - [V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner](doc/V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner.md)

@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **profileViews** | **int** |  | 
 **uniqueProfileViews** | **int** |  | 
 **contacts** | **int** |  | 
+**contactsByChannel** | [**V1ProvidersMeStatsGet200ResponseTotalsContactsByChannel**](V1ProvidersMeStatsGet200ResponseTotalsContactsByChannel.md) |  | 
 **viewToContactRatio** | **num** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
