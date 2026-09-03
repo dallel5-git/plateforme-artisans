@@ -58,6 +58,10 @@ class FavoritesScreen extends ConsumerWidget {
                       const SizedBox(height: AppSpacing.md),
                   itemBuilder: (context, index) => FavoriteCard(
                     item: items[index],
+                    onTap: () => context.pushNamed(
+                      'provider-profile',
+                      pathParameters: {'slug': items[index].slug},
+                    ),
                   ),
                 ),
         ),

@@ -1,10 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:sanaya/app/providers.dart';
+import 'package:sanaya/app/theme.dart';
 import 'package:sanaya/core/api/generated/api.dart';
 import 'package:sanaya/features/favorites/application/favorites_providers.dart';
 import 'package:sanaya/features/favorites/data/favorites_repository.dart';
@@ -48,6 +51,48 @@ void main() {
       child: themedApp(
         const FavoritesScreen(),
         locale: locale,
+      ),
+    );
+  }
+
+  /// Variante avec un vrai `GoRouter` pour vérifier la navigation déclenchée
+  /// par le tap sur une carte de favori — même patron que
+  /// `provider_profile_screen_test.dart` (`_wrapWithRouter`).
+  Widget buildScreenWithRouter() {
+    final router = GoRouter(
+      initialLocation: '/',
+      routes: [
+        GoRoute(
+          path: '/',
+          builder: (_, _) => const FavoritesScreen(),
+        ),
+        GoRoute(
+          path: '/providers/:slug',
+          name: 'provider-profile',
+          builder: (_, state) => Scaffold(
+            body: Text('fiche-artisan-${state.pathParameters['slug']}'),
+          ),
+        ),
+      ],
+    );
+
+    return ProviderScope(
+      overrides: [
+        favoritesRepositoryProvider.overrideWithValue(repository),
+      ],
+      child: MaterialApp.router(
+        routerConfig: router,
+        locale: const Locale('fr'),
+        supportedLocales: const [Locale('fr'), Locale('ar')],
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        theme: buildTheme(
+          brightness: Brightness.light,
+          locale: const Locale('fr'),
+        ),
       ),
     );
   }
@@ -137,6 +182,27 @@ void main() {
       expect(find.byType(FavoriteCard), findsOneWidget);
       expect(find.text('Sami Plomberie'), findsOneWidget);
     });
+
+    testWidgets(
+      'le tap sur une carte favorite navigue vers la fiche artisan',
+      (tester) async {
+        when(() => repository.fetchFavorites()).thenAnswer(
+          (_) async => FavoritesResponse(
+            (b) => b
+              ..items.add(sampleItem)
+              ..nextCursor = '',
+          ),
+        );
+
+        await tester.pumpWidget(buildScreenWithRouter());
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.text('Sami Plomberie'));
+        await tester.pumpAndSettle();
+
+        expect(find.text('fiche-artisan-sami-plombier'), findsOneWidget);
+      },
+    );
 
     testWidgets(
       'se rend en arabe avec le titre et les boutons traduits (RTL)',
