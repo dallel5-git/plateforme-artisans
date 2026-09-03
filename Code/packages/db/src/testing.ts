@@ -187,6 +187,7 @@ export async function createTestProviderProfileRow(
 export interface CreateTestContactEventRowInput {
   providerId: string;
   clientId?: string;
+  categoryId?: string;
   channel?: 'PHONE_CALL' | 'WHATSAPP' | 'IN_APP_MESSAGE';
   createdAt?: Date;
   sessionHash?: string;
@@ -207,9 +208,30 @@ export async function createTestContactEventRow(
     data: {
       providerId: input.providerId,
       clientId: input.clientId,
+      categoryId: input.categoryId,
       channel: input.channel ?? 'PHONE_CALL',
       createdAt: input.createdAt,
       sessionHash: input.sessionHash,
+    },
+  });
+}
+
+export interface CreateTestReviewRowInput {
+  providerId: string;
+  clientId: string;
+  contactEventId?: string;
+  rating?: number;
+}
+
+/** Avis minimal — BE-45 en a besoin pour tester `hasReview` (`GET /v1/contact-events`) sans
+ *  passer par le flux complet de dépôt d'avis (BE-22, hors périmètre ici). */
+export async function createTestReviewRow(input: CreateTestReviewRowInput, db: DbClient = prisma) {
+  return db.review.create({
+    data: {
+      providerId: input.providerId,
+      clientId: input.clientId,
+      contactEventId: input.contactEventId,
+      rating: input.rating ?? 5,
     },
   });
 }
