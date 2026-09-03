@@ -119,6 +119,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               V1ProvidersMePost200ResponseProviderPublicationStatusEnum
                   .PUBLISHED) {
         setState(() => _published = true);
+        // FM-24 : rend le shell pro (dashboard + onglets) atteignable dans le
+        // parcours normal — sans ça, seul un relancement de l'app (garde
+        // `/pro` de router.dart) y mènerait.
+        ref.read(hasPublishedProfileProvider.notifier).state = true;
+        context.go('/pro/dashboard');
       }
     } on Object {
       // Idem — géré via `state.errorCode`.
