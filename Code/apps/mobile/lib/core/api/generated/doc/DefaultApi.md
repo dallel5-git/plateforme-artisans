@@ -22,6 +22,7 @@ Method | HTTP request | Description
 [**v1ProvidersIdReviewsPost**](DefaultApi.md#v1providersidreviewspost) | **POST** /v1/providers/{id}/reviews | 
 [**v1ProvidersMeCategoriesPut**](DefaultApi.md#v1providersmecategoriesput) | **PUT** /v1/providers/me/categories | 
 [**v1ProvidersMeCoverageAreasPut**](DefaultApi.md#v1providersmecoverageareasput) | **PUT** /v1/providers/me/coverage-areas | 
+[**v1ProvidersMeGet**](DefaultApi.md#v1providersmeget) | **GET** /v1/providers/me | 
 [**v1ProvidersMePatch**](DefaultApi.md#v1providersmepatch) | **PATCH** /v1/providers/me | 
 [**v1ProvidersMePortfolioIdDelete**](DefaultApi.md#v1providersmeportfolioiddelete) | **DELETE** /v1/providers/me/portfolio/{id} | 
 [**v1ProvidersMePortfolioPost**](DefaultApi.md#v1providersmeportfoliopost) | **POST** /v1/providers/me/portfolio | 
@@ -581,8 +582,47 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **v1ProvidersMeGet**
+> V1ProvidersMeGet200Response v1ProvidersMeGet()
+
+
+
+Profil artisan complet de l'utilisateur authentifié (vue propriétaire : mêmes champs que la fiche publique, plus les champs privés utiles à l’édition — availabilityStatus, availableAgainAt, acceptsEmergency, workingHours, publicationStatus, completionScore). BE-44.
+
+### Example
+```dart
+import 'package:sanaya_api_client/api.dart';
+
+final api = SanayaApiClient().getDefaultApi();
+
+try {
+    final response = api.v1ProvidersMeGet();
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling DefaultApi->v1ProvidersMeGet: $e\n');
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**V1ProvidersMeGet200Response**](V1ProvidersMeGet200Response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **v1ProvidersMePatch**
-> V1ProvidersMePost200ResponseProvider v1ProvidersMePatch(v1ProvidersMePatchRequest)
+> V1ProvidersMeGet200Response v1ProvidersMePatch(v1ProvidersMePatchRequest)
 
 
 
@@ -611,7 +651,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**V1ProvidersMePost200ResponseProvider**](V1ProvidersMePost200ResponseProvider.md)
+[**V1ProvidersMeGet200Response**](V1ProvidersMeGet200Response.md)
 
 ### Authorization
 

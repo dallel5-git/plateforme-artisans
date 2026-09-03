@@ -1,11 +1,11 @@
 /**
- * BE-19b — `POST`/`PATCH /v1/providers/me`.
+ * BE-19b — `POST`/`PATCH /v1/providers/me`. BE-44 — `GET /v1/providers/me`.
  *
  * Comme `auth-otp-verify.test.ts` (BE-10c) et `require-role.test.ts` (BE-12) : seuls les rejets
  * qui n'ont pas besoin de Postgres sont couverts ici (validation Zod avant tout accès `@repo/db`,
  * et les limites `requireAuth`/`requireRole`) — la CI ne migre pas le schéma sur le Postgres de
  * service. Le chemin heureux (création de profil, promotion de rôle, garde de publication à
- * 60 %) est vérifié manuellement en `curl` en local — voir description de PR.
+ * 60 %, lecture du profil propriétaire) est vérifié dans `providers-me.integration.test.ts`.
  */
 import { signAccessToken } from '@repo/core';
 import Fastify from 'fastify';
@@ -80,6 +80,37 @@ describe('BE-19b — POST /v1/providers/me', () => {
     });
 
     expect(response.statusCode).toBe(400);
+  });
+});
+
+describe('BE-44 — GET /v1/providers/me', () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  it('refuse une requête sans token (401 ACCESS_TOKEN_INVALID)', async () => {
+    const app = await buildTestApp();
+    const response = await app.inject({
+      method: 'GET',
+      url: '/v1/providers/me',
+    });
+
+    expect(response.statusCode).toBe(401);
+    expect(response.json().error.code).toBe('ACCESS_TOKEN_INVALID');
+  });
+
+  it('refuse un rôle CLIENT (403 FORBIDDEN)', async () => {
+    vi.stubEnv('JWT_ACCESS_SECRET', 'secret-de-test-suffisamment-long');
+    const app = await buildTestApp();
+    const token = await signAccessToken({ sub: 'u1', role: 'CLIENT' });
+    const response = await app.inject({
+      method: 'GET',
+      url: '/v1/providers/me',
+      headers: { authorization: `Bearer ${token}` },
+    });
+
+    expect(response.statusCode).toBe(403);
+    expect(response.json().error.code).toBe('FORBIDDEN');
   });
 });
 

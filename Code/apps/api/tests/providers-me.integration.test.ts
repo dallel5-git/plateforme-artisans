@@ -1,8 +1,9 @@
 /**
- * QA-01e — `POST`/`PATCH /v1/providers/me`, chemin réel (Postgres). Complète `providers-me.test.ts`
- * (BE-19b), qui ne couvre que le rejet de format et les limites `requireAuth`/`requireRole` sans
- * base — création de profil, promotion de rôle et garde de publication à 60 % étaient vérifiées
- * manuellement en `curl` faute de harnais (BE-02b, absorbé par QA-01a).
+ * QA-01e — `POST`/`PATCH /v1/providers/me`, chemin réel (Postgres). BE-44 — `GET /v1/providers/me`.
+ * Complète `providers-me.test.ts` (BE-19b), qui ne couvre que le rejet de format et les limites
+ * `requireAuth`/`requireRole` sans base — création de profil, promotion de rôle et garde de
+ * publication à 60 % étaient vérifiées manuellement en `curl` faute de harnais (BE-02b, absorbé
+ * par QA-01a).
  */
 import { signAccessToken } from '@repo/core';
 import { findUserById } from '@repo/db';
@@ -38,6 +39,53 @@ async function authHeaderFor(userId: string, role: 'CLIENT' | 'PROVIDER' = 'CLIE
   const accessToken = await signAccessToken({ sub: userId, role });
   return { authorization: `Bearer ${accessToken}` };
 }
+
+describe('BE-44 — GET /v1/providers/me (Postgres réel)', () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  it('renvoie le profil propriétaire, champs privés inclus (200)', async () => {
+    vi.stubEnv('JWT_ACCESS_SECRET', 'secret-de-test-suffisamment-long');
+    const app = await buildTestApp();
+    const provider = await createTestProvider();
+
+    const response = await app.inject({
+      method: 'GET',
+      url: '/v1/providers/me',
+      headers: await authHeaderFor(provider.userId, 'PROVIDER'),
+    });
+
+    expect(response.statusCode).toBe(200);
+    const body = response.json();
+    expect(body.id).toBe(provider.providerId);
+    // Champs privés absents de la fiche publique (BE-17) — présents ici uniquement (P8).
+    expect(body).toHaveProperty('publicationStatus');
+    expect(body).toHaveProperty('availabilityStatus');
+    expect(body).toHaveProperty('availableAgainAt');
+    expect(body).toHaveProperty('acceptsEmergency');
+    expect(body).toHaveProperty('workingHours');
+    expect(body).toHaveProperty('completionScore');
+  });
+
+  it('404 explicite (pas un 500) quand aucun profil artisan n’existe pour ce compte', async () => {
+    vi.stubEnv('JWT_ACCESS_SECRET', 'secret-de-test-suffisamment-long');
+    const app = await buildTestApp();
+    // Compte sans profil artisan — jeton PROVIDER délibérément désynchronisé de l'état réel
+    // (mêmes limites que les tests "sans Postgres" de providers-me.test.ts) pour exercer le
+    // 404 de `requireOwnProfile` plutôt que le 403 de `requireRole`, déjà couvert ailleurs.
+    const client = await createTestClient();
+
+    const response = await app.inject({
+      method: 'GET',
+      url: '/v1/providers/me',
+      headers: await authHeaderFor(client.id, 'PROVIDER'),
+    });
+
+    expect(response.statusCode).toBe(404);
+    expect(response.json().error.code).toBe('PROVIDER_PROFILE_NOT_FOUND');
+  });
+});
 
 describe('QA-01e — POST /v1/providers/me (Postgres réel)', () => {
   afterEach(() => {

@@ -66,6 +66,9 @@ Serializers _$serializers = (Serializers().toBuilder()
           V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner.serializer)
       ..add(V1ProvidersMeCoverageAreasPutRequest.serializer)
       ..add(V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner.serializer)
+      ..add(V1ProvidersMeGet200Response.serializer)
+      ..add(V1ProvidersMeGet200ResponseAvailabilityStatusEnum.serializer)
+      ..add(V1ProvidersMeGet200ResponsePublicationStatusEnum.serializer)
       ..add(V1ProvidersMePatchRequest.serializer)
       ..add(V1ProvidersMePatchRequestAvailabilityStatusEnum.serializer)
       ..add(V1ProvidersMePatchRequestPublicationStatusEnum.serializer)
@@ -202,6 +205,19 @@ Serializers _$serializers = (Serializers().toBuilder()
           () => ListBuilder<V1ProvidersSlugGet200ResponseGalleryInner>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [
+            const FullType(
+                V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum)
+          ]),
+          () => ListBuilder<
+              V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum>())
+      ..addBuilderFactory(
+          const FullType(BuiltMap, const [
+            const FullType(String),
+            const FullType.nullable(JsonObject)
+          ]),
+          () => MapBuilder<String, JsonObject?>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
             const FullType(V1ProvidersMePostRequestSpokenLanguagesEnum)
           ]),
           () => ListBuilder<V1ProvidersMePostRequestSpokenLanguagesEnum>())
@@ -227,12 +243,6 @@ Serializers _$serializers = (Serializers().toBuilder()
             const FullType(V1ProvidersSlugReviewsGet200ResponseItemsInner)
           ]),
           () => ListBuilder<V1ProvidersSlugReviewsGet200ResponseItemsInner>())
-      ..addBuilderFactory(
-          const FullType(BuiltMap, const [
-            const FullType(String),
-            const FullType.nullable(JsonObject)
-          ]),
-          () => MapBuilder<String, JsonObject?>())
       ..addBuilderFactory(
           const FullType(BuiltMap, const [
             const FullType(String),
