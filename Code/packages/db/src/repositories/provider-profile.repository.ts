@@ -676,7 +676,11 @@ export async function updateServiceOffering(
   input: UpdateServiceOfferingInput,
   db: DbClient = prisma,
 ): Promise<ServiceOffering> {
-  const row = await db.serviceOffering.update({ where: { id }, data: input, select: offeringSelect });
+  const row = await db.serviceOffering.update({
+    where: { id },
+    data: input,
+    select: offeringSelect,
+  });
   return toOffering(row);
 }
 

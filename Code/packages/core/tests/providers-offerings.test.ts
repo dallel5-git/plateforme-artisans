@@ -26,9 +26,7 @@ describe('BE-47 — validateOfferingInput', () => {
 
   it('rejette un prix minimum négatif ou nul', () => {
     expect(() => validateOfferingInput({ titleFr: 'Peinture', priceMin: 0 })).toThrow(/positif/i);
-    expect(() => validateOfferingInput({ titleFr: 'Peinture', priceMin: -10 })).toThrow(
-      /positif/i,
-    );
+    expect(() => validateOfferingInput({ titleFr: 'Peinture', priceMin: -10 })).toThrow(/positif/i);
   });
 
   it('rejette un prix maximum négatif ou nul', () => {
