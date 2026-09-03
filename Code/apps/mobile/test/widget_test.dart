@@ -104,16 +104,21 @@ void main() {
     );
 
     testWidgets(
-      '/pro reste atteignable directement et mène à l’assistant '
-      'd’onboarding (FM-11c)',
+      'FM-24 — /pro n’est plus atteignable sans session PROVIDER : un '
+      'anonyme est redirigé vers /auth, pas l’onboarding',
       (tester) async {
+        // Avant FM-24, /pro/* n'avait aucune garde (voir CLAUDE.md racine,
+        // §3.6) — un anonyme y voyait librement l'onboarding. Ce test
+        // verrouillait ce comportement ; il verrouille désormais son
+        // inverse, la garde ajoutée par FM-24 (`router.dart`, `redirect:`).
         await tester.pumpWidget(buildApp());
         await pumpPastSplash(tester);
 
         router.go('/pro');
         await tester.pumpAndSettle();
 
-        expect(find.text(_tFr.onboarding.wizardTitle), findsOneWidget);
+        expect(find.text(_tFr.onboarding.wizardTitle), findsNothing);
+        expect(find.text(_tFr.auth.roleTitle), findsOneWidget);
       },
     );
   });

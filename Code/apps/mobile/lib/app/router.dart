@@ -4,18 +4,23 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sanaya/app/client_shell_screen.dart';
 import 'package:sanaya/app/design_system_preview_screen.dart';
+import 'package:sanaya/app/pro_shell_screen.dart';
 import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/app/splash_screen.dart';
 import 'package:sanaya/core/widgets/error_state.dart';
 import 'package:sanaya/features/auth/application/auth_state_provider.dart';
 import 'package:sanaya/features/auth/presentation/auth_screen.dart';
+import 'package:sanaya/features/boosts/presentation/boosts_placeholder_screen.dart';
 import 'package:sanaya/features/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:sanaya/features/favorites/presentation/favorites_screen.dart';
 import 'package:sanaya/features/history/presentation/history_placeholder_screen.dart';
+import 'package:sanaya/features/onboarding/application/onboarding_providers.dart';
 import 'package:sanaya/features/onboarding/presentation/onboarding_screen.dart';
+import 'package:sanaya/features/pro_profile/presentation/pro_profile_placeholder_screen.dart';
 import 'package:sanaya/features/profile/presentation/profile_placeholder_screen.dart';
 import 'package:sanaya/features/provider_profile/presentation/screens/provider_profile_screen.dart';
 import 'package:sanaya/features/provider_profile/presentation/screens/review_form_screen.dart';
+import 'package:sanaya/features/reviews/presentation/reviews_received_placeholder_screen.dart';
 import 'package:sanaya/features/search/presentation/search_home_screen.dart';
 import 'package:sanaya/features/settings/presentation/legal_notice_screen.dart';
 import 'package:sanaya/features/settings/presentation/settings_screen.dart';
@@ -49,6 +54,8 @@ final router = GoRouter(
     final container = ProviderScope.containerOf(context, listen: false);
     final auth = container.read(authStateProvider);
     final onSplash = state.matchedLocation == '/';
+    final loc = state.matchedLocation;
+    final onProSubtree = loc == '/pro' || loc.startsWith('/pro/');
 
     // FM-23 : tant que la restauration de session n'est pas résolue,
     // rester sur (ou revenir vers) le splash — évite le flash d'écran sur
@@ -57,11 +64,39 @@ final router = GoRouter(
     if (auth.isLoading) return onSplash ? null : '/';
 
     final status = auth.valueOrNull;
+    final isProviderSession =
+        status != null && status.isAuthenticated && status.isProvider;
+
+    // FM-24 : /pro/* exige une session PROVIDER — jamais de 401 brut.
+    // Anonyme → /auth ("devenir prestataire" : décision validée avec
+    // Oussama de réutiliser l'écran de sélection de rôle existant plutôt
+    // que construire un nouvel écran, hors budget de l'issue). CLIENT déjà
+    // authentifié → /client (pas /auth : la règle `onEntryRoute` ci-dessous
+    // fait déjà rebondir tout utilisateur authentifié hors de /auth, donc y
+    // renvoyer un CLIENT créerait une boucle silencieuse vers /client de
+    // toute façon — autant y aller directement, sans repasser par un écran
+    // de ré-authentification trompeur pour un compte déjà connecté).
+    if (onProSubtree && !isProviderSession) {
+      return status != null && status.isAuthenticated ? '/client' : '/auth';
+    }
+
     if (status == null || !status.isAuthenticated) {
       // Résolu, anonyme : le splash laisse place à la recherche publique
       // (gratuite pour le particulier, CLAUDE.md racine) — jamais à un
       // écran de choix de rôle brut (l'ancien hub à 3 boutons).
       return onSplash ? '/client' : null;
+    }
+
+    if (onProSubtree) {
+      // FM-24 : racine (et toute branche) du shell pro — dashboard si déjà
+      // publié, sinon onboarding. `hasPublishedProfileProvider` est
+      // persisté sur device (publication_status_persistence.dart), repli
+      // documenté tant que `GET /v1/providers/me` (BE-44) n'existe pas.
+      final published = container.read(hasPublishedProfileProvider);
+      if (!published) {
+        return loc == '/pro/onboarding' ? null : '/pro/onboarding';
+      }
+      if (loc == '/pro' || loc == '/pro/onboarding') return '/pro/dashboard';
     }
 
     final onEntryRoute = onSplash || state.matchedLocation == '/auth';
@@ -147,15 +182,65 @@ final router = GoRouter(
         ),
       ],
     ),
+    // FM-24 : jamais réellement affichée — le `redirect:` global (ci-dessus)
+    // résout toujours `/pro` vers `/pro/onboarding` ou `/pro/dashboard` pour
+    // une session PROVIDER légitime. Conservée comme repli sûr : si
+    // `redirect:` ne s'exécutait pas pour une raison quelconque, ceci reste
+    // un choix sans danger, pas un écran mort à supprimer.
     GoRoute(
       path: '/pro',
+      name: 'pro-root',
+      builder: (_, _) => const OnboardingScreen(),
+    ),
+    GoRoute(
+      path: '/pro/onboarding',
       name: 'pro-onboarding',
       builder: (_, _) => const OnboardingScreen(),
-      routes: [
-        GoRoute(
-          path: 'dashboard',
-          name: 'pro-dashboard',
-          builder: (_, _) => const DashboardScreen(),
+    ),
+    StatefulShellRoute.indexedStack(
+      builder: (_, _, navigationShell) =>
+          ProShellScreen(navigationShell: navigationShell),
+      branches: [
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/pro/dashboard',
+              name: 'pro-dashboard',
+              pageBuilder: (_, _) =>
+                  const NoTransitionPage(child: DashboardScreen()),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/pro/boosts',
+              name: 'pro-boosts',
+              pageBuilder: (_, _) =>
+                  const NoTransitionPage(child: BoostsPlaceholderScreen()),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/pro/reviews',
+              name: 'pro-reviews',
+              pageBuilder: (_, _) => const NoTransitionPage(
+                child: ReviewsReceivedPlaceholderScreen(),
+              ),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/pro/profile',
+              name: 'pro-profile',
+              pageBuilder: (_, _) =>
+                  const NoTransitionPage(child: ProProfilePlaceholderScreen()),
+            ),
+          ],
         ),
       ],
     ),
