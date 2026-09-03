@@ -10,10 +10,16 @@ export const providerStatsDayPointSchema = z.object({
 });
 export type ProviderStatsDayPointResponse = z.infer<typeof providerStatsDayPointSchema>;
 
+// BE-46 : ventilation par canal du total `contacts` déjà présent — additif, aucune rupture pour
+// les consommateurs existants du champ agrégé.
 export const providerStatsTotalsSchema = z.object({
   profileViews: z.number().int().nonnegative(),
   uniqueProfileViews: z.number().int().nonnegative(),
   contacts: z.number().int().nonnegative(),
+  contactsByChannel: z.object({
+    phone: z.number().int().nonnegative(),
+    whatsapp: z.number().int().nonnegative(),
+  }),
   viewToContactRatio: z.number().nonnegative(),
 });
 export type ProviderStatsTotalsResponse = z.infer<typeof providerStatsTotalsSchema>;
