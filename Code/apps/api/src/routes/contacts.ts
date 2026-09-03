@@ -1,6 +1,7 @@
-import { NOT_FOUND, PROVIDER_CONTACT_CHANNEL_UNAVAILABLE } from '@repo/constants';
+import { NOT_FOUND, PROVIDER_CONTACT_CHANNEL_UNAVAILABLE, VALIDATION_ERROR } from '@repo/constants';
 import {
   buildContactEventLog,
+  buildContactHistoryListItem,
   buildSessionFingerprint,
   buildWhatsAppMessage,
   DEDUP_WINDOW_MINUTES,
@@ -13,16 +14,23 @@ import {
   createContactEvent,
   findCategoriesByIds,
   findProviderProfileById,
+  findProviderProfilesByIds,
   findRecentContactEventByFingerprint,
   incrementProviderStats,
+  InvalidCursorError,
+  listContactEventsForClient,
   revealProviderContactPhone,
   withTransaction,
   type ContactChannel as PrismaContactChannel,
 } from '@repo/db';
 import {
+  contactEventHistoryListResponseSchema,
   contactEventResponseSchema,
+  contactEventsQuerySchema,
   createContactEventSchema,
+  type ContactEventHistoryListResponse,
   type ContactEventResponse,
+  type ContactEventsQuery,
   type CreateContactEventBody,
 } from '@repo/validators';
 import type { FastifyBaseLogger, FastifyInstance, FastifyRequest } from 'fastify';
@@ -165,6 +173,55 @@ async function handleCreateContactEvent(
   };
 }
 
+// BE-45 : historique de lecture (US-C-09). Même patron que `loadFavoritesPage`
+// (apps/api/src/routes/favorites.ts, BE-25c) — hydratation par lots (providers + catégories)
+// pour éviter le N+1, un item dont le prestataire aurait disparu entre-temps (cascade FK, ne
+// devrait jamais arriver) est silencieusement omis plutôt que de faire échouer toute la page.
+async function loadContactHistoryPage(
+  clientId: string,
+  query: ContactEventsQuery,
+  locale: 'fr' | 'ar',
+): Promise<ContactEventHistoryListResponse> {
+  try {
+    const page = await listContactEventsForClient(clientId, query);
+    const providerIds = [...new Set(page.items.map((event) => event.providerId))];
+    const categoryIds = [
+      ...new Set(page.items.flatMap((event) => (event.categoryId ? [event.categoryId] : []))),
+    ];
+
+    const [providers, categories] = await Promise.all([
+      findProviderProfilesByIds(providerIds),
+      findCategoriesByIds(categoryIds),
+    ]);
+    const providersById = new Map(providers.map((provider) => [provider.id, provider]));
+    const categoryNameById = new Map(
+      categories.map((category) => [
+        category.id,
+        locale === 'ar' ? category.nameAr : category.nameFr,
+      ]),
+    );
+
+    const items = page.items.flatMap((event) => {
+      const provider = providersById.get(event.providerId);
+      const channel = toCoreChannel(event.channel);
+      if (!provider || !channel) return [];
+      const categoryName = event.categoryId
+        ? (categoryNameById.get(event.categoryId) ?? null)
+        : null;
+      return [buildContactHistoryListItem(event, provider, categoryName, channel)];
+    });
+
+    return { items, nextCursor: page.nextCursor };
+  } catch (error) {
+    if (error instanceof InvalidCursorError) {
+      throw new DomainError(VALIDATION_ERROR, 'Curseur de pagination invalide', {
+        field: 'cursor',
+      });
+    }
+    throw error;
+  }
+}
+
 export async function contactsRoutes(app: FastifyInstance): Promise<void> {
   const typedApp = app.withTypeProvider<ZodTypeProvider>();
 
@@ -193,5 +250,24 @@ export async function contactsRoutes(app: FastifyInstance): Promise<void> {
         log: request.log,
       });
     },
+  );
+
+  typedApp.get(
+    '/contact-events',
+    {
+      preHandler: [app.requireAuth],
+      schema: {
+        tags: ['contact-events'],
+        description:
+          'Historique des contacts du client authentifié (US-C-09), trié par date décroissante, ' +
+          "pagination par curseur. Chaque item porte déjà les libellés d'affichage (P3, pas de " +
+          'second appel GET /providers/:slug côté mobile) et `hasReview` pour le CTA de dépôt ' +
+          "d'avis (FM-31).",
+        querystring: contactEventsQuerySchema,
+        response: { 200: contactEventHistoryListResponseSchema },
+      },
+    },
+    async (request) =>
+      loadContactHistoryPage(request.user!.sub, request.query, resolveLocale(request)),
   );
 }

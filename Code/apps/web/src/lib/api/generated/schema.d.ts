@@ -1345,7 +1345,46 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get?: never;
+        /** @description Historique des contacts du client authentifié (US-C-09), trié par date décroissante, pagination par curseur. Chaque item porte déjà les libellés d'affichage (P3, pas de second appel GET /providers/:slug côté mobile) et `hasReview` pour le CTA de dépôt d'avis (FM-31). */
+        get: {
+            parameters: {
+                query?: {
+                    cursor?: string;
+                    limit?: number;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            items: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                providerId: string;
+                                slug: string;
+                                businessName: string;
+                                categoryName: string | null;
+                                /** @enum {string} */
+                                channel: "PHONE" | "WHATSAPP";
+                                /** Format: date-time */
+                                contactedAt: string;
+                                hasReview: boolean;
+                            }[];
+                            nextCursor: string | null;
+                        };
+                    };
+                };
+            };
+        };
         put?: never;
         /** @description Révèle le numéro d'un prestataire et trace l'événement (P9). Canal PHONE ou WHATSAPP uniquement. Déduplique deux clics de la même session sur le même artisan/canal en 30 min. Rate-limit 30/j par identité et par IP. */
         post: {

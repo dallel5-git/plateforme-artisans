@@ -13,6 +13,7 @@ import type { ContactEvent, OtpPurpose, PublicUser } from '@repo/db';
 import {
   createTestContactEventRow,
   createTestProviderProfileRow,
+  createTestReviewRow,
   createTestUserRow,
   randomTestPhoneTn,
   resetTestDatabase,
@@ -95,7 +96,7 @@ export async function createTestContactEvent(
   });
 }
 
-export { createTestContactEventRow };
+export { createTestContactEventRow, createTestReviewRow };
 
 export interface TestOtpCodeOverrides {
   userId?: string;
