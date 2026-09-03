@@ -35,6 +35,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	// Translations
 	late final Translations$auth$fr auth = Translations$auth$fr.internal(_root);
+	late final Translations$boosts$fr boosts = Translations$boosts$fr.internal(_root);
 	late final Translations$common$fr common = Translations$common$fr.internal(_root);
 	late final Translations$contact$fr contact = Translations$contact$fr.internal(_root);
 	late final Translations$dashboard$fr dashboard = Translations$dashboard$fr.internal(_root);
@@ -43,8 +44,10 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$history$fr history = Translations$history$fr.internal(_root);
 	late final Translations$legal$fr legal = Translations$legal$fr.internal(_root);
 	late final Translations$onboarding$fr onboarding = Translations$onboarding$fr.internal(_root);
+	late final Translations$proProfile$fr proProfile = Translations$proProfile$fr.internal(_root);
 	late final Translations$profile$fr profile = Translations$profile$fr.internal(_root);
 	late final Translations$provider$fr provider = Translations$provider$fr.internal(_root);
+	late final Translations$reviews$fr reviews = Translations$reviews$fr.internal(_root);
 	late final Translations$search$fr search = Translations$search$fr.internal(_root);
 	late final Translations$settings$fr settings = Translations$settings$fr.internal(_root);
 }
@@ -113,6 +116,24 @@ class Translations$auth$fr {
 
 	/// fr: 'Une erreur est survenue, réessayez'
 	String get errorGeneric => 'Une erreur est survenue, réessayez';
+}
+
+// Path: boosts
+class Translations$boosts$fr {
+	Translations$boosts$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Boosts'
+	String get title => 'Boosts';
+
+	/// fr: 'Boosts bientôt disponibles'
+	String get emptyTitle => 'Boosts bientôt disponibles';
+
+	/// fr: 'Mettez en avant votre profil dans les résultats de recherche dès que cette fonctionnalité sera prête.'
+	String get emptyMessage => 'Mettez en avant votre profil dans les résultats de recherche dès que cette fonctionnalité sera prête.';
 }
 
 // Path: common
@@ -432,6 +453,24 @@ class Translations$onboarding$fr {
 	String get missingContactPhone => 'Un numéro WhatsApp ou public';
 }
 
+// Path: proProfile
+class Translations$proProfile$fr {
+	Translations$proProfile$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Profil'
+	String get title => 'Profil';
+
+	/// fr: 'Édition du profil bientôt disponible'
+	String get emptyTitle => 'Édition du profil bientôt disponible';
+
+	/// fr: 'Modifiez vos informations et votre disponibilité dès que cette fonctionnalité sera prête.'
+	String get emptyMessage => 'Modifiez vos informations et votre disponibilité dès que cette fonctionnalité sera prête.';
+}
+
 // Path: profile
 class Translations$profile$fr {
 	Translations$profile$fr.internal(this._root);
@@ -458,6 +497,24 @@ class Translations$provider$fr {
 
 	// Translations
 	late final Translations$provider$profile$fr profile = Translations$provider$profile$fr.internal(_root);
+}
+
+// Path: reviews
+class Translations$reviews$fr {
+	Translations$reviews$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Avis'
+	String get title => 'Avis';
+
+	/// fr: 'Avis reçus bientôt disponibles'
+	String get emptyTitle => 'Avis reçus bientôt disponibles';
+
+	/// fr: 'Retrouvez ici les avis laissés par vos clients dès que cette fonctionnalité sera prête.'
+	String get emptyMessage => 'Retrouvez ici les avis laissés par vos clients dès que cette fonctionnalité sera prête.';
 }
 
 // Path: search
@@ -951,6 +1008,9 @@ extension on Translations {
 			'auth.errorRateLimitExceeded' => 'Trop de demandes, réessayez plus tard',
 			'auth.errorValidation' => 'Numéro de téléphone invalide',
 			'auth.errorGeneric' => 'Une erreur est survenue, réessayez',
+			'boosts.title' => 'Boosts',
+			'boosts.emptyTitle' => 'Boosts bientôt disponibles',
+			'boosts.emptyMessage' => 'Mettez en avant votre profil dans les résultats de recherche dès que cette fonctionnalité sera prête.',
 			'common.appName' => 'Sanaya',
 			'common.home.navAuth' => 'Espace authentification — à venir (FM-05)',
 			'common.home.navClient' => 'Espace client',
@@ -1105,6 +1165,9 @@ extension on Translations {
 			'onboarding.missingHeadline' => 'Un titre',
 			'onboarding.missingYearsExperience' => 'Vos années d\'expérience',
 			'onboarding.missingContactPhone' => 'Un numéro WhatsApp ou public',
+			'proProfile.title' => 'Profil',
+			'proProfile.emptyTitle' => 'Édition du profil bientôt disponible',
+			'proProfile.emptyMessage' => 'Modifiez vos informations et votre disponibilité dès que cette fonctionnalité sera prête.',
 			'profile.title' => 'Profil',
 			'profile.emptyTitle' => 'Profil bientôt disponible',
 			'profile.emptyMessage' => 'La gestion de votre compte arrive prochainement.',
@@ -1137,6 +1200,9 @@ extension on Translations {
 			'provider.profile.reviewPromptTitle' => 'Avez-vous fait appel à cet artisan ?',
 			'provider.profile.reviewPromptSubtitle' => 'Partagez votre avis pour aider la communauté.',
 			'provider.profile.reviewPromptCta' => 'Laisser un avis',
+			'reviews.title' => 'Avis',
+			'reviews.emptyTitle' => 'Avis reçus bientôt disponibles',
+			'reviews.emptyMessage' => 'Retrouvez ici les avis laissés par vos clients dès que cette fonctionnalité sera prête.',
 			'search.searchPlaceholder' => 'Rechercher un service…',
 			'search.locationPlaceholder' => 'Choisir un gouvernorat',
 			'search.serviceLabel' => 'Service',
