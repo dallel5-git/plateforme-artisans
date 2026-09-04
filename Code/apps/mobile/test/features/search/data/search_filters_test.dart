@@ -32,4 +32,29 @@ void main() {
 
     expect(a.cacheKey, isNot(b.cacheKey));
   });
+
+  test(
+    'deux instances construites au runtime avec les mêmes filtres sont '
+    'égales (FM-28c) — clé de famille Riverpod pour SearchResultsNotifier',
+    () {
+      // Pas de `const` ici : simule des filtres reconstruits depuis une
+      // sélection utilisateur, jamais canonicalisés par le compilateur.
+      final a = SearchFilters(
+        governorateId: 'sousse'.toUpperCase().toLowerCase(),
+      );
+      final b = SearchFilters(
+        governorateId: 'sousse'.toUpperCase().toLowerCase(),
+      );
+
+      expect(a, b);
+      expect(a.hashCode, b.hashCode);
+    },
+  );
+
+  test('deux jeux de filtres différents ne sont jamais égaux', () {
+    const a = SearchFilters(governorateId: 'sousse');
+    const b = SearchFilters(governorateId: 'monastir');
+
+    expect(a, isNot(b));
+  });
 }
