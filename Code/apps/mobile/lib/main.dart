@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import 'package:sanaya/app/providers.dart';
@@ -20,6 +21,11 @@ import 'package:sanaya/features/search/data/governorate_persistence.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // FM-28 : Hive doit être initialisé avant tout `openBox` de l'app, quel
+  // que soit l'écran qui l'appelle en premier (`DiskCache` l'ouvre à la
+  // demande, cf. lib/core/cache/disk_cache.dart) — fait une seule fois ici,
+  // au tout début du bootstrap.
+  await Hive.initFlutter();
   final initialLocale = await readInitialLocale();
   final initialGovernorateId = await readInitialGovernorateId();
   final initialThemeMode = await readInitialThemeMode();
