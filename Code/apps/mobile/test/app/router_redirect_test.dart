@@ -11,6 +11,7 @@ import 'package:sanaya/core/api/auth_token_store.dart';
 import 'package:sanaya/core/api/generated/api.dart';
 import 'package:sanaya/core/i18n/translations.g.dart';
 import 'package:sanaya/features/auth/application/auth_providers.dart';
+import 'package:sanaya/features/auth/application/auth_state_provider.dart';
 import 'package:sanaya/features/auth/data/auth_repository.dart';
 import 'package:sanaya/features/onboarding/application/onboarding_providers.dart';
 import 'package:sanaya/features/search/application/catalog_providers.dart';
@@ -282,6 +283,9 @@ void main() {
           V1AuthOtpVerifyPost200ResponseUserRolesEnum.PROVIDER,
         ]),
       );
+      when(() => me.firstName).thenReturn('Ali');
+      when(() => me.lastName).thenReturn('Trabelsi');
+      when(() => me.phone).thenReturn('+21622123456');
       when(authRepository.getCurrentUser).thenAnswer((_) async => me);
       when(
         authTokenStore.peekRefreshToken,
@@ -310,12 +314,21 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text(t.dashboard.title), findsWidgets);
 
-      router.go('/settings');
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.text(t.settings.logout));
-      await tester.pumpAndSettle();
-      await tester.tap(find.text(t.settings.confirm));
+      // Le bouton de déconnexion de `ClientProfileScreen` (`/client/profile`,
+      // FM-32) vit dans une branche non initiale du `StatefulShellRoute` du
+      // shell client — un widget test qui bascule dessus via `goBranch`
+      // obtient un `Scaffold` de hauteur 0 (reproductible aussi sur la
+      // branche Favoris, donc indépendant de FM-32 ; probable limitation de
+      // `IndexedStack`/`Offstage` sous `pumpAndSettle`, à investiguer
+      // séparément). On appelle donc directement `signOut()` via le
+      // conteneur Riverpod — ce que vérifie cette régression, c'est que le
+      // vrai chemin de déconnexion fait bien réagir la garde `/pro/*`, pas
+      // le rendu du bouton lui-même (couvert isolément par
+      // `client_profile_screen_test.dart`).
+      final container = ProviderScope.containerOf(
+        tester.element(find.byType(SanayaApp)),
+      );
+      await container.read(authStateProvider.notifier).signOut();
       await tester.pumpAndSettle();
 
       // La garde ne réagit qu'à une navigation (`redirect:` s'exécute à
@@ -363,7 +376,7 @@ void main() {
 
       // Le bouton "Retour à l'espace Client" / "Passer en espace Pro" ne
       // fait qu'un `context.go(...)` (widget testé isolément dans
-      // profile_placeholder_screen_test.dart /
+      // client_profile_screen_test.dart /
       // pro_profile_placeholder_screen_test.dart) — ce qui compte ici,
       // niveau routeur, c'est que `redirect:` ne s'y oppose pas et
       // n'exige aucune ré-authentification pour un PROVIDER qui navigue

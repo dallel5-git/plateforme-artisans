@@ -280,8 +280,7 @@ class Translations$profile$ar extends Translations$profile$fr {
 
 	// Translations
 	@override String get title => 'الملف الشخصي';
-	@override String get emptyTitle => 'الملف الشخصي قريباً';
-	@override String get emptyMessage => 'ستتوفر إدارة حسابك قريباً.';
+	@override String get accountFallback => 'حسابي';
 	@override String get switchToProSpace => 'التبديل إلى مساحة المحترفين';
 }
 
@@ -709,8 +708,7 @@ extension on TranslationsAr {
 			'proProfile.emptyMessage' => 'عدّل معلوماتك وتوفّرك بمجرد أن تصبح هذه الميزة جاهزة.',
 			'proProfile.switchToClientSpace' => 'العودة إلى مساحة العميل',
 			'profile.title' => 'الملف الشخصي',
-			'profile.emptyTitle' => 'الملف الشخصي قريباً',
-			'profile.emptyMessage' => 'ستتوفر إدارة حسابك قريباً.',
+			'profile.accountFallback' => 'حسابي',
 			'profile.switchToProSpace' => 'التبديل إلى مساحة المحترفين',
 			'provider.profile.callButton' => 'اتصال',
 			'provider.profile.whatsappButton' => 'واتساب',

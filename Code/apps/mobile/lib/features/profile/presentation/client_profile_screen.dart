@@ -4,19 +4,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sanaya/app/providers.dart';
+import 'package:sanaya/core/api/generated/api.dart';
 import 'package:sanaya/core/i18n/locale_persistence.dart';
 import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/theme/app_text.dart';
+import 'package:sanaya/core/utils/phone_mask.dart';
 import 'package:sanaya/core/widgets/app_button.dart';
 import 'package:sanaya/core/widgets/app_card.dart';
+import 'package:sanaya/core/widgets/app_skeleton.dart';
+import 'package:sanaya/core/widgets/provider_avatar.dart';
 import 'package:sanaya/features/auth/application/auth_state_provider.dart';
+import 'package:sanaya/features/auth/application/current_user_provider.dart';
 
-/// Écran des réglages de l'application (FM-13).
-/// Gère la langue avec bascule immédiate et persistance, l'apparence,
-/// les mentions légales et la déconnexion sécurisée.
-class SettingsScreen extends ConsumerWidget {
-  const SettingsScreen({super.key});
+/// Onglet Profil client (`/client/profile`, FM-32). Fusionne l'en-tête
+/// d'identité (nom + numéro masqué, `GET /v1/auth/me`) avec les sections
+/// déjà construites de l'ancien `SettingsScreen` (FM-13) — langue, thème,
+/// mentions légales, déconnexion — et la bascule Client↔Pro posée par
+/// `ProfilePlaceholderScreen` (FM-25). Remplace les deux écrans, qui sont
+/// supprimés (déplacés, pas dupliqués).
+class ClientProfileScreen extends ConsumerWidget {
+  const ClientProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,14 +32,22 @@ class SettingsScreen extends ConsumerWidget {
     final locale = ref.watch(localeProvider);
     final themeMode = ref.watch(themeModeProvider);
     final t = ref.watch(translationsProvider);
+    final isProvider =
+        ref.watch(authStateProvider).valueOrNull?.isProvider ?? false;
+    final currentUser = ref.watch(currentUserProvider);
 
     return Scaffold(
       backgroundColor: colors.background,
-      appBar: AppBar(title: Text(t.settings.title)),
+      appBar: AppBar(title: Text(t.profile.title)),
       body: ListView(
         padding: const EdgeInsets.all(AppSpacing.md),
         children: [
-          // Section Langue
+          _IdentityHeader(
+            currentUser: currentUser,
+            fallbackName: t.profile.accountFallback,
+          ),
+          const SizedBox(height: AppSpacing.lg),
+
           _SectionHeader(title: t.settings.languageSection),
           const SizedBox(height: AppSpacing.xs),
           AppCard(
@@ -66,7 +82,6 @@ class SettingsScreen extends ConsumerWidget {
           ),
           const SizedBox(height: AppSpacing.lg),
 
-          // Section Thème
           _SectionHeader(title: t.settings.themeSection),
           const SizedBox(height: AppSpacing.xs),
           AppCard(
@@ -110,7 +125,6 @@ class SettingsScreen extends ConsumerWidget {
           ),
           const SizedBox(height: AppSpacing.lg),
 
-          // Section Mentions Légales
           _SectionHeader(title: t.settings.legalSection),
           const SizedBox(height: AppSpacing.xs),
           AppCard(
@@ -120,16 +134,23 @@ class SettingsScreen extends ConsumerWidget {
               onTap: () {
                 final router = GoRouter.maybeOf(context);
                 if (router != null) {
-                  unawaited(context.push('/settings/legal'));
+                  unawaited(context.push('/client/profile/legal'));
                 }
               },
             ),
           ),
           const SizedBox(height: AppSpacing.lg),
 
-          // Section Compte / Déconnexion
           _SectionHeader(title: t.settings.accountSection),
           const SizedBox(height: AppSpacing.xs),
+          if (isProvider) ...[
+            AppButton(
+              label: t.profile.switchToProSpace,
+              variant: AppButtonVariant.secondary,
+              onPressed: () => context.go('/pro'),
+            ),
+            const SizedBox(height: AppSpacing.md),
+          ],
           AppButton(
             label: t.settings.logout,
             variant: AppButtonVariant.danger,
@@ -178,10 +199,6 @@ class SettingsScreen extends ConsumerWidget {
     );
 
     if (shouldLogout == true && context.mounted) {
-      // régression #222 : authRepository.logout() sans argument était un
-      // no-op (gardé par `if (refreshToken != null)`) — ni révocation
-      // serveur, ni purge du token store, ni changement d'état. Seul
-      // AuthStateNotifier.signOut() fait réellement les trois.
       await ref.read(authStateProvider.notifier).signOut();
       if (context.mounted) {
         final router = GoRouter.maybeOf(context);
@@ -190,6 +207,78 @@ class SettingsScreen extends ConsumerWidget {
         }
       }
     }
+  }
+}
+
+class _IdentityHeader extends StatelessWidget {
+  const _IdentityHeader({
+    required this.currentUser,
+    required this.fallbackName,
+  });
+
+  final AsyncValue<V1AuthMeGet200Response?> currentUser;
+  final String fallbackName;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final locale = Localizations.localeOf(context);
+    final user = currentUser.valueOrNull;
+
+    return AppCard(
+      child: Row(
+        children: [
+          const ProviderAvatar(url: null, size: 56),
+          const SizedBox(width: AppSpacing.md),
+          Expanded(
+            child: currentUser.isLoading && user == null
+                ? const _IdentityHeaderSkeleton()
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        _displayName(user, fallbackName),
+                        style: AppText.h3(
+                          locale,
+                        ).copyWith(color: colors.textPrimary),
+                      ),
+                      if (user != null) ...[
+                        const SizedBox(height: AppSpacing.xxs),
+                        Text(
+                          maskPhone(user.phone),
+                          style: AppText.body(
+                            locale,
+                          ).copyWith(color: colors.textSecondary),
+                        ),
+                      ],
+                    ],
+                  ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _displayName(V1AuthMeGet200Response? user, String fallback) {
+    if (user == null) return fallback;
+    final name = '${user.firstName} ${user.lastName}'.trim();
+    return name.isEmpty ? fallback : name;
+  }
+}
+
+class _IdentityHeaderSkeleton extends StatelessWidget {
+  const _IdentityHeaderSkeleton();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AppSkeleton(width: 140, height: 18),
+        SizedBox(height: AppSpacing.xxs),
+        AppSkeleton(width: 100, height: 14),
+      ],
+    );
   }
 }
 

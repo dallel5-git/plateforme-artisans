@@ -503,11 +503,8 @@ class Translations$profile$fr {
 	/// fr: 'Profil'
 	String get title => 'Profil';
 
-	/// fr: 'Profil bientôt disponible'
-	String get emptyTitle => 'Profil bientôt disponible';
-
-	/// fr: 'La gestion de votre compte arrive prochainement.'
-	String get emptyMessage => 'La gestion de votre compte arrive prochainement.';
+	/// fr: 'Mon compte'
+	String get accountFallback => 'Mon compte';
 
 	/// fr: 'Passer en espace Pro'
 	String get switchToProSpace => 'Passer en espace Pro';
@@ -1210,8 +1207,7 @@ extension on Translations {
 			'proProfile.emptyMessage' => 'Modifiez vos informations et votre disponibilité dès que cette fonctionnalité sera prête.',
 			'proProfile.switchToClientSpace' => 'Retour à l\'espace Client',
 			'profile.title' => 'Profil',
-			'profile.emptyTitle' => 'Profil bientôt disponible',
-			'profile.emptyMessage' => 'La gestion de votre compte arrive prochainement.',
+			'profile.accountFallback' => 'Mon compte',
 			'profile.switchToProSpace' => 'Passer en espace Pro',
 			'provider.profile.callButton' => 'Appeler',
 			'provider.profile.whatsappButton' => 'WhatsApp',
