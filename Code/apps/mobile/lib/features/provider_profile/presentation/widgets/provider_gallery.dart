@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sanaya/core/api/generated/api.dart';
 import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
+import 'package:sanaya/core/widgets/app_skeleton.dart';
 
 /// Galerie photos de la fiche artisan (PageView + indicateur).
 /// Hauteur fixe 220 px (évite les sauts de layout, critère FM-08).
@@ -60,14 +61,10 @@ class _ProviderGalleryState extends State<ProviderGallery> {
                 fit: BoxFit.cover,
                 width: double.infinity,
                 height: 220,
-                placeholder: (context, url) => ColoredBox(
-                  color: colors.surfaceSunken,
-                  child: Center(
-                    child: CircularProgressIndicator.adaptive(
-                      strokeWidth: 2,
-                      valueColor: AlwaysStoppedAnimation<Color>(colors.accent),
-                    ),
-                  ),
+                placeholder: (context, url) => const AppSkeleton(
+                  width: double.infinity,
+                  height: 220,
+                  borderRadius: BorderRadius.zero,
                 ),
                 errorWidget: (context, url, error) => ColoredBox(
                   color: colors.surfaceSunken,

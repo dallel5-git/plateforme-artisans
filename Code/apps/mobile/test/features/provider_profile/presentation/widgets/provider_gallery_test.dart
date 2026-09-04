@@ -4,6 +4,7 @@ import 'package:sanaya/app/theme.dart';
 import 'package:sanaya/core/api/generated/api.dart';
 import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
+import 'package:sanaya/core/widgets/app_skeleton.dart';
 import 'package:sanaya/features/provider_profile/presentation/widgets/provider_gallery.dart';
 
 Widget _wrap(
@@ -87,6 +88,20 @@ void main() {
         dotColors,
         contains(AppColors.dark.onScrim.withValues(alpha: 0.54)),
       );
+    },
+  );
+
+  testWidgets(
+    'FM-29b — le chargement d une photo affiche AppSkeleton, jamais un '
+    'CircularProgressIndicator plein-cadre',
+    (tester) async {
+      final gallery = [_fakeGalleryItem('1')];
+
+      await tester.pumpWidget(_wrap(ProviderGallery(gallery: gallery)));
+      await tester.pump();
+
+      expect(find.byType(AppSkeleton), findsOneWidget);
+      expect(find.byType(CircularProgressIndicator), findsNothing);
     },
   );
 }
