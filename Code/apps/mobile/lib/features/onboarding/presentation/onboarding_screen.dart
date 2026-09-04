@@ -161,7 +161,17 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               t.onboarding.stepSummary,
             ],
             currentStepIndex: state.currentStepIndex,
-            completionScore: state.completionScore,
+            // `OnboardingStep.values.length` plutôt qu'un total figé à 5 :
+            // la maquette C1 anticipe l'étape photos de FM-35 (hors
+            // périmètre FM-34), pas encore dans `OnboardingStep` — ce
+            // libellé se corrigera de lui-même à « sur 5 » quand FM-35
+            // ajoutera cette étape, sans mensonge d'ici là.
+            stepCountLabel: t.onboarding.stepIndicator
+                .replaceAll(
+                  '{current}',
+                  '${state.currentStepIndex + 1}',
+                )
+                .replaceAll('{total}', '${OnboardingStep.values.length}'),
           ),
           Expanded(
             child: switch (state.currentStep) {

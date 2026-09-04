@@ -101,7 +101,7 @@ void main() {
 
   testWidgets(
     "🔒 remplir + Suivant sur le profil avance à l'étape catégories "
-    'avec le completionScore du serveur (P3)',
+    "et met à jour l'en-tête de progression (FM-34)",
     (tester) async {
       // 🔒 NON-RÉGRESSION — vérifie le câblage complet écran → notifier →
       // repository : sans lui, une erreur de wiring dans OnboardingScreen
@@ -155,10 +155,10 @@ void main() {
       verify(() => mockRepo.createProfile(any())).called(1);
       expect(find.text(t.onboarding.categoriesTitle), findsOneWidget);
 
-      final progress = tester.widget<LinearProgressIndicator>(
-        find.byType(LinearProgressIndicator),
-      );
-      expect(progress.value, closeTo(0.36, 0.001));
+      // FM-34 : l'en-tête affiche « Étape N sur total », plus une barre de
+      // complétude — `completionScore` du mock (36) n'est donc plus vérifié
+      // ici, il ne réapparaît qu'au récapitulatif (`OnboardingSummaryStep`).
+      expect(find.text('Étape 2 sur 4'), findsOneWidget);
     },
   );
 

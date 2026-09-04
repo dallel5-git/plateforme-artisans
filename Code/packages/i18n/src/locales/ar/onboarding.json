@@ -7,6 +7,7 @@
   "stepCategories": "الفئات",
   "stepZones": "المناطق",
   "stepSummary": "الملخّص",
+  "stepIndicator": "الخطوة {current} من {total}",
   "profileBusinessName": "اسم النشاط",
   "profileHeadline": "العنوان (مثال: سبّاك معتمد)",
   "profileBio": "نبذة (50 حرفًا على الأقل)",
