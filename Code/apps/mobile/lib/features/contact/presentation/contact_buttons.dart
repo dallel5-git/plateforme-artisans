@@ -58,7 +58,7 @@ class ContactButtons extends ConsumerWidget {
           child: AppButton(
             label: t.contact.whatsapp,
             icon: const Icon(Icons.chat, size: 18),
-            variant: AppButtonVariant.whatsapp,
+            variant: AppButtonVariant.outlineWhatsapp,
             onPressed: () => contact(ContactChannel.whatsapp),
           ),
         ),

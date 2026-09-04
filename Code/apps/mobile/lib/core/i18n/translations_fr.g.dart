@@ -767,6 +767,9 @@ class Translations$common$devPreview$fr {
 	/// fr: 'WhatsApp'
 	String get buttonWhatsapp => 'WhatsApp';
 
+	/// fr: 'WhatsApp (contour)'
+	String get buttonOutlineWhatsapp => 'WhatsApp (contour)';
+
 	/// fr: 'Danger'
 	String get buttonDanger => 'Danger';
 
@@ -1060,6 +1063,7 @@ extension on Translations {
 			'common.devPreview.buttonSecondary' => 'Secondary',
 			'common.devPreview.buttonGhost' => 'Ghost',
 			'common.devPreview.buttonWhatsapp' => 'WhatsApp',
+			'common.devPreview.buttonOutlineWhatsapp' => 'WhatsApp (contour)',
 			'common.devPreview.buttonDanger' => 'Danger',
 			'common.devPreview.phoneLabel' => 'Numéro de téléphone',
 			'common.devPreview.phoneHint' => '+216 22 123 456',

@@ -45,6 +45,7 @@
     "buttonSecondary": "Secondary",
     "buttonGhost": "Ghost",
     "buttonWhatsapp": "WhatsApp",
+    "buttonOutlineWhatsapp": "WhatsApp (contour)",
     "buttonDanger": "Danger",
     "phoneLabel": "Numéro de téléphone",
     "phoneHint": "+216 22 123 456",
