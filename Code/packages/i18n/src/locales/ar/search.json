@@ -7,5 +7,7 @@
   "categoriesEmpty": "لا توجد فئات متاحة حاليًا.",
   "categoriesError": "تعذّر تحميل الفئات.",
   "locationError": "تعذّر تحميل الولايات.",
-  "retry": "إعادة المحاولة"
+  "retry": "إعادة المحاولة",
+  "filterRatingMin": "تقييم 4+",
+  "filterUrgent": "عاجل"
 }
