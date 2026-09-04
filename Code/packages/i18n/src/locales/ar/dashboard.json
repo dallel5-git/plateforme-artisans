@@ -1,5 +1,6 @@
 {
   "title": "لوحة التحكم",
+  "greeting": "مرحباً، $name",
   "statViews": "مشاهدات الملف الشخصي",
   "statUniqueViews": "زوار فريدون",
   "statContacts": "جهات الاتصال",

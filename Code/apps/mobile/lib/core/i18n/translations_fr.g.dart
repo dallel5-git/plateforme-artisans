@@ -176,6 +176,9 @@ class Translations$dashboard$fr {
 	/// fr: 'Tableau de bord'
 	String get title => 'Tableau de bord';
 
+	/// fr: 'Bonjour, $name'
+	String greeting({required Object name}) => 'Bonjour, ${name}';
+
 	/// fr: 'Vues du profil'
 	String get statViews => 'Vues du profil';
 
@@ -1155,6 +1158,7 @@ extension on Translations {
 			'contact.call' => 'Appeler',
 			'contact.whatsapp' => 'WhatsApp',
 			'dashboard.title' => 'Tableau de bord',
+			'dashboard.greeting' => ({required Object name}) => 'Bonjour, ${name}',
 			'dashboard.statViews' => 'Vues du profil',
 			'dashboard.statUniqueViews' => 'Visiteurs uniques',
 			'dashboard.statContacts' => 'Contacts',
