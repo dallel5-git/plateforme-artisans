@@ -47,26 +47,31 @@ class OnboardingRepository {
 
   /// Remplace le set complet de catégories (une seule `isPrimary: true`,
   /// limite FREE : 3 catégories). `completionScore` recalculé.
+  ///
+  /// `unwrapDioErrors` (FM-34b) : un dépassement de plafond malgré le
+  /// contrôle client (`OnboardingCategoriesStep`) remonte un
+  /// `ValidationException` typé (`details.limit`) plutôt qu'un
+  /// `DioException` brut, pour que le notifier puisse l'afficher.
   Future<CategoriesResult> setCategories(
     V1ProvidersMeCategoriesPutRequest body,
-  ) async {
+  ) => unwrapDioErrors(() async {
     final response = await _api.v1ProvidersMeCategoriesPut(
       v1ProvidersMeCategoriesPutRequest: body,
     );
     return response.data!;
-  }
+  });
 
   /// Remplace le set complet de zones d'intervention. `delegationId` absent =
   /// tout le gouvernorat. Limite FREE : 1 gouvernorat distinct.
-  /// `completionScore` recalculé.
+  /// `completionScore` recalculé. Voir [setCategories] pour `unwrapDioErrors`.
   Future<CoverageAreasResult> setCoverageAreas(
     V1ProvidersMeCoverageAreasPutRequest body,
-  ) async {
+  ) => unwrapDioErrors(() async {
     final response = await _api.v1ProvidersMeCoverageAreasPut(
       v1ProvidersMeCoverageAreasPutRequest: body,
     );
     return response.data!;
-  }
+  });
 }
 
 /// `PATCH` et `GET /providers/me` (BE-44) renvoient toutes deux exactement

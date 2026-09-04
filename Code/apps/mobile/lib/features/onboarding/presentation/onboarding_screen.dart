@@ -34,7 +34,20 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   Set<String> _zoneSelection = const {};
   bool _published = false;
 
-  String? _errorMessage(Translations t, String? errorCode) {
+  String? _errorMessage(
+    Translations t,
+    String? errorCode,
+    Map<String, dynamic>? errorDetails,
+  ) {
+    // FM-34b : un plafond dépassé malgré le contrôle client (désynchro
+    // multi-session) remonte `VALIDATION_ERROR` + `details.limit` — priorité
+    // sur les messages génériques ci-dessous.
+    if (errorCode == 'VALIDATION_ERROR') {
+      final limit = errorDetails?['limit'];
+      if (limit != null) {
+        return t.errors.validationLimit.replaceAll('{limit}', '$limit');
+      }
+    }
     return switch (errorCode) {
       'ONBOARDING_PROFILE_SAVE_FAILED' => t.onboarding.profileSaveError,
       'ONBOARDING_CATEGORIES_SAVE_FAILED' => t.onboarding.categoriesSaveError,
@@ -134,7 +147,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   Widget build(BuildContext context) {
     final t = ref.watch(translationsProvider);
     final state = ref.watch(onboardingProvider);
-    final errorMessage = _errorMessage(t, state.errorCode);
+    final errorMessage = _errorMessage(t, state.errorCode, state.errorDetails);
 
     return Scaffold(
       backgroundColor: context.colors.background,

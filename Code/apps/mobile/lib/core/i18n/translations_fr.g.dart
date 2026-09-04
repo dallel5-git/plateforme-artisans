@@ -229,6 +229,9 @@ class Translations$errors$fr {
 
 	/// fr: 'Retour à l'accueil'
 	String get routeNotFoundAction => 'Retour à l\'accueil';
+
+	/// fr: 'Limite atteinte : maximum {limit}.'
+	String get validationLimit => 'Limite atteinte : maximum {limit}.';
 }
 
 // Path: favorites
@@ -428,8 +431,14 @@ class Translations$onboarding$fr {
 	/// fr: 'Impossible d'enregistrer les catégories. Réessayez.'
 	String get categoriesSaveError => 'Impossible d\'enregistrer les catégories. Réessayez.';
 
+	/// fr: '3 catégories maximum en offre gratuite'
+	String get categoriesCapHint => '3 catégories maximum en offre gratuite';
+
 	/// fr: 'Choisissez vos zones d'intervention'
 	String get zonesTitle => 'Choisissez vos zones d\'intervention';
+
+	/// fr: '1 gouvernorat maximum en offre gratuite'
+	String get zonesCapHint => '1 gouvernorat maximum en offre gratuite';
 
 	/// fr: 'Sélectionnez au moins un gouvernorat.'
 	String get zonesEmpty => 'Sélectionnez au moins un gouvernorat.';
@@ -1134,6 +1143,7 @@ extension on Translations {
 			'errors.routeNotFoundTitle' => 'Page introuvable',
 			'errors.routeNotFoundMessage' => 'Cette page n\'existe pas ou n\'est plus disponible.',
 			'errors.routeNotFoundAction' => 'Retour à l\'accueil',
+			'errors.validationLimit' => 'Limite atteinte : maximum {limit}.',
 			'favorites.title' => 'Mes favoris',
 			'favorites.emptyTitle' => 'Aucun favori pour le moment',
 			'favorites.emptySubtitle' => 'Enregistrez des artisans pour les retrouver rapidement.',
@@ -1188,7 +1198,9 @@ extension on Translations {
 			'onboarding.categoriesEmpty' => 'Sélectionnez au moins une catégorie.',
 			'onboarding.categoriesError' => 'Impossible de charger les catégories.',
 			'onboarding.categoriesSaveError' => 'Impossible d\'enregistrer les catégories. Réessayez.',
+			'onboarding.categoriesCapHint' => '3 catégories maximum en offre gratuite',
 			'onboarding.zonesTitle' => 'Choisissez vos zones d\'intervention',
+			'onboarding.zonesCapHint' => '1 gouvernorat maximum en offre gratuite',
 			'onboarding.zonesEmpty' => 'Sélectionnez au moins un gouvernorat.',
 			'onboarding.zonesError' => 'Impossible de charger les gouvernorats.',
 			'onboarding.zonesSaveError' => 'Impossible d\'enregistrer les zones. Réessayez.',

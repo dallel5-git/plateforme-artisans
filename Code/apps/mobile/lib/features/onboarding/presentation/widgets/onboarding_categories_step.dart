@@ -5,7 +5,8 @@ import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/theme/app_text.dart';
 import 'package:sanaya/core/widgets/app_button.dart';
-import 'package:sanaya/core/widgets/app_card.dart';
+import 'package:sanaya/features/onboarding/domain/onboarding_plan_limits.dart';
+import 'package:sanaya/features/onboarding/presentation/widgets/onboarding_selectable_option_card.dart';
 import 'package:sanaya/features/search/application/catalog_providers.dart';
 
 /// Sélection courante : id de catégorie -> `isPrimary`. Une seule entrée à
@@ -46,6 +47,7 @@ class _OnboardingCategoriesStepState
         _selection.remove(categoryId);
         return;
       }
+      if (_selection.length >= freePlanMaxCategories) return;
       final isFirst = _selection.isEmpty;
       _selection[categoryId] = isFirst;
     });
@@ -88,35 +90,27 @@ class _OnboardingCategoriesStepState
         padding: const EdgeInsets.all(AppSpacing.lg),
         children: [
           Text(t.onboarding.categoriesTitle, style: AppText.h3(locale)),
+          const SizedBox(height: AppSpacing.xs),
+          Text(
+            t.onboarding.categoriesCapHint,
+            style: AppText.small(locale).copyWith(color: colors.textMuted),
+          ),
           const SizedBox(height: AppSpacing.md),
           for (final category in categories)
             Padding(
               padding: const EdgeInsets.only(bottom: AppSpacing.sm),
-              child: AppCard(
-                child: Row(
-                  children: [
-                    Checkbox(
-                      value: _selection.containsKey(category.id),
-                      onChanged: (_) => _toggle(category.id),
-                    ),
-                    Expanded(
-                      child: Text(
-                        locale.languageCode == 'ar'
-                            ? category.nameAr
-                            : category.nameFr,
-                        style: AppText.body(
-                          locale,
-                        ).copyWith(color: colors.textPrimary),
-                      ),
-                    ),
-                    if (_selection.containsKey(category.id))
-                      ChoiceChip(
-                        label: Text(t.onboarding.categoriesPrimaryHint),
-                        selected: _selection[category.id] == true,
-                        onSelected: (_) => _setPrimary(category.id),
-                      ),
-                  ],
-                ),
+              child: OnboardingSelectableOptionCard(
+                label: locale.languageCode == 'ar'
+                    ? category.nameAr
+                    : category.nameFr,
+                selected: _selection.containsKey(category.id),
+                enabled:
+                    _selection.containsKey(category.id) ||
+                    _selection.length < freePlanMaxCategories,
+                onTap: () => _toggle(category.id),
+                isPrimary: _selection[category.id] == true,
+                primaryBadgeLabel: t.onboarding.categoriesPrimaryHint,
+                onTapPrimaryBadge: () => _setPrimary(category.id),
               ),
             ),
           if (_selection.isEmpty) ...[

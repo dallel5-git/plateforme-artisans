@@ -24,6 +24,7 @@ class OnboardingState {
     required this.isSaving,
     this.profile,
     this.errorCode,
+    this.errorDetails,
   });
 
   /// Profil artisan renvoyé par l'API. `null` tant que `createProfile`
@@ -47,6 +48,11 @@ class OnboardingState {
   /// Code d'erreur typé (packages/constants/error-codes) positionné après
   /// un appel API échoué. `null` = pas d'erreur en cours.
   final String? errorCode;
+
+  /// `details` du `SanayaApiException` correspondant (FM-34b) — porte par
+  /// ex. `{limit: 3}` pour un `VALIDATION_ERROR` de plafond dépassé.
+  /// `null` si l'erreur n'a pas de détails ou si `errorCode` est `null`.
+  final Map<String, dynamic>? errorDetails;
 
   // ---------------------------------------------------------------------------
   // Dérivés
@@ -78,6 +84,7 @@ class OnboardingState {
     List<String>? missingFields,
     bool? isSaving,
     String? errorCode,
+    Map<String, dynamic>? errorDetails,
     bool clearError = false,
   }) {
     return OnboardingState(
@@ -87,6 +94,7 @@ class OnboardingState {
       missingFields: missingFields ?? this.missingFields,
       isSaving: isSaving ?? this.isSaving,
       errorCode: clearError ? null : (errorCode ?? this.errorCode),
+      errorDetails: clearError ? null : (errorDetails ?? this.errorDetails),
     );
   }
 
