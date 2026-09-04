@@ -63,8 +63,14 @@ class Translations$auth$fr {
 	/// fr: 'Votre numéro de téléphone'
 	String get phoneTitle => 'Votre numéro de téléphone';
 
+	/// fr: 'Nous vous enverrons un code de vérification par SMS'
+	String get phoneSubtitle => 'Nous vous enverrons un code de vérification par SMS';
+
 	/// fr: '22 123 456'
 	String get phoneHint => '22 123 456';
+
+	/// fr: 'En continuant, vous acceptez nos conditions d'utilisation et notre politique de confidentialité'
+	String get legalConsent => 'En continuant, vous acceptez nos conditions d\'utilisation et notre politique de confidentialité';
 
 	/// fr: 'Numéro de téléphone tunisien invalide'
 	String get phoneInvalid => 'Numéro de téléphone tunisien invalide';
@@ -84,8 +90,8 @@ class Translations$auth$fr {
 	/// fr: 'Renvoyer le code'
 	String get otpResend => 'Renvoyer le code';
 
-	/// fr: 'Renvoyer dans {seconds}s'
-	String get otpResendCountdown => 'Renvoyer dans {seconds}s';
+	/// fr: 'Renvoyer le code ({mmss})'
+	String get otpResendCountdown => 'Renvoyer le code ({mmss})';
 
 	/// fr: 'Code invalide, {count} tentative(s) restante(s)'
 	String get otpAttemptsRemaining => 'Code invalide, {count} tentative(s) restante(s)';
@@ -1011,14 +1017,16 @@ extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'auth.phoneTitle' => 'Votre numéro de téléphone',
+			'auth.phoneSubtitle' => 'Nous vous enverrons un code de vérification par SMS',
 			'auth.phoneHint' => '22 123 456',
+			'auth.legalConsent' => 'En continuant, vous acceptez nos conditions d\'utilisation et notre politique de confidentialité',
 			'auth.phoneInvalid' => 'Numéro de téléphone tunisien invalide',
 			'auth.phoneCta' => 'Recevoir le code',
 			'auth.otpTitle' => 'Code de vérification',
 			'auth.otpSubtitle' => 'Un code à 6 chiffres a été envoyé au {phone}',
 			'auth.otpCta' => 'Confirmer',
 			'auth.otpResend' => 'Renvoyer le code',
-			'auth.otpResendCountdown' => 'Renvoyer dans {seconds}s',
+			'auth.otpResendCountdown' => 'Renvoyer le code ({mmss})',
 			'auth.otpAttemptsRemaining' => 'Code invalide, {count} tentative(s) restante(s)',
 			'auth.errorOtpInvalid' => 'Code invalide',
 			'auth.errorOtpExpired' => 'Ce code a expiré, demandez-en un nouveau',

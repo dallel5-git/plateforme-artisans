@@ -33,6 +33,36 @@ void main() {
   });
 
   testWidgets(
+    'onChanged (FM-33) : appelé à chaque chiffre, code partiel inclus',
+    (tester) async {
+      final changes = <String>[];
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: buildTheme(
+            brightness: Brightness.light,
+            locale: const Locale('fr'),
+          ),
+          home: Scaffold(
+            body: OtpCodeField(
+              length: 6,
+              onCompleted: (_) {},
+              onChanged: changes.add,
+            ),
+          ),
+        ),
+      );
+
+      final fields = find.byType(TextField);
+      await tester.enterText(fields.at(0), '1');
+      await tester.pump();
+      await tester.enterText(fields.at(1), '2');
+      await tester.pump();
+
+      expect(changes, ['1', '12']);
+    },
+  );
+
+  testWidgets(
     'coller un code entier dans la première case le distribue et '
     'déclenche onCompleted',
     (tester) async {
