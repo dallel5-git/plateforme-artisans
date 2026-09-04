@@ -21,6 +21,7 @@ class OtpCodeField extends StatefulWidget {
     this.enabled = true,
     this.hasError = false,
     this.autofocus = true,
+    this.onChanged,
   });
 
   final int length;
@@ -28,6 +29,12 @@ class OtpCodeField extends StatefulWidget {
   final bool enabled;
   final bool hasError;
   final bool autofocus;
+
+  /// Appelé à chaque chiffre saisi ou effacé (code partiel inclus) — permet
+  /// à l'appelant de suivre la complétude du code, ex. pour activer le
+  /// bouton « Confirmer » (FM-33) indépendamment de la soumission
+  /// automatique à la 6ᵉ touche que fait déjà [onCompleted].
+  final ValueChanged<String>? onChanged;
 
   @override
   State<OtpCodeField> createState() => _OtpCodeFieldState();
@@ -70,6 +77,7 @@ class _OtpCodeFieldState extends State<OtpCodeField> {
         0,
         widget.length - 1,
       );
+      widget.onChanged?.call(_currentCode());
       if (index + digits.length >= widget.length) {
         _focusNodes[lastFilled].unfocus();
         widget.onCompleted(_currentCode());
@@ -81,6 +89,7 @@ class _OtpCodeFieldState extends State<OtpCodeField> {
 
     if (value.isEmpty) {
       if (index > 0) _focusNodes[index - 1].requestFocus();
+      widget.onChanged?.call(_currentCode());
       return;
     }
 
@@ -90,6 +99,7 @@ class _OtpCodeFieldState extends State<OtpCodeField> {
       _focusNodes[index].unfocus();
     }
 
+    widget.onChanged?.call(_currentCode());
     if (_currentCode().length == widget.length) {
       widget.onCompleted(_currentCode());
     }

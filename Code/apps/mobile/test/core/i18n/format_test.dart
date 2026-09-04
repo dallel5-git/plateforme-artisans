@@ -58,6 +58,24 @@ void main() {
     });
   });
 
+  group('FM-33c — formatCountdown', () {
+    test('affiche 0:47 pour 47 secondes, jamais "47s"', () {
+      expect(formatCountdown(47), '0:47');
+    });
+
+    test('bascule à la minute avec des secondes complétées à 2 chiffres', () {
+      expect(formatCountdown(65), '1:05');
+    });
+
+    test('0 seconde affiche 0:00', () {
+      expect(formatCountdown(0), '0:00');
+    });
+
+    test('une valeur négative se rabat sur 0:00', () {
+      expect(formatCountdown(-3), '0:00');
+    });
+  });
+
   group('formatNumber', () {
     test('formate un nombre avec 1 décimale en FR (virgule)', () {
       final result = formatNumber(4.8, const Locale('fr'));

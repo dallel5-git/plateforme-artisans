@@ -31,6 +31,17 @@ String formatDate(DateTime date, Locale locale) {
   return DateFormat.yMMMd(locale.languageCode).format(tunisTime);
 }
 
+/// Formate une durée en secondes au format `m:ss` (ex. `47` → `0:47`,
+/// `125` → `2:05`) — utilisé par le compte à rebours de renvoi OTP
+/// (`otpResendCountdown`, FM-33), jamais `{seconds}s` brut. Chiffres
+/// occidentaux dans les deux locales, comme le reste de ce fichier.
+String formatCountdown(int seconds) {
+  final safeSeconds = seconds < 0 ? 0 : seconds;
+  final minutes = safeSeconds ~/ 60;
+  final remainingSeconds = safeSeconds % 60;
+  return '$minutes:${remainingSeconds.toString().padLeft(2, '0')}';
+}
+
 /// Miroir Dart de `packages/i18n/src/format.ts#formatNumber`, restreint à un
 /// nombre fixe de décimales (ex. note moyenne "4,8" — jamais "5" pour 5.0,
 /// contrairement à `NumberFormat.decimalPattern` qui tronque les zéros).

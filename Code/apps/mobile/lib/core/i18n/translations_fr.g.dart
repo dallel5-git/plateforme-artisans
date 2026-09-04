@@ -90,8 +90,8 @@ class Translations$auth$fr {
 	/// fr: 'Renvoyer le code'
 	String get otpResend => 'Renvoyer le code';
 
-	/// fr: 'Renvoyer dans {seconds}s'
-	String get otpResendCountdown => 'Renvoyer dans {seconds}s';
+	/// fr: 'Renvoyer le code ({mmss})'
+	String get otpResendCountdown => 'Renvoyer le code ({mmss})';
 
 	/// fr: 'Code invalide, {count} tentative(s) restante(s)'
 	String get otpAttemptsRemaining => 'Code invalide, {count} tentative(s) restante(s)';
@@ -1026,7 +1026,7 @@ extension on Translations {
 			'auth.otpSubtitle' => 'Un code à 6 chiffres a été envoyé au {phone}',
 			'auth.otpCta' => 'Confirmer',
 			'auth.otpResend' => 'Renvoyer le code',
-			'auth.otpResendCountdown' => 'Renvoyer dans {seconds}s',
+			'auth.otpResendCountdown' => 'Renvoyer le code ({mmss})',
 			'auth.otpAttemptsRemaining' => 'Code invalide, {count} tentative(s) restante(s)',
 			'auth.errorOtpInvalid' => 'Code invalide',
 			'auth.errorOtpExpired' => 'Ce code a expiré, demandez-en un nouveau',
