@@ -2,9 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import 'package:sanaya/core/i18n/format.dart';
 import 'package:sanaya/core/i18n/translations.g.dart';
 import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
+import 'package:sanaya/core/theme/app_text.dart';
 import 'package:sanaya/core/widgets/app_button.dart';
 import 'package:sanaya/features/auth/presentation/widgets/otp_code_field.dart';
 
@@ -43,6 +45,7 @@ class OtpStep extends StatefulWidget {
 
 class _OtpStepState extends State<OtpStep> {
   Timer? _tick;
+  String _code = '';
 
   @override
   void initState() {
@@ -63,9 +66,26 @@ class _OtpStepState extends State<OtpStep> {
   }
 
   @override
+  void didUpdateWidget(OtpStep oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // `OtpCodeField` se réinitialise (nouvelle Key) à chaque tentative — le
+    // code local suivi ici doit repartir à vide avec lui, sinon le bouton
+    // Confirmer resterait actif sur un champ redevenu visuellement vide.
+    if (widget.attemptCount != oldWidget.attemptCount) {
+      _code = '';
+    }
+  }
+
+  void _submit() {
+    if (_code.length != 6) return;
+    widget.onSubmit(_code);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final t = widget.translations;
     final colors = context.colors;
+    final locale = Localizations.localeOf(context);
     final hasError = widget.errorMessage != null;
 
     return Padding(
@@ -75,16 +95,12 @@ class _OtpStepState extends State<OtpStep> {
         children: [
           Text(
             t.auth.otpTitle,
-            style: Theme.of(
-              context,
-            ).textTheme.headlineSmall?.copyWith(color: colors.textPrimary),
+            style: AppText.h3(locale).copyWith(color: colors.textPrimary),
           ),
           const SizedBox(height: AppSpacing.sm),
           Text(
             t.auth.otpSubtitle.replaceAll('{phone}', widget.phone),
-            style: Theme.of(
-              context,
-            ).textTheme.bodyMedium?.copyWith(color: colors.textSecondary),
+            style: AppText.body(locale).copyWith(color: colors.textSecondary),
           ),
           const SizedBox(height: AppSpacing.xl),
           OtpCodeField(
@@ -93,6 +109,7 @@ class _OtpStepState extends State<OtpStep> {
             enabled: !widget.isSubmitting,
             hasError: hasError,
             onCompleted: widget.onSubmit,
+            onChanged: (code) => setState(() => _code = code),
           ),
           if (hasError) ...[
             const SizedBox(height: AppSpacing.sm),
@@ -103,12 +120,17 @@ class _OtpStepState extends State<OtpStep> {
                       widget.attemptsRemaining.toString(),
                     )
                   : widget.errorMessage!,
-              style: Theme.of(
-                context,
-              ).textTheme.bodySmall?.copyWith(color: colors.destructive),
+              style: AppText.small(locale).copyWith(color: colors.destructive),
             ),
           ],
           const SizedBox(height: AppSpacing.xl),
+          AppButton(
+            label: t.auth.otpCta,
+            onPressed: !widget.isSubmitting && _code.length == 6
+                ? _submit
+                : null,
+          ),
+          const SizedBox(height: AppSpacing.md),
           Center(
             child: AppButton(
               variant: AppButtonVariant.ghost,
@@ -116,8 +138,8 @@ class _OtpStepState extends State<OtpStep> {
               label: widget.canResend
                   ? t.auth.otpResend
                   : t.auth.otpResendCountdown.replaceAll(
-                      '{seconds}',
-                      widget.resendCountdownSeconds.toString(),
+                      '{mmss}',
+                      formatCountdown(widget.resendCountdownSeconds),
                     ),
               onPressed: widget.canResend && !widget.isSubmitting
                   ? widget.onResend
