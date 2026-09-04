@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:sanaya/core/i18n/translations.g.dart';
 import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
+import 'package:sanaya/core/theme/app_text.dart';
 import 'package:sanaya/core/widgets/app_button.dart';
 import 'package:sanaya/core/widgets/app_text_field.dart';
 import 'package:sanaya/features/settings/presentation/legal_notice_screen.dart';
@@ -60,6 +61,7 @@ class _PhoneEntryStepState extends State<PhoneEntryStep> {
   Widget build(BuildContext context) {
     final t = widget.translations;
     final colors = context.colors;
+    final locale = Localizations.localeOf(context);
 
     return Padding(
       padding: const EdgeInsetsDirectional.all(AppSpacing.lg),
@@ -68,16 +70,12 @@ class _PhoneEntryStepState extends State<PhoneEntryStep> {
         children: [
           Text(
             t.auth.phoneTitle,
-            style: Theme.of(
-              context,
-            ).textTheme.headlineSmall?.copyWith(color: colors.textPrimary),
+            style: AppText.h3(locale).copyWith(color: colors.textPrimary),
           ),
           const SizedBox(height: AppSpacing.sm),
           Text(
             t.auth.phoneSubtitle,
-            style: Theme.of(
-              context,
-            ).textTheme.bodyMedium?.copyWith(color: colors.textSecondary),
+            style: AppText.body(locale).copyWith(color: colors.textSecondary),
           ),
           const SizedBox(height: AppSpacing.lg),
           AppTextField(
@@ -88,9 +86,8 @@ class _PhoneEntryStepState extends State<PhoneEntryStep> {
             onChanged: (_) => setState(() {}),
             prefix: Text(
               '+216',
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+              style: AppText.bodyStrong(locale).copyWith(
                 color: colors.textPrimary,
-                fontWeight: FontWeight.w600,
               ),
             ),
           ),
@@ -106,7 +103,7 @@ class _PhoneEntryStepState extends State<PhoneEntryStep> {
               child: Text(
                 t.auth.legalConsent,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                style: AppText.small(locale).copyWith(
                   color: colors.textSecondary,
                   decoration: TextDecoration.underline,
                 ),
