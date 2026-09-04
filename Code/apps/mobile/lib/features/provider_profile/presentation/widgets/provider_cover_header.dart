@@ -1,10 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sanaya/core/api/generated/api.dart';
 import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
-import 'package:sanaya/core/widgets/app_skeleton.dart';
+import 'package:sanaya/core/widgets/provider_avatar.dart';
 import 'package:sanaya/features/provider_profile/presentation/widgets/provider_gallery.dart';
 
 const double _kAvatarSize = 72;
@@ -53,7 +52,7 @@ class ProviderCoverHeader extends StatelessWidget {
           PositionedDirectional(
             top: _kCoverHeight - _kAvatarSize / 2,
             start: AppSpacing.lg,
-            child: _Avatar(url: avatarUrl),
+            child: ProviderAvatar(key: providerAvatarKey, url: avatarUrl),
           ),
         ],
       ),
@@ -84,54 +83,6 @@ class ProviderBackButton extends StatelessWidget {
           // miroité automatiquement en RTL (cf. apps/mobile/CLAUDE.md).
           child: Icon(Icons.arrow_back, color: colors.onScrim, size: 20),
         ),
-      ),
-    );
-  }
-}
-
-class _Avatar extends StatelessWidget {
-  const _Avatar({required this.url});
-
-  final String? url;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.colors;
-
-    return Container(
-      key: providerAvatarKey,
-      width: _kAvatarSize,
-      height: _kAvatarSize,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(color: colors.surface, width: 3),
-      ),
-      child: ClipOval(
-        child: url == null
-            ? ColoredBox(
-                color: colors.surfaceSunken,
-                child: Icon(
-                  Icons.person,
-                  color: colors.textMuted,
-                  size: _kAvatarSize / 2,
-                ),
-              )
-            : CachedNetworkImage(
-                imageUrl: url!,
-                fit: BoxFit.cover,
-                width: _kAvatarSize,
-                height: _kAvatarSize,
-                placeholder: (context, url) =>
-                    const AppSkeleton.circle(size: _kAvatarSize),
-                errorWidget: (context, url, error) => ColoredBox(
-                  color: colors.surfaceSunken,
-                  child: Icon(
-                    Icons.person,
-                    color: colors.textMuted,
-                    size: _kAvatarSize / 2,
-                  ),
-                ),
-              ),
       ),
     );
   }
