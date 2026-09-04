@@ -2,13 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:sanaya/app/design_system_preview_screen.dart';
 import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/app/theme.dart';
+import 'package:sanaya/features/favorites/application/favorites_providers.dart';
+import 'package:sanaya/features/favorites/data/favorites_repository.dart';
+
+class _FavoritesRepositoryMock extends Mock implements FavoritesRepository {}
 
 Widget _wrap(Locale locale) {
+  final repository = _FavoritesRepositoryMock();
+  when(repository.fetchFavorites).thenAnswer(
+    (_) async => FavoritesResponse((b) => b..nextCursor = ''),
+  );
+
   return ProviderScope(
-    overrides: [localeProvider.overrideWith((ref) => locale)],
+    overrides: [
+      localeProvider.overrideWith((ref) => locale),
+      favoritesRepositoryProvider.overrideWithValue(repository),
+    ],
     child: MaterialApp(
       locale: locale,
       supportedLocales: const [Locale('fr'), Locale('ar')],
