@@ -7,6 +7,7 @@
   "stepCategories": "Catégories",
   "stepZones": "Zones",
   "stepSummary": "Récapitulatif",
+  "stepIndicator": "Étape {current} sur {total}",
   "profileBusinessName": "Nom de l'activité",
   "profileHeadline": "Titre (ex. Plombier certifié)",
   "profileBio": "Présentation (au moins 50 caractères)",

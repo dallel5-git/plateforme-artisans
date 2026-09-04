@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sanaya/app/theme.dart';
+import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/features/onboarding/presentation/widgets/onboarding_progress_header.dart';
 
 Widget _wrap(Widget child) => MaterialApp(
@@ -10,7 +11,7 @@ Widget _wrap(Widget child) => MaterialApp(
 );
 
 void main() {
-  testWidgets('affiche les 4 étapes et la valeur de complétude', (
+  testWidgets("affiche les libellés d'étape, le compteur et l'étape courante", (
     tester,
   ) async {
     await tester.pumpWidget(
@@ -18,37 +19,48 @@ void main() {
         const OnboardingProgressHeader(
           stepLabels: ['Profil', 'Catégories', 'Zones', 'Récap'],
           currentStepIndex: 1,
-          completionScore: 54,
+          stepCountLabel: 'Étape 2 sur 4',
         ),
       ),
     );
 
-    for (final label in ['Profil', 'Catégories', 'Zones', 'Récap']) {
-      expect(find.text(label), findsOneWidget);
-    }
-
-    final progress = tester.widget<LinearProgressIndicator>(
-      find.byType(LinearProgressIndicator),
-    );
-    expect(progress.value, closeTo(0.54, 0.001));
+    expect(find.text('Étape 2 sur 4'), findsOneWidget);
+    expect(find.text('Catégories'), findsOneWidget);
   });
 
-  testWidgets('borne la barre à 100 % même au-delà (défense simple)', (
-    tester,
-  ) async {
-    await tester.pumpWidget(
-      _wrap(
-        const OnboardingProgressHeader(
-          stepLabels: ['Profil'],
-          currentStepIndex: 0,
-          completionScore: 120,
+  testWidgets(
+    "remplit un segment par étape jusqu'à l'étape courante, pas au-delà",
+    (tester) async {
+      await tester.pumpWidget(
+        _wrap(
+          const OnboardingProgressHeader(
+            stepLabels: ['Profil', 'Catégories', 'Zones', 'Récap'],
+            currentStepIndex: 2,
+            stepCountLabel: 'Étape 3 sur 4',
+          ),
         ),
-      ),
-    );
+      );
 
-    final progress = tester.widget<LinearProgressIndicator>(
-      find.byType(LinearProgressIndicator),
-    );
-    expect(progress.value, 1.0);
-  });
+      final colors = tester
+          .element(find.byType(OnboardingProgressHeader))
+          .colors;
+      final segmentColors = tester
+          .widgetList<Container>(find.byType(Container))
+          .where((c) => c.constraints?.maxHeight == 6)
+          .map((c) => c.color)
+          .toList();
+
+      expect(segmentColors, hasLength(4));
+      expect(
+        segmentColors.where((c) => c == colors.accent).length,
+        3,
+        reason: 'les segments 0, 1 et 2 (<= currentStepIndex) sont remplis',
+      );
+      expect(
+        segmentColors.where((c) => c == colors.border).length,
+        1,
+        reason: 'le segment 3 (au-delà de currentStepIndex) reste neutre',
+      );
+    },
+  );
 }

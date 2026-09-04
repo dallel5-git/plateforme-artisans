@@ -383,6 +383,9 @@ class Translations$onboarding$fr {
 	/// fr: 'Récapitulatif'
 	String get stepSummary => 'Récapitulatif';
 
+	/// fr: 'Étape {current} sur {total}'
+	String get stepIndicator => 'Étape {current} sur {total}';
+
 	/// fr: 'Nom de l'activité'
 	String get profileBusinessName => 'Nom de l\'activité';
 
@@ -1170,6 +1173,7 @@ extension on Translations {
 			'onboarding.stepCategories' => 'Catégories',
 			'onboarding.stepZones' => 'Zones',
 			'onboarding.stepSummary' => 'Récapitulatif',
+			'onboarding.stepIndicator' => 'Étape {current} sur {total}',
 			'onboarding.profileBusinessName' => 'Nom de l\'activité',
 			'onboarding.profileHeadline' => 'Titre (ex. Plombier certifié)',
 			'onboarding.profileBio' => 'Présentation (au moins 50 caractères)',
