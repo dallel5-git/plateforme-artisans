@@ -96,7 +96,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byType(Checkbox).first);
+      await tester.tap(find.text('Plomberie'));
       await tester.pumpAndSettle();
 
       await tester.tap(find.text(t.onboarding.next));
@@ -106,42 +106,95 @@ void main() {
     },
   );
 
-  testWidgets('changer la catégorie principale via le ChoiceChip', (
-    tester,
-  ) async {
-    Map<String, bool>? submitted;
-    await _pumpTall(
-      tester,
-      _wrap(
-        OnboardingCategoriesStep(
-          initialSelection: const {},
-          isSaving: false,
-          errorMessage: null,
-          onSubmit: (s) => submitted = s,
-        ),
-        overrides: [
-          categoriesProvider.overrideWith(
-            (ref) async => [
-              _category('plomberie', 'Plomberie'),
-              _category('electricite', 'Électricité'),
-            ],
+  testWidgets(
+    'changer la catégorie principale via le badge « Principale »',
+    (tester) async {
+      Map<String, bool>? submitted;
+      await _pumpTall(
+        tester,
+        _wrap(
+          OnboardingCategoriesStep(
+            initialSelection: const {},
+            isSaving: false,
+            errorMessage: null,
+            onSubmit: (s) => submitted = s,
           ),
-        ],
-      ),
-    );
-    await tester.pumpAndSettle();
+          overrides: [
+            categoriesProvider.overrideWith(
+              (ref) async => [
+                _category('plomberie', 'Plomberie'),
+                _category('electricite', 'Électricité'),
+              ],
+            ),
+          ],
+        ),
+      );
+      await tester.pumpAndSettle();
 
-    await tester.tap(find.byType(Checkbox).at(0));
-    await tester.pumpAndSettle();
-    await tester.tap(find.byType(Checkbox).at(1));
-    await tester.pumpAndSettle();
+      await tester.tap(find.text('Plomberie'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Électricité'));
+      await tester.pumpAndSettle();
 
-    await tester.tap(find.byType(ChoiceChip).last);
-    await tester.pumpAndSettle();
+      // Les 2 cartes sont sélectionnées : le badge « Principale » apparaît
+      // sur chacune (actif sur la première, inactif sur la seconde) — on
+      // tape le second pour transférer le statut principal.
+      await tester.tap(find.text(t.onboarding.categoriesPrimaryHint).last);
+      await tester.pumpAndSettle();
 
-    await tester.tap(find.text(t.onboarding.next));
-    await tester.pump();
+      await tester.tap(find.text(t.onboarding.next));
+      await tester.pump();
 
-    expect(submitted, {'plomberie': false, 'electricite': true});
-  });
+      expect(submitted, {'plomberie': false, 'electricite': true});
+    },
+  );
+
+  testWidgets(
+    'FM-34b — le plafond FREE (3 catégories) désactive les autres options',
+    (tester) async {
+      Map<String, bool>? submitted;
+      await _pumpTall(
+        tester,
+        _wrap(
+          OnboardingCategoriesStep(
+            initialSelection: const {},
+            isSaving: false,
+            errorMessage: null,
+            onSubmit: (s) => submitted = s,
+          ),
+          overrides: [
+            categoriesProvider.overrideWith(
+              (ref) async => [
+                _category('plomberie', 'Plomberie'),
+                _category('electricite', 'Électricité'),
+                _category('peinture', 'Peinture'),
+                _category('climatisation', 'Climatisation'),
+              ],
+            ),
+          ],
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Plomberie'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Électricité'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Peinture'));
+      await tester.pumpAndSettle();
+
+      // Une 4ᵉ sélection au-delà du plafond FREE (3) ne doit rien changer.
+      await tester.tap(find.text('Climatisation'));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text(t.onboarding.next));
+      await tester.pump();
+
+      expect(submitted, {
+        'plomberie': true,
+        'electricite': false,
+        'peinture': false,
+      });
+    },
+  );
 }
