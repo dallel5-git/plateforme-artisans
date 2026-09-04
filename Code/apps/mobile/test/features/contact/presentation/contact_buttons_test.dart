@@ -11,15 +11,16 @@ import 'package:sanaya/features/contact/presentation/contact_buttons.dart';
 
 class _ServiceMock extends Mock implements ContactService {}
 
-Widget _wrap(ContactService service, Widget child) {
+Widget _wrap(
+  ContactService service,
+  Widget child, {
+  Locale locale = const Locale('fr'),
+}) {
   return ProviderScope(
     overrides: [contactServiceProvider.overrideWithValue(service)],
     child: MaterialApp(
-      theme: buildTheme(
-        brightness: Brightness.light,
-        locale: const Locale('fr'),
-      ),
-      locale: const Locale('fr'),
+      theme: buildTheme(brightness: Brightness.light, locale: locale),
+      locale: locale,
       supportedLocales: const [Locale('fr'), Locale('ar')],
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
@@ -108,4 +109,29 @@ void main() {
       () => service.contact(providerId: 'p1', channel: ContactChannel.whatsapp),
     ).called(1);
   });
+
+  testWidgets(
+    'FM-30 — en arabe (RTL), Appeler (primary) s affiche à droite et '
+    'WhatsApp (outline) à gauche — miroir automatique du Row, sans logique '
+    'par locale',
+    (tester) async {
+      await tester.pumpWidget(
+        _wrap(
+          service,
+          const ContactButtons(providerId: 'p1'),
+          locale: const Locale('ar'),
+        ),
+      );
+      await tester.pump();
+
+      // `translationsProvider` (app/providers.dart) pilote les libellés
+      // affichés et reste par défaut sur le FR en test (pas de override
+      // dans `_wrap`) — seule `Directionality`, pilotée par la `Locale` de
+      // `MaterialApp`, change ici ; c'est elle qu'on vérifie.
+      final callCenter = tester.getCenter(find.text('Appeler'));
+      final whatsappCenter = tester.getCenter(find.text('WhatsApp'));
+
+      expect(callCenter.dx, greaterThan(whatsappCenter.dx));
+    },
+  );
 }

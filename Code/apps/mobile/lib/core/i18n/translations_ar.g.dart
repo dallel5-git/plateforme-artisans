@@ -423,6 +423,7 @@ class Translations$common$devPreview$ar extends Translations$common$devPreview$f
 	@override String get buttonSecondary => 'ثانوي';
 	@override String get buttonGhost => 'شفاف';
 	@override String get buttonWhatsapp => 'واتساب';
+	@override String get buttonOutlineWhatsapp => 'واتساب (محدد)';
 	@override String get buttonDanger => 'خطر';
 	@override String get phoneLabel => 'رقم الهاتف';
 	@override String get phoneHint => '+216 22 123 456';
@@ -579,6 +580,7 @@ extension on TranslationsAr {
 			'common.devPreview.buttonSecondary' => 'ثانوي',
 			'common.devPreview.buttonGhost' => 'شفاف',
 			'common.devPreview.buttonWhatsapp' => 'واتساب',
+			'common.devPreview.buttonOutlineWhatsapp' => 'واتساب (محدد)',
 			'common.devPreview.buttonDanger' => 'خطر',
 			'common.devPreview.phoneLabel' => 'رقم الهاتف',
 			'common.devPreview.phoneHint' => '+216 22 123 456',

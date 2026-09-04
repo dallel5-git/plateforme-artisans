@@ -4,11 +4,18 @@ import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/theme/app_text.dart';
 
-enum AppButtonVariant { primary, secondary, ghost, whatsapp, danger }
+enum AppButtonVariant {
+  primary,
+  secondary,
+  ghost,
+  whatsapp,
+  outlineWhatsapp,
+  danger,
+}
 
 enum AppButtonSize { regular, small }
 
-/// Bouton du design system — 5 variantes, cible tactile ≥48 px (règle 3 du
+/// Bouton du design system — 6 variantes, cible tactile ≥48 px (règle 3 du
 /// `CLAUDE.md` mobile). Purement présentation : ne poste aucun
 /// `ContactEvent` — c'est le rôle de l'écran appelant (FM-09, principe P9).
 class AppButton extends StatelessWidget {
@@ -107,6 +114,13 @@ class AppButton extends StatelessWidget {
       AppButtonVariant.whatsapp => _AppButtonPalette(
         background: colors.whatsapp,
         foreground: colors.onAccent,
+      ),
+      // FM-30 : action secondaire (WhatsApp en contour) sur la fiche
+      // artisan — Appeler reste l'action primaire pleine (A4/B4).
+      AppButtonVariant.outlineWhatsapp => _AppButtonPalette(
+        background: Colors.transparent,
+        foreground: colors.whatsapp,
+        borderColor: colors.whatsapp,
       ),
       AppButtonVariant.secondary => _AppButtonPalette(
         background: colors.surface,
