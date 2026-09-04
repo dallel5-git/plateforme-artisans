@@ -1,10 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:sanaya/core/i18n/translations.g.dart';
 import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
+import 'package:sanaya/core/theme/app_text.dart';
 import 'package:sanaya/core/widgets/app_button.dart';
 import 'package:sanaya/core/widgets/app_text_field.dart';
+import 'package:sanaya/features/settings/presentation/legal_notice_screen.dart';
 
 /// Deuxième écran du parcours FM-05 : saisie du téléphone tunisien. La
 /// normalisation E.164 complète (`+216XXXXXXXX`) reste faite côté serveur
@@ -45,10 +49,19 @@ class _PhoneEntryStepState extends State<PhoneEntryStep> {
     widget.onSubmit('+216${_controller.text.trim()}');
   }
 
+  void _openLegalNotice() {
+    unawaited(
+      Navigator.of(context).push(
+        MaterialPageRoute<void>(builder: (_) => const LegalNoticeScreen()),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final t = widget.translations;
     final colors = context.colors;
+    final locale = Localizations.localeOf(context);
 
     return Padding(
       padding: const EdgeInsetsDirectional.all(AppSpacing.lg),
@@ -57,40 +70,45 @@ class _PhoneEntryStepState extends State<PhoneEntryStep> {
         children: [
           Text(
             t.auth.phoneTitle,
-            style: Theme.of(
-              context,
-            ).textTheme.headlineSmall?.copyWith(color: colors.textPrimary),
+            style: AppText.h3(locale).copyWith(color: colors.textPrimary),
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          Text(
+            t.auth.phoneSubtitle,
+            style: AppText.body(locale).copyWith(color: colors.textSecondary),
           ),
           const SizedBox(height: AppSpacing.lg),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsetsDirectional.only(top: AppSpacing.md),
-                child: Text(
-                  '+216',
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: colors.textPrimary,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+          AppTextField(
+            hintText: t.auth.phoneHint,
+            controller: _controller,
+            keyboardType: TextInputType.phone,
+            errorText: widget.errorMessage,
+            onChanged: (_) => setState(() {}),
+            prefix: Text(
+              '+216',
+              style: AppText.bodyStrong(locale).copyWith(
+                color: colors.textPrimary,
               ),
-              const SizedBox(width: AppSpacing.sm),
-              Expanded(
-                child: AppTextField(
-                  hintText: t.auth.phoneHint,
-                  controller: _controller,
-                  keyboardType: TextInputType.phone,
-                  errorText: widget.errorMessage,
-                  onChanged: (_) => setState(() {}),
-                ),
-              ),
-            ],
+            ),
           ),
           const SizedBox(height: AppSpacing.lg),
           AppButton(
             label: t.auth.phoneCta,
             onPressed: _canSubmit ? _submit : null,
+          ),
+          const Spacer(),
+          Center(
+            child: GestureDetector(
+              onTap: _openLegalNotice,
+              child: Text(
+                t.auth.legalConsent,
+                textAlign: TextAlign.center,
+                style: AppText.small(locale).copyWith(
+                  color: colors.textSecondary,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
           ),
         ],
       ),

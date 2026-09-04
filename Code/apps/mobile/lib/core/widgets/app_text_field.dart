@@ -19,6 +19,7 @@ class AppTextField extends StatefulWidget {
     this.onChanged,
     this.onSubmitted,
     this.prefixIcon,
+    this.prefix,
     this.obscureText = false,
     this.maxLines = 1,
     this.minLines,
@@ -32,6 +33,12 @@ class AppTextField extends StatefulWidget {
   final ValueChanged<String>? onChanged;
   final ValueChanged<String>? onSubmitted;
   final Widget? prefixIcon;
+
+  /// Contenu affiché avant le champ, séparé par un filet vertical (ex.
+  /// indicatif téléphonique fixe). Distinct de [prefixIcon] : celui-ci reste
+  /// pensé pour une icône seule, sans séparateur. Les deux sont mutuellement
+  /// exclusifs — passer les deux ignore [prefixIcon].
+  final Widget? prefix;
   final bool obscureText;
   final int? maxLines;
   final int? minLines;
@@ -119,7 +126,28 @@ class _AppTextFieldState extends State<AppTextField> {
                     color: colors.destructive,
                     fontWeight: FontWeight.w600,
                   ),
-                  prefixIcon: widget.prefixIcon,
+                  prefixIcon: widget.prefix != null
+                      ? Padding(
+                          padding: const EdgeInsetsDirectional.only(
+                            start: AppSpacing.md,
+                            end: AppSpacing.sm,
+                          ),
+                          child: IntrinsicHeight(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                widget.prefix!,
+                                const SizedBox(width: AppSpacing.sm),
+                                VerticalDivider(
+                                  color: colors.borderStrong,
+                                  width: 1,
+                                  thickness: 1,
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      : widget.prefixIcon,
                   filled: true,
                   fillColor: colors.surface,
                   contentPadding: const EdgeInsetsDirectional.symmetric(
