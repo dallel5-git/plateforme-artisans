@@ -17,6 +17,8 @@ class AppTextField extends StatefulWidget {
     this.controller,
     this.keyboardType,
     this.onChanged,
+    this.onSubmitted,
+    this.prefixIcon,
     this.obscureText = false,
     this.maxLines = 1,
     this.minLines,
@@ -28,6 +30,8 @@ class AppTextField extends StatefulWidget {
   final TextEditingController? controller;
   final TextInputType? keyboardType;
   final ValueChanged<String>? onChanged;
+  final ValueChanged<String>? onSubmitted;
+  final Widget? prefixIcon;
   final bool obscureText;
   final int? maxLines;
   final int? minLines;
@@ -103,12 +107,11 @@ class _AppTextFieldState extends State<AppTextField> {
                 controller: widget.controller,
                 keyboardType: widget.keyboardType,
                 onChanged: widget.onChanged,
+                onSubmitted: widget.onSubmitted,
                 obscureText: widget.obscureText,
                 maxLines: widget.maxLines,
                 minLines: widget.minLines,
-                style: AppText.body(
-                  locale,
-                ).copyWith(color: colors.textPrimary),
+                style: AppText.body(locale).copyWith(color: colors.textPrimary),
                 decoration: InputDecoration(
                   hintText: widget.hintText,
                   errorText: widget.errorText,
@@ -116,6 +119,7 @@ class _AppTextFieldState extends State<AppTextField> {
                     color: colors.destructive,
                     fontWeight: FontWeight.w600,
                   ),
+                  prefixIcon: widget.prefixIcon,
                   filled: true,
                   fillColor: colors.surface,
                   contentPadding: const EdgeInsetsDirectional.symmetric(

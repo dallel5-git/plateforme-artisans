@@ -73,12 +73,40 @@ void main() {
 
       expect(
         tester.widget<AnimatedContainer>(containerFinder).decoration,
-        isA<BoxDecoration>().having(
-          (d) => d.boxShadow,
-          'boxShadow',
-          isNotNull,
+        isA<BoxDecoration>().having((d) => d.boxShadow, 'boxShadow', isNotNull),
+      );
+    });
+
+    testWidgets('prefixIcon affiché quand fourni', (tester) async {
+      await tester.pumpWidget(
+        themedApp(
+          const AppTextField(
+            hintText: 'Rechercher',
+            prefixIcon: Icon(Icons.search),
+          ),
         ),
       );
+
+      expect(find.byIcon(Icons.search), findsOneWidget);
+    });
+
+    testWidgets('onSubmitted déclenché à la validation du clavier', (
+      tester,
+    ) async {
+      var submitted = '';
+      await tester.pumpWidget(
+        themedApp(
+          AppTextField(
+            hintText: 'Rechercher',
+            onSubmitted: (value) => submitted = value,
+          ),
+        ),
+      );
+
+      await tester.enterText(find.byType(TextField), 'plombier');
+      await tester.testTextInput.receiveAction(TextInputAction.done);
+
+      expect(submitted, 'plombier');
     });
   });
 }
