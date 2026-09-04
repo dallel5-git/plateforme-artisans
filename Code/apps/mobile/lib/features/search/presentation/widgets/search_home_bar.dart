@@ -4,6 +4,7 @@ import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/theme/app_text.dart';
 import 'package:sanaya/core/widgets/app_card.dart';
+import 'package:sanaya/core/widgets/app_text_field.dart';
 
 /// Barre de recherche de l'accueil client : service (texte libre) +
 /// localisation (déclenche un sélecteur externe via [onLocationTap]).
@@ -35,17 +36,11 @@ class SearchHomeBar extends StatelessWidget {
       padding: const EdgeInsets.all(AppSpacing.sm),
       child: Column(
         children: [
-          TextField(
+          AppTextField(
+            hintText: t.search.searchPlaceholder,
+            prefixIcon: Icon(Icons.search, color: colors.textMuted),
             onChanged: onQueryChanged,
             onSubmitted: onQuerySubmitted,
-            style: AppText.body(locale).copyWith(color: colors.textPrimary),
-            decoration: InputDecoration(
-              hintText: t.search.searchPlaceholder,
-              hintStyle: AppText.body(locale).copyWith(color: colors.textMuted),
-              border: InputBorder.none,
-              isDense: true,
-              prefixIcon: Icon(Icons.search, color: colors.textMuted),
-            ),
           ),
           Divider(height: AppSpacing.lg, color: colors.border),
           InkWell(

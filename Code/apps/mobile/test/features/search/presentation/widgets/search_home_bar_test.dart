@@ -16,9 +16,7 @@ Widget _wrap(Widget child) {
 void main() {
   testWidgets(
     'affiche le placeholder de recherche et le libellé de localisation',
-    (
-      tester,
-    ) async {
+    (tester) async {
       await tester.pumpWidget(
         _wrap(
           SearchHomeBar(t: _t, locationLabel: 'Sousse', onLocationTap: () {}),
@@ -65,5 +63,38 @@ void main() {
     await tester.tap(find.text('Sousse'));
 
     expect(tapped, isTrue);
+  });
+
+  testWidgets("affiche l'icône de recherche en préfixe (AppTextField)", (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      _wrap(
+        SearchHomeBar(t: _t, locationLabel: 'Sousse', onLocationTap: () {}),
+      ),
+    );
+
+    expect(find.byIcon(Icons.search), findsOneWidget);
+  });
+
+  testWidgets('valider le clavier sur le champ déclenche onQuerySubmitted', (
+    tester,
+  ) async {
+    String? submitted;
+    await tester.pumpWidget(
+      _wrap(
+        SearchHomeBar(
+          t: _t,
+          locationLabel: 'Sousse',
+          onLocationTap: () {},
+          onQuerySubmitted: (value) => submitted = value,
+        ),
+      ),
+    );
+
+    await tester.enterText(find.byType(TextField), 'plombier');
+    await tester.testTextInput.receiveAction(TextInputAction.done);
+
+    expect(submitted, 'plombier');
   });
 }
