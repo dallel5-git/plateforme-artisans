@@ -293,11 +293,29 @@ class Translations$history$fr {
 	/// fr: 'Historique'
 	String get title => 'Historique';
 
-	/// fr: 'Historique bientôt disponible'
-	String get emptyTitle => 'Historique bientôt disponible';
+	/// fr: 'Aucun artisan contacté'
+	String get emptyTitle => 'Aucun artisan contacté';
 
-	/// fr: 'Retrouvez ici l'historique de vos échanges avec les artisans dès que cette fonctionnalité sera prête.'
-	String get emptyMessage => 'Retrouvez ici l\'historique de vos échanges avec les artisans dès que cette fonctionnalité sera prête.';
+	/// fr: 'Les artisans que vous contactez apparaîtront ici, avec un raccourci pour laisser un avis.'
+	String get emptyMessage => 'Les artisans que vous contactez apparaîtront ici, avec un raccourci pour laisser un avis.';
+
+	/// fr: 'Rechercher'
+	String get emptyCta => 'Rechercher';
+
+	/// fr: 'Impossible de charger votre historique.'
+	String get loadError => 'Impossible de charger votre historique.';
+
+	/// fr: 'Réessayer'
+	String get retry => 'Réessayer';
+
+	/// fr: 'Laisser un avis'
+	String get reviewCta => 'Laisser un avis';
+
+	/// fr: 'Appel'
+	String get channelPhone => 'Appel';
+
+	/// fr: 'WhatsApp'
+	String get channelWhatsapp => 'WhatsApp';
 }
 
 // Path: legal
@@ -1134,8 +1152,14 @@ extension on Translations {
 			'favorites.retry' => 'Réessayer',
 			'favorites.verifiedBadge' => 'Vérifié',
 			'history.title' => 'Historique',
-			'history.emptyTitle' => 'Historique bientôt disponible',
-			'history.emptyMessage' => 'Retrouvez ici l\'historique de vos échanges avec les artisans dès que cette fonctionnalité sera prête.',
+			'history.emptyTitle' => 'Aucun artisan contacté',
+			'history.emptyMessage' => 'Les artisans que vous contactez apparaîtront ici, avec un raccourci pour laisser un avis.',
+			'history.emptyCta' => 'Rechercher',
+			'history.loadError' => 'Impossible de charger votre historique.',
+			'history.retry' => 'Réessayer',
+			'history.reviewCta' => 'Laisser un avis',
+			'history.channelPhone' => 'Appel',
+			'history.channelWhatsapp' => 'WhatsApp',
 			'legal.title' => 'Mentions légales',
 			'legal.editorTitle' => 'Éditeur de la plateforme',
 			'legal.editorContent' => 'Sanaya — Plateforme de mise en relation entre particuliers et artisans tunisiens (Sahel : Sousse, Monastir, Mahdia).',
