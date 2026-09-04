@@ -109,5 +109,27 @@ void main() {
         expect(tester.takeException(), isNull);
       });
     }
+
+    testWidgets(
+      'FM-30 — outlineWhatsapp : fond transparent et bordure verte, '
+      'contrairement à whatsapp (fond plein)',
+      (tester) async {
+        await tester.pumpWidget(
+          themedApp(
+            const AppButton(
+              label: 'WhatsApp',
+              onPressed: null,
+              variant: AppButtonVariant.outlineWhatsapp,
+            ),
+          ),
+        );
+
+        final ink = tester.widget<Ink>(find.byType(Ink));
+        final decoration = ink.decoration! as BoxDecoration;
+
+        expect(decoration.color, Colors.transparent);
+        expect(decoration.border, isNotNull);
+      },
+    );
   });
 }

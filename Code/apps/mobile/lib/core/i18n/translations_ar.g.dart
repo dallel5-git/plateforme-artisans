@@ -186,8 +186,14 @@ class Translations$history$ar extends Translations$history$fr {
 
 	// Translations
 	@override String get title => 'السجل';
-	@override String get emptyTitle => 'السجل قريباً';
-	@override String get emptyMessage => 'ستجد هنا قريباً سجل تبادلاتك مع الحرفيين.';
+	@override String get emptyTitle => 'لم تتصل بأي حرفي بعد';
+	@override String get emptyMessage => 'سيظهر هنا الحرفيون الذين تتصل بهم، مع رابط سريع لترك تقييم.';
+	@override String get emptyCta => 'بحث';
+	@override String get loadError => 'تعذر تحميل سجلك.';
+	@override String get retry => 'إعادة المحاولة';
+	@override String get reviewCta => 'ترك تقييم';
+	@override String get channelPhone => 'اتصال';
+	@override String get channelWhatsapp => 'واتساب';
 }
 
 // Path: legal
@@ -417,6 +423,7 @@ class Translations$common$devPreview$ar extends Translations$common$devPreview$f
 	@override String get buttonSecondary => 'ثانوي';
 	@override String get buttonGhost => 'شفاف';
 	@override String get buttonWhatsapp => 'واتساب';
+	@override String get buttonOutlineWhatsapp => 'واتساب (محدد)';
 	@override String get buttonDanger => 'خطر';
 	@override String get phoneLabel => 'رقم الهاتف';
 	@override String get phoneHint => '+216 22 123 456';
@@ -573,6 +580,7 @@ extension on TranslationsAr {
 			'common.devPreview.buttonSecondary' => 'ثانوي',
 			'common.devPreview.buttonGhost' => 'شفاف',
 			'common.devPreview.buttonWhatsapp' => 'واتساب',
+			'common.devPreview.buttonOutlineWhatsapp' => 'واتساب (محدد)',
 			'common.devPreview.buttonDanger' => 'خطر',
 			'common.devPreview.phoneLabel' => 'رقم الهاتف',
 			'common.devPreview.phoneHint' => '+216 22 123 456',
@@ -643,8 +651,14 @@ extension on TranslationsAr {
 			'favorites.retry' => 'إعادة المحاولة',
 			'favorites.verifiedBadge' => 'موثوق',
 			'history.title' => 'السجل',
-			'history.emptyTitle' => 'السجل قريباً',
-			'history.emptyMessage' => 'ستجد هنا قريباً سجل تبادلاتك مع الحرفيين.',
+			'history.emptyTitle' => 'لم تتصل بأي حرفي بعد',
+			'history.emptyMessage' => 'سيظهر هنا الحرفيون الذين تتصل بهم، مع رابط سريع لترك تقييم.',
+			'history.emptyCta' => 'بحث',
+			'history.loadError' => 'تعذر تحميل سجلك.',
+			'history.retry' => 'إعادة المحاولة',
+			'history.reviewCta' => 'ترك تقييم',
+			'history.channelPhone' => 'اتصال',
+			'history.channelWhatsapp' => 'واتساب',
 			'legal.title' => 'الإشعارات القانونية',
 			'legal.editorTitle' => 'الجهة المشرفة على المنصة',
 			'legal.editorContent' => 'صنايعية — منصة للربط بين الحرفيين والعملاء في تونس (الساحل: سوسة، المنستير، المهدية).',

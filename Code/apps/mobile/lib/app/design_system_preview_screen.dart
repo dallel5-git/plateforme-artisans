@@ -91,6 +91,11 @@ class DesignSystemPreviewScreen extends ConsumerWidget {
                   variant: AppButtonVariant.whatsapp,
                 ),
                 AppButton(
+                  label: t.common.devPreview.buttonOutlineWhatsapp,
+                  onPressed: () {},
+                  variant: AppButtonVariant.outlineWhatsapp,
+                ),
+                AppButton(
                   label: t.common.devPreview.buttonDanger,
                   onPressed: () {},
                   variant: AppButtonVariant.danger,

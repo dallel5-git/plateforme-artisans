@@ -85,7 +85,6 @@
 | `FM-28` | Écran de résultats de recherche : pagination, filtres, cache disque | 5 h | FM-27, FM-23 |
 | `FM-29` | Refonte fiche artisan : couverture plein-écran et avatar (RTL) | 3 h | FM-15 |
 | `FM-30` | Refonte contact et avis : bouton contour, en-tête d'identité | 2 h | FM-15, FM-29 |
-| `FM-31` | Onglet Historique client ⚠️ bloqué par `BE-45` | 3 h | FM-23 |
 | `FM-32` | Onglet Profil client | 2 h | FM-23, FM-25 |
 | `FM-33` | Refonte authentification : marque, mention légale, bouton Confirmer | 3 h | FM-15, FM-16 |
 | `FM-34` | Refonte onboarding pro : étapes, catégories, plafonds | 4 h | FM-15, FM-16, FM-24 |

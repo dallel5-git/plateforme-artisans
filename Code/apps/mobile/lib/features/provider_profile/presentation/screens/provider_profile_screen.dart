@@ -423,7 +423,7 @@ class _ContactBar extends ConsumerWidget {
                   Expanded(
                     child: AppButton(
                       label: t.provider.profile.whatsappButton,
-                      variant: AppButtonVariant.whatsapp,
+                      variant: AppButtonVariant.outlineWhatsapp,
                       onPressed: null,
                     ),
                   ),

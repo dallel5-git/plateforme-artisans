@@ -13,7 +13,7 @@ import 'package:sanaya/features/auth/presentation/auth_screen.dart';
 import 'package:sanaya/features/boosts/presentation/boosts_placeholder_screen.dart';
 import 'package:sanaya/features/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:sanaya/features/favorites/presentation/favorites_screen.dart';
-import 'package:sanaya/features/history/presentation/history_placeholder_screen.dart';
+import 'package:sanaya/features/history/presentation/client_history_screen.dart';
 import 'package:sanaya/features/onboarding/application/onboarding_providers.dart';
 import 'package:sanaya/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:sanaya/features/pro_profile/presentation/pro_profile_placeholder_screen.dart';
@@ -150,7 +150,7 @@ final router = GoRouter(
               path: '/client/history',
               name: 'client-history',
               pageBuilder: (_, _) =>
-                  const NoTransitionPage(child: HistoryPlaceholderScreen()),
+                  const NoTransitionPage(child: ClientHistoryScreen()),
             ),
           ],
         ),
