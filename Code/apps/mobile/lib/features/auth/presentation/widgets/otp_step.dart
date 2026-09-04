@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import 'package:sanaya/core/i18n/format.dart';
 import 'package:sanaya/core/i18n/translations.g.dart';
 import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
@@ -43,6 +44,7 @@ class OtpStep extends StatefulWidget {
 
 class _OtpStepState extends State<OtpStep> {
   Timer? _tick;
+  String _code = '';
 
   @override
   void initState() {
@@ -60,6 +62,22 @@ class _OtpStepState extends State<OtpStep> {
   void dispose() {
     _tick?.cancel();
     super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(OtpStep oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // `OtpCodeField` se réinitialise (nouvelle Key) à chaque tentative — le
+    // code local suivi ici doit repartir à vide avec lui, sinon le bouton
+    // Confirmer resterait actif sur un champ redevenu visuellement vide.
+    if (widget.attemptCount != oldWidget.attemptCount) {
+      _code = '';
+    }
+  }
+
+  void _submit() {
+    if (_code.length != 6) return;
+    widget.onSubmit(_code);
   }
 
   @override
@@ -93,6 +111,7 @@ class _OtpStepState extends State<OtpStep> {
             enabled: !widget.isSubmitting,
             hasError: hasError,
             onCompleted: widget.onSubmit,
+            onChanged: (code) => setState(() => _code = code),
           ),
           if (hasError) ...[
             const SizedBox(height: AppSpacing.sm),
@@ -109,6 +128,13 @@ class _OtpStepState extends State<OtpStep> {
             ),
           ],
           const SizedBox(height: AppSpacing.xl),
+          AppButton(
+            label: t.auth.otpCta,
+            onPressed: !widget.isSubmitting && _code.length == 6
+                ? _submit
+                : null,
+          ),
+          const SizedBox(height: AppSpacing.md),
           Center(
             child: AppButton(
               variant: AppButtonVariant.ghost,
@@ -116,8 +142,8 @@ class _OtpStepState extends State<OtpStep> {
               label: widget.canResend
                   ? t.auth.otpResend
                   : t.auth.otpResendCountdown.replaceAll(
-                      '{seconds}',
-                      widget.resendCountdownSeconds.toString(),
+                      '{mmss}',
+                      formatCountdown(widget.resendCountdownSeconds),
                     ),
               onPressed: widget.canResend && !widget.isSubmitting
                   ? widget.onResend

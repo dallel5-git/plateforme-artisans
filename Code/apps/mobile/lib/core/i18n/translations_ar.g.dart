@@ -74,7 +74,7 @@ class Translations$auth$ar extends Translations$auth$fr {
 	@override String get otpSubtitle => 'تم إرسال رمز مكوّن من 6 أرقام إلى {phone}';
 	@override String get otpCta => 'تأكيد';
 	@override String get otpResend => 'إعادة إرسال الرمز';
-	@override String get otpResendCountdown => 'إعادة الإرسال بعد {seconds} ثانية';
+	@override String get otpResendCountdown => 'إعادة إرسال الرمز ({mmss})';
 	@override String get otpAttemptsRemaining => 'رمز غير صحيح، تبقّى {count} محاولة/محاولات';
 	@override String get errorOtpInvalid => 'رمز غير صحيح';
 	@override String get errorOtpExpired => 'انتهت صلاحية هذا الرمز، اطلب رمزًا جديدًا';
@@ -529,7 +529,7 @@ extension on TranslationsAr {
 			'auth.otpSubtitle' => 'تم إرسال رمز مكوّن من 6 أرقام إلى {phone}',
 			'auth.otpCta' => 'تأكيد',
 			'auth.otpResend' => 'إعادة إرسال الرمز',
-			'auth.otpResendCountdown' => 'إعادة الإرسال بعد {seconds} ثانية',
+			'auth.otpResendCountdown' => 'إعادة إرسال الرمز ({mmss})',
 			'auth.otpAttemptsRemaining' => 'رمز غير صحيح، تبقّى {count} محاولة/محاولات',
 			'auth.errorOtpInvalid' => 'رمز غير صحيح',
 			'auth.errorOtpExpired' => 'انتهت صلاحية هذا الرمز، اطلب رمزًا جديدًا',
