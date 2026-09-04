@@ -2,20 +2,35 @@ import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:sanaya/core/api/generated/api.dart';
+import 'package:sanaya/features/provider_profile/data/provider_profile_cache.dart';
 import 'package:sanaya/features/provider_profile/data/provider_profile_repository.dart';
 
 class MockDefaultApi extends Mock implements DefaultApi {}
+
+class MockProviderProfileCache extends Mock implements ProviderProfileCache {}
+
+class _ProfileFake extends Fake implements ProviderProfile {}
 
 /// Crée une [RequestOptions] minimale pour les fakes de [Response].
 RequestOptions _opts([String path = '/']) => RequestOptions(path: path);
 
 void main() {
   late MockDefaultApi mockApi;
+  late MockProviderProfileCache mockCache;
   late ProviderProfileRepository repository;
+
+  setUpAll(() {
+    registerFallbackValue(_ProfileFake());
+  });
 
   setUp(() {
     mockApi = MockDefaultApi();
-    repository = ProviderProfileRepository(mockApi);
+    mockCache = MockProviderProfileCache();
+    // Comportement par défaut réaliste — cache vide, écriture acceptée —
+    // que chaque test peut surcharger pour son propre scénario.
+    when(() => mockCache.read(any())).thenAnswer((_) async => null);
+    when(() => mockCache.write(any(), any())).thenAnswer((_) async {});
+    repository = ProviderProfileRepository(mockApi, cache: mockCache);
   });
 
   // -------------------------------------------------------------------------
@@ -61,6 +76,49 @@ void main() {
         throwsA(isA<DioException>()),
       );
     });
+
+    test(
+      'écrit la fiche en cache disque après un succès réseau (FM-28)',
+      () async {
+        final profile = _ProfileFake();
+        when(
+          () => mockApi.v1ProvidersSlugGet(slug: 'mon-artisan'),
+        ).thenAnswer(
+          (_) async => Response(
+            requestOptions: _opts('/v1/providers/mon-artisan'),
+            statusCode: 200,
+            data: profile,
+          ),
+        );
+
+        final result = await repository.fetchProfile('mon-artisan');
+
+        expect(result, profile);
+        verify(() => mockCache.write('mon-artisan', profile)).called(1);
+      },
+    );
+
+    test(
+      'sert la fiche en cache sur échec réseau — pas de crash hors ligne',
+      () async {
+        final cachedProfile = _ProfileFake();
+        when(
+          () => mockApi.v1ProvidersSlugGet(slug: any(named: 'slug')),
+        ).thenThrow(
+          DioException(
+            requestOptions: _opts('/v1/providers/mon-artisan'),
+            type: DioExceptionType.connectionError,
+          ),
+        );
+        when(
+          () => mockCache.read('mon-artisan'),
+        ).thenAnswer((_) async => cachedProfile);
+
+        final result = await repository.fetchProfile('mon-artisan');
+
+        expect(result, cachedProfile);
+      },
+    );
   });
 
   // -------------------------------------------------------------------------
