@@ -17,13 +17,12 @@ import 'package:sanaya/features/history/presentation/client_history_screen.dart'
 import 'package:sanaya/features/onboarding/application/onboarding_providers.dart';
 import 'package:sanaya/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:sanaya/features/pro_profile/presentation/pro_profile_placeholder_screen.dart';
-import 'package:sanaya/features/profile/presentation/profile_placeholder_screen.dart';
+import 'package:sanaya/features/profile/presentation/client_profile_screen.dart';
 import 'package:sanaya/features/provider_profile/presentation/screens/provider_profile_screen.dart';
 import 'package:sanaya/features/provider_profile/presentation/screens/review_form_screen.dart';
 import 'package:sanaya/features/reviews/presentation/reviews_received_placeholder_screen.dart';
 import 'package:sanaya/features/search/presentation/search_home_screen.dart';
 import 'package:sanaya/features/settings/presentation/legal_notice_screen.dart';
-import 'package:sanaya/features/settings/presentation/settings_screen.dart';
 
 /// Fait réévaluer `redirect:` quand `authStateProvider` change en dehors
 /// d'une navigation (ex. restauration de session résolue en tâche de fond,
@@ -160,7 +159,14 @@ final router = GoRouter(
               path: '/client/profile',
               name: 'client-profile',
               pageBuilder: (_, _) =>
-                  const NoTransitionPage(child: ProfilePlaceholderScreen()),
+                  const NoTransitionPage(child: ClientProfileScreen()),
+              routes: [
+                GoRoute(
+                  path: 'legal',
+                  name: 'client-profile-legal',
+                  builder: (_, _) => const LegalNoticeScreen(),
+                ),
+              ],
             ),
           ],
         ),
@@ -241,18 +247,6 @@ final router = GoRouter(
                   const NoTransitionPage(child: ProProfilePlaceholderScreen()),
             ),
           ],
-        ),
-      ],
-    ),
-    GoRoute(
-      path: '/settings',
-      name: 'settings',
-      builder: (_, _) => const SettingsScreen(),
-      routes: [
-        GoRoute(
-          path: 'legal',
-          name: 'settings-legal',
-          builder: (_, _) => const LegalNoticeScreen(),
         ),
       ],
     ),

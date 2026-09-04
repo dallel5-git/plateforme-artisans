@@ -1,6 +1,5 @@
 {
   "title": "الملف الشخصي",
-  "emptyTitle": "الملف الشخصي قريباً",
-  "emptyMessage": "ستتوفر إدارة حسابك قريباً.",
+  "accountFallback": "حسابي",
   "switchToProSpace": "التبديل إلى مساحة المحترفين"
 }
