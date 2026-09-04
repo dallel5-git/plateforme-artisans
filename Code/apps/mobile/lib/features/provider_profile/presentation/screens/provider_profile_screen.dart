@@ -18,6 +18,7 @@ import 'package:sanaya/features/provider_profile/data/provider_profile_repositor
 import 'package:sanaya/features/provider_profile/presentation/widgets/availability_chip.dart';
 import 'package:sanaya/features/provider_profile/presentation/widgets/coverage_area_chip.dart';
 import 'package:sanaya/features/provider_profile/presentation/widgets/offering_card.dart';
+import 'package:sanaya/features/provider_profile/presentation/widgets/provider_cover_header.dart';
 import 'package:sanaya/features/provider_profile/presentation/widgets/provider_gallery.dart';
 import 'package:sanaya/features/provider_profile/presentation/widgets/review_tile.dart';
 
@@ -39,9 +40,6 @@ class ProviderProfileScreen extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: colors.background,
-      appBar: AppBar(
-        title: Text(profileAsync.valueOrNull?.businessName ?? ''),
-      ),
       body: profileAsync.when(
         loading: () => const _ProfileSkeleton(),
         error: (error, _) => _ProfileError(slug: slug),
@@ -83,8 +81,8 @@ class _ProfileContent extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // 1. Galerie photos
-          ProviderGallery(gallery: profile.gallery.toList()),
+          // 1. Couverture plein-écran + avatar superposé (FM-29)
+          ProviderCoverHeader(gallery: profile.gallery.toList()),
 
           Padding(
             padding: const EdgeInsets.all(AppSpacing.lg),
@@ -497,48 +495,66 @@ class _ProfileSkeleton extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.colors;
 
-    return SingleChildScrollView(
-      physics: const NeverScrollableScrollPhysics(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const ProviderGallerySkeleton(),
-          Padding(
-            padding: const EdgeInsets.all(AppSpacing.lg),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  height: 24,
-                  width: 200,
-                  decoration: BoxDecoration(
-                    color: colors.surfaceSunken,
-                    borderRadius: const BorderRadius.all(AppRadius.sm),
-                  ),
+    return Stack(
+      children: [
+        SingleChildScrollView(
+          physics: const NeverScrollableScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const ProviderGallerySkeleton(),
+              Padding(
+                padding: const EdgeInsets.all(AppSpacing.lg),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 24,
+                      width: 200,
+                      decoration: BoxDecoration(
+                        color: colors.surfaceSunken,
+                        borderRadius: const BorderRadius.all(AppRadius.sm),
+                      ),
+                    ),
+                    const SizedBox(height: AppSpacing.sm),
+                    Container(
+                      height: 16,
+                      width: 140,
+                      decoration: BoxDecoration(
+                        color: colors.surfaceSunken,
+                        borderRadius: const BorderRadius.all(AppRadius.sm),
+                      ),
+                    ),
+                    const SizedBox(height: AppSpacing.xl),
+                    Container(
+                      height: 80,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: colors.surfaceSunken,
+                        borderRadius: const BorderRadius.all(AppRadius.md),
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: AppSpacing.sm),
-                Container(
-                  height: 16,
-                  width: 140,
-                  decoration: BoxDecoration(
-                    color: colors.surfaceSunken,
-                    borderRadius: const BorderRadius.all(AppRadius.sm),
-                  ),
-                ),
-                const SizedBox(height: AppSpacing.xl),
-                Container(
-                  height: 80,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: colors.surfaceSunken,
-                    borderRadius: const BorderRadius.all(AppRadius.md),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+        // La couverture n'est pas encore chargée (pas d'image plein-cadre
+        // sur laquelle poser le bouton flottant) — même bouton retour que
+        // `ProviderCoverHeader`, jamais de navigation perdue pendant le
+        // chargement (FM-29).
+        const PositionedDirectional(
+          top: AppSpacing.sm,
+          start: AppSpacing.sm,
+          child: SafeArea(
+            bottom: false,
+            left: false,
+            right: false,
+            child: ProviderBackButton(),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -554,36 +570,54 @@ class _ProfileError extends ConsumerWidget {
     final locale = Localizations.localeOf(context);
     final t = ref.watch(translationsProvider);
 
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(AppSpacing.xl),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              Icons.error_outline,
-              size: 48,
-              color: colors.destructive,
+    return Stack(
+      children: [
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.all(AppSpacing.xl),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.error_outline,
+                  size: 48,
+                  color: colors.destructive,
+                ),
+                const SizedBox(height: AppSpacing.md),
+                Text(
+                  t.provider.profile.errorLoad,
+                  style: AppText.body(
+                    locale,
+                  ).copyWith(color: colors.textPrimary),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: AppSpacing.lg),
+                AppButton(
+                  label: t.provider.profile.retry,
+                  variant: AppButtonVariant.secondary,
+                  onPressed: () {
+                    ref
+                      ..invalidate(providerProfileProvider(slug))
+                      ..invalidate(providerReviewsProvider(slug));
+                  },
+                ),
+              ],
             ),
-            const SizedBox(height: AppSpacing.md),
-            Text(
-              t.provider.profile.errorLoad,
-              style: AppText.body(locale).copyWith(color: colors.textPrimary),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            AppButton(
-              label: t.provider.profile.retry,
-              variant: AppButtonVariant.secondary,
-              onPressed: () {
-                ref
-                  ..invalidate(providerProfileProvider(slug))
-                  ..invalidate(providerReviewsProvider(slug));
-              },
-            ),
-          ],
+          ),
         ),
-      ),
+        // Même bouton retour que `ProviderCoverHeader`/`_ProfileSkeleton` —
+        // ne jamais perdre la navigation retour en cas d'échec (FM-29).
+        const PositionedDirectional(
+          top: AppSpacing.sm,
+          start: AppSpacing.sm,
+          child: SafeArea(
+            bottom: false,
+            left: false,
+            right: false,
+            child: ProviderBackButton(),
+          ),
+        ),
+      ],
     );
   }
 }
