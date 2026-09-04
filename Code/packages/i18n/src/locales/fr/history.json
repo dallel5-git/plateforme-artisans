@@ -1,5 +1,11 @@
 {
   "title": "Historique",
-  "emptyTitle": "Historique bientôt disponible",
-  "emptyMessage": "Retrouvez ici l'historique de vos échanges avec les artisans dès que cette fonctionnalité sera prête."
+  "emptyTitle": "Aucun artisan contacté",
+  "emptyMessage": "Les artisans que vous contactez apparaîtront ici, avec un raccourci pour laisser un avis.",
+  "emptyCta": "Rechercher",
+  "loadError": "Impossible de charger votre historique.",
+  "retry": "Réessayer",
+  "reviewCta": "Laisser un avis",
+  "channelPhone": "Appel",
+  "channelWhatsapp": "WhatsApp"
 }
