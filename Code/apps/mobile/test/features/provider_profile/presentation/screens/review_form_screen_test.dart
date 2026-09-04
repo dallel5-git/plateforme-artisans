@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -74,6 +75,8 @@ void main() {
   setUp(() {
     profile = _ProfileMock();
     when(() => profile.id).thenReturn('prov-1');
+    when(() => profile.businessName).thenReturn('Sami Plombier');
+    when(() => profile.gallery).thenReturn(BuiltList());
 
     profileRepository = _ProfileRepoMock();
     when(
@@ -84,6 +87,23 @@ void main() {
   });
 
   group('FM-10b — ReviewFormScreen', () {
+    testWidgets(
+      'FM-30 — affiche qui l on note (raison sociale + badge Contact '
+      'vérifié) avant la première étoile',
+      (tester) async {
+        final env = _wrap(
+          profileRepository: profileRepository,
+          reviewsRepository: reviewsRepository,
+        );
+        await tester.pumpWidget(env.widget);
+        unawaited(env.router.push<void>('/review'));
+        await tester.pumpAndSettle();
+
+        expect(find.text('Sami Plombier'), findsOneWidget);
+        expect(find.text('Contact vérifié'), findsOneWidget);
+      },
+    );
+
     testWidgets("bouton désactivé tant qu'aucune étoile n'est sélectionnée", (
       tester,
     ) async {

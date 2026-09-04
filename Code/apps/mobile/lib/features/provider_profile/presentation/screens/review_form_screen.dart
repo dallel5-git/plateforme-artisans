@@ -13,11 +13,13 @@ import 'package:sanaya/core/widgets/app_text_field.dart';
 import 'package:sanaya/features/provider_profile/application/provider_profile_providers.dart';
 import 'package:sanaya/features/provider_profile/application/review_submission_notifier.dart';
 import 'package:sanaya/features/provider_profile/presentation/widgets/rating_stars_input.dart';
+import 'package:sanaya/features/provider_profile/presentation/widgets/review_form_header.dart';
 
-/// Écran de dépôt d'avis (FM-10) — note en étoiles + commentaire optionnel.
-/// L'éligibilité (`ContactEvent` requis) est vérifiée côté serveur
-/// uniquement (403 `REVIEW_REQUIRES_CONTACT`/`REVIEW_SELF_FORBIDDEN`) —
-/// cet écran ne fait aucune vérification préalable, conforme au critère
+/// Écran de dépôt d'avis (FM-10) — note en étoiles + commentaire optionnel,
+/// précédé d'un en-tête d'identité (`ReviewFormHeader`, FM-30) une fois le
+/// profil chargé. L'éligibilité (`ContactEvent` requis) est vérifiée côté
+/// serveur uniquement (403 `REVIEW_REQUIRES_CONTACT`/`REVIEW_SELF_FORBIDDEN`)
+/// — cet écran ne fait aucune vérification préalable, conforme au critère
 /// d'acceptation de l'issue #39 ("l'API renvoie 403 si on force").
 class ReviewFormScreen extends ConsumerStatefulWidget {
   const ReviewFormScreen({required this.slug, super.key});
@@ -65,7 +67,8 @@ class _ReviewFormScreenState extends ConsumerState<ReviewFormScreen> {
     final profileAsync = ref.watch(providerProfileProvider(widget.slug));
     final submissionState = ref.watch(reviewSubmissionProvider);
     final isLoading = submissionState.isLoading;
-    final providerId = profileAsync.valueOrNull?.id;
+    final profile = profileAsync.valueOrNull;
+    final providerId = profile?.id;
 
     return Scaffold(
       backgroundColor: colors.background,
@@ -75,6 +78,15 @@ class _ReviewFormScreenState extends ConsumerState<ReviewFormScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            if (profile != null) ...[
+              ReviewFormHeader(
+                businessName: profile.businessName,
+                avatarUrl: profile.gallery.isNotEmpty
+                    ? profile.gallery.first.url
+                    : null,
+              ),
+              const SizedBox(height: AppSpacing.lg),
+            ],
             Text(
               t.provider.profile.ratingLabel,
               style: AppText.bodyStrong(
