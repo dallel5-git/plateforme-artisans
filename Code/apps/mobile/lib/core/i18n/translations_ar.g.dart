@@ -65,7 +65,9 @@ class Translations$auth$ar extends Translations$auth$fr {
 
 	// Translations
 	@override String get phoneTitle => 'رقم هاتفك';
+	@override String get phoneSubtitle => 'سنرسل لك رمز تحقق عبر رسالة نصية';
 	@override String get phoneHint => '22 123 456';
+	@override String get legalConsent => 'بمتابعتك، فإنك توافق على شروط الاستخدام وسياسة الخصوصية الخاصة بنا';
 	@override String get phoneInvalid => 'رقم هاتف تونسي غير صالح';
 	@override String get phoneCta => 'استلام الرمز';
 	@override String get otpTitle => 'رمز التحقق';
@@ -518,7 +520,9 @@ extension on TranslationsAr {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'auth.phoneTitle' => 'رقم هاتفك',
+			'auth.phoneSubtitle' => 'سنرسل لك رمز تحقق عبر رسالة نصية',
 			'auth.phoneHint' => '22 123 456',
+			'auth.legalConsent' => 'بمتابعتك، فإنك توافق على شروط الاستخدام وسياسة الخصوصية الخاصة بنا',
 			'auth.phoneInvalid' => 'رقم هاتف تونسي غير صالح',
 			'auth.phoneCta' => 'استلام الرمز',
 			'auth.otpTitle' => 'رمز التحقق',

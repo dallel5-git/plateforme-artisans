@@ -90,6 +90,26 @@ void main() {
       expect(find.byIcon(Icons.search), findsOneWidget);
     });
 
+    testWidgets(
+      'prefix (FM-33) : affiché avec un filet séparateur, '
+      'exclusif de prefixIcon',
+      (tester) async {
+        await tester.pumpWidget(
+          themedApp(
+            const AppTextField(
+              hintText: '22 123 456',
+              prefix: Text('+216'),
+              prefixIcon: Icon(Icons.search),
+            ),
+          ),
+        );
+
+        expect(find.text('+216'), findsOneWidget);
+        expect(find.byIcon(Icons.search), findsNothing);
+        expect(find.byType(VerticalDivider), findsOneWidget);
+      },
+    );
+
     testWidgets('onSubmitted déclenché à la validation du clavier', (
       tester,
     ) async {

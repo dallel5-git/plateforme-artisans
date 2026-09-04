@@ -63,8 +63,14 @@ class Translations$auth$fr {
 	/// fr: 'Votre numéro de téléphone'
 	String get phoneTitle => 'Votre numéro de téléphone';
 
+	/// fr: 'Nous vous enverrons un code de vérification par SMS'
+	String get phoneSubtitle => 'Nous vous enverrons un code de vérification par SMS';
+
 	/// fr: '22 123 456'
 	String get phoneHint => '22 123 456';
+
+	/// fr: 'En continuant, vous acceptez nos conditions d'utilisation et notre politique de confidentialité'
+	String get legalConsent => 'En continuant, vous acceptez nos conditions d\'utilisation et notre politique de confidentialité';
 
 	/// fr: 'Numéro de téléphone tunisien invalide'
 	String get phoneInvalid => 'Numéro de téléphone tunisien invalide';
@@ -1011,7 +1017,9 @@ extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'auth.phoneTitle' => 'Votre numéro de téléphone',
+			'auth.phoneSubtitle' => 'Nous vous enverrons un code de vérification par SMS',
 			'auth.phoneHint' => '22 123 456',
+			'auth.legalConsent' => 'En continuant, vous acceptez nos conditions d\'utilisation et notre politique de confidentialité',
 			'auth.phoneInvalid' => 'Numéro de téléphone tunisien invalide',
 			'auth.phoneCta' => 'Recevoir le code',
 			'auth.otpTitle' => 'Code de vérification',
