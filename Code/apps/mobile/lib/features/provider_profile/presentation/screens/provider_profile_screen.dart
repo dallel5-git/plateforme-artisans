@@ -9,6 +9,7 @@ import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/theme/app_text.dart';
 import 'package:sanaya/core/widgets/app_button.dart';
 import 'package:sanaya/core/widgets/app_card.dart';
+import 'package:sanaya/core/widgets/app_skeleton.dart';
 import 'package:sanaya/core/widgets/rating_stars.dart';
 import 'package:sanaya/core/widgets/verified_badge.dart';
 import 'package:sanaya/features/contact/presentation/contact_buttons.dart';
@@ -495,45 +496,22 @@ class _ProfileSkeleton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = context.colors;
-
-    return SingleChildScrollView(
-      physics: const NeverScrollableScrollPhysics(),
+    return const SingleChildScrollView(
+      physics: NeverScrollableScrollPhysics(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const ProviderGallerySkeleton(),
+          ProviderGallerySkeleton(),
           Padding(
-            padding: const EdgeInsets.all(AppSpacing.lg),
+            padding: EdgeInsets.all(AppSpacing.lg),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  height: 24,
-                  width: 200,
-                  decoration: BoxDecoration(
-                    color: colors.surfaceSunken,
-                    borderRadius: const BorderRadius.all(AppRadius.sm),
-                  ),
-                ),
-                const SizedBox(height: AppSpacing.sm),
-                Container(
-                  height: 16,
-                  width: 140,
-                  decoration: BoxDecoration(
-                    color: colors.surfaceSunken,
-                    borderRadius: const BorderRadius.all(AppRadius.sm),
-                  ),
-                ),
-                const SizedBox(height: AppSpacing.xl),
-                Container(
-                  height: 80,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: colors.surfaceSunken,
-                    borderRadius: const BorderRadius.all(AppRadius.md),
-                  ),
-                ),
+                AppSkeleton(height: 24, width: 200),
+                SizedBox(height: AppSpacing.sm),
+                AppSkeleton(width: 140),
+                SizedBox(height: AppSpacing.xl),
+                AppSkeleton(height: 80, width: double.infinity),
               ],
             ),
           ),
