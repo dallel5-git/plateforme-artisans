@@ -145,6 +145,7 @@ class DesignSystemPreviewScreen extends ConsumerWidget {
             child: Column(
               children: [
                 ProviderCard(
+                  providerId: 'ds-preview-provider-1',
                   name: t.common.devPreview.sampleProvider1Name,
                   categoryLabel: t.common.devPreview.sampleProvider1Category,
                   locationLabel: t.common.devPreview.sampleProvider1Location,
@@ -156,6 +157,7 @@ class DesignSystemPreviewScreen extends ConsumerWidget {
                 ),
                 const SizedBox(height: AppSpacing.sm),
                 ProviderCard(
+                  providerId: 'ds-preview-provider-2',
                   name: t.common.devPreview.sampleProvider2Name,
                   categoryLabel: t.common.devPreview.sampleProvider2Category,
                   locationLabel: t.common.devPreview.sampleProvider2Location,
