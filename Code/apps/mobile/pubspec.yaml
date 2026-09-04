@@ -33,6 +33,12 @@ dependencies:
   # SharedPreferences (apps/mobile/CLAUDE.md #8). L'access token reste en mémoire.
   flutter_secure_storage: ^11.0.0
   go_router: ^17.5.0
+  # FM-28 : cache disque des résultats de recherche et des fiches consultées
+  # — l'app reste consultable hors ligne (apps/mobile/CLAUDE.md §Réseau
+  # dégradé). Box<String> uniquement (valeurs JSON) : pas de TypeAdapter
+  # généré, pas de hive_generator/build_runner supplémentaire.
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
   intl: ^0.20.2
   one_of: 1.5.0
   one_of_serializer: 1.5.0
