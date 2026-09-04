@@ -11,6 +11,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/app/theme.dart';
 import 'package:sanaya/core/api/generated/api.dart';
+import 'package:sanaya/core/widgets/app_skeleton.dart';
 import 'package:sanaya/core/widgets/verified_badge.dart';
 import 'package:sanaya/features/contact/application/contact_providers.dart';
 import 'package:sanaya/features/contact/domain/contact_channel.dart';
@@ -266,6 +267,9 @@ void main() {
 
       expect(find.byType(CircularProgressIndicator), findsNothing);
       expect(find.byType(ProviderProfileScreen), findsOneWidget);
+      // FM-29b : squelette fait main de _ProfileSkeleton remplacé par
+      // AppSkeleton (design-system.html §8).
+      expect(find.byType(AppSkeleton), findsWidgets);
     });
 
     testWidgets(
