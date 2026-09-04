@@ -5,7 +5,8 @@ import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/theme/app_text.dart';
 import 'package:sanaya/core/widgets/app_button.dart';
-import 'package:sanaya/core/widgets/app_card.dart';
+import 'package:sanaya/features/onboarding/domain/onboarding_plan_limits.dart';
+import 'package:sanaya/features/onboarding/presentation/widgets/onboarding_selectable_option_card.dart';
 import 'package:sanaya/features/search/application/catalog_providers.dart';
 
 /// Sélection au niveau gouvernorat uniquement — `delegationId` absent
@@ -44,6 +45,7 @@ class _OnboardingZonesStepState extends ConsumerState<OnboardingZonesStep> {
   void _toggle(String governorateId) {
     setState(() {
       if (!_selection.remove(governorateId)) {
+        if (_selection.length >= freePlanMaxGovernorates) return;
         _selection.add(governorateId);
       }
     });
@@ -80,29 +82,24 @@ class _OnboardingZonesStepState extends ConsumerState<OnboardingZonesStep> {
         padding: const EdgeInsets.all(AppSpacing.lg),
         children: [
           Text(t.onboarding.zonesTitle, style: AppText.h3(locale)),
+          const SizedBox(height: AppSpacing.xs),
+          Text(
+            t.onboarding.zonesCapHint,
+            style: AppText.small(locale).copyWith(color: colors.textMuted),
+          ),
           const SizedBox(height: AppSpacing.md),
           for (final governorate in governorates)
             Padding(
               padding: const EdgeInsets.only(bottom: AppSpacing.sm),
-              child: AppCard(
-                child: Row(
-                  children: [
-                    Checkbox(
-                      value: _selection.contains(governorate.id),
-                      onChanged: (_) => _toggle(governorate.id),
-                    ),
-                    Expanded(
-                      child: Text(
-                        locale.languageCode == 'ar'
-                            ? governorate.nameAr
-                            : governorate.nameFr,
-                        style: AppText.body(
-                          locale,
-                        ).copyWith(color: colors.textPrimary),
-                      ),
-                    ),
-                  ],
-                ),
+              child: OnboardingSelectableOptionCard(
+                label: locale.languageCode == 'ar'
+                    ? governorate.nameAr
+                    : governorate.nameFr,
+                selected: _selection.contains(governorate.id),
+                enabled:
+                    _selection.contains(governorate.id) ||
+                    _selection.length < freePlanMaxGovernorates,
+                onTap: () => _toggle(governorate.id),
               ),
             ),
           if (_selection.isEmpty) ...[

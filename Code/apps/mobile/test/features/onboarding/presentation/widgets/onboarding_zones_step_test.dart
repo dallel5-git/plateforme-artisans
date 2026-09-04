@@ -93,7 +93,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byType(Checkbox).first);
+      await tester.tap(find.text('Sousse'));
       await tester.pumpAndSettle();
 
       await tester.tap(find.text(t.onboarding.next));
@@ -123,12 +123,53 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    await tester.tap(find.byType(Checkbox).first);
+    await tester.tap(find.text('Sousse'));
     await tester.pumpAndSettle();
-    await tester.tap(find.byType(Checkbox).first);
+    await tester.tap(find.text('Sousse'));
     await tester.pumpAndSettle();
 
     expect(find.text(t.onboarding.zonesEmpty), findsOneWidget);
     expect(submitted, isNull);
   });
+
+  testWidgets(
+    'FM-34b — le plafond FREE (1 gouvernorat) désactive les autres options',
+    (tester) async {
+      Set<String>? submitted;
+      await _pumpTall(
+        tester,
+        _wrap(
+          OnboardingZonesStep(
+            initialSelection: const {},
+            isSaving: false,
+            errorMessage: null,
+            onSubmit: (s) => submitted = s,
+          ),
+          overrides: [
+            governoratesProvider.overrideWith(
+              (ref) async => [
+                _governorate('sousse', 'Sousse'),
+                _governorate('sfax', 'Sfax'),
+              ],
+            ),
+          ],
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Sousse'));
+      await tester.pumpAndSettle();
+
+      // Tenter de sélectionner un 2ᵉ gouvernorat au-delà du plafond FREE
+      // (1) ne doit rien changer — pas de blocage silencieux à la
+      // sauvegarde, la carte est désactivée en amont.
+      await tester.tap(find.text('Sfax'));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text(t.onboarding.next));
+      await tester.pump();
+
+      expect(submitted, {'sousse'});
+    },
+  );
 }

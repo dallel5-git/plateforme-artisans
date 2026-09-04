@@ -153,6 +153,7 @@ class Translations$errors$ar extends Translations$errors$fr {
 	@override String get routeNotFoundTitle => 'الصفحة غير موجودة';
 	@override String get routeNotFoundMessage => 'هذه الصفحة غير موجودة أو لم تعد متاحة.';
 	@override String get routeNotFoundAction => 'العودة إلى الصفحة الرئيسية';
+	@override String get validationLimit => 'تم بلوغ الحد الأقصى: {limit} كحد أقصى.';
 }
 
 // Path: favorites
@@ -243,7 +244,9 @@ class Translations$onboarding$ar extends Translations$onboarding$fr {
 	@override String get categoriesEmpty => 'اختر فئة واحدة على الأقل.';
 	@override String get categoriesError => 'تعذّر تحميل الفئات.';
 	@override String get categoriesSaveError => 'تعذّر حفظ الفئات. أعد المحاولة.';
+	@override String get categoriesCapHint => '3 فئات كحد أقصى في العرض المجاني';
 	@override String get zonesTitle => 'اختر مناطق تدخّلك';
+	@override String get zonesCapHint => 'ولاية واحدة كحد أقصى في العرض المجاني';
 	@override String get zonesEmpty => 'اختر ولاية واحدة على الأقل.';
 	@override String get zonesError => 'تعذّر تحميل الولايات.';
 	@override String get zonesSaveError => 'تعذّر حفظ المناطق. أعد المحاولة.';
@@ -635,6 +638,7 @@ extension on TranslationsAr {
 			'errors.routeNotFoundTitle' => 'الصفحة غير موجودة',
 			'errors.routeNotFoundMessage' => 'هذه الصفحة غير موجودة أو لم تعد متاحة.',
 			'errors.routeNotFoundAction' => 'العودة إلى الصفحة الرئيسية',
+			'errors.validationLimit' => 'تم بلوغ الحد الأقصى: {limit} كحد أقصى.',
 			'favorites.title' => 'المفضلات',
 			'favorites.emptyTitle' => 'لا توجد عناصر مفضلة حتى الآن',
 			'favorites.emptySubtitle' => 'احفظ الحرفيين للوصول إليهم بسرعة لاحقاً.',
@@ -689,7 +693,9 @@ extension on TranslationsAr {
 			'onboarding.categoriesEmpty' => 'اختر فئة واحدة على الأقل.',
 			'onboarding.categoriesError' => 'تعذّر تحميل الفئات.',
 			'onboarding.categoriesSaveError' => 'تعذّر حفظ الفئات. أعد المحاولة.',
+			'onboarding.categoriesCapHint' => '3 فئات كحد أقصى في العرض المجاني',
 			'onboarding.zonesTitle' => 'اختر مناطق تدخّلك',
+			'onboarding.zonesCapHint' => 'ولاية واحدة كحد أقصى في العرض المجاني',
 			'onboarding.zonesEmpty' => 'اختر ولاية واحدة على الأقل.',
 			'onboarding.zonesError' => 'تعذّر تحميل الولايات.',
 			'onboarding.zonesSaveError' => 'تعذّر حفظ المناطق. أعد المحاولة.',

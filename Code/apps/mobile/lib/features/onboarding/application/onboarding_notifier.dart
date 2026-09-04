@@ -78,6 +78,19 @@ class OnboardingNotifier extends AutoDisposeNotifier<OnboardingState> {
         isSaving: false,
         currentStep: OnboardingStep.zones,
       );
+    } on SanayaApiException catch (e) {
+      // FM-34b : le plafond catégories (3, plan FREE) est déjà appliqué
+      // côté UI (OnboardingCategoriesStep) — cette branche ne se déclenche
+      // qu'en cas de désynchronisation (ex. plusieurs sessions), d'où le
+      // besoin de remonter `details.limit` plutôt qu'un message générique.
+      state = state.copyWith(
+        isSaving: false,
+        errorCode: e.code == 'VALIDATION_ERROR'
+            ? e.code
+            : 'ONBOARDING_CATEGORIES_SAVE_FAILED',
+        errorDetails: e.details,
+      );
+      rethrow;
     } on Object {
       state = state.copyWith(
         isSaving: false,
@@ -102,6 +115,17 @@ class OnboardingNotifier extends AutoDisposeNotifier<OnboardingState> {
         isSaving: false,
         currentStep: OnboardingStep.summary,
       );
+    } on SanayaApiException catch (e) {
+      // FM-34b : même remarque que saveCategories — plafond (1 gouvernorat)
+      // déjà appliqué côté UI, cette branche couvre la désynchronisation.
+      state = state.copyWith(
+        isSaving: false,
+        errorCode: e.code == 'VALIDATION_ERROR'
+            ? e.code
+            : 'ONBOARDING_ZONES_SAVE_FAILED',
+        errorDetails: e.details,
+      );
+      rethrow;
     } on Object {
       state = state.copyWith(
         isSaving: false,
