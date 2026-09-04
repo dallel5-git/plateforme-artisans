@@ -8,12 +8,15 @@ import 'package:sanaya/features/auth/application/auth_flow_notifier.dart';
 import 'package:sanaya/features/auth/application/auth_flow_state.dart';
 import 'package:sanaya/features/auth/presentation/widgets/otp_step.dart';
 import 'package:sanaya/features/auth/presentation/widgets/phone_entry_step.dart';
-import 'package:sanaya/features/auth/presentation/widgets/role_selection_step.dart';
 
-/// Parcours d'authentification OTP (FM-05, issue #34) : rôle → téléphone →
-/// OTP → session persistée. Pilote `authFlowProvider` (FM-05b) ; l'écran ne
-/// fait qu'afficher l'état et compter les tentatives de soumission pour
+/// Parcours d'authentification OTP (FM-05, issue #34) : téléphone → OTP →
+/// session persistée. Pilote `authFlowProvider` (FM-05b) ; l'écran ne fait
+/// qu'afficher l'état et compter les tentatives de soumission pour
 /// réinitialiser le champ OTP (voir `OtpStep`).
+///
+/// L'étape de sélection de rôle a été retirée (FM-33) : absente des
+/// maquettes, le rôle réel est déterminé côté serveur (`redirect:` sur
+/// `GET /auth/me`), jamais par un choix de ce parcours.
 class AuthScreen extends ConsumerStatefulWidget {
   const AuthScreen({super.key});
 
@@ -50,19 +53,16 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
 
     return Scaffold(
       backgroundColor: context.colors.background,
-      appBar: state.step == AuthStep.role
+      appBar: state.step == AuthStep.phone
           ? null
           : AppBar(
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back),
-                onPressed: state.step == AuthStep.phone
-                    ? notifier.backToRole
-                    : notifier.backToPhone,
+                onPressed: notifier.backToPhone,
               ),
             ),
       body: SafeArea(
         child: switch (state.step) {
-          AuthStep.role => RoleSelectionStep(onSelect: notifier.selectRole),
           AuthStep.phone => PhoneEntryStep(
             translations: t,
             isSubmitting: state.isSubmitting,

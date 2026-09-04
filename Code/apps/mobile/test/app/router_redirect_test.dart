@@ -74,7 +74,7 @@ void main() {
       );
       await pumpPastSplash(tester);
 
-      expect(find.text(t.auth.roleTitle), findsNothing);
+      expect(find.text(t.auth.phoneTitle), findsNothing);
       expect(find.text(t.search.categoriesTitle), findsOneWidget);
       expect(find.text(t.common.nav.searchTab), findsOneWidget);
     },
@@ -113,7 +113,7 @@ void main() {
       router.go('/auth');
       await tester.pumpAndSettle();
 
-      expect(find.text(t.auth.roleTitle), findsNothing);
+      expect(find.text(t.auth.phoneTitle), findsNothing);
       expect(find.text(t.onboarding.wizardTitle), findsOneWidget);
     },
   );
@@ -185,7 +185,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text(t.dashboard.title), findsNothing);
-      expect(find.text(t.auth.roleTitle), findsOneWidget);
+      expect(find.text(t.auth.phoneTitle), findsOneWidget);
       expect(tester.takeException(), isNull);
     },
   );
@@ -225,7 +225,7 @@ void main() {
       // `onEntryRoute` pré-existante) — autant y aller directement plutôt
       // que d'afficher furtivement un écran de ré-authentification trompeur.
       expect(find.text(t.dashboard.title), findsNothing);
-      expect(find.text(t.auth.roleTitle), findsNothing);
+      expect(find.text(t.auth.phoneTitle), findsNothing);
       expect(find.text(t.search.categoriesTitle), findsOneWidget);
       expect(tester.takeException(), isNull);
     },
@@ -338,7 +338,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text(t.dashboard.title), findsNothing);
-      expect(find.text(t.auth.roleTitle), findsOneWidget);
+      expect(find.text(t.auth.phoneTitle), findsOneWidget);
     },
   );
 
@@ -386,7 +386,7 @@ void main() {
 
       expect(find.text(t.search.categoriesTitle), findsOneWidget);
       expect(find.text(t.common.nav.profileTab), findsOneWidget);
-      expect(find.text(t.auth.roleTitle), findsNothing);
+      expect(find.text(t.auth.phoneTitle), findsNothing);
 
       router.go('/pro');
       await tester.pumpAndSettle();
@@ -394,7 +394,7 @@ void main() {
       // Retour direct sur le dashboard (profil déjà publié dans ce test) —
       // aucune ré-authentification, la session n'a jamais changé d'état.
       expect(find.text(t.dashboard.title), findsWidgets);
-      expect(find.text(t.auth.roleTitle), findsNothing);
+      expect(find.text(t.auth.phoneTitle), findsNothing);
       verifyNever(
         () => authRepository.logout(
           refreshToken: any(named: 'refreshToken'),

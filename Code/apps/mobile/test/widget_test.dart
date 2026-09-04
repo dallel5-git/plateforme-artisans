@@ -100,7 +100,7 @@ void main() {
         router.go('/auth');
         await tester.pumpAndSettle();
 
-        expect(find.text(_tFr.auth.roleTitle), findsOneWidget);
+        expect(find.text(_tFr.auth.phoneTitle), findsOneWidget);
       },
     );
 
@@ -119,7 +119,7 @@ void main() {
         await tester.pumpAndSettle();
 
         expect(find.text(_tFr.onboarding.wizardTitle), findsNothing);
-        expect(find.text(_tFr.auth.roleTitle), findsOneWidget);
+        expect(find.text(_tFr.auth.phoneTitle), findsOneWidget);
       },
     );
   });

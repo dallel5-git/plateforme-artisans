@@ -21,7 +21,7 @@ void main() {
 
   group('AuthFlowState.canResendOtp / resendCountdownSeconds', () {
     test('renvoi immédiatement disponible si aucune demande faite', () {
-      const state = AuthFlowState(step: AuthStep.phone);
+      const state = AuthFlowState.initial;
 
       expect(state.canResendOtp, isTrue);
       expect(state.resendCountdownSeconds, 0);

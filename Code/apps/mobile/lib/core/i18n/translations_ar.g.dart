@@ -64,9 +64,6 @@ class Translations$auth$ar extends Translations$auth$fr {
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String get roleTitle => 'كيف تريد استخدام التطبيق؟';
-	@override String get roleClient => 'أبحث عن حرفي';
-	@override String get roleProvider => 'أنا حرفي';
 	@override String get phoneTitle => 'رقم هاتفك';
 	@override String get phoneHint => '22 123 456';
 	@override String get phoneInvalid => 'رقم هاتف تونسي غير صالح';
@@ -520,9 +517,6 @@ class Translations$common$widgets$offlineBanner$ar extends Translations$common$w
 extension on TranslationsAr {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'auth.roleTitle' => 'كيف تريد استخدام التطبيق؟',
-			'auth.roleClient' => 'أبحث عن حرفي',
-			'auth.roleProvider' => 'أنا حرفي',
 			'auth.phoneTitle' => 'رقم هاتفك',
 			'auth.phoneHint' => '22 123 456',
 			'auth.phoneInvalid' => 'رقم هاتف تونسي غير صالح',

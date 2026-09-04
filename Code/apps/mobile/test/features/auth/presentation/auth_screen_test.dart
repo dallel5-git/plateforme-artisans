@@ -44,7 +44,7 @@ Widget _wrap({
 void main() {
   final t = AppLocale.fr.buildSync();
 
-  testWidgets("affiche l'écran de sélection de rôle au démarrage", (
+  testWidgets("affiche directement l'écran de saisie du téléphone (FM-33)", (
     tester,
   ) async {
     await tester.pumpWidget(
@@ -55,13 +55,11 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    expect(find.text(t.auth.roleTitle), findsOneWidget);
-    expect(find.text(t.auth.roleClient), findsOneWidget);
-    expect(find.text(t.auth.roleProvider), findsOneWidget);
+    expect(find.text(t.auth.phoneTitle), findsOneWidget);
   });
 
   testWidgets(
-    '🔒 parcours complet : rôle → téléphone → OTP → session ouverte '
+    '🔒 parcours complet : téléphone → OTP → session ouverte '
     '(P3 — le notifier n’importe pas le routeur, l’écran réagit à '
     'verifiedUser)',
     (tester) async {
@@ -103,8 +101,6 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      await tester.tap(find.text(t.auth.roleClient));
-      await tester.pumpAndSettle();
       expect(find.text(t.auth.phoneTitle), findsOneWidget);
 
       await tester.enterText(find.byType(TextField), '22123456');
@@ -155,8 +151,6 @@ void main() {
       await tester.pumpWidget(
         _wrap(authRepository: authRepository, authTokenStore: authTokenStore),
       );
-      await tester.pumpAndSettle();
-      await tester.tap(find.text(t.auth.roleClient));
       await tester.pumpAndSettle();
       await tester.enterText(find.byType(TextField), '22123456');
       await tester.pumpAndSettle();

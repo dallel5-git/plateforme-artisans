@@ -6,11 +6,10 @@ import 'package:sanaya/features/auth/application/auth_providers.dart';
 import 'package:sanaya/features/auth/application/auth_state_provider.dart';
 
 /// Gère l'état complet du parcours d'authentification OTP (FM-05) :
-/// sélection de rôle → saisie du téléphone → saisie du code → session.
+/// saisie du téléphone → saisie du code → session.
 ///
 /// Architecture :
 /// - `build()` → état initial synchrone (pas d'appel réseau au démarrage)
-/// - `selectRole()` → navigation pure, pas d'appel réseau
 /// - `submitPhone()` → `POST /otp/request`, avance à l'étape OTP au succès
 /// - `resendOtp()` → identique à `submitPhone`, sans changer d'étape
 /// - `submitOtp()` → `POST /otp/verify`, ouvre la session au succès
@@ -21,22 +20,10 @@ class AuthFlowNotifier extends AutoDisposeNotifier<AuthFlowState> {
   @override
   AuthFlowState build() => AuthFlowState.initial;
 
-  /// Choix de rôle — jamais envoyé à l'API, cf. `AuthFlowState`. Avance
-  /// directement à l'étape téléphone.
-  void selectRole(UserRoleChoice role) {
-    state = state.copyWith(role: role, step: AuthStep.phone, clearError: true);
-  }
-
   /// Retour à l'étape téléphone (ex. bouton "Modifier le numéro" sur
   /// l'écran OTP). Pas d'appel réseau.
   void backToPhone() {
     state = state.copyWith(step: AuthStep.phone, clearError: true);
-  }
-
-  /// Retour à la sélection de rôle depuis l'étape téléphone. Pas d'appel
-  /// réseau.
-  void backToRole() {
-    state = state.copyWith(step: AuthStep.role, clearError: true);
   }
 
   /// Demande un premier code OTP pour [phone]. Avance à l'étape OTP et
