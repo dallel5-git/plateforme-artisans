@@ -60,15 +60,6 @@ class Translations$auth$fr {
 
 	// Translations
 
-	/// fr: 'Comment souhaitez-vous utiliser l'application ?'
-	String get roleTitle => 'Comment souhaitez-vous utiliser l\'application ?';
-
-	/// fr: 'Je cherche un artisan'
-	String get roleClient => 'Je cherche un artisan';
-
-	/// fr: 'Je suis artisan'
-	String get roleProvider => 'Je suis artisan';
-
 	/// fr: 'Votre numéro de téléphone'
 	String get phoneTitle => 'Votre numéro de téléphone';
 
@@ -1019,9 +1010,6 @@ class Translations$common$widgets$offlineBanner$fr {
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'auth.roleTitle' => 'Comment souhaitez-vous utiliser l\'application ?',
-			'auth.roleClient' => 'Je cherche un artisan',
-			'auth.roleProvider' => 'Je suis artisan',
 			'auth.phoneTitle' => 'Votre numéro de téléphone',
 			'auth.phoneHint' => '22 123 456',
 			'auth.phoneInvalid' => 'Numéro de téléphone tunisien invalide',

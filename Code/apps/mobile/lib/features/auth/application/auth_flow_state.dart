@@ -5,14 +5,12 @@ import 'package:sanaya/core/api/generated/api.dart'
 // Étapes du parcours
 // ---------------------------------------------------------------------------
 
-/// Les 3 écrans du parcours d'authentification, dans l'ordre.
-enum AuthStep { role, phone, otp }
-
-/// Choix de rôle sur le premier écran — jamais envoyé à l'API (`otp/verify`
-/// n'a pas de champ `role`, cf. `AuthRepository`). Sert uniquement
-/// d'aiguillage de navigation post-connexion : la promotion `PROVIDER`
-/// réelle se fait plus tard via `POST /v1/providers/me` (FM-11).
-enum UserRoleChoice { client, provider }
+/// Les 2 écrans du parcours d'authentification, dans l'ordre. L'étape de
+/// sélection de rôle (`UserRoleChoice`) a été retirée par FM-33 : elle
+/// n'apparaît dans aucune maquette et le rôle réel est de toute façon
+/// déterminé côté serveur (garde `redirect:` sur `GET /auth/me`), jamais par
+/// ce choix — voir issue FM-33.
+enum AuthStep { phone, otp }
 
 /// Délai avant de pouvoir renvoyer un code OTP (critère d'acceptation FM-05).
 const otpResendCooldown = Duration(seconds: 60);
@@ -33,7 +31,6 @@ const otpResendCooldown = Duration(seconds: 60);
 class AuthFlowState {
   const AuthFlowState({
     required this.step,
-    this.role,
     this.phone,
     this.isSubmitting = false,
     this.otpResendAvailableAt,
@@ -43,7 +40,6 @@ class AuthFlowState {
   });
 
   final AuthStep step;
-  final UserRoleChoice? role;
 
   /// Numéro tel que saisi par l'utilisateur. La normalisation E.164 est
   /// faite côté serveur (P4) — jamais recalculée ici.
@@ -99,7 +95,6 @@ class AuthFlowState {
 
   AuthFlowState copyWith({
     AuthStep? step,
-    UserRoleChoice? role,
     String? phone,
     bool? isSubmitting,
     DateTime? otpResendAvailableAt,
@@ -111,7 +106,6 @@ class AuthFlowState {
   }) {
     return AuthFlowState(
       step: step ?? this.step,
-      role: role ?? this.role,
       phone: phone ?? this.phone,
       isSubmitting: isSubmitting ?? this.isSubmitting,
       otpResendAvailableAt: clearOtpResendAvailableAt
@@ -127,5 +121,5 @@ class AuthFlowState {
   // État initial
   // ---------------------------------------------------------------------------
 
-  static const initial = AuthFlowState(step: AuthStep.role);
+  static const initial = AuthFlowState(step: AuthStep.phone);
 }

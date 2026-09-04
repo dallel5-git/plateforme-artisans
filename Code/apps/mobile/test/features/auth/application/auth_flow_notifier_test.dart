@@ -51,19 +51,8 @@ void main() {
 
   tearDown(() => container.dispose());
 
-  group('selectRole', () {
-    test('avance à l’étape téléphone sans appel réseau', () {
-      container
-          .read(authFlowProvider.notifier)
-          .selectRole(
-            UserRoleChoice.provider,
-          );
-
-      final state = container.read(authFlowProvider);
-      expect(state.step, AuthStep.phone);
-      expect(state.role, UserRoleChoice.provider);
-      verifyZeroInteractions(authRepository);
-    });
+  test('état initial : démarre directement à l’étape téléphone (FM-33)', () {
+    expect(container.read(authFlowProvider).step, AuthStep.phone);
   });
 
   group('submitPhone', () {
@@ -95,8 +84,7 @@ void main() {
           RateLimitException(message: 'Trop de demandes'),
         );
 
-        final notifier = container.read(authFlowProvider.notifier)
-          ..selectRole(UserRoleChoice.client);
+        final notifier = container.read(authFlowProvider.notifier);
         final ok = await notifier.submitPhone('+21622123456');
 
         expect(ok, isFalse);
