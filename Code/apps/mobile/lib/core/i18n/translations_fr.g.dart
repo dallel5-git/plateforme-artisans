@@ -428,6 +428,9 @@ class Translations$onboarding$fr {
 	/// fr: 'Impossible de charger les catégories.'
 	String get categoriesError => 'Impossible de charger les catégories.';
 
+	/// fr: 'Vérifiez votre connexion et réessayez.'
+	String get categoriesErrorMessage => 'Vérifiez votre connexion et réessayez.';
+
 	/// fr: 'Impossible d'enregistrer les catégories. Réessayez.'
 	String get categoriesSaveError => 'Impossible d\'enregistrer les catégories. Réessayez.';
 
@@ -445,6 +448,9 @@ class Translations$onboarding$fr {
 
 	/// fr: 'Impossible de charger les gouvernorats.'
 	String get zonesError => 'Impossible de charger les gouvernorats.';
+
+	/// fr: 'Vérifiez votre connexion et réessayez.'
+	String get zonesErrorMessage => 'Vérifiez votre connexion et réessayez.';
 
 	/// fr: 'Impossible d'enregistrer les zones. Réessayez.'
 	String get zonesSaveError => 'Impossible d\'enregistrer les zones. Réessayez.';
@@ -1197,12 +1203,14 @@ extension on Translations {
 			'onboarding.categoriesPrimaryHint' => 'Principale',
 			'onboarding.categoriesEmpty' => 'Sélectionnez au moins une catégorie.',
 			'onboarding.categoriesError' => 'Impossible de charger les catégories.',
+			'onboarding.categoriesErrorMessage' => 'Vérifiez votre connexion et réessayez.',
 			'onboarding.categoriesSaveError' => 'Impossible d\'enregistrer les catégories. Réessayez.',
 			'onboarding.categoriesCapHint' => '3 catégories maximum en offre gratuite',
 			'onboarding.zonesTitle' => 'Choisissez vos zones d\'intervention',
 			'onboarding.zonesCapHint' => '1 gouvernorat maximum en offre gratuite',
 			'onboarding.zonesEmpty' => 'Sélectionnez au moins un gouvernorat.',
 			'onboarding.zonesError' => 'Impossible de charger les gouvernorats.',
+			'onboarding.zonesErrorMessage' => 'Vérifiez votre connexion et réessayez.',
 			'onboarding.zonesSaveError' => 'Impossible d\'enregistrer les zones. Réessayez.',
 			'onboarding.summaryTitle' => 'Récapitulatif',
 			'onboarding.summaryCompletionLabel' => 'Profil complet à {score} %',
