@@ -22,8 +22,9 @@ Widget _wrap(
     theme: buildTheme(brightness: Brightness.light, locale: locale),
     home: Scaffold(
       body: Directionality(
-        textDirection:
-            locale.languageCode == 'ar' ? TextDirection.rtl : TextDirection.ltr,
+        textDirection: locale.languageCode == 'ar'
+            ? TextDirection.rtl
+            : TextDirection.ltr,
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: child,

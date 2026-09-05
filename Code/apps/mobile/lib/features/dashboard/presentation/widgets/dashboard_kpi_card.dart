@@ -229,6 +229,7 @@ class _DeltaBadge extends StatelessWidget {
       );
     }
 
+    final colors = context.colors;
     final ratio = deltaRatio!;
     final isPositive = ratio >= 0;
     final percent = (ratio * 100).abs().round();
@@ -238,8 +239,8 @@ class _DeltaBadge extends StatelessWidget {
     return _Chip(
       label: label,
       bg: isPositive
-          ? const Color(0x3300C853) // vert transparent sur accent
-          : const Color(0x33FF1744), // rouge transparent sur accent
+          ? colors.verified.withValues(alpha: 0.2)
+          : colors.destructive.withValues(alpha: 0.2),
       fg: onAccent,
       locale: locale,
     );
