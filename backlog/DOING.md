@@ -16,6 +16,8 @@ _Sprint S1 · dernière mise à jour : 2026-09-04_
 _(aucune autre tâche DEV-1 en cours — `FM-05`, `FM-10`, `FM-30`, `FM-32` et `FM-37` terminées, déplacées vers
 `DONE.md`)_
 
+*(FM-39 — 2/2 PRs ouvertes #333/#336 — déplacée vers `DONE.md`.)*
+
 *(FM-37 — 3/3 PRs mergées #320/#322/#324 — déplacée vers `DONE.md`.)*
 
 *(FM-32 — 2/2 PRs mergées #309/#310 — déplacée vers `DONE.md`. 3 sessions Claude ont convergé sur
