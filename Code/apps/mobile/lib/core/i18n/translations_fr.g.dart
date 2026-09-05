@@ -455,6 +455,24 @@ class Translations$onboarding$fr {
 	/// fr: 'Impossible d'enregistrer les zones. Réessayez.'
 	String get zonesSaveError => 'Impossible d\'enregistrer les zones. Réessayez.';
 
+	/// fr: 'Ajoutez des photos de vos réalisations'
+	String get photosTitle => 'Ajoutez des photos de vos réalisations';
+
+	/// fr: '5 photos maximum en offre gratuite'
+	String get photosCapHint => '5 photos maximum en offre gratuite';
+
+	/// fr: 'Plafond de 5 photos atteint (offre gratuite).'
+	String get photosCapReached => 'Plafond de 5 photos atteint (offre gratuite).';
+
+	/// fr: 'Ajouter une photo'
+	String get photosAdd => 'Ajouter une photo';
+
+	/// fr: 'Supprimer cette photo'
+	String get photosDelete => 'Supprimer cette photo';
+
+	/// fr: 'Échec de l'envoi'
+	String get photosUploadFailed => 'Échec de l\'envoi';
+
 	/// fr: 'Récapitulatif'
 	String get summaryTitle => 'Récapitulatif';
 
@@ -1212,6 +1230,12 @@ extension on Translations {
 			'onboarding.zonesError' => 'Impossible de charger les gouvernorats.',
 			'onboarding.zonesErrorMessage' => 'Vérifiez votre connexion et réessayez.',
 			'onboarding.zonesSaveError' => 'Impossible d\'enregistrer les zones. Réessayez.',
+			'onboarding.photosTitle' => 'Ajoutez des photos de vos réalisations',
+			'onboarding.photosCapHint' => '5 photos maximum en offre gratuite',
+			'onboarding.photosCapReached' => 'Plafond de 5 photos atteint (offre gratuite).',
+			'onboarding.photosAdd' => 'Ajouter une photo',
+			'onboarding.photosDelete' => 'Supprimer cette photo',
+			'onboarding.photosUploadFailed' => 'Échec de l\'envoi',
 			'onboarding.summaryTitle' => 'Récapitulatif',
 			'onboarding.summaryCompletionLabel' => 'Profil complet à {score} %',
 			'onboarding.summaryMissingTitle' => 'Il manque encore :',
