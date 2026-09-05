@@ -318,8 +318,16 @@ class Translations$reviews$ar extends Translations$reviews$fr {
 
 	// Translations
 	@override String get title => 'التقييمات';
-	@override String get emptyTitle => 'التقييمات المستلمة قريباً';
-	@override String get emptyMessage => 'ستجد هنا قريباً التقييمات التي تركها عملاؤك.';
+	@override String get emptyTitle => 'لا توجد تقييمات حتى الآن';
+	@override String get emptyMessage => 'ستظهر هنا التقييمات التي يتركها عملاؤك.';
+	@override String get loadError => 'تعذر تحميل التقييمات.';
+	@override String get errorMessage => 'حدث خطأ أثناء تحميل التقييمات الخاصة بك.';
+	@override String get retry => 'إعادة المحاولة';
+	@override String get loadMore => 'تحميل المزيد من التقييمات';
+	@override String get reviewsCount => '{count} تقييم';
+	@override String get ratingSummary => 'متوسط التقييم';
+	@override String get replyAction => 'الرد';
+	@override String get replyComingSoon => 'الرد على التقييمات سيكون متاحاً قريباً';
 }
 
 // Path: search
@@ -772,8 +780,16 @@ extension on TranslationsAr {
 			'provider.profile.reviewPromptSubtitle' => 'شارك رأيك لمساعدة المجتمع.',
 			'provider.profile.reviewPromptCta' => 'ترك تقييم',
 			'reviews.title' => 'التقييمات',
-			'reviews.emptyTitle' => 'التقييمات المستلمة قريباً',
-			'reviews.emptyMessage' => 'ستجد هنا قريباً التقييمات التي تركها عملاؤك.',
+			'reviews.emptyTitle' => 'لا توجد تقييمات حتى الآن',
+			'reviews.emptyMessage' => 'ستظهر هنا التقييمات التي يتركها عملاؤك.',
+			'reviews.loadError' => 'تعذر تحميل التقييمات.',
+			'reviews.errorMessage' => 'حدث خطأ أثناء تحميل التقييمات الخاصة بك.',
+			'reviews.retry' => 'إعادة المحاولة',
+			'reviews.loadMore' => 'تحميل المزيد من التقييمات',
+			'reviews.reviewsCount' => '{count} تقييم',
+			'reviews.ratingSummary' => 'متوسط التقييم',
+			'reviews.replyAction' => 'الرد',
+			'reviews.replyComingSoon' => 'الرد على التقييمات سيكون متاحاً قريباً',
 			'search.searchPlaceholder' => 'ابحث عن خدمة…',
 			'search.locationPlaceholder' => 'اختر ولاية',
 			'search.serviceLabel' => 'الخدمة',

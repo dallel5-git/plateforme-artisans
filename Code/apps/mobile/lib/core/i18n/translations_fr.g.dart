@@ -579,11 +579,35 @@ class Translations$reviews$fr {
 	/// fr: 'Avis'
 	String get title => 'Avis';
 
-	/// fr: 'Avis reçus bientôt disponibles'
-	String get emptyTitle => 'Avis reçus bientôt disponibles';
+	/// fr: 'Aucun avis reçu pour l'instant'
+	String get emptyTitle => 'Aucun avis reçu pour l\'instant';
 
-	/// fr: 'Retrouvez ici les avis laissés par vos clients dès que cette fonctionnalité sera prête.'
-	String get emptyMessage => 'Retrouvez ici les avis laissés par vos clients dès que cette fonctionnalité sera prête.';
+	/// fr: 'Les avis laissés par vos clients apparaîtront ici.'
+	String get emptyMessage => 'Les avis laissés par vos clients apparaîtront ici.';
+
+	/// fr: 'Impossible de charger vos avis.'
+	String get loadError => 'Impossible de charger vos avis.';
+
+	/// fr: 'Une erreur est survenue lors de la récupération de vos avis.'
+	String get errorMessage => 'Une erreur est survenue lors de la récupération de vos avis.';
+
+	/// fr: 'Réessayer'
+	String get retry => 'Réessayer';
+
+	/// fr: 'Charger plus d'avis'
+	String get loadMore => 'Charger plus d\'avis';
+
+	/// fr: '{count} avis'
+	String get reviewsCount => '{count} avis';
+
+	/// fr: 'Note moyenne'
+	String get ratingSummary => 'Note moyenne';
+
+	/// fr: 'Répondre'
+	String get replyAction => 'Répondre';
+
+	/// fr: 'La réponse aux avis sera bientôt disponible'
+	String get replyComingSoon => 'La réponse aux avis sera bientôt disponible';
 }
 
 // Path: search
@@ -1303,8 +1327,16 @@ extension on Translations {
 			'provider.profile.reviewPromptSubtitle' => 'Partagez votre avis pour aider la communauté.',
 			'provider.profile.reviewPromptCta' => 'Laisser un avis',
 			'reviews.title' => 'Avis',
-			'reviews.emptyTitle' => 'Avis reçus bientôt disponibles',
-			'reviews.emptyMessage' => 'Retrouvez ici les avis laissés par vos clients dès que cette fonctionnalité sera prête.',
+			'reviews.emptyTitle' => 'Aucun avis reçu pour l\'instant',
+			'reviews.emptyMessage' => 'Les avis laissés par vos clients apparaîtront ici.',
+			'reviews.loadError' => 'Impossible de charger vos avis.',
+			'reviews.errorMessage' => 'Une erreur est survenue lors de la récupération de vos avis.',
+			'reviews.retry' => 'Réessayer',
+			'reviews.loadMore' => 'Charger plus d\'avis',
+			'reviews.reviewsCount' => '{count} avis',
+			'reviews.ratingSummary' => 'Note moyenne',
+			'reviews.replyAction' => 'Répondre',
+			'reviews.replyComingSoon' => 'La réponse aux avis sera bientôt disponible',
 			'search.searchPlaceholder' => 'Rechercher un service…',
 			'search.locationPlaceholder' => 'Choisir un gouvernorat',
 			'search.serviceLabel' => 'Service',

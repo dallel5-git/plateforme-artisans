@@ -1,5 +1,13 @@
 {
   "title": "Avis",
-  "emptyTitle": "Avis reçus bientôt disponibles",
-  "emptyMessage": "Retrouvez ici les avis laissés par vos clients dès que cette fonctionnalité sera prête."
+  "emptyTitle": "Aucun avis reçu pour l'instant",
+  "emptyMessage": "Les avis laissés par vos clients apparaîtront ici.",
+  "loadError": "Impossible de charger vos avis.",
+  "errorMessage": "Une erreur est survenue lors de la récupération de vos avis.",
+  "retry": "Réessayer",
+  "loadMore": "Charger plus d'avis",
+  "reviewsCount": "{count} avis",
+  "ratingSummary": "Note moyenne",
+  "replyAction": "Répondre",
+  "replyComingSoon": "La réponse aux avis sera bientôt disponible"
 }
