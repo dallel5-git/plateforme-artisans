@@ -12,6 +12,7 @@ import 'package:sanaya/core/widgets/app_text_field.dart';
 import 'package:sanaya/features/onboarding/data/onboarding_repository.dart';
 import 'package:sanaya/features/search/application/catalog_providers.dart';
 import 'package:sanaya/features/search/data/catalog_repository.dart';
+import 'package:sanaya/features/search/presentation/widgets/governorate_picker_sheet.dart';
 
 /// Valeurs collectées par l'étape « profil », remises telles quelles à
 /// l'écran parent (`OnboardingScreen`) qui construit le
@@ -164,10 +165,7 @@ class _OnboardingProfileStepState extends State<OnboardingProfileStep> {
               controller: _headline,
             ),
             const SizedBox(height: AppSpacing.md),
-            AppTextField(
-              label: t.onboarding.profileBio,
-              controller: _bio,
-            ),
+            AppTextField(label: t.onboarding.profileBio, controller: _bio),
             const SizedBox(height: AppSpacing.md),
             AppTextField(
               label: t.onboarding.profileYearsExperience,
@@ -252,7 +250,9 @@ class _GovernoratePicker extends ConsumerWidget {
 
         return AppCard(
           child: InkWell(
-            onTap: () => _openPicker(context, governorates, locale),
+            onTap: () => unawaited(
+              showGovernoratePicker(context, onSelected: onSelected),
+            ),
             child: Row(
               children: [
                 Expanded(
@@ -269,38 +269,6 @@ class _GovernoratePicker extends ConsumerWidget {
           ),
         );
       },
-    );
-  }
-
-  void _openPicker(
-    BuildContext context,
-    List<Governorate> governorates,
-    Locale locale,
-  ) {
-    unawaited(
-      showModalBottomSheet<void>(
-        context: context,
-        isScrollControlled: true,
-        builder: (_) => SafeArea(
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: governorates.length,
-            itemBuilder: (context, index) {
-              final governorate = governorates[index];
-              final itemLabel = locale.languageCode == 'ar'
-                  ? governorate.nameAr
-                  : governorate.nameFr;
-              return ListTile(
-                title: Text(itemLabel),
-                onTap: () {
-                  onSelected(governorate.id);
-                  Navigator.of(context).pop();
-                },
-              );
-            },
-          ),
-        ),
-      ),
     );
   }
 }
