@@ -93,6 +93,7 @@ void main() {
     );
     await tester.pumpAndSettle();
 
+    expect(find.text(_t.search.categoriesErrorTitle), findsOneWidget);
     expect(find.text(_t.search.categoriesError), findsOneWidget);
 
     await tester.tap(find.text(_t.search.retry));
@@ -116,6 +117,7 @@ void main() {
     );
     await tester.pumpAndSettle();
 
+    expect(find.text(_t.search.categoriesEmptyTitle), findsOneWidget);
     expect(find.text(_t.search.categoriesEmpty), findsOneWidget);
   });
 
