@@ -18,27 +18,35 @@ class VerifiedBadge extends ConsumerWidget {
     final locale = Localizations.localeOf(context);
     final t = ref.watch(translationsProvider);
 
-    return Container(
-      padding: const EdgeInsetsDirectional.symmetric(
-        horizontal: AppSpacing.sm,
-        vertical: AppSpacing.xxs,
-      ),
-      decoration: BoxDecoration(
-        color: colors.verifiedSubtle,
-        borderRadius: const BorderRadius.all(AppRadius.pill),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(Icons.check, size: 12, color: colors.verified),
-          const SizedBox(width: AppSpacing.xxs),
-          Text(
-            t.common.widgets.verifiedBadge,
-            style: AppText.caption(
-              locale,
-            ).copyWith(color: colors.verified, height: 1),
-          ),
-        ],
+    // FM-43 : icône + texte forment une seule information (« Vérifié ») —
+    // un nœud Semantics unique, pas une icône muette suivie d'un texte lu
+    // séparément. `excludeSemantics: true` évite un double-libellé (même
+    // patron que `RatingStars`/`AppBottomNav`).
+    return Semantics(
+      label: t.common.widgets.verifiedBadge,
+      excludeSemantics: true,
+      child: Container(
+        padding: const EdgeInsetsDirectional.symmetric(
+          horizontal: AppSpacing.sm,
+          vertical: AppSpacing.xxs,
+        ),
+        decoration: BoxDecoration(
+          color: colors.verifiedSubtle,
+          borderRadius: const BorderRadius.all(AppRadius.pill),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.check, size: 12, color: colors.verified),
+            const SizedBox(width: AppSpacing.xxs),
+            Text(
+              t.common.widgets.verifiedBadge,
+              style: AppText.caption(
+                locale,
+              ).copyWith(color: colors.verified, height: 1),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -36,6 +36,22 @@ void main() {
       expect(find.text('موثّق'), findsOneWidget);
     });
 
+    testWidgets(
+      'FM-43 — un seul nœud Semantics porte le libellé (icône + texte '
+      'fusionnés, pas une icône muette suivie d’un texte séparé)',
+      (tester) async {
+        final handle = tester.ensureSemantics();
+        await tester.pumpWidget(
+          ProviderScope(child: themedApp(const VerifiedBadge())),
+        );
+
+        final semantics = tester.getSemantics(find.byType(VerifiedBadge));
+        expect(semantics.label, 'Vérifié');
+
+        handle.dispose();
+      },
+    );
+
     // 🔒 NON-RÉGRESSION — ADR-002 : le badge « Vérifié » atteste l'identité,
     // jamais le plan payant. Miroir Dart du garde-fou
     // packages/core/tests/ranking.test.ts : si ce test casse, quelqu'un a

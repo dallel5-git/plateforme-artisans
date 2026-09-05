@@ -34,5 +34,20 @@ void main() {
 
       expect(find.text('3,0'), findsOneWidget);
     });
+
+    testWidgets(
+      'FM-43 — un seul nœud Semantics annonce la note, pas 5 icônes muettes',
+      (tester) async {
+        final handle = tester.ensureSemantics();
+        await tester.pumpWidget(
+          themedApp(const RatingStars(rating: 4.8, reviewCount: 63)),
+        );
+
+        final semantics = tester.getSemantics(find.byType(RatingStars));
+        expect(semantics.label, '4,8 (63)');
+
+        handle.dispose();
+      },
+    );
   });
 }

@@ -1,3 +1,5 @@
+import 'dart:ui' show Tristate;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -41,6 +43,30 @@ void main() {
         // Ne doit lever aucune exception : `InkWell(onTap: null)` ignore
         // déjà le tap nativement, rien à assertionner de plus ici.
         await tester.tap(find.text('Publier le profil'));
+      },
+    );
+
+    testWidgets(
+      'FM-43 — annonce button:true et son état activé/désactivé au '
+      'lecteur d’écran',
+      (tester) async {
+        final handle = tester.ensureSemantics();
+
+        await tester.pumpWidget(
+          themedApp(AppButton(label: 'Appeler', onPressed: () {})),
+        );
+        var semantics = tester.getSemantics(find.byType(AppButton));
+        expect(semantics.flagsCollection.isButton, isTrue);
+        expect(semantics.flagsCollection.isEnabled, Tristate.isTrue);
+        expect(semantics.label, 'Appeler');
+
+        await tester.pumpWidget(
+          themedApp(const AppButton(label: 'Appeler', onPressed: null)),
+        );
+        semantics = tester.getSemantics(find.byType(AppButton));
+        expect(semantics.flagsCollection.isEnabled, Tristate.isFalse);
+
+        handle.dispose();
       },
     );
 

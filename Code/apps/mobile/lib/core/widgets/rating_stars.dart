@@ -24,27 +24,40 @@ class RatingStars extends StatelessWidget {
     final locale = Localizations.localeOf(context);
     final filledStars = rating.round().clamp(0, 5);
     final ratingLabel = formatNumber(rating, locale);
+    final displayText = reviewCount != null
+        ? '$ratingLabel ($reviewCount)'
+        : ratingLabel;
 
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        for (var i = 0; i < 5; i++)
-          Icon(
-            i < filledStars ? Icons.star : Icons.star_border,
-            color: colors.rating,
-            size: size,
+    // FM-43 : les 5 icônes étoile sont décoratives (muettes en soi) — un
+    // seul nœud Semantics porte le texte déjà affiché, plutôt que de
+    // laisser un lecteur d'écran traverser 5 icônes silencieuses avant le
+    // texte. `excludeSemantics: true` supprime la sémantique implicite du
+    // `Text` descendant pour éviter un double-libellé (même piège déjà
+    // rencontré sur `AppBottomNav`, FM-22).
+    return Semantics(
+      label: displayText,
+      excludeSemantics: true,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          for (var i = 0; i < 5; i++)
+            Icon(
+              i < filledStars ? Icons.star : Icons.star_border,
+              color: colors.rating,
+              size: size,
+            ),
+          const SizedBox(width: AppSpacing.xs),
+          Flexible(
+            child: Text(
+              displayText,
+              style: AppText.small(
+                locale,
+              ).copyWith(color: colors.textSecondary),
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
-        const SizedBox(width: AppSpacing.xs),
-        Flexible(
-          child: Text(
-            reviewCount != null ? '$ratingLabel ($reviewCount)' : ratingLabel,
-            style: AppText.small(
-              locale,
-            ).copyWith(color: colors.textSecondary),
-            overflow: TextOverflow.ellipsis,
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
