@@ -89,7 +89,8 @@
 | `FM-34` | Refonte onboarding pro : étapes, catégories, plafonds | 4 h | FM-15, FM-16, FM-24 |
 | `FM-35` | Étape photos/portfolio de l'onboarding | 3 h | FM-34 |
 | `FM-37` | Refonte tableau de bord pro : salutation, KPI, histogramme | 4 h | FM-15, FM-16, FM-24 |
-| `FM-38` | Écran Profil pro : édition et disponibilité commutable ⚠️ bloqué par `BE-44` | 3 h | FM-24 |
+| `FM-38` | Écran Profil pro : édition et disponibilité commutable (`BE-44` levé, voir `DOING.md`) | 3 h | FM-24 |
+| `FM-39` | Écran Avis reçus (pro) ⚠️ bloqué par `BE-44` | 2 h | FM-24 |
 | `FM-40` | Écran Boosts/crédits — coquille visuelle ⚠️ bloqué par EP-BILLING/ADR-004 | 3 h | FM-15, FM-16, FM-24 |
 | `FM-41` | Composants partagés transverses : Badge, carte sélectionnable, bottom sheet | 3 h | FM-15, FM-16 |
 | `FM-42` | Adoption systématique des états + bandeau hors ligne | 3 h | FM-23, FM-24, FM-41 |
