@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -5,6 +7,8 @@ import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/core/api/generated/api.dart';
 import 'package:sanaya/core/i18n/translations.g.dart';
 import 'package:sanaya/core/theme/app_colors.dart';
+import 'package:sanaya/core/theme/app_spacing.dart';
+import 'package:sanaya/core/widgets/app_skeleton.dart';
 import 'package:sanaya/features/onboarding/application/onboarding_providers.dart';
 import 'package:sanaya/features/onboarding/presentation/widgets/onboarding_categories_step.dart';
 import 'package:sanaya/features/onboarding/presentation/widgets/onboarding_photos_step.dart';
@@ -23,6 +27,9 @@ import 'package:sanaya/features/onboarding/presentation/widgets/onboarding_zones
 /// session-memory, cf. sa doc), pas les sélections elles-mêmes. Cet écran
 /// les retient localement pour qu'un retour en arrière (`previousStep`)
 /// réaffiche ce qui a déjà été choisi plutôt qu'un formulaire vide.
+///
+/// Reprise après fermeture de l'app (FM-36) : `resumeSession()` appelée une
+/// seule fois au montage, un skeleton s'affiche pendant l'appel réseau.
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
 
@@ -34,6 +41,18 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   Map<String, bool> _categorySelection = const {};
   Set<String> _zoneSelection = const {};
   bool _published = false;
+  bool _resuming = true;
+
+  @override
+  void initState() {
+    super.initState();
+    unawaited(_resume());
+  }
+
+  Future<void> _resume() async {
+    await ref.read(onboardingProvider.notifier).resumeSession();
+    if (mounted) setState(() => _resuming = false);
+  }
 
   String? _errorMessage(
     Translations t,
@@ -165,61 +184,89 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           },
         ),
       ),
-      body: Column(
+      body: _resuming
+          ? const _OnboardingResumingSkeleton()
+          : Column(
+              children: [
+                OnboardingProgressHeader(
+                  stepLabels: [
+                    t.onboarding.stepProfile,
+                    t.onboarding.stepCategories,
+                    t.onboarding.stepZones,
+                    t.onboarding.stepPhotos,
+                    t.onboarding.stepSummary,
+                  ],
+                  currentStepIndex: state.currentStepIndex,
+                  stepCountLabel: t.onboarding.stepIndicator
+                      .replaceAll(
+                        '{current}',
+                        '${state.currentStepIndex + 1}',
+                      )
+                      .replaceAll('{total}', '${OnboardingStep.values.length}'),
+                ),
+                Expanded(
+                  child: switch (state.currentStep) {
+                    OnboardingStep.profile => OnboardingProfileStep(
+                      initialProfile: state.profile,
+                      isSaving: state.isSaving,
+                      errorMessage: errorMessage,
+                      onSubmit: _submitProfile,
+                    ),
+                    OnboardingStep.categories => OnboardingCategoriesStep(
+                      initialSelection: _categorySelection,
+                      isSaving: state.isSaving,
+                      errorMessage: errorMessage,
+                      onSubmit: _submitCategories,
+                    ),
+                    OnboardingStep.zones => OnboardingZonesStep(
+                      initialSelection: _zoneSelection,
+                      isSaving: state.isSaving,
+                      errorMessage: errorMessage,
+                      onSubmit: _submitZones,
+                    ),
+                    OnboardingStep.photos => OnboardingPhotosStep(
+                      isSaving: state.isSaving,
+                      errorMessage: errorMessage,
+                      onSubmit: () => ref
+                          .read(onboardingProvider.notifier)
+                          .advanceFromPhotos(),
+                    ),
+                    OnboardingStep.summary => OnboardingSummaryStep(
+                      profile: state.profile,
+                      completionScore: state.completionScore,
+                      canPublish: state.canPublish,
+                      isSaving: state.isSaving,
+                      errorMessage: errorMessage,
+                      published: _published,
+                      onPublish: _publish,
+                    ),
+                  },
+                ),
+              ],
+            ),
+    );
+  }
+}
+
+/// Silhouette affichée pendant `_resume()` (FM-36) — remplace le formulaire
+/// le temps de savoir si un profil existant doit préremplir l'étape 1.
+class _OnboardingResumingSkeleton extends StatelessWidget {
+  const _OnboardingResumingSkeleton();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Padding(
+      padding: EdgeInsets.all(AppSpacing.lg),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          OnboardingProgressHeader(
-            stepLabels: [
-              t.onboarding.stepProfile,
-              t.onboarding.stepCategories,
-              t.onboarding.stepZones,
-              t.onboarding.stepPhotos,
-              t.onboarding.stepSummary,
-            ],
-            currentStepIndex: state.currentStepIndex,
-            stepCountLabel: t.onboarding.stepIndicator
-                .replaceAll(
-                  '{current}',
-                  '${state.currentStepIndex + 1}',
-                )
-                .replaceAll('{total}', '${OnboardingStep.values.length}'),
-          ),
-          Expanded(
-            child: switch (state.currentStep) {
-              OnboardingStep.profile => OnboardingProfileStep(
-                initialProfile: state.profile,
-                isSaving: state.isSaving,
-                errorMessage: errorMessage,
-                onSubmit: _submitProfile,
-              ),
-              OnboardingStep.categories => OnboardingCategoriesStep(
-                initialSelection: _categorySelection,
-                isSaving: state.isSaving,
-                errorMessage: errorMessage,
-                onSubmit: _submitCategories,
-              ),
-              OnboardingStep.zones => OnboardingZonesStep(
-                initialSelection: _zoneSelection,
-                isSaving: state.isSaving,
-                errorMessage: errorMessage,
-                onSubmit: _submitZones,
-              ),
-              OnboardingStep.photos => OnboardingPhotosStep(
-                isSaving: state.isSaving,
-                errorMessage: errorMessage,
-                onSubmit: () =>
-                    ref.read(onboardingProvider.notifier).advanceFromPhotos(),
-              ),
-              OnboardingStep.summary => OnboardingSummaryStep(
-                profile: state.profile,
-                completionScore: state.completionScore,
-                canPublish: state.canPublish,
-                isSaving: state.isSaving,
-                errorMessage: errorMessage,
-                published: _published,
-                onPublish: _publish,
-              ),
-            },
-          ),
+          AppSkeleton(height: 24),
+          SizedBox(height: AppSpacing.xl),
+          AppSkeleton(height: 56),
+          SizedBox(height: AppSpacing.md),
+          AppSkeleton(height: 56),
+          SizedBox(height: AppSpacing.md),
+          AppSkeleton(height: 56),
         ],
       ),
     );
