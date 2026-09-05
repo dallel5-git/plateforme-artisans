@@ -72,6 +72,20 @@ class OnboardingRepository {
     );
     return response.data!;
   });
+
+  /// Charge le profil artisan existant de l'utilisateur authentifié (FM-36 —
+  /// reprise de l'onboarding après fermeture de l'app). `null` si aucun
+  /// profil n'a encore été créé (`NotFoundException`, 404) : l'appelant
+  /// démarre alors à l'étape 1 comme aujourd'hui. Toute autre erreur
+  /// (réseau, 5xx) est propagée — c'est à l'appelant de décider du repli.
+  Future<ProviderMe?> getMyProfile() async {
+    try {
+      final response = await unwrapDioErrors(_api.v1ProvidersMeGet);
+      return _asProviderMe(response.data!);
+    } on NotFoundException {
+      return null;
+    }
+  }
 }
 
 /// `PATCH` et `GET /providers/me` (BE-44) renvoient toutes deux exactement
