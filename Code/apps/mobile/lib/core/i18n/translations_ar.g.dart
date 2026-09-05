@@ -537,6 +537,8 @@ class Translations$provider$profile$ar extends Translations$provider$profile$fr 
 	@override String get reviewsTitle => 'التقييمات';
 	@override String get loadMoreReviews => 'عرض المزيد من التقييمات';
 	@override String get noReviews => 'لا توجد تقييمات حتى الآن.';
+	@override String get reviewsErrorTitle => 'تعذّر التحميل';
+	@override String get reviewsError => 'تعذّر تحميل التقييمات.';
 	@override String get offeringsTitle => 'الخدمات';
 	@override String get coverageTitle => 'مناطق التدخل';
 	@override String get yearsExperience => '{n} سنة خبرة';
@@ -544,6 +546,7 @@ class Translations$provider$profile$ar extends Translations$provider$profile$fr 
 	@override String get busy => 'مشغول';
 	@override String get onHoliday => 'في عطلة';
 	@override String get verifiedContact => 'اتصال موثّق';
+	@override String get errorLoadTitle => 'تعذّر التحميل';
 	@override String get errorLoad => 'تعذّر تحميل بطاقة الحرفي.';
 	@override String get retry => 'إعادة المحاولة';
 	@override String get writeReview => 'كتابة تقييم';
@@ -821,6 +824,8 @@ extension on TranslationsAr {
 			'provider.profile.reviewsTitle' => 'التقييمات',
 			'provider.profile.loadMoreReviews' => 'عرض المزيد من التقييمات',
 			'provider.profile.noReviews' => 'لا توجد تقييمات حتى الآن.',
+			'provider.profile.reviewsErrorTitle' => 'تعذّر التحميل',
+			'provider.profile.reviewsError' => 'تعذّر تحميل التقييمات.',
 			'provider.profile.offeringsTitle' => 'الخدمات',
 			'provider.profile.coverageTitle' => 'مناطق التدخل',
 			'provider.profile.yearsExperience' => '{n} سنة خبرة',
@@ -828,6 +833,7 @@ extension on TranslationsAr {
 			'provider.profile.busy' => 'مشغول',
 			'provider.profile.onHoliday' => 'في عطلة',
 			'provider.profile.verifiedContact' => 'اتصال موثّق',
+			'provider.profile.errorLoadTitle' => 'تعذّر التحميل',
 			'provider.profile.errorLoad' => 'تعذّر تحميل بطاقة الحرفي.',
 			'provider.profile.retry' => 'إعادة المحاولة',
 			'provider.profile.writeReview' => 'كتابة تقييم',
