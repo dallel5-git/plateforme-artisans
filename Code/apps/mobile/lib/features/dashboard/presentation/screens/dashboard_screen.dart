@@ -12,7 +12,7 @@ import 'package:sanaya/features/dashboard/application/dashboard_comparison.dart'
 import 'package:sanaya/features/dashboard/application/dashboard_providers.dart';
 import 'package:sanaya/features/dashboard/data/dashboard_repository.dart';
 import 'package:sanaya/features/dashboard/presentation/widgets/dashboard_header.dart';
-import 'package:sanaya/features/dashboard/presentation/widgets/dashboard_stat_card.dart';
+import 'package:sanaya/features/dashboard/presentation/widgets/dashboard_kpi_card.dart';
 import 'package:sanaya/features/dashboard/presentation/widgets/dashboard_trend_chart.dart';
 
 /// Tableau de bord de l'Espace Pro (FM-12, issue #41) : vues, contacts,
@@ -21,6 +21,11 @@ import 'package:sanaya/features/dashboard/presentation/widgets/dashboard_trend_c
 /// aucun calcul métier ici (P3), seule la comparaison mois-1 est dérivée
 /// côté client de cette même réponse (`deriveMonthOverMonth`, FM-12b, voir
 /// sa doc : pas de second appel API, pas de champ dédié côté backend).
+///
+/// FM-37a : DashboardHeader salue l'artisan (« Bonjour, firstName ») et
+/// affiche le badge de disponibilité.
+/// FM-37b : la grille 2×2 de DashboardStatCard est remplacée par
+/// DashboardKpiCard (carte accent regroupant Vues/Contacts/Ratio).
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
 
@@ -90,51 +95,18 @@ class _DashboardContent extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: DashboardStatCard(
-                        label: t.dashboard.statViews,
-                        value: '${totals.profileViews}',
-                        comparisonRatio: comparison.viewsDeltaRatio,
-                        comparisonNewLabel: t.dashboard.comparisonNew,
-                      ),
-                    ),
-                    const SizedBox(width: AppSpacing.md),
-                    Expanded(
-                      child: DashboardStatCard(
-                        label: t.dashboard.statUniqueViews,
-                        value: '${totals.uniqueProfileViews}',
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: AppSpacing.md),
-                Row(
-                  children: [
-                    Expanded(
-                      child: DashboardStatCard(
-                        label: t.dashboard.statContacts,
-                        value: '${totals.contacts}',
-                        comparisonRatio: comparison.contactsDeltaRatio,
-                        comparisonNewLabel: t.dashboard.comparisonNew,
-                      ),
-                    ),
-                    const SizedBox(width: AppSpacing.md),
-                    Expanded(
-                      child: DashboardStatCard(
-                        label: t.dashboard.statRatio,
-                        value: ratioLabel,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: AppSpacing.xs),
-                Text(
-                  t.dashboard.comparisonPreviousPeriod,
-                  style: AppText.caption(locale).copyWith(
-                    color: colors.textMuted,
-                  ),
+                // FM-37b : carte KPI bleue (Vues / Contacts / Ratio) sur fond accent.
+                DashboardKpiCard(
+                  viewsLabel: t.dashboard.statViews,
+                  viewsValue: '${totals.profileViews}',
+                  contactsLabel: t.dashboard.statContacts,
+                  contactsValue: '${totals.contacts}',
+                  ratioLabel: t.dashboard.statRatio,
+                  ratioValue: ratioLabel,
+                  viewsDeltaRatio: comparison.viewsDeltaRatio,
+                  contactsDeltaRatio: comparison.contactsDeltaRatio,
+                  comparisonNewLabel: t.dashboard.comparisonNew,
+                  comparisonPeriodLabel: t.dashboard.comparisonPreviousPeriod,
                 ),
                 const SizedBox(height: AppSpacing.xl),
                 Text(
@@ -197,6 +169,7 @@ class _DashboardSkeleton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Skeleton FM-37a/b : en-tête + une carte pleine largeur (KPI) + graphe.
     return const Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -211,21 +184,7 @@ class _DashboardSkeleton extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Row(
-                children: [
-                  Expanded(child: AppSkeleton(height: 84)),
-                  SizedBox(width: AppSpacing.md),
-                  Expanded(child: AppSkeleton(height: 84)),
-                ],
-              ),
-              SizedBox(height: AppSpacing.md),
-              Row(
-                children: [
-                  Expanded(child: AppSkeleton(height: 84)),
-                  SizedBox(width: AppSpacing.md),
-                  Expanded(child: AppSkeleton(height: 84)),
-                ],
-              ),
+              AppSkeleton(height: 96),
               SizedBox(height: AppSpacing.xl),
               AppSkeleton(height: 140),
             ],
