@@ -10,6 +10,7 @@ import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/theme/app_text.dart';
 import 'package:sanaya/core/widgets/app_button.dart';
 import 'package:sanaya/core/widgets/app_card.dart';
+import 'package:sanaya/core/widgets/app_section_header.dart';
 import 'package:sanaya/features/auth/application/auth_state_provider.dart';
 
 /// Sections Langue/Apparence/Légal/Compte communes aux écrans Profil client
@@ -33,7 +34,6 @@ class AccountSettingsSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final colors = context.colors;
     final locale = ref.watch(localeProvider);
     final themeMode = ref.watch(themeModeProvider);
     final t = ref.watch(translationsProvider);
@@ -41,7 +41,7 @@ class AccountSettingsSection extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _SectionHeader(title: t.settings.languageSection),
+        AppSectionHeader(title: t.settings.languageSection),
         const SizedBox(height: AppSpacing.xs),
         AppCard(
           padding: EdgeInsets.zero,
@@ -58,7 +58,7 @@ class AccountSettingsSection extends ConsumerWidget {
                   await persistLocale(newLocale);
                 },
               ),
-              Divider(height: 1, color: colors.border),
+              const AppDivider(),
               _SettingsOptionTile<String>(
                 title: t.settings.arabic,
                 value: 'ar',
@@ -75,7 +75,7 @@ class AccountSettingsSection extends ConsumerWidget {
         ),
         const SizedBox(height: AppSpacing.lg),
 
-        _SectionHeader(title: t.settings.themeSection),
+        AppSectionHeader(title: t.settings.themeSection),
         const SizedBox(height: AppSpacing.xs),
         AppCard(
           padding: EdgeInsets.zero,
@@ -91,7 +91,7 @@ class AccountSettingsSection extends ConsumerWidget {
                   }
                 },
               ),
-              Divider(height: 1, color: colors.border),
+              const AppDivider(),
               _SettingsOptionTile<ThemeMode>(
                 title: t.settings.themeLight,
                 value: ThemeMode.light,
@@ -102,7 +102,7 @@ class AccountSettingsSection extends ConsumerWidget {
                   }
                 },
               ),
-              Divider(height: 1, color: colors.border),
+              const AppDivider(),
               _SettingsOptionTile<ThemeMode>(
                 title: t.settings.themeDark,
                 value: ThemeMode.dark,
@@ -118,7 +118,7 @@ class AccountSettingsSection extends ConsumerWidget {
         ),
         const SizedBox(height: AppSpacing.lg),
 
-        _SectionHeader(title: t.settings.legalSection),
+        AppSectionHeader(title: t.settings.legalSection),
         const SizedBox(height: AppSpacing.xs),
         AppCard(
           padding: EdgeInsets.zero,
@@ -129,7 +129,7 @@ class AccountSettingsSection extends ConsumerWidget {
         ),
         const SizedBox(height: AppSpacing.lg),
 
-        _SectionHeader(title: t.settings.accountSection),
+        AppSectionHeader(title: t.settings.accountSection),
         const SizedBox(height: AppSpacing.xs),
         for (final action in accountActions) ...[
           action,
@@ -172,9 +172,9 @@ class AccountSettingsSection extends ConsumerWidget {
             onPressed: () => Navigator.of(dialogContext).pop(true),
             child: Text(
               t.settings.confirm,
-              style: AppText.bodyStrong(locale).copyWith(
-                color: colors.destructive,
-              ),
+              style: AppText.bodyStrong(
+                locale,
+              ).copyWith(color: colors.destructive),
             ),
           ),
         ],
@@ -190,32 +190,6 @@ class AccountSettingsSection extends ConsumerWidget {
         }
       }
     }
-  }
-}
-
-class _SectionHeader extends StatelessWidget {
-  const _SectionHeader({required this.title});
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.colors;
-    final locale = Localizations.localeOf(context);
-
-    return Padding(
-      padding: const EdgeInsetsDirectional.only(
-        start: AppSpacing.xs,
-        bottom: AppSpacing.xs,
-      ),
-      child: Text(
-        title,
-        style: AppText.small(locale).copyWith(
-          color: colors.textSecondary,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-    );
   }
 }
 
@@ -256,12 +230,7 @@ class _SettingsOptionTile<T> extends StatelessWidget {
                 ),
               ),
             ),
-            if (isSelected)
-              Icon(
-                Icons.check,
-                color: colors.accent,
-                size: 20,
-              ),
+            if (isSelected) Icon(Icons.check, color: colors.accent, size: 20),
           ],
         ),
       ),
@@ -270,10 +239,7 @@ class _SettingsOptionTile<T> extends StatelessWidget {
 }
 
 class _SettingsNavTile extends StatelessWidget {
-  const _SettingsNavTile({
-    required this.title,
-    required this.onTap,
-  });
+  const _SettingsNavTile({required this.title, required this.onTap});
 
   final String title;
   final VoidCallback onTap;
@@ -298,11 +264,7 @@ class _SettingsNavTile extends StatelessWidget {
                 style: AppText.body(locale).copyWith(color: colors.textPrimary),
               ),
             ),
-            Icon(
-              Icons.chevron_right,
-              color: colors.textSecondary,
-              size: 20,
-            ),
+            Icon(Icons.chevron_right, color: colors.textSecondary, size: 20),
           ],
         ),
       ),
