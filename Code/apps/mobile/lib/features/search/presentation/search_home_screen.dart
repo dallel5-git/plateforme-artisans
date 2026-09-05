@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sanaya/app/providers.dart';
-import 'package:sanaya/core/i18n/translations.g.dart';
 import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/theme/app_text.dart';
-import 'package:sanaya/core/widgets/app_button.dart';
+import 'package:sanaya/core/widgets/empty_state.dart';
+import 'package:sanaya/core/widgets/error_state.dart';
 import 'package:sanaya/features/search/application/catalog_providers.dart';
 import 'package:sanaya/features/search/data/catalog_repository.dart';
 import 'package:sanaya/features/search/presentation/widgets/category_grid.dart';
@@ -67,12 +67,19 @@ class SearchHomeScreen extends ConsumerWidget {
               const SizedBox(height: AppSpacing.md),
               categoriesAsync.when(
                 loading: () => const CategoryGridSkeleton(),
-                error: (error, stackTrace) => _CategoriesError(
-                  t: t,
-                  onRetry: () => ref.invalidate(categoriesProvider),
+                error: (error, stackTrace) => ErrorState(
+                  icon: '⚠️',
+                  title: t.search.categoriesErrorTitle,
+                  message: t.search.categoriesError,
+                  actionLabel: t.search.retry,
+                  onAction: () => ref.invalidate(categoriesProvider),
                 ),
                 data: (categories) => categories.isEmpty
-                    ? _CategoriesEmpty(t: t)
+                    ? EmptyState(
+                        icon: '🗂️',
+                        title: t.search.categoriesEmptyTitle,
+                        message: t.search.categoriesEmpty,
+                      )
                     : CategoryGrid(
                         categories: categories,
                         // TODO(FM-07): naviguer vers les résultats filtrés
@@ -103,60 +110,4 @@ String _labelFor(
     }
   }
   return placeholder;
-}
-
-class _CategoriesError extends StatelessWidget {
-  const _CategoriesError({required this.t, required this.onRetry});
-
-  final Translations t;
-  final VoidCallback onRetry;
-
-  @override
-  Widget build(BuildContext context) {
-    final locale = Localizations.localeOf(context);
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: AppSpacing.xl),
-        child: Column(
-          children: [
-            Text(
-              t.search.categoriesError,
-              style: AppText.body(
-                locale,
-              ).copyWith(color: context.colors.textSecondary),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: AppSpacing.md),
-            AppButton(
-              label: t.search.retry,
-              variant: AppButtonVariant.secondary,
-              size: AppButtonSize.small,
-              onPressed: onRetry,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _CategoriesEmpty extends StatelessWidget {
-  const _CategoriesEmpty({required this.t});
-
-  final Translations t;
-
-  @override
-  Widget build(BuildContext context) {
-    final locale = Localizations.localeOf(context);
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: AppSpacing.xl),
-      child: Text(
-        t.search.categoriesEmpty,
-        style: AppText.body(
-          locale,
-        ).copyWith(color: context.colors.textSecondary),
-        textAlign: TextAlign.center,
-      ),
-    );
-  }
 }
