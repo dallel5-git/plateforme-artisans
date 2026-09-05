@@ -72,8 +72,8 @@ class CreditBalanceCard extends ConsumerWidget {
             label: t.billing.buyCredits,
             variant: AppButtonVariant.secondary,
             size: AppButtonSize.small,
-            onPressed: onBuyPressed ??
-                () => showUpcomingFeatureDialog(context, ref),
+            onPressed:
+                onBuyPressed ?? () => showUpcomingFeatureDialog(context, ref),
           ),
         ],
       ),

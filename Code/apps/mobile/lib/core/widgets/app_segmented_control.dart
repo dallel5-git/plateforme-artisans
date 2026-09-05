@@ -97,14 +97,15 @@ class AppSegmentedControl<T> extends StatelessWidget {
                         Flexible(
                           child: Text(
                             segment.label,
-                            style: (isSelected
-                                    ? AppText.bodyStrong(locale)
-                                    : AppText.body(locale))
-                                .copyWith(
-                              color: isSelected
-                                  ? colors.textPrimary
-                                  : colors.textSecondary,
-                            ),
+                            style:
+                                (isSelected
+                                        ? AppText.bodyStrong(locale)
+                                        : AppText.body(locale))
+                                    .copyWith(
+                                      color: isSelected
+                                          ? colors.textPrimary
+                                          : colors.textSecondary,
+                                    ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.center,
