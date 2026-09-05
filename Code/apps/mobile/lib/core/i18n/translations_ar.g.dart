@@ -252,6 +252,12 @@ class Translations$onboarding$ar extends Translations$onboarding$fr {
 	@override String get zonesError => 'تعذّر تحميل الولايات.';
 	@override String get zonesErrorMessage => 'تحقّق من اتصالك وأعد المحاولة.';
 	@override String get zonesSaveError => 'تعذّر حفظ المناطق. أعد المحاولة.';
+	@override String get photosTitle => 'أضف صورًا لأعمالك';
+	@override String get photosCapHint => '5 صور كحد أقصى في العرض المجاني';
+	@override String get photosCapReached => 'تم بلوغ الحد الأقصى (5 صور) في العرض المجاني.';
+	@override String get photosAdd => 'إضافة صورة';
+	@override String get photosDelete => 'حذف هذه الصورة';
+	@override String get photosUploadFailed => 'فشل الإرسال';
 	@override String get summaryTitle => 'الملخّص';
 	@override String get summaryCompletionLabel => 'الملف مكتمل بنسبة {score} %';
 	@override String get summaryMissingTitle => 'لا يزال ناقصًا:';
@@ -703,6 +709,12 @@ extension on TranslationsAr {
 			'onboarding.zonesError' => 'تعذّر تحميل الولايات.',
 			'onboarding.zonesErrorMessage' => 'تحقّق من اتصالك وأعد المحاولة.',
 			'onboarding.zonesSaveError' => 'تعذّر حفظ المناطق. أعد المحاولة.',
+			'onboarding.photosTitle' => 'أضف صورًا لأعمالك',
+			'onboarding.photosCapHint' => '5 صور كحد أقصى في العرض المجاني',
+			'onboarding.photosCapReached' => 'تم بلوغ الحد الأقصى (5 صور) في العرض المجاني.',
+			'onboarding.photosAdd' => 'إضافة صورة',
+			'onboarding.photosDelete' => 'حذف هذه الصورة',
+			'onboarding.photosUploadFailed' => 'فشل الإرسال',
 			'onboarding.summaryTitle' => 'الملخّص',
 			'onboarding.summaryCompletionLabel' => 'الملف مكتمل بنسبة {score} %',
 			'onboarding.summaryMissingTitle' => 'لا يزال ناقصًا:',
