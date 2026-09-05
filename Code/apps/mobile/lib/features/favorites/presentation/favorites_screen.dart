@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
-import 'package:sanaya/core/theme/app_text.dart';
-import 'package:sanaya/core/widgets/app_button.dart';
+import 'package:sanaya/core/widgets/empty_state.dart';
+import 'package:sanaya/core/widgets/error_state.dart';
 import 'package:sanaya/features/favorites/application/favorites_providers.dart';
 import 'package:sanaya/features/favorites/presentation/widgets/favorite_card.dart';
 import 'package:sanaya/features/favorites/presentation/widgets/favorite_card_skeleton.dart';
@@ -35,21 +35,29 @@ class FavoritesScreen extends ConsumerWidget {
                 const SizedBox(height: AppSpacing.md),
             itemBuilder: (context, index) => const FavoriteCardSkeleton(),
           ),
-          error: (error, _) => _FavoritesErrorView(
-            message: t.favorites.loadError,
-            retryLabel: t.favorites.retry,
-            onRetry: () => ref.read(favoritesListProvider.notifier).refresh(),
+          error: (error, _) => _FavoritesStateView(
+            child: ErrorState(
+              icon: '⚠️',
+              title: t.favorites.errorTitle,
+              message: t.favorites.loadError,
+              actionLabel: t.favorites.retry,
+              onAction: () =>
+                  ref.read(favoritesListProvider.notifier).refresh(),
+            ),
           ),
           data: (items) => items.isEmpty
-              ? _FavoritesEmptyView(
-                  title: t.favorites.emptyTitle,
-                  subtitle: t.favorites.emptySubtitle,
-                  ctaLabel: t.favorites.exploreCta,
-                  // FM-23 : sous le shell, changer d'onglet (index 0 =
-                  // Rechercher) plutôt que de re-résoudre toute la route
-                  // depuis la racine.
-                  onExploreTap: () =>
-                      StatefulNavigationShell.of(context).goBranch(0),
+              ? _FavoritesStateView(
+                  child: EmptyState(
+                    icon: '🤍',
+                    title: t.favorites.emptyTitle,
+                    message: t.favorites.emptySubtitle,
+                    actionLabel: t.favorites.exploreCta,
+                    // FM-23 : sous le shell, changer d'onglet (index 0 =
+                    // Rechercher) plutôt que de re-résoudre toute la route
+                    // depuis la racine.
+                    onAction: () =>
+                        StatefulNavigationShell.of(context).goBranch(0),
+                  ),
                 )
               : ListView.separated(
                   padding: const EdgeInsets.all(AppSpacing.md),
@@ -70,115 +78,22 @@ class FavoritesScreen extends ConsumerWidget {
   }
 }
 
-class _FavoritesEmptyView extends StatelessWidget {
-  const _FavoritesEmptyView({
-    required this.title,
-    required this.subtitle,
-    required this.ctaLabel,
-    required this.onExploreTap,
-  });
+/// Enrobe [EmptyState]/[ErrorState] pour qu'elles restent centrées même
+/// quand le contenu est plus court que l'écran (patron déjà en place dans
+/// `client_history_screen.dart`/FM-31 pour le même problème sur une liste).
+class _FavoritesStateView extends StatelessWidget {
+  const _FavoritesStateView({required this.child});
 
-  final String title;
-  final String subtitle;
-  final String ctaLabel;
-  final VoidCallback onExploreTap;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    final colors = context.colors;
-    final locale = Localizations.localeOf(context);
-
     return LayoutBuilder(
       builder: (context, constraints) => SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         child: ConstrainedBox(
           constraints: BoxConstraints(minHeight: constraints.maxHeight),
-          child: Padding(
-            padding: const EdgeInsets.all(AppSpacing.xl),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.favorite_border,
-                  size: 64,
-                  color: colors.textMuted,
-                ),
-                const SizedBox(height: AppSpacing.md),
-                Text(
-                  title,
-                  style: AppText.h3(locale).copyWith(color: colors.textPrimary),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: AppSpacing.xs),
-                Text(
-                  subtitle,
-                  style: AppText.small(locale).copyWith(
-                    color: colors.textSecondary,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: AppSpacing.lg),
-                AppButton(
-                  label: ctaLabel,
-                  onPressed: onExploreTap,
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _FavoritesErrorView extends StatelessWidget {
-  const _FavoritesErrorView({
-    required this.message,
-    required this.retryLabel,
-    required this.onRetry,
-  });
-
-  final String message;
-  final String retryLabel;
-  final VoidCallback onRetry;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.colors;
-    final locale = Localizations.localeOf(context);
-
-    return LayoutBuilder(
-      builder: (context, constraints) => SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        child: ConstrainedBox(
-          constraints: BoxConstraints(minHeight: constraints.maxHeight),
-          child: Padding(
-            padding: const EdgeInsets.all(AppSpacing.xl),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.error_outline,
-                  size: 48,
-                  color: colors.destructive,
-                ),
-                const SizedBox(height: AppSpacing.md),
-                Text(
-                  message,
-                  style: AppText.body(locale).copyWith(
-                    color: colors.textPrimary,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: AppSpacing.md),
-                AppButton(
-                  label: retryLabel,
-                  variant: AppButtonVariant.secondary,
-                  onPressed: onRetry,
-                ),
-              ],
-            ),
-          ),
+          child: Center(child: child),
         ),
       ),
     );

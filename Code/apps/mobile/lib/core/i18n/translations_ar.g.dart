@@ -205,6 +205,7 @@ class Translations$favorites$ar extends Translations$favorites$fr {
 	@override String get addSuccess => 'تمت إضافة الحرفي إلى المفضلات';
 	@override String get removeError => 'تعذر إزالة الحرفي من المفضلات.';
 	@override String get addError => 'تعذر إضافة الحرفي إلى المفضلات.';
+	@override String get errorTitle => 'تعذّر التحميل';
 	@override String get loadError => 'تعذر تحميل قائمة المفضلات.';
 	@override String get retry => 'إعادة المحاولة';
 	@override String get verifiedBadge => 'موثوق';
@@ -735,6 +736,7 @@ extension on TranslationsAr {
 			'favorites.addSuccess' => 'تمت إضافة الحرفي إلى المفضلات',
 			'favorites.removeError' => 'تعذر إزالة الحرفي من المفضلات.',
 			'favorites.addError' => 'تعذر إضافة الحرفي إلى المفضلات.',
+			'favorites.errorTitle' => 'تعذّر التحميل',
 			'favorites.loadError' => 'تعذر تحميل قائمة المفضلات.',
 			'favorites.retry' => 'إعادة المحاولة',
 			'favorites.verifiedBadge' => 'موثوق',
