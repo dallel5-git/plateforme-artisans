@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/features/auth/application/auth_providers.dart';
-import 'package:sanaya/features/auth/application/auth_state_provider.dart';
 import 'package:sanaya/features/auth/data/auth_repository.dart';
 import 'package:sanaya/features/settings/presentation/account_settings_section.dart';
 
@@ -16,7 +15,7 @@ class _AuthRepositoryMock extends Mock implements AuthRepository {}
 /// `ClientProfileScreen` (FM-32b, dont les tests de comportement langue/
 /// thème/légal/déconnexion restent inchangés et verts). Ici on couvre
 /// spécifiquement le contrat de paramétrage introduit par l'extraction :
-/// [onOpenLegal] et [accountActions], réutilisés tels quels par
+/// `onOpenLegal` et `accountActions`, réutilisés tels quels par
 /// `ProProfileScreen` (FM-38c).
 void main() {
   late _AuthRepositoryMock authRepository;
