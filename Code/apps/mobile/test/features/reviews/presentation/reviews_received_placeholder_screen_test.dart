@@ -18,20 +18,20 @@ void main() {
   }
 
   group('FM-24b — ReviewsReceivedPlaceholderScreen', () {
-    testWidgets('affiche le titre et le message « bientôt disponible » en '
-        'français', (tester) async {
+    testWidgets('affiche le titre et le message en français', (tester) async {
       await tester.pumpWidget(buildScreen());
       await tester.pumpAndSettle();
 
       expect(find.text('Avis'), findsOneWidget);
-      expect(find.text('Avis reçus bientôt disponibles'), findsOneWidget);
+      expect(find.text("Aucun avis reçu pour l'instant"), findsOneWidget);
     });
 
     testWidgets('se rend en arabe sans exception (RTL)', (tester) async {
       await tester.pumpWidget(buildScreen(locale: const Locale('ar')));
       await tester.pumpAndSettle();
 
-      expect(find.text('التقييمات المستلمة قريباً'), findsOneWidget);
+      expect(find.text('التقييمات'), findsOneWidget);
+      expect(find.text('لا توجد تقييمات حتى الآن'), findsOneWidget);
       expect(tester.takeException(), isNull);
     });
   });
