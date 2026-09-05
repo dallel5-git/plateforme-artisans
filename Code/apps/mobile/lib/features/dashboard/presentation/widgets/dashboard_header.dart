@@ -28,7 +28,12 @@ class DashboardHeader extends ConsumerWidget {
     // est active, indépendamment de BE-44. En loading/error on affiche le
     // titre fallback (jamais d'écran blanc, critère issue #234).
     final userAsync = ref.watch(currentUserProvider);
-    final firstName = userAsync.valueOrNull?.firstName;
+    String? firstName;
+    try {
+      firstName = userAsync.valueOrNull?.firstName;
+    } on Object {
+      firstName = null;
+    }
 
     final greetingText = (firstName != null && firstName.isNotEmpty)
         ? t.dashboard.greeting(name: firstName)
