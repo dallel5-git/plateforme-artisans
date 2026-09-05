@@ -7,6 +7,7 @@ import 'package:sanaya/core/i18n/translations.g.dart';
 import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/features/onboarding/application/onboarding_providers.dart';
 import 'package:sanaya/features/onboarding/presentation/widgets/onboarding_categories_step.dart';
+import 'package:sanaya/features/onboarding/presentation/widgets/onboarding_photos_step.dart';
 import 'package:sanaya/features/onboarding/presentation/widgets/onboarding_profile_step.dart';
 import 'package:sanaya/features/onboarding/presentation/widgets/onboarding_progress_header.dart';
 import 'package:sanaya/features/onboarding/presentation/widgets/onboarding_summary_step.dart';
@@ -171,14 +172,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               t.onboarding.stepProfile,
               t.onboarding.stepCategories,
               t.onboarding.stepZones,
+              t.onboarding.stepPhotos,
               t.onboarding.stepSummary,
             ],
             currentStepIndex: state.currentStepIndex,
-            // `OnboardingStep.values.length` plutôt qu'un total figé à 5 :
-            // la maquette C1 anticipe l'étape photos de FM-35 (hors
-            // périmètre FM-34), pas encore dans `OnboardingStep` — ce
-            // libellé se corrigera de lui-même à « sur 5 » quand FM-35
-            // ajoutera cette étape, sans mensonge d'ici là.
             stepCountLabel: t.onboarding.stepIndicator
                 .replaceAll(
                   '{current}',
@@ -205,6 +202,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 isSaving: state.isSaving,
                 errorMessage: errorMessage,
                 onSubmit: _submitZones,
+              ),
+              OnboardingStep.photos => OnboardingPhotosStep(
+                isSaving: state.isSaving,
+                errorMessage: errorMessage,
+                onSubmit: () =>
+                    ref.read(onboardingProvider.notifier).advanceFromPhotos(),
               ),
               OnboardingStep.summary => OnboardingSummaryStep(
                 profile: state.profile,

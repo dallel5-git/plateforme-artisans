@@ -10,6 +10,8 @@ import 'package:sanaya/features/onboarding/data/onboarding_repository.dart';
 /// - `build()` → état initial synchrone (pas d'appel réseau au démarrage)
 /// - `saveProfile()` → POST ou PATCH selon `state.profile == null`
 /// - `saveCategories()` / `saveCoverageAreas()` → PUT
+/// - `advanceFromPhotos()` → navigation seule (FM-35, aucun appel réseau —
+///   chaque photo est déjà attachée en temps réel par `OnboardingPhotosStep`)
 /// - `publishProfile()` → PATCH publicationStatus=PUBLISHED (score ≥ 60)
 /// - `previousStep()` → navigation arrière sans appel réseau
 ///
@@ -113,7 +115,7 @@ class OnboardingNotifier extends AutoDisposeNotifier<OnboardingState> {
       state = state.copyWith(
         completionScore: result.completionScore,
         isSaving: false,
-        currentStep: OnboardingStep.summary,
+        currentStep: OnboardingStep.photos,
       );
     } on SanayaApiException catch (e) {
       // FM-34b : même remarque que saveCategories — plafond (1 gouvernorat)
@@ -133,6 +135,18 @@ class OnboardingNotifier extends AutoDisposeNotifier<OnboardingState> {
       );
       rethrow;
     }
+  }
+
+  // ---------------------------------------------------------------------------
+  // advanceFromPhotos (étape 4 — photos)
+  // ---------------------------------------------------------------------------
+
+  /// Passe au récapitulatif. Contrairement aux autres étapes, aucun appel
+  /// réseau ici : chaque photo est déjà attachée au profil en temps réel
+  /// par `OnboardingPhotosStep` (FM-35b) au moment de son upload — cette
+  /// étape n'a rien de plus à soumettre.
+  void advanceFromPhotos() {
+    state = state.copyWith(currentStep: OnboardingStep.summary);
   }
 
   // ---------------------------------------------------------------------------

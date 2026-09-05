@@ -229,7 +229,7 @@ void main() {
   // ---------------------------------------------------------------------------
 
   group('saveCoverageAreas', () {
-    test('avance au récapitulatif avec completionScore mis à jour', () async {
+    test('avance aux photos avec completionScore mis à jour', () async {
       final body = V1ProvidersMeCoverageAreasPutRequest();
       final resp = _makeCovResult(80);
       when(
@@ -239,8 +239,34 @@ void main() {
       await container.read(onboardingProvider.notifier).saveCoverageAreas(body);
 
       final s = container.read(onboardingProvider);
-      expect(s.currentStep, OnboardingStep.summary);
+      expect(s.currentStep, OnboardingStep.photos);
       expect(s.completionScore, 80);
+    });
+  });
+
+  // ---------------------------------------------------------------------------
+  // advanceFromPhotos
+  // ---------------------------------------------------------------------------
+
+  group('advanceFromPhotos', () {
+    test('passe directement au récapitulatif, sans appel réseau', () async {
+      final body = V1ProvidersMeCoverageAreasPutRequest();
+      when(
+        () => mockRepo.setCoverageAreas(any()),
+      ).thenAnswer((_) async => _makeCovResult(80));
+      await container.read(onboardingProvider.notifier).saveCoverageAreas(body);
+      expect(
+        container.read(onboardingProvider).currentStep,
+        OnboardingStep.photos,
+      );
+
+      container.read(onboardingProvider.notifier).advanceFromPhotos();
+
+      expect(
+        container.read(onboardingProvider).currentStep,
+        OnboardingStep.summary,
+      );
+      verifyNever(() => mockRepo.updateProfile(any()));
     });
   });
 

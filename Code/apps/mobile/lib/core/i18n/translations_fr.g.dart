@@ -383,6 +383,9 @@ class Translations$onboarding$fr {
 	/// fr: 'Zones'
 	String get stepZones => 'Zones';
 
+	/// fr: 'Photos'
+	String get stepPhotos => 'Photos';
+
 	/// fr: 'Récapitulatif'
 	String get stepSummary => 'Récapitulatif';
 
@@ -1206,6 +1209,7 @@ extension on Translations {
 			'onboarding.stepProfile' => 'Profil',
 			'onboarding.stepCategories' => 'Catégories',
 			'onboarding.stepZones' => 'Zones',
+			'onboarding.stepPhotos' => 'Photos',
 			'onboarding.stepSummary' => 'Récapitulatif',
 			'onboarding.stepIndicator' => 'Étape {current} sur {total}',
 			'onboarding.profileBusinessName' => 'Nom de l\'activité',
