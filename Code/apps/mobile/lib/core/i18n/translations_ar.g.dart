@@ -283,9 +283,19 @@ class Translations$proProfile$ar extends Translations$proProfile$fr {
 
 	// Translations
 	@override String get title => 'الملف الشخصي';
-	@override String get emptyTitle => 'تعديل الملف الشخصي قريباً';
-	@override String get emptyMessage => 'عدّل معلوماتك وتوفّرك بمجرد أن تصبح هذه الميزة جاهزة.';
+	@override String get emptyTitle => 'الملف غير موجود';
+	@override String get emptyMessage => 'لا يوجد ملف حرفي مرتبط بهذا الحساب.';
 	@override String get switchToClientSpace => 'العودة إلى مساحة العميل';
+	@override String get errorTitle => 'تعذّر تحميل ملفك الشخصي';
+	@override String get errorMessage => 'تحقق من اتصالك وأعد المحاولة.';
+	@override String get retry => 'إعادة المحاولة';
+	@override String get availabilitySection => 'التوفر';
+	@override String get acceptsEmergencyLabel => 'يقبل الحالات المستعجلة';
+	@override String get acceptsEmergencyDescription => 'يُظهر شارة "مستعجل" في نتائج البحث';
+	@override String get editSection => 'تعديل ملفي الشخصي';
+	@override String get save => 'حفظ';
+	@override String get saveSuccess => 'تم تحديث الملف الشخصي';
+	@override String get viewMyListing => 'شاهد ملفي كما يراه العميل';
 }
 
 // Path: profile
@@ -744,9 +754,19 @@ extension on TranslationsAr {
 			'onboarding.missingYearsExperience' => 'سنوات خبرتك',
 			'onboarding.missingContactPhone' => 'رقم واتساب أو رقم عام',
 			'proProfile.title' => 'الملف الشخصي',
-			'proProfile.emptyTitle' => 'تعديل الملف الشخصي قريباً',
-			'proProfile.emptyMessage' => 'عدّل معلوماتك وتوفّرك بمجرد أن تصبح هذه الميزة جاهزة.',
+			'proProfile.emptyTitle' => 'الملف غير موجود',
+			'proProfile.emptyMessage' => 'لا يوجد ملف حرفي مرتبط بهذا الحساب.',
 			'proProfile.switchToClientSpace' => 'العودة إلى مساحة العميل',
+			'proProfile.errorTitle' => 'تعذّر تحميل ملفك الشخصي',
+			'proProfile.errorMessage' => 'تحقق من اتصالك وأعد المحاولة.',
+			'proProfile.retry' => 'إعادة المحاولة',
+			'proProfile.availabilitySection' => 'التوفر',
+			'proProfile.acceptsEmergencyLabel' => 'يقبل الحالات المستعجلة',
+			'proProfile.acceptsEmergencyDescription' => 'يُظهر شارة "مستعجل" في نتائج البحث',
+			'proProfile.editSection' => 'تعديل ملفي الشخصي',
+			'proProfile.save' => 'حفظ',
+			'proProfile.saveSuccess' => 'تم تحديث الملف الشخصي',
+			'proProfile.viewMyListing' => 'شاهد ملفي كما يراه العميل',
 			'profile.title' => 'الملف الشخصي',
 			'profile.accountFallback' => 'حسابي',
 			'profile.switchToProSpace' => 'التبديل إلى مساحة المحترفين',
