@@ -25,8 +25,9 @@ void main() {
   }
 
   group('FM-40b — BoostsScreen', () {
-    testWidgets('affiche tous les composants et libellés en français',
-        (tester) async {
+    testWidgets('affiche tous les composants et libellés en français', (
+      tester,
+    ) async {
       await tester.pumpWidget(buildScreen());
       await tester.pumpAndSettle();
 
@@ -61,14 +62,17 @@ void main() {
       expect(find.text('Activer le boost'), findsOneWidget);
     });
 
-    testWidgets('sélection par défaut est 24h et bascule vers 7j au clic',
-        (tester) async {
+    testWidgets('sélection par défaut est 24h et bascule vers 7j au clic', (
+      tester,
+    ) async {
       await tester.pumpWidget(buildScreen());
       await tester.pumpAndSettle();
 
-      final cards = tester.widgetList<BoostOptionCard>(
-        find.byType(BoostOptionCard),
-      ).toList();
+      final cards = tester
+          .widgetList<BoostOptionCard>(
+            find.byType(BoostOptionCard),
+          )
+          .toList();
 
       expect(cards[0].selected, isTrue);
       expect(cards[1].selected, isFalse);
@@ -77,9 +81,11 @@ void main() {
       await tester.tap(find.text('Boost 7 jours'));
       await tester.pumpAndSettle();
 
-      final updatedCards = tester.widgetList<BoostOptionCard>(
-        find.byType(BoostOptionCard),
-      ).toList();
+      final updatedCards = tester
+          .widgetList<BoostOptionCard>(
+            find.byType(BoostOptionCard),
+          )
+          .toList();
 
       expect(updatedCards[0].selected, isFalse);
       expect(updatedCards[1].selected, isTrue);
@@ -88,16 +94,19 @@ void main() {
       await tester.tap(find.text('Boost 24 heures'));
       await tester.pumpAndSettle();
 
-      final reUpdatedCards = tester.widgetList<BoostOptionCard>(
-        find.byType(BoostOptionCard),
-      ).toList();
+      final reUpdatedCards = tester
+          .widgetList<BoostOptionCard>(
+            find.byType(BoostOptionCard),
+          )
+          .toList();
 
       expect(reUpdatedCards[0].selected, isTrue);
       expect(reUpdatedCards[1].selected, isFalse);
     });
 
-    testWidgets('tap sur Activer le boost ouvre la modale Bientôt disponible',
-        (tester) async {
+    testWidgets('tap sur Activer le boost ouvre la modale Bientôt disponible', (
+      tester,
+    ) async {
       await tester.pumpWidget(buildScreen());
       await tester.pumpAndSettle();
 
@@ -115,8 +124,9 @@ void main() {
       expect(find.byType(AlertDialog), findsNothing);
     });
 
-    testWidgets('le switch Client du segmented control navigue vers /client',
-        (tester) async {
+    testWidgets('le switch Client du segmented control navigue vers /client', (
+      tester,
+    ) async {
       final testRouter = GoRouter(
         initialLocation: '/pro/boosts',
         routes: [
@@ -172,8 +182,9 @@ void main() {
       expect(tester.takeException(), isNull);
     });
 
-    testWidgets('ADR-002: le mot Vérifié ne figure jamais sur cet écran',
-        (tester) async {
+    testWidgets('ADR-002: le mot Vérifié ne figure jamais sur cet écran', (
+      tester,
+    ) async {
       await tester.pumpWidget(buildScreen());
       await tester.pumpAndSettle();
 

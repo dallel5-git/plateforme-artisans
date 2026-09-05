@@ -8,8 +8,9 @@ import '../../../../core/widgets/widget_test_helpers.dart';
 
 void main() {
   group('FM-40b — BoostOptionCard', () {
-    testWidgets('affiche le titre, la description, le prix et le badge',
-        (tester) async {
+    testWidgets('affiche le titre, la description, le prix et le badge', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         themedApp(
           BoostOptionCard(
@@ -34,32 +35,34 @@ void main() {
       expect(find.byIcon(Icons.radio_button_checked), findsNothing);
     });
 
-    testWidgets('affiche l icone radio cochee et semantics quand selected=true',
-        (tester) async {
-      final handle = tester.ensureSemantics();
+    testWidgets(
+      'affiche l icone radio cochee et semantics quand selected=true',
+      (tester) async {
+        final handle = tester.ensureSemantics();
 
-      await tester.pumpWidget(
-        themedApp(
-          BoostOptionCard(
-            title: 'Boost 7 jours',
-            description: 'Visibilité boostée pendant 7 jours',
-            priceLabel: '500 crédits',
-            sponsoredLabel: 'Sponsorisé',
-            selected: true,
-            onTap: () {},
+        await tester.pumpWidget(
+          themedApp(
+            BoostOptionCard(
+              title: 'Boost 7 jours',
+              description: 'Visibilité boostée pendant 7 jours',
+              priceLabel: '500 crédits',
+              sponsoredLabel: 'Sponsorisé',
+              selected: true,
+              onTap: () {},
+            ),
           ),
-        ),
-      );
+        );
 
-      expect(find.byIcon(Icons.radio_button_checked), findsOneWidget);
-      expect(find.byIcon(Icons.radio_button_off), findsNothing);
+        expect(find.byIcon(Icons.radio_button_checked), findsOneWidget);
+        expect(find.byIcon(Icons.radio_button_off), findsNothing);
 
-      final node = tester.getSemantics(find.byType(BoostOptionCard));
-      expect(node.flagsCollection.isSelected, Tristate.isTrue);
-      expect(node.flagsCollection.isButton, isTrue);
+        final node = tester.getSemantics(find.byType(BoostOptionCard));
+        expect(node.flagsCollection.isSelected, Tristate.isTrue);
+        expect(node.flagsCollection.isButton, isTrue);
 
-      handle.dispose();
-    });
+        handle.dispose();
+      },
+    );
 
     testWidgets('appelle onTap lors du clic', (tester) async {
       var tapped = false;
