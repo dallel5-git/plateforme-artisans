@@ -40,6 +40,7 @@ class TranslationsAr extends Translations with BaseTranslations<AppLocale, Trans
 
 	// Translations
 	@override late final Translations$auth$ar auth = Translations$auth$ar._(_root);
+	@override late final Translations$billing$ar billing = Translations$billing$ar._(_root);
 	@override late final Translations$boosts$ar boosts = Translations$boosts$ar._(_root);
 	@override late final Translations$common$ar common = Translations$common$ar._(_root);
 	@override late final Translations$contact$ar contact = Translations$contact$ar._(_root);
@@ -82,6 +83,33 @@ class Translations$auth$ar extends Translations$auth$fr {
 	@override String get errorRateLimitExceeded => 'طلبات كثيرة جدًا، حاول مرة أخرى لاحقًا';
 	@override String get errorValidation => 'رقم الهاتف غير صالح';
 	@override String get errorGeneric => 'حدث خطأ، حاول مرة أخرى';
+}
+
+// Path: billing
+class Translations$billing$ar extends Translations$billing$fr {
+	Translations$billing$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get creditsBalance => 'رصيد النقاط';
+	@override String creditsCount({required Object count}) => '${count} نقاط';
+	@override String get buyCredits => 'شراء';
+	@override String get boostSectionTitle => 'تفعيل التعزيز';
+	@override String get boostSectionSubtitle => 'أبرز ملفك في صدارة نتائج البحث.';
+	@override String get boostOption24h => 'تعزيز 24 ساعة';
+	@override String get boostOption24hDesc => 'أقصى درجات الظهور لزيادة فورية في النشاط';
+	@override String get boostOption7d => 'تعزيز 7 أيام';
+	@override String get boostOption7dDesc => 'حضور قوي ومستمر طوال الأسبوع';
+	@override String get boostOptionPrice24h => '10 نقاط';
+	@override String get boostOptionPrice7d => '50 نقطة';
+	@override String get sponsoredTag => 'إعلان ممول';
+	@override String get activateBoostCta => 'تفعيل التعزيز';
+	@override String get featureUpcomingTitle => 'قريباً';
+	@override String get featureUpcomingMessage => 'سيكون نظام شراء النقاط وتفعيل التعزيزات متاحاً في تحديث قادم.';
+	@override String get clientSpace => 'حريف';
+	@override String get proSpace => 'حرفي';
+	@override String get dialogDismiss => 'حسناً';
 }
 
 // Path: boosts
@@ -562,6 +590,24 @@ extension on TranslationsAr {
 			'auth.errorRateLimitExceeded' => 'طلبات كثيرة جدًا، حاول مرة أخرى لاحقًا',
 			'auth.errorValidation' => 'رقم الهاتف غير صالح',
 			'auth.errorGeneric' => 'حدث خطأ، حاول مرة أخرى',
+			'billing.creditsBalance' => 'رصيد النقاط',
+			'billing.creditsCount' => ({required Object count}) => '${count} نقاط',
+			'billing.buyCredits' => 'شراء',
+			'billing.boostSectionTitle' => 'تفعيل التعزيز',
+			'billing.boostSectionSubtitle' => 'أبرز ملفك في صدارة نتائج البحث.',
+			'billing.boostOption24h' => 'تعزيز 24 ساعة',
+			'billing.boostOption24hDesc' => 'أقصى درجات الظهور لزيادة فورية في النشاط',
+			'billing.boostOption7d' => 'تعزيز 7 أيام',
+			'billing.boostOption7dDesc' => 'حضور قوي ومستمر طوال الأسبوع',
+			'billing.boostOptionPrice24h' => '10 نقاط',
+			'billing.boostOptionPrice7d' => '50 نقطة',
+			'billing.sponsoredTag' => 'إعلان ممول',
+			'billing.activateBoostCta' => 'تفعيل التعزيز',
+			'billing.featureUpcomingTitle' => 'قريباً',
+			'billing.featureUpcomingMessage' => 'سيكون نظام شراء النقاط وتفعيل التعزيزات متاحاً في تحديث قادم.',
+			'billing.clientSpace' => 'حريف',
+			'billing.proSpace' => 'حرفي',
+			'billing.dialogDismiss' => 'حسناً',
 			'boosts.title' => 'التعزيزات',
 			'boosts.emptyTitle' => 'التعزيزات قريباً',
 			'boosts.emptyMessage' => 'أبرز ملفك في نتائج البحث بمجرد أن تصبح هذه الميزة جاهزة.',

@@ -1,1 +1,20 @@
-{}
+{
+  "creditsBalance": "Solde de crédits",
+  "creditsCount": "$count crédits",
+  "buyCredits": "Acheter",
+  "boostSectionTitle": "Activer un boost",
+  "boostSectionSubtitle": "Mettez en avant votre profil en tête des résultats de recherche.",
+  "boostOption24h": "Boost 24 heures",
+  "boostOption24hDesc": "Visibilité maximale pour un pic d'activité immédiat",
+  "boostOption7d": "Boost 7 jours",
+  "boostOption7dDesc": "Présence renforcée et continue toute la semaine",
+  "boostOptionPrice24h": "10 crédits",
+  "boostOptionPrice7d": "50 crédits",
+  "sponsoredTag": "Sponsorisé",
+  "activateBoostCta": "Activer le boost",
+  "featureUpcomingTitle": "Bientôt disponible",
+  "featureUpcomingMessage": "Le système d'achat de crédits et d'activation de boosts sera disponible dans une prochaine mise à jour.",
+  "clientSpace": "Client",
+  "proSpace": "Pro",
+  "dialogDismiss": "Compris"
+}
