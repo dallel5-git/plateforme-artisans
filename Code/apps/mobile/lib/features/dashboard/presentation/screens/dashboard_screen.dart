@@ -11,6 +11,7 @@ import 'package:sanaya/core/widgets/error_state.dart';
 import 'package:sanaya/features/dashboard/application/dashboard_comparison.dart';
 import 'package:sanaya/features/dashboard/application/dashboard_providers.dart';
 import 'package:sanaya/features/dashboard/data/dashboard_repository.dart';
+import 'package:sanaya/features/dashboard/presentation/widgets/dashboard_header.dart';
 import 'package:sanaya/features/dashboard/presentation/widgets/dashboard_stat_card.dart';
 import 'package:sanaya/features/dashboard/presentation/widgets/dashboard_trend_chart.dart';
 
@@ -31,17 +32,26 @@ class DashboardScreen extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: colors.background,
-      appBar: AppBar(title: Text(t.dashboard.title)),
-      body: statsAsync.when(
-        loading: () => const _DashboardSkeleton(),
-        error: (error, _) => ErrorState(
-          icon: '⚠️',
-          title: t.dashboard.errorTitle,
-          message: t.dashboard.errorMessage,
-          actionLabel: t.dashboard.retry,
-          onAction: () => ref.invalidate(dashboardStatsProvider),
+      body: SafeArea(
+        child: statsAsync.when(
+          loading: () => const _DashboardSkeleton(),
+          error: (error, _) => Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const DashboardHeader(),
+              Expanded(
+                child: ErrorState(
+                  icon: '⚠️',
+                  title: t.dashboard.errorTitle,
+                  message: t.dashboard.errorMessage,
+                  actionLabel: t.dashboard.retry,
+                  onAction: () => ref.invalidate(dashboardStatsProvider),
+                ),
+              ),
+            ],
+          ),
+          data: (stats) => _DashboardContent(stats: stats, t: t),
         ),
-        data: (stats) => _DashboardContent(stats: stats, t: t),
       ),
     );
   }
@@ -66,65 +76,80 @@ class _DashboardContent extends StatelessWidget {
     final ratioLabel = '$ratioPercent%';
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(AppSpacing.lg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Expanded(
-                child: DashboardStatCard(
-                  label: t.dashboard.statViews,
-                  value: '${totals.profileViews}',
-                  comparisonRatio: comparison.viewsDeltaRatio,
-                  comparisonNewLabel: t.dashboard.comparisonNew,
+          const DashboardHeader(),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(
+              AppSpacing.lg,
+              0,
+              AppSpacing.lg,
+              AppSpacing.lg,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: DashboardStatCard(
+                        label: t.dashboard.statViews,
+                        value: '${totals.profileViews}',
+                        comparisonRatio: comparison.viewsDeltaRatio,
+                        comparisonNewLabel: t.dashboard.comparisonNew,
+                      ),
+                    ),
+                    const SizedBox(width: AppSpacing.md),
+                    Expanded(
+                      child: DashboardStatCard(
+                        label: t.dashboard.statUniqueViews,
+                        value: '${totals.uniqueProfileViews}',
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              const SizedBox(width: AppSpacing.md),
-              Expanded(
-                child: DashboardStatCard(
-                  label: t.dashboard.statUniqueViews,
-                  value: '${totals.uniqueProfileViews}',
+                const SizedBox(height: AppSpacing.md),
+                Row(
+                  children: [
+                    Expanded(
+                      child: DashboardStatCard(
+                        label: t.dashboard.statContacts,
+                        value: '${totals.contacts}',
+                        comparisonRatio: comparison.contactsDeltaRatio,
+                        comparisonNewLabel: t.dashboard.comparisonNew,
+                      ),
+                    ),
+                    const SizedBox(width: AppSpacing.md),
+                    Expanded(
+                      child: DashboardStatCard(
+                        label: t.dashboard.statRatio,
+                        value: ratioLabel,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: AppSpacing.md),
-          Row(
-            children: [
-              Expanded(
-                child: DashboardStatCard(
-                  label: t.dashboard.statContacts,
-                  value: '${totals.contacts}',
-                  comparisonRatio: comparison.contactsDeltaRatio,
-                  comparisonNewLabel: t.dashboard.comparisonNew,
+                const SizedBox(height: AppSpacing.xs),
+                Text(
+                  t.dashboard.comparisonPreviousPeriod,
+                  style: AppText.caption(locale).copyWith(
+                    color: colors.textMuted,
+                  ),
                 ),
-              ),
-              const SizedBox(width: AppSpacing.md),
-              Expanded(
-                child: DashboardStatCard(
-                  label: t.dashboard.statRatio,
-                  value: ratioLabel,
+                const SizedBox(height: AppSpacing.xl),
+                Text(
+                  t.dashboard.chartTitle,
+                  style: AppText.bodyStrong(locale).copyWith(
+                    color: colors.textPrimary,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: AppSpacing.xs),
-          Text(
-            t.dashboard.comparisonPreviousPeriod,
-            style: AppText.caption(locale).copyWith(color: colors.textMuted),
-          ),
-          const SizedBox(height: AppSpacing.xl),
-          Text(
-            t.dashboard.chartTitle,
-            style: AppText.bodyStrong(locale).copyWith(
-              color: colors.textPrimary,
+                const SizedBox(height: AppSpacing.sm),
+                _ChartLegend(t: t),
+                const SizedBox(height: AppSpacing.md),
+                DashboardTrendChart(series: stats.series.toList()),
+              ],
             ),
           ),
-          const SizedBox(height: AppSpacing.sm),
-          _ChartLegend(t: t),
-          const SizedBox(height: AppSpacing.md),
-          DashboardTrendChart(series: stats.series.toList()),
         ],
       ),
     );
@@ -172,30 +197,41 @@ class _DashboardSkeleton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(AppSpacing.lg),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
+    return const Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        DashboardHeader(),
+        Padding(
+          padding: EdgeInsets.fromLTRB(
+            AppSpacing.lg,
+            0,
+            AppSpacing.lg,
+            AppSpacing.lg,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Expanded(child: AppSkeleton(height: 84)),
-              SizedBox(width: AppSpacing.md),
-              Expanded(child: AppSkeleton(height: 84)),
+              Row(
+                children: [
+                  Expanded(child: AppSkeleton(height: 84)),
+                  SizedBox(width: AppSpacing.md),
+                  Expanded(child: AppSkeleton(height: 84)),
+                ],
+              ),
+              SizedBox(height: AppSpacing.md),
+              Row(
+                children: [
+                  Expanded(child: AppSkeleton(height: 84)),
+                  SizedBox(width: AppSpacing.md),
+                  Expanded(child: AppSkeleton(height: 84)),
+                ],
+              ),
+              SizedBox(height: AppSpacing.xl),
+              AppSkeleton(height: 140),
             ],
           ),
-          SizedBox(height: AppSpacing.md),
-          Row(
-            children: [
-              Expanded(child: AppSkeleton(height: 84)),
-              SizedBox(width: AppSpacing.md),
-              Expanded(child: AppSkeleton(height: 84)),
-            ],
-          ),
-          SizedBox(height: AppSpacing.xl),
-          AppSkeleton(height: 140),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
