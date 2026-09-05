@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sanaya/app/theme.dart';
 import 'package:sanaya/core/api/generated/api.dart';
 import 'package:sanaya/core/i18n/translations.g.dart';
+import 'package:sanaya/core/widgets/app_skeleton.dart';
+import 'package:sanaya/core/widgets/error_state.dart';
 import 'package:sanaya/features/onboarding/presentation/widgets/onboarding_categories_step.dart';
 import 'package:sanaya/features/search/application/catalog_providers.dart';
 
@@ -195,6 +199,60 @@ void main() {
         'electricite': false,
         'peinture': false,
       });
+    },
+  );
+
+  testWidgets(
+    'FM-34c — le chargement affiche des AppSkeleton, pas un spinner',
+    (tester) async {
+      await _pumpTall(
+        tester,
+        _wrap(
+          OnboardingCategoriesStep(
+            initialSelection: const {},
+            isSaving: false,
+            errorMessage: null,
+            onSubmit: (_) {},
+          ),
+          overrides: [
+            categoriesProvider.overrideWith(
+              (ref) => Completer<List<CategoryTreeNode>>().future,
+            ),
+          ],
+        ),
+      );
+      await tester.pump();
+
+      expect(find.byType(AppSkeleton), findsWidgets);
+      expect(find.byType(CircularProgressIndicator), findsNothing);
+    },
+  );
+
+  testWidgets(
+    'FM-34c — une erreur de chargement affiche ErrorState avec Réessayer',
+    (tester) async {
+      await _pumpTall(
+        tester,
+        _wrap(
+          OnboardingCategoriesStep(
+            initialSelection: const {},
+            isSaving: false,
+            errorMessage: null,
+            onSubmit: (_) {},
+          ),
+          overrides: [
+            categoriesProvider.overrideWith(
+              (ref) async => throw Exception('boom'),
+            ),
+          ],
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.byType(ErrorState), findsOneWidget);
+      expect(find.text(t.onboarding.categoriesError), findsOneWidget);
+      expect(find.text(t.onboarding.categoriesErrorMessage), findsOneWidget);
+      expect(find.text(t.onboarding.retry), findsOneWidget);
     },
   );
 }
