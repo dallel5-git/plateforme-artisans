@@ -138,6 +138,29 @@ void main() {
     expect(find.text(t.onboarding.profileBusinessName), findsOneWidget);
   });
 
+  testWidgets(
+    'FM-38b : submitLabel remplace le libellé « Suivant » par défaut',
+    (tester) async {
+      await _pumpTall(
+        tester,
+        _wrap(
+          OnboardingProfileStep(
+            initialProfile: null,
+            isSaving: false,
+            errorMessage: null,
+            onSubmit: (_) {},
+            submitLabel: 'Enregistrer',
+          ),
+          overrides: [governoratesProvider.overrideWith((ref) async => [])],
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text('Enregistrer'), findsOneWidget);
+      expect(find.text(t.onboarding.next), findsNothing);
+    },
+  );
+
   testWidgets('affiche errorMessage quand fourni', (tester) async {
     await _pumpTall(
       tester,
