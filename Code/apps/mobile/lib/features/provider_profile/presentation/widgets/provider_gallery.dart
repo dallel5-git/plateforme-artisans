@@ -8,10 +8,7 @@ import 'package:sanaya/core/widgets/app_skeleton.dart';
 /// Galerie photos de la fiche artisan (PageView + indicateur).
 /// Hauteur fixe 220 px (évite les sauts de layout, critère FM-08).
 class ProviderGallery extends StatefulWidget {
-  const ProviderGallery({
-    required this.gallery,
-    super.key,
-  });
+  const ProviderGallery({required this.gallery, super.key});
 
   final List<V1ProvidersSlugGet200ResponseGalleryInner> gallery;
 
@@ -32,11 +29,7 @@ class _ProviderGalleryState extends State<ProviderGallery> {
         child: SizedBox(
           height: 220,
           width: double.infinity,
-          child: Icon(
-            Icons.photo_outlined,
-            size: 48,
-            color: colors.textMuted,
-          ),
+          child: Icon(Icons.photo_outlined, size: 48, color: colors.textMuted),
         ),
       );
     }
@@ -114,19 +107,17 @@ class _ProviderGalleryState extends State<ProviderGallery> {
   }
 }
 
-/// Squelette de chargement pour la galerie (hauteur 220 px fixe).
+/// Squelette de chargement pour la galerie (hauteur 220 px fixe, sans coins
+/// arrondis — c'est une couverture plein-écran, pas une carte).
 class ProviderGallerySkeleton extends StatelessWidget {
   const ProviderGallerySkeleton({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final colors = context.colors;
-    return ColoredBox(
-      color: colors.surfaceSunken,
-      child: const SizedBox(
-        height: 220,
-        width: double.infinity,
-      ),
+    return const AppSkeleton(
+      width: double.infinity,
+      height: 220,
+      borderRadius: BorderRadius.zero,
     );
   }
 }
