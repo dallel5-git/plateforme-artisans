@@ -15,13 +15,44 @@ import 'package:sanaya/features/onboarding/data/onboarding_repository.dart';
 /// - `publishProfile()` → PATCH publicationStatus=PUBLISHED (score ≥ 60)
 /// - `previousStep()` → navigation arrière sans appel réseau
 ///
+/// - `resumeSession()` → `GET /providers/me` (FM-36), appelée une fois au
+///   montage de `OnboardingScreen`
+///
 /// `completionScore` : toujours celui renvoyé par l'API (P3 CLAUDE.md).
-/// Reprise après fermeture de l'app : `GET /providers/me` (BE-44) — câblage laissé à FM-36.
 class OnboardingNotifier extends AutoDisposeNotifier<OnboardingState> {
   @override
   OnboardingState build() => OnboardingState.initial;
 
   OnboardingRepository get _repo => ref.read(onboardingRepositoryProvider);
+
+  // ---------------------------------------------------------------------------
+  // resumeSession (reprise après fermeture de l'app — FM-36)
+  // ---------------------------------------------------------------------------
+
+  /// Pré-remplit l'étape profil depuis le profil existant, s'il y en a un,
+  /// et reprend à l'étape catégories — la seule frontière déterminable à
+  /// partir de `GET /providers/me` (BE-44), dont la réponse ne renvoie pas
+  /// les catégories/zones déjà choisies (`providerMeSchema`, pas de champ
+  /// `categories`/`coverageAreas` : voir `packages/validators/src/provider.ts`).
+  /// L'artisan resaisit donc catégories et zones dans ce cas ; limite
+  /// documentée, voir `BE-44b` (backlog non planifié).
+  ///
+  /// Aucun profil existant (404) ou erreur réseau : reste à l'état initial,
+  /// étape 1 — échec silencieux, ne bloque jamais l'ouverture de l'écran.
+  Future<void> resumeSession() async {
+    final ProviderMe? profile;
+    try {
+      profile = await _repo.getMyProfile();
+    } on Object {
+      return;
+    }
+    if (profile == null) return;
+    state = state.copyWith(
+      profile: profile,
+      completionScore: profile.completionScore,
+      currentStep: OnboardingStep.categories,
+    );
+  }
 
   // ---------------------------------------------------------------------------
   // saveProfile (étape 1 — profil)

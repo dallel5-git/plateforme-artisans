@@ -130,6 +130,45 @@ void main() {
   });
 
   // ---------------------------------------------------------------------------
+  // resumeSession (FM-36 — reprise après fermeture de l'app)
+  // ---------------------------------------------------------------------------
+
+  group('resumeSession', () {
+    test('profil existant → reprend à catégories, préremplie', () async {
+      final profile = _makeProviderMe(45);
+      when(() => mockRepo.getMyProfile()).thenAnswer((_) async => profile);
+
+      await container.read(onboardingProvider.notifier).resumeSession();
+
+      final s = container.read(onboardingProvider);
+      expect(s.currentStep, OnboardingStep.categories);
+      expect(s.completionScore, 45);
+      expect(s.profile, isNotNull);
+    });
+
+    test('aucun profil (404 → null) → reste à l étape profil', () async {
+      when(() => mockRepo.getMyProfile()).thenAnswer((_) async => null);
+
+      await container.read(onboardingProvider.notifier).resumeSession();
+
+      final s = container.read(onboardingProvider);
+      expect(s.currentStep, OnboardingStep.profile);
+      expect(s.profile, isNull);
+      expect(s.completionScore, 0);
+    });
+
+    test('erreur réseau → échec silencieux, reste à l étape profil', () async {
+      when(() => mockRepo.getMyProfile()).thenThrow(Exception('réseau'));
+
+      await container.read(onboardingProvider.notifier).resumeSession();
+
+      final s = container.read(onboardingProvider);
+      expect(s.currentStep, OnboardingStep.profile);
+      expect(s.errorCode, isNull);
+    });
+  });
+
+  // ---------------------------------------------------------------------------
   // saveProfile
   // ---------------------------------------------------------------------------
 

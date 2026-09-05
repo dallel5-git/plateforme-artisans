@@ -328,4 +328,56 @@ void main() {
       );
     });
   });
+
+  // ---------------------------------------------------------------------------
+  // getMyProfile (FM-36 — reprise de l'onboarding)
+  // ---------------------------------------------------------------------------
+
+  group('getMyProfile', () {
+    test('retourne le profil quand v1ProvidersMeGet répond 200', () async {
+      when(() => mockApi.v1ProvidersMeGet()).thenAnswer(
+        (_) async => Response(
+          requestOptions: _opts('/v1/providers/me'),
+          statusCode: 200,
+          // data null → data! lève une exception dans getMyProfile ; ce qui
+          // compte ici c'est que l'appel a bien été fait, sans passer par la
+          // branche 404 (voir le test suivant).
+        ),
+      );
+
+      await expectLater(repository.getMyProfile(), throwsA(anything));
+
+      verify(() => mockApi.v1ProvidersMeGet()).called(1);
+    });
+
+    test('retourne null sur 404 (aucun profil créé)', () async {
+      when(() => mockApi.v1ProvidersMeGet()).thenThrow(
+        DioException(
+          requestOptions: _opts('/v1/providers/me'),
+          type: DioExceptionType.badResponse,
+          response: Response(
+            requestOptions: _opts('/v1/providers/me'),
+            statusCode: 404,
+          ),
+          error: NotFoundException(),
+        ),
+      );
+
+      expect(await repository.getMyProfile(), isNull);
+    });
+
+    test('propage DioException sur erreur réseau', () async {
+      when(() => mockApi.v1ProvidersMeGet()).thenThrow(
+        DioException(
+          requestOptions: _opts('/v1/providers/me'),
+          type: DioExceptionType.connectionTimeout,
+        ),
+      );
+
+      await expectLater(
+        repository.getMyProfile(),
+        throwsA(isA<DioException>()),
+      );
+    });
+  });
 }
