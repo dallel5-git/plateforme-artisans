@@ -8,8 +8,11 @@
   "comparisonPreviousPeriod": "مقارنة بالـ 15 يومًا السابقة",
   "comparisonNew": "جديد",
   "chartTitle": "المشاهدات خلال 30 يومًا",
+  "chartTitle7d": "المشاهدات خلال 7 أيام",
   "chartContactsLabel": "جهات الاتصال",
   "chartViewsLabel": "المشاهدات",
+  "emptyTitle": "لا مشاهدات حتى الآن",
+  "emptyMessage": "أكمل ملفك الشخصي لتظهر في نتائج البحث.",
   "retry": "إعادة المحاولة",
   "errorTitle": "تعذر تحميل لوحة التحكم",
   "errorMessage": "تحقق من اتصالك وأعد المحاولة."

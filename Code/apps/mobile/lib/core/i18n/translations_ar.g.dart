@@ -137,8 +137,11 @@ class Translations$dashboard$ar extends Translations$dashboard$fr {
 	@override String get comparisonPreviousPeriod => 'مقارنة بالـ 15 يومًا السابقة';
 	@override String get comparisonNew => 'جديد';
 	@override String get chartTitle => 'المشاهدات خلال 30 يومًا';
+	@override String get chartTitle7d => 'المشاهدات خلال 7 أيام';
 	@override String get chartContactsLabel => 'جهات الاتصال';
 	@override String get chartViewsLabel => 'المشاهدات';
+	@override String get emptyTitle => 'لا مشاهدات حتى الآن';
+	@override String get emptyMessage => 'أكمل ملفك الشخصي لتظهر في نتائج البحث.';
 	@override String get retry => 'إعادة المحاولة';
 	@override String get errorTitle => 'تعذر تحميل لوحة التحكم';
 	@override String get errorMessage => 'تحقق من اتصالك وأعد المحاولة.';
@@ -641,8 +644,11 @@ extension on TranslationsAr {
 			'dashboard.comparisonPreviousPeriod' => 'مقارنة بالـ 15 يومًا السابقة',
 			'dashboard.comparisonNew' => 'جديد',
 			'dashboard.chartTitle' => 'المشاهدات خلال 30 يومًا',
+			'dashboard.chartTitle7d' => 'المشاهدات خلال 7 أيام',
 			'dashboard.chartContactsLabel' => 'جهات الاتصال',
 			'dashboard.chartViewsLabel' => 'المشاهدات',
+			'dashboard.emptyTitle' => 'لا مشاهدات حتى الآن',
+			'dashboard.emptyMessage' => 'أكمل ملفك الشخصي لتظهر في نتائج البحث.',
 			'dashboard.retry' => 'إعادة المحاولة',
 			'dashboard.errorTitle' => 'تعذر تحميل لوحة التحكم',
 			'dashboard.errorMessage' => 'تحقق من اتصالك وأعد المحاولة.',

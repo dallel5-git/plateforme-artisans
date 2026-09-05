@@ -200,11 +200,20 @@ class Translations$dashboard$fr {
 	/// fr: 'Vues sur 30 jours'
 	String get chartTitle => 'Vues sur 30 jours';
 
+	/// fr: 'Vues sur 7 jours'
+	String get chartTitle7d => 'Vues sur 7 jours';
+
 	/// fr: 'Contacts'
 	String get chartContactsLabel => 'Contacts';
 
 	/// fr: 'Vues'
 	String get chartViewsLabel => 'Vues';
+
+	/// fr: 'Aucune vue pour l'instant'
+	String get emptyTitle => 'Aucune vue pour l\'instant';
+
+	/// fr: 'Complétez votre profil pour apparaître dans les résultats de recherche.'
+	String get emptyMessage => 'Complétez votre profil pour apparaître dans les résultats de recherche.';
 
 	/// fr: 'Réessayer'
 	String get retry => 'Réessayer';
@@ -1166,8 +1175,11 @@ extension on Translations {
 			'dashboard.comparisonPreviousPeriod' => 'vs. 15 jours précédents',
 			'dashboard.comparisonNew' => 'Nouveau',
 			'dashboard.chartTitle' => 'Vues sur 30 jours',
+			'dashboard.chartTitle7d' => 'Vues sur 7 jours',
 			'dashboard.chartContactsLabel' => 'Contacts',
 			'dashboard.chartViewsLabel' => 'Vues',
+			'dashboard.emptyTitle' => 'Aucune vue pour l\'instant',
+			'dashboard.emptyMessage' => 'Complétez votre profil pour apparaître dans les résultats de recherche.',
 			'dashboard.retry' => 'Réessayer',
 			'dashboard.errorTitle' => 'Impossible de charger le tableau de bord',
 			'dashboard.errorMessage' => 'Vérifiez votre connexion et réessayez.',
