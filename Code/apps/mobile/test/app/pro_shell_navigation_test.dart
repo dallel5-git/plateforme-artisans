@@ -11,6 +11,7 @@ import 'package:sanaya/core/i18n/translations.g.dart';
 import 'package:sanaya/features/auth/application/auth_providers.dart';
 import 'package:sanaya/features/auth/data/auth_repository.dart';
 import 'package:sanaya/features/onboarding/application/onboarding_providers.dart';
+import 'package:sanaya/features/reviews/application/pro_reviews_providers.dart';
 import 'package:sanaya/main.dart';
 
 class _MockAuthRepository extends Mock implements AuthRepository {}
@@ -52,6 +53,7 @@ void main() {
         authRepositoryProvider.overrideWithValue(authRepository),
         authTokenStoreProvider.overrideWithValue(authTokenStore),
         hasPublishedProfileProvider.overrideWith((ref) => true),
+        myProviderProfileProvider.overrideWith((ref) async => null),
       ],
       child: const SanayaApp(),
     );

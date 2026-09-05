@@ -138,6 +138,66 @@ void main() {
     expect(find.text(t.onboarding.profileBusinessName), findsOneWidget);
   });
 
+  testWidgets(
+    'FM-38b : submitLabel remplace le libellé « Suivant » par défaut',
+    (tester) async {
+      await _pumpTall(
+        tester,
+        _wrap(
+          OnboardingProfileStep(
+            initialProfile: null,
+            isSaving: false,
+            errorMessage: null,
+            onSubmit: (_) {},
+            submitLabel: 'Enregistrer',
+          ),
+          overrides: [governoratesProvider.overrideWith((ref) async => [])],
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text('Enregistrer'), findsOneWidget);
+      expect(find.text(t.onboarding.next), findsNothing);
+    },
+  );
+
+  testWidgets(
+    'FM-38c : showGovernorate=false masque le sélecteur et autorise la '
+    'validation sans gouvernorat choisi (updateProviderMeSchema ne '
+    'l’accepte pas en PATCH)',
+    (tester) async {
+      ProfileStepValues? submitted;
+      await _pumpTall(
+        tester,
+        _wrap(
+          OnboardingProfileStep(
+            initialProfile: null,
+            isSaving: false,
+            errorMessage: null,
+            onSubmit: (v) => submitted = v,
+            showGovernorate: false,
+          ),
+          overrides: [governoratesProvider.overrideWith((ref) async => [])],
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text(t.onboarding.profileGovernorate), findsNothing);
+
+      await tester.enterText(
+        find.widgetWithText(AppTextField, t.onboarding.profileBusinessName),
+        'Ahmed Plomberie',
+      );
+      await tester.pump();
+
+      await tester.tap(find.text(t.onboarding.next));
+      await tester.pump();
+
+      expect(submitted, isNotNull);
+      expect(submitted!.businessName, 'Ahmed Plomberie');
+    },
+  );
+
   testWidgets('affiche errorMessage quand fourni', (tester) async {
     await _pumpTall(
       tester,

@@ -6,15 +6,13 @@ import 'package:sanaya/core/i18n/format.dart';
 import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/theme/app_text.dart';
+import 'package:sanaya/core/widgets/app_badge.dart';
 import 'package:sanaya/core/widgets/app_card.dart';
 import 'package:sanaya/core/widgets/rating_stars.dart';
 
 /// Tuile affichant un avis client sur la fiche artisan.
 class ReviewTile extends ConsumerWidget {
-  const ReviewTile({
-    required this.review,
-    super.key,
-  });
+  const ReviewTile({required this.review, super.key});
 
   final V1ProvidersSlugReviewsGet200ResponseItemsInner review;
 
@@ -34,16 +32,14 @@ class ReviewTile extends ConsumerWidget {
               Expanded(
                 child: Text(
                   review.authorDisplayName,
-                  style: AppText.bodyStrong(locale).copyWith(
-                    color: colors.textPrimary,
-                  ),
+                  style: AppText.bodyStrong(
+                    locale,
+                  ).copyWith(color: colors.textPrimary),
                 ),
               ),
               Text(
                 formatDate(review.createdAt, locale),
-                style: AppText.small(locale).copyWith(
-                  color: colors.textMuted,
-                ),
+                style: AppText.small(locale).copyWith(color: colors.textMuted),
               ),
             ],
           ),
@@ -53,29 +49,10 @@ class ReviewTile extends ConsumerWidget {
               RatingStars(rating: review.rating.toDouble()),
               if (review.isVerifiedContact) ...[
                 const SizedBox(width: AppSpacing.sm),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.xs,
-                    vertical: AppSpacing.xxs,
-                  ),
-                  decoration: BoxDecoration(
-                    color: colors.verifiedSubtle,
-                    borderRadius: const BorderRadius.all(AppRadius.pill),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.check, size: 10, color: colors.verified),
-                      const SizedBox(width: 2),
-                      Text(
-                        t.provider.profile.verifiedContact,
-                        style: AppText.caption(locale).copyWith(
-                          color: colors.verified,
-                          height: 1.1,
-                        ),
-                      ),
-                    ],
-                  ),
+                AppBadge(
+                  label: t.provider.profile.verifiedContact,
+                  variant: AppBadgeVariant.verified,
+                  icon: Icons.check,
                 ),
               ],
             ],
@@ -84,9 +61,7 @@ class ReviewTile extends ConsumerWidget {
             const SizedBox(height: AppSpacing.sm),
             Text(
               review.comment,
-              style: AppText.body(locale).copyWith(
-                color: colors.textSecondary,
-              ),
+              style: AppText.body(locale).copyWith(color: colors.textSecondary),
             ),
           ],
         ],

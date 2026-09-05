@@ -43,7 +43,14 @@ void main() {
             home: Scaffold(
               body: Builder(
                 builder: (context) => ElevatedButton(
-                  onPressed: () => showGovernoratePicker(context),
+                  onPressed: () => showGovernoratePicker(
+                    context,
+                    onSelected: (id) =>
+                        container
+                                .read(selectedGovernorateIdProvider.notifier)
+                                .state =
+                            id,
+                  ),
                   child: const Text('ouvrir'),
                 ),
               ),

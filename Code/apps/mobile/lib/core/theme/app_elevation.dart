@@ -22,16 +22,58 @@ class AppElevation extends ThemeExtension<AppElevation> {
 
   static const light = AppElevation(
     none: const [],
-    sm: const [BoxShadow(offset: Offset(0.0, 1.0), blurRadius: 2.0, spreadRadius: 0.0, color: Color.fromRGBO(20, 26, 36, 0.06))],
-    md: const [BoxShadow(offset: Offset(0.0, 4.0), blurRadius: 12.0, spreadRadius: 0.0, color: Color.fromRGBO(20, 26, 36, 0.08))],
-    lg: const [BoxShadow(offset: Offset(0.0, 12.0), blurRadius: 32.0, spreadRadius: 0.0, color: Color.fromRGBO(20, 26, 36, 0.12))],
+    sm: const [
+      BoxShadow(
+        offset: Offset(0.0, 1.0),
+        blurRadius: 2.0,
+        spreadRadius: 0.0,
+        color: Color.fromRGBO(20, 26, 36, 0.06),
+      ),
+    ],
+    md: const [
+      BoxShadow(
+        offset: Offset(0.0, 4.0),
+        blurRadius: 12.0,
+        spreadRadius: 0.0,
+        color: Color.fromRGBO(20, 26, 36, 0.08),
+      ),
+    ],
+    lg: const [
+      BoxShadow(
+        offset: Offset(0.0, 12.0),
+        blurRadius: 32.0,
+        spreadRadius: 0.0,
+        color: Color.fromRGBO(20, 26, 36, 0.12),
+      ),
+    ],
   );
 
   static const dark = AppElevation(
     none: const [],
-    sm: const [BoxShadow(offset: Offset(0.0, 1.0), blurRadius: 2.0, spreadRadius: 0.0, color: Color.fromRGBO(0, 0, 0, 0.32))],
-    md: const [BoxShadow(offset: Offset(0.0, 4.0), blurRadius: 12.0, spreadRadius: 0.0, color: Color.fromRGBO(0, 0, 0, 0.40))],
-    lg: const [BoxShadow(offset: Offset(0.0, 12.0), blurRadius: 32.0, spreadRadius: 0.0, color: Color.fromRGBO(0, 0, 0, 0.48))],
+    sm: const [
+      BoxShadow(
+        offset: Offset(0.0, 1.0),
+        blurRadius: 2.0,
+        spreadRadius: 0.0,
+        color: Color.fromRGBO(0, 0, 0, 0.32),
+      ),
+    ],
+    md: const [
+      BoxShadow(
+        offset: Offset(0.0, 4.0),
+        blurRadius: 12.0,
+        spreadRadius: 0.0,
+        color: Color.fromRGBO(0, 0, 0, 0.40),
+      ),
+    ],
+    lg: const [
+      BoxShadow(
+        offset: Offset(0.0, 12.0),
+        blurRadius: 32.0,
+        spreadRadius: 0.0,
+        color: Color.fromRGBO(0, 0, 0, 0.48),
+      ),
+    ],
   );
 
   @override
