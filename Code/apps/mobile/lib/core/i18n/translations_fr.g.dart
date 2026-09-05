@@ -594,14 +594,44 @@ class Translations$proProfile$fr {
 	/// fr: 'Profil'
 	String get title => 'Profil';
 
-	/// fr: 'Édition du profil bientôt disponible'
-	String get emptyTitle => 'Édition du profil bientôt disponible';
+	/// fr: 'Profil introuvable'
+	String get emptyTitle => 'Profil introuvable';
 
-	/// fr: 'Modifiez vos informations et votre disponibilité dès que cette fonctionnalité sera prête.'
-	String get emptyMessage => 'Modifiez vos informations et votre disponibilité dès que cette fonctionnalité sera prête.';
+	/// fr: 'Aucun profil artisan n'est associé à ce compte.'
+	String get emptyMessage => 'Aucun profil artisan n\'est associé à ce compte.';
 
 	/// fr: 'Retour à l'espace Client'
 	String get switchToClientSpace => 'Retour à l\'espace Client';
+
+	/// fr: 'Impossible de charger votre profil'
+	String get errorTitle => 'Impossible de charger votre profil';
+
+	/// fr: 'Vérifiez votre connexion et réessayez.'
+	String get errorMessage => 'Vérifiez votre connexion et réessayez.';
+
+	/// fr: 'Réessayer'
+	String get retry => 'Réessayer';
+
+	/// fr: 'Disponibilité'
+	String get availabilitySection => 'Disponibilité';
+
+	/// fr: 'Accepte les urgences'
+	String get acceptsEmergencyLabel => 'Accepte les urgences';
+
+	/// fr: 'Affiche le badge Urgence dans les résultats de recherche'
+	String get acceptsEmergencyDescription => 'Affiche le badge Urgence dans les résultats de recherche';
+
+	/// fr: 'Modifier mon profil'
+	String get editSection => 'Modifier mon profil';
+
+	/// fr: 'Enregistrer'
+	String get save => 'Enregistrer';
+
+	/// fr: 'Profil mis à jour'
+	String get saveSuccess => 'Profil mis à jour';
+
+	/// fr: 'Voir ma fiche telle que la voit un client'
+	String get viewMyListing => 'Voir ma fiche telle que la voit un client';
 }
 
 // Path: profile
@@ -1373,9 +1403,19 @@ extension on Translations {
 			'onboarding.missingYearsExperience' => 'Vos années d\'expérience',
 			'onboarding.missingContactPhone' => 'Un numéro WhatsApp ou public',
 			'proProfile.title' => 'Profil',
-			'proProfile.emptyTitle' => 'Édition du profil bientôt disponible',
-			'proProfile.emptyMessage' => 'Modifiez vos informations et votre disponibilité dès que cette fonctionnalité sera prête.',
+			'proProfile.emptyTitle' => 'Profil introuvable',
+			'proProfile.emptyMessage' => 'Aucun profil artisan n\'est associé à ce compte.',
 			'proProfile.switchToClientSpace' => 'Retour à l\'espace Client',
+			'proProfile.errorTitle' => 'Impossible de charger votre profil',
+			'proProfile.errorMessage' => 'Vérifiez votre connexion et réessayez.',
+			'proProfile.retry' => 'Réessayer',
+			'proProfile.availabilitySection' => 'Disponibilité',
+			'proProfile.acceptsEmergencyLabel' => 'Accepte les urgences',
+			'proProfile.acceptsEmergencyDescription' => 'Affiche le badge Urgence dans les résultats de recherche',
+			'proProfile.editSection' => 'Modifier mon profil',
+			'proProfile.save' => 'Enregistrer',
+			'proProfile.saveSuccess' => 'Profil mis à jour',
+			'proProfile.viewMyListing' => 'Voir ma fiche telle que la voit un client',
 			'profile.title' => 'Profil',
 			'profile.accountFallback' => 'Mon compte',
 			'profile.switchToProSpace' => 'Passer en espace Pro',

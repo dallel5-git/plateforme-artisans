@@ -48,7 +48,12 @@ class SearchHomeScreen extends ConsumerWidget {
               SearchHomeBar(
                 t: t,
                 locationLabel: locationLabel,
-                onLocationTap: () => showGovernoratePicker(context),
+                onLocationTap: () => showGovernoratePicker(
+                  context,
+                  onSelected: (id) =>
+                      ref.read(selectedGovernorateIdProvider.notifier).state =
+                          id,
+                ),
                 // TODO(FM-07): brancher la recherche réelle (résultats) —
                 // dépend de BE-16, non livré au moment de FM-06.
               ),

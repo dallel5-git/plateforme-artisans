@@ -1,6 +1,16 @@
 {
   "title": "الملف الشخصي",
-  "emptyTitle": "تعديل الملف الشخصي قريباً",
-  "emptyMessage": "عدّل معلوماتك وتوفّرك بمجرد أن تصبح هذه الميزة جاهزة.",
-  "switchToClientSpace": "العودة إلى مساحة العميل"
+  "emptyTitle": "الملف غير موجود",
+  "emptyMessage": "لا يوجد ملف حرفي مرتبط بهذا الحساب.",
+  "switchToClientSpace": "العودة إلى مساحة العميل",
+  "errorTitle": "تعذّر تحميل ملفك الشخصي",
+  "errorMessage": "تحقق من اتصالك وأعد المحاولة.",
+  "retry": "إعادة المحاولة",
+  "availabilitySection": "التوفر",
+  "acceptsEmergencyLabel": "يقبل الحالات المستعجلة",
+  "acceptsEmergencyDescription": "يُظهر شارة \"مستعجل\" في نتائج البحث",
+  "editSection": "تعديل ملفي الشخصي",
+  "save": "حفظ",
+  "saveSuccess": "تم تحديث الملف الشخصي",
+  "viewMyListing": "شاهد ملفي كما يراه العميل"
 }
