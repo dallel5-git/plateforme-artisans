@@ -1,5 +1,6 @@
 {
   "title": "Tableau de bord",
+  "greeting": "Bonjour, $name",
   "statViews": "Vues du profil",
   "statUniqueViews": "Visiteurs uniques",
   "statContacts": "Contacts",
