@@ -44,6 +44,9 @@ class OnboardingProfileStep extends StatefulWidget {
     required this.errorMessage,
     required this.onSubmit,
     this.submitLabel,
+    this.shrinkWrap = false,
+    this.physics,
+    this.showGovernorate = true,
     super.key,
   });
 
@@ -57,6 +60,23 @@ class OnboardingProfileStep extends StatefulWidget {
   /// passe son propre libellé « Enregistrer » — ce widget reste sans savoir
   /// dans quel écran il est monté (P3 CLAUDE.md).
   final String? submitLabel;
+
+  /// `true` par défaut = comportement historique de l'onboarding (le
+  /// gouvernorat de rattachement se choisit à la création du profil).
+  /// `updateProviderMeSchema` (`packages/validators/src/provider.ts`)
+  /// n'accepte **pas** `baseGovernorateId` en `PATCH` — `ProProfileScreen`
+  /// (FM-38c) passe `false` pour ne pas afficher un champ modifiable dont le
+  /// changement serait silencieusement perdu à l'enregistrement.
+  final bool showGovernorate;
+
+  /// `false`/`null` par défaut = comportement historique de l'onboarding
+  /// (`ListView` plein écran, défilement propre). `ProProfileScreen`
+  /// (FM-38c) embarque ce widget à l'intérieur de son propre `ListView` —
+  /// `shrinkWrap: true` + `NeverScrollableScrollPhysics` évite alors le
+  /// conflit de deux `Scrollable` imbriqués sans dupliquer les ~7 champs du
+  /// formulaire (P4 CLAUDE.md).
+  final bool shrinkWrap;
+  final ScrollPhysics? physics;
 
   @override
   State<OnboardingProfileStep> createState() => _OnboardingProfileStepState();
@@ -101,7 +121,7 @@ class _OnboardingProfileStepState extends State<OnboardingProfileStep> {
 
   bool get _canSubmit =>
       _businessName.text.trim().isNotEmpty &&
-      _baseGovernorateId != null &&
+      (!widget.showGovernorate || _baseGovernorateId != null) &&
       !widget.isSaving;
 
   void _submit() {
@@ -109,7 +129,7 @@ class _OnboardingProfileStepState extends State<OnboardingProfileStep> {
     widget.onSubmit(
       ProfileStepValues(
         businessName: _businessName.text.trim(),
-        baseGovernorateId: _baseGovernorateId!,
+        baseGovernorateId: _baseGovernorateId ?? '',
         headline: _headline.text.trim().isEmpty ? null : _headline.text.trim(),
         bio: _bio.text.trim().isEmpty ? null : _bio.text.trim(),
         yearsExperience: int.tryParse(_yearsExperience.text.trim()),
@@ -129,6 +149,8 @@ class _OnboardingProfileStepState extends State<OnboardingProfileStep> {
       builder: (context, ref, _) {
         final t = ref.watch(translationsProvider);
         return ListView(
+          shrinkWrap: widget.shrinkWrap,
+          physics: widget.physics,
           padding: const EdgeInsets.all(AppSpacing.lg),
           children: [
             AppTextField(
@@ -164,13 +186,15 @@ class _OnboardingProfileStepState extends State<OnboardingProfileStep> {
               controller: _publicPhone,
               keyboardType: TextInputType.phone,
             ),
-            const SizedBox(height: AppSpacing.md),
-            _GovernoratePicker(
-              label: t.onboarding.profileGovernorate,
-              errorLabel: t.onboarding.profileGovernorateError,
-              selectedId: _baseGovernorateId,
-              onSelected: (id) => setState(() => _baseGovernorateId = id),
-            ),
+            if (widget.showGovernorate) ...[
+              const SizedBox(height: AppSpacing.md),
+              _GovernoratePicker(
+                label: t.onboarding.profileGovernorate,
+                errorLabel: t.onboarding.profileGovernorateError,
+                selectedId: _baseGovernorateId,
+                onSelected: (id) => setState(() => _baseGovernorateId = id),
+              ),
+            ],
             if (widget.errorMessage != null) ...[
               const SizedBox(height: AppSpacing.md),
               Text(

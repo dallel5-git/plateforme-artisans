@@ -1,6 +1,16 @@
 {
   "title": "Profil",
-  "emptyTitle": "Édition du profil bientôt disponible",
-  "emptyMessage": "Modifiez vos informations et votre disponibilité dès que cette fonctionnalité sera prête.",
-  "switchToClientSpace": "Retour à l'espace Client"
+  "emptyTitle": "Profil introuvable",
+  "emptyMessage": "Aucun profil artisan n'est associé à ce compte.",
+  "switchToClientSpace": "Retour à l'espace Client",
+  "errorTitle": "Impossible de charger votre profil",
+  "errorMessage": "Vérifiez votre connexion et réessayez.",
+  "retry": "Réessayer",
+  "availabilitySection": "Disponibilité",
+  "acceptsEmergencyLabel": "Accepte les urgences",
+  "acceptsEmergencyDescription": "Affiche le badge Urgence dans les résultats de recherche",
+  "editSection": "Modifier mon profil",
+  "save": "Enregistrer",
+  "saveSuccess": "Profil mis à jour",
+  "viewMyListing": "Voir ma fiche telle que la voit un client"
 }

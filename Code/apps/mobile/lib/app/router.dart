@@ -16,7 +16,7 @@ import 'package:sanaya/features/favorites/presentation/favorites_screen.dart';
 import 'package:sanaya/features/history/presentation/client_history_screen.dart';
 import 'package:sanaya/features/onboarding/application/onboarding_providers.dart';
 import 'package:sanaya/features/onboarding/presentation/onboarding_screen.dart';
-import 'package:sanaya/features/pro_profile/presentation/pro_profile_placeholder_screen.dart';
+import 'package:sanaya/features/pro_profile/presentation/pro_profile_screen.dart';
 import 'package:sanaya/features/profile/presentation/client_profile_screen.dart';
 import 'package:sanaya/features/provider_profile/presentation/screens/provider_profile_screen.dart';
 import 'package:sanaya/features/provider_profile/presentation/screens/review_form_screen.dart';
@@ -244,7 +244,14 @@ final router = GoRouter(
               path: '/pro/profile',
               name: 'pro-profile',
               pageBuilder: (_, _) =>
-                  const NoTransitionPage(child: ProProfilePlaceholderScreen()),
+                  const NoTransitionPage(child: ProProfileScreen()),
+              routes: [
+                GoRoute(
+                  path: 'legal',
+                  name: 'pro-profile-legal',
+                  builder: (_, _) => const LegalNoticeScreen(),
+                ),
+              ],
             ),
           ],
         ),
