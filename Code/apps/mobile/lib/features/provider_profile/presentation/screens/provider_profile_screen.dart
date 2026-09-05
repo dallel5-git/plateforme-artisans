@@ -11,6 +11,7 @@ import 'package:sanaya/core/widgets/app_button.dart';
 import 'package:sanaya/core/widgets/app_card.dart';
 import 'package:sanaya/core/widgets/app_skeleton.dart';
 import 'package:sanaya/core/widgets/rating_stars.dart';
+import 'package:sanaya/core/widgets/sticky_action_bar.dart';
 import 'package:sanaya/core/widgets/verified_badge.dart';
 import 'package:sanaya/features/contact/presentation/contact_buttons.dart';
 import 'package:sanaya/features/favorites/application/favorites_providers.dart';
@@ -27,10 +28,7 @@ import 'package:sanaya/features/provider_profile/presentation/widgets/review_til
 /// C'est l'écran de décision où le client consulte les détails et avis,
 /// et décide d'appeler ou de contacter via WhatsApp (FM-09).
 class ProviderProfileScreen extends ConsumerWidget {
-  const ProviderProfileScreen({
-    required this.slug,
-    super.key,
-  });
+  const ProviderProfileScreen({required this.slug, super.key});
 
   final String slug;
 
@@ -52,10 +50,7 @@ class ProviderProfileScreen extends ConsumerWidget {
 }
 
 class _ProfileContent extends ConsumerWidget {
-  const _ProfileContent({
-    required this.slug,
-    required this.profile,
-  });
+  const _ProfileContent({required this.slug, required this.profile});
 
   final String slug;
   final ProviderProfile profile;
@@ -100,17 +95,17 @@ class _ProfileContent extends ConsumerWidget {
                         children: [
                           Text(
                             profile.businessName,
-                            style: AppText.h2(locale).copyWith(
-                              color: colors.textPrimary,
-                            ),
+                            style: AppText.h2(
+                              locale,
+                            ).copyWith(color: colors.textPrimary),
                           ),
                           if (profile.headline.isNotEmpty) ...[
                             const SizedBox(height: AppSpacing.xxs),
                             Text(
                               profile.headline,
-                              style: AppText.body(locale).copyWith(
-                                color: colors.textSecondary,
-                              ),
+                              style: AppText.body(
+                                locale,
+                              ).copyWith(color: colors.textSecondary),
                             ),
                           ],
                         ],
@@ -150,9 +145,9 @@ class _ProfileContent extends ConsumerWidget {
                     Expanded(
                       child: Text(
                         baseLocation,
-                        style: AppText.small(locale).copyWith(
-                          color: colors.textSecondary,
-                        ),
+                        style: AppText.small(
+                          locale,
+                        ).copyWith(color: colors.textSecondary),
                       ),
                     ),
                     if (profile.yearsExperience > 0) ...[
@@ -166,9 +161,9 @@ class _ProfileContent extends ConsumerWidget {
                       Flexible(
                         child: Text(
                           yearsExpText,
-                          style: AppText.small(locale).copyWith(
-                            color: colors.textSecondary,
-                          ),
+                          style: AppText.small(
+                            locale,
+                          ).copyWith(color: colors.textSecondary),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
@@ -181,9 +176,9 @@ class _ProfileContent extends ConsumerWidget {
                   const SizedBox(height: AppSpacing.md),
                   Text(
                     profile.bio,
-                    style: AppText.body(locale).copyWith(
-                      color: colors.textPrimary,
-                    ),
+                    style: AppText.body(
+                      locale,
+                    ).copyWith(color: colors.textPrimary),
                   ),
                 ],
 
@@ -193,9 +188,9 @@ class _ProfileContent extends ConsumerWidget {
                 if (profile.offerings.isNotEmpty) ...[
                   Text(
                     t.provider.profile.offeringsTitle,
-                    style: AppText.h3(locale).copyWith(
-                      color: colors.textPrimary,
-                    ),
+                    style: AppText.h3(
+                      locale,
+                    ).copyWith(color: colors.textPrimary),
                   ),
                   const SizedBox(height: AppSpacing.sm),
                   for (final offering in profile.offerings) ...[
@@ -209,9 +204,9 @@ class _ProfileContent extends ConsumerWidget {
                 if (profile.coverageAreas.isNotEmpty) ...[
                   Text(
                     t.provider.profile.coverageTitle,
-                    style: AppText.h3(locale).copyWith(
-                      color: colors.textPrimary,
-                    ),
+                    style: AppText.h3(
+                      locale,
+                    ).copyWith(color: colors.textPrimary),
                   ),
                   const SizedBox(height: AppSpacing.sm),
                   Wrap(
@@ -240,9 +235,7 @@ class _ProfileContent extends ConsumerWidget {
                 // 5. Section Avis clients
                 Text(
                   t.provider.profile.reviewsTitle,
-                  style: AppText.h3(locale).copyWith(
-                    color: colors.textPrimary,
-                  ),
+                  style: AppText.h3(locale).copyWith(color: colors.textPrimary),
                 ),
                 const SizedBox(height: AppSpacing.sm),
 
@@ -259,9 +252,9 @@ class _ProfileContent extends ConsumerWidget {
                   ),
                   error: (_, _) => Text(
                     t.provider.profile.noReviews,
-                    style: AppText.body(locale).copyWith(
-                      color: colors.textMuted,
-                    ),
+                    style: AppText.body(
+                      locale,
+                    ).copyWith(color: colors.textMuted),
                   ),
                   data: (reviewsState) {
                     if (reviewsState.reviews.isEmpty) {
@@ -271,9 +264,9 @@ class _ProfileContent extends ConsumerWidget {
                         ),
                         child: Text(
                           t.provider.profile.noReviews,
-                          style: AppText.body(locale).copyWith(
-                            color: colors.textMuted,
-                          ),
+                          style: AppText.body(
+                            locale,
+                          ).copyWith(color: colors.textMuted),
                         ),
                       );
                     }
@@ -394,42 +387,34 @@ class _ContactBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final colors = context.colors;
     final t = ref.watch(translationsProvider);
     final providerId = ref.watch(providerProfileProvider(slug)).valueOrNull?.id;
 
-    return Container(
-      padding: const EdgeInsets.all(AppSpacing.md),
-      decoration: BoxDecoration(
-        color: colors.surface,
-        border: Border(top: BorderSide(color: colors.border)),
-      ),
-      child: SafeArea(
-        child: providerId != null
-            ? ContactButtons(
-                providerId: providerId,
-                sourceScreen: 'provider_profile',
-              )
-            : Row(
-                children: [
-                  Expanded(
-                    child: AppButton(
-                      label: t.provider.profile.callButton,
-                      icon: const Icon(Icons.phone),
-                      onPressed: null,
-                    ),
+    return StickyActionBar(
+      child: providerId != null
+          ? ContactButtons(
+              providerId: providerId,
+              sourceScreen: 'provider_profile',
+            )
+          : Row(
+              children: [
+                Expanded(
+                  child: AppButton(
+                    label: t.provider.profile.callButton,
+                    icon: const Icon(Icons.phone),
+                    onPressed: null,
                   ),
-                  const SizedBox(width: AppSpacing.md),
-                  Expanded(
-                    child: AppButton(
-                      label: t.provider.profile.whatsappButton,
-                      variant: AppButtonVariant.outlineWhatsapp,
-                      onPressed: null,
-                    ),
+                ),
+                const SizedBox(width: AppSpacing.md),
+                Expanded(
+                  child: AppButton(
+                    label: t.provider.profile.whatsappButton,
+                    variant: AppButtonVariant.outlineWhatsapp,
+                    onPressed: null,
                   ),
-                ],
-              ),
-      ),
+                ),
+              ],
+            ),
     );
   }
 }
@@ -556,11 +541,7 @@ class _ProfileError extends ConsumerWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(
-                  Icons.error_outline,
-                  size: 48,
-                  color: colors.destructive,
-                ),
+                Icon(Icons.error_outline, size: 48, color: colors.destructive),
                 const SizedBox(height: AppSpacing.md),
                 Text(
                   t.provider.profile.errorLoad,
