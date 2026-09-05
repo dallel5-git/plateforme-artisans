@@ -5,6 +5,8 @@ import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/theme/app_text.dart';
 import 'package:sanaya/core/widgets/app_button.dart';
+import 'package:sanaya/core/widgets/app_skeleton.dart';
+import 'package:sanaya/core/widgets/error_state.dart';
 import 'package:sanaya/features/onboarding/domain/onboarding_plan_limits.dart';
 import 'package:sanaya/features/onboarding/presentation/widgets/onboarding_selectable_option_card.dart';
 import 'package:sanaya/features/search/application/catalog_providers.dart';
@@ -60,23 +62,28 @@ class _OnboardingZonesStepState extends ConsumerState<OnboardingZonesStep> {
     final canSubmit = _selection.isNotEmpty && !widget.isSaving;
 
     return governoratesAsync.when(
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stackTrace) => Center(
+      loading: () => Padding(
+        padding: const EdgeInsets.all(AppSpacing.lg),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              t.onboarding.zonesError,
-              style: AppText.body(locale).copyWith(color: colors.textSecondary),
-            ),
+            const AppSkeleton(width: 220, height: 24),
+            const SizedBox(height: AppSpacing.sm),
+            const AppSkeleton(width: 200, height: 14),
             const SizedBox(height: AppSpacing.md),
-            AppButton(
-              label: t.onboarding.retry,
-              variant: AppButtonVariant.secondary,
-              onPressed: () => ref.invalidate(governoratesProvider),
-            ),
+            for (var i = 0; i < 4; i++) ...[
+              const AppSkeleton(height: 52),
+              const SizedBox(height: AppSpacing.sm),
+            ],
           ],
         ),
+      ),
+      error: (error, stackTrace) => ErrorState(
+        icon: '⚠️',
+        title: t.onboarding.zonesError,
+        message: t.onboarding.zonesErrorMessage,
+        actionLabel: t.onboarding.retry,
+        onAction: () => ref.invalidate(governoratesProvider),
       ),
       data: (governorates) => ListView(
         padding: const EdgeInsets.all(AppSpacing.lg),
