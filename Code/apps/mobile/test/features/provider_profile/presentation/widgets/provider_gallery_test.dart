@@ -50,8 +50,9 @@ void main() {
   ) async {
     await tester.pumpWidget(_wrap(const ProviderGallerySkeleton()));
 
-    final sizedBox = tester.widget<SizedBox>(find.byType(SizedBox));
-    expect(sizedBox.height, 220.0);
+    final skeleton = tester.widget<AppSkeleton>(find.byType(AppSkeleton));
+    expect(skeleton.height, 220.0);
+    expect(skeleton.width, double.infinity);
   });
 
   testWidgets(

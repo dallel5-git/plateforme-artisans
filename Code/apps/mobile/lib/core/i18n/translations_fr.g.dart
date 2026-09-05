@@ -348,6 +348,9 @@ class Translations$favorites$fr {
 	/// fr: 'Impossible d'ajouter le favori.'
 	String get addError => 'Impossible d\'ajouter le favori.';
 
+	/// fr: 'Chargement impossible'
+	String get errorTitle => 'Chargement impossible';
+
 	/// fr: 'Impossible de charger vos favoris.'
 	String get loadError => 'Impossible de charger vos favoris.';
 
@@ -1095,6 +1098,12 @@ class Translations$provider$profile$fr {
 	/// fr: 'Aucun avis pour le moment.'
 	String get noReviews => 'Aucun avis pour le moment.';
 
+	/// fr: 'Chargement impossible'
+	String get reviewsErrorTitle => 'Chargement impossible';
+
+	/// fr: 'Impossible de charger les avis.'
+	String get reviewsError => 'Impossible de charger les avis.';
+
 	/// fr: 'Prestations'
 	String get offeringsTitle => 'Prestations';
 
@@ -1115,6 +1124,9 @@ class Translations$provider$profile$fr {
 
 	/// fr: 'Contact vérifié'
 	String get verifiedContact => 'Contact vérifié';
+
+	/// fr: 'Chargement impossible'
+	String get errorLoadTitle => 'Chargement impossible';
 
 	/// fr: 'Impossible de charger la fiche.'
 	String get errorLoad => 'Impossible de charger la fiche.';
@@ -1339,6 +1351,7 @@ extension on Translations {
 			'favorites.addSuccess' => 'Artisan ajouté aux favoris',
 			'favorites.removeError' => 'Impossible de retirer le favori.',
 			'favorites.addError' => 'Impossible d\'ajouter le favori.',
+			'favorites.errorTitle' => 'Chargement impossible',
 			'favorites.loadError' => 'Impossible de charger vos favoris.',
 			'favorites.retry' => 'Réessayer',
 			'favorites.verifiedBadge' => 'Vérifié',
@@ -1430,6 +1443,8 @@ extension on Translations {
 			'provider.profile.reviewsTitle' => 'Avis',
 			'provider.profile.loadMoreReviews' => 'Charger plus d\'avis',
 			'provider.profile.noReviews' => 'Aucun avis pour le moment.',
+			'provider.profile.reviewsErrorTitle' => 'Chargement impossible',
+			'provider.profile.reviewsError' => 'Impossible de charger les avis.',
 			'provider.profile.offeringsTitle' => 'Prestations',
 			'provider.profile.coverageTitle' => 'Zones d\'intervention',
 			'provider.profile.yearsExperience' => '{n} an(s) d\'expérience',
@@ -1437,6 +1452,7 @@ extension on Translations {
 			'provider.profile.busy' => 'Occupé',
 			'provider.profile.onHoliday' => 'En congé',
 			'provider.profile.verifiedContact' => 'Contact vérifié',
+			'provider.profile.errorLoadTitle' => 'Chargement impossible',
 			'provider.profile.errorLoad' => 'Impossible de charger la fiche.',
 			'provider.profile.retry' => 'Réessayer',
 			'provider.profile.writeReview' => 'Donner mon avis',

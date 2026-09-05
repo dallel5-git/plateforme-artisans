@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/core/widgets/app_bottom_nav.dart';
+import 'package:sanaya/core/widgets/connectivity_banner.dart';
 
 /// Enrobe les 4 branches du shell pro (FM-24) : `AppBottomNav` en bas.
 /// Volontairement plus simple que `ClientShellScreen` (FM-23) — pas de
@@ -19,7 +20,12 @@ class ProShellScreen extends ConsumerWidget {
     final currentIndex = navigationShell.currentIndex;
 
     return Scaffold(
-      body: navigationShell,
+      body: Column(
+        children: [
+          const ConnectivityBanner(),
+          Expanded(child: navigationShell),
+        ],
+      ),
       bottomNavigationBar: AppBottomNav(
         items: [
           AppBottomNavItem(

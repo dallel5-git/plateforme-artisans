@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/core/widgets/app_bottom_nav.dart';
+import 'package:sanaya/core/widgets/connectivity_banner.dart';
 
 /// Enrobe les 4 branches du shell client (FM-23) : `AppBottomNav` en bas,
 /// et gère le retour arrière Android — un onglet secondaire ramène à
@@ -59,7 +60,12 @@ class _ClientShellScreenState extends ConsumerState<ClientShellScreen> {
           );
       },
       child: Scaffold(
-        body: widget.navigationShell,
+        body: Column(
+          children: [
+            const ConnectivityBanner(),
+            Expanded(child: widget.navigationShell),
+          ],
+        ),
         bottomNavigationBar: AppBottomNav(
           items: [
             AppBottomNavItem(icon: Icons.search, label: t.common.nav.searchTab),

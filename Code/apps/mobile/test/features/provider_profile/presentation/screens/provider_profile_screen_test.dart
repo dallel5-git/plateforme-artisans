@@ -130,12 +130,18 @@ class FakeProviderProfileRepository implements ProviderProfileRepository {
     this.profile,
     this.reviewsPage,
     this.error,
+    this.reviewsError,
     this.completer,
   });
 
   final ProviderProfile? profile;
   final ReviewsPage? reviewsPage;
   final Exception? error;
+
+  /// Erreur distincte de [error] — permet de simuler un profil chargé avec
+  /// succès mais des avis en échec (régression #239 : l'écran affichait
+  /// alors « Aucun avis pour le moment » au lieu d'un vrai état d'erreur).
+  final Exception? reviewsError;
   final Completer<ProviderProfile>? completer;
 
   @override
@@ -151,6 +157,7 @@ class FakeProviderProfileRepository implements ProviderProfileRepository {
     String? cursor,
     int limit = 10,
   }) async {
+    if (reviewsError != null) throw reviewsError!;
     if (error != null) throw error!;
     return reviewsPage ??
         ReviewsPage(
@@ -336,6 +343,36 @@ void main() {
         await tester.pumpAndSettle();
 
         expect(find.byType(VerifiedBadge), findsOneWidget);
+      },
+    );
+
+    testWidgets(
+      // régression #239 : un échec de chargement des avis affichait « Aucun
+      // avis pour le moment » — identique à une liste réellement vide, sans
+      // aucun moyen de réessayer.
+      'FM-42c — une erreur de chargement des avis affiche ErrorState '
+      'avec Réessayer, pas « Aucun avis »',
+      (tester) async {
+        final profile = _fakeProfile(
+          slug: 'mohamed-plombier',
+          businessName: 'Mohamed Plomberie',
+        );
+        final repo = FakeProviderProfileRepository(
+          profile: profile,
+          reviewsError: Exception('réseau indisponible'),
+        );
+
+        await tester.pumpWidget(
+          _wrap(
+            const ProviderProfileScreen(slug: 'mohamed-plombier'),
+            repository: repo,
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        expect(find.text('Impossible de charger les avis.'), findsOneWidget);
+        expect(find.text('Aucun avis pour le moment.'), findsNothing);
+        expect(find.text('Réessayer'), findsWidgets);
       },
     );
 
