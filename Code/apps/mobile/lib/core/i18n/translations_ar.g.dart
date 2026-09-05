@@ -129,6 +129,7 @@ class Translations$dashboard$ar extends Translations$dashboard$fr {
 
 	// Translations
 	@override String get title => 'لوحة التحكم';
+	@override String greeting({required Object name}) => 'مرحباً، ${name}';
 	@override String get statViews => 'مشاهدات الملف الشخصي';
 	@override String get statUniqueViews => 'زوار فريدون';
 	@override String get statContacts => 'جهات الاتصال';
@@ -632,6 +633,7 @@ extension on TranslationsAr {
 			'contact.call' => 'اتصال',
 			'contact.whatsapp' => 'واتساب',
 			'dashboard.title' => 'لوحة التحكم',
+			'dashboard.greeting' => ({required Object name}) => 'مرحباً، ${name}',
 			'dashboard.statViews' => 'مشاهدات الملف الشخصي',
 			'dashboard.statUniqueViews' => 'زوار فريدون',
 			'dashboard.statContacts' => 'جهات الاتصال',
