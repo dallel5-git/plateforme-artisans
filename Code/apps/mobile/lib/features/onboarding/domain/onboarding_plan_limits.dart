@@ -9,3 +9,8 @@
 /// n'en est pas une : juste l'affichage d'un nombre déjà appliqué serveur).
 const freePlanMaxCategories = 3;
 const freePlanMaxGovernorates = 1;
+
+/// Miroir de `FREE_PLAN_MAX_PORTFOLIO_ITEMS` (`plan-limits.ts`, BE-20d) — voir
+/// le commentaire de tête sur `freePlanMaxCategories` : simple affichage,
+/// l'API reste seule autorité (FM-35).
+const freePlanMaxPortfolioItems = 5;
