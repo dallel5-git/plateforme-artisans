@@ -5,8 +5,8 @@ import 'package:sanaya/features/onboarding/data/onboarding_repository.dart'
 // Étapes de l'assistant
 // ---------------------------------------------------------------------------
 
-/// Les 4 étapes de l'assistant d'onboarding dans l'ordre de présentation.
-enum OnboardingStep { profile, categories, zones, summary }
+/// Les 5 étapes de l'assistant d'onboarding dans l'ordre de présentation.
+enum OnboardingStep { profile, categories, zones, photos, summary }
 
 // ---------------------------------------------------------------------------
 // État immuable de l'assistant

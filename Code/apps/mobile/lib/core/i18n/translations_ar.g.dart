@@ -228,6 +228,7 @@ class Translations$onboarding$ar extends Translations$onboarding$fr {
 	@override String get stepProfile => 'الملف الشخصي';
 	@override String get stepCategories => 'الفئات';
 	@override String get stepZones => 'المناطق';
+	@override String get stepPhotos => 'الصور';
 	@override String get stepSummary => 'الملخّص';
 	@override String get stepIndicator => 'الخطوة {current} من {total}';
 	@override String get profileBusinessName => 'اسم النشاط';
@@ -685,6 +686,7 @@ extension on TranslationsAr {
 			'onboarding.stepProfile' => 'الملف الشخصي',
 			'onboarding.stepCategories' => 'الفئات',
 			'onboarding.stepZones' => 'المناطق',
+			'onboarding.stepPhotos' => 'الصور',
 			'onboarding.stepSummary' => 'الملخّص',
 			'onboarding.stepIndicator' => 'الخطوة {current} من {total}',
 			'onboarding.profileBusinessName' => 'اسم النشاط',

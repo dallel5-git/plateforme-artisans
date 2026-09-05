@@ -24,6 +24,30 @@ class MockCreateResponse extends Mock implements V1ProvidersMePost200Response {}
 class MockProviderMe extends Mock
     implements V1ProvidersMePost200ResponseProvider {}
 
+class MockCoverageAreasResult extends Mock
+    implements V1ProvidersMeCoverageAreasPut200Response {}
+
+class _FakeCoverageAreasPutRequest extends Fake
+    implements V1ProvidersMeCoverageAreasPutRequest {}
+
+/// Démarre directement à l'étape zones — évite de rejouer profil/catégories
+/// pour tester uniquement la transition zones → photos → récapitulatif
+/// (FM-35c).
+class _ZonesReadyNotifier extends OnboardingNotifier {
+  _ZonesReadyNotifier(this._initialProfile);
+
+  final ProviderMe _initialProfile;
+
+  @override
+  OnboardingState build() => OnboardingState(
+    currentStep: OnboardingStep.zones,
+    completionScore: 40,
+    missingFields: const [],
+    isSaving: false,
+    profile: _initialProfile,
+  );
+}
+
 /// Démarre directement au récapitulatif, `canPublish: true` — évite de
 /// rejouer les 3 étapes précédentes pour tester uniquement `publishProfile`
 /// (FM-24a). `publishProfile()` reste celui d'`OnboardingNotifier` (non
@@ -69,6 +93,7 @@ void main() {
   setUpAll(() {
     registerFallbackValue(_FakePostRequest());
     registerFallbackValue(_FakePatchRequest());
+    registerFallbackValue(_FakeCoverageAreasPutRequest());
   });
 
   testWidgets("affiche l'étape profil au démarrage", (tester) async {
@@ -158,7 +183,7 @@ void main() {
       // FM-34 : l'en-tête affiche « Étape N sur total », plus une barre de
       // complétude — `completionScore` du mock (36) n'est donc plus vérifié
       // ici, il ne réapparaît qu'au récapitulatif (`OnboardingSummaryStep`).
-      expect(find.text('Étape 2 sur 4'), findsOneWidget);
+      expect(find.text('Étape 2 sur 5'), findsOneWidget);
     },
   );
 
@@ -235,6 +260,79 @@ void main() {
 
       expect(container.read(hasPublishedProfileProvider), isTrue);
       expect(find.text('DASHBOARD_PLACEHOLDER'), findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    'FM-35c — soumettre les zones ouvre l’étape photos ; Suivant sans '
+    'photo mène directement au récapitulatif',
+    (tester) async {
+      final mockRepo = MockOnboardingRepository();
+      final providerMock = MockProviderMe();
+      when(() => providerMock.completionScore).thenReturn(40);
+      // computeMissingKeys() (onboarding_summary_step.dart) les lit
+      // inconditionnellement dès que le récapitulatif est atteint.
+      when(() => providerMock.bio).thenReturn('');
+      when(() => providerMock.headline).thenReturn('');
+      when(() => providerMock.yearsExperience).thenReturn(0);
+      when(() => providerMock.whatsappPhone).thenReturn('');
+      when(() => providerMock.publicPhone).thenReturn('');
+      final coverageResult = MockCoverageAreasResult();
+      when(() => coverageResult.completionScore).thenReturn(70);
+      when(
+        () => mockRepo.setCoverageAreas(any()),
+      ).thenAnswer((_) async => coverageResult);
+
+      final container = ProviderContainer(
+        overrides: [
+          onboardingRepositoryProvider.overrideWithValue(mockRepo),
+          onboardingProvider.overrideWith(
+            () => _ZonesReadyNotifier(providerMock),
+          ),
+          governoratesProvider.overrideWith(
+            (ref) async => [_governorate('sousse', 'Sousse')],
+          ),
+        ],
+      );
+      addTearDown(container.dispose);
+
+      tester.view.physicalSize = const Size(400, 2400);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+
+      await tester.pumpWidget(
+        UncontrolledProviderScope(
+          container: container,
+          child: MaterialApp(
+            theme: buildTheme(
+              brightness: Brightness.light,
+              locale: const Locale('fr'),
+            ),
+            locale: const Locale('fr'),
+            home: const OnboardingScreen(),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Sousse'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text(t.onboarding.next));
+      await tester.pumpAndSettle();
+
+      verify(() => mockRepo.setCoverageAreas(any())).called(1);
+      expect(find.text(t.onboarding.photosTitle), findsOneWidget);
+      expect(find.text('Étape 4 sur 5'), findsOneWidget);
+
+      await tester.tap(find.text(t.onboarding.next));
+      await tester.pumpAndSettle();
+
+      // `summaryTitle` et `stepSummary` partagent la même chaîne
+      // (« Récapitulatif ») — l'en-tête l'affiche aussi, d'où
+      // `findsWidgets` plutôt que `findsOneWidget` ici. Le bouton de
+      // publication, propre à cette étape, confirme la navigation.
+      expect(find.text(t.onboarding.summaryTitle), findsWidgets);
+      expect(find.text(t.onboarding.summaryPublish), findsOneWidget);
     },
   );
 }

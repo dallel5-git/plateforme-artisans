@@ -6,6 +6,7 @@
   "stepProfile": "Profil",
   "stepCategories": "Catégories",
   "stepZones": "Zones",
+  "stepPhotos": "Photos",
   "stepSummary": "Récapitulatif",
   "stepIndicator": "Étape {current} sur {total}",
   "profileBusinessName": "Nom de l'activité",
