@@ -35,6 +35,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	// Translations
 	late final Translations$auth$fr auth = Translations$auth$fr.internal(_root);
+	late final Translations$billing$fr billing = Translations$billing$fr.internal(_root);
 	late final Translations$boosts$fr boosts = Translations$boosts$fr.internal(_root);
 	late final Translations$common$fr common = Translations$common$fr.internal(_root);
 	late final Translations$contact$fr contact = Translations$contact$fr.internal(_root);
@@ -113,6 +114,69 @@ class Translations$auth$fr {
 
 	/// fr: 'Une erreur est survenue, réessayez'
 	String get errorGeneric => 'Une erreur est survenue, réessayez';
+}
+
+// Path: billing
+class Translations$billing$fr {
+	Translations$billing$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Solde de crédits'
+	String get creditsBalance => 'Solde de crédits';
+
+	/// fr: '$count crédits'
+	String creditsCount({required Object count}) => '${count} crédits';
+
+	/// fr: 'Acheter'
+	String get buyCredits => 'Acheter';
+
+	/// fr: 'Activer un boost'
+	String get boostSectionTitle => 'Activer un boost';
+
+	/// fr: 'Mettez en avant votre profil en tête des résultats de recherche.'
+	String get boostSectionSubtitle => 'Mettez en avant votre profil en tête des résultats de recherche.';
+
+	/// fr: 'Boost 24 heures'
+	String get boostOption24h => 'Boost 24 heures';
+
+	/// fr: 'Visibilité maximale pour un pic d'activité immédiat'
+	String get boostOption24hDesc => 'Visibilité maximale pour un pic d\'activité immédiat';
+
+	/// fr: 'Boost 7 jours'
+	String get boostOption7d => 'Boost 7 jours';
+
+	/// fr: 'Présence renforcée et continue toute la semaine'
+	String get boostOption7dDesc => 'Présence renforcée et continue toute la semaine';
+
+	/// fr: '10 crédits'
+	String get boostOptionPrice24h => '10 crédits';
+
+	/// fr: '50 crédits'
+	String get boostOptionPrice7d => '50 crédits';
+
+	/// fr: 'Sponsorisé'
+	String get sponsoredTag => 'Sponsorisé';
+
+	/// fr: 'Activer le boost'
+	String get activateBoostCta => 'Activer le boost';
+
+	/// fr: 'Bientôt disponible'
+	String get featureUpcomingTitle => 'Bientôt disponible';
+
+	/// fr: 'Le système d'achat de crédits et d'activation de boosts sera disponible dans une prochaine mise à jour.'
+	String get featureUpcomingMessage => 'Le système d\'achat de crédits et d\'activation de boosts sera disponible dans une prochaine mise à jour.';
+
+	/// fr: 'Client'
+	String get clientSpace => 'Client';
+
+	/// fr: 'Pro'
+	String get proSpace => 'Pro';
+
+	/// fr: 'Compris'
+	String get dialogDismiss => 'Compris';
 }
 
 // Path: boosts
@@ -1142,6 +1206,24 @@ extension on Translations {
 			'auth.errorRateLimitExceeded' => 'Trop de demandes, réessayez plus tard',
 			'auth.errorValidation' => 'Numéro de téléphone invalide',
 			'auth.errorGeneric' => 'Une erreur est survenue, réessayez',
+			'billing.creditsBalance' => 'Solde de crédits',
+			'billing.creditsCount' => ({required Object count}) => '${count} crédits',
+			'billing.buyCredits' => 'Acheter',
+			'billing.boostSectionTitle' => 'Activer un boost',
+			'billing.boostSectionSubtitle' => 'Mettez en avant votre profil en tête des résultats de recherche.',
+			'billing.boostOption24h' => 'Boost 24 heures',
+			'billing.boostOption24hDesc' => 'Visibilité maximale pour un pic d\'activité immédiat',
+			'billing.boostOption7d' => 'Boost 7 jours',
+			'billing.boostOption7dDesc' => 'Présence renforcée et continue toute la semaine',
+			'billing.boostOptionPrice24h' => '10 crédits',
+			'billing.boostOptionPrice7d' => '50 crédits',
+			'billing.sponsoredTag' => 'Sponsorisé',
+			'billing.activateBoostCta' => 'Activer le boost',
+			'billing.featureUpcomingTitle' => 'Bientôt disponible',
+			'billing.featureUpcomingMessage' => 'Le système d\'achat de crédits et d\'activation de boosts sera disponible dans une prochaine mise à jour.',
+			'billing.clientSpace' => 'Client',
+			'billing.proSpace' => 'Pro',
+			'billing.dialogDismiss' => 'Compris',
 			'boosts.title' => 'Boosts',
 			'boosts.emptyTitle' => 'Boosts bientôt disponibles',
 			'boosts.emptyMessage' => 'Mettez en avant votre profil dans les résultats de recherche dès que cette fonctionnalité sera prête.',
