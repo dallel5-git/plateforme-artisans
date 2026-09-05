@@ -8,6 +8,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/app/theme.dart';
+import 'package:sanaya/core/widgets/app_bar_chart.dart';
+import 'package:sanaya/core/widgets/empty_state.dart';
 import 'package:sanaya/features/dashboard/application/dashboard_providers.dart';
 import 'package:sanaya/features/dashboard/data/dashboard_repository.dart';
 import 'package:sanaya/features/dashboard/presentation/screens/dashboard_screen.dart';
@@ -44,6 +46,30 @@ ProviderStats _buildStats() {
   );
 }
 
+/// Stats où profileViews == 0 : déclenche l'état vide (FM-37c).
+ProviderStats _buildZeroStats() {
+  final points = List.generate(
+    30,
+    (i) => ProviderStatsSeriesPoint(
+      (b) => b
+        ..date = DateTime.utc(2026, 8, i + 1)
+        ..profileViews = 0
+        ..uniqueProfileViews = 0
+        ..contacts = 0,
+    ),
+  );
+  return ProviderStats(
+    (b) => b
+      ..totals.profileViews = 0
+      ..totals.uniqueProfileViews = 0
+      ..totals.contacts = 0
+      ..totals.contactsByChannel.phone = 0
+      ..totals.contactsByChannel.whatsapp = 0
+      ..totals.viewToContactRatio = 0
+      ..series = ListBuilder<ProviderStatsSeriesPoint>(points),
+  );
+}
+
 Widget _wrap({
   required DashboardRepository repository,
   Locale locale = const Locale('fr'),
@@ -73,7 +99,7 @@ Widget _wrap({
 }
 
 void main() {
-  group('DashboardScreen — FM-37b : DashboardKpiCard', () {
+  group('DashboardScreen — FM-37b & FM-37c', () {
     testWidgets('affiche le skeleton pendant le chargement', (tester) async {
       final repo = _DashboardRepositoryMock();
       final completer = Completer<ProviderStats>();
@@ -177,6 +203,44 @@ void main() {
       },
     );
 
+    // FM-37c — histogramme 7 barres
+    testWidgets(
+      'affiche AppBarChart quand profileViews > 0',
+      (tester) async {
+        final repo = _DashboardRepositoryMock();
+        when(repo.fetchStats).thenAnswer((_) async => _buildStats());
+
+        await tester.pumpWidget(_wrap(repository: repo));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(AppBarChart), findsOneWidget);
+        // Titre 7 jours
+        expect(find.text('Vues sur 7 jours'), findsOneWidget);
+        // Libellés J-6 … J
+        expect(find.text('J-6'), findsOneWidget);
+        expect(find.text('J'), findsOneWidget);
+      },
+    );
+
+    testWidgets(
+      'affiche EmptyState quand profileViews == 0 (FM-37c)',
+      (tester) async {
+        final repo = _DashboardRepositoryMock();
+        when(repo.fetchStats).thenAnswer((_) async => _buildZeroStats());
+
+        await tester.pumpWidget(_wrap(repository: repo));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(EmptyState), findsOneWidget);
+        expect(
+          find.text("Aucune vue pour l'instant"),
+          findsOneWidget,
+        );
+        // Le graphique ne doit PAS être affiché quand profileViews == 0.
+        expect(find.byType(AppBarChart), findsNothing);
+      },
+    );
+
     testWidgets(
       'affiche les libellés traduits en arabe et supporte le RTL',
       (tester) async {
@@ -188,9 +252,7 @@ void main() {
         );
         await tester.pumpAndSettle();
 
-        // AppBar titre (appBar.title, clé i18n dashboard.title)
-        expect(find.text('لوحة التحكم'), findsOneWidget);
-        // Libellé Vues dans la carte KPI
+        // Titre de l'en-tête / carte KPI
         expect(find.text('مشاهدات الملف الشخصي'), findsOneWidget);
 
         final directionality = tester.widget<Directionality>(

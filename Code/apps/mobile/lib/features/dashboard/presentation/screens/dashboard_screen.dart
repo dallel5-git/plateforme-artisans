@@ -6,17 +6,18 @@ import 'package:sanaya/core/i18n/translations.g.dart';
 import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/theme/app_text.dart';
+import 'package:sanaya/core/widgets/app_bar_chart.dart';
 import 'package:sanaya/core/widgets/app_skeleton.dart';
+import 'package:sanaya/core/widgets/empty_state.dart';
 import 'package:sanaya/core/widgets/error_state.dart';
 import 'package:sanaya/features/dashboard/application/dashboard_comparison.dart';
 import 'package:sanaya/features/dashboard/application/dashboard_providers.dart';
 import 'package:sanaya/features/dashboard/data/dashboard_repository.dart';
 import 'package:sanaya/features/dashboard/presentation/widgets/dashboard_header.dart';
 import 'package:sanaya/features/dashboard/presentation/widgets/dashboard_kpi_card.dart';
-import 'package:sanaya/features/dashboard/presentation/widgets/dashboard_trend_chart.dart';
 
 /// Tableau de bord de l'Espace Pro (FM-12, issue #41) : vues, contacts,
-/// ratio vue→contact et courbe 30 jours de l'artisan authentifié.
+/// ratio vue→contact et histogramme 7 jours de l'artisan authentifié.
 /// `dashboardStatsProvider` (FM-12a) est l'unique source des chiffres —
 /// aucun calcul métier ici (P3), seule la comparaison mois-1 est dérivée
 /// côté client de cette même réponse (`deriveMonthOverMonth`, FM-12b, voir
@@ -24,8 +25,9 @@ import 'package:sanaya/features/dashboard/presentation/widgets/dashboard_trend_c
 ///
 /// FM-37a : DashboardHeader salue l'artisan (« Bonjour, firstName ») et
 /// affiche le badge de disponibilité.
-/// FM-37b : la grille 2×2 de DashboardStatCard est remplacée par
-/// DashboardKpiCard (carte accent regroupant Vues/Contacts/Ratio).
+/// FM-37b : DashboardKpiCard regroupe Vues/Contacts/Ratio sur fond accent.
+/// FM-37c : AppBarChart affiche l'histogramme 7 jours (avec état vide
+/// EmptyState).
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
 
@@ -109,16 +111,24 @@ class _DashboardContent extends StatelessWidget {
                   comparisonPeriodLabel: t.dashboard.comparisonPreviousPeriod,
                 ),
                 const SizedBox(height: AppSpacing.xl),
-                Text(
-                  t.dashboard.chartTitle,
-                  style: AppText.bodyStrong(locale).copyWith(
-                    color: colors.textPrimary,
+                // FM-37c : histogramme 7 barres (derniers 7 jours de la série
+                // 30 jours) + état vide si profileViews totaux == 0.
+                if (totals.profileViews == 0) ...[
+                  EmptyState(
+                    icon: '📈',
+                    title: t.dashboard.emptyTitle,
+                    message: t.dashboard.emptyMessage,
                   ),
-                ),
-                const SizedBox(height: AppSpacing.sm),
-                _ChartLegend(t: t),
-                const SizedBox(height: AppSpacing.md),
-                DashboardTrendChart(series: stats.series.toList()),
+                ] else ...[
+                  Text(
+                    t.dashboard.chartTitle7d,
+                    style: AppText.bodyStrong(locale).copyWith(
+                      color: colors.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: AppSpacing.md),
+                  _DashboardBarChart(series: stats.series.toList()),
+                ],
               ],
             ),
           ),
@@ -128,38 +138,43 @@ class _DashboardContent extends StatelessWidget {
   }
 }
 
-class _ChartLegend extends StatelessWidget {
-  const _ChartLegend({required this.t});
+/// Extrait les 7 derniers points de la série et les convertit en
+/// barres pour [AppBarChart]. L'index du jour le plus récent (aujourd'hui)
+/// est toujours la dernière barre (index = 6).
+class _DashboardBarChart extends StatelessWidget {
+  const _DashboardBarChart({required this.series});
 
-  final Translations t;
+  final List<ProviderStatsSeriesPoint> series;
 
   @override
   Widget build(BuildContext context) {
-    final colors = context.colors;
-    final locale = Localizations.localeOf(context);
+    // On extrait les 7 derniers jours. Si la série est plus courte, on prend
+    // ce qu'il y a (défensif — l'API garantit 30 jours pleins).
+    final last7 = series.length >= 7
+        ? series.sublist(series.length - 7)
+        : series;
 
-    Widget dot(Color color, String label) => Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          width: 8,
-          height: 8,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-        ),
-        const SizedBox(width: AppSpacing.xs),
-        Text(
-          label,
-          style: AppText.small(locale).copyWith(color: colors.textSecondary),
-        ),
-      ],
+    final values = last7.map((p) => p.profileViews).toList();
+
+    // Libellés j - N : initiales des jours de la semaine.
+    // On utilise une représentation numérique simple (J-6 à J) car
+    // la locale n’est pas connue dans le Painter sans TextPainter (déjà
+    // utilisé pour le rendu). Étiquettes courtes pour tenir dans la barre.
+    final labels = List.generate(
+      last7.length,
+      (i) {
+        final daysAgo = last7.length - 1 - i;
+        return daysAgo == 0 ? 'J' : 'J-$daysAgo';
+      },
     );
 
-    return Row(
-      children: [
-        dot(colors.accent, t.dashboard.chartViewsLabel),
-        const SizedBox(width: AppSpacing.md),
-        dot(colors.whatsapp, t.dashboard.chartContactsLabel),
-      ],
+    // La dernière barre = jour courant (index last7.length - 1).
+    final highlightIndex = last7.isNotEmpty ? last7.length - 1 : null;
+
+    return AppBarChart(
+      values: values,
+      labels: labels,
+      highlightIndex: highlightIndex,
     );
   }
 }
@@ -169,7 +184,7 @@ class _DashboardSkeleton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Skeleton FM-37a/b : en-tête + une carte pleine largeur (KPI) + graphe.
+    // Skeleton FM-37a/b/c : en-tête + carte KPI + graphe barres.
     return const Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
