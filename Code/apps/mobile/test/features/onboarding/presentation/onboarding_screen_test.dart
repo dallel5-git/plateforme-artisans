@@ -98,6 +98,8 @@ void main() {
 
   testWidgets("affiche l'étape profil au démarrage", (tester) async {
     final mockRepo = MockOnboardingRepository();
+    // FM-36 : `resumeSession()` est appelée au montage — aucun profil ici.
+    when(mockRepo.getMyProfile).thenAnswer((_) async => null);
 
     await _pumpTall(
       tester,
@@ -140,6 +142,8 @@ void main() {
       when(
         () => mockRepo.createProfile(any()),
       ).thenAnswer((_) async => responseMock);
+      // FM-36 : `resumeSession()` est appelée au montage — aucun profil ici.
+      when(mockRepo.getMyProfile).thenAnswer((_) async => null);
 
       await _pumpTall(
         tester,
@@ -333,6 +337,88 @@ void main() {
       // publication, propre à cette étape, confirme la navigation.
       expect(find.text(t.onboarding.summaryTitle), findsWidgets);
       expect(find.text(t.onboarding.summaryPublish), findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    'FM-36 — profil existant au montage : reprend à catégories, profil '
+    'préremplie au retour en arrière',
+    (tester) async {
+      final mockRepo = MockOnboardingRepository();
+      final providerMock = MockProviderMe();
+      when(() => providerMock.completionScore).thenReturn(45);
+      when(() => providerMock.businessName).thenReturn('Sami Élec');
+      when(() => providerMock.baseGovernorateId).thenReturn('sousse');
+      when(() => providerMock.headline).thenReturn('');
+      when(() => providerMock.bio).thenReturn('');
+      when(() => providerMock.yearsExperience).thenReturn(0);
+      when(() => providerMock.whatsappPhone).thenReturn('');
+      when(() => providerMock.publicPhone).thenReturn('');
+      when(mockRepo.getMyProfile).thenAnswer((_) async => providerMock);
+
+      await _pumpTall(
+        tester,
+        ProviderScope(
+          overrides: [
+            onboardingRepositoryProvider.overrideWithValue(mockRepo),
+            categoriesProvider.overrideWith((ref) async => []),
+            governoratesProvider.overrideWith(
+              (ref) async => [_governorate('sousse', 'Sousse')],
+            ),
+          ],
+          child: MaterialApp(
+            theme: buildTheme(
+              brightness: Brightness.light,
+              locale: const Locale('fr'),
+            ),
+            locale: const Locale('fr'),
+            home: const OnboardingScreen(),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      verify(mockRepo.getMyProfile).called(1);
+      expect(find.text(t.onboarding.categoriesTitle), findsOneWidget);
+      expect(find.text('Étape 2 sur 5'), findsOneWidget);
+
+      await tester.tap(find.byIcon(Icons.arrow_back));
+      await tester.pumpAndSettle();
+
+      expect(find.text(t.onboarding.stepProfile), findsWidgets);
+      expect(find.text('Sami Élec'), findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    "FM-36 — erreur réseau au montage : démarre quand même à l'étape "
+    'profil, sans écran bloqué',
+    (tester) async {
+      final mockRepo = MockOnboardingRepository();
+      when(mockRepo.getMyProfile).thenThrow(Exception('réseau'));
+
+      await _pumpTall(
+        tester,
+        ProviderScope(
+          overrides: [
+            onboardingRepositoryProvider.overrideWithValue(mockRepo),
+            categoriesProvider.overrideWith((ref) async => []),
+            governoratesProvider.overrideWith((ref) async => []),
+          ],
+          child: MaterialApp(
+            theme: buildTheme(
+              brightness: Brightness.light,
+              locale: const Locale('fr'),
+            ),
+            locale: const Locale('fr'),
+            home: const OnboardingScreen(),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text(t.onboarding.stepProfile), findsOneWidget);
+      expect(find.text(t.onboarding.profileBusinessName), findsOneWidget);
     },
   );
 }

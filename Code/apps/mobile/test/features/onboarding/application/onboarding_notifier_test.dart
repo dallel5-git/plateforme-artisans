@@ -136,7 +136,7 @@ void main() {
   group('resumeSession', () {
     test('profil existant → reprend à catégories, préremplie', () async {
       final profile = _makeProviderMe(45);
-      when(() => mockRepo.getMyProfile()).thenAnswer((_) async => profile);
+      when(mockRepo.getMyProfile).thenAnswer((_) async => profile);
 
       await container.read(onboardingProvider.notifier).resumeSession();
 
@@ -147,7 +147,7 @@ void main() {
     });
 
     test('aucun profil (404 → null) → reste à l étape profil', () async {
-      when(() => mockRepo.getMyProfile()).thenAnswer((_) async => null);
+      when(mockRepo.getMyProfile).thenAnswer((_) async => null);
 
       await container.read(onboardingProvider.notifier).resumeSession();
 
@@ -158,7 +158,7 @@ void main() {
     });
 
     test('erreur réseau → échec silencieux, reste à l étape profil', () async {
-      when(() => mockRepo.getMyProfile()).thenThrow(Exception('réseau'));
+      when(mockRepo.getMyProfile).thenThrow(Exception('réseau'));
 
       await container.read(onboardingProvider.notifier).resumeSession();
 
