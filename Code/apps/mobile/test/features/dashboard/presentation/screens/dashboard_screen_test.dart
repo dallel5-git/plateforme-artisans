@@ -11,13 +11,13 @@ import 'package:sanaya/app/theme.dart';
 import 'package:sanaya/features/dashboard/application/dashboard_providers.dart';
 import 'package:sanaya/features/dashboard/data/dashboard_repository.dart';
 import 'package:sanaya/features/dashboard/presentation/screens/dashboard_screen.dart';
+import 'package:sanaya/features/dashboard/presentation/widgets/dashboard_kpi_card.dart';
 
 class _DashboardRepositoryMock extends Mock implements DashboardRepository {}
 
 // 30 points chronologiques (le plus ancien en premier, cf.
 // dashboard_comparison.dart) : 15 premiers à 10 vues/2 contacts, 15 derniers
-// à 20 vues/4 contacts — permet de vérifier une variation mois-1 positive
-// affichée ("+100,0 %").
+// à 20 vues/4 contacts — variation mois-1 positive (+100 %).
 ProviderStats _buildStats() {
   final points = List.generate(30, (i) {
     final isCurrentHalf = i >= 15;
@@ -73,7 +73,7 @@ Widget _wrap({
 }
 
 void main() {
-  group('DashboardScreen', () {
+  group('DashboardScreen — FM-37b : DashboardKpiCard', () {
     testWidgets('affiche le skeleton pendant le chargement', (tester) async {
       final repo = _DashboardRepositoryMock();
       final completer = Completer<ProviderStats>();
@@ -81,8 +81,9 @@ void main() {
 
       await tester.pumpWidget(_wrap(repository: repo));
 
+      // DashboardKpiCard n'est pas encore rendu — seul le skeleton l'est.
+      expect(find.byType(DashboardKpiCard), findsNothing);
       expect(find.byType(DashboardScreen), findsOneWidget);
-      expect(find.text('Vues du profil'), findsNothing);
     });
 
     testWidgets(
@@ -99,75 +100,104 @@ void main() {
           findsOneWidget,
         );
         expect(find.text('Réessayer'), findsOneWidget);
+        expect(find.byType(DashboardKpiCard), findsNothing);
       },
     );
 
-    testWidgets('affiche les totaux et la variation mois-1', (tester) async {
-      final repo = _DashboardRepositoryMock();
-      when(repo.fetchStats).thenAnswer((_) async => _buildStats());
+    testWidgets(
+      'affiche DashboardKpiCard avec les valeurs Vues / Contacts / Ratio',
+      (tester) async {
+        final repo = _DashboardRepositoryMock();
+        when(repo.fetchStats).thenAnswer((_) async => _buildStats());
 
-      await tester.pumpWidget(_wrap(repository: repo));
-      await tester.pumpAndSettle();
+        await tester.pumpWidget(_wrap(repository: repo));
+        await tester.pumpAndSettle();
 
-      expect(find.text('450'), findsOneWidget);
-      expect(find.text('405'), findsOneWidget);
-      expect(find.text('90'), findsOneWidget);
-      expect(find.text('20,0%'), findsOneWidget);
-      expect(find.text('+100,0%'), findsWidgets);
-    });
+        // Une seule carte KPI doit être présente (remplace la grille 2×2).
+        expect(find.byType(DashboardKpiCard), findsOneWidget);
 
-    testWidgets('affiche "Nouveau" quand la période précédente est à zéro', (
-      tester,
-    ) async {
-      final repo = _DashboardRepositoryMock();
-      final points = List.generate(
-        30,
-        (i) => ProviderStatsSeriesPoint(
-          (b) => b
-            ..date = DateTime.utc(2026, 8, i + 1)
-            ..profileViews = i >= 15 ? 5 : 0
-            ..uniqueProfileViews = i >= 15 ? 5 : 0
-            ..contacts = i >= 15 ? 1 : 0,
-        ),
-      );
-      final stats = ProviderStats(
-        (b) => b
-          ..totals.profileViews = 5
-          ..totals.uniqueProfileViews = 5
-          ..totals.contacts = 1
-          ..totals.contactsByChannel.phone = 1
-          ..totals.contactsByChannel.whatsapp = 0
-          ..totals.viewToContactRatio = 0.2
-          ..series = ListBuilder<ProviderStatsSeriesPoint>(
-            points,
+        // Valeurs numériques clés
+        expect(find.text('450'), findsOneWidget); // profileViews
+        expect(find.text('90'), findsOneWidget); // contacts
+        expect(find.text('20,0%'), findsOneWidget); // ratio
+
+        // Les visiteurs uniques (405) ne sont plus affichés dans la carte.
+        expect(find.text('405'), findsNothing);
+      },
+    );
+
+    testWidgets(
+      'affiche les puces de variation mois-1 (+100 %) dans la carte KPI',
+      (tester) async {
+        final repo = _DashboardRepositoryMock();
+        when(repo.fetchStats).thenAnswer((_) async => _buildStats());
+
+        await tester.pumpWidget(_wrap(repository: repo));
+        await tester.pumpAndSettle();
+
+        // La variation vues (+100 %) et contacts (+100 %) doivent apparaître.
+        // Le format est «+100 %» (chiffre entier, signe, espace avant %).
+        expect(find.textContaining('+100'), findsWidgets);
+      },
+    );
+
+    testWidgets(
+      'affiche "Nouveau" quand la période précédente est à zéro',
+      (tester) async {
+        final repo = _DashboardRepositoryMock();
+        final points = List.generate(
+          30,
+          (i) => ProviderStatsSeriesPoint(
+            (b) => b
+              ..date = DateTime.utc(2026, 8, i + 1)
+              ..profileViews = i >= 15 ? 5 : 0
+              ..uniqueProfileViews = i >= 15 ? 5 : 0
+              ..contacts = i >= 15 ? 1 : 0,
           ),
-      );
-      when(repo.fetchStats).thenAnswer((_) async => stats);
+        );
+        final stats = ProviderStats(
+          (b) => b
+            ..totals.profileViews = 5
+            ..totals.uniqueProfileViews = 5
+            ..totals.contacts = 1
+            ..totals.contactsByChannel.phone = 1
+            ..totals.contactsByChannel.whatsapp = 0
+            ..totals.viewToContactRatio = 0.2
+            ..series = ListBuilder<ProviderStatsSeriesPoint>(
+              points,
+            ),
+        );
+        when(repo.fetchStats).thenAnswer((_) async => stats);
 
-      await tester.pumpWidget(_wrap(repository: repo));
-      await tester.pumpAndSettle();
+        await tester.pumpWidget(_wrap(repository: repo));
+        await tester.pumpAndSettle();
 
-      expect(find.text('Nouveau'), findsWidgets);
-    });
+        // Quand le delta est nul (base à zéro), la puce affiche «Nouveau».
+        expect(find.text('Nouveau'), findsWidgets);
+      },
+    );
 
-    testWidgets('affiche les libellés traduits en arabe et supporte le RTL', (
-      tester,
-    ) async {
-      final repo = _DashboardRepositoryMock();
-      when(repo.fetchStats).thenAnswer((_) async => _buildStats());
+    testWidgets(
+      'affiche les libellés traduits en arabe et supporte le RTL',
+      (tester) async {
+        final repo = _DashboardRepositoryMock();
+        when(repo.fetchStats).thenAnswer((_) async => _buildStats());
 
-      await tester.pumpWidget(
-        _wrap(repository: repo, locale: const Locale('ar')),
-      );
-      await tester.pumpAndSettle();
+        await tester.pumpWidget(
+          _wrap(repository: repo, locale: const Locale('ar')),
+        );
+        await tester.pumpAndSettle();
 
-      expect(find.text('لوحة التحكم'), findsOneWidget);
-      expect(find.text('مشاهدات الملف الشخصي'), findsOneWidget);
+        // AppBar titre (appBar.title, clé i18n dashboard.title)
+        expect(find.text('لوحة التحكم'), findsOneWidget);
+        // Libellé Vues dans la carte KPI
+        expect(find.text('مشاهدات الملف الشخصي'), findsOneWidget);
 
-      final directionality = tester.widget<Directionality>(
-        find.byType(Directionality).first,
-      );
-      expect(directionality.textDirection, TextDirection.rtl);
-    });
+        final directionality = tester.widget<Directionality>(
+          find.byType(Directionality).first,
+        );
+        expect(directionality.textDirection, TextDirection.rtl);
+      },
+    );
   });
 }
