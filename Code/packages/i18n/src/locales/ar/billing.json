@@ -1,1 +1,20 @@
-{}
+{
+  "creditsBalance": "رصيد النقاط",
+  "creditsCount": "$count نقاط",
+  "buyCredits": "شراء",
+  "boostSectionTitle": "تفعيل التعزيز",
+  "boostSectionSubtitle": "أبرز ملفك في صدارة نتائج البحث.",
+  "boostOption24h": "تعزيز 24 ساعة",
+  "boostOption24hDesc": "أقصى درجات الظهور لزيادة فورية في النشاط",
+  "boostOption7d": "تعزيز 7 أيام",
+  "boostOption7dDesc": "حضور قوي ومستمر طوال الأسبوع",
+  "boostOptionPrice24h": "10 نقاط",
+  "boostOptionPrice7d": "50 نقطة",
+  "sponsoredTag": "إعلان ممول",
+  "activateBoostCta": "تفعيل التعزيز",
+  "featureUpcomingTitle": "قريباً",
+  "featureUpcomingMessage": "سيكون نظام شراء النقاط وتفعيل التعزيزات متاحاً في تحديث قادم.",
+  "clientSpace": "حريف",
+  "proSpace": "حرفي",
+  "dialogDismiss": "حسناً"
+}
