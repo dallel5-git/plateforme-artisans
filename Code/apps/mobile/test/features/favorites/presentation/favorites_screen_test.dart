@@ -132,7 +132,7 @@ void main() {
       expect(find.text('Mes favoris'), findsOneWidget);
       expect(find.text('Aucun favori pour le moment'), findsOneWidget);
       expect(find.text('Trouver un artisan'), findsOneWidget);
-      expect(find.byIcon(Icons.favorite_border), findsOneWidget);
+      expect(find.text('🤍'), findsOneWidget);
     });
 
     testWidgets(
@@ -147,6 +147,7 @@ void main() {
         await tester.pumpWidget(buildScreen());
         await tester.pumpAndSettle();
 
+        expect(find.text('Chargement impossible'), findsOneWidget);
         expect(find.text('Impossible de charger vos favoris.'), findsOneWidget);
         expect(find.text('Réessayer'), findsOneWidget);
 

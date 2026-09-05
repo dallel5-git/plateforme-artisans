@@ -284,6 +284,9 @@ class Translations$favorites$fr {
 	/// fr: 'Impossible d'ajouter le favori.'
 	String get addError => 'Impossible d\'ajouter le favori.';
 
+	/// fr: 'Chargement impossible'
+	String get errorTitle => 'Chargement impossible';
+
 	/// fr: 'Impossible de charger vos favoris.'
 	String get loadError => 'Impossible de charger vos favoris.';
 
@@ -1251,6 +1254,7 @@ extension on Translations {
 			'favorites.addSuccess' => 'Artisan ajouté aux favoris',
 			'favorites.removeError' => 'Impossible de retirer le favori.',
 			'favorites.addError' => 'Impossible d\'ajouter le favori.',
+			'favorites.errorTitle' => 'Chargement impossible',
 			'favorites.loadError' => 'Impossible de charger vos favoris.',
 			'favorites.retry' => 'Réessayer',
 			'favorites.verifiedBadge' => 'Vérifié',

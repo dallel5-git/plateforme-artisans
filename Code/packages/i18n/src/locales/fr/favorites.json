@@ -9,6 +9,7 @@
   "addSuccess": "Artisan ajouté aux favoris",
   "removeError": "Impossible de retirer le favori.",
   "addError": "Impossible d'ajouter le favori.",
+  "errorTitle": "Chargement impossible",
   "loadError": "Impossible de charger vos favoris.",
   "retry": "Réessayer",
   "verifiedBadge": "Vérifié"
