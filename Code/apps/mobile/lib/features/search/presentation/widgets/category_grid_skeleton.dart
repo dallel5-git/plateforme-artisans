@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
+import 'package:sanaya/core/widgets/app_skeleton.dart';
 
 /// État de chargement de la grille de catégories — mêmes proportions que
 /// `CategoryGrid`, blocs pleins plutôt qu'un spinner plein écran
@@ -14,7 +14,6 @@ class CategoryGridSkeleton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = context.colors;
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -26,12 +25,8 @@ class CategoryGridSkeleton extends StatelessWidget {
         childAspectRatio: 0.9,
       ),
       itemCount: itemCount,
-      itemBuilder: (context, index) => DecoratedBox(
-        decoration: BoxDecoration(
-          color: colors.surfaceSunken,
-          borderRadius: const BorderRadius.all(AppRadius.lg),
-        ),
-      ),
+      itemBuilder: (context, index) =>
+          const AppSkeleton(borderRadius: BorderRadius.all(AppRadius.lg)),
     );
   }
 }
