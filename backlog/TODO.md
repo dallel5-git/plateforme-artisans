@@ -88,7 +88,6 @@
 | `FM-33` | Refonte authentification : marque, mention légale, bouton Confirmer | 3 h | FM-15, FM-16 |
 | `FM-34` | Refonte onboarding pro : étapes, catégories, plafonds | 4 h | FM-15, FM-16, FM-24 |
 | `FM-35` | Étape photos/portfolio de l'onboarding | 3 h | FM-34 |
-| `FM-36` | Reprise de l'onboarding après fermeture | 2 h | FM-34, BE-44 |
 | `FM-37` | Refonte tableau de bord pro : salutation, KPI, histogramme | 4 h | FM-15, FM-16, FM-24 |
 | `FM-38` | Écran Profil pro : édition et disponibilité commutable ⚠️ bloqué par `BE-44` | 3 h | FM-24 |
 | `FM-39` | Écran Avis reçus (pro) ⚠️ bloqué par `BE-44` | 2 h | FM-24 |
