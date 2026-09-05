@@ -727,8 +727,14 @@ class Translations$search$fr {
 	/// fr: 'Catégories'
 	String get categoriesTitle => 'Catégories';
 
+	/// fr: 'Aucune catégorie'
+	String get categoriesEmptyTitle => 'Aucune catégorie';
+
 	/// fr: 'Aucune catégorie disponible pour le moment.'
 	String get categoriesEmpty => 'Aucune catégorie disponible pour le moment.';
+
+	/// fr: 'Chargement impossible'
+	String get categoriesErrorTitle => 'Chargement impossible';
 
 	/// fr: 'Impossible de charger les catégories.'
 	String get categoriesError => 'Impossible de charger les catégories.';
@@ -1476,7 +1482,9 @@ extension on Translations {
 			'search.serviceLabel' => 'Service',
 			'search.governorateLabel' => 'Gouvernorat',
 			'search.categoriesTitle' => 'Catégories',
+			'search.categoriesEmptyTitle' => 'Aucune catégorie',
 			'search.categoriesEmpty' => 'Aucune catégorie disponible pour le moment.',
+			'search.categoriesErrorTitle' => 'Chargement impossible',
 			'search.categoriesError' => 'Impossible de charger les catégories.',
 			'search.locationError' => 'Impossible de charger les gouvernorats.',
 			'search.retry' => 'Réessayer',

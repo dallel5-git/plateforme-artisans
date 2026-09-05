@@ -380,7 +380,9 @@ class Translations$search$ar extends Translations$search$fr {
 	@override String get serviceLabel => 'الخدمة';
 	@override String get governorateLabel => 'الولاية';
 	@override String get categoriesTitle => 'الفئات';
+	@override String get categoriesEmptyTitle => 'لا توجد فئات';
 	@override String get categoriesEmpty => 'لا توجد فئات متاحة حاليًا.';
+	@override String get categoriesErrorTitle => 'تعذّر التحميل';
 	@override String get categoriesError => 'تعذّر تحميل الفئات.';
 	@override String get locationError => 'تعذّر تحميل الولايات.';
 	@override String get retry => 'إعادة المحاولة';
@@ -867,7 +869,9 @@ extension on TranslationsAr {
 			'search.serviceLabel' => 'الخدمة',
 			'search.governorateLabel' => 'الولاية',
 			'search.categoriesTitle' => 'الفئات',
+			'search.categoriesEmptyTitle' => 'لا توجد فئات',
 			'search.categoriesEmpty' => 'لا توجد فئات متاحة حاليًا.',
+			'search.categoriesErrorTitle' => 'تعذّر التحميل',
 			'search.categoriesError' => 'تعذّر تحميل الفئات.',
 			'search.locationError' => 'تعذّر تحميل الولايات.',
 			'search.retry' => 'إعادة المحاولة',
