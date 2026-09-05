@@ -661,8 +661,8 @@ class Translations$reviews$fr {
 	/// fr: 'Charger plus d'avis'
 	String get loadMore => 'Charger plus d\'avis';
 
-	/// fr: '{count} avis'
-	String get reviewsCount => '{count} avis';
+	/// fr: '$count avis'
+	String reviewsCount({required Object count}) => '${count} avis';
 
 	/// fr: 'Note moyenne'
 	String get ratingSummary => 'Note moyenne';
@@ -1415,7 +1415,7 @@ extension on Translations {
 			'reviews.errorMessage' => 'Une erreur est survenue lors de la récupération de vos avis.',
 			'reviews.retry' => 'Réessayer',
 			'reviews.loadMore' => 'Charger plus d\'avis',
-			'reviews.reviewsCount' => '{count} avis',
+			'reviews.reviewsCount' => ({required Object count}) => '${count} avis',
 			'reviews.ratingSummary' => 'Note moyenne',
 			'reviews.replyAction' => 'Répondre',
 			'reviews.replyComingSoon' => 'La réponse aux avis sera bientôt disponible',

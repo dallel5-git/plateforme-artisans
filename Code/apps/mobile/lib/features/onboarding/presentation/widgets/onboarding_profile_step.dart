@@ -43,6 +43,7 @@ class OnboardingProfileStep extends StatefulWidget {
     required this.isSaving,
     required this.errorMessage,
     required this.onSubmit,
+    this.submitLabel,
     super.key,
   });
 
@@ -50,6 +51,12 @@ class OnboardingProfileStep extends StatefulWidget {
   final bool isSaving;
   final String? errorMessage;
   final ValueChanged<ProfileStepValues> onSubmit;
+
+  /// Libellé du bouton de validation. `null` = « Suivant » (parcours
+  /// d'onboarding, comportement historique). `ProProfileScreen` (FM-38c)
+  /// passe son propre libellé « Enregistrer » — ce widget reste sans savoir
+  /// dans quel écran il est monté (P3 CLAUDE.md).
+  final String? submitLabel;
 
   @override
   State<OnboardingProfileStep> createState() => _OnboardingProfileStepState();
@@ -175,7 +182,7 @@ class _OnboardingProfileStepState extends State<OnboardingProfileStep> {
             ],
             const SizedBox(height: AppSpacing.xl),
             AppButton(
-              label: t.onboarding.next,
+              label: widget.submitLabel ?? t.onboarding.next,
               onPressed: _canSubmit ? _submit : null,
             ),
           ],

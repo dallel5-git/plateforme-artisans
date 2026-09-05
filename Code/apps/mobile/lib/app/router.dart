@@ -20,7 +20,7 @@ import 'package:sanaya/features/pro_profile/presentation/pro_profile_placeholder
 import 'package:sanaya/features/profile/presentation/client_profile_screen.dart';
 import 'package:sanaya/features/provider_profile/presentation/screens/provider_profile_screen.dart';
 import 'package:sanaya/features/provider_profile/presentation/screens/review_form_screen.dart';
-import 'package:sanaya/features/reviews/presentation/reviews_received_placeholder_screen.dart';
+import 'package:sanaya/features/reviews/presentation/pro_reviews_screen.dart';
 import 'package:sanaya/features/search/presentation/search_home_screen.dart';
 import 'package:sanaya/features/settings/presentation/legal_notice_screen.dart';
 
@@ -233,7 +233,7 @@ final router = GoRouter(
               path: '/pro/reviews',
               name: 'pro-reviews',
               pageBuilder: (_, _) => const NoTransitionPage(
-                child: ReviewsReceivedPlaceholderScreen(),
+                child: ProReviewsScreen(),
               ),
             ),
           ],

@@ -6,7 +6,7 @@
   "errorMessage": "حدث خطأ أثناء تحميل التقييمات الخاصة بك.",
   "retry": "إعادة المحاولة",
   "loadMore": "تحميل المزيد من التقييمات",
-  "reviewsCount": "{count} تقييم",
+  "reviewsCount": "$count تقييم",
   "ratingSummary": "متوسط التقييم",
   "replyAction": "الرد",
   "replyComingSoon": "الرد على التقييمات سيكون متاحاً قريباً"
