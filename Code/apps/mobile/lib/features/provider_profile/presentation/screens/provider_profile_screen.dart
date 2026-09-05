@@ -10,6 +10,7 @@ import 'package:sanaya/core/theme/app_text.dart';
 import 'package:sanaya/core/widgets/app_button.dart';
 import 'package:sanaya/core/widgets/app_card.dart';
 import 'package:sanaya/core/widgets/app_skeleton.dart';
+import 'package:sanaya/core/widgets/error_state.dart';
 import 'package:sanaya/core/widgets/rating_stars.dart';
 import 'package:sanaya/core/widgets/sticky_action_bar.dart';
 import 'package:sanaya/core/widgets/verified_badge.dart';
@@ -250,11 +251,13 @@ class _ProfileContent extends ConsumerWidget {
                       ),
                     ),
                   ),
-                  error: (_, _) => Text(
-                    t.provider.profile.noReviews,
-                    style: AppText.body(
-                      locale,
-                    ).copyWith(color: colors.textMuted),
+                  error: (_, _) => ErrorState(
+                    icon: '⚠️',
+                    title: t.provider.profile.reviewsErrorTitle,
+                    message: t.provider.profile.reviewsError,
+                    actionLabel: t.provider.profile.retry,
+                    onAction: () =>
+                        ref.invalidate(providerReviewsProvider(slug)),
                   ),
                   data: (reviewsState) {
                     if (reviewsState.reviews.isEmpty) {
@@ -529,8 +532,6 @@ class _ProfileError extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final colors = context.colors;
-    final locale = Localizations.localeOf(context);
     final t = ref.watch(translationsProvider);
 
     return Stack(
@@ -538,29 +539,16 @@ class _ProfileError extends ConsumerWidget {
         Center(
           child: Padding(
             padding: const EdgeInsets.all(AppSpacing.xl),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(Icons.error_outline, size: 48, color: colors.destructive),
-                const SizedBox(height: AppSpacing.md),
-                Text(
-                  t.provider.profile.errorLoad,
-                  style: AppText.body(
-                    locale,
-                  ).copyWith(color: colors.textPrimary),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: AppSpacing.lg),
-                AppButton(
-                  label: t.provider.profile.retry,
-                  variant: AppButtonVariant.secondary,
-                  onPressed: () {
-                    ref
-                      ..invalidate(providerProfileProvider(slug))
-                      ..invalidate(providerReviewsProvider(slug));
-                  },
-                ),
-              ],
+            child: ErrorState(
+              icon: '⚠️',
+              title: t.provider.profile.errorLoadTitle,
+              message: t.provider.profile.errorLoad,
+              actionLabel: t.provider.profile.retry,
+              onAction: () {
+                ref
+                  ..invalidate(providerProfileProvider(slug))
+                  ..invalidate(providerReviewsProvider(slug));
+              },
             ),
           ),
         ),
