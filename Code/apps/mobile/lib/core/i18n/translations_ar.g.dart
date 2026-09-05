@@ -324,7 +324,7 @@ class Translations$reviews$ar extends Translations$reviews$fr {
 	@override String get errorMessage => 'حدث خطأ أثناء تحميل التقييمات الخاصة بك.';
 	@override String get retry => 'إعادة المحاولة';
 	@override String get loadMore => 'تحميل المزيد من التقييمات';
-	@override String get reviewsCount => '{count} تقييم';
+	@override String reviewsCount({required Object count}) => '${count} تقييم';
 	@override String get ratingSummary => 'متوسط التقييم';
 	@override String get replyAction => 'الرد';
 	@override String get replyComingSoon => 'الرد على التقييمات سيكون متاحاً قريباً';
@@ -786,7 +786,7 @@ extension on TranslationsAr {
 			'reviews.errorMessage' => 'حدث خطأ أثناء تحميل التقييمات الخاصة بك.',
 			'reviews.retry' => 'إعادة المحاولة',
 			'reviews.loadMore' => 'تحميل المزيد من التقييمات',
-			'reviews.reviewsCount' => '{count} تقييم',
+			'reviews.reviewsCount' => ({required Object count}) => '${count} تقييم',
 			'reviews.ratingSummary' => 'متوسط التقييم',
 			'reviews.replyAction' => 'الرد',
 			'reviews.replyComingSoon' => 'الرد على التقييمات سيكون متاحاً قريباً',
