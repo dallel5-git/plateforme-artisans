@@ -88,28 +88,52 @@ class AppSelectableCard extends StatelessWidget {
         child: InkWell(
           onTap: enabled ? onTap : null,
           borderRadius: const BorderRadius.all(AppRadius.md),
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppSpacing.md,
-              vertical: AppSpacing.sm,
+          // FM-43 : ConstrainedBox, pas juste du padding — un contenu court
+          // (ex. label seul, sans trailing) pouvait rester sous 48dp
+          // (AppLayout.touchTarget), jamais vérifié jusqu'ici.
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              minHeight: AppLayout.touchTarget,
             ),
-            decoration: BoxDecoration(
-              color: background,
-              border: Border.all(
-                color: selected ? accent : colors.border,
-                width: selected ? selectedBorderWidth : 1.0,
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppSpacing.md,
+                vertical: AppSpacing.sm,
               ),
-              borderRadius: const BorderRadius.all(AppRadius.md),
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(child: child),
-                if (indicatorWidget != null) ...[
-                  const SizedBox(width: AppSpacing.sm),
-                  indicatorWidget,
+              decoration: BoxDecoration(
+                color: background,
+                border: Border.all(
+                  color: selected ? accent : colors.border,
+                  width: selected ? selectedBorderWidth : 1.0,
+                ),
+                borderRadius: const BorderRadius.all(AppRadius.md),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    // FM-43 : quand `semanticLabel` est fourni, il doit
+                    // remplacer l'annonce du contenu — sinon le `Text` de
+                    // `child` fusionne son propre libellé implicite avec
+                    // celui-ci (« Plomberie Plomberie »), même piège
+                    // qu'`AppBottomNav`/`AppButton`. `ExcludeSemantics` ne
+                    // porte que sur `child` (pas tout le `Row`) : un
+                    // `trailing`/indicateur avec ses propres `Semantics`
+                    // (ex. badge « Principal ») ne doit pas disparaître de
+                    // l'arbre avec lui. Quand `semanticLabel` est `null`
+                    // (repli documenté : « le contenu doit porter ses
+                    // propres Semantics »), on laisse `child` s'annoncer
+                    // normalement.
+                    child: semanticLabel != null
+                        ? ExcludeSemantics(child: child)
+                        : child,
+                  ),
+                  if (indicatorWidget != null) ...[
+                    const SizedBox(width: AppSpacing.sm),
+                    indicatorWidget,
+                  ],
                 ],
-              ],
+              ),
             ),
           ),
         ),

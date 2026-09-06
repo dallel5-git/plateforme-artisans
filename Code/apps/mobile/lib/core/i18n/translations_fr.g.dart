@@ -79,6 +79,9 @@ class Translations$auth$fr {
 	/// fr: 'Recevoir le code'
 	String get phoneCta => 'Recevoir le code';
 
+	/// fr: 'Chiffre {n} sur {total}'
+	String get otpDigitLabel => 'Chiffre {n} sur {total}';
+
 	/// fr: 'Code de vérification'
 	String get otpTitle => 'Code de vérification';
 
@@ -1143,6 +1146,9 @@ class Translations$provider$profile$fr {
 	/// fr: 'Votre note'
 	String get ratingLabel => 'Votre note';
 
+	/// fr: '{n} étoile(s)'
+	String get ratingStarSemanticLabel => '{n} étoile(s)';
+
 	/// fr: 'Veuillez sélectionner une note de 1 à 5 étoiles'
 	String get ratingRequired => 'Veuillez sélectionner une note de 1 à 5 étoiles';
 
@@ -1209,6 +1215,7 @@ extension on Translations {
 			'auth.legalConsent' => 'En continuant, vous acceptez nos conditions d\'utilisation et notre politique de confidentialité',
 			'auth.phoneInvalid' => 'Numéro de téléphone tunisien invalide',
 			'auth.phoneCta' => 'Recevoir le code',
+			'auth.otpDigitLabel' => 'Chiffre {n} sur {total}',
 			'auth.otpTitle' => 'Code de vérification',
 			'auth.otpSubtitle' => 'Un code à 6 chiffres a été envoyé au {phone}',
 			'auth.otpCta' => 'Confirmer',
@@ -1458,6 +1465,7 @@ extension on Translations {
 			'provider.profile.writeReview' => 'Donner mon avis',
 			'provider.profile.reviewTitle' => 'Votre avis sur cet artisan',
 			'provider.profile.ratingLabel' => 'Votre note',
+			'provider.profile.ratingStarSemanticLabel' => '{n} étoile(s)',
 			'provider.profile.ratingRequired' => 'Veuillez sélectionner une note de 1 à 5 étoiles',
 			'provider.profile.commentLabel' => 'Votre commentaire (optionnel)',
 			'provider.profile.commentHint' => 'Partagez votre expérience avec cet artisan...',

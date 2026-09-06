@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:sanaya/core/i18n/translations.g.dart';
@@ -16,19 +17,21 @@ void main() {
     int resendCountdownSeconds = 0,
     bool canResend = true,
   }) {
-    return themedApp(
-      Scaffold(
-        body: OtpStep(
-          translations: t,
-          phone: '+21622123456',
-          isSubmitting: false,
-          errorMessage: null,
-          attemptsRemaining: null,
-          canResend: canResend,
-          resendCountdownSeconds: resendCountdownSeconds,
-          attemptCount: 0,
-          onSubmit: onSubmit ?? (_) {},
-          onResend: onResend ?? () {},
+    return ProviderScope(
+      child: themedApp(
+        Scaffold(
+          body: OtpStep(
+            translations: t,
+            phone: '+21622123456',
+            isSubmitting: false,
+            errorMessage: null,
+            attemptsRemaining: null,
+            canResend: canResend,
+            resendCountdownSeconds: resendCountdownSeconds,
+            attemptCount: 0,
+            onSubmit: onSubmit ?? (_) {},
+            onResend: onResend ?? () {},
+          ),
         ),
       ),
     );

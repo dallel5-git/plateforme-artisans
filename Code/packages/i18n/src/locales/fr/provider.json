@@ -20,6 +20,7 @@
     "writeReview": "Donner mon avis",
     "reviewTitle": "Votre avis sur cet artisan",
     "ratingLabel": "Votre note",
+    "ratingStarSemanticLabel": "{n} étoile(s)",
     "ratingRequired": "Veuillez sélectionner une note de 1 à 5 étoiles",
     "commentLabel": "Votre commentaire (optionnel)",
     "commentHint": "Partagez votre expérience avec cet artisan...",
