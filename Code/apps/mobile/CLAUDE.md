@@ -56,6 +56,28 @@ lib/
 - Les icônes directionnelles (`chevron_right`, flèches de retour) doivent être miroitées en arabe.
 - Police : Manrope (latin) + **Noto Kufi Arabic** (arabe), sélection automatique par locale.
 
+## Accessibilité — usage chantier, potentiellement avec des gants (FM-43)
+
+- **Tout élément tappable qui n'affiche pas déjà tout son état en texte visible** (étoile de note,
+  badge « Vérifié »/« Principal », case OTP, bouton icône seul…) porte un `Semantics(button:,
+  selected:, label:)` explicite — réutiliser un texte déjà traduit et affiché ailleurs plutôt que
+  créer une nouvelle clé i18n quand c'est possible (patron `category_grid.dart`).
+- **`ExcludeSemantics` ne s'applique jamais à un sous-arbre entier**, seulement au `Text`/widget
+  précis dont le libellé implicite ferait doublon avec un `Semantics.label` explicite posé plus
+  haut. Posé plus large, il supprime *aussi* les `Semantics` et actions (`tap`) des descendants —
+  un `trailing`/badge imbriqué avec son propre `Semantics` peut ainsi disparaître entièrement de
+  l'arbre, ou rester visible mais devenir inactivable au lecteur d'écran. En cas de doute, vérifier
+  avec `tester.binding.pipelineOwner.semanticsOwner!.rootSemanticsNode!.toStringDeep()` dans un test
+  jetable avant de committer.
+- **Cible tactile minimale : `AppLayout.touchTarget` (48dp)**, sur tout élément avec un `onTap`
+  (`app_spacing.dart`). Aucune règle `flutter_lints`/`very_good_analysis` ne peut vérifier une
+  taille rendue — c'est un test qui l'atteste : `tester.getSize(finder).height >=
+  AppLayout.touchTarget`, jamais un lint.
+- **`TextScaler.linear(1.3)`** : tout nouvel écran dense (formulaire, fiche, tableau de bord) mérite
+  un test dédié qui pompe l'écran à `textScaler: TextScaler.linear(1.3)` sur un viewport `Size(360,
+  800)` (Android bas de gamme) avec `captureFlutterErrors` (`test/support/overflow_guard.dart`) et
+  vérifie l'absence de `RenderFlex overflowed` — patron `*_textscale_test.dart`, FR et AR séparément.
+
 ## Réseau dégradé (P5) — c'est le cœur du produit
 
 - Timeout Dio : 10 s connect, 20 s receive. Retry × 2 avec backoff sur les `GET` idempotents uniquement.
@@ -85,3 +107,6 @@ quand même le lien et on met l'événement en file locale pour renvoi différé
 - [ ] Écran testé en mode avion (état d'erreur correct, pas d'écran blanc)
 - [ ] Aucune valeur de style en dur, aucune chaîne en dur
 - [ ] Testé sur un Android bas de gamme ou l'émulateur bridé (CPU low, réseau 3G)
+- [ ] Chaque élément tappable annonce son état à un lecteur d'écran (`Semantics` — voir
+      « Accessibilité » ci-dessus), aucune cible tactile sous 48dp
+- [ ] Écran dense testé à `TextScaler.linear(1.3)` (FR et AR), aucun débordement
