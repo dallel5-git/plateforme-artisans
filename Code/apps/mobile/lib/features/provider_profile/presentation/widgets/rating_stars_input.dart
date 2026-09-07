@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/widgets/rating_stars.dart';
@@ -9,7 +11,7 @@ import 'package:sanaya/core/widgets/rating_stars.dart';
 /// seule, `StatelessWidget` sans état ni tap) : les deux widgets ne
 /// partagent pas d'implémentation, même choix que `EmptyState`/`ErrorState`
 /// (FM-04e) malgré une structure visuelle proche.
-class RatingStarsInput extends StatelessWidget {
+class RatingStarsInput extends ConsumerWidget {
   const RatingStarsInput({
     required this.value,
     required this.onChanged,
@@ -22,8 +24,9 @@ class RatingStarsInput extends StatelessWidget {
   static const double _iconSize = 32;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final colors = context.colors;
+    final t = ref.watch(translationsProvider);
 
     // Material(transparency) : même raison que ProviderCard/AppButton — pas
     // de Material ambiant garanti sur l'écran appelant, InkWell en exige un.
@@ -33,19 +36,30 @@ class RatingStarsInput extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           for (var i = 1; i <= 5; i++)
-            InkWell(
-              onTap: () => onChanged(i),
-              customBorder: const CircleBorder(),
-              child: Padding(
-                // Cible tactile ≥48 px (AppLayout.touchTarget) autour d'une
-                // icône de 32 px, pas un calcul approximatif : padding
-                // symétrique choisi pour que la zone tappable atteigne
-                // exactement 48 px ((48-32)/2 = 8 = AppSpacing.sm).
-                padding: const EdgeInsets.all(AppSpacing.sm),
-                child: Icon(
-                  i <= value ? Icons.star : Icons.star_border,
-                  size: _iconSize,
-                  color: colors.rating,
+            // FM-43 : bouton propre par étoile (button:, selected:, label:)
+            // — sans ça, un lecteur d'écran ne pouvait ni distinguer les 5
+            // étoiles ni connaître la note déjà choisie.
+            Semantics(
+              button: true,
+              selected: i <= value,
+              label: t.provider.profile.ratingStarSemanticLabel.replaceAll(
+                '{n}',
+                '$i',
+              ),
+              child: InkWell(
+                onTap: () => onChanged(i),
+                customBorder: const CircleBorder(),
+                child: Padding(
+                  // Cible tactile ≥48 px (AppLayout.touchTarget) autour d'une
+                  // icône de 32 px, pas un calcul approximatif : padding
+                  // symétrique choisi pour que la zone tappable atteigne
+                  // exactement 48 px ((48-32)/2 = 8 = AppSpacing.sm).
+                  padding: const EdgeInsets.all(AppSpacing.sm),
+                  child: Icon(
+                    i <= value ? Icons.star : Icons.star_border,
+                    size: _iconSize,
+                    color: colors.rating,
+                  ),
                 ),
               ),
             ),

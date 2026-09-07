@@ -1,3 +1,5 @@
+import 'dart:ui' show Tristate;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -69,5 +71,27 @@ void main() {
       expect(size.width, greaterThanOrEqualTo(AppLayout.touchTarget));
       expect(size.height, greaterThanOrEqualTo(AppLayout.touchTarget));
     });
+
+    testWidgets(
+      'FM-43 — chaque étoile annonce son rang et son état sélectionné au '
+      'lecteur d’écran',
+      (tester) async {
+        final handle = tester.ensureSemantics();
+        await tester.pumpWidget(
+          _wrap(RatingStarsInput(value: 3, onChanged: (_) {})),
+        );
+
+        final firstStar = tester.getSemantics(find.byType(InkWell).at(0));
+        expect(firstStar.label, '1 étoile(s)');
+        expect(firstStar.flagsCollection.isButton, isTrue);
+        expect(firstStar.flagsCollection.isSelected, Tristate.isTrue);
+
+        final lastStar = tester.getSemantics(find.byType(InkWell).at(4));
+        expect(lastStar.label, '5 étoile(s)');
+        expect(lastStar.flagsCollection.isSelected, Tristate.isFalse);
+
+        handle.dispose();
+      },
+    );
   });
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/theme/app_text.dart';
@@ -13,7 +15,7 @@ import 'package:sanaya/core/theme/app_text.dart';
 /// Recréer ce widget avec une [Key] différente (ex. incrémenter un compteur
 /// de tentative côté appelant) réinitialise les cases — c'est le mécanisme
 /// utilisé pour vider le champ après un code invalide.
-class OtpCodeField extends StatefulWidget {
+class OtpCodeField extends ConsumerStatefulWidget {
   const OtpCodeField({
     required this.length,
     required this.onCompleted,
@@ -37,10 +39,10 @@ class OtpCodeField extends StatefulWidget {
   final ValueChanged<String>? onChanged;
 
   @override
-  State<OtpCodeField> createState() => _OtpCodeFieldState();
+  ConsumerState<OtpCodeField> createState() => _OtpCodeFieldState();
 }
 
-class _OtpCodeFieldState extends State<OtpCodeField> {
+class _OtpCodeFieldState extends ConsumerState<OtpCodeField> {
   late final List<TextEditingController> _controllers;
   late final List<FocusNode> _focusNodes;
 
@@ -111,6 +113,7 @@ class _OtpCodeFieldState extends State<OtpCodeField> {
   Widget build(BuildContext context) {
     final colors = context.colors;
     final locale = Localizations.localeOf(context);
+    final t = ref.watch(translationsProvider);
     final borderColor = widget.hasError
         ? colors.destructive
         : colors.borderStrong;
@@ -118,43 +121,51 @@ class _OtpCodeFieldState extends State<OtpCodeField> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: List.generate(widget.length, (index) {
-        return SizedBox(
-          width: 44,
-          child: TextField(
-            controller: _controllers[index],
-            focusNode: _focusNodes[index],
-            enabled: widget.enabled,
-            autofocus: widget.autofocus && index == 0,
-            textAlign: TextAlign.center,
-            keyboardType: TextInputType.number,
-            maxLength: widget.length,
-            style: AppText.bodyStrong(
-              locale,
-            ).copyWith(color: colors.textPrimary),
-            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-            decoration: InputDecoration(
-              counterText: '',
-              filled: true,
-              fillColor: colors.surface,
-              contentPadding: const EdgeInsetsDirectional.symmetric(
-                vertical: AppSpacing.md,
-              ),
-              border: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(AppRadius.md),
-                borderSide: BorderSide(color: borderColor),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(AppRadius.md),
-                borderSide: BorderSide(color: borderColor),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(AppRadius.md),
-                borderSide: BorderSide(
-                  color: widget.hasError ? colors.destructive : colors.accent,
+        // FM-43 : sans ça, un lecteur d'écran annonce 6 champs de texte vides
+        // identiques, sans indication de position — impossible de savoir
+        // lequel est déjà rempli ou lequel a le focus.
+        return Semantics(
+          label: t.auth.otpDigitLabel
+              .replaceAll('{n}', '${index + 1}')
+              .replaceAll('{total}', '${widget.length}'),
+          child: SizedBox(
+            width: 44,
+            child: TextField(
+              controller: _controllers[index],
+              focusNode: _focusNodes[index],
+              enabled: widget.enabled,
+              autofocus: widget.autofocus && index == 0,
+              textAlign: TextAlign.center,
+              keyboardType: TextInputType.number,
+              maxLength: widget.length,
+              style: AppText.bodyStrong(
+                locale,
+              ).copyWith(color: colors.textPrimary),
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              decoration: InputDecoration(
+                counterText: '',
+                filled: true,
+                fillColor: colors.surface,
+                contentPadding: const EdgeInsetsDirectional.symmetric(
+                  vertical: AppSpacing.md,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: const BorderRadius.all(AppRadius.md),
+                  borderSide: BorderSide(color: borderColor),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: const BorderRadius.all(AppRadius.md),
+                  borderSide: BorderSide(color: borderColor),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: const BorderRadius.all(AppRadius.md),
+                  borderSide: BorderSide(
+                    color: widget.hasError ? colors.destructive : colors.accent,
+                  ),
                 ),
               ),
+              onChanged: (value) => _handleChanged(index, value),
             ),
-            onChanged: (value) => _handleChanged(index, value),
           ),
         );
       }),

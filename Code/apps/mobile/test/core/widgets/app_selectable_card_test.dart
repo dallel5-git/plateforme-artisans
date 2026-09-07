@@ -1,7 +1,10 @@
+import 'dart:ui' show Tristate;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:sanaya/core/theme/app_colors.dart';
+import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/widgets/app_selectable_card.dart';
 
 import 'widget_test_helpers.dart';
@@ -191,5 +194,52 @@ void main() {
       expect(decoration.color, Colors.amber.withValues(alpha: 0.12));
       expect(decoration.border, Border.all(color: Colors.amber));
     });
+
+    testWidgets('FM-43 — hauteur minimale ≥48 px (cible tactile)', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        themedApp(
+          Scaffold(
+            body: AppSelectableCard(
+              selected: false,
+              onTap: () {},
+              // Contenu volontairement très court — c'est justement le cas
+              // qui restait sous 48dp avant ce correctif.
+              child: const Text('24h'),
+            ),
+          ),
+        ),
+      );
+
+      final size = tester.getSize(find.byType(AppSelectableCard));
+      expect(size.height, greaterThanOrEqualTo(AppLayout.touchTarget));
+    });
+
+    testWidgets(
+      'FM-43 — annonce button:true, selected: et le libellé fourni',
+      (tester) async {
+        final handle = tester.ensureSemantics();
+        await tester.pumpWidget(
+          themedApp(
+            Scaffold(
+              body: AppSelectableCard(
+                selected: true,
+                onTap: () {},
+                semanticLabel: 'Plomberie',
+                child: const Text('Plomberie'),
+              ),
+            ),
+          ),
+        );
+
+        final semantics = tester.getSemantics(find.byType(InkWell));
+        expect(semantics.flagsCollection.isButton, isTrue);
+        expect(semantics.flagsCollection.isSelected, Tristate.isTrue);
+        expect(semantics.label, 'Plomberie');
+
+        handle.dispose();
+      },
+    );
   });
 }

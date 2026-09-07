@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sanaya/app/theme.dart';
 import 'package:sanaya/features/auth/presentation/widgets/otp_code_field.dart';
 
 Future<void> _pump(WidgetTester tester, ValueChanged<String> onCompleted) =>
     tester.pumpWidget(
-      MaterialApp(
-        theme: buildTheme(
-          brightness: Brightness.light,
-          locale: const Locale('fr'),
-        ),
-        home: Scaffold(
-          body: OtpCodeField(length: 6, onCompleted: onCompleted),
+      ProviderScope(
+        child: MaterialApp(
+          theme: buildTheme(
+            brightness: Brightness.light,
+            locale: const Locale('fr'),
+          ),
+          home: Scaffold(
+            body: OtpCodeField(length: 6, onCompleted: onCompleted),
+          ),
         ),
       ),
     );
@@ -37,16 +40,18 @@ void main() {
     (tester) async {
       final changes = <String>[];
       await tester.pumpWidget(
-        MaterialApp(
-          theme: buildTheme(
-            brightness: Brightness.light,
-            locale: const Locale('fr'),
-          ),
-          home: Scaffold(
-            body: OtpCodeField(
-              length: 6,
-              onCompleted: (_) {},
-              onChanged: changes.add,
+        ProviderScope(
+          child: MaterialApp(
+            theme: buildTheme(
+              brightness: Brightness.light,
+              locale: const Locale('fr'),
+            ),
+            home: Scaffold(
+              body: OtpCodeField(
+                length: 6,
+                onCompleted: (_) {},
+                onChanged: changes.add,
+              ),
             ),
           ),
         ),
@@ -109,4 +114,20 @@ void main() {
 
     expect(callCount, 0);
   });
+
+  testWidgets(
+    'FM-43 — chaque case annonce sa position au lecteur d’écran',
+    (tester) async {
+      final handle = tester.ensureSemantics();
+      await _pump(tester, (_) {});
+
+      final firstBox = tester.getSemantics(find.byType(TextField).at(0));
+      expect(firstBox.label, 'Chiffre 1 sur 6');
+
+      final lastBox = tester.getSemantics(find.byType(TextField).at(5));
+      expect(lastBox.label, 'Chiffre 6 sur 6');
+
+      handle.dispose();
+    },
+  );
 }

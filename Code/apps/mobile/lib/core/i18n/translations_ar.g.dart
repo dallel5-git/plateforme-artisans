@@ -71,6 +71,7 @@ class Translations$auth$ar extends Translations$auth$fr {
 	@override String get legalConsent => 'بمتابعتك، فإنك توافق على شروط الاستخدام وسياسة الخصوصية الخاصة بنا';
 	@override String get phoneInvalid => 'رقم هاتف تونسي غير صالح';
 	@override String get phoneCta => 'استلام الرمز';
+	@override String get otpDigitLabel => 'الرقم {n} من {total}';
 	@override String get otpTitle => 'رمز التحقق';
 	@override String get otpSubtitle => 'تم إرسال رمز مكوّن من 6 أرقام إلى {phone}';
 	@override String get otpCta => 'تأكيد';
@@ -555,6 +556,7 @@ class Translations$provider$profile$ar extends Translations$provider$profile$fr 
 	@override String get writeReview => 'كتابة تقييم';
 	@override String get reviewTitle => 'رأيك في هذا الحرفي';
 	@override String get ratingLabel => 'تقييمك';
+	@override String get ratingStarSemanticLabel => '{n} نجمة/نجوم';
 	@override String get ratingRequired => 'يرجى اختيار تقييم من 1 إلى 5 نجوم';
 	@override String get commentLabel => 'تعليقك (اختياري)';
 	@override String get commentHint => 'شارك تجربتك مع هذا الحرفي...';
@@ -594,6 +596,7 @@ extension on TranslationsAr {
 			'auth.legalConsent' => 'بمتابعتك، فإنك توافق على شروط الاستخدام وسياسة الخصوصية الخاصة بنا',
 			'auth.phoneInvalid' => 'رقم هاتف تونسي غير صالح',
 			'auth.phoneCta' => 'استلام الرمز',
+			'auth.otpDigitLabel' => 'الرقم {n} من {total}',
 			'auth.otpTitle' => 'رمز التحقق',
 			'auth.otpSubtitle' => 'تم إرسال رمز مكوّن من 6 أرقام إلى {phone}',
 			'auth.otpCta' => 'تأكيد',
@@ -843,6 +846,7 @@ extension on TranslationsAr {
 			'provider.profile.writeReview' => 'كتابة تقييم',
 			'provider.profile.reviewTitle' => 'رأيك في هذا الحرفي',
 			'provider.profile.ratingLabel' => 'تقييمك',
+			'provider.profile.ratingStarSemanticLabel' => '{n} نجمة/نجوم',
 			'provider.profile.ratingRequired' => 'يرجى اختيار تقييم من 1 إلى 5 نجوم',
 			'provider.profile.commentLabel' => 'تعليقك (اختياري)',
 			'provider.profile.commentHint' => 'شارك تجربتك مع هذا الحرفي...',

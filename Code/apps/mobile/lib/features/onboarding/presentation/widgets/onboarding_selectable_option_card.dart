@@ -43,23 +43,58 @@ class OnboardingSelectableOptionCard extends StatelessWidget {
       selected: selected,
       enabled: enabled,
       onTap: onTap,
+      // FM-43 : réutilise le libellé déjà affiché comme annonce
+      // d'accessibilité de la carte (même choix que category_grid.dart).
+      semanticLabel: label,
       trailing: selected && primaryBadgeLabel != null
-          ? GestureDetector(
-              onTap: onTapPrimaryBadge,
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppSpacing.sm,
-                  vertical: 2,
+          ? Semantics(
+              // FM-43 : sans `container: true`, ce nœud fusionnerait dans
+              // le Semantics(button:) de la carte englobante (ci-dessus) —
+              // le tap « marquer comme principal » deviendrait alors
+              // injoignable au lecteur d'écran (un seul bouton pour deux
+              // actions distinctes : sélectionner la carte, ou la marquer
+              // principale).
+              container: true,
+              button: true,
+              label: primaryBadgeLabel,
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(
+                  minHeight: AppLayout.touchTarget,
                 ),
-                decoration: BoxDecoration(
-                  color: isPrimary ? colors.accent : colors.surfaceSunken,
-                  borderRadius: const BorderRadius.all(AppRadius.pill),
-                ),
-                child: Text(
-                  primaryBadgeLabel!,
-                  style: AppText.small(locale).copyWith(
-                    color: isPrimary ? colors.onAccent : colors.textSecondary,
-                    fontWeight: FontWeight.w700,
+                child: InkWell(
+                  onTap: onTapPrimaryBadge,
+                  customBorder: const StadiumBorder(),
+                  child: Center(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppSpacing.sm,
+                        vertical: 2,
+                      ),
+                      decoration: BoxDecoration(
+                        color: isPrimary ? colors.accent : colors.surfaceSunken,
+                        borderRadius: const BorderRadius.all(AppRadius.pill),
+                      ),
+                      // FM-43 : `ExcludeSemantics` ne porte que sur ce
+                      // `Text` — pas sur tout le sous-arbre (cf.
+                      // commentaire d'`AppSelectableCard`) — sinon
+                      // l'action `tap` implicite de l'`InkWell`
+                      // ci-dessus disparaîtrait aussi, rendant le badge
+                      // inactivable au lecteur d'écran (juste une
+                      // étiquette statique). Seul le libellé implicite
+                      // du `Text` (qui dupliquerait `primaryBadgeLabel`
+                      // ci-dessus) doit être supprimé.
+                      child: ExcludeSemantics(
+                        child: Text(
+                          primaryBadgeLabel!,
+                          style: AppText.small(locale).copyWith(
+                            color: isPrimary
+                                ? colors.onAccent
+                                : colors.textSecondary,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
