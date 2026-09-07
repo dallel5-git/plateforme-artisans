@@ -67,36 +67,51 @@ class AppButton extends StatelessWidget {
       ],
     );
 
-    return Opacity(
-      opacity: onPressed == null ? 0.45 : 1.0,
-      child: Material(
-        type: MaterialType.transparency,
-        child: Ink(
-          decoration: BoxDecoration(
-            color: palette.background,
-            borderRadius: BorderRadius.all(radius),
-            border: palette.borderColor != null
-                ? Border.all(color: palette.borderColor!)
-                : null,
-          ),
-          child: InkWell(
-            onTap: onPressed,
-            borderRadius: BorderRadius.all(radius),
-            // ConstrainedBox + Padding, pas Container(alignment:) : un
-            // Container avec un alignment non nul s'étend pour remplir
-            // l'espace dès que le parent lui donne des contraintes bornées
-            // (c'est le cas ici, dans un Wrap) — bug constaté à l'écran
-            // vitrine (boutons pleine largeur au lieu de s'ajuster à leur
-            // contenu). ConstrainedBox n'a pas cet effet de bord ; le
-            // centrage vertical reste assuré par le crossAxisAlignment
-            // par défaut (center) du Row de contenu.
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: minHeight),
-              child: Padding(
-                padding: EdgeInsetsDirectional.symmetric(
-                  horizontal: horizontalPadding,
+    // FM-43 : partagé par tout bouton de l'app (y compris ContactButtons,
+    // FM-09/30) — corrigé une seule fois ici plutôt qu'à chaque appelant.
+    // `excludeSemantics: true` remplace la sémantique implicite du `Text`
+    // interne (évite le double-libellé, même piège qu'`AppBottomNav`) ; en
+    // conséquence `onTap` doit être relayé explicitement ici, sinon le geste
+    // "double-tap" d'un lecteur d'écran (qui passe par l'arbre Semantics, pas
+    // par le hit-test tactile normal de l'`InkWell`) n'aurait plus aucune
+    // action à déclencher.
+    return Semantics(
+      button: true,
+      enabled: onPressed != null,
+      label: label,
+      excludeSemantics: true,
+      onTap: onPressed,
+      child: Opacity(
+        opacity: onPressed == null ? 0.45 : 1.0,
+        child: Material(
+          type: MaterialType.transparency,
+          child: Ink(
+            decoration: BoxDecoration(
+              color: palette.background,
+              borderRadius: BorderRadius.all(radius),
+              border: palette.borderColor != null
+                  ? Border.all(color: palette.borderColor!)
+                  : null,
+            ),
+            child: InkWell(
+              onTap: onPressed,
+              borderRadius: BorderRadius.all(radius),
+              // ConstrainedBox + Padding, pas Container(alignment:) : un
+              // Container avec un alignment non nul s'étend pour remplir
+              // l'espace dès que le parent lui donne des contraintes bornées
+              // (c'est le cas ici, dans un Wrap) — bug constaté à l'écran
+              // vitrine (boutons pleine largeur au lieu de s'ajuster à leur
+              // contenu). ConstrainedBox n'a pas cet effet de bord ; le
+              // centrage vertical reste assuré par le crossAxisAlignment
+              // par défaut (center) du Row de contenu.
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: minHeight),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.symmetric(
+                    horizontal: horizontalPadding,
+                  ),
+                  child: content,
                 ),
-                child: content,
               ),
             ),
           ),
