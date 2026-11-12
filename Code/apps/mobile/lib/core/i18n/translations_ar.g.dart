@@ -435,6 +435,13 @@ class Translations$settings$ar extends Translations$settings$fr {
 	@override String get cancel => 'إلغاء';
 	@override String get confirm => 'تأكيد';
 	@override String get version => 'الإصدار';
+	@override String get demoSection => 'الوضع التجريبي (بيانات تجريبية)';
+	@override String get demoMode => 'تفعيل الوضع التجريبي';
+	@override String get demoModeSubtitle => 'محاكاة الحرفيين والتقييمات والسجل دون اتصال بخادم';
+	@override String get demoRoleGuest => 'زائر (غير متصل)';
+	@override String get demoRoleClient => 'وضع الحريف';
+	@override String get demoRolePro => 'وضع الحرفي';
+	@override String get demoBanner => 'الوضع التجريبي نشط';
 }
 
 // Path: common.home
@@ -945,6 +952,13 @@ extension on TranslationsAr {
 			'settings.cancel' => 'إلغاء',
 			'settings.confirm' => 'تأكيد',
 			'settings.version' => 'الإصدار',
+			'settings.demoSection' => 'الوضع التجريبي (بيانات تجريبية)',
+			'settings.demoMode' => 'تفعيل الوضع التجريبي',
+			'settings.demoModeSubtitle' => 'محاكاة الحرفيين والتقييمات والسجل دون اتصال بخادم',
+			'settings.demoRoleGuest' => 'زائر (غير متصل)',
+			'settings.demoRoleClient' => 'وضع الحريف',
+			'settings.demoRolePro' => 'وضع الحرفي',
+			'settings.demoBanner' => 'الوضع التجريبي نشط',
 			_ => null,
 		};
 	}

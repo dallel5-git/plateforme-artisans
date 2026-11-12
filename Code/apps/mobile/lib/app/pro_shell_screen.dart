@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:sanaya/app/providers.dart';
+import 'package:sanaya/core/demo/demo_banner.dart';
 import 'package:sanaya/core/widgets/app_bottom_nav.dart';
 import 'package:sanaya/core/widgets/connectivity_banner.dart';
 
@@ -23,6 +24,7 @@ class ProShellScreen extends ConsumerWidget {
       body: Column(
         children: [
           const ConnectivityBanner(),
+          const DemoBanner(),
           Expanded(child: navigationShell),
         ],
       ),

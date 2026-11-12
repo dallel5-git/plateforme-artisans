@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sanaya/app/providers.dart';
+import 'package:sanaya/core/demo/demo_mode_provider.dart';
 import 'package:sanaya/core/i18n/locale_persistence.dart';
 import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
@@ -39,6 +40,9 @@ class AccountSettingsSection extends ConsumerWidget {
     final t = ref.watch(translationsProvider);
     final authStatus = ref.watch(authStateProvider).valueOrNull;
     final isAuthenticated = authStatus?.isAuthenticated ?? false;
+    final isDemo = ref.watch(demoModeProvider);
+    final demoRole = ref.watch(demoRoleProvider);
+    final colors = context.colors;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -127,6 +131,98 @@ class AccountSettingsSection extends ConsumerWidget {
           child: _SettingsNavTile(
             title: t.settings.legalNotices,
             onTap: onOpenLegal,
+          ),
+        ),
+        const SizedBox(height: AppSpacing.lg),
+
+        AppSectionHeader(title: t.settings.demoSection),
+        const SizedBox(height: AppSpacing.xs),
+        AppCard(
+          padding: EdgeInsets.zero,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppSpacing.md,
+                  vertical: AppSpacing.sm,
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            t.settings.demoMode,
+                            style: AppText.bodyStrong(locale).copyWith(
+                              color: colors.textPrimary,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            t.settings.demoModeSubtitle,
+                            style: AppText.caption(locale).copyWith(
+                              color: colors.textSecondary,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Switch.adaptive(
+                      value: isDemo,
+                      onChanged: (enabled) {
+                        unawaited(
+                          ref
+                              .read(demoModeProvider.notifier)
+                              .setEnabled(enabled: enabled),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              if (isDemo) ...[
+                const AppDivider(),
+                _SettingsOptionTile<DemoRole>(
+                  title: t.settings.demoRoleClient,
+                  value: DemoRole.client,
+                  groupValue: demoRole,
+                  onChanged: (role) {
+                    if (role != null) {
+                      unawaited(
+                        ref.read(demoRoleProvider.notifier).setRole(role),
+                      );
+                    }
+                  },
+                ),
+                const AppDivider(),
+                _SettingsOptionTile<DemoRole>(
+                  title: t.settings.demoRolePro,
+                  value: DemoRole.provider,
+                  groupValue: demoRole,
+                  onChanged: (role) {
+                    if (role != null) {
+                      unawaited(
+                        ref.read(demoRoleProvider.notifier).setRole(role),
+                      );
+                    }
+                  },
+                ),
+                const AppDivider(),
+                _SettingsOptionTile<DemoRole>(
+                  title: t.settings.demoRoleGuest,
+                  value: DemoRole.guest,
+                  groupValue: demoRole,
+                  onChanged: (role) {
+                    if (role != null) {
+                      unawaited(
+                        ref.read(demoRoleProvider.notifier).setRole(role),
+                      );
+                    }
+                  },
+                ),
+              ],
+            ],
           ),
         ),
         const SizedBox(height: AppSpacing.lg),

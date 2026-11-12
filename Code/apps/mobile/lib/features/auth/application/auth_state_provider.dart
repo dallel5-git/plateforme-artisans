@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sanaya/core/api/api_client_provider.dart';
 import 'package:sanaya/core/api/generated/api.dart';
+import 'package:sanaya/core/demo/demo_mode_provider.dart';
 import 'package:sanaya/features/auth/application/auth_providers.dart';
 import 'package:sanaya/features/auth/application/auth_status.dart';
 
@@ -15,6 +16,19 @@ bool _hasProviderRole(
 class AuthStateNotifier extends AsyncNotifier<AuthStatus> {
   @override
   Future<AuthStatus> build() async {
+    final isDemo = ref.watch(demoModeProvider);
+    if (isDemo) {
+      final role = ref.watch(demoRoleProvider);
+      switch (role) {
+        case DemoRole.guest:
+          return const AuthStatus.unauthenticated();
+        case DemoRole.client:
+          return const AuthStatus.authenticated(isProvider: false);
+        case DemoRole.provider:
+          return const AuthStatus.authenticated(isProvider: true);
+      }
+    }
+
     final restored = await ref.watch(authTokenStoreProvider).restoreSession();
     if (!restored) return const AuthStatus.unauthenticated();
 

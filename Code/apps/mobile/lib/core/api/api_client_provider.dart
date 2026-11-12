@@ -4,6 +4,8 @@ import 'package:sanaya/core/api/auth_token_store.dart';
 import 'package:sanaya/core/api/generated/api.dart';
 import 'package:sanaya/core/api/interceptors/auth_interceptor.dart';
 import 'package:sanaya/core/api/interceptors/retry_interceptor.dart';
+import 'package:sanaya/core/demo/demo_mock_interceptor.dart';
+import 'package:sanaya/core/demo/demo_mode_provider.dart';
 
 /// Instance partagée — un seul `AuthTokenStore` pour toute l'app, pour que
 /// l'access token qu'il détient en mémoire soit le même que celui que lit
@@ -27,10 +29,18 @@ final authTokenStoreProvider = Provider<AuthTokenStore>(
 /// l'ait construit (tous deux en ont besoin pour rejouer une requête via
 /// `dio.fetch`), donc après, jamais avant.
 final apiClientProvider = Provider<SanayaApiClient>((ref) {
+  final isDemo = ref.watch(demoModeProvider);
+  final demoRole = ref.watch(demoRoleProvider);
   final tokenStore = ref.watch(authTokenStoreProvider);
+  final demoInterceptor = DemoMockInterceptor(
+    isDemoMode: () => isDemo,
+    getDemoRole: () => demoRole,
+  );
   final authInterceptor = AuthInterceptor(tokenStore);
   final retryInterceptor = RetryInterceptor();
-  final dio = buildApiClient(interceptors: [authInterceptor, retryInterceptor]);
+  final dio = buildApiClient(
+    interceptors: [demoInterceptor, authInterceptor, retryInterceptor],
+  );
   authInterceptor.dio = dio;
   retryInterceptor.dio = dio;
   return SanayaApiClient(dio: dio);

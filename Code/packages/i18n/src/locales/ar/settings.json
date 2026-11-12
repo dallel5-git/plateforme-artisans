@@ -17,5 +17,12 @@
   "logoutConfirmMessage": "هل أنت متأكد من رغبتك في تسجيل الخروج؟",
   "cancel": "إلغاء",
   "confirm": "تأكيد",
-  "version": "الإصدار"
+  "version": "الإصدار",
+  "demoSection": "الوضع التجريبي (بيانات تجريبية)",
+  "demoMode": "تفعيل الوضع التجريبي",
+  "demoModeSubtitle": "محاكاة الحرفيين والتقييمات والسجل دون اتصال بخادم",
+  "demoRoleGuest": "زائر (غير متصل)",
+  "demoRoleClient": "وضع الحريف",
+  "demoRolePro": "وضع الحرفي",
+  "demoBanner": "الوضع التجريبي نشط"
 }

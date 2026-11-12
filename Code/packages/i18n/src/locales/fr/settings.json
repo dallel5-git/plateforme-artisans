@@ -17,5 +17,12 @@
   "logoutConfirmMessage": "Êtes-vous sûr de vouloir vous déconnecter ?",
   "cancel": "Annuler",
   "confirm": "Confirmer",
-  "version": "Version"
+  "version": "Version",
+  "demoSection": "Mode Démo (Données de test)",
+  "demoMode": "Activer le mode démo",
+  "demoModeSubtitle": "Simuler artisans, avis et historique sans serveur distant",
+  "demoRoleGuest": "Visiteur (non connecté)",
+  "demoRoleClient": "Mode Client",
+  "demoRolePro": "Mode Artisan Pro",
+  "demoBanner": "Mode Démo actif"
 }

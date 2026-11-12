@@ -873,6 +873,27 @@ class Translations$settings$fr {
 
 	/// fr: 'Version'
 	String get version => 'Version';
+
+	/// fr: 'Mode Démo (Données de test)'
+	String get demoSection => 'Mode Démo (Données de test)';
+
+	/// fr: 'Activer le mode démo'
+	String get demoMode => 'Activer le mode démo';
+
+	/// fr: 'Simuler artisans, avis et historique sans serveur distant'
+	String get demoModeSubtitle => 'Simuler artisans, avis et historique sans serveur distant';
+
+	/// fr: 'Visiteur (non connecté)'
+	String get demoRoleGuest => 'Visiteur (non connecté)';
+
+	/// fr: 'Mode Client'
+	String get demoRoleClient => 'Mode Client';
+
+	/// fr: 'Mode Artisan Pro'
+	String get demoRolePro => 'Mode Artisan Pro';
+
+	/// fr: 'Mode Démo actif'
+	String get demoBanner => 'Mode Démo actif';
 }
 
 // Path: common.home
@@ -1608,6 +1629,13 @@ extension on Translations {
 			'settings.cancel' => 'Annuler',
 			'settings.confirm' => 'Confirmer',
 			'settings.version' => 'Version',
+			'settings.demoSection' => 'Mode Démo (Données de test)',
+			'settings.demoMode' => 'Activer le mode démo',
+			'settings.demoModeSubtitle' => 'Simuler artisans, avis et historique sans serveur distant',
+			'settings.demoRoleGuest' => 'Visiteur (non connecté)',
+			'settings.demoRoleClient' => 'Mode Client',
+			'settings.demoRolePro' => 'Mode Artisan Pro',
+			'settings.demoBanner' => 'Mode Démo actif',
 			_ => null,
 		};
 	}
