@@ -21,7 +21,9 @@ import 'package:sanaya/features/profile/presentation/client_profile_screen.dart'
 import 'package:sanaya/features/provider_profile/presentation/screens/provider_profile_screen.dart';
 import 'package:sanaya/features/provider_profile/presentation/screens/review_form_screen.dart';
 import 'package:sanaya/features/reviews/presentation/pro_reviews_screen.dart';
+import 'package:sanaya/features/search/data/search_filters.dart';
 import 'package:sanaya/features/search/presentation/search_home_screen.dart';
+import 'package:sanaya/features/search/presentation/search_results_screen.dart';
 import 'package:sanaya/features/settings/presentation/legal_notice_screen.dart';
 
 /// Fait réévaluer `redirect:` quand `authStateProvider` change en dehors
@@ -130,6 +132,22 @@ final router = GoRouter(
               name: 'client-home',
               pageBuilder: (_, _) =>
                   const NoTransitionPage(child: SearchHomeScreen()),
+              routes: [
+                GoRoute(
+                  path: 'results',
+                  name: 'client-results',
+                  builder: (context, state) {
+                    final filters = state.extra as SearchFilters? ??
+                        SearchFilters(
+                          governorateId:
+                              state.uri.queryParameters['governorate'] ??
+                                  'sousse',
+                          categorySlug: state.uri.queryParameters['category'],
+                        );
+                    return SearchResultsScreen(initialFilters: filters);
+                  },
+                ),
+              ],
             ),
           ],
         ),

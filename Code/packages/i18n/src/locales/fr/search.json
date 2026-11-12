@@ -11,5 +11,13 @@
   "locationError": "Impossible de charger les gouvernorats.",
   "retry": "Réessayer",
   "filterRatingMin": "Note 4+",
-  "filterUrgent": "Urgence"
+  "filterUrgent": "Urgence",
+  "resultsTitle": "Résultats",
+  "filterVerified": "Vérifié",
+  "emptyTitle": "Aucun artisan trouvé",
+  "emptySubtitle": "Essayez de modifier vos filtres ou de chercher dans un autre gouvernorat.",
+  "resetFilters": "Réinitialiser les filtres",
+  "loadErrorTitle": "Erreur de chargement",
+  "loadError": "Impossible de charger les résultats.",
+  "offlineNotice": "Résultats hors ligne"
 }

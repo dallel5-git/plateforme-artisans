@@ -390,6 +390,14 @@ class Translations$search$ar extends Translations$search$fr {
 	@override String get retry => 'إعادة المحاولة';
 	@override String get filterRatingMin => 'تقييم 4+';
 	@override String get filterUrgent => 'عاجل';
+	@override String get resultsTitle => 'النتائج';
+	@override String get filterVerified => 'موثّق';
+	@override String get emptyTitle => 'لم يتم العثور على أي حرفي';
+	@override String get emptySubtitle => 'جرّب تعديل معايير البحث أو اختيار ولاية أخرى.';
+	@override String get resetFilters => 'إعادة تعيين الفلاتر';
+	@override String get loadErrorTitle => 'خطأ في التحميل';
+	@override String get loadError => 'تعذّر تحميل النتائج.';
+	@override String get offlineNotice => 'النتائج بدون اتصال';
 }
 
 // Path: settings
@@ -883,6 +891,14 @@ extension on TranslationsAr {
 			'search.retry' => 'إعادة المحاولة',
 			'search.filterRatingMin' => 'تقييم 4+',
 			'search.filterUrgent' => 'عاجل',
+			'search.resultsTitle' => 'النتائج',
+			'search.filterVerified' => 'موثّق',
+			'search.emptyTitle' => 'لم يتم العثور على أي حرفي',
+			'search.emptySubtitle' => 'جرّب تعديل معايير البحث أو اختيار ولاية أخرى.',
+			'search.resetFilters' => 'إعادة تعيين الفلاتر',
+			'search.loadErrorTitle' => 'خطأ في التحميل',
+			'search.loadError' => 'تعذّر تحميل النتائج.',
+			'search.offlineNotice' => 'النتائج بدون اتصال',
 			'settings.title' => 'الإعدادات',
 			'settings.languageSection' => 'اللغة',
 			'settings.french' => 'Français',

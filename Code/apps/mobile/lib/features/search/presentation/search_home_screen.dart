@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
@@ -8,6 +11,7 @@ import 'package:sanaya/core/widgets/empty_state.dart';
 import 'package:sanaya/core/widgets/error_state.dart';
 import 'package:sanaya/features/search/application/catalog_providers.dart';
 import 'package:sanaya/features/search/data/catalog_repository.dart';
+import 'package:sanaya/features/search/data/search_filters.dart';
 import 'package:sanaya/features/search/presentation/widgets/category_grid.dart';
 import 'package:sanaya/features/search/presentation/widgets/category_grid_skeleton.dart';
 import 'package:sanaya/features/search/presentation/widgets/governorate_picker_sheet.dart';
@@ -54,8 +58,19 @@ class SearchHomeScreen extends ConsumerWidget {
                       ref.read(selectedGovernorateIdProvider.notifier).state =
                           id,
                 ),
-                // TODO(FM-07): brancher la recherche réelle (résultats) —
-                // dépend de BE-16, non livré au moment de FM-06.
+                onQuerySubmitted: (query) {
+                  final trimmed = query.trim();
+                  if (trimmed.isEmpty) return;
+                  final govId = ref.read(selectedGovernorateIdProvider);
+                  unawaited(
+                    context.pushNamed(
+                      'client-results',
+                      extra: SearchFilters(
+                        governorateId: govId ?? 'sousse',
+                      ),
+                    ),
+                  );
+                },
               ),
               const SizedBox(height: AppSpacing.xl),
               Text(
@@ -82,9 +97,19 @@ class SearchHomeScreen extends ConsumerWidget {
                       )
                     : CategoryGrid(
                         categories: categories,
-                        // TODO(FM-07): naviguer vers les résultats filtrés
-                        // par catégorie — dépend de BE-16, non livré.
-                        onTap: (_) {},
+                        onTap: (category) {
+                          final govId =
+                              ref.read(selectedGovernorateIdProvider);
+                          unawaited(
+                            context.pushNamed(
+                              'client-results',
+                              extra: SearchFilters(
+                                governorateId: govId ?? 'sousse',
+                                categorySlug: category.slug,
+                              ),
+                            ),
+                          );
+                        },
                       ),
               ),
             ],

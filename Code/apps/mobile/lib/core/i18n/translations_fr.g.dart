@@ -756,6 +756,30 @@ class Translations$search$fr {
 
 	/// fr: 'Urgence'
 	String get filterUrgent => 'Urgence';
+
+	/// fr: 'Résultats'
+	String get resultsTitle => 'Résultats';
+
+	/// fr: 'Vérifié'
+	String get filterVerified => 'Vérifié';
+
+	/// fr: 'Aucun artisan trouvé'
+	String get emptyTitle => 'Aucun artisan trouvé';
+
+	/// fr: 'Essayez de modifier vos filtres ou de chercher dans un autre gouvernorat.'
+	String get emptySubtitle => 'Essayez de modifier vos filtres ou de chercher dans un autre gouvernorat.';
+
+	/// fr: 'Réinitialiser les filtres'
+	String get resetFilters => 'Réinitialiser les filtres';
+
+	/// fr: 'Erreur de chargement'
+	String get loadErrorTitle => 'Erreur de chargement';
+
+	/// fr: 'Impossible de charger les résultats.'
+	String get loadError => 'Impossible de charger les résultats.';
+
+	/// fr: 'Résultats hors ligne'
+	String get offlineNotice => 'Résultats hors ligne';
 }
 
 // Path: settings
@@ -1502,6 +1526,14 @@ extension on Translations {
 			'search.retry' => 'Réessayer',
 			'search.filterRatingMin' => 'Note 4+',
 			'search.filterUrgent' => 'Urgence',
+			'search.resultsTitle' => 'Résultats',
+			'search.filterVerified' => 'Vérifié',
+			'search.emptyTitle' => 'Aucun artisan trouvé',
+			'search.emptySubtitle' => 'Essayez de modifier vos filtres ou de chercher dans un autre gouvernorat.',
+			'search.resetFilters' => 'Réinitialiser les filtres',
+			'search.loadErrorTitle' => 'Erreur de chargement',
+			'search.loadError' => 'Impossible de charger les résultats.',
+			'search.offlineNotice' => 'Résultats hors ligne',
 			'settings.title' => 'Réglages',
 			'settings.languageSection' => 'Langue',
 			'settings.french' => 'Français',

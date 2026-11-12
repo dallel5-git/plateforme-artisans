@@ -11,5 +11,13 @@
   "locationError": "تعذّر تحميل الولايات.",
   "retry": "إعادة المحاولة",
   "filterRatingMin": "تقييم 4+",
-  "filterUrgent": "عاجل"
+  "filterUrgent": "عاجل",
+  "resultsTitle": "النتائج",
+  "filterVerified": "موثّق",
+  "emptyTitle": "لم يتم العثور على أي حرفي",
+  "emptySubtitle": "جرّب تعديل معايير البحث أو اختيار ولاية أخرى.",
+  "resetFilters": "إعادة تعيين الفلاتر",
+  "loadErrorTitle": "خطأ في التحميل",
+  "loadError": "تعذّر تحميل النتائج.",
+  "offlineNotice": "النتائج بدون اتصال"
 }

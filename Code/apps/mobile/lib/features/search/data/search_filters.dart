@@ -43,6 +43,28 @@ class SearchFilters {
   bool operator ==(Object other) =>
       other is SearchFilters && other.cacheKey == cacheKey;
 
+  SearchFilters copyWith({
+    String? governorateId,
+    String? categorySlug,
+    String? delegationId,
+    bool? isVerified,
+    num? minRating,
+    bool clearCategory = false,
+    bool clearDelegation = false,
+    bool clearVerified = false,
+    bool clearMinRating = false,
+  }) {
+    return SearchFilters(
+      governorateId: governorateId ?? this.governorateId,
+      categorySlug:
+          clearCategory ? null : (categorySlug ?? this.categorySlug),
+      delegationId:
+          clearDelegation ? null : (delegationId ?? this.delegationId),
+      isVerified: clearVerified ? null : (isVerified ?? this.isVerified),
+      minRating: clearMinRating ? null : (minRating ?? this.minRating),
+    );
+  }
+
   @override
   int get hashCode => cacheKey.hashCode;
 }
