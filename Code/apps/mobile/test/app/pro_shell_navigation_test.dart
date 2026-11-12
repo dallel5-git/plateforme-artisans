@@ -70,7 +70,7 @@ void main() {
 
       await tester.tap(find.text(t.common.nav.boostsTab));
       await tester.pumpAndSettle();
-      expect(find.text(t.boosts.emptyTitle), findsOneWidget);
+      expect(find.text(t.billing.creditsBalance), findsOneWidget);
 
       await tester.tap(find.text(t.common.nav.reviewsTab));
       await tester.pumpAndSettle();

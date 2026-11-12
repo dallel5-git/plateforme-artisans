@@ -10,7 +10,7 @@ import 'package:sanaya/app/splash_screen.dart';
 import 'package:sanaya/core/widgets/error_state.dart';
 import 'package:sanaya/features/auth/application/auth_state_provider.dart';
 import 'package:sanaya/features/auth/presentation/auth_screen.dart';
-import 'package:sanaya/features/boosts/presentation/boosts_placeholder_screen.dart';
+import 'package:sanaya/features/boosts/presentation/boosts_screen.dart';
 import 'package:sanaya/features/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:sanaya/features/favorites/presentation/favorites_screen.dart';
 import 'package:sanaya/features/history/presentation/client_history_screen.dart';
@@ -241,7 +241,7 @@ final router = GoRouter(
               path: '/pro/boosts',
               name: 'pro-boosts',
               pageBuilder: (_, _) =>
-                  const NoTransitionPage(child: BoostsPlaceholderScreen()),
+                  const NoTransitionPage(child: BoostsScreen()),
             ),
           ],
         ),
