@@ -1230,6 +1230,9 @@ class Translations$provider$profile$fr {
 	/// fr: 'Impossible de publier votre avis. Veuillez réessayer.'
 	String get reviewGenericError => 'Impossible de publier votre avis. Veuillez réessayer.';
 
+	/// fr: 'Vous devez être connecté pour laisser un avis.'
+	String get reviewLoginRequired => 'Vous devez être connecté pour laisser un avis.';
+
 	/// fr: 'Avez-vous fait appel à cet artisan ?'
 	String get reviewPromptTitle => 'Avez-vous fait appel à cet artisan ?';
 
@@ -1238,6 +1241,15 @@ class Translations$provider$profile$fr {
 
 	/// fr: 'Laisser un avis'
 	String get reviewPromptCta => 'Laisser un avis';
+
+	/// fr: 'Connexion requise'
+	String get authRequiredTitle => 'Connexion requise';
+
+	/// fr: 'Connectez-vous pour donner votre avis sur cet artisan.'
+	String get authRequiredSubtitle => 'Connectez-vous pour donner votre avis sur cet artisan.';
+
+	/// fr: 'Se connecter ou s'inscrire'
+	String get loginCta => 'Se connecter ou s\'inscrire';
 }
 
 // Path: common.widgets.offlineBanner
@@ -1538,9 +1550,13 @@ extension on Translations {
 			'provider.profile.reviewRequiresContact' => 'Vous devez avoir contacté cet artisan pour pouvoir laisser un avis.',
 			'provider.profile.reviewSelfForbidden' => 'Vous ne pouvez pas évaluer votre propre profil.',
 			'provider.profile.reviewGenericError' => 'Impossible de publier votre avis. Veuillez réessayer.',
+			'provider.profile.reviewLoginRequired' => 'Vous devez être connecté pour laisser un avis.',
 			'provider.profile.reviewPromptTitle' => 'Avez-vous fait appel à cet artisan ?',
 			'provider.profile.reviewPromptSubtitle' => 'Partagez votre avis pour aider la communauté.',
 			'provider.profile.reviewPromptCta' => 'Laisser un avis',
+			'provider.profile.authRequiredTitle' => 'Connexion requise',
+			'provider.profile.authRequiredSubtitle' => 'Connectez-vous pour donner votre avis sur cet artisan.',
+			'provider.profile.loginCta' => 'Se connecter ou s\'inscrire',
 			'reviews.title' => 'Avis',
 			'reviews.emptyTitle' => 'Aucun avis reçu pour l\'instant',
 			'reviews.emptyMessage' => 'Les avis laissés par vos clients apparaîtront ici.',

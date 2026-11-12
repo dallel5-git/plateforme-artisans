@@ -584,9 +584,13 @@ class Translations$provider$profile$ar extends Translations$provider$profile$fr 
 	@override String get reviewRequiresContact => 'يجب أن تكون قد تواصلت مع هذا الحرفي لتتمكن من تقييمه.';
 	@override String get reviewSelfForbidden => 'لا يمكنك تقييم حسابك الخاص.';
 	@override String get reviewGenericError => 'تعذّر نشر تقييمك. يرجى المحاولة مرة أخرى.';
+	@override String get reviewLoginRequired => 'يجب عليك تسجيل الدخول لترك تقييم.';
 	@override String get reviewPromptTitle => 'هل تعاملت مع هذا الحرفي؟';
 	@override String get reviewPromptSubtitle => 'شارك رأيك لمساعدة المجتمع.';
 	@override String get reviewPromptCta => 'ترك تقييم';
+	@override String get authRequiredTitle => 'تسجيل الدخول مطلوب';
+	@override String get authRequiredSubtitle => 'سجّل الدخول لتتمكن من تقييم هذا الحرفي.';
+	@override String get loginCta => 'تسجيل الدخول أو إنشاء حساب';
 }
 
 // Path: common.widgets.offlineBanner
@@ -883,9 +887,13 @@ extension on TranslationsAr {
 			'provider.profile.reviewRequiresContact' => 'يجب أن تكون قد تواصلت مع هذا الحرفي لتتمكن من تقييمه.',
 			'provider.profile.reviewSelfForbidden' => 'لا يمكنك تقييم حسابك الخاص.',
 			'provider.profile.reviewGenericError' => 'تعذّر نشر تقييمك. يرجى المحاولة مرة أخرى.',
+			'provider.profile.reviewLoginRequired' => 'يجب عليك تسجيل الدخول لترك تقييم.',
 			'provider.profile.reviewPromptTitle' => 'هل تعاملت مع هذا الحرفي؟',
 			'provider.profile.reviewPromptSubtitle' => 'شارك رأيك لمساعدة المجتمع.',
 			'provider.profile.reviewPromptCta' => 'ترك تقييم',
+			'provider.profile.authRequiredTitle' => 'تسجيل الدخول مطلوب',
+			'provider.profile.authRequiredSubtitle' => 'سجّل الدخول لتتمكن من تقييم هذا الحرفي.',
+			'provider.profile.loginCta' => 'تسجيل الدخول أو إنشاء حساب',
 			'reviews.title' => 'التقييمات',
 			'reviews.emptyTitle' => 'لا توجد تقييمات حتى الآن',
 			'reviews.emptyMessage' => 'ستظهر هنا التقييمات التي يتركها عملاؤك.',

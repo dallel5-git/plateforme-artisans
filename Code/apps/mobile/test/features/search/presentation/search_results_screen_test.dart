@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:sanaya/app/theme.dart';
 import 'package:sanaya/core/api/generated/api.dart';
@@ -66,6 +67,22 @@ Widget _wrap(
         locale: const Locale('fr'),
       ),
       home: child,
+    ),
+  );
+}
+
+Widget _wrapWithRouter({
+  required List<Override> overrides,
+  required GoRouter router,
+}) {
+  return ProviderScope(
+    overrides: overrides,
+    child: MaterialApp.router(
+      routerConfig: router,
+      theme: buildTheme(
+        brightness: Brightness.light,
+        locale: const Locale('fr'),
+      ),
     ),
   );
 }
@@ -226,5 +243,48 @@ void main() {
         const SearchFilters(governorateId: 'sousse', isVerified: true),
       ),
     ).called(1);
+  });
+
+  testWidgets('le tap sur une ProviderCard navigue vers /providers/:slug', (
+    tester,
+  ) async {
+    when(() => repository.search(any())).thenAnswer(
+      (_) async => _page(['p1']),
+    );
+
+    final router = GoRouter(
+      initialLocation: '/results',
+      routes: [
+        GoRoute(
+          path: '/results',
+          builder: (_, _) => const SearchResultsScreen(
+            initialFilters: _filters,
+          ),
+        ),
+        GoRoute(
+          path: '/providers/:slug',
+          name: 'provider-profile',
+          builder: (_, state) => Text('slug: ${state.pathParameters['slug']}'),
+        ),
+      ],
+    );
+
+    await tester.pumpWidget(
+      _wrapWithRouter(
+        router: router,
+        overrides: [
+          searchRepositoryProvider.overrideWithValue(repository),
+          searchResultsCacheProvider.overrideWithValue(cache),
+          connectivityServiceProvider.overrideWithValue(connectivity),
+          categoriesProvider.overrideWith((ref) async => const []),
+        ],
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Artisan p1'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('slug: artisan-p1'), findsOneWidget);
   });
 }

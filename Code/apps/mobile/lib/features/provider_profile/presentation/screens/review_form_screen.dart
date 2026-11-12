@@ -10,6 +10,8 @@ import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/theme/app_text.dart';
 import 'package:sanaya/core/widgets/app_button.dart';
 import 'package:sanaya/core/widgets/app_text_field.dart';
+import 'package:sanaya/core/widgets/auth_required_view.dart';
+import 'package:sanaya/features/auth/application/auth_state_provider.dart';
 import 'package:sanaya/features/provider_profile/application/provider_profile_providers.dart';
 import 'package:sanaya/features/provider_profile/application/review_submission_notifier.dart';
 import 'package:sanaya/features/provider_profile/presentation/widgets/rating_stars_input.dart';
@@ -64,6 +66,22 @@ class _ReviewFormScreenState extends ConsumerState<ReviewFormScreen> {
     final colors = context.colors;
     final locale = Localizations.localeOf(context);
     final t = ref.watch(translationsProvider);
+    final authState = ref.watch(authStateProvider).valueOrNull;
+    final isAuthenticated = authState?.isAuthenticated ?? false;
+
+    if (!isAuthenticated) {
+      return Scaffold(
+        backgroundColor: colors.background,
+        appBar: AppBar(title: Text(t.provider.profile.reviewTitle)),
+        body: AuthRequiredView(
+          icon: '⭐',
+          title: t.provider.profile.authRequiredTitle,
+          message: t.provider.profile.authRequiredSubtitle,
+          ctaLabel: t.provider.profile.loginCta,
+        ),
+      );
+    }
+
     final profileAsync = ref.watch(providerProfileProvider(widget.slug));
     final submissionState = ref.watch(reviewSubmissionProvider);
     final isLoading = submissionState.isLoading;
@@ -131,6 +149,9 @@ class _ReviewFormScreenState extends ConsumerState<ReviewFormScreen> {
   }
 
   String _errorMessage(Translations t, Object? error) {
+    if (error is UnauthorizedException) {
+      return t.provider.profile.reviewLoginRequired;
+    }
     if (error is ForbiddenException) {
       return switch (error.code) {
         'REVIEW_REQUIRES_CONTACT' => t.provider.profile.reviewRequiresContact,

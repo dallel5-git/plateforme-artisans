@@ -10,6 +10,9 @@ import 'package:mocktail/mocktail.dart';
 import 'package:sanaya/app/theme.dart';
 import 'package:sanaya/core/api/generated/api.dart';
 import 'package:sanaya/core/widgets/app_button.dart';
+import 'package:sanaya/core/widgets/auth_required_view.dart';
+import 'package:sanaya/features/auth/application/auth_state_provider.dart';
+import 'package:sanaya/features/auth/application/auth_status.dart';
 import 'package:sanaya/features/provider_profile/application/provider_profile_providers.dart';
 import 'package:sanaya/features/provider_profile/application/review_submission_notifier.dart';
 import 'package:sanaya/features/provider_profile/data/provider_profile_repository.dart';
@@ -22,6 +25,15 @@ class _ProfileRepoMock extends Mock implements ProviderProfileRepository {}
 
 class _ReviewsRepoMock extends Mock implements ReviewsRepository {}
 
+class _FixedAuthStateNotifier extends AuthStateNotifier {
+  _FixedAuthStateNotifier(this._status);
+
+  final AuthStatus _status;
+
+  @override
+  Future<AuthStatus> build() async => _status;
+}
+
 /// `context.pop()` (go_router) exige un `GoRouter` ancêtre avec une pile non
 /// vide. `initialLocation: '/'` puis un `push('/review')` explicite dans le
 /// test (pas `initialLocation: '/review'` directement) donne une vraie page
@@ -31,6 +43,7 @@ class _ReviewsRepoMock extends Mock implements ReviewsRepository {}
   required ProviderProfileRepository profileRepository,
   required ReviewsRepository reviewsRepository,
   String slug = 'sami-plombier',
+  AuthStatus authStatus = const AuthStatus.authenticated(isProvider: false),
 }) {
   final router = GoRouter(
     initialLocation: '/',
@@ -47,6 +60,7 @@ class _ReviewsRepoMock extends Mock implements ReviewsRepository {}
     overrides: [
       providerProfileRepositoryProvider.overrideWithValue(profileRepository),
       reviewsRepositoryProvider.overrideWithValue(reviewsRepository),
+      authStateProvider.overrideWith(() => _FixedAuthStateNotifier(authStatus)),
     ],
     child: MaterialApp.router(
       routerConfig: router,
@@ -206,5 +220,62 @@ void main() {
         findsOneWidget,
       );
     });
+
+    testWidgets(
+      'affiche AuthRequiredView si l utilisateur n est pas authentifie',
+      (tester) async {
+        final env = _wrap(
+          profileRepository: profileRepository,
+          reviewsRepository: reviewsRepository,
+          authStatus: const AuthStatus.unauthenticated(),
+        );
+        await tester.pumpWidget(env.widget);
+        unawaited(env.router.push<void>('/review'));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(AuthRequiredView), findsOneWidget);
+        expect(find.text('Connexion requise'), findsOneWidget);
+        expect(
+          find.text('Connectez-vous pour donner votre avis sur cet artisan.'),
+          findsOneWidget,
+        );
+        expect(find.byType(AppButton), findsOneWidget);
+      },
+    );
+
+    testWidgets(
+      'erreur 401 affiche le message de connexion requise',
+      (tester) async {
+        when(
+          () => reviewsRepository.createReview(
+            providerId: 'prov-1',
+            rating: any(named: 'rating'),
+            comment: any(named: 'comment'),
+          ),
+        ).thenThrow(
+          UnauthorizedException(
+            message: 'Session expirée',
+          ),
+        );
+
+        final env = _wrap(
+          profileRepository: profileRepository,
+          reviewsRepository: reviewsRepository,
+        );
+        await tester.pumpWidget(env.widget);
+        unawaited(env.router.push<void>('/review'));
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.byIcon(Icons.star_border).first);
+        await tester.pump();
+        await tester.tap(find.text("Publier l'avis"));
+        await tester.pumpAndSettle();
+
+        expect(
+          find.text('Vous devez être connecté pour laisser un avis.'),
+          findsOneWidget,
+        );
+      },
+    );
   });
 }

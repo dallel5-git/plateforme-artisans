@@ -30,8 +30,12 @@
     "reviewRequiresContact": "Vous devez avoir contacté cet artisan pour pouvoir laisser un avis.",
     "reviewSelfForbidden": "Vous ne pouvez pas évaluer votre propre profil.",
     "reviewGenericError": "Impossible de publier votre avis. Veuillez réessayer.",
+    "reviewLoginRequired": "Vous devez être connecté pour laisser un avis.",
     "reviewPromptTitle": "Avez-vous fait appel à cet artisan ?",
     "reviewPromptSubtitle": "Partagez votre avis pour aider la communauté.",
-    "reviewPromptCta": "Laisser un avis"
+    "reviewPromptCta": "Laisser un avis",
+    "authRequiredTitle": "Connexion requise",
+    "authRequiredSubtitle": "Connectez-vous pour donner votre avis sur cet artisan.",
+    "loginCta": "Se connecter ou s'inscrire"
   }
 }

@@ -30,8 +30,12 @@
     "reviewRequiresContact": "يجب أن تكون قد تواصلت مع هذا الحرفي لتتمكن من تقييمه.",
     "reviewSelfForbidden": "لا يمكنك تقييم حسابك الخاص.",
     "reviewGenericError": "تعذّر نشر تقييمك. يرجى المحاولة مرة أخرى.",
+    "reviewLoginRequired": "يجب عليك تسجيل الدخول لترك تقييم.",
     "reviewPromptTitle": "هل تعاملت مع هذا الحرفي؟",
     "reviewPromptSubtitle": "شارك رأيك لمساعدة المجتمع.",
-    "reviewPromptCta": "ترك تقييم"
+    "reviewPromptCta": "ترك تقييم",
+    "authRequiredTitle": "تسجيل الدخول مطلوب",
+    "authRequiredSubtitle": "سجّل الدخول لتتمكن من تقييم هذا الحرفي.",
+    "loginCta": "تسجيل الدخول أو إنشاء حساب"
   }
 }
