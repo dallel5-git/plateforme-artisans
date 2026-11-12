@@ -1,5 +1,8 @@
 {
   "title": "الملف الشخصي",
   "accountFallback": "حسابي",
-  "switchToProSpace": "التبديل إلى مساحة المحترفين"
+  "switchToProSpace": "التبديل إلى مساحة المحترفين",
+  "guestName": "زائر",
+  "guestSubtitle": "غير متصل",
+  "loginCta": "تسجيل الدخول أو إنشاء حساب"
 }

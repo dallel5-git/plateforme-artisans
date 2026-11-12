@@ -12,5 +12,8 @@
   "errorTitle": "Chargement impossible",
   "loadError": "Impossible de charger vos favoris.",
   "retry": "Réessayer",
-  "verifiedBadge": "Vérifié"
+  "verifiedBadge": "Vérifié",
+  "authRequiredTitle": "Retrouvez vos artisans favoris",
+  "authRequiredSubtitle": "Connectez-vous pour enregistrer des artisans et les retrouver facilement.",
+  "loginCta": "Se connecter ou s'inscrire"
 }

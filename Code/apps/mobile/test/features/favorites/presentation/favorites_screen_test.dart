@@ -9,6 +9,9 @@ import 'package:mocktail/mocktail.dart';
 import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/app/theme.dart';
 import 'package:sanaya/core/api/generated/api.dart';
+import 'package:sanaya/core/widgets/auth_required_view.dart';
+import 'package:sanaya/features/auth/application/auth_state_provider.dart';
+import 'package:sanaya/features/auth/application/auth_status.dart';
 import 'package:sanaya/features/favorites/application/favorites_providers.dart';
 import 'package:sanaya/features/favorites/data/favorites_repository.dart';
 import 'package:sanaya/features/favorites/presentation/favorites_screen.dart';
@@ -18,6 +21,15 @@ import 'package:sanaya/features/favorites/presentation/widgets/favorite_card_ske
 import '../../../core/widgets/widget_test_helpers.dart';
 
 class _FavoritesRepositoryMock extends Mock implements FavoritesRepository {}
+
+class _FixedAuthStateNotifier extends AuthStateNotifier {
+  _FixedAuthStateNotifier(this._status);
+
+  final AuthStatus _status;
+
+  @override
+  Future<AuthStatus> build() async => _status;
+}
 
 void main() {
   late _FavoritesRepositoryMock repository;
@@ -42,11 +54,15 @@ void main() {
 
   Widget buildScreen({
     Locale locale = const Locale('fr'),
+    AuthStatus authStatus = const AuthStatus.authenticated(isProvider: false),
   }) {
     return ProviderScope(
       overrides: [
         localeProvider.overrideWith((ref) => locale),
         favoritesRepositoryProvider.overrideWithValue(repository),
+        authStateProvider.overrideWith(
+          () => _FixedAuthStateNotifier(authStatus),
+        ),
       ],
       child: themedApp(
         const FavoritesScreen(),
@@ -58,7 +74,9 @@ void main() {
   /// Variante avec un vrai `GoRouter` pour vérifier la navigation déclenchée
   /// par le tap sur une carte de favori — même patron que
   /// `provider_profile_screen_test.dart` (`_wrapWithRouter`).
-  Widget buildScreenWithRouter() {
+  Widget buildScreenWithRouter({
+    AuthStatus authStatus = const AuthStatus.authenticated(isProvider: false),
+  }) {
     final router = GoRouter(
       initialLocation: '/',
       routes: [
@@ -73,12 +91,20 @@ void main() {
             body: Text('fiche-artisan-${state.pathParameters['slug']}'),
           ),
         ),
+        GoRoute(
+          path: '/auth',
+          name: 'auth',
+          builder: (_, _) => const Scaffold(body: Text('auth-screen')),
+        ),
       ],
     );
 
     return ProviderScope(
       overrides: [
         favoritesRepositoryProvider.overrideWithValue(repository),
+        authStateProvider.overrideWith(
+          () => _FixedAuthStateNotifier(authStatus),
+        ),
       ],
       child: MaterialApp.router(
         routerConfig: router,
@@ -220,6 +246,47 @@ void main() {
         expect(find.text('المفضلات'), findsOneWidget);
         expect(find.text('لا توجد عناصر مفضلة حتى الآن'), findsOneWidget);
         expect(find.text('البحث عن حرفي'), findsOneWidget);
+      },
+    );
+
+    testWidgets(
+      'affiche AuthRequiredView quand non authentifié et ne fetch rien',
+      (tester) async {
+        await tester.pumpWidget(
+          buildScreen(authStatus: const AuthStatus.unauthenticated()),
+        );
+        await tester.pumpAndSettle();
+
+        expect(find.byType(AuthRequiredView), findsOneWidget);
+        expect(find.text('⭐'), findsOneWidget);
+        expect(find.text('Retrouvez vos artisans favoris'), findsOneWidget);
+        expect(
+          find.text(
+            'Connectez-vous pour enregistrer des artisans et '
+            'les retrouver facilement.',
+          ),
+          findsOneWidget,
+        );
+        expect(find.text("Se connecter ou s'inscrire"), findsOneWidget);
+
+        verifyNever(() => repository.fetchFavorites());
+      },
+    );
+
+    testWidgets(
+      'redirige vers /auth lors du tap sur le CTA quand non authentifié',
+      (tester) async {
+        await tester.pumpWidget(
+          buildScreenWithRouter(
+            authStatus: const AuthStatus.unauthenticated(),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.text("Se connecter ou s'inscrire"));
+        await tester.pumpAndSettle();
+
+        expect(find.text('auth-screen'), findsOneWidget);
       },
     );
   });

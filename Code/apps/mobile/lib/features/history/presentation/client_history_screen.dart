@@ -8,7 +8,9 @@ import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/theme/app_text.dart';
 import 'package:sanaya/core/widgets/app_button.dart';
+import 'package:sanaya/core/widgets/auth_required_view.dart';
 import 'package:sanaya/core/widgets/empty_state.dart';
+import 'package:sanaya/features/auth/application/auth_state_provider.dart';
 import 'package:sanaya/features/history/application/contact_history_providers.dart';
 import 'package:sanaya/features/history/presentation/widgets/history_entry_card.dart';
 import 'package:sanaya/features/history/presentation/widgets/history_entry_card_skeleton.dart';
@@ -25,6 +27,21 @@ class ClientHistoryScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final colors = context.colors;
     final t = ref.watch(translationsProvider);
+
+    final authStatus = ref.watch(authStateProvider).valueOrNull;
+    if (authStatus == null || !authStatus.isAuthenticated) {
+      return Scaffold(
+        backgroundColor: colors.background,
+        appBar: AppBar(title: Text(t.history.title)),
+        body: AuthRequiredView(
+          icon: '🕒',
+          title: t.history.authRequiredTitle,
+          message: t.history.authRequiredSubtitle,
+          ctaLabel: t.history.loginCta,
+        ),
+      );
+    }
+
     final historyAsync = ref.watch(contactHistoryProvider);
 
     return Scaffold(

@@ -4,8 +4,10 @@ import 'package:go_router/go_router.dart';
 import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
+import 'package:sanaya/core/widgets/auth_required_view.dart';
 import 'package:sanaya/core/widgets/empty_state.dart';
 import 'package:sanaya/core/widgets/error_state.dart';
+import 'package:sanaya/features/auth/application/auth_state_provider.dart';
 import 'package:sanaya/features/favorites/application/favorites_providers.dart';
 import 'package:sanaya/features/favorites/presentation/widgets/favorite_card.dart';
 import 'package:sanaya/features/favorites/presentation/widgets/favorite_card_skeleton.dart';
@@ -20,6 +22,21 @@ class FavoritesScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final colors = context.colors;
     final t = ref.watch(translationsProvider);
+
+    final authStatus = ref.watch(authStateProvider).valueOrNull;
+    if (authStatus == null || !authStatus.isAuthenticated) {
+      return Scaffold(
+        backgroundColor: colors.background,
+        appBar: AppBar(title: Text(t.favorites.title)),
+        body: AuthRequiredView(
+          icon: '⭐',
+          title: t.favorites.authRequiredTitle,
+          message: t.favorites.authRequiredSubtitle,
+          ctaLabel: t.favorites.loginCta,
+        ),
+      );
+    }
+
     final favoritesAsync = ref.watch(favoritesListProvider);
 
     return Scaffold(

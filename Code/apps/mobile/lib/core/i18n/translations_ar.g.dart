@@ -210,6 +210,9 @@ class Translations$favorites$ar extends Translations$favorites$fr {
 	@override String get loadError => 'تعذر تحميل قائمة المفضلات.';
 	@override String get retry => 'إعادة المحاولة';
 	@override String get verifiedBadge => 'موثوق';
+	@override String get authRequiredTitle => 'احفظ الحرفيين المفضلين لديك';
+	@override String get authRequiredSubtitle => 'سجّل الدخول لحفظ الحرفيين والوصول إليهم بسهولة.';
+	@override String get loginCta => 'تسجيل الدخول أو إنشاء حساب';
 }
 
 // Path: history
@@ -228,6 +231,9 @@ class Translations$history$ar extends Translations$history$fr {
 	@override String get reviewCta => 'ترك تقييم';
 	@override String get channelPhone => 'اتصال';
 	@override String get channelWhatsapp => 'واتساب';
+	@override String get authRequiredTitle => 'سجل اتصالاتك';
+	@override String get authRequiredSubtitle => 'سجّل الدخول للعثور على الحرفيين الذين تواصلت معهم.';
+	@override String get loginCta => 'تسجيل الدخول أو إنشاء حساب';
 }
 
 // Path: legal
@@ -338,6 +344,9 @@ class Translations$profile$ar extends Translations$profile$fr {
 	@override String get title => 'الملف الشخصي';
 	@override String get accountFallback => 'حسابي';
 	@override String get switchToProSpace => 'التبديل إلى مساحة المحترفين';
+	@override String get guestName => 'زائر';
+	@override String get guestSubtitle => 'غير متصل';
+	@override String get loginCta => 'تسجيل الدخول أو إنشاء حساب';
 }
 
 // Path: provider
@@ -419,6 +428,7 @@ class Translations$settings$ar extends Translations$settings$fr {
 	@override String get legalNotices => 'الإشعارات القانونية';
 	@override String get privacyPolicy => 'حماية البيانات الشخصية (INPDP)';
 	@override String get accountSection => 'الحساب';
+	@override String get login => 'تسجيل الدخول أو إنشاء حساب';
 	@override String get logout => 'تسجيل الخروج';
 	@override String get logoutConfirmTitle => 'تسجيل الخروج';
 	@override String get logoutConfirmMessage => 'هل أنت متأكد من رغبتك في تسجيل الخروج؟';
@@ -751,6 +761,9 @@ extension on TranslationsAr {
 			'favorites.loadError' => 'تعذر تحميل قائمة المفضلات.',
 			'favorites.retry' => 'إعادة المحاولة',
 			'favorites.verifiedBadge' => 'موثوق',
+			'favorites.authRequiredTitle' => 'احفظ الحرفيين المفضلين لديك',
+			'favorites.authRequiredSubtitle' => 'سجّل الدخول لحفظ الحرفيين والوصول إليهم بسهولة.',
+			'favorites.loginCta' => 'تسجيل الدخول أو إنشاء حساب',
 			'history.title' => 'السجل',
 			'history.emptyTitle' => 'لم تتصل بأي حرفي بعد',
 			'history.emptyMessage' => 'سيظهر هنا الحرفيون الذين تتصل بهم، مع رابط سريع لترك تقييم.',
@@ -760,6 +773,9 @@ extension on TranslationsAr {
 			'history.reviewCta' => 'ترك تقييم',
 			'history.channelPhone' => 'اتصال',
 			'history.channelWhatsapp' => 'واتساب',
+			'history.authRequiredTitle' => 'سجل اتصالاتك',
+			'history.authRequiredSubtitle' => 'سجّل الدخول للعثور على الحرفيين الذين تواصلت معهم.',
+			'history.loginCta' => 'تسجيل الدخول أو إنشاء حساب',
 			'legal.title' => 'الإشعارات القانونية',
 			'legal.editorTitle' => 'الجهة المشرفة على المنصة',
 			'legal.editorContent' => 'صنايعية — منصة للربط بين الحرفيين والعملاء في تونس (الساحل: سوسة، المنستير، المهدية).',
@@ -834,6 +850,9 @@ extension on TranslationsAr {
 			'profile.title' => 'الملف الشخصي',
 			'profile.accountFallback' => 'حسابي',
 			'profile.switchToProSpace' => 'التبديل إلى مساحة المحترفين',
+			'profile.guestName' => 'زائر',
+			'profile.guestSubtitle' => 'غير متصل',
+			'profile.loginCta' => 'تسجيل الدخول أو إنشاء حساب',
 			'provider.profile.callButton' => 'اتصال',
 			'provider.profile.whatsappButton' => 'واتساب',
 			'provider.profile.reviewsTitle' => 'التقييمات',
@@ -911,6 +930,7 @@ extension on TranslationsAr {
 			'settings.legalNotices' => 'الإشعارات القانونية',
 			'settings.privacyPolicy' => 'حماية البيانات الشخصية (INPDP)',
 			'settings.accountSection' => 'الحساب',
+			'settings.login' => 'تسجيل الدخول أو إنشاء حساب',
 			'settings.logout' => 'تسجيل الخروج',
 			'settings.logoutConfirmTitle' => 'تسجيل الخروج',
 			'settings.logoutConfirmMessage' => 'هل أنت متأكد من رغبتك في تسجيل الخروج؟',

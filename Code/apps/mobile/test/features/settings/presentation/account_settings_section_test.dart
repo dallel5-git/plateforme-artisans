@@ -4,12 +4,23 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/features/auth/application/auth_providers.dart';
+import 'package:sanaya/features/auth/application/auth_state_provider.dart';
+import 'package:sanaya/features/auth/application/auth_status.dart';
 import 'package:sanaya/features/auth/data/auth_repository.dart';
 import 'package:sanaya/features/settings/presentation/account_settings_section.dart';
 
 import '../../../core/widgets/widget_test_helpers.dart';
 
 class _AuthRepositoryMock extends Mock implements AuthRepository {}
+
+class _FixedAuthStateNotifier extends AuthStateNotifier {
+  _FixedAuthStateNotifier(this._status);
+
+  final AuthStatus _status;
+
+  @override
+  Future<AuthStatus> build() async => _status;
+}
 
 /// Tests dédiés à `AccountSettingsSection` (FM-38a) — extraite de
 /// `ClientProfileScreen` (FM-32b, dont les tests de comportement langue/
@@ -28,9 +39,15 @@ void main() {
     required VoidCallback onOpenLegal,
     List<Widget> accountActions = const [],
     Locale locale = const Locale('fr'),
+    AuthStatus authStatus = const AuthStatus.authenticated(isProvider: false),
   }) {
     return ProviderScope(
-      overrides: [authRepositoryProvider.overrideWithValue(authRepository)],
+      overrides: [
+        authRepositoryProvider.overrideWithValue(authRepository),
+        authStateProvider.overrideWith(
+          () => _FixedAuthStateNotifier(authStatus),
+        ),
+      ],
       child: themedApp(
         Scaffold(
           body: ListView(
@@ -109,7 +126,14 @@ void main() {
       'changer la langue met à jour immédiatement localeProvider',
       (tester) async {
         final container = ProviderContainer(
-          overrides: [authRepositoryProvider.overrideWithValue(authRepository)],
+          overrides: [
+            authRepositoryProvider.overrideWithValue(authRepository),
+            authStateProvider.overrideWith(
+              () => _FixedAuthStateNotifier(
+                const AuthStatus.authenticated(isProvider: false),
+              ),
+            ),
+          ],
         );
         addTearDown(container.dispose);
 
@@ -156,6 +180,22 @@ void main() {
           find.text('Êtes-vous sûr de vouloir vous déconnecter ?'),
           findsOneWidget,
         );
+      },
+    );
+
+    testWidgets(
+      'affiche le bouton Se connecter ou s’inscrire quand non authentifié',
+      (tester) async {
+        await tester.pumpWidget(
+          buildSection(
+            onOpenLegal: () {},
+            authStatus: const AuthStatus.unauthenticated(),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        expect(find.text("Se connecter ou s'inscrire"), findsOneWidget);
+        expect(find.text('Se déconnecter'), findsNothing);
       },
     );
   });

@@ -12,5 +12,8 @@
   "errorTitle": "تعذّر التحميل",
   "loadError": "تعذر تحميل قائمة المفضلات.",
   "retry": "إعادة المحاولة",
-  "verifiedBadge": "موثوق"
+  "verifiedBadge": "موثوق",
+  "authRequiredTitle": "احفظ الحرفيين المفضلين لديك",
+  "authRequiredSubtitle": "سجّل الدخول لحفظ الحرفيين والوصول إليهم بسهولة.",
+  "loginCta": "تسجيل الدخول أو إنشاء حساب"
 }

@@ -29,8 +29,9 @@ class ClientProfileScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final colors = context.colors;
     final t = ref.watch(translationsProvider);
-    final isProvider =
-        ref.watch(authStateProvider).valueOrNull?.isProvider ?? false;
+    final authStatus = ref.watch(authStateProvider).valueOrNull;
+    final isProvider = authStatus?.isProvider ?? false;
+    final isAuthenticated = authStatus?.isAuthenticated ?? false;
     final currentUser = ref.watch(currentUserProvider);
 
     return Scaffold(
@@ -42,6 +43,9 @@ class ClientProfileScreen extends ConsumerWidget {
           _IdentityHeader(
             currentUser: currentUser,
             fallbackName: t.profile.accountFallback,
+            guestName: t.profile.guestName,
+            guestSubtitle: t.profile.guestSubtitle,
+            isAuthenticated: isAuthenticated,
           ),
           const SizedBox(height: AppSpacing.lg),
           AccountSettingsSection(
@@ -71,10 +75,16 @@ class _IdentityHeader extends StatelessWidget {
   const _IdentityHeader({
     required this.currentUser,
     required this.fallbackName,
+    required this.guestName,
+    required this.guestSubtitle,
+    required this.isAuthenticated,
   });
 
   final AsyncValue<V1AuthMeGet200Response?> currentUser;
   final String fallbackName;
+  final String guestName;
+  final String guestSubtitle;
+  final bool isAuthenticated;
 
   @override
   Widget build(BuildContext context) {
@@ -82,27 +92,37 @@ class _IdentityHeader extends StatelessWidget {
     final locale = Localizations.localeOf(context);
     final user = currentUser.valueOrNull;
 
+    final String displayName;
+    final String? subtitle;
+    if (!isAuthenticated) {
+      displayName = guestName;
+      subtitle = guestSubtitle;
+    } else {
+      displayName = _displayName(user, fallbackName);
+      subtitle = user != null ? maskPhone(user.phone) : null;
+    }
+
     return AppCard(
       child: Row(
         children: [
           const ProviderAvatar(url: null, size: 56),
           const SizedBox(width: AppSpacing.md),
           Expanded(
-            child: currentUser.isLoading && user == null
+            child: currentUser.isLoading && user == null && isAuthenticated
                 ? const _IdentityHeaderSkeleton()
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        _displayName(user, fallbackName),
+                        displayName,
                         style: AppText.h3(
                           locale,
                         ).copyWith(color: colors.textPrimary),
                       ),
-                      if (user != null) ...[
+                      if (subtitle != null) ...[
                         const SizedBox(height: AppSpacing.xxs),
                         Text(
-                          maskPhone(user.phone),
+                          subtitle,
                           style: AppText.body(
                             locale,
                           ).copyWith(color: colors.textSecondary),

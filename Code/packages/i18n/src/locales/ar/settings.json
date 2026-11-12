@@ -11,6 +11,7 @@
   "legalNotices": "الإشعارات القانونية",
   "privacyPolicy": "حماية البيانات الشخصية (INPDP)",
   "accountSection": "الحساب",
+  "login": "تسجيل الدخول أو إنشاء حساب",
   "logout": "تسجيل الخروج",
   "logoutConfirmTitle": "تسجيل الخروج",
   "logoutConfirmMessage": "هل أنت متأكد من رغبتك في تسجيل الخروج؟",

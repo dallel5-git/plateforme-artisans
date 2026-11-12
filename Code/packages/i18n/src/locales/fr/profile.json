@@ -1,5 +1,8 @@
 {
   "title": "Profil",
   "accountFallback": "Mon compte",
-  "switchToProSpace": "Passer en espace Pro"
+  "switchToProSpace": "Passer en espace Pro",
+  "guestName": "Invité",
+  "guestSubtitle": "Non connecté",
+  "loginCta": "Se connecter ou s'inscrire"
 }

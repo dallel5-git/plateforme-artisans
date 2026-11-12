@@ -37,6 +37,8 @@ class AccountSettingsSection extends ConsumerWidget {
     final locale = ref.watch(localeProvider);
     final themeMode = ref.watch(themeModeProvider);
     final t = ref.watch(translationsProvider);
+    final authStatus = ref.watch(authStateProvider).valueOrNull;
+    final isAuthenticated = authStatus?.isAuthenticated ?? false;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -135,11 +137,17 @@ class AccountSettingsSection extends ConsumerWidget {
           action,
           const SizedBox(height: AppSpacing.md),
         ],
-        AppButton(
-          label: t.settings.logout,
-          variant: AppButtonVariant.danger,
-          onPressed: () => unawaited(_confirmLogout(context, ref)),
-        ),
+        if (isAuthenticated)
+          AppButton(
+            label: t.settings.logout,
+            variant: AppButtonVariant.danger,
+            onPressed: () => unawaited(_confirmLogout(context, ref)),
+          )
+        else
+          AppButton(
+            label: t.settings.login,
+            onPressed: () => unawaited(context.push('/auth')),
+          ),
       ],
     );
   }

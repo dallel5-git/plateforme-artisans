@@ -362,6 +362,15 @@ class Translations$favorites$fr {
 
 	/// fr: 'Vérifié'
 	String get verifiedBadge => 'Vérifié';
+
+	/// fr: 'Retrouvez vos artisans favoris'
+	String get authRequiredTitle => 'Retrouvez vos artisans favoris';
+
+	/// fr: 'Connectez-vous pour enregistrer des artisans et les retrouver facilement.'
+	String get authRequiredSubtitle => 'Connectez-vous pour enregistrer des artisans et les retrouver facilement.';
+
+	/// fr: 'Se connecter ou s'inscrire'
+	String get loginCta => 'Se connecter ou s\'inscrire';
 }
 
 // Path: history
@@ -398,6 +407,15 @@ class Translations$history$fr {
 
 	/// fr: 'WhatsApp'
 	String get channelWhatsapp => 'WhatsApp';
+
+	/// fr: 'Consultez votre historique'
+	String get authRequiredTitle => 'Consultez votre historique';
+
+	/// fr: 'Connectez-vous pour retrouver tous les artisans que vous avez contactés.'
+	String get authRequiredSubtitle => 'Connectez-vous pour retrouver tous les artisans que vous avez contactés.';
+
+	/// fr: 'Se connecter ou s'inscrire'
+	String get loginCta => 'Se connecter ou s\'inscrire';
 }
 
 // Path: legal
@@ -656,6 +674,15 @@ class Translations$profile$fr {
 
 	/// fr: 'Passer en espace Pro'
 	String get switchToProSpace => 'Passer en espace Pro';
+
+	/// fr: 'Invité'
+	String get guestName => 'Invité';
+
+	/// fr: 'Non connecté'
+	String get guestSubtitle => 'Non connecté';
+
+	/// fr: 'Se connecter ou s'inscrire'
+	String get loginCta => 'Se connecter ou s\'inscrire';
 }
 
 // Path: provider
@@ -825,6 +852,9 @@ class Translations$settings$fr {
 
 	/// fr: 'Compte'
 	String get accountSection => 'Compte';
+
+	/// fr: 'Se connecter ou s'inscrire'
+	String get login => 'Se connecter ou s\'inscrire';
 
 	/// fr: 'Se déconnecter'
 	String get logout => 'Se déconnecter';
@@ -1386,6 +1416,9 @@ extension on Translations {
 			'favorites.loadError' => 'Impossible de charger vos favoris.',
 			'favorites.retry' => 'Réessayer',
 			'favorites.verifiedBadge' => 'Vérifié',
+			'favorites.authRequiredTitle' => 'Retrouvez vos artisans favoris',
+			'favorites.authRequiredSubtitle' => 'Connectez-vous pour enregistrer des artisans et les retrouver facilement.',
+			'favorites.loginCta' => 'Se connecter ou s\'inscrire',
 			'history.title' => 'Historique',
 			'history.emptyTitle' => 'Aucun artisan contacté',
 			'history.emptyMessage' => 'Les artisans que vous contactez apparaîtront ici, avec un raccourci pour laisser un avis.',
@@ -1395,6 +1428,9 @@ extension on Translations {
 			'history.reviewCta' => 'Laisser un avis',
 			'history.channelPhone' => 'Appel',
 			'history.channelWhatsapp' => 'WhatsApp',
+			'history.authRequiredTitle' => 'Consultez votre historique',
+			'history.authRequiredSubtitle' => 'Connectez-vous pour retrouver tous les artisans que vous avez contactés.',
+			'history.loginCta' => 'Se connecter ou s\'inscrire',
 			'legal.title' => 'Mentions légales',
 			'legal.editorTitle' => 'Éditeur de la plateforme',
 			'legal.editorContent' => 'Sanaya — Plateforme de mise en relation entre particuliers et artisans tunisiens (Sahel : Sousse, Monastir, Mahdia).',
@@ -1469,6 +1505,9 @@ extension on Translations {
 			'profile.title' => 'Profil',
 			'profile.accountFallback' => 'Mon compte',
 			'profile.switchToProSpace' => 'Passer en espace Pro',
+			'profile.guestName' => 'Invité',
+			'profile.guestSubtitle' => 'Non connecté',
+			'profile.loginCta' => 'Se connecter ou s\'inscrire',
 			'provider.profile.callButton' => 'Appeler',
 			'provider.profile.whatsappButton' => 'WhatsApp',
 			'provider.profile.reviewsTitle' => 'Avis',
@@ -1546,6 +1585,7 @@ extension on Translations {
 			'settings.legalNotices' => 'Mentions légales',
 			'settings.privacyPolicy' => 'Protection des données (INPDP)',
 			'settings.accountSection' => 'Compte',
+			'settings.login' => 'Se connecter ou s\'inscrire',
 			'settings.logout' => 'Se déconnecter',
 			'settings.logoutConfirmTitle' => 'Déconnexion',
 			'settings.logoutConfirmMessage' => 'Êtes-vous sûr de vouloir vous déconnecter ?',

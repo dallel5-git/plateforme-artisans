@@ -357,6 +357,10 @@ void main() {
       'appelle signOut()',
       (tester) async {
         final authTokenStore = _AuthTokenStoreMock();
+        when(authTokenStore.restoreSession).thenAnswer((_) async => true);
+        when(
+          () => authRepository.getCurrentUser(),
+        ).thenAnswer((_) async => _user());
         when(
           authTokenStore.peekRefreshToken,
         ).thenAnswer((_) async => 'session-id.refresh-token');
@@ -427,6 +431,22 @@ void main() {
       expect(find.text('الملف الشخصي'), findsOneWidget);
       expect(tester.takeException(), isNull);
     });
+
+    testWidgets(
+      'affiche les informations invité et le bouton de connexion quand non '
+      'authentifié',
+      (tester) async {
+        await tester.pumpWidget(
+          buildScreen(authStatus: const AuthStatus.unauthenticated()),
+        );
+        await tester.pumpAndSettle();
+
+        expect(find.text('Invité'), findsOneWidget);
+        expect(find.text('Non connecté'), findsOneWidget);
+        expect(find.text("Se connecter ou s'inscrire"), findsOneWidget);
+        expect(find.text('Se déconnecter'), findsNothing);
+      },
+    );
   });
 }
 
