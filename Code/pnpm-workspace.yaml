@@ -22,6 +22,7 @@ allowBuilds:
   # télécharge à la demande, au premier `generate`, pas à l'install. Laissé désactivé (défaut
   # sécurisé de pnpm) plutôt qu'autorisé pour rien.
   '@openapitools/openapi-generator-cli': false
+  sharp: true
 minimumReleaseAgeExclude:
   - '@vitest/expect@4.1.11'
   - '@vitest/mocker@4.1.11'

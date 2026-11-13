@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --c-background: 252 252 250;
+    --c-surface: 255 255 255;
+    --c-surface-sunken: 243 242 237;
+    --c-border: 233 236 240;
+    --c-border-strong: 211 215 222;
+    --c-text-primary: 20 26 36;
+    --c-text-secondary: 82 92 107;
+    --c-text-muted: 120 129 143;
+    --c-accent: 59 111 224;
+    --c-accent-hover: 42 87 196;
+    --c-accent-subtle: 238 243 253;
+    --c-verified: 30 127 76;
+    --c-verified-subtle: 232 246 238;
+    --c-rating: 199 120 0;
+    --c-whatsapp: 18 140 126;
+    --c-destructive: 217 59 59;
+  }
+
+  .dark {
+    --c-background: 10 13 18;
+    --c-surface: 20 26 36;
+    --c-surface-sunken: 17 22 31;
+    --c-border: 42 52 65;
+    --c-border-strong: 52 61 75;
+    --c-text-primary: 252 252 250;
+    --c-text-secondary: 168 176 189;
+    --c-text-muted: 120 129 143;
+    --c-accent: 102 144 232;
+    --c-accent-hover: 149 180 240;
+    --c-accent-subtle: 26 36 64;
+    --c-verified: 63 191 127;
+    --c-verified-subtle: 15 42 28;
+    --c-rating: 245 166 35;
+    --c-whatsapp: 37 211 102;
+    --c-destructive: 242 109 109;
+  }
+
+  body {
+    background-color: rgb(var(--c-background));
+    color: rgb(var(--c-text-primary));
+    font-feature-settings: "rlig" 1, "calt" 1;
+    min-height: 100vh;
+  }
+}
+
+/* RTL layout helpers */
+[dir="rtl"] {
+  text-align: right;
+}

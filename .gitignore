@@ -8,6 +8,7 @@ dist/
 .turbo/
 coverage/
 build/
+*.tsbuildinfo
 
 # Secrets — jamais commités (POLITIQUE-PROJET.md §7.1)
 .env
