@@ -38,18 +38,21 @@ class AppBottomNav extends StatelessWidget {
       color: colors.navBackground,
       child: SafeArea(
         top: false,
-        child: Row(
-          children: [
-            for (final (index, item) in items.indexed)
-              Expanded(
-                child: _AppBottomNavTile(
-                  item: item,
-                  selected: index == currentIndex,
-                  locale: locale,
-                  onTap: () => onTap(index),
+        child: SizedBox(
+          height: 60,
+          child: Row(
+            children: [
+              for (final (index, item) in items.indexed)
+                Expanded(
+                  child: _AppBottomNavTile(
+                    item: item,
+                    selected: index == currentIndex,
+                    locale: locale,
+                    onTap: () => onTap(index),
+                  ),
                 ),
-              ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -87,6 +90,7 @@ class _AppBottomNavTile extends StatelessWidget {
               vertical: AppSpacing.xs,
             ),
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(item.icon, size: AppIconSize.md, color: color),

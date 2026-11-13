@@ -30,7 +30,22 @@ class DemoMockInterceptor extends Interceptor {
       return;
     }
 
-    // 2. Gouvernorats
+    // 2. Gouvernorats & délégations
+    if (path.contains('/v1/governorates') &&
+        path.contains('/delegations') &&
+        method == 'GET') {
+      final segments = options.uri.pathSegments;
+      final govId = segments.length >= 2 ? segments[segments.length - 2] : '';
+      final govs =
+          DemoData.governorates['governorates'] as List<dynamic>? ?? [];
+      final match = govs.firstWhere(
+        (g) => (g as Map)['id'] == govId,
+        orElse: () => govs.isNotEmpty ? govs.first : <String, dynamic>{},
+      ) as Map<String, dynamic>;
+      final delegations = match['delegations'] as List<dynamic>? ?? [];
+      handler.resolve(_ok(options, {'delegations': delegations}));
+      return;
+    }
     if (path.contains('/v1/governorates') && method == 'GET') {
       handler.resolve(_ok(options, DemoData.governorates));
       return;
@@ -64,15 +79,18 @@ class DemoMockInterceptor extends Interceptor {
 
     // 5. Dépôt d'avis
     if (path.contains('/reviews') && method == 'POST') {
+      final reqData = options.data is Map<String, dynamic>
+          ? options.data as Map<String, dynamic>
+          : <String, dynamic>{};
       handler.resolve(
         Response(
           requestOptions: options,
           statusCode: 201,
           data: {
             'id': 'rev-new-${DateTime.now().millisecondsSinceEpoch}',
-            'authorName': 'Vous (Client)',
-            'rating': 5,
-            'comment': 'Avis publié en mode démo',
+            'rating': reqData['rating'] ?? 5,
+            'comment': reqData['comment'] ?? 'Avis publié en mode démo',
+            'isVerifiedContact': true,
             'createdAt': DateTime.now().toIso8601String(),
           },
         ),
@@ -99,7 +117,18 @@ class DemoMockInterceptor extends Interceptor {
     }
     if (path.contains('/v1/favorites') &&
         (method == 'POST' || method == 'PUT')) {
-      handler.resolve(Response(requestOptions: options, statusCode: 201));
+      final segments = options.uri.pathSegments;
+      final providerId = segments.isNotEmpty ? segments.last : 'prov-1';
+      handler.resolve(
+        Response(
+          requestOptions: options,
+          statusCode: method == 'POST' ? 201 : 200,
+          data: {
+            'providerId': providerId,
+            'createdAt': DateTime.now().toIso8601String(),
+          },
+        ),
+      );
       return;
     }
     if (path.contains('/v1/favorites') && method == 'DELETE') {
@@ -113,16 +142,23 @@ class DemoMockInterceptor extends Interceptor {
       return;
     }
     if (path.contains('contact-events') && method == 'POST') {
+      final reqMap = options.data is Map<String, dynamic>
+          ? options.data as Map<String, dynamic>
+          : <String, dynamic>{};
+      final providerId = (reqMap['providerId'] as String?) ?? 'prov-1';
+      final channel = (reqMap['channel'] as String?) ?? 'PHONE';
       handler.resolve(
         Response(
           requestOptions: options,
           statusCode: 201,
           data: {
-            'id': 'evt-new-${DateTime.now().millisecondsSinceEpoch}',
-            'channel': options.data is Map
-                ? (options.data as Map)['channel'] ?? 'PHONE'
-                : 'PHONE',
-            'contactedAt': DateTime.now().toIso8601String(),
+            'contactEventId':
+                'evt-new-${DateTime.now().millisecondsSinceEpoch}',
+            'providerId': providerId,
+            'channel': channel,
+            'phone': '+21698123456',
+            'whatsappMessage': 'Bonjour, je vous contacte via Sanaya.',
+            'deduplicated': false,
           },
         ),
       );

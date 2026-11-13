@@ -13,6 +13,7 @@ import 'package:sanaya/core/widgets/app_button.dart';
 import 'package:sanaya/core/widgets/app_card.dart';
 import 'package:sanaya/core/widgets/app_section_header.dart';
 import 'package:sanaya/features/auth/application/auth_state_provider.dart';
+import 'package:sanaya/features/onboarding/application/onboarding_providers.dart';
 
 /// Sections Langue/Apparence/Légal/Compte communes aux écrans Profil client
 /// (`ClientProfileScreen`, FM-32) et Profil pro (`ProProfileScreen`, FM-38).
@@ -202,6 +203,8 @@ class AccountSettingsSection extends ConsumerWidget {
                   groupValue: demoRole,
                   onChanged: (role) {
                     if (role != null) {
+                      ref.read(hasPublishedProfileProvider.notifier).state =
+                          true;
                       unawaited(
                         ref.read(demoRoleProvider.notifier).setRole(role),
                       );

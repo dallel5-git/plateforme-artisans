@@ -9,6 +9,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/app/router.dart';
 import 'package:sanaya/app/theme.dart';
+import 'package:sanaya/core/demo/demo_mode_provider.dart';
 import 'package:sanaya/core/i18n/locale_persistence.dart';
 import 'package:sanaya/core/theme/theme_persistence.dart';
 import 'package:sanaya/features/auth/application/auth_state_provider.dart';
@@ -29,7 +30,12 @@ Future<void> main() async {
   final initialLocale = await readInitialLocale();
   final initialGovernorateId = await readInitialGovernorateId();
   final initialThemeMode = await readInitialThemeMode();
-  final initialHasPublishedProfile = await readInitialPublicationStatus();
+  final initialDemoMode = await readInitialDemoMode();
+  final initialDemoRole = await readInitialDemoRole();
+  final isProviderDemo =
+      initialDemoMode && initialDemoRole == DemoRole.provider;
+  final initialHasPublishedProfile =
+      isProviderDemo || await readInitialPublicationStatus();
 
   // FM-03d : DateFormat lève une exception tant que les données de locale
   // ne sont pas chargées — fait une seule fois au bootstrap pour les deux
@@ -52,6 +58,12 @@ Future<void> main() async {
         // (BE-44) n'existe pas.
         hasPublishedProfileProvider.overrideWith(
           (ref) => initialHasPublishedProfile,
+        ),
+        demoModeProvider.overrideWith(
+          (ref) => DemoModeNotifier(initial: initialDemoMode),
+        ),
+        demoRoleProvider.overrideWith(
+          (ref) => DemoRoleNotifier(initialDemoRole),
         ),
       ],
       child: const SanayaApp(),

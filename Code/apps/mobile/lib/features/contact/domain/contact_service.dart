@@ -94,9 +94,18 @@ class ContactService {
             : V1ContactEventsPostRequestChannelEnum.WHATSAPP
         ..categoryId = pending.categoryId;
       if (pending.sourceScreen != null) {
-        b.sourceScreen = V1ContactEventsPostRequestSourceScreenEnum.valueOf(
-          pending.sourceScreen!,
-        );
+        final screenName = switch (pending.sourceScreen) {
+          'provider_profile' || 'profile' => 'profile',
+          'search' => 'search',
+          'boost' => 'boost',
+          'ad' => 'ad',
+          'seo_page' || 'seoPage' => 'seoPage',
+          _ => null,
+        };
+        if (screenName != null) {
+          b.sourceScreen =
+              V1ContactEventsPostRequestSourceScreenEnum.valueOf(screenName);
+        }
       }
     });
   }
