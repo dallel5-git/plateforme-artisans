@@ -1,5 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sanaya/core/api/api_client_provider.dart';
 import 'package:sanaya/core/api/generated/api.dart';
+import 'package:sanaya/features/auth/application/auth_state_provider.dart';
 import 'package:sanaya/features/onboarding/application/onboarding_repository_provider.dart';
 import 'package:sanaya/features/onboarding/application/onboarding_state.dart';
 import 'package:sanaya/features/onboarding/data/onboarding_repository.dart';
@@ -66,6 +68,21 @@ class OnboardingNotifier extends AutoDisposeNotifier<OnboardingState> {
       if (state.profile == null) {
         final result = await _repo.createProfile(body);
         updated = result.provider;
+        // MOB-003 : l'API POST /v1/providers/me promeut l'artisan au rôle
+        // PROVIDER et émet de nouveaux jetons (accessToken / refreshToken).
+        // On persiste ces jetons dans AuthTokenStore et on propage le nouveau
+        // rôle à authStateProvider pour que les appels subséquents
+        // (ex. PUT /v1/providers/me/categories à l'étape 2) ne reçoivent pas
+        // un 403 Forbidden.
+        await ref
+            .read(authTokenStoreProvider)
+            .saveSession(
+              accessToken: result.accessToken,
+              refreshToken: result.refreshToken,
+            );
+        ref.read(authStateProvider.notifier).setAuthenticated([
+          V1AuthOtpVerifyPost200ResponseUserRolesEnum.PROVIDER,
+        ]);
       } else {
         // FM-11c : la version d'origine ne recopiait que `businessName` —
         // un retour à l'étape profil pour corriger bio/headline/etc.
