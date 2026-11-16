@@ -232,6 +232,71 @@ void main() {
   );
 
   testWidgets(
+    'MOB-001 — CLIENT authentifié naviguant vers /pro/onboarding accède '
+    'à l’onboarding sans être redirigé vers /client',
+    (tester) async {
+      final authRepository = _MockAuthRepository();
+      final authTokenStore = _MockAuthTokenStore();
+      when(authTokenStore.restoreSession).thenAnswer((_) async => true);
+      final me = _MockMeResponse();
+      when(() => me.roles).thenReturn(
+        BuiltList<V1AuthOtpVerifyPost200ResponseUserRolesEnum>([
+          V1AuthOtpVerifyPost200ResponseUserRolesEnum.CLIENT,
+        ]),
+      );
+      when(authRepository.getCurrentUser).thenAnswer((_) async => me);
+
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            authRepositoryProvider.overrideWithValue(authRepository),
+            authTokenStoreProvider.overrideWithValue(authTokenStore),
+            categoriesProvider.overrideWith((ref) async => const []),
+            governoratesProvider.overrideWith((ref) async => const []),
+          ],
+          child: const SanayaApp(),
+        ),
+      );
+      await pumpPastSplash(tester);
+      router.go('/pro/onboarding');
+      await tester.pumpAndSettle();
+
+      expect(find.text(t.onboarding.wizardTitle), findsOneWidget);
+      expect(find.text(t.search.categoriesTitle), findsNothing);
+      expect(tester.takeException(), isNull);
+    },
+  );
+
+  testWidgets(
+    'MOB-001 — anonyme naviguant vers /pro/onboarding est redirigé vers /auth, '
+    'jamais montré un 401 brut',
+    (tester) async {
+      final authRepository = _MockAuthRepository();
+      final authTokenStore = _MockAuthTokenStore();
+      when(authTokenStore.restoreSession).thenAnswer((_) async => false);
+
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            authRepositoryProvider.overrideWithValue(authRepository),
+            authTokenStoreProvider.overrideWithValue(authTokenStore),
+            categoriesProvider.overrideWith((ref) async => const []),
+            governoratesProvider.overrideWith((ref) async => const []),
+          ],
+          child: const SanayaApp(),
+        ),
+      );
+      await pumpPastSplash(tester);
+      router.go('/pro/onboarding');
+      await tester.pumpAndSettle();
+
+      expect(find.text(t.onboarding.wizardTitle), findsNothing);
+      expect(find.text(t.auth.phoneTitle), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    },
+  );
+
+  testWidgets(
     '🔒 NON-RÉGRESSION FM-23 : tant que la session n’est pas résolue, '
     'l’app reste sur le splash (pas de flash d’écran intermédiaire)',
     (tester) async {
