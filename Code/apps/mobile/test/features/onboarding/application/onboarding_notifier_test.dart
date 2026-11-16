@@ -1,15 +1,45 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:sanaya/core/api/api_client_provider.dart';
+import 'package:sanaya/core/api/auth_token_store.dart';
 import 'package:sanaya/core/api/generated/api.dart';
+import 'package:sanaya/features/auth/application/auth_state_provider.dart';
+import 'package:sanaya/features/auth/application/auth_status.dart';
 import 'package:sanaya/features/onboarding/application/onboarding_providers.dart';
 import 'package:sanaya/features/onboarding/data/onboarding_repository.dart';
 
 // ---------------------------------------------------------------------------
-// Mock du repository
+// Mock du repository et de l'authentification
 // ---------------------------------------------------------------------------
 
 class MockOnboardingRepository extends Mock implements OnboardingRepository {}
+
+class MockAuthTokenStore extends Mock implements AuthTokenStore {}
+
+class TestAuthStateNotifier extends AuthStateNotifier {
+  bool setAuthenticatedCalled = false;
+  List<V1AuthOtpVerifyPost200ResponseUserRolesEnum>? lastRoles;
+
+  @override
+  Future<AuthStatus> build() async =>
+      const AuthStatus.authenticated(isProvider: false);
+
+  @override
+  void setAuthenticated(
+    Iterable<V1AuthOtpVerifyPost200ResponseUserRolesEnum> roles,
+  ) {
+    setAuthenticatedCalled = true;
+    lastRoles = roles.toList();
+    state = AsyncData(
+      AuthStatus.authenticated(
+        isProvider: roles.contains(
+          V1AuthOtpVerifyPost200ResponseUserRolesEnum.PROVIDER,
+        ),
+      ),
+    );
+  }
+}
 
 // ---------------------------------------------------------------------------
 // Fakes pour registerFallbackValue (types BuiltValue abstraits)
@@ -45,22 +75,33 @@ class MockCoverageAreasResult extends Mock
 // Container helper
 // ---------------------------------------------------------------------------
 
-ProviderContainer _makeContainer(MockOnboardingRepository mockRepo) =>
-    ProviderContainer(
-      overrides: [
-        onboardingRepositoryProvider.overrideWithValue(mockRepo),
-      ],
-    );
+ProviderContainer _makeContainer({
+  required MockOnboardingRepository mockRepo,
+  required MockAuthTokenStore mockTokenStore,
+  required TestAuthStateNotifier testAuthStateNotifier,
+}) => ProviderContainer(
+  overrides: [
+    onboardingRepositoryProvider.overrideWithValue(mockRepo),
+    authTokenStoreProvider.overrideWithValue(mockTokenStore),
+    authStateProvider.overrideWith(() => testAuthStateNotifier),
+  ],
+);
 
 // ---------------------------------------------------------------------------
 // Helpers de réponses — stubs configurés AVANT d'être passés au when().
 // ---------------------------------------------------------------------------
 
-MockCreateResponse _makeCreateResponse(int score) {
+MockCreateResponse _makeCreateResponse(
+  int score, {
+  String accessToken = 'mock-access',
+  String refreshToken = 'mock-refresh',
+}) {
   final providerMock = MockProviderMe();
   when(() => providerMock.completionScore).thenReturn(score);
   final responseMock = MockCreateResponse();
   when(() => responseMock.provider).thenReturn(providerMock);
+  when(() => responseMock.accessToken).thenReturn(accessToken);
+  when(() => responseMock.refreshToken).thenReturn(refreshToken);
   return responseMock;
 }
 
@@ -95,11 +136,25 @@ void main() {
   });
 
   late MockOnboardingRepository mockRepo;
+  late MockAuthTokenStore mockTokenStore;
+  late TestAuthStateNotifier testAuthStateNotifier;
   late ProviderContainer container;
 
   setUp(() {
     mockRepo = MockOnboardingRepository();
-    container = _makeContainer(mockRepo);
+    mockTokenStore = MockAuthTokenStore();
+    testAuthStateNotifier = TestAuthStateNotifier();
+    when(
+      () => mockTokenStore.saveSession(
+        accessToken: any(named: 'accessToken'),
+        refreshToken: any(named: 'refreshToken'),
+      ),
+    ).thenAnswer((_) async {});
+    container = _makeContainer(
+      mockRepo: mockRepo,
+      mockTokenStore: mockTokenStore,
+      testAuthStateNotifier: testAuthStateNotifier,
+    );
   });
 
   tearDown(() => container.dispose());
@@ -228,6 +283,100 @@ void main() {
       expect(s.isSaving, isFalse);
       expect(s.currentStep, OnboardingStep.profile);
     });
+
+    test(
+      'MOB-003 — saveProfile (étape 1) : persiste les nouveaux jetons PROVIDER '
+      'dans AuthTokenStore // régression #MOB-003',
+      () async {
+        final body = V1ProvidersMePostRequest(
+          (b) => b
+            ..businessName = 'Plomberie Express'
+            ..baseGovernorateId = 'gov-sousse',
+        );
+        final resp = _makeCreateResponse(
+          40,
+          accessToken: 'new-provider-access-token',
+          refreshToken: 'new-provider-refresh-token',
+        );
+        when(() => mockRepo.createProfile(any())).thenAnswer((_) async => resp);
+
+        await container.read(onboardingProvider.notifier).saveProfile(body);
+
+        verify(
+          () => mockTokenStore.saveSession(
+            accessToken: 'new-provider-access-token',
+            refreshToken: 'new-provider-refresh-token',
+          ),
+        ).called(1);
+      },
+    );
+
+    test(
+      'MOB-003 — saveProfile (étape 1) : propage le rôle PROVIDER à '
+      'authStateProvider // régression #MOB-003',
+      () async {
+        final body = V1ProvidersMePostRequest(
+          (b) => b
+            ..businessName = 'Plomberie Express'
+            ..baseGovernorateId = 'gov-sousse',
+        );
+        final resp = _makeCreateResponse(40);
+        when(() => mockRepo.createProfile(any())).thenAnswer((_) async => resp);
+
+        await container.read(onboardingProvider.notifier).saveProfile(body);
+
+        expect(testAuthStateNotifier.setAuthenticatedCalled, isTrue);
+        expect(
+          testAuthStateNotifier.lastRoles,
+          contains(V1AuthOtpVerifyPost200ResponseUserRolesEnum.PROVIDER),
+        );
+      },
+    );
+
+    test(
+      'MOB-003 — mise à jour (PATCH) : n appelle pas saveSession ni '
+      'setAuthenticated // régression #MOB-003',
+      () async {
+        // Pré-remplir le state avec un profil existant (étape > 1 ou retour)
+        final postBody = V1ProvidersMePostRequest(
+          (b) => b
+            ..businessName = 'Plomberie Initiale'
+            ..baseGovernorateId = 'gov-sousse',
+        );
+        final initialResp = _makeCreateResponse(40);
+        when(
+          () => mockRepo.createProfile(any()),
+        ).thenAnswer((_) async => initialResp);
+        await container.read(onboardingProvider.notifier).saveProfile(postBody);
+
+        // Reset des compteurs / flags
+        clearInteractions(mockTokenStore);
+        testAuthStateNotifier.setAuthenticatedCalled = false;
+
+        // Mise à jour (PATCH)
+        final patchResp = _makeProviderMe(50);
+        when(
+          () => mockRepo.updateProfile(any()),
+        ).thenAnswer((_) async => patchResp);
+
+        final updateBody = V1ProvidersMePostRequest(
+          (b) => b
+            ..businessName = 'Plomberie Modifiée'
+            ..baseGovernorateId = 'gov-sousse',
+        );
+        await container
+            .read(onboardingProvider.notifier)
+            .saveProfile(updateBody);
+
+        verifyNever(
+          () => mockTokenStore.saveSession(
+            accessToken: any(named: 'accessToken'),
+            refreshToken: any(named: 'refreshToken'),
+          ),
+        );
+        expect(testAuthStateNotifier.setAuthenticatedCalled, isFalse);
+      },
+    );
   });
 
   // ---------------------------------------------------------------------------
