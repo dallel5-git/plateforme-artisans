@@ -61,16 +61,16 @@ Serializers _$serializers = (Serializers().toBuilder()
       ..add(V1ProvidersIdReviewsPost200Response.serializer)
       ..add(V1ProvidersIdReviewsPostRequest.serializer)
       ..add(V1ProvidersMeCategoriesPut200Response.serializer)
-      ..add(V1ProvidersMeCategoriesPut200ResponseCategoriesInner.serializer)
       ..add(V1ProvidersMeCategoriesPutRequest.serializer)
       ..add(V1ProvidersMeCategoriesPutRequestCategoriesInner.serializer)
       ..add(V1ProvidersMeCoverageAreasPut200Response.serializer)
-      ..add(
-          V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner.serializer)
       ..add(V1ProvidersMeCoverageAreasPutRequest.serializer)
       ..add(V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner.serializer)
       ..add(V1ProvidersMeGet200Response.serializer)
       ..add(V1ProvidersMeGet200ResponseAvailabilityStatusEnum.serializer)
+      ..add(V1ProvidersMeGet200ResponseCategoriesInner.serializer)
+      ..add(V1ProvidersMeGet200ResponseCoverageAreasInner.serializer)
+      ..add(V1ProvidersMeGet200ResponsePortfolioInner.serializer)
       ..add(V1ProvidersMeGet200ResponsePublicationStatusEnum.serializer)
       ..add(V1ProvidersMeOfferingsIdPatchRequest.serializer)
       ..add(V1ProvidersMeOfferingsIdPatchRequestPriceUnitEnum.serializer)
@@ -87,6 +87,9 @@ Serializers _$serializers = (Serializers().toBuilder()
       ..add(V1ProvidersMePost200ResponseProvider.serializer)
       ..add(
           V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum.serializer)
+      ..add(V1ProvidersMePost200ResponseProviderCategoriesInner.serializer)
+      ..add(V1ProvidersMePost200ResponseProviderCoverageAreasInner.serializer)
+      ..add(V1ProvidersMePost200ResponseProviderPortfolioInner.serializer)
       ..add(
           V1ProvidersMePost200ResponseProviderPublicationStatusEnum.serializer)
       ..add(V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum.serializer)
@@ -160,22 +163,9 @@ Serializers _$serializers = (Serializers().toBuilder()
               V1GovernoratesIdDelegationsGet200ResponseDelegationsInner>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [
-            const FullType(V1ProvidersMeCategoriesPut200ResponseCategoriesInner)
-          ]),
-          () => ListBuilder<
-              V1ProvidersMeCategoriesPut200ResponseCategoriesInner>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [
             const FullType(V1ProvidersMeCategoriesPutRequestCategoriesInner)
           ]),
           () => ListBuilder<V1ProvidersMeCategoriesPutRequestCategoriesInner>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [
-            const FullType(
-                V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner)
-          ]),
-          () => ListBuilder<
-              V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [
             const FullType(
@@ -185,11 +175,43 @@ Serializers _$serializers = (Serializers().toBuilder()
               V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [
+            const FullType(V1ProvidersMePost200ResponseProviderCategoriesInner)
+          ]),
+          () => ListBuilder<
+              V1ProvidersMePost200ResponseProviderCategoriesInner>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(
+                V1ProvidersMePost200ResponseProviderCoverageAreasInner)
+          ]),
+          () => ListBuilder<
+              V1ProvidersMePost200ResponseProviderCoverageAreasInner>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
             const FullType(
                 V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum)
           ]),
           () => ListBuilder<
               V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(V1ProvidersMePost200ResponseProviderCategoriesInner)
+          ]),
+          () => ListBuilder<
+              V1ProvidersMePost200ResponseProviderCategoriesInner>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(
+                V1ProvidersMePost200ResponseProviderCoverageAreasInner)
+          ]),
+          () => ListBuilder<
+              V1ProvidersMePost200ResponseProviderCoverageAreasInner>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(V1ProvidersMePost200ResponseProviderPortfolioInner)
+          ]),
+          () =>
+              ListBuilder<V1ProvidersMePost200ResponseProviderPortfolioInner>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [
             const FullType(
@@ -230,6 +252,21 @@ Serializers _$serializers = (Serializers().toBuilder()
             const FullType.nullable(JsonObject)
           ]),
           () => MapBuilder<String, JsonObject?>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(V1ProvidersMeGet200ResponseCategoriesInner)
+          ]),
+          () => ListBuilder<V1ProvidersMeGet200ResponseCategoriesInner>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(V1ProvidersMeGet200ResponseCoverageAreasInner)
+          ]),
+          () => ListBuilder<V1ProvidersMeGet200ResponseCoverageAreasInner>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(V1ProvidersMeGet200ResponsePortfolioInner)
+          ]),
+          () => ListBuilder<V1ProvidersMeGet200ResponsePortfolioInner>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [
             const FullType(V1ProvidersMePostRequestSpokenLanguagesEnum)

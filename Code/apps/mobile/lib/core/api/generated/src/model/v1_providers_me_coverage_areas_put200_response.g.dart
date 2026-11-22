@@ -9,7 +9,7 @@ part of 'v1_providers_me_coverage_areas_put200_response.dart';
 class _$V1ProvidersMeCoverageAreasPut200Response
     extends V1ProvidersMeCoverageAreasPut200Response {
   @override
-  final BuiltList<V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner>
+  final BuiltList<V1ProvidersMePost200ResponseProviderCoverageAreasInner>
       coverageAreas;
   @override
   final int completionScore;
@@ -66,14 +66,13 @@ class V1ProvidersMeCoverageAreasPut200ResponseBuilder
             V1ProvidersMeCoverageAreasPut200ResponseBuilder> {
   _$V1ProvidersMeCoverageAreasPut200Response? _$v;
 
-  ListBuilder<V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner>?
+  ListBuilder<V1ProvidersMePost200ResponseProviderCoverageAreasInner>?
       _coverageAreas;
-  ListBuilder<V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner>
-      get coverageAreas => _$this._coverageAreas ??= ListBuilder<
-          V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner>();
+  ListBuilder<V1ProvidersMePost200ResponseProviderCoverageAreasInner>
+      get coverageAreas => _$this._coverageAreas ??=
+          ListBuilder<V1ProvidersMePost200ResponseProviderCoverageAreasInner>();
   set coverageAreas(
-          ListBuilder<
-                  V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner>?
+          ListBuilder<V1ProvidersMePost200ResponseProviderCoverageAreasInner>?
               coverageAreas) =>
       _$this._coverageAreas = coverageAreas;
 

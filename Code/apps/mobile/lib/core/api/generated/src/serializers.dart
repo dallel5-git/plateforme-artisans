@@ -49,14 +49,15 @@ import 'package:sanaya/core/api/generated/src/model/v1_profile_views_post_reques
 import 'package:sanaya/core/api/generated/src/model/v1_providers_id_reviews_post200_response.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_id_reviews_post_request.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_categories_put200_response.dart';
-import 'package:sanaya/core/api/generated/src/model/v1_providers_me_categories_put200_response_categories_inner.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_categories_put_request.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_categories_put_request_categories_inner.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_coverage_areas_put200_response.dart';
-import 'package:sanaya/core/api/generated/src/model/v1_providers_me_coverage_areas_put200_response_coverage_areas_inner.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_coverage_areas_put_request.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_coverage_areas_put_request_coverage_areas_inner.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_get200_response.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_providers_me_get200_response_categories_inner.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_providers_me_get200_response_coverage_areas_inner.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_providers_me_get200_response_portfolio_inner.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_offerings_id_patch_request.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_offerings_post200_response.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_offerings_post_request.dart';
@@ -65,6 +66,9 @@ import 'package:sanaya/core/api/generated/src/model/v1_providers_me_portfolio_po
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_portfolio_post_request.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_post200_response.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_post200_response_provider.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_providers_me_post200_response_provider_categories_inner.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_providers_me_post200_response_provider_coverage_areas_inner.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_providers_me_post200_response_provider_portfolio_inner.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_post_request.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_stats_get200_response.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_stats_get200_response_series_inner.dart';
@@ -125,14 +129,15 @@ part 'serializers.g.dart';
   V1ProvidersIdReviewsPost200Response,
   V1ProvidersIdReviewsPostRequest,
   V1ProvidersMeCategoriesPut200Response,
-  V1ProvidersMeCategoriesPut200ResponseCategoriesInner,
   V1ProvidersMeCategoriesPutRequest,
   V1ProvidersMeCategoriesPutRequestCategoriesInner,
   V1ProvidersMeCoverageAreasPut200Response,
-  V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner,
   V1ProvidersMeCoverageAreasPutRequest,
   V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner,
   V1ProvidersMeGet200Response,
+  V1ProvidersMeGet200ResponseCategoriesInner,
+  V1ProvidersMeGet200ResponseCoverageAreasInner,
+  V1ProvidersMeGet200ResponsePortfolioInner,
   V1ProvidersMeOfferingsIdPatchRequest,
   V1ProvidersMeOfferingsPost200Response,
   V1ProvidersMeOfferingsPostRequest,
@@ -141,6 +146,9 @@ part 'serializers.g.dart';
   V1ProvidersMePortfolioPostRequest,
   V1ProvidersMePost200Response,
   V1ProvidersMePost200ResponseProvider,
+  V1ProvidersMePost200ResponseProviderCategoriesInner,
+  V1ProvidersMePost200ResponseProviderCoverageAreasInner,
+  V1ProvidersMePost200ResponseProviderPortfolioInner,
   V1ProvidersMePostRequest,
   V1ProvidersMeStatsGet200Response,
   V1ProvidersMeStatsGet200ResponseSeriesInner,

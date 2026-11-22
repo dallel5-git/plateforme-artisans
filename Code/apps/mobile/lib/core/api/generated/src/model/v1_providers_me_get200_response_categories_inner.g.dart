@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'v1_providers_me_categories_put200_response_categories_inner.dart';
+part of 'v1_providers_me_get200_response_categories_inner.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-class _$V1ProvidersMeCategoriesPut200ResponseCategoriesInner
-    extends V1ProvidersMeCategoriesPut200ResponseCategoriesInner {
+class _$V1ProvidersMeGet200ResponseCategoriesInner
+    extends V1ProvidersMeGet200ResponseCategoriesInner {
   @override
   final String categoryId;
   @override
@@ -15,35 +15,31 @@ class _$V1ProvidersMeCategoriesPut200ResponseCategoriesInner
   @override
   final int yearsExperience;
 
-  factory _$V1ProvidersMeCategoriesPut200ResponseCategoriesInner(
-          [void Function(
-                  V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder)?
+  factory _$V1ProvidersMeGet200ResponseCategoriesInner(
+          [void Function(V1ProvidersMeGet200ResponseCategoriesInnerBuilder)?
               updates]) =>
-      (V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder()
-            ..update(updates))
+      (V1ProvidersMeGet200ResponseCategoriesInnerBuilder()..update(updates))
           ._build();
 
-  _$V1ProvidersMeCategoriesPut200ResponseCategoriesInner._(
+  _$V1ProvidersMeGet200ResponseCategoriesInner._(
       {required this.categoryId,
       required this.isPrimary,
       required this.yearsExperience})
       : super._();
   @override
-  V1ProvidersMeCategoriesPut200ResponseCategoriesInner rebuild(
-          void Function(
-                  V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder)
+  V1ProvidersMeGet200ResponseCategoriesInner rebuild(
+          void Function(V1ProvidersMeGet200ResponseCategoriesInnerBuilder)
               updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder toBuilder() =>
-      V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder()
-        ..replace(this);
+  V1ProvidersMeGet200ResponseCategoriesInnerBuilder toBuilder() =>
+      V1ProvidersMeGet200ResponseCategoriesInnerBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is V1ProvidersMeCategoriesPut200ResponseCategoriesInner &&
+    return other is V1ProvidersMeGet200ResponseCategoriesInner &&
         categoryId == other.categoryId &&
         isPrimary == other.isPrimary &&
         yearsExperience == other.yearsExperience;
@@ -62,7 +58,7 @@ class _$V1ProvidersMeCategoriesPut200ResponseCategoriesInner
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'V1ProvidersMeCategoriesPut200ResponseCategoriesInner')
+            r'V1ProvidersMeGet200ResponseCategoriesInner')
           ..add('categoryId', categoryId)
           ..add('isPrimary', isPrimary)
           ..add('yearsExperience', yearsExperience))
@@ -70,11 +66,11 @@ class _$V1ProvidersMeCategoriesPut200ResponseCategoriesInner
   }
 }
 
-class V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder
+class V1ProvidersMeGet200ResponseCategoriesInnerBuilder
     implements
-        Builder<V1ProvidersMeCategoriesPut200ResponseCategoriesInner,
-            V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder> {
-  _$V1ProvidersMeCategoriesPut200ResponseCategoriesInner? _$v;
+        Builder<V1ProvidersMeGet200ResponseCategoriesInner,
+            V1ProvidersMeGet200ResponseCategoriesInnerBuilder> {
+  _$V1ProvidersMeGet200ResponseCategoriesInner? _$v;
 
   String? _categoryId;
   String? get categoryId => _$this._categoryId;
@@ -89,11 +85,11 @@ class V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder
   set yearsExperience(int? yearsExperience) =>
       _$this._yearsExperience = yearsExperience;
 
-  V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder() {
-    V1ProvidersMeCategoriesPut200ResponseCategoriesInner._defaults(this);
+  V1ProvidersMeGet200ResponseCategoriesInnerBuilder() {
+    V1ProvidersMeGet200ResponseCategoriesInner._defaults(this);
   }
 
-  V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder get _$this {
+  V1ProvidersMeGet200ResponseCategoriesInnerBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _categoryId = $v.categoryId;
@@ -105,35 +101,30 @@ class V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder
   }
 
   @override
-  void replace(V1ProvidersMeCategoriesPut200ResponseCategoriesInner other) {
-    _$v = other as _$V1ProvidersMeCategoriesPut200ResponseCategoriesInner;
+  void replace(V1ProvidersMeGet200ResponseCategoriesInner other) {
+    _$v = other as _$V1ProvidersMeGet200ResponseCategoriesInner;
   }
 
   @override
   void update(
-      void Function(
-              V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder)?
+      void Function(V1ProvidersMeGet200ResponseCategoriesInnerBuilder)?
           updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  V1ProvidersMeCategoriesPut200ResponseCategoriesInner build() => _build();
+  V1ProvidersMeGet200ResponseCategoriesInner build() => _build();
 
-  _$V1ProvidersMeCategoriesPut200ResponseCategoriesInner _build() {
+  _$V1ProvidersMeGet200ResponseCategoriesInner _build() {
     final _$result = _$v ??
-        _$V1ProvidersMeCategoriesPut200ResponseCategoriesInner._(
-          categoryId: BuiltValueNullFieldError.checkNotNull(
-              categoryId,
-              r'V1ProvidersMeCategoriesPut200ResponseCategoriesInner',
-              'categoryId'),
-          isPrimary: BuiltValueNullFieldError.checkNotNull(
-              isPrimary,
-              r'V1ProvidersMeCategoriesPut200ResponseCategoriesInner',
-              'isPrimary'),
+        _$V1ProvidersMeGet200ResponseCategoriesInner._(
+          categoryId: BuiltValueNullFieldError.checkNotNull(categoryId,
+              r'V1ProvidersMeGet200ResponseCategoriesInner', 'categoryId'),
+          isPrimary: BuiltValueNullFieldError.checkNotNull(isPrimary,
+              r'V1ProvidersMeGet200ResponseCategoriesInner', 'isPrimary'),
           yearsExperience: BuiltValueNullFieldError.checkNotNull(
               yearsExperience,
-              r'V1ProvidersMeCategoriesPut200ResponseCategoriesInner',
+              r'V1ProvidersMeGet200ResponseCategoriesInner',
               'yearsExperience'),
         );
     replace(_$result);

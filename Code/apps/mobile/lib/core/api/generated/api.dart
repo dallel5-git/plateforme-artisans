@@ -49,14 +49,15 @@ export 'package:sanaya/core/api/generated/src/model/v1_profile_views_post_reques
 export 'package:sanaya/core/api/generated/src/model/v1_providers_id_reviews_post200_response.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_id_reviews_post_request.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_categories_put200_response.dart';
-export 'package:sanaya/core/api/generated/src/model/v1_providers_me_categories_put200_response_categories_inner.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_categories_put_request.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_categories_put_request_categories_inner.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_coverage_areas_put200_response.dart';
-export 'package:sanaya/core/api/generated/src/model/v1_providers_me_coverage_areas_put200_response_coverage_areas_inner.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_coverage_areas_put_request.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_coverage_areas_put_request_coverage_areas_inner.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_get200_response.dart';
+export 'package:sanaya/core/api/generated/src/model/v1_providers_me_get200_response_categories_inner.dart';
+export 'package:sanaya/core/api/generated/src/model/v1_providers_me_get200_response_coverage_areas_inner.dart';
+export 'package:sanaya/core/api/generated/src/model/v1_providers_me_get200_response_portfolio_inner.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_offerings_id_patch_request.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_offerings_post200_response.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_offerings_post_request.dart';
@@ -65,6 +66,9 @@ export 'package:sanaya/core/api/generated/src/model/v1_providers_me_portfolio_po
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_portfolio_post_request.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_post200_response.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_post200_response_provider.dart';
+export 'package:sanaya/core/api/generated/src/model/v1_providers_me_post200_response_provider_categories_inner.dart';
+export 'package:sanaya/core/api/generated/src/model/v1_providers_me_post200_response_provider_coverage_areas_inner.dart';
+export 'package:sanaya/core/api/generated/src/model/v1_providers_me_post200_response_provider_portfolio_inner.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_post_request.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_stats_get200_response.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_stats_get200_response_series_inner.dart';

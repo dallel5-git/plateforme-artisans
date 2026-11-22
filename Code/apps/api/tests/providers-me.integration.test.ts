@@ -66,6 +66,13 @@ describe('BE-44 — GET /v1/providers/me (Postgres réel)', () => {
     expect(body).toHaveProperty('acceptsEmergency');
     expect(body).toHaveProperty('workingHours');
     expect(body).toHaveProperty('completionScore');
+    // BE-44b : relations nécessaires à la reprise d'onboarding sans perte
+    expect(body).toHaveProperty('categories');
+    expect(Array.isArray(body.categories)).toBe(true);
+    expect(body).toHaveProperty('coverageAreas');
+    expect(Array.isArray(body.coverageAreas)).toBe(true);
+    expect(body).toHaveProperty('portfolio');
+    expect(Array.isArray(body.portfolio)).toBe(true);
   });
 
   it('404 explicite (pas un 500) quand aucun profil artisan n’existe pour ce compte', async () => {

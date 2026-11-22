@@ -3,24 +3,22 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:built_collection/built_collection.dart';
-import 'package:built_value/json_object.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'v1_providers_me_categories_put200_response_categories_inner.g.dart';
+part 'v1_providers_me_post200_response_provider_categories_inner.g.dart';
 
-/// V1ProvidersMeCategoriesPut200ResponseCategoriesInner
+/// V1ProvidersMePost200ResponseProviderCategoriesInner
 ///
 /// Properties:
 /// * [categoryId]
 /// * [isPrimary]
 /// * [yearsExperience]
 @BuiltValue()
-abstract class V1ProvidersMeCategoriesPut200ResponseCategoriesInner
+abstract class V1ProvidersMePost200ResponseProviderCategoriesInner
     implements
-        Built<V1ProvidersMeCategoriesPut200ResponseCategoriesInner,
-            V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder> {
+        Built<V1ProvidersMePost200ResponseProviderCategoriesInner,
+            V1ProvidersMePost200ResponseProviderCategoriesInnerBuilder> {
   @BuiltValueField(wireName: r'categoryId')
   String get categoryId;
 
@@ -30,41 +28,41 @@ abstract class V1ProvidersMeCategoriesPut200ResponseCategoriesInner
   @BuiltValueField(wireName: r'yearsExperience')
   int get yearsExperience;
 
-  V1ProvidersMeCategoriesPut200ResponseCategoriesInner._();
+  V1ProvidersMePost200ResponseProviderCategoriesInner._();
 
-  factory V1ProvidersMeCategoriesPut200ResponseCategoriesInner(
+  factory V1ProvidersMePost200ResponseProviderCategoriesInner(
           [void updates(
-              V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder b)]) =
-      _$V1ProvidersMeCategoriesPut200ResponseCategoriesInner;
+              V1ProvidersMePost200ResponseProviderCategoriesInnerBuilder b)]) =
+      _$V1ProvidersMePost200ResponseProviderCategoriesInner;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(
-          V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder b) =>
+          V1ProvidersMePost200ResponseProviderCategoriesInnerBuilder b) =>
       b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<V1ProvidersMeCategoriesPut200ResponseCategoriesInner>
+  static Serializer<V1ProvidersMePost200ResponseProviderCategoriesInner>
       get serializer =>
-          _$V1ProvidersMeCategoriesPut200ResponseCategoriesInnerSerializer();
+          _$V1ProvidersMePost200ResponseProviderCategoriesInnerSerializer();
 }
 
-class _$V1ProvidersMeCategoriesPut200ResponseCategoriesInnerSerializer
+class _$V1ProvidersMePost200ResponseProviderCategoriesInnerSerializer
     implements
         PrimitiveSerializer<
-            V1ProvidersMeCategoriesPut200ResponseCategoriesInner> {
+            V1ProvidersMePost200ResponseProviderCategoriesInner> {
   @override
   final Iterable<Type> types = const [
-    V1ProvidersMeCategoriesPut200ResponseCategoriesInner,
-    _$V1ProvidersMeCategoriesPut200ResponseCategoriesInner
+    V1ProvidersMePost200ResponseProviderCategoriesInner,
+    _$V1ProvidersMePost200ResponseProviderCategoriesInner
   ];
 
   @override
   final String wireName =
-      r'V1ProvidersMeCategoriesPut200ResponseCategoriesInner';
+      r'V1ProvidersMePost200ResponseProviderCategoriesInner';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    V1ProvidersMeCategoriesPut200ResponseCategoriesInner object, {
+    V1ProvidersMePost200ResponseProviderCategoriesInner object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'categoryId';
@@ -87,7 +85,7 @@ class _$V1ProvidersMeCategoriesPut200ResponseCategoriesInnerSerializer
   @override
   Object serialize(
     Serializers serializers,
-    V1ProvidersMeCategoriesPut200ResponseCategoriesInner object, {
+    V1ProvidersMePost200ResponseProviderCategoriesInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object,
@@ -100,7 +98,7 @@ class _$V1ProvidersMeCategoriesPut200ResponseCategoriesInnerSerializer
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder result,
+    required V1ProvidersMePost200ResponseProviderCategoriesInnerBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -137,13 +135,12 @@ class _$V1ProvidersMeCategoriesPut200ResponseCategoriesInnerSerializer
   }
 
   @override
-  V1ProvidersMeCategoriesPut200ResponseCategoriesInner deserialize(
+  V1ProvidersMePost200ResponseProviderCategoriesInner deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result =
-        V1ProvidersMeCategoriesPut200ResponseCategoriesInnerBuilder();
+    final result = V1ProvidersMePost200ResponseProviderCategoriesInnerBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

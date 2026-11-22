@@ -37,6 +37,9 @@ Name | Type | Description | Notes
 **lastActiveAt** | [**DateTime**](DateTime.md) |  | 
 **createdAt** | [**DateTime**](DateTime.md) |  | 
 **updatedAt** | [**DateTime**](DateTime.md) |  | 
+**categories** | [**BuiltList&lt;V1ProvidersMePost200ResponseProviderCategoriesInner&gt;**](V1ProvidersMePost200ResponseProviderCategoriesInner.md) |  | 
+**coverageAreas** | [**BuiltList&lt;V1ProvidersMePost200ResponseProviderCoverageAreasInner&gt;**](V1ProvidersMePost200ResponseProviderCoverageAreasInner.md) |  | 
+**portfolio** | [**BuiltList&lt;V1ProvidersMePost200ResponseProviderPortfolioInner&gt;**](V1ProvidersMePost200ResponseProviderPortfolioInner.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

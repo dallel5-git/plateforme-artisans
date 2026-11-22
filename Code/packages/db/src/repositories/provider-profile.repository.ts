@@ -118,17 +118,83 @@ export async function findProviderProfileBySlug(
   return row ? toProfile(row) : null;
 }
 
-const ownerProfileSelect = { ...profileSelect, whatsappPhone: true, publicPhone: true } as const;
+const ownerProfileSelect = {
+  ...profileSelect,
+  whatsappPhone: true,
+  publicPhone: true,
+  categories: {
+    select: {
+      categoryId: true,
+      isPrimary: true,
+      yearsExperience: true,
+    },
+    orderBy: { createdAt: 'asc' },
+  },
+  coverageAreas: {
+    select: {
+      id: true,
+      governorateId: true,
+      delegationId: true,
+      travelFee: true,
+    },
+    orderBy: { createdAt: 'asc' },
+  },
+  portfolio: {
+    where: { status: 'APPROVED' },
+    select: {
+      id: true,
+      mediaId: true,
+      categoryId: true,
+      caption: true,
+      sortOrder: true,
+    },
+    orderBy: { sortOrder: 'asc' },
+  },
+} as const;
 
 type RawOwnerProfile = Prisma.ProviderProfileGetPayload<{ select: typeof ownerProfileSelect }>;
+
+export interface ProviderProfileCategoryView {
+  categoryId: string;
+  isPrimary: boolean;
+  yearsExperience: number | null;
+}
+
+export interface ProviderProfileCoverageAreaView {
+  id: string;
+  governorateId: string;
+  delegationId: string | null;
+  travelFee: number | null;
+}
+
+export interface ProviderProfilePortfolioView {
+  id: string;
+  mediaId: string;
+  categoryId: string | null;
+  caption: string | null;
+  sortOrder: number;
+}
 
 export interface ProviderProfileOwnerView extends ProviderProfile {
   whatsappPhone: string | null;
   publicPhone: string | null;
+  categories: ProviderProfileCategoryView[];
+  coverageAreas: ProviderProfileCoverageAreaView[];
+  portfolio: ProviderProfilePortfolioView[];
 }
 
 function toOwnerProfile(row: RawOwnerProfile): ProviderProfileOwnerView {
-  return { ...toProfile(row), whatsappPhone: row.whatsappPhone, publicPhone: row.publicPhone };
+  return {
+    ...toProfile(row),
+    whatsappPhone: row.whatsappPhone,
+    publicPhone: row.publicPhone,
+    categories: row.categories,
+    coverageAreas: row.coverageAreas.map((area) => ({
+      ...area,
+      travelFee: area.travelFee ? area.travelFee.toNumber() : null,
+    })),
+    portfolio: row.portfolio,
+  };
 }
 
 /**
