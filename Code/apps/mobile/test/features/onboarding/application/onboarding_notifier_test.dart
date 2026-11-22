@@ -1,3 +1,4 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -98,6 +99,9 @@ MockCreateResponse _makeCreateResponse(
 }) {
   final providerMock = MockProviderMe();
   when(() => providerMock.completionScore).thenReturn(score);
+  when(() => providerMock.categories).thenReturn(BuiltList());
+  when(() => providerMock.coverageAreas).thenReturn(BuiltList());
+  when(() => providerMock.portfolio).thenReturn(BuiltList());
   final responseMock = MockCreateResponse();
   when(() => responseMock.provider).thenReturn(providerMock);
   when(() => responseMock.accessToken).thenReturn(accessToken);
@@ -105,11 +109,64 @@ MockCreateResponse _makeCreateResponse(
   return responseMock;
 }
 
-MockProviderMe _makeProviderMe(int score) {
+MockProviderMe _makeProviderMe(
+  int score, {
+  Iterable<V1ProvidersMePost200ResponseProviderCategoriesInner> categories =
+      const [],
+  Iterable<V1ProvidersMePost200ResponseProviderCoverageAreasInner>
+      coverageAreas = const [],
+  Iterable<V1ProvidersMePost200ResponseProviderPortfolioInner> portfolio =
+      const [],
+}) {
   final mock = MockProviderMe();
   when(() => mock.completionScore).thenReturn(score);
+  when(() => mock.categories).thenReturn(BuiltList(categories));
+  when(() => mock.coverageAreas).thenReturn(BuiltList(coverageAreas));
+  when(() => mock.portfolio).thenReturn(BuiltList(portfolio));
   return mock;
 }
+
+V1ProvidersMePost200ResponseProviderCategoriesInner _catItem(
+  String id, {
+  bool isPrimary = true,
+  int yearsExperience = 0,
+}) =>
+    V1ProvidersMePost200ResponseProviderCategoriesInner(
+      (b) => b
+        ..categoryId = id
+        ..isPrimary = isPrimary
+        ..yearsExperience = yearsExperience,
+    );
+
+V1ProvidersMePost200ResponseProviderCoverageAreasInner _covItem(
+  String id,
+  String govId, {
+  String delegationId = '',
+  num travelFee = 0,
+}) =>
+    V1ProvidersMePost200ResponseProviderCoverageAreasInner(
+      (b) => b
+        ..id = id
+        ..governorateId = govId
+        ..delegationId = delegationId
+        ..travelFee = travelFee,
+    );
+
+V1ProvidersMePost200ResponseProviderPortfolioInner _portfolioItem(
+  String id, {
+  String mediaId = 'media-1',
+  String categoryId = '',
+  String caption = '',
+  int sortOrder = 0,
+}) =>
+    V1ProvidersMePost200ResponseProviderPortfolioInner(
+      (b) => b
+        ..id = id
+        ..mediaId = mediaId
+        ..categoryId = categoryId
+        ..caption = caption
+        ..sortOrder = sortOrder,
+    );
 
 MockCategoriesResult _makeCatResult(int score) {
   final mock = MockCategoriesResult();
@@ -578,6 +635,137 @@ void main() {
       // Retour en arrière → errorCode effacé.
       container.read(onboardingProvider.notifier).previousStep();
       expect(container.read(onboardingProvider).errorCode, isNull);
+    });
+  });
+
+  // ---------------------------------------------------------------------------
+  // resumeSession & determineResumeStep (MOB-027)
+  // ---------------------------------------------------------------------------
+
+  group('resumeSession & determineResumeStep (MOB-027)', () {
+    test('aucun profil existant (404 / null) : reste à profile', () async {
+      when(mockRepo.getMyProfile).thenAnswer((_) async => null);
+
+      await container.read(onboardingProvider.notifier).resumeSession();
+
+      final state = container.read(onboardingProvider);
+      expect(state.currentStep, OnboardingStep.profile);
+      expect(state.profile, isNull);
+    });
+
+    test('erreur réseau : échec silencieux, reste à profile', () async {
+      when(mockRepo.getMyProfile).thenThrow(Exception('réseau coupé'));
+
+      await container.read(onboardingProvider.notifier).resumeSession();
+
+      final state = container.read(onboardingProvider);
+      expect(state.currentStep, OnboardingStep.profile);
+      expect(state.profile, isNull);
+    });
+
+    test('profil créé sans catégorie : reprend à categories', () async {
+      final profile = _makeProviderMe(20, categories: []);
+      when(mockRepo.getMyProfile).thenAnswer((_) async => profile);
+
+      await container.read(onboardingProvider.notifier).resumeSession();
+
+      final state = container.read(onboardingProvider);
+      expect(state.currentStep, OnboardingStep.categories);
+      expect(state.completionScore, 20);
+      expect(state.profile, profile);
+    });
+
+    test('profil avec catégories mais sans zone : reprend à zones', () async {
+      final profile = _makeProviderMe(
+        40,
+        categories: [_catItem('plomberie')],
+        coverageAreas: [],
+      );
+      when(mockRepo.getMyProfile).thenAnswer((_) async => profile);
+
+      await container.read(onboardingProvider.notifier).resumeSession();
+
+      final state = container.read(onboardingProvider);
+      expect(state.currentStep, OnboardingStep.zones);
+      expect(state.completionScore, 40);
+    });
+
+    test(
+      'profil avec catégories et zones, portfolio vide, score < 60 : '
+      'reprend à photos',
+      () async {
+        final profile = _makeProviderMe(
+          50,
+          categories: [_catItem('plomberie')],
+          coverageAreas: [_covItem('cov1', 'sousse')],
+          portfolio: [],
+        );
+        when(mockRepo.getMyProfile).thenAnswer((_) async => profile);
+
+        await container.read(onboardingProvider.notifier).resumeSession();
+
+        final state = container.read(onboardingProvider);
+        expect(state.currentStep, OnboardingStep.photos);
+        expect(state.completionScore, 50);
+      },
+    );
+
+    test(
+      'profil complet prêt à publier (score >= 60) : reprend à summary',
+      () async {
+        final profile = _makeProviderMe(
+          70,
+          categories: [_catItem('plomberie')],
+          coverageAreas: [_covItem('cov1', 'sousse')],
+          portfolio: [_portfolioItem('p1')],
+        );
+        when(mockRepo.getMyProfile).thenAnswer((_) async => profile);
+
+        await container.read(onboardingProvider.notifier).resumeSession();
+
+        final state = container.read(onboardingProvider);
+        expect(state.currentStep, OnboardingStep.summary);
+        expect(state.canPublish, isTrue);
+      },
+    );
+
+    test('determineResumeStep couvre exhaustivement tous les scénarios', () {
+      final p1 = _makeProviderMe(20, categories: []);
+      expect(
+        OnboardingNotifier.determineResumeStep(p1),
+        OnboardingStep.categories,
+      );
+
+      final p2 = _makeProviderMe(
+        35,
+        categories: [_catItem('elec')],
+        coverageAreas: [],
+      );
+      expect(OnboardingNotifier.determineResumeStep(p2), OnboardingStep.zones);
+
+      final p3 = _makeProviderMe(
+        45,
+        categories: [_catItem('elec')],
+        coverageAreas: [_covItem('cov1', 'tunis')],
+        portfolio: [],
+      );
+      expect(OnboardingNotifier.determineResumeStep(p3), OnboardingStep.photos);
+
+      final p4 = _makeProviderMe(
+        65,
+        categories: [_catItem('elec')],
+        coverageAreas: [_covItem('cov1', 'tunis')],
+        portfolio: [],
+      );
+      expect(OnboardingNotifier.determineResumeStep(p4), OnboardingStep.summary);
+
+      final p5 = _makeProviderMe(
+        80,
+        categories: [_catItem('elec')],
+        coverageAreas: [_covItem('cov1', 'tunis')],
+        portfolio: [_portfolioItem('photo1')],
+      );
+      expect(OnboardingNotifier.determineResumeStep(p5), OnboardingStep.summary);
     });
   });
 }

@@ -44,6 +44,14 @@ class _OnboardingZonesStepState extends ConsumerState<OnboardingZonesStep> {
     _selection = Set.of(widget.initialSelection);
   }
 
+  @override
+  void didUpdateWidget(OnboardingZonesStep oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (_selection.isEmpty && widget.initialSelection.isNotEmpty) {
+      _selection = Set.of(widget.initialSelection);
+    }
+  }
+
   void _toggle(String governorateId) {
     setState(() {
       if (!_selection.remove(governorateId)) {

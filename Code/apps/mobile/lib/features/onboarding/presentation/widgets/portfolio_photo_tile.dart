@@ -43,6 +43,8 @@ class PortfolioPhotoTile extends StatelessWidget {
                   imageUrl: task.thumbUrl!,
                   fit: BoxFit.cover,
                 ),
+              PortfolioUploadPhase.done =>
+                Icon(Icons.image_outlined, color: colors.textSecondary),
               PortfolioUploadPhase.error => _ErrorContent(
                 label: failedLabel,
                 colors: colors,

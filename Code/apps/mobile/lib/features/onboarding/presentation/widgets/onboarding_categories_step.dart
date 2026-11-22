@@ -56,7 +56,8 @@ class _OnboardingCategoriesStepState
         final wasPrimary = _selection[categoryId] == true;
         _selection.remove(categoryId);
         // MOB-005 : si la catégorie retirée était principale et qu'il reste
-        // d'autres catégories sélectionnées, promouvoir automatiquement la première.
+        // d'autres catégories sélectionnées, promouvoir automatiquement la
+        // première.
         if (wasPrimary && _selection.isNotEmpty) {
           final firstRemainingKey = _selection.keys.first;
           _selection[firstRemainingKey] = true;
