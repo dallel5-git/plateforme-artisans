@@ -47,6 +47,12 @@ _MockProviderMe _profile({
   when(() => mock.baseGovernorateId).thenReturn('sousse');
   when(() => mock.availabilityStatus).thenReturn(status);
   when(() => mock.acceptsEmergency).thenReturn(acceptsEmergency);
+  when(() => mock.isVerified).thenReturn(false);
+  when(() => mock.ratingAvg).thenReturn(4.5);
+  when(() => mock.ratingCount).thenReturn(12);
+  when(() => mock.totalProfileViews).thenReturn(120);
+  when(() => mock.totalContacts).thenReturn(15);
+  when(() => mock.completionScore).thenReturn(85);
   return mock;
 }
 
@@ -180,7 +186,7 @@ void main() {
         );
         await tester.pumpAndSettle();
 
-        expect(find.text('Ahmed Plomberie'), findsOneWidget);
+        expect(find.text('Ahmed Plomberie'), findsNWidgets(2));
         expect(find.text('Disponible'), findsOneWidget);
         expect(find.text('Accepte les urgences'), findsOneWidget);
         expect(find.text('Enregistrer'), findsOneWidget);
@@ -348,11 +354,8 @@ void main() {
         );
         await tester.pumpAndSettle();
 
-        await tester.dragUntilVisible(
-          find.text('Mentions légales'),
-          find.byType(ListView).first,
-          const Offset(0, -200),
-        );
+        await tester.ensureVisible(find.text('Mentions légales'));
+        await tester.pumpAndSettle();
         await tester.tap(find.text('Mentions légales'));
         await tester.pumpAndSettle();
 
@@ -378,11 +381,8 @@ void main() {
         );
         await tester.pumpAndSettle();
 
-        await tester.dragUntilVisible(
-          find.text("Retour à l'espace Client"),
-          find.byType(ListView).first,
-          const Offset(0, -200),
-        );
+        await tester.ensureVisible(find.text("Retour à l'espace Client"));
+        await tester.pumpAndSettle();
         await tester.tap(find.text("Retour à l'espace Client"));
         await tester.pumpAndSettle();
 

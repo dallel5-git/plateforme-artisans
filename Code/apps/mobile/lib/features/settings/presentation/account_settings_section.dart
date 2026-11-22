@@ -55,6 +55,7 @@ class AccountSettingsSection extends ConsumerWidget {
           child: Column(
             children: [
               _SettingsOptionTile<String>(
+                icon: Icons.translate_rounded,
                 title: t.settings.french,
                 value: 'fr',
                 groupValue: locale.languageCode,
@@ -67,6 +68,7 @@ class AccountSettingsSection extends ConsumerWidget {
               ),
               const AppDivider(),
               _SettingsOptionTile<String>(
+                icon: Icons.language_rounded,
                 title: t.settings.arabic,
                 value: 'ar',
                 groupValue: locale.languageCode,
@@ -80,7 +82,7 @@ class AccountSettingsSection extends ConsumerWidget {
             ],
           ),
         ),
-        const SizedBox(height: AppSpacing.lg),
+        const SizedBox(height: AppSpacing.md),
 
         AppSectionHeader(title: t.settings.themeSection),
         const SizedBox(height: AppSpacing.xs),
@@ -89,6 +91,7 @@ class AccountSettingsSection extends ConsumerWidget {
           child: Column(
             children: [
               _SettingsOptionTile<ThemeMode>(
+                icon: Icons.brightness_auto_rounded,
                 title: t.settings.themeSystem,
                 value: ThemeMode.system,
                 groupValue: themeMode,
@@ -100,6 +103,7 @@ class AccountSettingsSection extends ConsumerWidget {
               ),
               const AppDivider(),
               _SettingsOptionTile<ThemeMode>(
+                icon: Icons.light_mode_rounded,
                 title: t.settings.themeLight,
                 value: ThemeMode.light,
                 groupValue: themeMode,
@@ -111,6 +115,7 @@ class AccountSettingsSection extends ConsumerWidget {
               ),
               const AppDivider(),
               _SettingsOptionTile<ThemeMode>(
+                icon: Icons.dark_mode_rounded,
                 title: t.settings.themeDark,
                 value: ThemeMode.dark,
                 groupValue: themeMode,
@@ -123,18 +128,19 @@ class AccountSettingsSection extends ConsumerWidget {
             ],
           ),
         ),
-        const SizedBox(height: AppSpacing.lg),
+        const SizedBox(height: AppSpacing.md),
 
         AppSectionHeader(title: t.settings.legalSection),
         const SizedBox(height: AppSpacing.xs),
         AppCard(
           padding: EdgeInsets.zero,
           child: _SettingsNavTile(
+            icon: Icons.gavel_rounded,
             title: t.settings.legalNotices,
             onTap: onOpenLegal,
           ),
         ),
-        const SizedBox(height: AppSpacing.lg),
+        const SizedBox(height: AppSpacing.md),
 
         AppSectionHeader(title: t.settings.demoSection),
         const SizedBox(height: AppSpacing.xs),
@@ -145,10 +151,24 @@ class AccountSettingsSection extends ConsumerWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: AppSpacing.md,
-                  vertical: AppSpacing.sm,
+                  vertical: AppSpacing.xs,
                 ),
                 child: Row(
                   children: [
+                    Container(
+                      width: 32,
+                      height: 32,
+                      decoration: BoxDecoration(
+                        color: colors.amber.withValues(alpha: 0.15),
+                        borderRadius: const BorderRadius.all(AppRadius.md),
+                      ),
+                      child: Icon(
+                        Icons.science_rounded,
+                        color: colors.amber,
+                        size: AppIconSize.sm,
+                      ),
+                    ),
+                    const SizedBox(width: AppSpacing.md),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -171,6 +191,7 @@ class AccountSettingsSection extends ConsumerWidget {
                     ),
                     Switch.adaptive(
                       value: isDemo,
+                      activeThumbColor: colors.amber,
                       onChanged: (enabled) {
                         unawaited(
                           ref
@@ -185,6 +206,7 @@ class AccountSettingsSection extends ConsumerWidget {
               if (isDemo) ...[
                 const AppDivider(),
                 _SettingsOptionTile<DemoRole>(
+                  icon: Icons.person_outline_rounded,
                   title: t.settings.demoRoleClient,
                   value: DemoRole.client,
                   groupValue: demoRole,
@@ -198,6 +220,7 @@ class AccountSettingsSection extends ConsumerWidget {
                 ),
                 const AppDivider(),
                 _SettingsOptionTile<DemoRole>(
+                  icon: Icons.handyman_outlined,
                   title: t.settings.demoRolePro,
                   value: DemoRole.provider,
                   groupValue: demoRole,
@@ -213,6 +236,7 @@ class AccountSettingsSection extends ConsumerWidget {
                 ),
                 const AppDivider(),
                 _SettingsOptionTile<DemoRole>(
+                  icon: Icons.visibility_outlined,
                   title: t.settings.demoRoleGuest,
                   value: DemoRole.guest,
                   groupValue: demoRole,
@@ -224,11 +248,44 @@ class AccountSettingsSection extends ConsumerWidget {
                     }
                   },
                 ),
+                const AppDivider(),
+                _SettingsActionTile(
+                  icon: Icons.handyman_rounded,
+                  iconBgColor: colors.accent.withValues(alpha: 0.15),
+                  iconColor: colors.accent,
+                  title: t.settings.testOnboardingPro,
+                  subtitle: t.settings.testOnboardingProDesc,
+                  onTap: () async {
+                    await ref
+                        .read(demoModeProvider.notifier)
+                        .setEnabled(enabled: true);
+                    await ref
+                        .read(demoRoleProvider.notifier)
+                        .setRole(DemoRole.provider);
+                    ref.read(hasPublishedProfileProvider.notifier).state =
+                        false;
+                    ref.invalidate(onboardingProvider);
+                    if (context.mounted) {
+                      context.go('/pro/onboarding');
+                    }
+                  },
+                ),
+                const AppDivider(),
+                _SettingsActionTile(
+                  icon: Icons.person_search_rounded,
+                  iconBgColor: colors.amber.withValues(alpha: 0.15),
+                  iconColor: colors.amber,
+                  title: t.settings.testOnboardingClient,
+                  subtitle: t.settings.testOnboardingClientDesc,
+                  onTap: () {
+                    unawaited(context.push('/client/onboarding'));
+                  },
+                ),
               ],
             ],
           ),
         ),
-        const SizedBox(height: AppSpacing.lg),
+        const SizedBox(height: AppSpacing.md),
 
         AppSectionHeader(title: t.settings.accountSection),
         const SizedBox(height: AppSpacing.xs),
@@ -240,13 +297,37 @@ class AccountSettingsSection extends ConsumerWidget {
           AppButton(
             label: t.settings.logout,
             variant: AppButtonVariant.danger,
+            icon: const Icon(Icons.logout_rounded, size: AppIconSize.md),
             onPressed: () => unawaited(_confirmLogout(context, ref)),
           )
         else
           AppButton(
             label: t.settings.login,
+            icon: const Icon(Icons.login_rounded, size: AppIconSize.md),
             onPressed: () => unawaited(context.push('/auth')),
           ),
+        const SizedBox(height: AppSpacing.xl),
+        Center(
+          child: Column(
+            children: [
+              Text(
+                '${t.common.appName} • ${t.settings.version} 1.0.0',
+                style: AppText.caption(locale).copyWith(
+                  color: colors.textMuted,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: AppSpacing.xxs),
+              Text(
+                t.settings.privacyPolicy,
+                style: AppText.small(locale).copyWith(
+                  color: colors.textMuted,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: AppSpacing.lg),
       ],
     );
   }
@@ -306,12 +387,14 @@ class _SettingsOptionTile<T> extends StatelessWidget {
     required this.value,
     required this.groupValue,
     required this.onChanged,
+    this.icon,
   });
 
   final String title;
   final T value;
   final T groupValue;
   final ValueChanged<T?> onChanged;
+  final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -324,20 +407,52 @@ class _SettingsOptionTile<T> extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.md,
-          vertical: AppSpacing.md,
+          vertical: AppSpacing.sm,
         ),
         child: Row(
           children: [
+            if (icon != null) ...[
+              Container(
+                width: 32,
+                height: 32,
+                decoration: BoxDecoration(
+                  color:
+                      isSelected ? colors.accentSubtle : colors.surfaceSunken,
+                  borderRadius: const BorderRadius.all(AppRadius.md),
+                ),
+                child: Icon(
+                  icon,
+                  color: isSelected ? colors.accent : colors.textSecondary,
+                  size: AppIconSize.sm,
+                ),
+              ),
+              const SizedBox(width: AppSpacing.md),
+            ],
             Expanded(
               child: Text(
                 title,
                 style: AppText.body(locale).copyWith(
                   color: colors.textPrimary,
-                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
                 ),
               ),
             ),
-            if (isSelected) Icon(Icons.check, color: colors.accent, size: 20),
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 180),
+              width: 22,
+              height: 22,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: isSelected ? colors.accent : Colors.transparent,
+                border: Border.all(
+                  color: isSelected ? colors.accent : colors.border,
+                  width: 1.5,
+                ),
+              ),
+              child: isSelected
+                  ? Icon(Icons.check, color: colors.onAccent, size: 13)
+                  : null,
+            ),
           ],
         ),
       ),
@@ -346,10 +461,15 @@ class _SettingsOptionTile<T> extends StatelessWidget {
 }
 
 class _SettingsNavTile extends StatelessWidget {
-  const _SettingsNavTile({required this.title, required this.onTap});
+  const _SettingsNavTile({
+    required this.title,
+    required this.onTap,
+    this.icon,
+  });
 
   final String title;
   final VoidCallback onTap;
+  final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -361,10 +481,26 @@ class _SettingsNavTile extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.md,
-          vertical: AppSpacing.md,
+          vertical: AppSpacing.sm,
         ),
         child: Row(
           children: [
+            if (icon != null) ...[
+              Container(
+                width: 32,
+                height: 32,
+                decoration: BoxDecoration(
+                  color: colors.surfaceSunken,
+                  borderRadius: const BorderRadius.all(AppRadius.md),
+                ),
+                child: Icon(
+                  icon,
+                  color: colors.textSecondary,
+                  size: AppIconSize.sm,
+                ),
+              ),
+              const SizedBox(width: AppSpacing.md),
+            ],
             Expanded(
               child: Text(
                 title,
@@ -372,6 +508,85 @@ class _SettingsNavTile extends StatelessWidget {
               ),
             ),
             Icon(Icons.chevron_right, color: colors.textSecondary, size: 20),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _SettingsActionTile extends StatelessWidget {
+  const _SettingsActionTile({
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+    this.icon,
+    this.iconBgColor,
+    this.iconColor,
+  });
+
+  final String title;
+  final String subtitle;
+  final VoidCallback onTap;
+  final IconData? icon;
+  final Color? iconBgColor;
+  final Color? iconColor;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final locale = Localizations.localeOf(context);
+
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.md,
+          vertical: AppSpacing.sm,
+        ),
+        child: Row(
+          children: [
+            if (icon != null) ...[
+              Container(
+                width: 36,
+                height: 36,
+                decoration: BoxDecoration(
+                  color: iconBgColor ?? colors.surfaceSunken,
+                  borderRadius: const BorderRadius.all(AppRadius.md),
+                ),
+                child: Icon(
+                  icon,
+                  color: iconColor ?? colors.textSecondary,
+                  size: AppIconSize.sm,
+                ),
+              ),
+              const SizedBox(width: AppSpacing.md),
+            ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: AppText.bodyStrong(locale).copyWith(
+                      color: colors.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    subtitle,
+                    style: AppText.caption(locale).copyWith(
+                      color: colors.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(
+              Icons.play_circle_outline_rounded,
+              color: iconColor ?? colors.accent,
+              size: 22,
+            ),
           ],
         ),
       ),

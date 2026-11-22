@@ -118,20 +118,35 @@ void main() {
       },
     );
 
-    testWidgets("bouton désactivé tant qu'aucune étoile n'est sélectionnée", (
-      tester,
-    ) async {
-      final env = _wrap(
-        profileRepository: profileRepository,
-        reviewsRepository: reviewsRepository,
-      );
-      await tester.pumpWidget(env.widget);
-      unawaited(env.router.push<void>('/review'));
-      await tester.pumpAndSettle();
+    testWidgets(
+      "tap sur Publier l'avis sans note affiche l'erreur ratingRequired "
+      "puis s'efface au choix d'une étoile",
+      (tester) async {
+        final env = _wrap(
+          profileRepository: profileRepository,
+          reviewsRepository: reviewsRepository,
+        );
+        await tester.pumpWidget(env.widget);
+        unawaited(env.router.push<void>('/review'));
+        await tester.pumpAndSettle();
 
-      final button = tester.widget<AppButton>(find.byType(AppButton));
-      expect(button.onPressed, isNull);
-    });
+        await tester.tap(find.text("Publier l'avis"));
+        await tester.pumpAndSettle();
+
+        expect(
+          find.text('Veuillez sélectionner une note de 1 à 5 étoiles'),
+          findsOneWidget,
+        );
+
+        await tester.tap(find.byIcon(Icons.star_border).first);
+        await tester.pumpAndSettle();
+
+        expect(
+          find.text('Veuillez sélectionner une note de 1 à 5 étoiles'),
+          findsNothing,
+        );
+      },
+    );
 
     testWidgets(
       'tap sur la 4ᵉ étoile puis soumission appelle createReview et '

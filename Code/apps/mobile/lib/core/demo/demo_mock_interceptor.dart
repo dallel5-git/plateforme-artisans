@@ -82,17 +82,19 @@ class DemoMockInterceptor extends Interceptor {
       final reqData = options.data is Map<String, dynamic>
           ? options.data as Map<String, dynamic>
           : <String, dynamic>{};
+      final providerIdOrSlug = _extractSlug(path);
+      final rating = (reqData['rating'] as num?)?.toInt() ?? 5;
+      final comment = reqData['comment'] as String?;
+      final createdReview = DemoData.addReview(
+        providerIdOrSlug,
+        rating: rating,
+        comment: comment,
+      );
       handler.resolve(
         Response(
           requestOptions: options,
           statusCode: 201,
-          data: {
-            'id': 'rev-new-${DateTime.now().millisecondsSinceEpoch}',
-            'rating': reqData['rating'] ?? 5,
-            'comment': reqData['comment'] ?? 'Avis publié en mode démo',
-            'isVerifiedContact': true,
-            'createdAt': DateTime.now().toIso8601String(),
-          },
+          data: createdReview,
         ),
       );
       return;
@@ -118,7 +120,15 @@ class DemoMockInterceptor extends Interceptor {
     if (path.contains('/v1/favorites') &&
         (method == 'POST' || method == 'PUT')) {
       final segments = options.uri.pathSegments;
-      final providerId = segments.isNotEmpty ? segments.last : 'prov-1';
+      String providerId = '';
+      if (segments.isNotEmpty && segments.last != 'favorites') {
+        providerId = segments.last;
+      } else if (options.data is Map &&
+          (options.data as Map)['providerId'] != null) {
+        providerId = (options.data as Map)['providerId'].toString();
+      }
+      if (providerId.isEmpty) providerId = 'prov-1';
+      DemoData.addFavorite(providerId);
       handler.resolve(
         Response(
           requestOptions: options,
@@ -132,6 +142,11 @@ class DemoMockInterceptor extends Interceptor {
       return;
     }
     if (path.contains('/v1/favorites') && method == 'DELETE') {
+      final segments = options.uri.pathSegments;
+      final providerId = segments.isNotEmpty ? segments.last : '';
+      if (providerId.isNotEmpty && providerId != 'favorites') {
+        DemoData.removeFavorite(providerId);
+      }
       handler.resolve(Response(requestOptions: options, statusCode: 200));
       return;
     }

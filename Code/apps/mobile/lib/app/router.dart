@@ -15,6 +15,7 @@ import 'package:sanaya/features/dashboard/presentation/screens/dashboard_screen.
 import 'package:sanaya/features/favorites/presentation/favorites_screen.dart';
 import 'package:sanaya/features/history/presentation/client_history_screen.dart';
 import 'package:sanaya/features/onboarding/application/onboarding_providers.dart';
+import 'package:sanaya/features/onboarding/presentation/client_onboarding_screen.dart';
 import 'package:sanaya/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:sanaya/features/pro_profile/presentation/pro_profile_screen.dart';
 import 'package:sanaya/features/profile/presentation/client_profile_screen.dart';
@@ -115,6 +116,11 @@ final router = GoRouter(
       path: '/auth',
       name: 'auth',
       builder: (_, _) => const AuthScreen(),
+    ),
+    GoRoute(
+      path: '/client/onboarding',
+      name: 'client-onboarding',
+      builder: (_, _) => const ClientOnboardingScreen(),
     ),
     StatefulShellRoute.indexedStack(
       builder: (_, _, navigationShell) =>

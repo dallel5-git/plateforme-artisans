@@ -24,5 +24,10 @@
   "demoRoleGuest": "زائر (غير متصل)",
   "demoRoleClient": "وضع الحريف",
   "demoRolePro": "وضع الحرفي",
-  "demoBanner": "الوضع التجريبي نشط"
+  "demoBanner": "الوضع التجريبي نشط",
+  "testToolsSection": "أدوات تجربة مسار التسجيل",
+  "testOnboardingPro": "تجربة تسجيل الحرفي",
+  "testOnboardingProDesc": "بدء معالج التسجيل بـ 5 مراحل (الملف، المهن، المناطق، الصور، الملخص)",
+  "testOnboardingClient": "تجربة ترحيب الحريف",
+  "testOnboardingClientDesc": "بدء مسار الاكتشاف التفاعلي المخصص للحرفاء"
 }

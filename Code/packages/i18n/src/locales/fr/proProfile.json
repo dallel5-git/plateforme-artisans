@@ -12,5 +12,22 @@
   "editSection": "Modifier mon profil",
   "save": "Enregistrer",
   "saveSuccess": "Profil mis à jour",
-  "viewMyListing": "Voir ma fiche telle que la voit un client"
+  "viewMyListing": "Voir ma fiche telle que la voit un client",
+  "completionTitle": "Complétude du profil",
+  "completionLabel": "Profil complété à {score} %",
+  "completionTip": "Un profil complet reçoit en moyenne 3 fois plus de contacts.",
+  "relaunchOnboarding": "Modifier via l'assistant complet",
+  "yearsExperience": "{years} ans d'expérience",
+  "verifiedBadge": "Artisan Vérifié",
+  "unverifiedBadge": "Vérification en attente",
+  "statsViews": "Vues de profil",
+  "statsContacts": "Contacts reçus",
+  "statsRating": "Note moyenne",
+  "publicPreviewTitle": "Vitrine publique",
+  "publicPreviewSubtitle": "Consultez votre fiche telle qu'elle apparaît pour vos futurs clients",
+  "portfolioSection": "Galerie & Réalisations",
+  "portfolioDesc": "Photos de vos réalisations et chantiers",
+  "categoriesAndZones": "Métiers & Zones d'intervention",
+  "testOnboardingPro": "Tester l'onboarding Pro",
+  "testOnboardingClient": "Tester l'onboarding Particulier"
 }

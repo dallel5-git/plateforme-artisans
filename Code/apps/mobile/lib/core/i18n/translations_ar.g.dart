@@ -174,6 +174,42 @@ class Translations$dashboard$ar extends Translations$dashboard$fr {
 	@override String get retry => 'إعادة المحاولة';
 	@override String get errorTitle => 'تعذر تحميل لوحة التحكم';
 	@override String get errorMessage => 'تحقق من اتصالك وأعد المحاولة.';
+	@override String get quickActionsTitle => 'إجراءات سريعة';
+	@override String get actionShare => 'مشاركة';
+	@override String get actionPublicProfile => 'واجهتي العامة';
+	@override String get actionBoost => 'ترقية';
+	@override String get actionEditProfile => 'ملفي الشخصي';
+	@override String get profileLinkCopied => 'تم نسخ رابط ملفك الشخصي إلى الحافظة';
+	@override String get channelsTitle => 'توزيع الاتصالات';
+	@override String get channelsSubtitle => 'القنوات التي يستخدمها عملاؤك';
+	@override String get channelPhone => 'مكالمات هاتفية';
+	@override String get channelWhatsapp => 'رسائل واتساب';
+	@override String get recentActivityTitle => 'النشاط الأخير والطلبات';
+	@override String get recentActivitySubtitle => 'آخر التفاعلات المستلمة';
+	@override String get recentLeadWhatsappTitle => 'طلب واتساب مستلم';
+	@override String get recentLeadWhatsappDesc => 'سباكة وصحي • سوسة (خزامة)';
+	@override String get recentLeadPhoneTitle => 'مكالمة مباشرة مستلمة';
+	@override String get recentLeadPhoneDesc => 'تصليح كهرباء عاجل • المنستير';
+	@override String get recentLeadReviewTitle => 'تقييم جديد 5 نجوم';
+	@override String get recentLeadReviewDesc => '«دقة في المواعيد وعمل متقن!» • كريم ب.';
+	@override String get time2hAgo => 'منذ ساعتين';
+	@override String get time5hAgo => 'منذ 5 ساعات';
+	@override String get timeYesterday => 'أمس';
+	@override String get reputationTitle => 'التقييمات والسمعة';
+	@override String reputationRating({required Object rating}) => '${rating} من 5';
+	@override String reputationCount({required Object count}) => '${count} تقييم موثق';
+	@override String get reputationBadge => 'حرفي موصى به في الساحل';
+	@override String get reputationLatestReview => '«عمل ممتاز ودقة في المواعيد واحترافية عالية في تركيب اللوحة الكهربائية.»';
+	@override String get reputationAuthor => '— كريم ب.، سوسة';
+	@override String get reputationSeeAll => 'عرض جميع التقييمات';
+	@override String get boostBannerTitle => 'ضاعف طلباتك 3 مرات';
+	@override String get boostBannerSubtitle => 'اظهر في صدارة نتائج البحث في سوسة والمنستير.';
+	@override String get boostBannerCta => 'اكتشف الترويجات';
+	@override String get proTipsTitle => 'نصائح لتطوير نشاطك';
+	@override String get tipResponsivenessTitle => 'سرعة استجابة قصوى';
+	@override String get tipResponsivenessDesc => 'الرد على المكالمات والرسائل خلال 15 دقيقة يضاعف فرصك في كسب العمل.';
+	@override String get tipPhotosTitle => 'أضف صوراً لأعمالك';
+	@override String get tipPhotosDesc => 'الملفات التي تحتوي على صور إنجازات حقيقية تحقق اتصالات أكثر بنسبة تصل إلى 70%.';
 }
 
 // Path: errors
@@ -309,6 +345,17 @@ class Translations$onboarding$ar extends Translations$onboarding$fr {
 	@override String get missingHeadline => 'عنوان';
 	@override String get missingYearsExperience => 'سنوات خبرتك';
 	@override String get missingContactPhone => 'رقم واتساب أو رقم عام';
+	@override String get clientWelcomeTitle => 'مرحباً بك في صنايعية';
+	@override String get clientWelcomeSubtitle => 'اعثر على أفضل الحرفيين في الساحل التونسي بكل ثقة وسهولة.';
+	@override String get clientStep1Title => 'اعثر على الحرفي المناسب';
+	@override String get clientStep1Desc => 'سباكون، كهربائيون، دهانون، فنيو تكييف... محترفون مؤهلون ومتوفرون بالقرب منك.';
+	@override String get clientStep2Title => 'ثقة وتقييمات موثقة';
+	@override String get clientStep2Desc => 'حرفيون موثقون ببطاقة التعريف الوطنية، وتقييمات حقيقية يكتبها حُرفاء اتصلوا فعلياً بالحرفي.';
+	@override String get clientStep3Title => 'اتصال مباشر ومجاني 100%';
+	@override String get clientStep3Desc => 'اتصال أو واتساب مباشر دون عمولة وبلا وسيط. اتفق على تفاصيل العمل مباشرة مع الحرفي.';
+	@override String get clientChooseGovernorate => 'ولايتك المفضلة للبحث :';
+	@override String get clientStartExploring => 'ابدأ البحث الآن';
+	@override String get clientSkip => 'تخطي المقدمة';
 }
 
 // Path: proProfile
@@ -332,6 +379,23 @@ class Translations$proProfile$ar extends Translations$proProfile$fr {
 	@override String get save => 'حفظ';
 	@override String get saveSuccess => 'تم تحديث الملف الشخصي';
 	@override String get viewMyListing => 'شاهد ملفي كما يراه العميل';
+	@override String get completionTitle => 'اكتمال الملف الشخصي';
+	@override String get completionLabel => 'الملف مكتمل بنسبة {score} %';
+	@override String get completionTip => 'الملف المكتمل يحصل على 3 أضعاف طلبات الاتصال في المتوسط.';
+	@override String get relaunchOnboarding => 'تعديل عبر معالج التسجيل الكامل';
+	@override String get yearsExperience => '{years} سنوات خبرة';
+	@override String get verifiedBadge => 'حرفي موثّق';
+	@override String get unverifiedBadge => 'في انتظار التوثيق';
+	@override String get statsViews => 'مشاهدات الملف';
+	@override String get statsContacts => 'اتصالات واردة';
+	@override String get statsRating => 'متوسط التقييم';
+	@override String get publicPreviewTitle => 'الواجهة العامة';
+	@override String get publicPreviewSubtitle => 'اطلع على بطاقتك كما تظهر للحرفاء والباحثين عن خدمات';
+	@override String get portfolioSection => 'معرض الأعمال والإنجازات';
+	@override String get portfolioDesc => 'صور لمشاريعك وتدخلاتك السابقة';
+	@override String get categoriesAndZones => 'المهن ومناطق التدخل';
+	@override String get testOnboardingPro => 'تجربة تسجيل الحرفي';
+	@override String get testOnboardingClient => 'تجربة تسجيل الحريف';
 }
 
 // Path: profile
@@ -442,6 +506,11 @@ class Translations$settings$ar extends Translations$settings$fr {
 	@override String get demoRoleClient => 'وضع الحريف';
 	@override String get demoRolePro => 'وضع الحرفي';
 	@override String get demoBanner => 'الوضع التجريبي نشط';
+	@override String get testToolsSection => 'أدوات تجربة مسار التسجيل';
+	@override String get testOnboardingPro => 'تجربة تسجيل الحرفي';
+	@override String get testOnboardingProDesc => 'بدء معالج التسجيل بـ 5 مراحل (الملف، المهن، المناطق، الصور، الملخص)';
+	@override String get testOnboardingClient => 'تجربة ترحيب الحريف';
+	@override String get testOnboardingClientDesc => 'بدء مسار الاكتشاف التفاعلي المخصص للحرفاء';
 }
 
 // Path: common.home
@@ -754,6 +823,42 @@ extension on TranslationsAr {
 			'dashboard.retry' => 'إعادة المحاولة',
 			'dashboard.errorTitle' => 'تعذر تحميل لوحة التحكم',
 			'dashboard.errorMessage' => 'تحقق من اتصالك وأعد المحاولة.',
+			'dashboard.quickActionsTitle' => 'إجراءات سريعة',
+			'dashboard.actionShare' => 'مشاركة',
+			'dashboard.actionPublicProfile' => 'واجهتي العامة',
+			'dashboard.actionBoost' => 'ترقية',
+			'dashboard.actionEditProfile' => 'ملفي الشخصي',
+			'dashboard.profileLinkCopied' => 'تم نسخ رابط ملفك الشخصي إلى الحافظة',
+			'dashboard.channelsTitle' => 'توزيع الاتصالات',
+			'dashboard.channelsSubtitle' => 'القنوات التي يستخدمها عملاؤك',
+			'dashboard.channelPhone' => 'مكالمات هاتفية',
+			'dashboard.channelWhatsapp' => 'رسائل واتساب',
+			'dashboard.recentActivityTitle' => 'النشاط الأخير والطلبات',
+			'dashboard.recentActivitySubtitle' => 'آخر التفاعلات المستلمة',
+			'dashboard.recentLeadWhatsappTitle' => 'طلب واتساب مستلم',
+			'dashboard.recentLeadWhatsappDesc' => 'سباكة وصحي • سوسة (خزامة)',
+			'dashboard.recentLeadPhoneTitle' => 'مكالمة مباشرة مستلمة',
+			'dashboard.recentLeadPhoneDesc' => 'تصليح كهرباء عاجل • المنستير',
+			'dashboard.recentLeadReviewTitle' => 'تقييم جديد 5 نجوم',
+			'dashboard.recentLeadReviewDesc' => '«دقة في المواعيد وعمل متقن!» • كريم ب.',
+			'dashboard.time2hAgo' => 'منذ ساعتين',
+			'dashboard.time5hAgo' => 'منذ 5 ساعات',
+			'dashboard.timeYesterday' => 'أمس',
+			'dashboard.reputationTitle' => 'التقييمات والسمعة',
+			'dashboard.reputationRating' => ({required Object rating}) => '${rating} من 5',
+			'dashboard.reputationCount' => ({required Object count}) => '${count} تقييم موثق',
+			'dashboard.reputationBadge' => 'حرفي موصى به في الساحل',
+			'dashboard.reputationLatestReview' => '«عمل ممتاز ودقة في المواعيد واحترافية عالية في تركيب اللوحة الكهربائية.»',
+			'dashboard.reputationAuthor' => '— كريم ب.، سوسة',
+			'dashboard.reputationSeeAll' => 'عرض جميع التقييمات',
+			'dashboard.boostBannerTitle' => 'ضاعف طلباتك 3 مرات',
+			'dashboard.boostBannerSubtitle' => 'اظهر في صدارة نتائج البحث في سوسة والمنستير.',
+			'dashboard.boostBannerCta' => 'اكتشف الترويجات',
+			'dashboard.proTipsTitle' => 'نصائح لتطوير نشاطك',
+			'dashboard.tipResponsivenessTitle' => 'سرعة استجابة قصوى',
+			'dashboard.tipResponsivenessDesc' => 'الرد على المكالمات والرسائل خلال 15 دقيقة يضاعف فرصك في كسب العمل.',
+			'dashboard.tipPhotosTitle' => 'أضف صوراً لأعمالك',
+			'dashboard.tipPhotosDesc' => 'الملفات التي تحتوي على صور إنجازات حقيقية تحقق اتصالات أكثر بنسبة تصل إلى 70%.',
 			'errors.routeNotFoundTitle' => 'الصفحة غير موجودة',
 			'errors.routeNotFoundMessage' => 'هذه الصفحة غير موجودة أو لم تعد متاحة.',
 			'errors.routeNotFoundAction' => 'العودة إلى الصفحة الرئيسية',
@@ -844,6 +949,17 @@ extension on TranslationsAr {
 			'onboarding.missingHeadline' => 'عنوان',
 			'onboarding.missingYearsExperience' => 'سنوات خبرتك',
 			'onboarding.missingContactPhone' => 'رقم واتساب أو رقم عام',
+			'onboarding.clientWelcomeTitle' => 'مرحباً بك في صنايعية',
+			'onboarding.clientWelcomeSubtitle' => 'اعثر على أفضل الحرفيين في الساحل التونسي بكل ثقة وسهولة.',
+			'onboarding.clientStep1Title' => 'اعثر على الحرفي المناسب',
+			'onboarding.clientStep1Desc' => 'سباكون، كهربائيون، دهانون، فنيو تكييف... محترفون مؤهلون ومتوفرون بالقرب منك.',
+			'onboarding.clientStep2Title' => 'ثقة وتقييمات موثقة',
+			'onboarding.clientStep2Desc' => 'حرفيون موثقون ببطاقة التعريف الوطنية، وتقييمات حقيقية يكتبها حُرفاء اتصلوا فعلياً بالحرفي.',
+			'onboarding.clientStep3Title' => 'اتصال مباشر ومجاني 100%',
+			'onboarding.clientStep3Desc' => 'اتصال أو واتساب مباشر دون عمولة وبلا وسيط. اتفق على تفاصيل العمل مباشرة مع الحرفي.',
+			'onboarding.clientChooseGovernorate' => 'ولايتك المفضلة للبحث :',
+			'onboarding.clientStartExploring' => 'ابدأ البحث الآن',
+			'onboarding.clientSkip' => 'تخطي المقدمة',
 			'proProfile.title' => 'الملف الشخصي',
 			'proProfile.emptyTitle' => 'الملف غير موجود',
 			'proProfile.emptyMessage' => 'لا يوجد ملف حرفي مرتبط بهذا الحساب.',
@@ -858,6 +974,23 @@ extension on TranslationsAr {
 			'proProfile.save' => 'حفظ',
 			'proProfile.saveSuccess' => 'تم تحديث الملف الشخصي',
 			'proProfile.viewMyListing' => 'شاهد ملفي كما يراه العميل',
+			'proProfile.completionTitle' => 'اكتمال الملف الشخصي',
+			'proProfile.completionLabel' => 'الملف مكتمل بنسبة {score} %',
+			'proProfile.completionTip' => 'الملف المكتمل يحصل على 3 أضعاف طلبات الاتصال في المتوسط.',
+			'proProfile.relaunchOnboarding' => 'تعديل عبر معالج التسجيل الكامل',
+			'proProfile.yearsExperience' => '{years} سنوات خبرة',
+			'proProfile.verifiedBadge' => 'حرفي موثّق',
+			'proProfile.unverifiedBadge' => 'في انتظار التوثيق',
+			'proProfile.statsViews' => 'مشاهدات الملف',
+			'proProfile.statsContacts' => 'اتصالات واردة',
+			'proProfile.statsRating' => 'متوسط التقييم',
+			'proProfile.publicPreviewTitle' => 'الواجهة العامة',
+			'proProfile.publicPreviewSubtitle' => 'اطلع على بطاقتك كما تظهر للحرفاء والباحثين عن خدمات',
+			'proProfile.portfolioSection' => 'معرض الأعمال والإنجازات',
+			'proProfile.portfolioDesc' => 'صور لمشاريعك وتدخلاتك السابقة',
+			'proProfile.categoriesAndZones' => 'المهن ومناطق التدخل',
+			'proProfile.testOnboardingPro' => 'تجربة تسجيل الحرفي',
+			'proProfile.testOnboardingClient' => 'تجربة تسجيل الحريف',
 			'profile.title' => 'الملف الشخصي',
 			'profile.accountFallback' => 'حسابي',
 			'profile.switchToProSpace' => 'التبديل إلى مساحة المحترفين',
@@ -959,6 +1092,11 @@ extension on TranslationsAr {
 			'settings.demoRoleClient' => 'وضع الحريف',
 			'settings.demoRolePro' => 'وضع الحرفي',
 			'settings.demoBanner' => 'الوضع التجريبي نشط',
+			'settings.testToolsSection' => 'أدوات تجربة مسار التسجيل',
+			'settings.testOnboardingPro' => 'تجربة تسجيل الحرفي',
+			'settings.testOnboardingProDesc' => 'بدء معالج التسجيل بـ 5 مراحل (الملف، المهن، المناطق، الصور، الملخص)',
+			'settings.testOnboardingClient' => 'تجربة ترحيب الحريف',
+			'settings.testOnboardingClientDesc' => 'بدء مسار الاكتشاف التفاعلي المخصص للحرفاء',
 			_ => null,
 		};
 	}

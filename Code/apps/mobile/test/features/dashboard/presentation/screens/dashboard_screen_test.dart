@@ -14,6 +14,7 @@ import 'package:sanaya/features/dashboard/application/dashboard_providers.dart';
 import 'package:sanaya/features/dashboard/data/dashboard_repository.dart';
 import 'package:sanaya/features/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:sanaya/features/dashboard/presentation/widgets/dashboard_kpi_card.dart';
+import 'package:sanaya/features/reviews/application/pro_reviews_providers.dart';
 
 class _DashboardRepositoryMock extends Mock implements DashboardRepository {}
 
@@ -78,6 +79,7 @@ Widget _wrap({
     overrides: [
       localeProvider.overrideWith((ref) => locale),
       dashboardRepositoryProvider.overrideWithValue(repository),
+      myProviderProfileProvider.overrideWith((ref) async => null),
     ],
     child: MaterialApp(
       locale: locale,
@@ -261,5 +263,64 @@ void main() {
         expect(directionality.textDirection, TextDirection.rtl);
       },
     );
+
+    testWidgets(
+      'affiche les sections enrichies : actions rapides, canaux, activité, '
+      'réputation et conseils pro',
+      (tester) async {
+        final repo = _DashboardRepositoryMock();
+        when(repo.fetchStats).thenAnswer((_) async => _buildStats());
+
+        await tester.pumpWidget(_wrap(repository: repo));
+        await tester.pumpAndSettle();
+
+        // 1. Actions rapides
+        expect(find.text('Actions rapides'), findsOneWidget);
+        expect(find.text('Partager'), findsOneWidget);
+        expect(find.text('Ma vitrine'), findsOneWidget);
+        expect(find.text('Booster'), findsOneWidget);
+        expect(find.text('Mon profil'), findsOneWidget);
+
+        // 2. Canaux de contact
+        expect(find.text('Répartition des contacts'), findsOneWidget);
+        expect(find.text('Appels directs'), findsOneWidget);
+        expect(find.text('Messages WhatsApp'), findsOneWidget);
+        expect(find.text('60 (67%)'), findsOneWidget);
+        expect(find.text('30 (33%)'), findsOneWidget);
+
+        // 3. Activité récente
+        expect(find.text('Activité récente & demandes'), findsOneWidget);
+        expect(find.text('Demande WhatsApp reçue'), findsOneWidget);
+        expect(find.text('Appel direct reçu'), findsOneWidget);
+
+        // 4. Réputation
+        expect(find.text('Avis & Réputation'), findsOneWidget);
+        expect(find.text('Consulter tous les avis'), findsOneWidget);
+
+        // 5. Conseils et bannière Boost
+        expect(find.text('Multipliez vos demandes par 3'), findsOneWidget);
+        expect(find.text('Conseils pour votre activité'), findsOneWidget);
+      },
+    );
+
+    testWidgets(
+      'affiche les sections enrichies traduites en arabe',
+      (tester) async {
+        final repo = _DashboardRepositoryMock();
+        when(repo.fetchStats).thenAnswer((_) async => _buildStats());
+
+        await tester.pumpWidget(
+          _wrap(repository: repo, locale: const Locale('ar')),
+        );
+        await tester.pumpAndSettle();
+
+        expect(find.text('إجراءات سريعة'), findsOneWidget);
+        expect(find.text('توزيع الاتصالات'), findsOneWidget);
+        expect(find.text('النشاط الأخير والطلبات'), findsOneWidget);
+        expect(find.text('التقييمات والسمعة'), findsOneWidget);
+        expect(find.text('نصائح لتطوير نشاطك'), findsOneWidget);
+      },
+    );
   });
 }
+

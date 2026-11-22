@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:sanaya/core/demo/demo_data.dart';
 import 'package:sanaya/core/demo/demo_mock_interceptor.dart';
 import 'package:sanaya/core/demo/demo_mode_provider.dart';
 
@@ -29,6 +30,10 @@ class _PassthroughAdapter implements HttpClientAdapter {
 }
 
 void main() {
+  setUp(() {
+    DemoData.reset();
+  });
+
   group('DemoMockInterceptor', () {
     test('passes through to network adapter when demoMode is false', () async {
       final dio = Dio();
@@ -112,6 +117,16 @@ void main() {
         data: {'rating': 5, 'comment': 'Top !'},
       );
       expect(postReview.statusCode, 201);
+      expect(postReview.data?['comment'], 'Top !');
+
+      final reviewsAfter = await dio.get<Map<String, dynamic>>(
+        '/v1/providers/sami-mansour-electricite/reviews',
+      );
+      final reviewItems = reviewsAfter.data?['items'] as List<dynamic>;
+      expect(
+        reviewItems.any((r) => r['comment'] == 'Top !' && r['rating'] == 5),
+        isTrue,
+      );
     });
 
     test('intercepts /v1/auth/me for client, provider, and guest', () async {
@@ -173,16 +188,31 @@ void main() {
       expect(favs.statusCode, 200);
       expect(favs.data?['items'], isA<List<dynamic>>());
 
-      final addFav = await dio.post<Map<String, dynamic>>(
-        '/v1/favorites',
-        data: {'providerId': 'prov-1'},
+      // PUT /v1/favorites/:providerId (contrat OpenAPI v1FavoritesProviderIdPut)
+      final putFav = await dio.put<Map<String, dynamic>>(
+        '/v1/favorites/prov-29',
       );
-      expect(addFav.statusCode, 201);
+      expect(putFav.statusCode, 200);
 
+      final favsAfterPut = await dio.get<Map<String, dynamic>>('/v1/favorites');
+      final itemsAfterPut = favsAfterPut.data?['items'] as List<dynamic>;
+      expect(
+        itemsAfterPut.any((item) => item['providerId'] == 'prov-29'),
+        isTrue,
+      );
+
+      // DELETE /v1/favorites/:providerId
       final delFav = await dio.delete<Map<String, dynamic>>(
-        '/v1/favorites/prov-1',
+        '/v1/favorites/prov-29',
       );
       expect(delFav.statusCode, 200);
+
+      final favsAfterDel = await dio.get<Map<String, dynamic>>('/v1/favorites');
+      final itemsAfterDel = favsAfterDel.data?['items'] as List<dynamic>;
+      expect(
+        itemsAfterDel.any((item) => item['providerId'] == 'prov-29'),
+        isFalse,
+      );
 
       final contact = await dio.post<Map<String, dynamic>>(
         '/v1/providers/sami-mansour-electricite/contact-events',

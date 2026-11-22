@@ -290,6 +290,114 @@ class Translations$dashboard$fr {
 
 	/// fr: 'Vérifiez votre connexion et réessayez.'
 	String get errorMessage => 'Vérifiez votre connexion et réessayez.';
+
+	/// fr: 'Actions rapides'
+	String get quickActionsTitle => 'Actions rapides';
+
+	/// fr: 'Partager'
+	String get actionShare => 'Partager';
+
+	/// fr: 'Ma vitrine'
+	String get actionPublicProfile => 'Ma vitrine';
+
+	/// fr: 'Booster'
+	String get actionBoost => 'Booster';
+
+	/// fr: 'Mon profil'
+	String get actionEditProfile => 'Mon profil';
+
+	/// fr: 'Lien de votre profil copié dans le presse-papier'
+	String get profileLinkCopied => 'Lien de votre profil copié dans le presse-papier';
+
+	/// fr: 'Répartition des contacts'
+	String get channelsTitle => 'Répartition des contacts';
+
+	/// fr: 'Canaux utilisés par vos clients'
+	String get channelsSubtitle => 'Canaux utilisés par vos clients';
+
+	/// fr: 'Appels directs'
+	String get channelPhone => 'Appels directs';
+
+	/// fr: 'Messages WhatsApp'
+	String get channelWhatsapp => 'Messages WhatsApp';
+
+	/// fr: 'Activité récente & demandes'
+	String get recentActivityTitle => 'Activité récente & demandes';
+
+	/// fr: 'Dernières interactions reçues'
+	String get recentActivitySubtitle => 'Dernières interactions reçues';
+
+	/// fr: 'Demande WhatsApp reçue'
+	String get recentLeadWhatsappTitle => 'Demande WhatsApp reçue';
+
+	/// fr: 'Plomberie & sanitaires • Sousse (Khzema)'
+	String get recentLeadWhatsappDesc => 'Plomberie & sanitaires • Sousse (Khzema)';
+
+	/// fr: 'Appel direct reçu'
+	String get recentLeadPhoneTitle => 'Appel direct reçu';
+
+	/// fr: 'Dépannage électrique urgent • Monastir'
+	String get recentLeadPhoneDesc => 'Dépannage électrique urgent • Monastir';
+
+	/// fr: 'Nouvel avis 5 étoiles'
+	String get recentLeadReviewTitle => 'Nouvel avis 5 étoiles';
+
+	/// fr: '« Ponctuel et travail propre ! » • Karim B.'
+	String get recentLeadReviewDesc => '« Ponctuel et travail propre ! » • Karim B.';
+
+	/// fr: 'Il y a 2h'
+	String get time2hAgo => 'Il y a 2h';
+
+	/// fr: 'Il y a 5h'
+	String get time5hAgo => 'Il y a 5h';
+
+	/// fr: 'Hier'
+	String get timeYesterday => 'Hier';
+
+	/// fr: 'Avis & Réputation'
+	String get reputationTitle => 'Avis & Réputation';
+
+	/// fr: '$rating sur 5'
+	String reputationRating({required Object rating}) => '${rating} sur 5';
+
+	/// fr: '$count avis vérifiés'
+	String reputationCount({required Object count}) => '${count} avis vérifiés';
+
+	/// fr: 'Artisan Recommandé au Sahel'
+	String get reputationBadge => 'Artisan Recommandé au Sahel';
+
+	/// fr: '« Excellent travail, ponctuel et très professionnel pour l'installation du tableau électrique. »'
+	String get reputationLatestReview => '« Excellent travail, ponctuel et très professionnel pour l\'installation du tableau électrique. »';
+
+	/// fr: '— Karim B., Sousse'
+	String get reputationAuthor => '— Karim B., Sousse';
+
+	/// fr: 'Consulter tous les avis'
+	String get reputationSeeAll => 'Consulter tous les avis';
+
+	/// fr: 'Multipliez vos demandes par 3'
+	String get boostBannerTitle => 'Multipliez vos demandes par 3';
+
+	/// fr: 'Apparaissez en tête des résultats de recherche à Sousse et Monastir.'
+	String get boostBannerSubtitle => 'Apparaissez en tête des résultats de recherche à Sousse et Monastir.';
+
+	/// fr: 'Découvrir les Boosts'
+	String get boostBannerCta => 'Découvrir les Boosts';
+
+	/// fr: 'Conseils pour votre activité'
+	String get proTipsTitle => 'Conseils pour votre activité';
+
+	/// fr: 'Réactivité maximale'
+	String get tipResponsivenessTitle => 'Réactivité maximale';
+
+	/// fr: 'Répondre aux appels et messages dans les 15 minutes double le taux de confirmation de chantier.'
+	String get tipResponsivenessDesc => 'Répondre aux appels et messages dans les 15 minutes double le taux de confirmation de chantier.';
+
+	/// fr: 'Ajoutez des photos de chantiers'
+	String get tipPhotosTitle => 'Ajoutez des photos de chantiers';
+
+	/// fr: 'Les fiches avec des photos de réalisations génèrent jusqu'à 70% de contacts en plus.'
+	String get tipPhotosDesc => 'Les fiches avec des photos de réalisations génèrent jusqu\'à 70% de contacts en plus.';
 }
 
 // Path: errors
@@ -605,6 +713,39 @@ class Translations$onboarding$fr {
 
 	/// fr: 'Un numéro WhatsApp ou public'
 	String get missingContactPhone => 'Un numéro WhatsApp ou public';
+
+	/// fr: 'Bienvenue sur Sanaya'
+	String get clientWelcomeTitle => 'Bienvenue sur Sanaya';
+
+	/// fr: 'Trouvez les meilleurs artisans au Sahel tunisien en toute confiance.'
+	String get clientWelcomeSubtitle => 'Trouvez les meilleurs artisans au Sahel tunisien en toute confiance.';
+
+	/// fr: 'Trouvez l'artisan idéal'
+	String get clientStep1Title => 'Trouvez l\'artisan idéal';
+
+	/// fr: 'Plombiers, électriciens, peintres, climatiseurs... Des professionnels qualifiés et disponibles près de chez vous.'
+	String get clientStep1Desc => 'Plombiers, électriciens, peintres, climatiseurs... Des professionnels qualifiés et disponibles près de chez vous.';
+
+	/// fr: 'Confiance & Avis vérifiés'
+	String get clientStep2Title => 'Confiance & Avis vérifiés';
+
+	/// fr: 'Artisans vérifiés par pièce d'identité (CIN) et avis authentiques déposés uniquement après contact réel.'
+	String get clientStep2Desc => 'Artisans vérifiés par pièce d\'identité (CIN) et avis authentiques déposés uniquement après contact réel.';
+
+	/// fr: 'Contact direct & 100% gratuit'
+	String get clientStep3Title => 'Contact direct & 100% gratuit';
+
+	/// fr: 'Appel ou WhatsApp direct sans commission ni intermédiaire. Vous convenez du chantier directement avec l'artisan.'
+	String get clientStep3Desc => 'Appel ou WhatsApp direct sans commission ni intermédiaire. Vous convenez du chantier directement avec l\'artisan.';
+
+	/// fr: 'Votre gouvernorat de recherche :'
+	String get clientChooseGovernorate => 'Votre gouvernorat de recherche :';
+
+	/// fr: 'Commencer à chercher'
+	String get clientStartExploring => 'Commencer à chercher';
+
+	/// fr: 'Passer l'introduction'
+	String get clientSkip => 'Passer l\'introduction';
 }
 
 // Path: proProfile
@@ -656,6 +797,57 @@ class Translations$proProfile$fr {
 
 	/// fr: 'Voir ma fiche telle que la voit un client'
 	String get viewMyListing => 'Voir ma fiche telle que la voit un client';
+
+	/// fr: 'Complétude du profil'
+	String get completionTitle => 'Complétude du profil';
+
+	/// fr: 'Profil complété à {score} %'
+	String get completionLabel => 'Profil complété à {score} %';
+
+	/// fr: 'Un profil complet reçoit en moyenne 3 fois plus de contacts.'
+	String get completionTip => 'Un profil complet reçoit en moyenne 3 fois plus de contacts.';
+
+	/// fr: 'Modifier via l'assistant complet'
+	String get relaunchOnboarding => 'Modifier via l\'assistant complet';
+
+	/// fr: '{years} ans d'expérience'
+	String get yearsExperience => '{years} ans d\'expérience';
+
+	/// fr: 'Artisan Vérifié'
+	String get verifiedBadge => 'Artisan Vérifié';
+
+	/// fr: 'Vérification en attente'
+	String get unverifiedBadge => 'Vérification en attente';
+
+	/// fr: 'Vues de profil'
+	String get statsViews => 'Vues de profil';
+
+	/// fr: 'Contacts reçus'
+	String get statsContacts => 'Contacts reçus';
+
+	/// fr: 'Note moyenne'
+	String get statsRating => 'Note moyenne';
+
+	/// fr: 'Vitrine publique'
+	String get publicPreviewTitle => 'Vitrine publique';
+
+	/// fr: 'Consultez votre fiche telle qu'elle apparaît pour vos futurs clients'
+	String get publicPreviewSubtitle => 'Consultez votre fiche telle qu\'elle apparaît pour vos futurs clients';
+
+	/// fr: 'Galerie & Réalisations'
+	String get portfolioSection => 'Galerie & Réalisations';
+
+	/// fr: 'Photos de vos réalisations et chantiers'
+	String get portfolioDesc => 'Photos de vos réalisations et chantiers';
+
+	/// fr: 'Métiers & Zones d'intervention'
+	String get categoriesAndZones => 'Métiers & Zones d\'intervention';
+
+	/// fr: 'Tester l'onboarding Pro'
+	String get testOnboardingPro => 'Tester l\'onboarding Pro';
+
+	/// fr: 'Tester l'onboarding Particulier'
+	String get testOnboardingClient => 'Tester l\'onboarding Particulier';
 }
 
 // Path: profile
@@ -894,6 +1086,21 @@ class Translations$settings$fr {
 
 	/// fr: 'Mode Démo actif'
 	String get demoBanner => 'Mode Démo actif';
+
+	/// fr: 'Outils de Test Onboarding'
+	String get testToolsSection => 'Outils de Test Onboarding';
+
+	/// fr: 'Tester l'onboarding Pro'
+	String get testOnboardingPro => 'Tester l\'onboarding Pro';
+
+	/// fr: 'Lancer l'assistant 5 étapes (profil, métiers, zones, photos, récap)'
+	String get testOnboardingProDesc => 'Lancer l\'assistant 5 étapes (profil, métiers, zones, photos, récap)';
+
+	/// fr: 'Tester l'onboarding Particulier'
+	String get testOnboardingClient => 'Tester l\'onboarding Particulier';
+
+	/// fr: 'Lancer le parcours interactif de découverte pour les clients'
+	String get testOnboardingClientDesc => 'Lancer le parcours interactif de découverte pour les clients';
 }
 
 // Path: common.home
@@ -1431,6 +1638,42 @@ extension on Translations {
 			'dashboard.retry' => 'Réessayer',
 			'dashboard.errorTitle' => 'Impossible de charger le tableau de bord',
 			'dashboard.errorMessage' => 'Vérifiez votre connexion et réessayez.',
+			'dashboard.quickActionsTitle' => 'Actions rapides',
+			'dashboard.actionShare' => 'Partager',
+			'dashboard.actionPublicProfile' => 'Ma vitrine',
+			'dashboard.actionBoost' => 'Booster',
+			'dashboard.actionEditProfile' => 'Mon profil',
+			'dashboard.profileLinkCopied' => 'Lien de votre profil copié dans le presse-papier',
+			'dashboard.channelsTitle' => 'Répartition des contacts',
+			'dashboard.channelsSubtitle' => 'Canaux utilisés par vos clients',
+			'dashboard.channelPhone' => 'Appels directs',
+			'dashboard.channelWhatsapp' => 'Messages WhatsApp',
+			'dashboard.recentActivityTitle' => 'Activité récente & demandes',
+			'dashboard.recentActivitySubtitle' => 'Dernières interactions reçues',
+			'dashboard.recentLeadWhatsappTitle' => 'Demande WhatsApp reçue',
+			'dashboard.recentLeadWhatsappDesc' => 'Plomberie & sanitaires • Sousse (Khzema)',
+			'dashboard.recentLeadPhoneTitle' => 'Appel direct reçu',
+			'dashboard.recentLeadPhoneDesc' => 'Dépannage électrique urgent • Monastir',
+			'dashboard.recentLeadReviewTitle' => 'Nouvel avis 5 étoiles',
+			'dashboard.recentLeadReviewDesc' => '« Ponctuel et travail propre ! » • Karim B.',
+			'dashboard.time2hAgo' => 'Il y a 2h',
+			'dashboard.time5hAgo' => 'Il y a 5h',
+			'dashboard.timeYesterday' => 'Hier',
+			'dashboard.reputationTitle' => 'Avis & Réputation',
+			'dashboard.reputationRating' => ({required Object rating}) => '${rating} sur 5',
+			'dashboard.reputationCount' => ({required Object count}) => '${count} avis vérifiés',
+			'dashboard.reputationBadge' => 'Artisan Recommandé au Sahel',
+			'dashboard.reputationLatestReview' => '« Excellent travail, ponctuel et très professionnel pour l\'installation du tableau électrique. »',
+			'dashboard.reputationAuthor' => '— Karim B., Sousse',
+			'dashboard.reputationSeeAll' => 'Consulter tous les avis',
+			'dashboard.boostBannerTitle' => 'Multipliez vos demandes par 3',
+			'dashboard.boostBannerSubtitle' => 'Apparaissez en tête des résultats de recherche à Sousse et Monastir.',
+			'dashboard.boostBannerCta' => 'Découvrir les Boosts',
+			'dashboard.proTipsTitle' => 'Conseils pour votre activité',
+			'dashboard.tipResponsivenessTitle' => 'Réactivité maximale',
+			'dashboard.tipResponsivenessDesc' => 'Répondre aux appels et messages dans les 15 minutes double le taux de confirmation de chantier.',
+			'dashboard.tipPhotosTitle' => 'Ajoutez des photos de chantiers',
+			'dashboard.tipPhotosDesc' => 'Les fiches avec des photos de réalisations génèrent jusqu\'à 70% de contacts en plus.',
 			'errors.routeNotFoundTitle' => 'Page introuvable',
 			'errors.routeNotFoundMessage' => 'Cette page n\'existe pas ou n\'est plus disponible.',
 			'errors.routeNotFoundAction' => 'Retour à l\'accueil',
@@ -1521,6 +1764,17 @@ extension on Translations {
 			'onboarding.missingHeadline' => 'Un titre',
 			'onboarding.missingYearsExperience' => 'Vos années d\'expérience',
 			'onboarding.missingContactPhone' => 'Un numéro WhatsApp ou public',
+			'onboarding.clientWelcomeTitle' => 'Bienvenue sur Sanaya',
+			'onboarding.clientWelcomeSubtitle' => 'Trouvez les meilleurs artisans au Sahel tunisien en toute confiance.',
+			'onboarding.clientStep1Title' => 'Trouvez l\'artisan idéal',
+			'onboarding.clientStep1Desc' => 'Plombiers, électriciens, peintres, climatiseurs... Des professionnels qualifiés et disponibles près de chez vous.',
+			'onboarding.clientStep2Title' => 'Confiance & Avis vérifiés',
+			'onboarding.clientStep2Desc' => 'Artisans vérifiés par pièce d\'identité (CIN) et avis authentiques déposés uniquement après contact réel.',
+			'onboarding.clientStep3Title' => 'Contact direct & 100% gratuit',
+			'onboarding.clientStep3Desc' => 'Appel ou WhatsApp direct sans commission ni intermédiaire. Vous convenez du chantier directement avec l\'artisan.',
+			'onboarding.clientChooseGovernorate' => 'Votre gouvernorat de recherche :',
+			'onboarding.clientStartExploring' => 'Commencer à chercher',
+			'onboarding.clientSkip' => 'Passer l\'introduction',
 			'proProfile.title' => 'Profil',
 			'proProfile.emptyTitle' => 'Profil introuvable',
 			'proProfile.emptyMessage' => 'Aucun profil artisan n\'est associé à ce compte.',
@@ -1535,6 +1789,23 @@ extension on Translations {
 			'proProfile.save' => 'Enregistrer',
 			'proProfile.saveSuccess' => 'Profil mis à jour',
 			'proProfile.viewMyListing' => 'Voir ma fiche telle que la voit un client',
+			'proProfile.completionTitle' => 'Complétude du profil',
+			'proProfile.completionLabel' => 'Profil complété à {score} %',
+			'proProfile.completionTip' => 'Un profil complet reçoit en moyenne 3 fois plus de contacts.',
+			'proProfile.relaunchOnboarding' => 'Modifier via l\'assistant complet',
+			'proProfile.yearsExperience' => '{years} ans d\'expérience',
+			'proProfile.verifiedBadge' => 'Artisan Vérifié',
+			'proProfile.unverifiedBadge' => 'Vérification en attente',
+			'proProfile.statsViews' => 'Vues de profil',
+			'proProfile.statsContacts' => 'Contacts reçus',
+			'proProfile.statsRating' => 'Note moyenne',
+			'proProfile.publicPreviewTitle' => 'Vitrine publique',
+			'proProfile.publicPreviewSubtitle' => 'Consultez votre fiche telle qu\'elle apparaît pour vos futurs clients',
+			'proProfile.portfolioSection' => 'Galerie & Réalisations',
+			'proProfile.portfolioDesc' => 'Photos de vos réalisations et chantiers',
+			'proProfile.categoriesAndZones' => 'Métiers & Zones d\'intervention',
+			'proProfile.testOnboardingPro' => 'Tester l\'onboarding Pro',
+			'proProfile.testOnboardingClient' => 'Tester l\'onboarding Particulier',
 			'profile.title' => 'Profil',
 			'profile.accountFallback' => 'Mon compte',
 			'profile.switchToProSpace' => 'Passer en espace Pro',
@@ -1636,6 +1907,11 @@ extension on Translations {
 			'settings.demoRoleClient' => 'Mode Client',
 			'settings.demoRolePro' => 'Mode Artisan Pro',
 			'settings.demoBanner' => 'Mode Démo actif',
+			'settings.testToolsSection' => 'Outils de Test Onboarding',
+			'settings.testOnboardingPro' => 'Tester l\'onboarding Pro',
+			'settings.testOnboardingProDesc' => 'Lancer l\'assistant 5 étapes (profil, métiers, zones, photos, récap)',
+			'settings.testOnboardingClient' => 'Tester l\'onboarding Particulier',
+			'settings.testOnboardingClientDesc' => 'Lancer le parcours interactif de découverte pour les clients',
 			_ => null,
 		};
 	}

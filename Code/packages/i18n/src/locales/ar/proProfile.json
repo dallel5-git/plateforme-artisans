@@ -12,5 +12,22 @@
   "editSection": "تعديل ملفي الشخصي",
   "save": "حفظ",
   "saveSuccess": "تم تحديث الملف الشخصي",
-  "viewMyListing": "شاهد ملفي كما يراه العميل"
+  "viewMyListing": "شاهد ملفي كما يراه العميل",
+  "completionTitle": "اكتمال الملف الشخصي",
+  "completionLabel": "الملف مكتمل بنسبة {score} %",
+  "completionTip": "الملف المكتمل يحصل على 3 أضعاف طلبات الاتصال في المتوسط.",
+  "relaunchOnboarding": "تعديل عبر معالج التسجيل الكامل",
+  "yearsExperience": "{years} سنوات خبرة",
+  "verifiedBadge": "حرفي موثّق",
+  "unverifiedBadge": "في انتظار التوثيق",
+  "statsViews": "مشاهدات الملف",
+  "statsContacts": "اتصالات واردة",
+  "statsRating": "متوسط التقييم",
+  "publicPreviewTitle": "الواجهة العامة",
+  "publicPreviewSubtitle": "اطلع على بطاقتك كما تظهر للحرفاء والباحثين عن خدمات",
+  "portfolioSection": "معرض الأعمال والإنجازات",
+  "portfolioDesc": "صور لمشاريعك وتدخلاتك السابقة",
+  "categoriesAndZones": "المهن ومناطق التدخل",
+  "testOnboardingPro": "تجربة تسجيل الحرفي",
+  "testOnboardingClient": "تجربة تسجيل الحريف"
 }

@@ -46,5 +46,16 @@
   "missingBio": "نبذة من 50 حرفًا على الأقل",
   "missingHeadline": "عنوان",
   "missingYearsExperience": "سنوات خبرتك",
-  "missingContactPhone": "رقم واتساب أو رقم عام"
+  "missingContactPhone": "رقم واتساب أو رقم عام",
+  "clientWelcomeTitle": "مرحباً بك في صنايعية",
+  "clientWelcomeSubtitle": "اعثر على أفضل الحرفيين في الساحل التونسي بكل ثقة وسهولة.",
+  "clientStep1Title": "اعثر على الحرفي المناسب",
+  "clientStep1Desc": "سباكون، كهربائيون، دهانون، فنيو تكييف... محترفون مؤهلون ومتوفرون بالقرب منك.",
+  "clientStep2Title": "ثقة وتقييمات موثقة",
+  "clientStep2Desc": "حرفيون موثقون ببطاقة التعريف الوطنية، وتقييمات حقيقية يكتبها حُرفاء اتصلوا فعلياً بالحرفي.",
+  "clientStep3Title": "اتصال مباشر ومجاني 100%",
+  "clientStep3Desc": "اتصال أو واتساب مباشر دون عمولة وبلا وسيط. اتفق على تفاصيل العمل مباشرة مع الحرفي.",
+  "clientChooseGovernorate": "ولايتك المفضلة للبحث :",
+  "clientStartExploring": "ابدأ البحث الآن",
+  "clientSkip": "تخطي المقدمة"
 }

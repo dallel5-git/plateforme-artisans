@@ -46,5 +46,16 @@
   "missingBio": "Une présentation d'au moins 50 caractères",
   "missingHeadline": "Un titre",
   "missingYearsExperience": "Vos années d'expérience",
-  "missingContactPhone": "Un numéro WhatsApp ou public"
+  "missingContactPhone": "Un numéro WhatsApp ou public",
+  "clientWelcomeTitle": "Bienvenue sur Sanaya",
+  "clientWelcomeSubtitle": "Trouvez les meilleurs artisans au Sahel tunisien en toute confiance.",
+  "clientStep1Title": "Trouvez l'artisan idéal",
+  "clientStep1Desc": "Plombiers, électriciens, peintres, climatiseurs... Des professionnels qualifiés et disponibles près de chez vous.",
+  "clientStep2Title": "Confiance & Avis vérifiés",
+  "clientStep2Desc": "Artisans vérifiés par pièce d'identité (CIN) et avis authentiques déposés uniquement après contact réel.",
+  "clientStep3Title": "Contact direct & 100% gratuit",
+  "clientStep3Desc": "Appel ou WhatsApp direct sans commission ni intermédiaire. Vous convenez du chantier directement avec l'artisan.",
+  "clientChooseGovernorate": "Votre gouvernorat de recherche :",
+  "clientStartExploring": "Commencer à chercher",
+  "clientSkip": "Passer l'introduction"
 }

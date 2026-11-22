@@ -9,22 +9,20 @@ class _KpiItem extends StatelessWidget {
   const _KpiItem({
     required this.label,
     required this.value,
-    this.flex = 1,
   });
 
   final String label;
   final String value;
-  final int flex;
 
   @override
   Widget build(BuildContext context) {
     final locale = Localizations.localeOf(context);
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
     // Hérite du thème du parent (fond accent) via InheritedWidget — les
     // couleurs `onAccent` sont appliquées ici via DefaultTextStyle.
     final style = DefaultTextStyle.of(context).style;
 
     return Expanded(
-      flex: flex,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -37,11 +35,14 @@ class _KpiItem extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: AppSpacing.xxs),
-          Text(
-            value,
-            style: AppText.h2(locale).copyWith(color: style.color),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: isRtl ? Alignment.centerRight : Alignment.centerLeft,
+            child: Text(
+              value,
+              style: AppText.h2(locale).copyWith(color: style.color),
+              maxLines: 1,
+            ),
           ),
         ],
       ),
@@ -131,22 +132,20 @@ class DashboardKpiCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Ligne 1 : Vues | Contacts | Ratio (flex 2 | 2 | 1)
+            // Ligne 1 : Vues | Contacts | Ratio équilibrés
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _KpiItem(
                   label: viewsLabel,
                   value: viewsValue,
-                  flex: 2,
                 ),
-                const SizedBox(width: AppSpacing.md),
+                const SizedBox(width: AppSpacing.sm),
                 _KpiItem(
                   label: contactsLabel,
                   value: contactsValue,
-                  flex: 2,
                 ),
-                const SizedBox(width: AppSpacing.md),
+                const SizedBox(width: AppSpacing.sm),
                 _KpiItem(
                   label: ratioLabel,
                   value: ratioValue,
