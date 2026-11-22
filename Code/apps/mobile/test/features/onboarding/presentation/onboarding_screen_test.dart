@@ -4,6 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:sanaya/app/theme.dart';
+import 'package:sanaya/core/api/api_client_provider.dart';
+import 'package:sanaya/core/api/auth_token_store.dart';
 import 'package:sanaya/core/api/generated/api.dart';
 import 'package:sanaya/core/i18n/translations.g.dart';
 import 'package:sanaya/core/widgets/app_text_field.dart';
@@ -14,6 +16,8 @@ import 'package:sanaya/features/search/application/catalog_providers.dart';
 import 'package:sanaya/features/search/data/catalog_repository.dart';
 
 class MockOnboardingRepository extends Mock implements OnboardingRepository {}
+
+class MockAuthTokenStore extends Mock implements AuthTokenStore {}
 
 class _FakePostRequest extends Fake implements V1ProvidersMePostRequest {}
 
@@ -135,10 +139,19 @@ void main() {
       // (mauvais provider, mauvais callback) ne serait détectée par aucun
       // des tests unitaires de plus bas niveau (notifier seul, widgets seuls).
       final mockRepo = MockOnboardingRepository();
+      final mockAuthTokenStore = MockAuthTokenStore();
+      when(
+        () => mockAuthTokenStore.saveSession(
+          accessToken: any(named: 'accessToken'),
+          refreshToken: any(named: 'refreshToken'),
+        ),
+      ).thenAnswer((_) async {});
       final providerMock = MockProviderMe();
       when(() => providerMock.completionScore).thenReturn(36);
       final responseMock = MockCreateResponse();
       when(() => responseMock.provider).thenReturn(providerMock);
+      when(() => responseMock.accessToken).thenReturn('mock-token');
+      when(() => responseMock.refreshToken).thenReturn('mock-refresh');
       when(
         () => mockRepo.createProfile(any()),
       ).thenAnswer((_) async => responseMock);
@@ -150,6 +163,7 @@ void main() {
         ProviderScope(
           overrides: [
             onboardingRepositoryProvider.overrideWithValue(mockRepo),
+            authTokenStoreProvider.overrideWithValue(mockAuthTokenStore),
             categoriesProvider.overrideWith((ref) async => []),
             governoratesProvider.overrideWith(
               (ref) async => [_governorate('sousse', 'Sousse')],
