@@ -68,16 +68,16 @@ final router = GoRouter(
     final isProviderSession =
         status != null && status.isAuthenticated && status.isProvider;
 
-    // FM-24 : /pro/* exige une session PROVIDER — jamais de 401 brut.
-    // Anonyme → /auth ("devenir prestataire" : décision validée avec
-    // Oussama de réutiliser l'écran de sélection de rôle existant plutôt
-    // que construire un nouvel écran, hors budget de l'issue). CLIENT déjà
-    // authentifié → /client (pas /auth : la règle `onEntryRoute` ci-dessous
-    // fait déjà rebondir tout utilisateur authentifié hors de /auth, donc y
-    // renvoyer un CLIENT créerait une boucle silencieuse vers /client de
-    // toute façon — autant y aller directement, sans repasser par un écran
-    // de ré-authentification trompeur pour un compte déjà connecté).
+    // FM-24 / MOB-001 : /pro/* exige une session PROVIDER — sauf /pro/onboarding
+    // qui est accessible à tout utilisateur authentifié (ex. un compte CLIENT
+    // souhaitant créer son profil artisan).
+    // Anonyme sur /pro/* (y compris /pro/onboarding) → /auth.
+    // CLIENT sur /pro/onboarding → accès autorisé (null).
+    // CLIENT sur toute autre route /pro/* → /client.
     if (onProSubtree && !isProviderSession) {
+      if (loc == '/pro/onboarding' && status != null && status.isAuthenticated) {
+        return null;
+      }
       return status != null && status.isAuthenticated ? '/client' : '/auth';
     }
 
