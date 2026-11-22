@@ -161,20 +161,43 @@ class DemoMockInterceptor extends Interceptor {
       return;
     }
     if (path.contains('contact-events') && method == 'POST') {
-      final reqMap = options.data is Map<String, dynamic>
-          ? options.data as Map<String, dynamic>
-          : <String, dynamic>{};
-      final providerId = (reqMap['providerId'] as String?) ?? 'prov-1';
-      final channel = (reqMap['channel'] as String?) ?? 'PHONE';
+      String? providerId;
+      String? channel;
+      if (options.data is Map) {
+        final map = options.data as Map;
+        providerId = map['providerId']?.toString();
+        channel = map['channel']?.toString();
+      } else if (options.data is List) {
+        final list = options.data as List;
+        for (var i = 0; i < list.length - 1; i++) {
+          if (list[i] == 'providerId') {
+            providerId = list[i + 1]?.toString();
+          } else if (list[i] == 'channel') {
+            channel = list[i + 1]?.toString();
+          }
+        }
+      }
+      if (providerId == null || providerId.isEmpty) {
+        if (path.contains('/providers/')) {
+          providerId = _extractSlug(path);
+        }
+      }
+      providerId ??= 'prov-1';
+      channel ??= 'PHONE';
+
+      final created = DemoData.addContactEvent(
+        providerIdOrSlug: providerId,
+        channel: channel,
+      );
+
       handler.resolve(
         Response(
           requestOptions: options,
           statusCode: 201,
           data: {
-            'contactEventId':
-                'evt-new-${DateTime.now().millisecondsSinceEpoch}',
-            'providerId': providerId,
-            'channel': channel,
+            'contactEventId': created['id'],
+            'providerId': created['providerId'],
+            'channel': created['channel'],
             'phone': '+21698123456',
             'whatsappMessage': 'Bonjour, je vous contacte via Sanaya.',
             'deduplicated': false,
@@ -183,6 +206,7 @@ class DemoMockInterceptor extends Interceptor {
       );
       return;
     }
+
 
     // 9. Utilisateur authentifié (GET /auth/me)
     if (path.contains('/v1/auth/me') && method == 'GET') {

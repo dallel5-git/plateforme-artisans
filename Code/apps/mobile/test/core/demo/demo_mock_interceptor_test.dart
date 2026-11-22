@@ -215,11 +215,23 @@ void main() {
       );
 
       final contact = await dio.post<Map<String, dynamic>>(
-        '/v1/providers/sami-mansour-electricite/contact-events',
-        data: {'channel': 'PHONE'},
+        '/v1/contact-events',
+        data: {'providerId': 'prov-10', 'channel': 'PHONE'},
       );
       expect(contact.statusCode, 201);
+      expect(contact.data?['providerId'], 'prov-10');
+
+      final eventsRes =
+          await dio.get<Map<String, dynamic>>('/v1/contact-events');
+      expect(eventsRes.statusCode, 200);
+      final events = eventsRes.data?['items'] as List<dynamic>;
+      final first = events.first as Map<String, dynamic>;
+      expect(first['providerId'], 'prov-10');
+      expect(first['businessName'], 'Chokri Ghrab');
+      expect(first['channel'], 'PHONE');
     });
+
+
 
     test('intercepts /v1/providers/me/stats', () async {
       final dio = Dio()

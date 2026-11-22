@@ -2397,6 +2397,50 @@ class DemoData {
         'nextCursor': '',
       };
 
+  static Map<String, dynamic> addContactEvent({
+    required String providerIdOrSlug,
+    required String channel,
+  }) {
+    final provider = providersList.firstWhere(
+      (p) => p['id'] == providerIdOrSlug || p['slug'] == providerIdOrSlug,
+      orElse: () => <String, dynamic>{},
+    );
+
+    final providerId = (provider['id'] as String?) ?? providerIdOrSlug;
+    final slug = (provider['slug'] as String?) ?? providerIdOrSlug;
+    final businessName = (provider['businessName'] as String?) ?? 'Artisan';
+
+    var categoryName = 'Artisanat';
+    final categories = provider['categories'] as List<dynamic>?;
+    if (categories != null && categories.isNotEmpty) {
+      final firstCat = categories.first as Map<String, dynamic>;
+      categoryName = (firstCat['nameFr'] as String?) ?? 'Artisanat';
+    }
+
+    final newEvent = <String, dynamic>{
+      'id': 'evt-${DateTime.now().millisecondsSinceEpoch}',
+      'providerId': providerId,
+      'slug': slug,
+      'businessName': businessName,
+      'channel': channel.toUpperCase(),
+      'categoryName': categoryName,
+      'hasReview': false,
+      'contactedAt': DateTime.now().toIso8601String(),
+    };
+
+    _demoContactEvents
+      ..removeWhere(
+        (e) =>
+            (e['providerId'] == providerId || e['slug'] == slug) &&
+            e['channel'] == channel.toUpperCase(),
+      )
+      ..insert(0, newEvent);
+
+    return newEvent;
+
+  }
+
+
   static void reset() {
     _demoFavorites =
         _initialFavorites.map((e) => Map<String, dynamic>.from(e)).toList();
