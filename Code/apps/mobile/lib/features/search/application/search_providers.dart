@@ -53,11 +53,27 @@ class SearchResultsState {
   }
 }
 
-SearchResultsState _stateFromPage(SearchResultsPage page) => SearchResultsState(
-  items: page.items.toList(),
-  nextCursor: page.nextCursor,
-  isLoadingMore: false,
-);
+SearchResultsState _stateFromPage(SearchResultsPage page, [String? query]) {
+  var items = page.items.toList();
+  if (query != null && query.trim().isNotEmpty) {
+    final q = query.trim().toLowerCase();
+    items = items.where((item) {
+      final bName = item.businessName.toLowerCase();
+      final headline = item.headline.toLowerCase();
+      final matchCat = item.categories.any((c) {
+        return c.nameFr.toLowerCase().contains(q) ||
+            c.nameAr.toLowerCase().contains(q) ||
+            c.slug.toLowerCase().contains(q);
+      });
+      return bName.contains(q) || headline.contains(q) || matchCat;
+    }).toList();
+  }
+  return SearchResultsState(
+    items: items,
+    nextCursor: page.nextCursor,
+    isLoadingMore: false,
+  );
+}
 
 // ---------------------------------------------------------------------------
 // Résultats de recherche paginés — notifier
@@ -102,9 +118,10 @@ class SearchResultsNotifier
     try {
       final repo = ref.read(searchRepositoryProvider);
       final page = await repo.search(arg, cursor: current.nextCursor);
+      final newItems = _stateFromPage(page, arg.query).items;
       state = AsyncData(
         current.copyWith(
-          items: [...current.items, ...page.items],
+          items: [...current.items, ...newItems],
           nextCursor: page.nextCursor,
           isLoadingMore: false,
         ),
@@ -137,10 +154,10 @@ class SearchResultsNotifier
     try {
       final page = await repo.search(filters);
       unawaited(cache.writeFirstPage(filters, page));
-      return _stateFromPage(page);
+      return _stateFromPage(page, filters.query);
     } on Object catch (error, stackTrace) {
       final cached = await cache.readFirstPage(filters);
-      if (cached != null) return _stateFromPage(cached);
+      if (cached != null) return _stateFromPage(cached, filters.query);
       Error.throwWithStackTrace(error, stackTrace);
     }
   }

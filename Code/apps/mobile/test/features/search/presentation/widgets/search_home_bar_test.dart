@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sanaya/app/theme.dart';
+import 'package:sanaya/core/api/generated/api.dart';
 import 'package:sanaya/core/i18n/translations.g.dart';
 import 'package:sanaya/features/search/presentation/widgets/search_home_bar.dart';
 
@@ -96,5 +97,57 @@ void main() {
     await tester.testTextInput.receiveAction(TextInputAction.done);
 
     expect(submitted, 'plombier');
+  });
+
+  testWidgets('afficher et cliquer sur une suggestion', (tester) async {
+    CategoryTreeNode? selected;
+    final cat = CategoryTreeNode(
+      (b) => b
+        ..id = 'plomberie'
+        ..slug = 'plomberie'
+        ..nameFr = 'Plomberie'
+        ..nameAr = 'سباكة'
+        ..descriptionFr = ''
+        ..descriptionAr = ''
+        ..iconKey = 'plumbing'
+        ..colorHex = '#0284C7'
+        ..sortOrder = 1,
+    );
+
+    await tester.pumpWidget(
+      _wrap(
+        SearchHomeBar(
+          t: _t,
+          locationLabel: 'Sousse',
+          onLocationTap: () {},
+          suggestions: [cat],
+          onSuggestionTap: (c) => selected = c,
+        ),
+      ),
+    );
+
+    expect(find.text('Plomberie'), findsOneWidget);
+    await tester.tap(find.text('Plomberie'));
+    expect(selected?.slug, 'plomberie');
+  });
+
+  testWidgets('bouton effacer vide le champ', (tester) async {
+    final controller = TextEditingController(text: 'plombier');
+    await tester.pumpWidget(
+      _wrap(
+        SearchHomeBar(
+          t: _t,
+          controller: controller,
+          locationLabel: 'Sousse',
+          onLocationTap: () {},
+        ),
+      ),
+    );
+
+    expect(find.byIcon(Icons.close), findsOneWidget);
+    await tester.tap(find.byIcon(Icons.close));
+    await tester.pump();
+
+    expect(controller.text, '');
   });
 }

@@ -1932,8 +1932,30 @@ class DemoData {
     String? governorate,
     bool? verified,
     num? minRating,
+    String? query,
   }) {
     final filtered = providersList.where((p) {
+      if (query != null && query.trim().isNotEmpty) {
+        final q = query.trim().toLowerCase();
+        final bName = (p['businessName'] ?? '').toString().toLowerCase();
+        final headline = (p['headline'] ?? '').toString().toLowerCase();
+        final bio = (p['bio'] ?? '').toString().toLowerCase();
+        final cats = (p['categories'] as List<dynamic>?) ?? const <dynamic>[];
+        final matchCat = cats.any((c) {
+          if (c is! Map<String, dynamic>) return false;
+          final cSlug = (c['slug'] ?? '').toString().toLowerCase();
+          final cFr = (c['nameFr'] ?? '').toString().toLowerCase();
+          final cAr = (c['nameAr'] ?? '').toString().toLowerCase();
+          return cSlug.contains(q) || cFr.contains(q) || cAr.contains(q);
+        });
+
+        if (!bName.contains(q) &&
+            !headline.contains(q) &&
+            !bio.contains(q) &&
+            !matchCat) {
+          return false;
+        }
+      }
       if (category != null && category.isNotEmpty) {
         final cats = (p['categories'] as List<dynamic>?) ?? const <dynamic>[];
         final matchCat = cats.any((c) {

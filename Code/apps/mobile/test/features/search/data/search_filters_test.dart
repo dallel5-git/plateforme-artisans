@@ -57,4 +57,17 @@ void main() {
 
     expect(a, isNot(b));
   });
+
+  test('query est normalisé et inclus dans cacheKey et copyWith', () {
+    const a = SearchFilters(governorateId: 'sousse', query: ' Plomberie ');
+    expect(a.cacheKey, 'governorate=sousse&query=plomberie');
+
+    final b = a.copyWith(query: 'Electricien');
+    expect(b.query, 'Electricien');
+    expect(b.cacheKey, 'governorate=sousse&query=electricien');
+
+    final c = b.copyWith(clearQuery: true);
+    expect(c.query, isNull);
+    expect(c.cacheKey, 'governorate=sousse');
+  });
 }

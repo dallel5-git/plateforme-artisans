@@ -59,12 +59,16 @@ class DemoMockInterceptor extends Interceptor {
       final minRating = options.queryParameters['minRating'] != null
           ? num.tryParse(options.queryParameters['minRating'].toString())
           : null;
+      final query = (options.queryParameters['query'] ??
+              options.extra['query'])
+          as String?;
 
       final data = DemoData.searchResponse(
         category: category,
         governorate: governorate,
         verified: verified ? true : null,
         minRating: minRating,
+        query: query,
       );
       handler.resolve(_ok(options, data));
       return;
@@ -120,7 +124,7 @@ class DemoMockInterceptor extends Interceptor {
     if (path.contains('/v1/favorites') &&
         (method == 'POST' || method == 'PUT')) {
       final segments = options.uri.pathSegments;
-      String providerId = '';
+      var providerId = '';
       if (segments.isNotEmpty && segments.last != 'favorites') {
         providerId = segments.last;
       } else if (options.data is Map &&

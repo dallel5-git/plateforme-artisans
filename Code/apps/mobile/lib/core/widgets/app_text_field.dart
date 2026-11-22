@@ -20,6 +20,8 @@ class AppTextField extends StatefulWidget {
     this.onSubmitted,
     this.prefixIcon,
     this.prefix,
+    this.suffixIcon,
+    this.textInputAction,
     this.obscureText = false,
     this.maxLines = 1,
     this.minLines,
@@ -30,9 +32,11 @@ class AppTextField extends StatefulWidget {
   final String? errorText;
   final TextEditingController? controller;
   final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
   final ValueChanged<String>? onChanged;
   final ValueChanged<String>? onSubmitted;
   final Widget? prefixIcon;
+  final Widget? suffixIcon;
 
   /// Contenu affiché avant le champ, séparé par un filet vertical (ex.
   /// indicatif téléphonique fixe). Distinct de [prefixIcon] : celui-ci reste
@@ -113,6 +117,7 @@ class _AppTextFieldState extends State<AppTextField> {
                 focusNode: _focusNode,
                 controller: widget.controller,
                 keyboardType: widget.keyboardType,
+                textInputAction: widget.textInputAction,
                 onChanged: widget.onChanged,
                 onSubmitted: widget.onSubmitted,
                 obscureText: widget.obscureText,
@@ -148,6 +153,7 @@ class _AppTextFieldState extends State<AppTextField> {
                           ),
                         )
                       : widget.prefixIcon,
+                  suffixIcon: widget.suffixIcon,
                   filled: true,
                   fillColor: colors.surface,
                   contentPadding: const EdgeInsetsDirectional.symmetric(

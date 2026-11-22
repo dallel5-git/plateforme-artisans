@@ -76,6 +76,7 @@ class _SearchResultsScreenState extends ConsumerState<SearchResultsScreen> {
       _currentFilters = SearchFilters(
         governorateId: widget.initialFilters.governorateId,
         categorySlug: widget.initialFilters.categorySlug,
+        query: widget.initialFilters.query,
       );
     });
   }
@@ -193,6 +194,9 @@ class _SearchResultsScreenState extends ConsumerState<SearchResultsScreen> {
               : category.nameFr;
         }
       }
+    }
+    if (filters.query != null && filters.query!.trim().isNotEmpty) {
+      return filters.query!.trim();
     }
     return t.search.resultsTitle;
   }

@@ -287,4 +287,33 @@ void main() {
 
     expect(find.text('slug: artisan-p1'), findsOneWidget);
   });
+
+  testWidgets(
+    "affiche le mot-clé recherché dans l'AppBar quand categorySlug est absent",
+    (tester) async {
+      when(() => repository.search(any())).thenAnswer(
+        (_) async => _page(['p1']),
+      );
+
+      await tester.pumpWidget(
+        _wrap(
+          const SearchResultsScreen(
+            initialFilters: SearchFilters(
+              governorateId: 'sousse',
+              query: 'Chauffe-eau',
+            ),
+          ),
+          overrides: [
+            searchRepositoryProvider.overrideWithValue(repository),
+            searchResultsCacheProvider.overrideWithValue(cache),
+            connectivityServiceProvider.overrideWithValue(connectivity),
+            categoriesProvider.overrideWith((ref) async => const []),
+          ],
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text('Chauffe-eau'), findsOneWidget);
+    },
+  );
 }
