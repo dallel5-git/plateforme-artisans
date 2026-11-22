@@ -66,5 +66,15 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Sanaya a besoin d'accéder à votre appareil photo pour vous permettre de photographier vos réalisations et alimenter votre portfolio.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Sanaya a besoin d'accéder à votre galerie photo pour vous permettre de sélectionner des photos de vos réalisations et alimenter votre portfolio.</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>tel</string>
+		<string>https</string>
+		<string>whatsapp</string>
+	</array>
 </dict>
 </plist>
