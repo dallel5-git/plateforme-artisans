@@ -88,8 +88,8 @@ class DashboardProTipsCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const Icon(Icons.lightbulb_outline_rounded,
-                      size: 20, color: Colors.amber),
+                  Icon(Icons.lightbulb_outline_rounded,
+                      size: 20, color: colors.warning),
                   const SizedBox(width: AppSpacing.xs),
                   Expanded(
                     child: Text(
