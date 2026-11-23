@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'v1_providers_me_coverage_areas_put200_response_coverage_areas_inner.dart';
+part of 'v1_providers_me_post200_response_provider_coverage_areas_inner.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-class _$V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner
-    extends V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner {
+class _$V1ProvidersMePost200ResponseProviderCoverageAreasInner
+    extends V1ProvidersMePost200ResponseProviderCoverageAreasInner {
   @override
   final String id;
   @override
@@ -17,38 +17,36 @@ class _$V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner
   @override
   final num travelFee;
 
-  factory _$V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner(
+  factory _$V1ProvidersMePost200ResponseProviderCoverageAreasInner(
           [void Function(
-                  V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInnerBuilder)?
+                  V1ProvidersMePost200ResponseProviderCoverageAreasInnerBuilder)?
               updates]) =>
-      (V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInnerBuilder()
+      (V1ProvidersMePost200ResponseProviderCoverageAreasInnerBuilder()
             ..update(updates))
           ._build();
 
-  _$V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner._(
+  _$V1ProvidersMePost200ResponseProviderCoverageAreasInner._(
       {required this.id,
       required this.governorateId,
       required this.delegationId,
       required this.travelFee})
       : super._();
   @override
-  V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner rebuild(
+  V1ProvidersMePost200ResponseProviderCoverageAreasInner rebuild(
           void Function(
-                  V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInnerBuilder)
+                  V1ProvidersMePost200ResponseProviderCoverageAreasInnerBuilder)
               updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInnerBuilder
-      toBuilder() =>
-          V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInnerBuilder()
-            ..replace(this);
+  V1ProvidersMePost200ResponseProviderCoverageAreasInnerBuilder toBuilder() =>
+      V1ProvidersMePost200ResponseProviderCoverageAreasInnerBuilder()
+        ..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other
-            is V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner &&
+    return other is V1ProvidersMePost200ResponseProviderCoverageAreasInner &&
         id == other.id &&
         governorateId == other.governorateId &&
         delegationId == other.delegationId &&
@@ -69,7 +67,7 @@ class _$V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner')
+            r'V1ProvidersMePost200ResponseProviderCoverageAreasInner')
           ..add('id', id)
           ..add('governorateId', governorateId)
           ..add('delegationId', delegationId)
@@ -78,11 +76,11 @@ class _$V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner
   }
 }
 
-class V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInnerBuilder
+class V1ProvidersMePost200ResponseProviderCoverageAreasInnerBuilder
     implements
-        Builder<V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner,
-            V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInnerBuilder> {
-  _$V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner? _$v;
+        Builder<V1ProvidersMePost200ResponseProviderCoverageAreasInner,
+            V1ProvidersMePost200ResponseProviderCoverageAreasInnerBuilder> {
+  _$V1ProvidersMePost200ResponseProviderCoverageAreasInner? _$v;
 
   String? _id;
   String? get id => _$this._id;
@@ -101,11 +99,11 @@ class V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInnerBuilder
   num? get travelFee => _$this._travelFee;
   set travelFee(num? travelFee) => _$this._travelFee = travelFee;
 
-  V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInnerBuilder() {
-    V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner._defaults(this);
+  V1ProvidersMePost200ResponseProviderCoverageAreasInnerBuilder() {
+    V1ProvidersMePost200ResponseProviderCoverageAreasInner._defaults(this);
   }
 
-  V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInnerBuilder get _$this {
+  V1ProvidersMePost200ResponseProviderCoverageAreasInnerBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _id = $v.id;
@@ -118,41 +116,37 @@ class V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInnerBuilder
   }
 
   @override
-  void replace(
-      V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner other) {
-    _$v = other as _$V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner;
+  void replace(V1ProvidersMePost200ResponseProviderCoverageAreasInner other) {
+    _$v = other as _$V1ProvidersMePost200ResponseProviderCoverageAreasInner;
   }
 
   @override
   void update(
       void Function(
-              V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInnerBuilder)?
+              V1ProvidersMePost200ResponseProviderCoverageAreasInnerBuilder)?
           updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner build() =>
-      _build();
+  V1ProvidersMePost200ResponseProviderCoverageAreasInner build() => _build();
 
-  _$V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner _build() {
+  _$V1ProvidersMePost200ResponseProviderCoverageAreasInner _build() {
     final _$result = _$v ??
-        _$V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner._(
-          id: BuiltValueNullFieldError.checkNotNull(
-              id,
-              r'V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner',
-              'id'),
+        _$V1ProvidersMePost200ResponseProviderCoverageAreasInner._(
+          id: BuiltValueNullFieldError.checkNotNull(id,
+              r'V1ProvidersMePost200ResponseProviderCoverageAreasInner', 'id'),
           governorateId: BuiltValueNullFieldError.checkNotNull(
               governorateId,
-              r'V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner',
+              r'V1ProvidersMePost200ResponseProviderCoverageAreasInner',
               'governorateId'),
           delegationId: BuiltValueNullFieldError.checkNotNull(
               delegationId,
-              r'V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner',
+              r'V1ProvidersMePost200ResponseProviderCoverageAreasInner',
               'delegationId'),
           travelFee: BuiltValueNullFieldError.checkNotNull(
               travelFee,
-              r'V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner',
+              r'V1ProvidersMePost200ResponseProviderCoverageAreasInner',
               'travelFee'),
         );
     replace(_$result);

@@ -3,7 +3,10 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:sanaya/core/api/generated/src/model/v1_providers_me_get200_response_portfolio_inner.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_providers_me_get200_response_categories_inner.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_providers_me_get200_response_coverage_areas_inner.dart';
 import 'package:built_value/json_object.dart';
 import 'package:built_value/built_value.dart';
 import 'shared_enums.dart';
@@ -43,6 +46,9 @@ part 'v1_providers_me_get200_response.g.dart';
 /// * [lastActiveAt]
 /// * [createdAt]
 /// * [updatedAt]
+/// * [categories]
+/// * [coverageAreas]
+/// * [portfolio]
 @BuiltValue()
 abstract class V1ProvidersMeGet200Response
     implements
@@ -137,6 +143,15 @@ abstract class V1ProvidersMeGet200Response
 
   @BuiltValueField(wireName: r'updatedAt')
   DateTime get updatedAt;
+
+  @BuiltValueField(wireName: r'categories')
+  BuiltList<V1ProvidersMeGet200ResponseCategoriesInner> get categories;
+
+  @BuiltValueField(wireName: r'coverageAreas')
+  BuiltList<V1ProvidersMeGet200ResponseCoverageAreasInner> get coverageAreas;
+
+  @BuiltValueField(wireName: r'portfolio')
+  BuiltList<V1ProvidersMeGet200ResponsePortfolioInner> get portfolio;
 
   V1ProvidersMeGet200Response._();
 
@@ -316,6 +331,24 @@ class _$V1ProvidersMeGet200ResponseSerializer
     yield serializers.serialize(
       object.updatedAt,
       specifiedType: const FullType(DateTime),
+    );
+    yield r'categories';
+    yield serializers.serialize(
+      object.categories,
+      specifiedType: const FullType(
+          BuiltList, [FullType(V1ProvidersMeGet200ResponseCategoriesInner)]),
+    );
+    yield r'coverageAreas';
+    yield serializers.serialize(
+      object.coverageAreas,
+      specifiedType: const FullType(
+          BuiltList, [FullType(V1ProvidersMeGet200ResponseCoverageAreasInner)]),
+    );
+    yield r'portfolio';
+    yield serializers.serialize(
+      object.portfolio,
+      specifiedType: const FullType(
+          BuiltList, [FullType(V1ProvidersMeGet200ResponsePortfolioInner)]),
     );
   }
 
@@ -550,6 +583,30 @@ class _$V1ProvidersMeGet200ResponseSerializer
             specifiedType: const FullType(DateTime),
           ) as DateTime;
           result.updatedAt = valueDes;
+          break;
+        case r'categories':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList,
+                [FullType(V1ProvidersMeGet200ResponseCategoriesInner)]),
+          ) as BuiltList<V1ProvidersMeGet200ResponseCategoriesInner>;
+          result.categories.replace(valueDes);
+          break;
+        case r'coverageAreas':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList,
+                [FullType(V1ProvidersMeGet200ResponseCoverageAreasInner)]),
+          ) as BuiltList<V1ProvidersMeGet200ResponseCoverageAreasInner>;
+          result.coverageAreas.replace(valueDes);
+          break;
+        case r'portfolio':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList,
+                [FullType(V1ProvidersMeGet200ResponsePortfolioInner)]),
+          ) as BuiltList<V1ProvidersMeGet200ResponsePortfolioInner>;
+          result.portfolio.replace(valueDes);
           break;
         default:
           unhandled.add(key);

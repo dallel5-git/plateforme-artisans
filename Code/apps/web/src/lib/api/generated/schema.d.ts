@@ -922,6 +922,29 @@ export interface paths {
                             createdAt: string;
                             /** Format: date-time */
                             updatedAt: string;
+                            categories: {
+                                /** Format: uuid */
+                                categoryId: string;
+                                isPrimary: boolean;
+                                yearsExperience: number | null;
+                            }[];
+                            coverageAreas: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                governorateId: string;
+                                delegationId: string | null;
+                                travelFee: number | null;
+                            }[];
+                            portfolio: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                mediaId: string;
+                                categoryId: string | null;
+                                caption: string | null;
+                                sortOrder: number;
+                            }[];
                         };
                     };
                 };
@@ -999,6 +1022,29 @@ export interface paths {
                                 createdAt: string;
                                 /** Format: date-time */
                                 updatedAt: string;
+                                categories: {
+                                    /** Format: uuid */
+                                    categoryId: string;
+                                    isPrimary: boolean;
+                                    yearsExperience: number | null;
+                                }[];
+                                coverageAreas: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** Format: uuid */
+                                    governorateId: string;
+                                    delegationId: string | null;
+                                    travelFee: number | null;
+                                }[];
+                                portfolio: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** Format: uuid */
+                                    mediaId: string;
+                                    categoryId: string | null;
+                                    caption: string | null;
+                                    sortOrder: number;
+                                }[];
                             };
                         };
                     };
@@ -1078,6 +1124,29 @@ export interface paths {
                             createdAt: string;
                             /** Format: date-time */
                             updatedAt: string;
+                            categories: {
+                                /** Format: uuid */
+                                categoryId: string;
+                                isPrimary: boolean;
+                                yearsExperience: number | null;
+                            }[];
+                            coverageAreas: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                governorateId: string;
+                                delegationId: string | null;
+                                travelFee: number | null;
+                            }[];
+                            portfolio: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                mediaId: string;
+                                categoryId: string | null;
+                                caption: string | null;
+                                sortOrder: number;
+                            }[];
                         };
                     };
                 };

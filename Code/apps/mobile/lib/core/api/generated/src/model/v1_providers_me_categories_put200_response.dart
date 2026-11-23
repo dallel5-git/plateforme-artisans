@@ -4,7 +4,7 @@
 
 // ignore_for_file: unused_element
 import 'package:built_collection/built_collection.dart';
-import 'package:sanaya/core/api/generated/src/model/v1_providers_me_categories_put200_response_categories_inner.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_providers_me_post200_response_provider_categories_inner.dart';
 import 'package:built_value/json_object.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -22,8 +22,7 @@ abstract class V1ProvidersMeCategoriesPut200Response
         Built<V1ProvidersMeCategoriesPut200Response,
             V1ProvidersMeCategoriesPut200ResponseBuilder> {
   @BuiltValueField(wireName: r'categories')
-  BuiltList<V1ProvidersMeCategoriesPut200ResponseCategoriesInner>
-      get categories;
+  BuiltList<V1ProvidersMePost200ResponseProviderCategoriesInner> get categories;
 
   @BuiltValueField(wireName: r'completionScore')
   int get completionScore;
@@ -62,7 +61,7 @@ class _$V1ProvidersMeCategoriesPut200ResponseSerializer
     yield serializers.serialize(
       object.categories,
       specifiedType: const FullType(BuiltList,
-          [FullType(V1ProvidersMeCategoriesPut200ResponseCategoriesInner)]),
+          [FullType(V1ProvidersMePost200ResponseProviderCategoriesInner)]),
     );
     yield r'completionScore';
     yield serializers.serialize(
@@ -98,9 +97,9 @@ class _$V1ProvidersMeCategoriesPut200ResponseSerializer
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(BuiltList, [
-              FullType(V1ProvidersMeCategoriesPut200ResponseCategoriesInner)
+              FullType(V1ProvidersMePost200ResponseProviderCategoriesInner)
             ]),
-          ) as BuiltList<V1ProvidersMeCategoriesPut200ResponseCategoriesInner>;
+          ) as BuiltList<V1ProvidersMePost200ResponseProviderCategoriesInner>;
           result.categories.replace(valueDes);
           break;
         case r'completionScore':

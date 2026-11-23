@@ -230,6 +230,14 @@ class _$V1ProvidersMePost200ResponseProvider
   final DateTime createdAt;
   @override
   final DateTime updatedAt;
+  @override
+  final BuiltList<V1ProvidersMePost200ResponseProviderCategoriesInner>
+      categories;
+  @override
+  final BuiltList<V1ProvidersMePost200ResponseProviderCoverageAreasInner>
+      coverageAreas;
+  @override
+  final BuiltList<V1ProvidersMePost200ResponseProviderPortfolioInner> portfolio;
 
   factory _$V1ProvidersMePost200ResponseProvider(
           [void Function(V1ProvidersMePost200ResponseProviderBuilder)?
@@ -265,7 +273,10 @@ class _$V1ProvidersMePost200ResponseProvider
       required this.rankingScore,
       required this.lastActiveAt,
       required this.createdAt,
-      required this.updatedAt})
+      required this.updatedAt,
+      required this.categories,
+      required this.coverageAreas,
+      required this.portfolio})
       : super._();
   @override
   V1ProvidersMePost200ResponseProvider rebuild(
@@ -308,7 +319,10 @@ class _$V1ProvidersMePost200ResponseProvider
         rankingScore == other.rankingScore &&
         lastActiveAt == other.lastActiveAt &&
         createdAt == other.createdAt &&
-        updatedAt == other.updatedAt;
+        updatedAt == other.updatedAt &&
+        categories == other.categories &&
+        coverageAreas == other.coverageAreas &&
+        portfolio == other.portfolio;
   }
 
   @override
@@ -343,6 +357,9 @@ class _$V1ProvidersMePost200ResponseProvider
     _$hash = $jc(_$hash, lastActiveAt.hashCode);
     _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, updatedAt.hashCode);
+    _$hash = $jc(_$hash, categories.hashCode);
+    _$hash = $jc(_$hash, coverageAreas.hashCode);
+    _$hash = $jc(_$hash, portfolio.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -378,7 +395,10 @@ class _$V1ProvidersMePost200ResponseProvider
           ..add('rankingScore', rankingScore)
           ..add('lastActiveAt', lastActiveAt)
           ..add('createdAt', createdAt)
-          ..add('updatedAt', updatedAt))
+          ..add('updatedAt', updatedAt)
+          ..add('categories', categories)
+          ..add('coverageAreas', coverageAreas)
+          ..add('portfolio', portfolio))
         .toString();
   }
 }
@@ -531,6 +551,34 @@ class V1ProvidersMePost200ResponseProviderBuilder
   DateTime? get updatedAt => _$this._updatedAt;
   set updatedAt(DateTime? updatedAt) => _$this._updatedAt = updatedAt;
 
+  ListBuilder<V1ProvidersMePost200ResponseProviderCategoriesInner>? _categories;
+  ListBuilder<V1ProvidersMePost200ResponseProviderCategoriesInner>
+      get categories => _$this._categories ??=
+          ListBuilder<V1ProvidersMePost200ResponseProviderCategoriesInner>();
+  set categories(
+          ListBuilder<V1ProvidersMePost200ResponseProviderCategoriesInner>?
+              categories) =>
+      _$this._categories = categories;
+
+  ListBuilder<V1ProvidersMePost200ResponseProviderCoverageAreasInner>?
+      _coverageAreas;
+  ListBuilder<V1ProvidersMePost200ResponseProviderCoverageAreasInner>
+      get coverageAreas => _$this._coverageAreas ??=
+          ListBuilder<V1ProvidersMePost200ResponseProviderCoverageAreasInner>();
+  set coverageAreas(
+          ListBuilder<V1ProvidersMePost200ResponseProviderCoverageAreasInner>?
+              coverageAreas) =>
+      _$this._coverageAreas = coverageAreas;
+
+  ListBuilder<V1ProvidersMePost200ResponseProviderPortfolioInner>? _portfolio;
+  ListBuilder<V1ProvidersMePost200ResponseProviderPortfolioInner>
+      get portfolio => _$this._portfolio ??=
+          ListBuilder<V1ProvidersMePost200ResponseProviderPortfolioInner>();
+  set portfolio(
+          ListBuilder<V1ProvidersMePost200ResponseProviderPortfolioInner>?
+              portfolio) =>
+      _$this._portfolio = portfolio;
+
   V1ProvidersMePost200ResponseProviderBuilder() {
     V1ProvidersMePost200ResponseProvider._defaults(this);
   }
@@ -567,6 +615,9 @@ class V1ProvidersMePost200ResponseProviderBuilder
       _lastActiveAt = $v.lastActiveAt;
       _createdAt = $v.createdAt;
       _updatedAt = $v.updatedAt;
+      _categories = $v.categories.toBuilder();
+      _coverageAreas = $v.coverageAreas.toBuilder();
+      _portfolio = $v.portfolio.toBuilder();
       _$v = null;
     }
     return this;
@@ -666,12 +717,22 @@ class V1ProvidersMePost200ResponseProviderBuilder
                 r'V1ProvidersMePost200ResponseProvider', 'createdAt'),
             updatedAt: BuiltValueNullFieldError.checkNotNull(updatedAt,
                 r'V1ProvidersMePost200ResponseProvider', 'updatedAt'),
+            categories: categories.build(),
+            coverageAreas: coverageAreas.build(),
+            portfolio: portfolio.build(),
           );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'spokenLanguages';
         spokenLanguages.build();
+
+        _$failedField = 'categories';
+        categories.build();
+        _$failedField = 'coverageAreas';
+        coverageAreas.build();
+        _$failedField = 'portfolio';
+        portfolio.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
             r'V1ProvidersMePost200ResponseProvider',

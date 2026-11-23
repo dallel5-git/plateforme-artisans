@@ -3,14 +3,12 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:built_collection/built_collection.dart';
-import 'package:built_value/json_object.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'v1_providers_me_coverage_areas_put200_response_coverage_areas_inner.g.dart';
+part 'v1_providers_me_post200_response_provider_coverage_areas_inner.g.dart';
 
-/// V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner
+/// V1ProvidersMePost200ResponseProviderCoverageAreasInner
 ///
 /// Properties:
 /// * [id]
@@ -18,10 +16,10 @@ part 'v1_providers_me_coverage_areas_put200_response_coverage_areas_inner.g.dart
 /// * [delegationId]
 /// * [travelFee]
 @BuiltValue()
-abstract class V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner
+abstract class V1ProvidersMePost200ResponseProviderCoverageAreasInner
     implements
-        Built<V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner,
-            V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInnerBuilder> {
+        Built<V1ProvidersMePost200ResponseProviderCoverageAreasInner,
+            V1ProvidersMePost200ResponseProviderCoverageAreasInnerBuilder> {
   @BuiltValueField(wireName: r'id')
   String get id;
 
@@ -34,43 +32,41 @@ abstract class V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner
   @BuiltValueField(wireName: r'travelFee')
   num get travelFee;
 
-  V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner._();
+  V1ProvidersMePost200ResponseProviderCoverageAreasInner._();
 
-  factory V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner(
-          [void updates(
-              V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInnerBuilder
-                  b)]) =
-      _$V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner;
+  factory V1ProvidersMePost200ResponseProviderCoverageAreasInner(
+      [void updates(
+          V1ProvidersMePost200ResponseProviderCoverageAreasInnerBuilder
+              b)]) = _$V1ProvidersMePost200ResponseProviderCoverageAreasInner;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(
-          V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInnerBuilder
-              b) =>
+          V1ProvidersMePost200ResponseProviderCoverageAreasInnerBuilder b) =>
       b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner>
+  static Serializer<V1ProvidersMePost200ResponseProviderCoverageAreasInner>
       get serializer =>
-          _$V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInnerSerializer();
+          _$V1ProvidersMePost200ResponseProviderCoverageAreasInnerSerializer();
 }
 
-class _$V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInnerSerializer
+class _$V1ProvidersMePost200ResponseProviderCoverageAreasInnerSerializer
     implements
         PrimitiveSerializer<
-            V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner> {
+            V1ProvidersMePost200ResponseProviderCoverageAreasInner> {
   @override
   final Iterable<Type> types = const [
-    V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner,
-    _$V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner
+    V1ProvidersMePost200ResponseProviderCoverageAreasInner,
+    _$V1ProvidersMePost200ResponseProviderCoverageAreasInner
   ];
 
   @override
   final String wireName =
-      r'V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner';
+      r'V1ProvidersMePost200ResponseProviderCoverageAreasInner';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner object, {
+    V1ProvidersMePost200ResponseProviderCoverageAreasInner object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'id';
@@ -98,7 +94,7 @@ class _$V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInnerSerializer
   @override
   Object serialize(
     Serializers serializers,
-    V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner object, {
+    V1ProvidersMePost200ResponseProviderCoverageAreasInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object,
@@ -111,7 +107,7 @@ class _$V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInnerSerializer
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInnerBuilder
+    required V1ProvidersMePost200ResponseProviderCoverageAreasInnerBuilder
         result,
     required List<Object?> unhandled,
   }) {
@@ -156,13 +152,13 @@ class _$V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInnerSerializer
   }
 
   @override
-  V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner deserialize(
+  V1ProvidersMePost200ResponseProviderCoverageAreasInner deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final result =
-        V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInnerBuilder();
+        V1ProvidersMePost200ResponseProviderCoverageAreasInnerBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

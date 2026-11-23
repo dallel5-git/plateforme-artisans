@@ -9,7 +9,7 @@ part of 'v1_providers_me_categories_put200_response.dart';
 class _$V1ProvidersMeCategoriesPut200Response
     extends V1ProvidersMeCategoriesPut200Response {
   @override
-  final BuiltList<V1ProvidersMeCategoriesPut200ResponseCategoriesInner>
+  final BuiltList<V1ProvidersMePost200ResponseProviderCategoriesInner>
       categories;
   @override
   final int completionScore;
@@ -66,13 +66,12 @@ class V1ProvidersMeCategoriesPut200ResponseBuilder
             V1ProvidersMeCategoriesPut200ResponseBuilder> {
   _$V1ProvidersMeCategoriesPut200Response? _$v;
 
-  ListBuilder<V1ProvidersMeCategoriesPut200ResponseCategoriesInner>?
-      _categories;
-  ListBuilder<V1ProvidersMeCategoriesPut200ResponseCategoriesInner>
+  ListBuilder<V1ProvidersMePost200ResponseProviderCategoriesInner>? _categories;
+  ListBuilder<V1ProvidersMePost200ResponseProviderCategoriesInner>
       get categories => _$this._categories ??=
-          ListBuilder<V1ProvidersMeCategoriesPut200ResponseCategoriesInner>();
+          ListBuilder<V1ProvidersMePost200ResponseProviderCategoriesInner>();
   set categories(
-          ListBuilder<V1ProvidersMeCategoriesPut200ResponseCategoriesInner>?
+          ListBuilder<V1ProvidersMePost200ResponseProviderCategoriesInner>?
               categories) =>
       _$this._categories = categories;
 
