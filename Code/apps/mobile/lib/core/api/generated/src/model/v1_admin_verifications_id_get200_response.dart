@@ -26,6 +26,7 @@ part 'v1_admin_verifications_id_get200_response.g.dart';
 /// * [reviewedBy]
 /// * [rejectionReason]
 /// * [internalNote]
+/// * [expiresAt]
 /// * [documents]
 @BuiltValue()
 abstract class V1AdminVerificationsIdGet200Response
@@ -62,6 +63,9 @@ abstract class V1AdminVerificationsIdGet200Response
 
   @BuiltValueField(wireName: r'internalNote')
   String get internalNote;
+
+  @BuiltValueField(wireName: r'expiresAt')
+  DateTime? get expiresAt;
 
   @BuiltValueField(wireName: r'documents')
   BuiltList<V1AdminVerificationsIdGet200ResponseDocumentsInner> get documents;
@@ -149,6 +153,13 @@ class _$V1AdminVerificationsIdGet200ResponseSerializer
       object.internalNote,
       specifiedType: const FullType(String),
     );
+    if (object.expiresAt != null) {
+      yield r'expiresAt';
+      yield serializers.serialize(
+        object.expiresAt,
+        specifiedType: const FullType(DateTime),
+      );
+    }
     yield r'documents';
     yield serializers.serialize(
       object.documents,
@@ -252,6 +263,13 @@ class _$V1AdminVerificationsIdGet200ResponseSerializer
             specifiedType: const FullType(String),
           ) as String;
           result.internalNote = valueDes;
+          break;
+        case r'expiresAt':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.expiresAt = valueDes;
           break;
         case r'documents':
           final valueDes = serializers.deserialize(

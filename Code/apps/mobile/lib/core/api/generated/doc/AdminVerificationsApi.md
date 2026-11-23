@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**v1AdminVerificationsGet**](AdminVerificationsApi.md#v1adminverificationsget) | **GET** /v1/admin/verifications | 
 [**v1AdminVerificationsIdGet**](AdminVerificationsApi.md#v1adminverificationsidget) | **GET** /v1/admin/verifications/{id} | 
 [**v1AdminVerificationsIdReviewPost**](AdminVerificationsApi.md#v1adminverificationsidreviewpost) | **POST** /v1/admin/verifications/{id}/review | 
+[**v1AdminVerificationsPurgeExpiredPost**](AdminVerificationsApi.md#v1adminverificationspurgeexpiredpost) | **POST** /v1/admin/verifications/purge-expired | 
 
 
 # **v1AdminVerificationsGet**
@@ -147,6 +148,45 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **v1AdminVerificationsPurgeExpiredPost**
+> V1AdminVerificationsPurgeExpiredPost200Response v1AdminVerificationsPurgeExpiredPost()
+
+
+
+Déclenche la purge des images KYC (CIN) dont la durée de rétention est échue (norme INPDP). Supprime physiquement les fichiers dans Cloudflare R2, neutralise les enregistrements DB et consigne la traçabilité dans AuditLog.
+
+### Example
+```dart
+import 'package:sanaya_api_client/api.dart';
+
+final api = SanayaApiClient().getAdminVerificationsApi();
+
+try {
+    final response = api.v1AdminVerificationsPurgeExpiredPost();
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling AdminVerificationsApi->v1AdminVerificationsPurgeExpiredPost: $e\n');
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**V1AdminVerificationsPurgeExpiredPost200Response**](V1AdminVerificationsPurgeExpiredPost200Response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

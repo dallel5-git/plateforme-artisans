@@ -117,6 +117,8 @@ class _$V1AdminVerificationsIdGet200Response
   @override
   final String internalNote;
   @override
+  final DateTime? expiresAt;
+  @override
   final BuiltList<V1AdminVerificationsIdGet200ResponseDocumentsInner> documents;
 
   factory _$V1AdminVerificationsIdGet200Response(
@@ -135,6 +137,7 @@ class _$V1AdminVerificationsIdGet200Response
       required this.reviewedBy,
       required this.rejectionReason,
       required this.internalNote,
+      this.expiresAt,
       required this.documents})
       : super._();
   @override
@@ -160,6 +163,7 @@ class _$V1AdminVerificationsIdGet200Response
         reviewedBy == other.reviewedBy &&
         rejectionReason == other.rejectionReason &&
         internalNote == other.internalNote &&
+        expiresAt == other.expiresAt &&
         documents == other.documents;
   }
 
@@ -176,6 +180,7 @@ class _$V1AdminVerificationsIdGet200Response
     _$hash = $jc(_$hash, reviewedBy.hashCode);
     _$hash = $jc(_$hash, rejectionReason.hashCode);
     _$hash = $jc(_$hash, internalNote.hashCode);
+    _$hash = $jc(_$hash, expiresAt.hashCode);
     _$hash = $jc(_$hash, documents.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -194,6 +199,7 @@ class _$V1AdminVerificationsIdGet200Response
           ..add('reviewedBy', reviewedBy)
           ..add('rejectionReason', rejectionReason)
           ..add('internalNote', internalNote)
+          ..add('expiresAt', expiresAt)
           ..add('documents', documents))
         .toString();
   }
@@ -254,6 +260,10 @@ class V1AdminVerificationsIdGet200ResponseBuilder
   String? get internalNote => _$this._internalNote;
   set internalNote(String? internalNote) => _$this._internalNote = internalNote;
 
+  DateTime? _expiresAt;
+  DateTime? get expiresAt => _$this._expiresAt;
+  set expiresAt(DateTime? expiresAt) => _$this._expiresAt = expiresAt;
+
   ListBuilder<V1AdminVerificationsIdGet200ResponseDocumentsInner>? _documents;
   ListBuilder<V1AdminVerificationsIdGet200ResponseDocumentsInner>
       get documents => _$this._documents ??=
@@ -280,6 +290,7 @@ class V1AdminVerificationsIdGet200ResponseBuilder
       _reviewedBy = $v.reviewedBy.toBuilder();
       _rejectionReason = $v.rejectionReason;
       _internalNote = $v.internalNote;
+      _expiresAt = $v.expiresAt;
       _documents = $v.documents.toBuilder();
       _$v = null;
     }
@@ -325,6 +336,7 @@ class V1AdminVerificationsIdGet200ResponseBuilder
                 'rejectionReason'),
             internalNote: BuiltValueNullFieldError.checkNotNull(internalNote,
                 r'V1AdminVerificationsIdGet200Response', 'internalNote'),
+            expiresAt: expiresAt,
             documents: documents.build(),
           );
     } catch (_) {

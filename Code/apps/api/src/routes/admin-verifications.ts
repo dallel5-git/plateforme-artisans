@@ -1,15 +1,17 @@
 // BE-31 : Routes d'administration pour la modération KYC (US-A-01 / ADR-002 / INPDP 2004-63).
+// BE-30c : Purge automatique et manuelle des pièces d'identité KYC à J+X (norme INPDP).
 //
 // Endpoints :
 // - `GET  /v1/admin/verifications`         : file de vérification (tri ancienneté, filtre statut, pagination curseur)
 // - `GET  /v1/admin/verifications/:id`     : détails complets, URLs de lecture R2 éphémères (<= 5 min) + AuditLog (P8/P9)
 // - `POST /v1/admin/verifications/:id/review` : décision de modération (APPROVED, REJECTED, MORE_INFO_REQUIRED)
+// - `POST /v1/admin/verifications/purge-expired` : déclenchement manuel de la purge des médias KYC expirés (SUPER_ADMIN)
 import {
   KYC_INVALID_STATUS_TRANSITION,
   KYC_REQUEST_NOT_FOUND,
   VALIDATION_ERROR,
 } from '@repo/constants';
-import { DomainError, hashIp } from '@repo/core';
+import { DomainError, hashIp, purgeExpiredKycMedia } from '@repo/core';
 import {
   InvalidCursorError,
   InvalidStatusTransitionError,
@@ -19,8 +21,9 @@ import {
   logVerificationView,
   reviewVerificationRequest,
 } from '@repo/db';
-import { presignKycRead } from '@repo/storage';
+import { deleteKycObject, presignKycRead } from '@repo/storage';
 import {
+  adminKycPurgeResultSchema,
   adminVerificationDetailResponseSchema,
   listAdminVerificationsQuerySchema,
   listAdminVerificationsResponseSchema,
@@ -101,6 +104,18 @@ export async function adminVerificationRoutes(app: FastifyInstance): Promise<voi
       // Génération des URLs GET R2 éphémères (TTL 5 min)
       const presignedDocuments = await Promise.all(
         details.documents.map(async (doc) => {
+          const isPurged = doc.media.storageKey.startsWith('purged:');
+          if (isPurged) {
+            return {
+              id: doc.id,
+              type: doc.type,
+              mediaId: doc.mediaId,
+              downloadUrl: null,
+              expiresAt: null,
+              isPurged: true,
+            };
+          }
+
           const presigned = await presignKycRead(doc.media.storageKey);
           return {
             id: doc.id,
@@ -108,6 +123,7 @@ export async function adminVerificationRoutes(app: FastifyInstance): Promise<voi
             mediaId: doc.mediaId,
             downloadUrl: presigned.downloadUrl,
             expiresAt: presigned.expiresAt,
+            isPurged: false,
           };
         }),
       );
@@ -132,6 +148,7 @@ export async function adminVerificationRoutes(app: FastifyInstance): Promise<voi
         reviewedBy: details.reviewedBy,
         rejectionReason: details.rejectionReason,
         internalNote: details.internalNote,
+        expiresAt: details.expiresAt,
         documents: presignedDocuments,
       };
     },
@@ -178,6 +195,34 @@ export async function adminVerificationRoutes(app: FastifyInstance): Promise<voi
         }
         throw error;
       }
+    },
+  );
+
+  // 4. BE-30c : Déclenchement manuel de la purge des médias KYC expirés (SUPER_ADMIN)
+  typedApp.post(
+    '/admin/verifications/purge-expired',
+    {
+      preHandler: [app.requireRole('SUPER_ADMIN')],
+      schema: {
+        tags: ['admin-verifications'],
+        description:
+          'Déclenche la purge des images KYC (CIN) dont la durée de rétention est échue (norme INPDP). ' +
+          'Supprime physiquement les fichiers dans Cloudflare R2, neutralise les enregistrements DB ' +
+          'et consigne la traçabilité dans AuditLog.',
+        response: { 200: adminKycPurgeResultSchema },
+      },
+    },
+    async () => {
+      const result = await purgeExpiredKycMedia({
+        deleteFromStorage: (storageKey: string) => deleteKycObject(storageKey),
+      });
+
+      return {
+        totalProcessed: result.totalProcessed,
+        purgedCount: result.purgedCount,
+        skippedCount: result.skippedCount,
+        errorsCount: result.errors.length,
+      };
     },
   );
 }

@@ -18,6 +18,7 @@ const select = {
   blurhash: true,
   isPrivate: true,
   moderationStatus: true,
+  purgeAfter: true,
   createdAt: true,
 } as const;
 
@@ -35,6 +36,7 @@ export interface MediaAsset {
   blurhash: string | null;
   isPrivate: boolean;
   moderationStatus: ModerationStatus;
+  purgeAfter?: Date | null;
   createdAt: Date;
 }
 
@@ -113,5 +115,64 @@ export async function finalizeMediaAsset(
     where: { id },
     data: { ...input, moderationStatus: 'APPROVED' },
     select: { id: true },
+  });
+}
+
+// =====================================================================
+// BE-30c : Purge automatique des pièces d'identité (INPDP)
+// =====================================================================
+
+/**
+ * Recherche les médias du bucket privé `private-kyc` dont la date de rétention `purgeAfter` est dépassée.
+ */
+export async function findKycMediaAssetsDueForPurge(
+  options: { now?: Date; limit?: number } = {},
+  db: DbClient = prisma,
+): Promise<MediaAsset[]> {
+  const cutoff = options.now ?? new Date();
+  const limit = options.limit ?? 50;
+
+  return db.mediaAsset.findMany({
+    where: {
+      bucket: 'private-kyc',
+      purgeAfter: { lte: cutoff },
+      NOT: {
+        storageKey: { startsWith: 'purged:' },
+      },
+    },
+    select,
+    take: limit,
+    orderBy: { purgeAfter: 'asc' },
+  });
+}
+
+/**
+ * Marque un MediaAsset comme purgé en base :
+ * Réinitialise `storageKey` avec un identifiant de purge, passe la taille à 0 et vide `purgeAfter`.
+ */
+export async function markMediaAssetAsPurged(id: string, db: DbClient = prisma): Promise<void> {
+  await db.mediaAsset.update({
+    where: { id },
+    data: {
+      storageKey: `purged:${id}`,
+      sizeBytes: 0,
+      purgeAfter: null,
+    },
+    select: { id: true },
+  });
+}
+
+/**
+ * Met à jour la date de rétention `purgeAfter` pour un ensemble de médias.
+ */
+export async function scheduleMediaAssetsPurge(
+  mediaIds: string[],
+  purgeAfter: Date,
+  db: DbClient = prisma,
+): Promise<void> {
+  if (mediaIds.length === 0) return;
+  await db.mediaAsset.updateMany({
+    where: { id: { in: mediaIds } },
+    data: { purgeAfter },
   });
 }

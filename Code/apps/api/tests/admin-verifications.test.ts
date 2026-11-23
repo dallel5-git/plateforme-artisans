@@ -7,6 +7,7 @@
  * 3. Détails & consultation sécurisée (GET /v1/admin/verifications/:id) : 404 si introuvable, génération d'URLs de lecture R2 <= 5 min, traçage AuditLog.
  * 4. Décision de modération (POST /v1/admin/verifications/:id/review) : validation motif obligatoire si refus/complément, 400 si transition invalide, succès APPROVED / REJECTED / MORE_INFO_REQUIRED.
  */
+import * as coreModule from '@repo/core';
 import { signAccessToken } from '@repo/core';
 import * as dbModule from '@repo/db';
 import * as storageModule from '@repo/storage';
@@ -22,6 +23,14 @@ import { registerErrorHandler } from '../src/plugins/error-handler.js';
 import { registerRequireAuth } from '../src/plugins/require-auth.js';
 import { registerRequireRole } from '../src/plugins/require-role.js';
 import { adminVerificationRoutes } from '../src/routes/admin-verifications.js';
+
+vi.mock('@repo/core', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@repo/core')>();
+  return {
+    ...actual,
+    purgeExpiredKycMedia: vi.fn(),
+  };
+});
 
 vi.mock('@repo/db', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@repo/db')>();
@@ -40,6 +49,7 @@ vi.mock('@repo/storage', async (importOriginal) => {
   return {
     ...actual,
     presignKycRead: vi.fn(),
+    deleteKycObject: vi.fn(),
   };
 });
 
@@ -313,6 +323,65 @@ describe('BE-31 — Administration KYC (/v1/admin/verifications)', () => {
         }),
       );
     });
+
+    it('renvoie isPurged: true et downloadUrl: null pour les documents dont le storageKey commence par purged:', async () => {
+      const app = await buildTestApp();
+      const adminToken = await signAccessToken({ sub: VALID_UUID_ADMIN, role: 'ADMIN' });
+
+      vi.mocked(dbModule.findVerificationRequestDetailsForAdmin).mockResolvedValue({
+        id: VALID_UUID_REQ,
+        providerId: VALID_UUID_PROV,
+        provider: {
+          id: VALID_UUID_PROV,
+          businessName: 'Électricité Express',
+          slug: 'electricite-express',
+          headline: 'Électricien qualifié',
+          baseGovernorateId: 'tunis-id',
+          isVerified: true,
+          verificationStatus: 'APPROVED',
+          user: {
+            id: '44444444-4444-4444-8444-444444444444',
+            phone: '+21698123456',
+          },
+        },
+        fullNameOnId: 'Mourad Trabelsi',
+        status: 'APPROVED',
+        submittedAt: new Date('2026-10-01T10:00:00Z'),
+        reviewedAt: new Date('2026-10-02T10:00:00Z'),
+        reviewedBy: null,
+        rejectionReason: null,
+        internalNote: null,
+        expiresAt: new Date('2026-11-01T10:00:00Z'),
+        documents: [
+          {
+            id: '11111111-1111-4111-8111-111111111111',
+            type: 'CIN_FRONT',
+            mediaId: '55555555-5555-4555-8555-555555555555',
+            media: { storageKey: 'purged:55555555-5555-4555-8555-555555555555' },
+          },
+        ],
+      });
+
+      const response = await app.inject({
+        method: 'GET',
+        url: `/v1/admin/verifications/${VALID_UUID_REQ}`,
+        headers: { authorization: `Bearer ${adminToken}` },
+      });
+
+      expect(response.statusCode).toBe(200);
+      const body = response.json();
+      expect(body.documents).toHaveLength(1);
+      expect(body.documents[0]).toEqual({
+        id: '11111111-1111-4111-8111-111111111111',
+        type: 'CIN_FRONT',
+        mediaId: '55555555-5555-4555-8555-555555555555',
+        downloadUrl: null,
+        expiresAt: null,
+        isPurged: true,
+      });
+
+      expect(storageModule.presignKycRead).not.toHaveBeenCalled();
+    });
   });
 
   describe('3. POST /v1/admin/verifications/:id/review (Revue modérateur)', () => {
@@ -453,6 +522,50 @@ describe('BE-31 — Administration KYC (/v1/admin/verifications)', () => {
       expect(body.status).toBe('REJECTED');
       expect(body.isVerified).toBe(false);
       expect(body.rejectionReason).toBe('CIN illisible et photo rognée');
+    });
+  });
+
+  describe('4. POST /v1/admin/verifications/purge-expired (BE-30c)', () => {
+    it('refuse l’accès aux rôles non-SUPER_ADMIN (403 FORBIDDEN)', async () => {
+      const app = await buildTestApp();
+      const adminToken = await signAccessToken({ sub: VALID_UUID_ADMIN, role: 'ADMIN' });
+
+      const response = await app.inject({
+        method: 'POST',
+        url: '/v1/admin/verifications/purge-expired',
+        headers: { authorization: `Bearer ${adminToken}` },
+      });
+
+      expect(response.statusCode).toBe(403);
+    });
+
+    it('autorise SUPER_ADMIN et retourne le bilan de purge', async () => {
+      const app = await buildTestApp();
+      const superAdminToken = await signAccessToken({
+        sub: VALID_UUID_ADMIN,
+        role: 'SUPER_ADMIN',
+      });
+
+      vi.mocked(coreModule.purgeExpiredKycMedia).mockResolvedValue({
+        totalProcessed: 5,
+        purgedCount: 4,
+        skippedCount: 1,
+        errors: [],
+      });
+
+      const response = await app.inject({
+        method: 'POST',
+        url: '/v1/admin/verifications/purge-expired',
+        headers: { authorization: `Bearer ${superAdminToken}` },
+      });
+
+      expect(response.statusCode).toBe(200);
+      expect(response.json()).toEqual({
+        totalProcessed: 5,
+        purgedCount: 4,
+        skippedCount: 1,
+        errorsCount: 0,
+      });
     });
   });
 });
