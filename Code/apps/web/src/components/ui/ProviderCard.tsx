@@ -19,19 +19,14 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({ provider, locale }) 
   const [isLoadingPhone, setIsLoadingPhone] = useState(false);
   const isAr = locale === 'ar';
 
-  const categoryName = isAr
-    ? provider.primaryCategoryNameAr
-    : provider.primaryCategoryNameFr;
-  const governorateName = isAr
-    ? provider.baseGovernorateNameAr
-    : provider.baseGovernorateNameFr;
-  const delegationName = isAr
-    ? provider.baseDelegationNameAr
-    : provider.baseDelegationNameFr;
+  const categoryName = isAr ? provider.primaryCategoryNameAr : provider.primaryCategoryNameFr;
+  const governorateName = isAr ? provider.baseGovernorateNameAr : provider.baseGovernorateNameFr;
+  const delegationName = isAr ? provider.baseDelegationNameAr : provider.baseDelegationNameFr;
 
-  const minPrice = provider.offerings.length > 0
-    ? Math.min(...provider.offerings.map((o) => o.priceStartingAt)) / 1000
-    : null;
+  const minPrice =
+    provider.offerings.length > 0
+      ? Math.min(...provider.offerings.map((o) => o.priceStartingAt)) / 1000
+      : null;
 
   const handleRevealContact = async (channel: 'PHONE' | 'WHATSAPP') => {
     setIsLoadingPhone(true);
@@ -121,10 +116,7 @@ export const ProviderCard: React.FC<ProviderCardProps> = ({ provider, locale }) 
 
       {/* Actions */}
       <div className="flex items-center gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
-        <Link
-          href={`/${locale}/artisans/${provider.slug}`}
-          className="flex-1"
-        >
+        <Link href={`/${locale}/artisans/${provider.slug}`} className="flex-1">
           <Button variant="outline" size="sm" className="w-full text-xs">
             {isAr ? 'عرض الملف' : 'Voir le profil'}
           </Button>

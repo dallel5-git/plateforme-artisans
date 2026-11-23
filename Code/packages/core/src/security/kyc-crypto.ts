@@ -3,12 +3,7 @@
 // - Le numéro de CIN ne doit JAMAIS transiter ni être persisté en clair.
 // - `hashCin` : hachage SHA-256 salé déterministe pour recherche d'existence / anti-doublon.
 // - `encryptCin` : chiffrement réversible AES-256-GCM (IV 96-bit + Auth Tag 128-bit) pour conservation légale.
-import {
-  createCipheriv,
-  createDecipheriv,
-  createHash,
-  randomBytes,
-} from 'node:crypto';
+import { createCipheriv, createDecipheriv, createHash, randomBytes } from 'node:crypto';
 
 const DEFAULT_SALT = 'dallel-kyc-salt-fallback-v1-dev';
 const DEFAULT_SECRET = 'dallel-kyc-encryption-key-fallback-32-bytes!';
@@ -32,9 +27,7 @@ export function hashCin(cin: string): string {
     throw new Error('Numéro de CIN invalide (doit comporter 8 chiffres)');
   }
   const salt = process.env.KYC_HASH_SALT ?? DEFAULT_SALT;
-  return createHash('sha256')
-    .update(`${salt}:${cin.trim()}`)
-    .digest('hex');
+  return createHash('sha256').update(`${salt}:${cin.trim()}`).digest('hex');
 }
 
 function getEncryptionKey(): Buffer {
@@ -55,10 +48,7 @@ export function encryptCin(cin: string): string {
   const iv = randomBytes(12); // IV standard 96 bits pour AES-GCM
   const cipher = createCipheriv('aes-256-gcm', key, iv);
 
-  const encrypted = Buffer.concat([
-    cipher.update(cin.trim(), 'utf8'),
-    cipher.final(),
-  ]);
+  const encrypted = Buffer.concat([cipher.update(cin.trim(), 'utf8'), cipher.final()]);
   const authTag = cipher.getAuthTag();
 
   return `${iv.toString('hex')}:${authTag.toString('hex')}:${encrypted.toString('hex')}`;
@@ -86,10 +76,7 @@ export function decryptCin(cipherText: string): string {
   const decipher = createDecipheriv('aes-256-gcm', key, iv);
   decipher.setAuthTag(tag);
 
-  const decrypted = Buffer.concat([
-    decipher.update(encrypted),
-    decipher.final(),
-  ]);
+  const decrypted = Buffer.concat([decipher.update(encrypted), decipher.final()]);
 
   return decrypted.toString('utf8');
 }

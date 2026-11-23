@@ -13,6 +13,9 @@ import 'package:sanaya/features/pro_profile/presentation/pro_profile_screen.dart
 import 'package:sanaya/features/provider_profile/application/provider_profile_providers.dart';
 import 'package:sanaya/features/provider_profile/data/provider_profile_repository.dart';
 import 'package:sanaya/features/reviews/application/pro_reviews_providers.dart';
+import 'package:sanaya/features/verification/application/kyc_providers.dart';
+import 'package:sanaya/features/verification/data/kyc_repository.dart';
+import 'package:sanaya/features/verification/presentation/widgets/verification_status_card.dart';
 
 class _MockOnboardingRepository extends Mock implements OnboardingRepository {}
 
@@ -408,5 +411,44 @@ void main() {
       await tester.pumpAndSettle();
       expect(tester.takeException(), isNull);
     });
+
+    // MOB-031 — Tuile de suivi KYC compacte sur le profil
+    testWidgets(
+      'affiche la tuile de vérification compacte sur le profil',
+      (tester) async {
+        final kyc = KycStatusResponse(
+          (b) => b
+            ..verificationStatus =
+                V1ProvidersMeVerificationGet200ResponseVerificationStatusEnum
+                    .APPROVED
+            ..isVerified = true
+            ..currentRequest.id = 'req-1'
+            ..currentRequest.status =
+                V1ProvidersMeVerificationGet200ResponseCurrentRequestStatusEnum
+                    .APPROVED
+            ..currentRequest.submittedAt = DateTime.utc(2026, 9, 7)
+            ..currentRequest.reviewedAt = DateTime.utc(2026, 9, 7)
+            ..currentRequest.rejectionReason = ''
+            ..currentRequest.fullNameOnId = 'Ahmed Plomberie'
+            ..currentRequest.documents.replace([]),
+        );
+
+        await tester.pumpWidget(
+          buildScreen(
+            overrides: [
+              myProviderProfileProvider.overrideWith(
+                (ref) async => _profile(),
+              ),
+              kycStatusProvider.overrideWith((ref) async => kyc),
+            ],
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        expect(find.byType(VerificationStatusCard), findsOneWidget);
+        expect(find.text("Vérification d'identité"), findsOneWidget);
+        expect(find.text('Artisan Vérifié'), findsOneWidget);
+      },
+    );
   });
 }

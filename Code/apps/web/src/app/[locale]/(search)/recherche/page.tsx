@@ -16,8 +16,12 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   const q = typeof sp.q === 'string' ? sp.q : '';
 
   const title = q
-    ? (isAr ? `البحث عن "${q}" في تونس | صَنَايعِيّة` : `Recherche "${q}" en Tunisie | Sanaya`)
-    : (isAr ? 'البحث عن حرفي موثوق في الساحل | صَنَايعِيّة' : 'Trouver un artisan qualifié au Sahel | Sanaya');
+    ? isAr
+      ? `البحث عن "${q}" في تونس | صَنَايعِيّة`
+      : `Recherche "${q}" en Tunisie | Sanaya`
+    : isAr
+      ? 'البحث عن حرفي موثوق في الساحل | صَنَايعِيّة'
+      : 'Trouver un artisan qualifié au Sahel | Sanaya';
 
   const description = isAr
     ? 'اعثر على أفضل السباكين والكهربائيين والنجارين في سوسة، المنستير، والمهدية مع أرقام الهاتف المباشرة والتقييمات.'

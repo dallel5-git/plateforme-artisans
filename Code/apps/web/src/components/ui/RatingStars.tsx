@@ -40,11 +40,7 @@ export const RatingStars: React.FC<RatingStarsProps> = ({
   const hasHalfStar = clampedRating - fullStars >= 0.5;
 
   return (
-    <div
-      className={twMerge(
-        clsx('inline-flex items-center gap-1.5 select-none', className),
-      )}
-    >
+    <div className={twMerge(clsx('inline-flex items-center gap-1.5 select-none', className))}>
       <div className="flex items-center gap-0.5">
         {[1, 2, 3, 4, 5].map((index) => {
           const isFull = index <= fullStars;
@@ -65,10 +61,7 @@ export const RatingStars: React.FC<RatingStarsProps> = ({
                   style={{ width: isHalf ? '50%' : '100%' }}
                 >
                   <Star
-                    className={clsx(
-                      iconClasses,
-                      'text-amber-400 fill-amber-400 transition-colors',
-                    )}
+                    className={clsx(iconClasses, 'text-amber-400 fill-amber-400 transition-colors')}
                     style={iconStyle}
                   />
                 </div>
@@ -87,9 +80,7 @@ export const RatingStars: React.FC<RatingStarsProps> = ({
         >
           {clampedRating.toFixed(1)}
           {count !== undefined && (
-            <span className="text-slate-400 dark:text-slate-500 ms-1 text-xs">
-              ({count})
-            </span>
+            <span className="text-slate-400 dark:text-slate-500 ms-1 text-xs">({count})</span>
           )}
         </span>
       )}

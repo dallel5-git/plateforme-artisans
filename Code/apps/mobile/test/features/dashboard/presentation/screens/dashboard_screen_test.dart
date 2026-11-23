@@ -8,6 +8,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/app/theme.dart';
+import 'package:sanaya/core/api/generated/api.dart';
 import 'package:sanaya/core/widgets/app_bar_chart.dart';
 import 'package:sanaya/core/widgets/empty_state.dart';
 import 'package:sanaya/features/dashboard/application/dashboard_providers.dart';
@@ -15,6 +16,9 @@ import 'package:sanaya/features/dashboard/data/dashboard_repository.dart';
 import 'package:sanaya/features/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:sanaya/features/dashboard/presentation/widgets/dashboard_kpi_card.dart';
 import 'package:sanaya/features/reviews/application/pro_reviews_providers.dart';
+import 'package:sanaya/features/verification/application/kyc_providers.dart';
+import 'package:sanaya/features/verification/data/kyc_repository.dart';
+import 'package:sanaya/features/verification/presentation/widgets/verification_status_card.dart';
 
 class _DashboardRepositoryMock extends Mock implements DashboardRepository {}
 
@@ -74,12 +78,15 @@ ProviderStats _buildZeroStats() {
 Widget _wrap({
   required DashboardRepository repository,
   Locale locale = const Locale('fr'),
+  KycStatusResponse? kycStatus,
 }) {
   return ProviderScope(
     overrides: [
       localeProvider.overrideWith((ref) => locale),
       dashboardRepositoryProvider.overrideWithValue(repository),
       myProviderProfileProvider.overrideWith((ref) async => null),
+      if (kycStatus != null)
+        kycStatusProvider.overrideWith((ref) async => kycStatus),
     ],
     child: MaterialApp(
       locale: locale,
@@ -321,6 +328,71 @@ void main() {
         expect(find.text('نصائح لتطوير نشاطك'), findsOneWidget);
       },
     );
+
+    KycStatusResponse buildKycResponse({
+      required V1ProvidersMeVerificationGet200ResponseVerificationStatusEnum
+      status,
+      bool isVerified = false,
+    }) {
+      return KycStatusResponse(
+        (b) => b
+          ..verificationStatus = status
+          ..isVerified = isVerified
+          ..currentRequest.id = 'req-1'
+          ..currentRequest.status =
+              V1ProvidersMeVerificationGet200ResponseCurrentRequestStatusEnum
+                  .PENDING
+          ..currentRequest.submittedAt = DateTime.utc(2026, 9, 7)
+          ..currentRequest.reviewedAt = DateTime.utc(2026, 9, 7)
+          ..currentRequest.rejectionReason = ''
+          ..currentRequest.fullNameOnId = 'Sami Mansour'
+          ..currentRequest.documents.replace([]),
+      );
+    }
+
+    // MOB-031 — Suivi du statut KYC sur Dashboard
+    testWidgets(
+      "affiche la bannière KYC quand le profil n'est pas vérifié "
+      '(NOT_SUBMITTED)',
+      (tester) async {
+        final repo = _DashboardRepositoryMock();
+        when(repo.fetchStats).thenAnswer((_) async => _buildStats());
+
+        final kyc = buildKycResponse(
+          status: V1ProvidersMeVerificationGet200ResponseVerificationStatusEnum
+              .NOT_SUBMITTED,
+        );
+
+        await tester.pumpWidget(
+          _wrap(repository: repo, kycStatus: kyc),
+        );
+        await tester.pumpAndSettle();
+
+        expect(find.byType(VerificationStatusCard), findsOneWidget);
+        expect(find.text('Faites vérifier votre profil'), findsOneWidget);
+        expect(find.text('Faire vérifier mon compte'), findsOneWidget);
+      },
+    );
+
+    testWidgets(
+      "affiche la bannière KYC en attente d'examen (PENDING)",
+      (tester) async {
+        final repo = _DashboardRepositoryMock();
+        when(repo.fetchStats).thenAnswer((_) async => _buildStats());
+
+        final kyc = buildKycResponse(
+          status: V1ProvidersMeVerificationGet200ResponseVerificationStatusEnum
+              .PENDING,
+        );
+
+        await tester.pumpWidget(
+          _wrap(repository: repo, kycStatus: kyc),
+        );
+        await tester.pumpAndSettle();
+
+        expect(find.byType(VerificationStatusCard), findsOneWidget);
+        expect(find.text('Vérification en cours'), findsOneWidget);
+      },
+    );
   });
 }
-

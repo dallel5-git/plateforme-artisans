@@ -38,10 +38,13 @@ class DemoMockInterceptor extends Interceptor {
       final govId = segments.length >= 2 ? segments[segments.length - 2] : '';
       final govs =
           DemoData.governorates['governorates'] as List<dynamic>? ?? [];
-      final match = govs.firstWhere(
-        (g) => (g as Map)['id'] == govId,
-        orElse: () => govs.isNotEmpty ? govs.first : <String, dynamic>{},
-      ) as Map<String, dynamic>;
+      final match =
+          govs.firstWhere(
+                (g) => (g as Map)['id'] == govId,
+                orElse: () =>
+                    govs.isNotEmpty ? govs.first : <String, dynamic>{},
+              )
+              as Map<String, dynamic>;
       final delegations = match['delegations'] as List<dynamic>? ?? [];
       handler.resolve(_ok(options, {'delegations': delegations}));
       return;
@@ -59,9 +62,9 @@ class DemoMockInterceptor extends Interceptor {
       final minRating = options.queryParameters['minRating'] != null
           ? num.tryParse(options.queryParameters['minRating'].toString())
           : null;
-      final query = (options.queryParameters['query'] ??
-              options.extra['query'])
-          as String?;
+      final query =
+          (options.queryParameters['query'] ?? options.extra['query'])
+              as String?;
 
       final data = DemoData.searchResponse(
         category: category,
@@ -206,7 +209,6 @@ class DemoMockInterceptor extends Interceptor {
       );
       return;
     }
-
 
     // 9. Utilisateur authentifié (GET /auth/me)
     if (path.contains('/v1/auth/me') && method == 'GET') {

@@ -169,7 +169,7 @@ jobs:
             lib/features/favorites lib/features/settings \
             lib/features/history lib/features/profile \
             lib/features/boosts lib/features/reviews lib/features/pro_profile \
-            lib/features/dashboard \
+            lib/features/dashboard lib/features/verification \
             test/widget_test.dart test/core/widgets test/app \
             test/core/i18n/format_test.dart \
             test/core/i18n/locale_persistence_test.dart \
@@ -178,7 +178,7 @@ jobs:
             test/features/favorites test/features/settings \
             test/features/history test/features/profile \
             test/features/boosts test/features/reviews test/features/pro_profile \
-            test/features/dashboard
+            test/features/dashboard test/features/verification
 
       # FM-03 : lib/core/i18n/*.g.dart est généré par slang depuis
       # packages/i18n/src/locales/ (SO-05). `dart run build_runner build`
@@ -244,6 +244,8 @@ jobs:
       - run: flutter test test/features/pro_profile
       # FM-24c : test/features/dashboard (FM-12) — même gap que ci-dessus.
       - run: flutter test test/features/dashboard
+      # MOB-030 : tunnel KYC et soumission CIN.
+      - run: flutter test test/features/verification
 
   mobile-client-check:
     name: contrat → client Dart (mobile:client)

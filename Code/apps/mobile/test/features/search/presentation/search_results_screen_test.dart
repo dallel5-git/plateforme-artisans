@@ -209,9 +209,9 @@ void main() {
     expect(find.byType(ProviderCard), findsOneWidget);
   });
 
-  testWidgets(
-    'le clic sur les filtres déclenche une nouvelle recherche',
-    (tester) async {
+  testWidgets('le clic sur les filtres déclenche une nouvelle recherche', (
+    tester,
+  ) async {
     when(() => repository.search(any())).thenAnswer(
       (_) async => _page(['p1']),
     );
