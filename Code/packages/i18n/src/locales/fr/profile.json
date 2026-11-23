@@ -4,5 +4,8 @@
   "switchToProSpace": "Passer en espace Pro",
   "guestName": "Invité",
   "guestSubtitle": "Non connecté",
-  "loginCta": "Se connecter ou s'inscrire"
+  "loginCta": "Se connecter ou s'inscrire",
+  "becomeProTitle": "Devenir artisan sur Sanaya",
+  "becomeProSubtitle": "Vous êtes artisan ou professionnel du bâtiment ? Proposez vos services et trouvez de nouveaux clients.",
+  "becomeProButton": "Créer mon profil artisan"
 }

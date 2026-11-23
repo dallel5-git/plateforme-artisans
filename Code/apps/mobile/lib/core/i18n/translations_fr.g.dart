@@ -924,6 +924,15 @@ class Translations$profile$fr {
 
 	/// fr: 'Se connecter ou s'inscrire'
 	String get loginCta => 'Se connecter ou s\'inscrire';
+
+	/// fr: 'Devenir artisan sur Sanaya'
+	String get becomeProTitle => 'Devenir artisan sur Sanaya';
+
+	/// fr: 'Vous êtes artisan ou professionnel du bâtiment ? Proposez vos services et trouvez de nouveaux clients.'
+	String get becomeProSubtitle => 'Vous êtes artisan ou professionnel du bâtiment ? Proposez vos services et trouvez de nouveaux clients.';
+
+	/// fr: 'Créer mon profil artisan'
+	String get becomeProButton => 'Créer mon profil artisan';
 }
 
 // Path: provider
@@ -2057,6 +2066,9 @@ extension on Translations {
 			'profile.guestName' => 'Invité',
 			'profile.guestSubtitle' => 'Non connecté',
 			'profile.loginCta' => 'Se connecter ou s\'inscrire',
+			'profile.becomeProTitle' => 'Devenir artisan sur Sanaya',
+			'profile.becomeProSubtitle' => 'Vous êtes artisan ou professionnel du bâtiment ? Proposez vos services et trouvez de nouveaux clients.',
+			'profile.becomeProButton' => 'Créer mon profil artisan',
 			'provider.profile.callButton' => 'Appeler',
 			'provider.profile.whatsappButton' => 'WhatsApp',
 			'provider.profile.reviewsTitle' => 'Avis',
