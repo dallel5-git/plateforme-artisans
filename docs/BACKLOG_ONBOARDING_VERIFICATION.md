@@ -23,18 +23,18 @@ Ce backlog recense de manière exhaustive toutes les tâches requises pour :
 | ID | Domaine | Epic / Thématique | Intitulé de la tâche | Prio | Est. | Dépendances | Statut |
 | :---: | :---: | :--- | :--- | :---: | :---: | :---: | :---: |
 | **BE-44b** | Backend | Onboarding Pro | Enrichissement de `GET /v1/providers/me` (catégories, zones, portfolio) | 🔴 P0 | 3 h | BE-44 | ✅ Fait |
-| **MOB-005** | Mobile | Onboarding Pro | Réassignation automatique de la catégorie principale en dé-sélection | 🔴 P0 | 2 SP | — | À faire |
-| **MOB-027** | Mobile | Onboarding Pro | Reprise intégrale de session d'onboarding sans perte de saisie | 🔴 P0 | 3 SP | BE-44b |
+| **MOB-005** | Mobile | Onboarding Pro | Réassignation automatique de la catégorie principale en dé-sélection | 🔴 P0 | 2 SP | — | ✅ Fait |
+| **MOB-027** | Mobile | Onboarding Pro | Reprise intégrale de session d'onboarding sans perte de saisie | 🔴 P0 | 3 SP | BE-44b | ✅ Fait |
 | **MOB-028** | Mobile | Onboarding Pro | Guidage interactif vers les 60 % (liens directs champs manquants) | 🟠 P1 | 3 SP | — | ✅ Fait |
 | **MOB-029** | Mobile | Onboarding Pro | Écran de célébration post-publication & passerelle vers la vérification | 🟠 P1 | 2 SP | — | ✅ Fait |
-| **BE-30a** | Backend/Infra | Vérification & KYC | Coffre-fort numérique Cloudflare R2 privé chiffré (`kyc-vault.ts`) | 🔴 P0 | 4 h | BE-20a |
-| **BE-30b** | Backend | Vérification & KYC | Routes API de soumission KYC (`presign`, `submit`, `status`) | 🔴 P0 | 5 h | BE-30a |
-| **MOB-030** | Mobile | Vérification & KYC | Tunnel de capture & soumission CIN (recto/verso, n° CIN, accord INPDP) | 🔴 P0 | 5 SP | BE-30b |
-| **MOB-031** | Mobile | Vérification & KYC | Module & tuiles de suivi du statut de vérification (Dashboard & Profil) | 🔴 P0 | 3 SP | MOB-030 |
+| **BE-30a** | Backend/Infra | Vérification & KYC | Coffre-fort numérique Cloudflare R2 privé chiffré (`kyc-vault.ts`) | 🔴 P0 | 4 h | BE-20a | ✅ Fait |
+| **BE-30b** | Backend | Vérification & KYC | Routes API de soumission KYC (`presign`, `submit`, `status`) | 🔴 P0 | 5 h | BE-30a | ✅ Fait |
+| **MOB-030** | Mobile | Vérification & KYC | Tunnel de capture & soumission CIN (recto/verso, n° CIN, accord INPDP) | 🔴 P0 | 5 SP | BE-30b | ✅ Fait |
+| **MOB-031** | Mobile | Vérification & KYC | Module & tuiles de suivi du statut de vérification (Dashboard & Profil) | 🔴 P0 | 3 SP | MOB-030 | ✅ Fait |
 | **FW-20a** | Admin Web | Modération | File d'attente back-office des vérifications CIN (`apps/admin`) | 🔴 P0 | 5 SP | BE-30b |
 | **FW-20b** | Admin Web | Modération | Interface d'instruction CIN (visualiseur sécurisé, validation / rejet motivé) | 🔴 P0 | 5 SP | FW-20a |
-| **BE-31a** | Backend | Modération | Traitement de la décision admin, mise à jour `isVerified` & recalcul ranking | 🔴 P0 | 3 h | BE-30b |
-| **BE-30c** | Backend/Worker | Sécurité & Légal | Worker de purge automatique des documents sensibles post-décision | 🟠 P1 | 3 h | BE-30a |
+| **BE-31a** | Backend | Modération | Traitement de la décision admin, mise à jour `isVerified` & recalcul ranking | 🔴 P0 | 3 h | BE-30b | ✅ Fait |
+| **BE-30c** | Backend/Worker | Sécurité & Légal | Worker de purge automatique des documents sensibles post-décision | 🟠 P1 | 3 h | BE-30a | ✅ Fait |
 | **DOC-01** | Conformité | Sécurité & Légal | Dossier de conformité INPDP (déclaration de traitement données sensibles) | 🔴 P0 | 8 h | — |
 | **MOB-018** | Mobile | Espace Pro | Entrée visible "Devenir artisan" dans le profil client | 🟠 P1 | 2 SP | MOB-001 |
 | **MOB-020** | Mobile | Espace Pro | Interface d'édition post-onboarding des catégories et zones pro | 🟡 P2 | 5 SP | BE-44b |
