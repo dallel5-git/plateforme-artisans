@@ -34,8 +34,7 @@ Ce backlog recense de manière exhaustive toutes les tâches requises pour :
 | **FW-20a** | Admin Web | Modération | File d'attente back-office des vérifications CIN (`apps/admin`) | 🔴 P0 | 5 SP | BE-30b | ✅ Fait |
 | **FW-20b** | Admin Web | Modération | Interface d'instruction CIN (visualiseur sécurisé, validation / rejet motivé) | 🔴 P0 | 5 SP | FW-20a | ✅ Fait |
 | **BE-31a** | Backend | Modération | Traitement de la décision admin, mise à jour `isVerified` & recalcul ranking | 🔴 P0 | 3 h | BE-30b | ✅ Fait |
-| **BE-30c** | Backend/Worker | Sécurité & Légal | Worker de purge automatique des documents sensibles post-décision | 🟠 P1 | 3 h | BE-30a | ✅ Fait |
-| **DOC-01** | Conformité | Sécurité & Légal | Dossier de conformité INPDP (déclaration de traitement données sensibles) | 🔴 P0 | 8 h | — | |
+| **DOC-01** | Conformité | Sécurité & Légal | Dossier de conformité INPDP (déclaration de traitement données sensibles) | 🔴 P0 | 8 h | — | ✅ Fait |
 | **MOB-018** | Mobile | Espace Pro | Entrée visible "Devenir artisan" dans le profil client | 🟠 P1 | 2 SP | MOB-001 | ✅ Fait |
 | **MOB-020** | Mobile | Espace Pro | Interface d'édition post-onboarding des catégories et zones pro | 🟡 P2 | 5 SP | BE-44b | |
 | **MOB-021** | Mobile | Espace Pro | Gestion autonome du portfolio dans le profil pro (ajout/suppression) | 🟡 P2 | 5 SP | MOB-020 | |
