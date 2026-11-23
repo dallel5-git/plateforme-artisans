@@ -4,11 +4,7 @@
 // - `GET    /v1/users/me/export` : export JSON complet de toutes les données personnelles (portabilité INPDP)
 // - `DELETE /v1/users/me`        : suppression et anonymisation irréversible du compte (droit à l'oubli)
 import { UNAUTHORIZED } from '@repo/constants';
-import {
-  DomainError,
-  buildUserDataExport,
-  deleteUserAccount,
-} from '@repo/core';
+import { DomainError, buildUserDataExport, deleteUserAccount } from '@repo/core';
 import {
   deleteAccountRequestSchema,
   deleteAccountResponseSchema,

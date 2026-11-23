@@ -21,7 +21,7 @@ import {
   validatorCompiler,
   type ZodTypeProvider,
 } from 'fastify-type-provider-zod';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { registerErrorHandler } from '../src/plugins/error-handler.js';
 import { registerRequireAuth } from '../src/plugins/require-auth.js';
@@ -36,6 +36,7 @@ vi.mock('@repo/core', async (importOriginal) => {
   };
 });
 
+const TEST_SECRET = 'secret-de-test-suffisamment-long-pour-jwt-32-chars';
 const VALID_USER_ID = '11111111-1111-4111-8111-111111111111';
 
 async function buildTestApp() {
@@ -50,7 +51,12 @@ async function buildTestApp() {
 
 describe('BE-41 — Routes de confidentialité (/v1/users/me/*)', () => {
   beforeEach(() => {
+    vi.stubEnv('JWT_ACCESS_SECRET', TEST_SECRET);
     vi.clearAllMocks();
+  });
+
+  afterEach(() => {
+    vi.unstubAllEnvs();
   });
 
   describe('GET /v1/users/me/export', () => {

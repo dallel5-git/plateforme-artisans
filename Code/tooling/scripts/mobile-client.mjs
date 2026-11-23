@@ -195,6 +195,15 @@ function dedupeGeneratedEnums(outputDir) {
   }
   if (sharedBodies.length === 0) return;
 
+  const aliases = [];
+  if (namesToHoist.has('V1UsersMeExportGet200ResponseUserRolesEnum')) {
+    aliases.push(
+      '// Rétrocompatibilité : alias pour les enums renommés lors de la déduplication openapi-generator',
+      'typedef V1AuthOtpVerifyPost200ResponseUserRolesEnum = V1UsersMeExportGet200ResponseUserRolesEnum;',
+      '',
+    );
+  }
+
   const sharedContent =
     [
       '//',
@@ -215,6 +224,7 @@ function dedupeGeneratedEnums(outputDir) {
       '',
       sharedBodies.join('\n\n'),
       '',
+      ...aliases,
     ].join('\n') + '\n';
   writeFileSync(join(modelDir, 'shared_enums.dart'), sharedContent, 'utf8');
 

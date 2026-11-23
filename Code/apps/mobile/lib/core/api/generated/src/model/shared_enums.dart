@@ -77,3 +77,7 @@ class V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum
           String name) =>
       _$v1ProvidersMePost200ResponseProviderSpokenLanguagesEnumValueOf(name);
 }
+
+// Rétrocompatibilité : alias pour les enums renommés lors de la déduplication openapi-generator
+typedef V1AuthOtpVerifyPost200ResponseUserRolesEnum
+    = V1UsersMeExportGet200ResponseUserRolesEnum;

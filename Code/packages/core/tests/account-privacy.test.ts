@@ -73,13 +73,13 @@ describe('Privacy and Account Deletion Service (BE-41)', () => {
 
   describe('deleteUserAccount', () => {
     it('lève ACCOUNT_DELETION_CONFIRMATION_REQUIRED si confirmation invalide', async () => {
-      await expect(
-        deleteUserAccount({ userId: 'u1', confirmation: 'OUI' }),
-      ).rejects.toThrowError(expect.objectContaining({ code: ACCOUNT_DELETION_CONFIRMATION_REQUIRED }));
+      await expect(deleteUserAccount({ userId: 'u1', confirmation: 'OUI' })).rejects.toThrowError(
+        expect.objectContaining({ code: ACCOUNT_DELETION_CONFIRMATION_REQUIRED }),
+      );
 
-      await expect(
-        deleteUserAccount({ userId: 'u1', confirmation: '' }),
-      ).rejects.toThrowError(expect.objectContaining({ code: ACCOUNT_DELETION_CONFIRMATION_REQUIRED }));
+      await expect(deleteUserAccount({ userId: 'u1', confirmation: '' })).rejects.toThrowError(
+        expect.objectContaining({ code: ACCOUNT_DELETION_CONFIRMATION_REQUIRED }),
+      );
     });
 
     it('lève ACCOUNT_ALREADY_DELETED si l utilisateur n existe pas ou est déjà DELETED', async () => {
