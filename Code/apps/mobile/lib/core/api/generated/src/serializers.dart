@@ -70,6 +70,13 @@ import 'package:sanaya/core/api/generated/src/model/v1_providers_me_stats_get200
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_stats_get200_response_series_inner.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_stats_get200_response_totals.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_stats_get200_response_totals_contacts_by_channel.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_providers_me_verification_get200_response.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_providers_me_verification_get200_response_current_request.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_providers_me_verification_get200_response_current_request_documents_inner.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_providers_me_verification_presign_post200_response.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_providers_me_verification_presign_post_request.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_providers_me_verification_submit_post200_response.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_providers_me_verification_submit_post_request.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_search_get200_response.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_search_get200_response_items_inner.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_search_get200_response_items_inner_categories_inner.dart';
@@ -146,6 +153,13 @@ part 'serializers.g.dart';
   V1ProvidersMeStatsGet200ResponseSeriesInner,
   V1ProvidersMeStatsGet200ResponseTotals,
   V1ProvidersMeStatsGet200ResponseTotalsContactsByChannel,
+  V1ProvidersMeVerificationGet200Response,
+  V1ProvidersMeVerificationGet200ResponseCurrentRequest,
+  V1ProvidersMeVerificationGet200ResponseCurrentRequestDocumentsInner,
+  V1ProvidersMeVerificationPresignPost200Response,
+  V1ProvidersMeVerificationPresignPostRequest,
+  V1ProvidersMeVerificationSubmitPost200Response,
+  V1ProvidersMeVerificationSubmitPostRequest,
   V1ProvidersSearchGet200Response,
   V1ProvidersSearchGet200ResponseItemsInner,
   V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner,

@@ -292,6 +292,7 @@ function pinGeneratorDependencies(outputDir) {
     }
     pubspec = pubspec.replace(pattern, `$1'${version}'`);
   }
+  pubspec += "\ndependency_overrides:\n  analyzer: '14.4.0'\n";
   writeFileSync(pubspecPath, pubspec, 'utf8');
 }
 

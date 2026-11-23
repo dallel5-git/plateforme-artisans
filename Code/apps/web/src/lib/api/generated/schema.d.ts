@@ -1747,6 +1747,212 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/providers/me/verification/presign": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Génère une URL PUT pré-signée (~10 min) vers le bucket hermétique `private-kyc` avec chiffrement au repos forcé SSE-S3 AES-256 pour téléverser une pièce d’identité. */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        documentType: "CIN_FRONT" | "CIN_BACK" | "SELFIE_WITH_ID" | "PATENTE" | "DIPLOMA" | "INSURANCE" | "OTHER";
+                        /** @enum {string} */
+                        mimeType: "image/jpeg" | "image/png";
+                        sizeBytes: number;
+                    };
+                };
+            };
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            mediaId: string;
+                            /** Format: uri */
+                            uploadUrl: string;
+                            /** Format: date-time */
+                            expiresAt: string;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/providers/me/verification/submit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Soumet une demande de vérification d’identité. Hache la CIN en SHA-256 salé et la chiffre en AES-256-GCM avant enregistrement (INPDP). Passe le profil à `PENDING`. */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        cinNumber: string;
+                        fullNameOnId: string;
+                        /** Format: uuid */
+                        cinFrontMediaId: string;
+                        /** Format: uuid */
+                        cinBackMediaId: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            requestId: string;
+                            /** @enum {string} */
+                            status: "NOT_SUBMITTED" | "PENDING" | "MORE_INFO_REQUIRED" | "APPROVED" | "REJECTED";
+                            /** Format: date-time */
+                            submittedAt: string;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/providers/me/verification": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Récupère l’état de vérification actuel du profil artisan et les métadonnées de la dernière demande (sans révéler le numéro CIN ni les URL privées). */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @enum {string} */
+                            verificationStatus: "NOT_SUBMITTED" | "PENDING" | "MORE_INFO_REQUIRED" | "APPROVED" | "REJECTED";
+                            isVerified: boolean;
+                            currentRequest: {
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                status: "NOT_SUBMITTED" | "PENDING" | "MORE_INFO_REQUIRED" | "APPROVED" | "REJECTED";
+                                fullNameOnId: string | null;
+                                /** Format: date-time */
+                                submittedAt: string;
+                                reviewedAt: string | null;
+                                rejectionReason: string | null;
+                                documents: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** Format: uuid */
+                                    mediaId: string;
+                                    /** @enum {string} */
+                                    type: "CIN_FRONT" | "CIN_BACK" | "SELFIE_WITH_ID" | "PATENTE" | "DIPLOMA" | "INSURANCE" | "OTHER";
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                            } | null;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        /** @description Alias de soumission KYC sur `/providers/me/verification`. */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        cinNumber: string;
+                        fullNameOnId: string;
+                        /** Format: uuid */
+                        cinFrontMediaId: string;
+                        /** Format: uuid */
+                        cinBackMediaId: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            requestId: string;
+                            /** @enum {string} */
+                            status: "NOT_SUBMITTED" | "PENDING" | "MORE_INFO_REQUIRED" | "APPROVED" | "REJECTED";
+                            /** Format: date-time */
+                            submittedAt: string;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
