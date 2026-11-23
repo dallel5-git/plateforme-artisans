@@ -33,4 +33,5 @@ export const ERROR_HTTP_STATUS: Record<ErrorCode, number> = {
   [errorCodes.KYC_REQUEST_NOT_FOUND]: 404,
   [errorCodes.KYC_REASON_REQUIRED]: 400,
   [errorCodes.KYC_INVALID_STATUS_TRANSITION]: 400,
+  [errorCodes.KYC_DOCUMENT_ALREADY_PURGED]: 410,
 };

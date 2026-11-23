@@ -131,8 +131,9 @@ export const adminVerificationDetailDocumentSchema = z.object({
   id: z.string().uuid(),
   type: verificationDocumentTypeSchema,
   mediaId: z.string().uuid(),
-  downloadUrl: z.string().url(),
-  expiresAt: z.date(),
+  downloadUrl: z.string().url().nullable(),
+  expiresAt: z.date().nullable(),
+  isPurged: z.boolean().default(false),
 });
 export type AdminVerificationDetailDocument = z.infer<typeof adminVerificationDetailDocumentSchema>;
 
@@ -164,9 +165,18 @@ export const adminVerificationDetailResponseSchema = z.object({
     .nullable(),
   rejectionReason: z.string().nullable(),
   internalNote: z.string().nullable(),
+  expiresAt: z.date().nullable().optional(),
   documents: z.array(adminVerificationDetailDocumentSchema),
 });
 export type AdminVerificationDetailResponse = z.infer<typeof adminVerificationDetailResponseSchema>;
+
+export const adminKycPurgeResultSchema = z.object({
+  totalProcessed: z.number().int().nonnegative(),
+  purgedCount: z.number().int().nonnegative(),
+  skippedCount: z.number().int().nonnegative(),
+  errorsCount: z.number().int().nonnegative(),
+});
+export type AdminKycPurgeResult = z.infer<typeof adminKycPurgeResultSchema>;
 
 export const reviewAdminVerificationSchema = z
   .object({

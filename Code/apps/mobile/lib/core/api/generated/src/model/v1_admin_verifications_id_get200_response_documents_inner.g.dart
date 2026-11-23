@@ -131,6 +131,8 @@ class _$V1AdminVerificationsIdGet200ResponseDocumentsInner
   final String downloadUrl;
   @override
   final DateTime expiresAt;
+  @override
+  final bool isPurged;
 
   factory _$V1AdminVerificationsIdGet200ResponseDocumentsInner(
           [void Function(
@@ -145,7 +147,8 @@ class _$V1AdminVerificationsIdGet200ResponseDocumentsInner
       required this.type,
       required this.mediaId,
       required this.downloadUrl,
-      required this.expiresAt})
+      required this.expiresAt,
+      required this.isPurged})
       : super._();
   @override
   V1AdminVerificationsIdGet200ResponseDocumentsInner rebuild(
@@ -167,7 +170,8 @@ class _$V1AdminVerificationsIdGet200ResponseDocumentsInner
         type == other.type &&
         mediaId == other.mediaId &&
         downloadUrl == other.downloadUrl &&
-        expiresAt == other.expiresAt;
+        expiresAt == other.expiresAt &&
+        isPurged == other.isPurged;
   }
 
   @override
@@ -178,6 +182,7 @@ class _$V1AdminVerificationsIdGet200ResponseDocumentsInner
     _$hash = $jc(_$hash, mediaId.hashCode);
     _$hash = $jc(_$hash, downloadUrl.hashCode);
     _$hash = $jc(_$hash, expiresAt.hashCode);
+    _$hash = $jc(_$hash, isPurged.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -190,7 +195,8 @@ class _$V1AdminVerificationsIdGet200ResponseDocumentsInner
           ..add('type', type)
           ..add('mediaId', mediaId)
           ..add('downloadUrl', downloadUrl)
-          ..add('expiresAt', expiresAt))
+          ..add('expiresAt', expiresAt)
+          ..add('isPurged', isPurged))
         .toString();
   }
 }
@@ -223,6 +229,10 @@ class V1AdminVerificationsIdGet200ResponseDocumentsInnerBuilder
   DateTime? get expiresAt => _$this._expiresAt;
   set expiresAt(DateTime? expiresAt) => _$this._expiresAt = expiresAt;
 
+  bool? _isPurged;
+  bool? get isPurged => _$this._isPurged;
+  set isPurged(bool? isPurged) => _$this._isPurged = isPurged;
+
   V1AdminVerificationsIdGet200ResponseDocumentsInnerBuilder() {
     V1AdminVerificationsIdGet200ResponseDocumentsInner._defaults(this);
   }
@@ -235,6 +245,7 @@ class V1AdminVerificationsIdGet200ResponseDocumentsInnerBuilder
       _mediaId = $v.mediaId;
       _downloadUrl = $v.downloadUrl;
       _expiresAt = $v.expiresAt;
+      _isPurged = $v.isPurged;
       _$v = null;
     }
     return this;
@@ -272,6 +283,10 @@ class V1AdminVerificationsIdGet200ResponseDocumentsInnerBuilder
               expiresAt,
               r'V1AdminVerificationsIdGet200ResponseDocumentsInner',
               'expiresAt'),
+          isPurged: BuiltValueNullFieldError.checkNotNull(
+              isPurged,
+              r'V1AdminVerificationsIdGet200ResponseDocumentsInner',
+              'isPurged'),
         );
     replace(_$result);
     return _$result;

@@ -34,6 +34,7 @@ export 'package:sanaya/core/api/generated/src/model/v1_admin_verifications_id_ge
 export 'package:sanaya/core/api/generated/src/model/v1_admin_verifications_id_get200_response_reviewed_by.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_admin_verifications_id_review_post200_response.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_admin_verifications_id_review_post_request.dart';
+export 'package:sanaya/core/api/generated/src/model/v1_admin_verifications_purge_expired_post200_response.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_auth_logout_post200_response.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_auth_me_get200_response.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_auth_otp_request_post200_response.dart';

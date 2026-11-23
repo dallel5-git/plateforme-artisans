@@ -5,6 +5,33 @@ import { buildKeysetOrderBy, buildKeysetWhere, buildPage, resolveLimit } from '.
 import type { PaginatedResult } from '../pagination.js';
 import type { DbClient, VerificationDocumentType, VerificationStatus } from '../types.js';
 import { createAuditLog } from './audit-log.repository.js';
+import { scheduleMediaAssetsPurge } from './media-asset.repository.js';
+
+/** Durée de rétention des images CIN après approbation : 30 jours (INPDP) */
+export const KYC_RETENTION_DAYS_APPROVED = 30;
+
+/** Durée de rétention des images CIN après rejet : 14 jours (délai de contestation) */
+export const KYC_RETENTION_DAYS_REJECTED = 14;
+
+/** Rétention par défaut à la soumission : 365 jours */
+export const KYC_RETENTION_DAYS_DEFAULT = 365;
+
+export function calculateKycRetentionDate(
+  status: 'APPROVED' | 'REJECTED' | 'MORE_INFO_REQUIRED' | string,
+  fromDate: Date = new Date(),
+): Date | null {
+  const days =
+    status === 'APPROVED'
+      ? KYC_RETENTION_DAYS_APPROVED
+      : status === 'REJECTED'
+        ? KYC_RETENTION_DAYS_REJECTED
+        : status === 'MORE_INFO_REQUIRED'
+          ? KYC_RETENTION_DAYS_APPROVED
+          : null;
+
+  if (days === null) return null;
+  return new Date(fromDate.getTime() + days * 24 * 60 * 60 * 1000);
+}
 
 export interface VerificationDocumentRecord {
   id: string;
@@ -39,6 +66,7 @@ export interface CreateVerificationRequestInput {
   cinNumberCipher?: string;
   fullNameOnId?: string;
   status?: VerificationStatus;
+  expiresAt?: Date | null;
 }
 
 export interface AddVerificationDocumentInput {
@@ -58,6 +86,7 @@ export async function createVerificationRequest(
       cinNumberCipher: input.cinNumberCipher,
       fullNameOnId: input.fullNameOnId,
       status: input.status ?? 'PENDING',
+      expiresAt: input.expiresAt,
     },
   });
 }
@@ -271,6 +300,7 @@ export interface AdminVerificationDetailRecord {
   } | null;
   rejectionReason: string | null;
   internalNote: string | null;
+  expiresAt?: Date | null;
   documents: Array<{
     id: string;
     type: VerificationDocumentType;
@@ -296,6 +326,7 @@ export async function findVerificationRequestDetailsForAdmin(
       reviewedAt: true,
       rejectionReason: true,
       internalNote: true,
+      expiresAt: true,
       provider: {
         select: {
           id: true,
@@ -343,6 +374,7 @@ export interface ReviewVerificationRequestInput {
   internalNote?: string | null;
   actorIpHash?: string;
   actorUserAgent?: string;
+  purgeAfterDate?: Date | null;
 }
 
 export interface ReviewVerificationResult {
@@ -353,6 +385,7 @@ export interface ReviewVerificationResult {
   isVerified: boolean;
   rejectionReason: string | null;
   internalNote: string | null;
+  expiresAt?: Date | null;
 }
 
 async function executeReviewVerificationRequest(
@@ -361,7 +394,12 @@ async function executeReviewVerificationRequest(
 ): Promise<ReviewVerificationResult | null> {
   const current = await tx.verificationRequest.findUnique({
     where: { id: input.requestId },
-    include: { provider: true },
+    include: {
+      provider: true,
+      documents: {
+        select: { mediaId: true },
+      },
+    },
   });
 
   if (!current) {
@@ -376,6 +414,10 @@ async function executeReviewVerificationRequest(
 
   const reviewedAt = new Date();
   const isApproved = input.status === 'APPROVED';
+  const purgeAfter =
+    input.purgeAfterDate !== undefined
+      ? input.purgeAfterDate
+      : calculateKycRetentionDate(input.status, reviewedAt);
 
   const updated = await tx.verificationRequest.update({
     where: { id: input.requestId },
@@ -385,8 +427,15 @@ async function executeReviewVerificationRequest(
       reviewedById: input.reviewerId,
       rejectionReason: input.rejectionReason ?? null,
       internalNote: input.internalNote ?? null,
+      expiresAt: purgeAfter,
     },
   });
+
+  // Programmation de la rétention automatique sur les médias associés (BE-30c)
+  if (current.documents && current.documents.length > 0 && purgeAfter) {
+    const mediaIds = current.documents.map((doc: { mediaId: string }) => doc.mediaId);
+    await scheduleMediaAssetsPurge(mediaIds, purgeAfter, tx);
+  }
 
   await tx.providerProfile.update({
     where: { id: current.providerId },
@@ -436,6 +485,7 @@ async function executeReviewVerificationRequest(
     isVerified: isApproved,
     rejectionReason: updated.rejectionReason,
     internalNote: updated.internalNote,
+    expiresAt: updated.expiresAt,
   };
 }
 

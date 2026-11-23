@@ -24,6 +24,7 @@ doc/V1AdminVerificationsIdGet200ResponseProviderUser.md
 doc/V1AdminVerificationsIdGet200ResponseReviewedBy.md
 doc/V1AdminVerificationsIdReviewPost200Response.md
 doc/V1AdminVerificationsIdReviewPostRequest.md
+doc/V1AdminVerificationsPurgeExpiredPost200Response.md
 doc/V1AuthLogoutPost200Response.md
 doc/V1AuthMeGet200Response.md
 doc/V1AuthOtpRequestPost200Response.md
@@ -129,6 +130,7 @@ lib/src/model/v1_admin_verifications_id_get200_response_provider_user.dart
 lib/src/model/v1_admin_verifications_id_get200_response_reviewed_by.dart
 lib/src/model/v1_admin_verifications_id_review_post200_response.dart
 lib/src/model/v1_admin_verifications_id_review_post_request.dart
+lib/src/model/v1_admin_verifications_purge_expired_post200_response.dart
 lib/src/model/v1_auth_logout_post200_response.dart
 lib/src/model/v1_auth_me_get200_response.dart
 lib/src/model/v1_auth_otp_request_post200_response.dart
@@ -226,6 +228,7 @@ test/v1_admin_verifications_id_get200_response_reviewed_by_test.dart
 test/v1_admin_verifications_id_get200_response_test.dart
 test/v1_admin_verifications_id_review_post200_response_test.dart
 test/v1_admin_verifications_id_review_post_request_test.dart
+test/v1_admin_verifications_purge_expired_post200_response_test.dart
 test/v1_auth_logout_post200_response_test.dart
 test/v1_auth_me_get200_response_test.dart
 test/v1_auth_otp_request_post200_response_test.dart

@@ -161,10 +161,11 @@ export type {
   ProviderStatsTotals,
 } from './analytics/index.js';
 
-export {
-  decryptCin,
-  encryptCin,
-  hashCin,
-  isValidCin,
-} from './security/kyc-crypto.js';
+export { decryptCin, encryptCin, hashCin, isValidCin } from './security/kyc-crypto.js';
 
+export { purgeExpiredKycMedia } from './security/kyc-purge.js';
+export type {
+  PurgeExpiredKycMediaOptions,
+  PurgeKycErrorItem,
+  PurgeKycResult,
+} from './security/kyc-purge.js';

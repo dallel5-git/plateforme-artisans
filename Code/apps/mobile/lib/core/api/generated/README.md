@@ -71,6 +71,7 @@ Class | Method | HTTP request | Description
 [*AdminVerificationsApi*](doc/AdminVerificationsApi.md) | [**v1AdminVerificationsGet**](doc/AdminVerificationsApi.md#v1adminverificationsget) | **GET** /v1/admin/verifications | 
 [*AdminVerificationsApi*](doc/AdminVerificationsApi.md) | [**v1AdminVerificationsIdGet**](doc/AdminVerificationsApi.md#v1adminverificationsidget) | **GET** /v1/admin/verifications/{id} | 
 [*AdminVerificationsApi*](doc/AdminVerificationsApi.md) | [**v1AdminVerificationsIdReviewPost**](doc/AdminVerificationsApi.md#v1adminverificationsidreviewpost) | **POST** /v1/admin/verifications/{id}/review | 
+[*AdminVerificationsApi*](doc/AdminVerificationsApi.md) | [**v1AdminVerificationsPurgeExpiredPost**](doc/AdminVerificationsApi.md#v1adminverificationspurgeexpiredpost) | **POST** /v1/admin/verifications/purge-expired | 
 [*AuthApi*](doc/AuthApi.md) | [**v1AuthLogoutPost**](doc/AuthApi.md#v1authlogoutpost) | **POST** /v1/auth/logout | 
 [*AuthApi*](doc/AuthApi.md) | [**v1AuthMeGet**](doc/AuthApi.md#v1authmeget) | **GET** /v1/auth/me | 
 [*AuthApi*](doc/AuthApi.md) | [**v1AuthOtpRequestPost**](doc/AuthApi.md#v1authotprequestpost) | **POST** /v1/auth/otp/request | 
@@ -129,6 +130,7 @@ Class | Method | HTTP request | Description
  - [V1AdminVerificationsIdGet200ResponseReviewedBy](doc/V1AdminVerificationsIdGet200ResponseReviewedBy.md)
  - [V1AdminVerificationsIdReviewPost200Response](doc/V1AdminVerificationsIdReviewPost200Response.md)
  - [V1AdminVerificationsIdReviewPostRequest](doc/V1AdminVerificationsIdReviewPostRequest.md)
+ - [V1AdminVerificationsPurgeExpiredPost200Response](doc/V1AdminVerificationsPurgeExpiredPost200Response.md)
  - [V1AuthLogoutPost200Response](doc/V1AuthLogoutPost200Response.md)
  - [V1AuthMeGet200Response](doc/V1AuthMeGet200Response.md)
  - [V1AuthOtpRequestPost200Response](doc/V1AuthOtpRequestPost200Response.md)

@@ -5273,6 +5273,17 @@
                         }
                       ]
                     },
+                    "expiresAt": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
                     "documents": {
                       "type": "array",
                       "items": {
@@ -5301,12 +5312,30 @@
                             "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
                           },
                           "downloadUrl": {
-                            "type": "string",
-                            "format": "uri"
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "format": "uri"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
                           },
                           "expiresAt": {
-                            "type": "string",
-                            "format": "date-time"
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "isPurged": {
+                            "default": false,
+                            "type": "boolean"
                           }
                         },
                         "required": [
@@ -5314,7 +5343,8 @@
                           "type",
                           "mediaId",
                           "downloadUrl",
-                          "expiresAt"
+                          "expiresAt",
+                          "isPurged"
                         ],
                         "additionalProperties": false
                       }
@@ -5454,6 +5484,55 @@
                     "isVerified",
                     "rejectionReason",
                     "internalNote"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/admin/verifications/purge-expired": {
+      "post": {
+        "tags": [
+          "admin-verifications"
+        ],
+        "description": "Déclenche la purge des images KYC (CIN) dont la durée de rétention est échue (norme INPDP). Supprime physiquement les fichiers dans Cloudflare R2, neutralise les enregistrements DB et consigne la traçabilité dans AuditLog.",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "totalProcessed": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "purgedCount": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "skippedCount": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "errorsCount": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    }
+                  },
+                  "required": [
+                    "totalProcessed",
+                    "purgedCount",
+                    "skippedCount",
+                    "errorsCount"
                   ],
                   "additionalProperties": false
                 }

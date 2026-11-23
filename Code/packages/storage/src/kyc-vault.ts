@@ -24,9 +24,38 @@ export const KYC_UPLOAD_TTL_SECONDS = 10 * 60;
 /** TTL pour l'accès en lecture modérateur/admin : 5 minutes maximum */
 export const KYC_READ_TTL_SECONDS = 5 * 60;
 
+/** Durée de rétention des images CIN après approbation : 30 jours (INPDP) */
+export const KYC_RETENTION_DAYS_APPROVED = 30;
+
+/** Durée de rétention des images CIN après rejet : 14 jours (délai de contestation) */
+export const KYC_RETENTION_DAYS_REJECTED = 14;
+
+/** Rétention par défaut à la soumission (si non traitée) : 365 jours */
+export const KYC_RETENTION_DAYS_DEFAULT = 365;
+
 export interface PresignedDownload {
   downloadUrl: string;
   expiresAt: Date;
+}
+
+/**
+ * Calcule la date limite de conservation (purgeAfter) en fonction de la décision modérateur.
+ */
+export function calculateKycPurgeDate(
+  status: 'APPROVED' | 'REJECTED' | 'MORE_INFO_REQUIRED' | string,
+  fromDate: Date = new Date(),
+): Date | null {
+  const days =
+    status === 'APPROVED'
+      ? KYC_RETENTION_DAYS_APPROVED
+      : status === 'REJECTED'
+        ? KYC_RETENTION_DAYS_REJECTED
+        : status === 'MORE_INFO_REQUIRED'
+          ? KYC_RETENTION_DAYS_APPROVED
+          : null;
+
+  if (days === null) return null;
+  return new Date(fromDate.getTime() + days * 24 * 60 * 60 * 1000);
 }
 
 export function requireKycBucketName(): string {

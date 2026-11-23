@@ -33,6 +33,7 @@ import 'package:sanaya/core/api/generated/src/model/v1_admin_verifications_id_ge
 import 'package:sanaya/core/api/generated/src/model/v1_admin_verifications_id_get200_response_reviewed_by.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_admin_verifications_id_review_post200_response.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_admin_verifications_id_review_post_request.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_admin_verifications_purge_expired_post200_response.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_auth_logout_post200_response.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_auth_me_get200_response.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_auth_otp_request_post200_response.dart';
@@ -128,6 +129,7 @@ part 'serializers.g.dart';
   V1AdminVerificationsIdGet200ResponseReviewedBy,
   V1AdminVerificationsIdReviewPost200Response,
   V1AdminVerificationsIdReviewPostRequest,
+  V1AdminVerificationsPurgeExpiredPost200Response,
   V1AuthLogoutPost200Response,
   V1AuthMeGet200Response,
   V1AuthOtpRequestPost200Response,

@@ -2088,6 +2088,7 @@ export interface paths {
                             } | null;
                             rejectionReason: string | null;
                             internalNote: string | null;
+                            expiresAt?: string | null;
                             documents: {
                                 /** Format: uuid */
                                 id: string;
@@ -2095,10 +2096,10 @@ export interface paths {
                                 type: "CIN_FRONT" | "CIN_BACK" | "SELFIE_WITH_ID" | "PATENTE" | "DIPLOMA" | "INSURANCE" | "OTHER";
                                 /** Format: uuid */
                                 mediaId: string;
-                                /** Format: uri */
-                                downloadUrl: string;
-                                /** Format: date-time */
-                                expiresAt: string;
+                                downloadUrl: string | null;
+                                expiresAt: string | null;
+                                /** @default false */
+                                isPurged: boolean;
                             }[];
                         };
                     };
@@ -2161,6 +2162,47 @@ export interface paths {
                             isVerified: boolean;
                             rejectionReason: string | null;
                             internalNote: string | null;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/verifications/purge-expired": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Déclenche la purge des images KYC (CIN) dont la durée de rétention est échue (norme INPDP). Supprime physiquement les fichiers dans Cloudflare R2, neutralise les enregistrements DB et consigne la traçabilité dans AuditLog. */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            totalProcessed: number;
+                            purgedCount: number;
+                            skippedCount: number;
+                            errorsCount: number;
                         };
                     };
                 };

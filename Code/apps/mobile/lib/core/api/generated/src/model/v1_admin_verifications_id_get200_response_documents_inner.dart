@@ -18,6 +18,7 @@ part 'v1_admin_verifications_id_get200_response_documents_inner.g.dart';
 /// * [mediaId]
 /// * [downloadUrl]
 /// * [expiresAt]
+/// * [isPurged]
 @BuiltValue()
 abstract class V1AdminVerificationsIdGet200ResponseDocumentsInner
     implements
@@ -39,6 +40,9 @@ abstract class V1AdminVerificationsIdGet200ResponseDocumentsInner
   @BuiltValueField(wireName: r'expiresAt')
   DateTime get expiresAt;
 
+  @BuiltValueField(wireName: r'isPurged')
+  bool get isPurged;
+
   V1AdminVerificationsIdGet200ResponseDocumentsInner._();
 
   factory V1AdminVerificationsIdGet200ResponseDocumentsInner(
@@ -49,7 +53,7 @@ abstract class V1AdminVerificationsIdGet200ResponseDocumentsInner
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(
           V1AdminVerificationsIdGet200ResponseDocumentsInnerBuilder b) =>
-      b;
+      b..isPurged = false;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<V1AdminVerificationsIdGet200ResponseDocumentsInner>
@@ -100,6 +104,11 @@ class _$V1AdminVerificationsIdGet200ResponseDocumentsInnerSerializer
     yield serializers.serialize(
       object.expiresAt,
       specifiedType: const FullType(DateTime),
+    );
+    yield r'isPurged';
+    yield serializers.serialize(
+      object.isPurged,
+      specifiedType: const FullType(bool),
     );
   }
 
@@ -161,6 +170,13 @@ class _$V1AdminVerificationsIdGet200ResponseDocumentsInnerSerializer
             specifiedType: const FullType(DateTime),
           ) as DateTime;
           result.expiresAt = valueDes;
+          break;
+        case r'isPurged':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.isPurged = valueDes;
           break;
         default:
           unhandled.add(key);

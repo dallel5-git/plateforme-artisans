@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **reviewedBy** | [**V1AdminVerificationsIdGet200ResponseReviewedBy**](V1AdminVerificationsIdGet200ResponseReviewedBy.md) |  | 
 **rejectionReason** | **String** |  | 
 **internalNote** | **String** |  | 
+**expiresAt** | [**DateTime**](DateTime.md) |  | [optional] 
 **documents** | [**BuiltList&lt;V1AdminVerificationsIdGet200ResponseDocumentsInner&gt;**](V1AdminVerificationsIdGet200ResponseDocumentsInner.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
