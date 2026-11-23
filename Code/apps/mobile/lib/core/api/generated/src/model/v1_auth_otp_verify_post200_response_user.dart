@@ -58,7 +58,7 @@ abstract class V1AuthOtpVerifyPost200ResponseUser
   String get avatarMediaId;
 
   @BuiltValueField(wireName: r'roles')
-  BuiltList<V1AuthOtpVerifyPost200ResponseUserRolesEnum> get roles;
+  BuiltList<V1UsersMeExportGet200ResponseUserRolesEnum> get roles;
   // enum rolesEnum {  CLIENT,  PROVIDER,  MODERATOR,  SUPPORT,  SALES,  FINANCE,  ADMIN,  SUPER_ADMIN,  };
 
   @BuiltValueField(wireName: r'status')
@@ -154,7 +154,7 @@ class _$V1AuthOtpVerifyPost200ResponseUserSerializer
     yield serializers.serialize(
       object.roles,
       specifiedType: const FullType(
-          BuiltList, [FullType(V1AuthOtpVerifyPost200ResponseUserRolesEnum)]),
+          BuiltList, [FullType(V1UsersMeExportGet200ResponseUserRolesEnum)]),
     );
     yield r'status';
     yield serializers.serialize(
@@ -272,8 +272,8 @@ class _$V1AuthOtpVerifyPost200ResponseUserSerializer
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(BuiltList,
-                [FullType(V1AuthOtpVerifyPost200ResponseUserRolesEnum)]),
-          ) as BuiltList<V1AuthOtpVerifyPost200ResponseUserRolesEnum>;
+                [FullType(V1UsersMeExportGet200ResponseUserRolesEnum)]),
+          ) as BuiltList<V1UsersMeExportGet200ResponseUserRolesEnum>;
           result.roles.replace(valueDes);
           break;
         case r'status':

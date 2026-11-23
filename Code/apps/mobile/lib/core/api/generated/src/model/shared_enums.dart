@@ -14,42 +14,41 @@ import 'package:built_value/serializer.dart';
 
 part 'shared_enums.g.dart';
 
-class V1AuthOtpVerifyPost200ResponseUserRolesEnum extends EnumClass {
+class V1UsersMeExportGet200ResponseUserRolesEnum extends EnumClass {
   @BuiltValueEnumConst(wireName: r'CLIENT')
-  static const V1AuthOtpVerifyPost200ResponseUserRolesEnum CLIENT =
-      _$v1AuthOtpVerifyPost200ResponseUserRolesEnum_CLIENT;
+  static const V1UsersMeExportGet200ResponseUserRolesEnum CLIENT =
+      _$v1UsersMeExportGet200ResponseUserRolesEnum_CLIENT;
   @BuiltValueEnumConst(wireName: r'PROVIDER')
-  static const V1AuthOtpVerifyPost200ResponseUserRolesEnum PROVIDER =
-      _$v1AuthOtpVerifyPost200ResponseUserRolesEnum_PROVIDER;
+  static const V1UsersMeExportGet200ResponseUserRolesEnum PROVIDER =
+      _$v1UsersMeExportGet200ResponseUserRolesEnum_PROVIDER;
   @BuiltValueEnumConst(wireName: r'MODERATOR')
-  static const V1AuthOtpVerifyPost200ResponseUserRolesEnum MODERATOR =
-      _$v1AuthOtpVerifyPost200ResponseUserRolesEnum_MODERATOR;
+  static const V1UsersMeExportGet200ResponseUserRolesEnum MODERATOR =
+      _$v1UsersMeExportGet200ResponseUserRolesEnum_MODERATOR;
   @BuiltValueEnumConst(wireName: r'SUPPORT')
-  static const V1AuthOtpVerifyPost200ResponseUserRolesEnum SUPPORT =
-      _$v1AuthOtpVerifyPost200ResponseUserRolesEnum_SUPPORT;
+  static const V1UsersMeExportGet200ResponseUserRolesEnum SUPPORT =
+      _$v1UsersMeExportGet200ResponseUserRolesEnum_SUPPORT;
   @BuiltValueEnumConst(wireName: r'SALES')
-  static const V1AuthOtpVerifyPost200ResponseUserRolesEnum SALES =
-      _$v1AuthOtpVerifyPost200ResponseUserRolesEnum_SALES;
+  static const V1UsersMeExportGet200ResponseUserRolesEnum SALES =
+      _$v1UsersMeExportGet200ResponseUserRolesEnum_SALES;
   @BuiltValueEnumConst(wireName: r'FINANCE')
-  static const V1AuthOtpVerifyPost200ResponseUserRolesEnum FINANCE =
-      _$v1AuthOtpVerifyPost200ResponseUserRolesEnum_FINANCE;
+  static const V1UsersMeExportGet200ResponseUserRolesEnum FINANCE =
+      _$v1UsersMeExportGet200ResponseUserRolesEnum_FINANCE;
   @BuiltValueEnumConst(wireName: r'ADMIN')
-  static const V1AuthOtpVerifyPost200ResponseUserRolesEnum ADMIN =
-      _$v1AuthOtpVerifyPost200ResponseUserRolesEnum_ADMIN;
+  static const V1UsersMeExportGet200ResponseUserRolesEnum ADMIN =
+      _$v1UsersMeExportGet200ResponseUserRolesEnum_ADMIN;
   @BuiltValueEnumConst(wireName: r'SUPER_ADMIN')
-  static const V1AuthOtpVerifyPost200ResponseUserRolesEnum SUPER_ADMIN =
-      _$v1AuthOtpVerifyPost200ResponseUserRolesEnum_SUPER_ADMIN;
+  static const V1UsersMeExportGet200ResponseUserRolesEnum SUPER_ADMIN =
+      _$v1UsersMeExportGet200ResponseUserRolesEnum_SUPER_ADMIN;
 
-  static Serializer<V1AuthOtpVerifyPost200ResponseUserRolesEnum>
-      get serializer => _$v1AuthOtpVerifyPost200ResponseUserRolesEnumSerializer;
+  static Serializer<V1UsersMeExportGet200ResponseUserRolesEnum>
+      get serializer => _$v1UsersMeExportGet200ResponseUserRolesEnumSerializer;
 
-  const V1AuthOtpVerifyPost200ResponseUserRolesEnum._(String name)
-      : super(name);
+  const V1UsersMeExportGet200ResponseUserRolesEnum._(String name) : super(name);
 
-  static BuiltSet<V1AuthOtpVerifyPost200ResponseUserRolesEnum> get values =>
-      _$v1AuthOtpVerifyPost200ResponseUserRolesEnumValues;
-  static V1AuthOtpVerifyPost200ResponseUserRolesEnum valueOf(String name) =>
-      _$v1AuthOtpVerifyPost200ResponseUserRolesEnumValueOf(name);
+  static BuiltSet<V1UsersMeExportGet200ResponseUserRolesEnum> get values =>
+      _$v1UsersMeExportGet200ResponseUserRolesEnumValues;
+  static V1UsersMeExportGet200ResponseUserRolesEnum valueOf(String name) =>
+      _$v1UsersMeExportGet200ResponseUserRolesEnumValueOf(name);
 }
 
 class V1ProvidersMePost200ResponseProviderSpokenLanguagesEnum

@@ -47,17 +47,14 @@ Please follow the [installation procedure](#installation--usage) and then run th
 import 'package:sanaya_api_client/sanaya_api_client.dart';
 
 
-final api = SanayaApiClient().getAdminVerificationsApi();
-final String status = status_example; // String | 
-final int limit = 56; // int | 
-final String cursor = cursor_example; // String | 
-final String orderBy = orderBy_example; // String | 
+final api = SanayaApiClient().getAccountApi();
+final V1UsersMeDeleteRequest v1UsersMeDeleteRequest = ; // V1UsersMeDeleteRequest | 
 
 try {
-    final response = await api.v1AdminVerificationsGet(status, limit, cursor, orderBy);
+    final response = await api.v1UsersMeDelete(v1UsersMeDeleteRequest);
     print(response);
 } catch on DioException (e) {
-    print("Exception when calling AdminVerificationsApi->v1AdminVerificationsGet: $e\n");
+    print("Exception when calling AccountApi->v1UsersMeDelete: $e\n");
 }
 
 ```
@@ -68,6 +65,8 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+[*AccountApi*](doc/AccountApi.md) | [**v1UsersMeDelete**](doc/AccountApi.md#v1usersmedelete) | **DELETE** /v1/users/me | 
+[*AccountApi*](doc/AccountApi.md) | [**v1UsersMeExportGet**](doc/AccountApi.md#v1usersmeexportget) | **GET** /v1/users/me/export | 
 [*AdminVerificationsApi*](doc/AdminVerificationsApi.md) | [**v1AdminVerificationsGet**](doc/AdminVerificationsApi.md#v1adminverificationsget) | **GET** /v1/admin/verifications | 
 [*AdminVerificationsApi*](doc/AdminVerificationsApi.md) | [**v1AdminVerificationsIdGet**](doc/AdminVerificationsApi.md#v1adminverificationsidget) | **GET** /v1/admin/verifications/{id} | 
 [*AdminVerificationsApi*](doc/AdminVerificationsApi.md) | [**v1AdminVerificationsIdReviewPost**](doc/AdminVerificationsApi.md#v1adminverificationsidreviewpost) | **POST** /v1/admin/verifications/{id}/review | 
@@ -204,6 +203,18 @@ Class | Method | HTTP request | Description
  - [V1ProvidersSlugGet200ResponseReviewAggregateBreakdown](doc/V1ProvidersSlugGet200ResponseReviewAggregateBreakdown.md)
  - [V1ProvidersSlugReviewsGet200Response](doc/V1ProvidersSlugReviewsGet200Response.md)
  - [V1ProvidersSlugReviewsGet200ResponseItemsInner](doc/V1ProvidersSlugReviewsGet200ResponseItemsInner.md)
+ - [V1UsersMeDelete200Response](doc/V1UsersMeDelete200Response.md)
+ - [V1UsersMeDeleteRequest](doc/V1UsersMeDeleteRequest.md)
+ - [V1UsersMeExportGet200Response](doc/V1UsersMeExportGet200Response.md)
+ - [V1UsersMeExportGet200ResponseContactEventsInner](doc/V1UsersMeExportGet200ResponseContactEventsInner.md)
+ - [V1UsersMeExportGet200ResponseFavoritesInner](doc/V1UsersMeExportGet200ResponseFavoritesInner.md)
+ - [V1UsersMeExportGet200ResponseProviderProfile](doc/V1UsersMeExportGet200ResponseProviderProfile.md)
+ - [V1UsersMeExportGet200ResponseProviderProfileCategoriesInner](doc/V1UsersMeExportGet200ResponseProviderProfileCategoriesInner.md)
+ - [V1UsersMeExportGet200ResponseProviderProfileCoverageAreasInner](doc/V1UsersMeExportGet200ResponseProviderProfileCoverageAreasInner.md)
+ - [V1UsersMeExportGet200ResponseProviderProfileOfferingsInner](doc/V1UsersMeExportGet200ResponseProviderProfileOfferingsInner.md)
+ - [V1UsersMeExportGet200ResponseReviewsWrittenInner](doc/V1UsersMeExportGet200ResponseReviewsWrittenInner.md)
+ - [V1UsersMeExportGet200ResponseUser](doc/V1UsersMeExportGet200ResponseUser.md)
+ - [V1UsersMeExportGet200ResponseVerificationRequestsInner](doc/V1UsersMeExportGet200ResponseVerificationRequestsInner.md)
 
 
 ## Documentation For Authorization

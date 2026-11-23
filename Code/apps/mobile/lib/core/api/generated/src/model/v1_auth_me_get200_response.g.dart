@@ -100,7 +100,7 @@ class _$V1AuthMeGet200Response extends V1AuthMeGet200Response {
   @override
   final String avatarMediaId;
   @override
-  final BuiltList<V1AuthOtpVerifyPost200ResponseUserRolesEnum> roles;
+  final BuiltList<V1UsersMeExportGet200ResponseUserRolesEnum> roles;
   @override
   final V1AuthMeGet200ResponseStatusEnum status;
   @override
@@ -248,11 +248,11 @@ class V1AuthMeGet200ResponseBuilder
   set avatarMediaId(String? avatarMediaId) =>
       _$this._avatarMediaId = avatarMediaId;
 
-  ListBuilder<V1AuthOtpVerifyPost200ResponseUserRolesEnum>? _roles;
-  ListBuilder<V1AuthOtpVerifyPost200ResponseUserRolesEnum> get roles =>
+  ListBuilder<V1UsersMeExportGet200ResponseUserRolesEnum>? _roles;
+  ListBuilder<V1UsersMeExportGet200ResponseUserRolesEnum> get roles =>
       _$this._roles ??=
-          ListBuilder<V1AuthOtpVerifyPost200ResponseUserRolesEnum>();
-  set roles(ListBuilder<V1AuthOtpVerifyPost200ResponseUserRolesEnum>? roles) =>
+          ListBuilder<V1UsersMeExportGet200ResponseUserRolesEnum>();
+  set roles(ListBuilder<V1UsersMeExportGet200ResponseUserRolesEnum>? roles) =>
       _$this._roles = roles;
 
   V1AuthMeGet200ResponseStatusEnum? _status;

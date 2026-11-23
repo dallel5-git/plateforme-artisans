@@ -169,3 +169,14 @@ export type {
   PurgeKycErrorItem,
   PurgeKycResult,
 } from './security/kyc-purge.js';
+
+export {
+  buildUserDataExport,
+  deleteUserAccount,
+  INPDP_LEGAL_NOTICE,
+} from './privacy/account-privacy.js';
+export type {
+  DeleteUserAccountOptions,
+  DeleteUserAccountResult,
+  UserExportDataResult,
+} from './privacy/account-privacy.js';
