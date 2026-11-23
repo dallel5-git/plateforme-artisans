@@ -14,6 +14,7 @@ export type {
   ProviderPublicationStatus,
   AvailabilityStatus,
   VerificationStatus,
+  VerificationDocumentType,
   PriceUnit,
   MediaType,
   ModerationStatus,
@@ -37,3 +38,4 @@ export * from './repositories/audit-log.repository.js';
 export * from './repositories/media-asset.repository.js';
 export * from './repositories/profile-view.repository.js';
 export * from './repositories/daily-provider-stat.repository.js';
+export * from './repositories/verification-request.repository.js';

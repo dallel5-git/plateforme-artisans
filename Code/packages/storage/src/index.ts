@@ -20,3 +20,20 @@ export type {
   GeneratedVariants,
   MediaVariant,
 } from './image-pipeline.js';
+
+export {
+  buildKycStorageKey,
+  calculateKycPurgeDate,
+  deleteKycObject,
+  getKycObjectBuffer,
+  KYC_READ_TTL_SECONDS,
+  KYC_RETENTION_DAYS_APPROVED,
+  KYC_RETENTION_DAYS_DEFAULT,
+  KYC_RETENTION_DAYS_REJECTED,
+  KYC_UPLOAD_TTL_SECONDS,
+  presignKycRead,
+  presignKycUpload,
+  PRIVATE_KYC_BUCKET,
+  requireKycBucketName,
+} from './kyc-vault.js';
+export type { PresignedDownload } from './kyc-vault.js';

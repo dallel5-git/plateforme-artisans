@@ -62,10 +62,10 @@ class SearchFilters {
   }) {
     return SearchFilters(
       governorateId: governorateId ?? this.governorateId,
-      categorySlug:
-          clearCategory ? null : (categorySlug ?? this.categorySlug),
-      delegationId:
-          clearDelegation ? null : (delegationId ?? this.delegationId),
+      categorySlug: clearCategory ? null : (categorySlug ?? this.categorySlug),
+      delegationId: clearDelegation
+          ? null
+          : (delegationId ?? this.delegationId),
       isVerified: clearVerified ? null : (isVerified ?? this.isVerified),
       minRating: clearMinRating ? null : (minRating ?? this.minRating),
       query: clearQuery ? null : (query ?? this.query),

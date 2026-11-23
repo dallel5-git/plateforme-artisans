@@ -50,7 +50,6 @@ class ReviewSubmissionNotifier extends AutoDisposeNotifier<AsyncValue<void>> {
       state = const AsyncData<void>(null);
       return true;
     } on Object catch (e, st) {
-
       state = AsyncError<void>(e, st);
       return false;
     }

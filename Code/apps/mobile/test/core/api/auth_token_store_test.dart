@@ -196,8 +196,8 @@ void main() {
       'MOB-002 — erreur réseau (connectionError) : clear() NON appelé, '
       'token conservé // régression #MOB-002',
       () async {
-        // Adaptateur qui simule une panne réseau (DioExceptionType.connectionError)
-        // sans aucune réponse HTTP.
+        // Adaptateur qui simule une panne réseau
+        // (DioExceptionType.connectionError) sans aucune réponse HTTP.
         final networkAdapter = _CountingAdapter((_) {
           throw DioException(
             requestOptions: RequestOptions(path: '/v1/auth/refresh'),

@@ -58,7 +58,8 @@ export default async function PricingPage({ params }: PageProps) {
       price: '29',
       periodFr: 'DT / mois (sans engagement)',
       periodAr: 'د.ت / شهرياً (بدون التزام)',
-      descFr: 'La formule complète pour maximiser vos demandes et décrocher des chantiers chaque jour.',
+      descFr:
+        'La formule complète pour maximiser vos demandes et décrocher des chantiers chaque jour.',
       descAr: 'الباقة الأكثر طلباً لمضاعفة زبائنك والحصول على شارة الثقة الرسمية.',
       highlight: true,
       badgeFr: 'Le plus populaire',
@@ -90,7 +91,8 @@ export default async function PricingPage({ params }: PageProps) {
       price: '15',
       periodFr: 'DT / 7 jours',
       periodAr: 'د.ت / لمدة 7 أيام',
-      descFr: 'Poussez votre profil en tête absolue sur votre délégation pendant une semaine de forte demande.',
+      descFr:
+        'Poussez votre profil en tête absolue sur votre délégation pendant une semaine de forte demande.',
       descAr: 'ضع ملفك في المرتبة الأولى في معتمديتك لأسبوع كامل عند رغبتك في مضاعفة العمل.',
       highlight: false,
       featuresFr: [
@@ -167,7 +169,10 @@ export default async function PricingPage({ params }: PageProps) {
               {/* Feature List */}
               <div className="space-y-3 pt-4 border-t border-slate-100 dark:border-slate-800">
                 {(isAr ? p.featuresAr : p.featuresFr).map((feat, fIdx) => (
-                  <div key={fIdx} className="flex items-start gap-2.5 text-xs text-slate-700 dark:text-slate-300">
+                  <div
+                    key={fIdx}
+                    className="flex items-start gap-2.5 text-xs text-slate-700 dark:text-slate-300"
+                  >
                     <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                     <span>{feat}</span>
                   </div>
@@ -214,7 +219,9 @@ export default async function PricingPage({ params }: PageProps) {
         <div className="space-y-4 text-sm">
           <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2">
             <h4 className="font-bold text-slate-900 dark:text-white">
-              {isAr ? 'هل يوجد أي التزام بالمدة في باقة Pro ؟' : 'Y a-t-il un engagement dans le Pack Pro ?'}
+              {isAr
+                ? 'هل يوجد أي التزام بالمدة في باقة Pro ؟'
+                : 'Y a-t-il un engagement dans le Pack Pro ?'}
             </h4>
             <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
               {isAr
@@ -225,7 +232,9 @@ export default async function PricingPage({ params }: PageProps) {
 
           <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2">
             <h4 className="font-bold text-slate-900 dark:text-white">
-              {isAr ? 'هل تأخذ منصة صَنَايعِيّة نسبة مئوية من الفاتورة ؟' : 'Prenez-vous une commission sur les chantiers ?'}
+              {isAr
+                ? 'هل تأخذ منصة صَنَايعِيّة نسبة مئوية من الفاتورة ؟'
+                : 'Prenez-vous une commission sur les chantiers ?'}
             </h4>
             <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
               {isAr

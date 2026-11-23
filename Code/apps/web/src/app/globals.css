@@ -44,12 +44,14 @@
   body {
     background-color: rgb(var(--c-background));
     color: rgb(var(--c-text-primary));
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings:
+      'rlig' 1,
+      'calt' 1;
     min-height: 100vh;
   }
 }
 
 /* RTL layout helpers */
-[dir="rtl"] {
+[dir='rtl'] {
   text-align: right;
 }

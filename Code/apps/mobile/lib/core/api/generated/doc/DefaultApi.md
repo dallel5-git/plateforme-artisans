@@ -31,6 +31,10 @@ Method | HTTP request | Description
 [**v1ProvidersMePortfolioPost**](DefaultApi.md#v1providersmeportfoliopost) | **POST** /v1/providers/me/portfolio | 
 [**v1ProvidersMePost**](DefaultApi.md#v1providersmepost) | **POST** /v1/providers/me | 
 [**v1ProvidersMeStatsGet**](DefaultApi.md#v1providersmestatsget) | **GET** /v1/providers/me/stats | 
+[**v1ProvidersMeVerificationGet**](DefaultApi.md#v1providersmeverificationget) | **GET** /v1/providers/me/verification | 
+[**v1ProvidersMeVerificationPost**](DefaultApi.md#v1providersmeverificationpost) | **POST** /v1/providers/me/verification | 
+[**v1ProvidersMeVerificationPresignPost**](DefaultApi.md#v1providersmeverificationpresignpost) | **POST** /v1/providers/me/verification/presign | 
+[**v1ProvidersMeVerificationSubmitPost**](DefaultApi.md#v1providersmeverificationsubmitpost) | **POST** /v1/providers/me/verification/submit | 
 [**v1ProvidersSearchGet**](DefaultApi.md#v1providerssearchget) | **GET** /v1/providers/search | 
 [**v1ProvidersSlugGet**](DefaultApi.md#v1providersslugget) | **GET** /v1/providers/{slug} | 
 [**v1ProvidersSlugReviewsGet**](DefaultApi.md#v1providersslugreviewsget) | **GET** /v1/providers/{slug}/reviews | 
@@ -960,6 +964,174 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **v1ProvidersMeVerificationGet**
+> V1ProvidersMeVerificationGet200Response v1ProvidersMeVerificationGet()
+
+
+
+Récupère l’état de vérification actuel du profil artisan et les métadonnées de la dernière demande (sans révéler le numéro CIN ni les URL privées).
+
+### Example
+```dart
+import 'package:sanaya_api_client/api.dart';
+
+final api = SanayaApiClient().getDefaultApi();
+
+try {
+    final response = api.v1ProvidersMeVerificationGet();
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling DefaultApi->v1ProvidersMeVerificationGet: $e\n');
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**V1ProvidersMeVerificationGet200Response**](V1ProvidersMeVerificationGet200Response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **v1ProvidersMeVerificationPost**
+> V1ProvidersMeVerificationSubmitPost200Response v1ProvidersMeVerificationPost(v1ProvidersMeVerificationSubmitPostRequest)
+
+
+
+Alias de soumission KYC sur `/providers/me/verification`.
+
+### Example
+```dart
+import 'package:sanaya_api_client/api.dart';
+
+final api = SanayaApiClient().getDefaultApi();
+final V1ProvidersMeVerificationSubmitPostRequest v1ProvidersMeVerificationSubmitPostRequest = ; // V1ProvidersMeVerificationSubmitPostRequest | 
+
+try {
+    final response = api.v1ProvidersMeVerificationPost(v1ProvidersMeVerificationSubmitPostRequest);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling DefaultApi->v1ProvidersMeVerificationPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **v1ProvidersMeVerificationSubmitPostRequest** | [**V1ProvidersMeVerificationSubmitPostRequest**](V1ProvidersMeVerificationSubmitPostRequest.md)|  | 
+
+### Return type
+
+[**V1ProvidersMeVerificationSubmitPost200Response**](V1ProvidersMeVerificationSubmitPost200Response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **v1ProvidersMeVerificationPresignPost**
+> V1ProvidersMeVerificationPresignPost200Response v1ProvidersMeVerificationPresignPost(v1ProvidersMeVerificationPresignPostRequest)
+
+
+
+Génère une URL PUT pré-signée (~10 min) vers le bucket hermétique `private-kyc` avec chiffrement au repos forcé SSE-S3 AES-256 pour téléverser une pièce d’identité.
+
+### Example
+```dart
+import 'package:sanaya_api_client/api.dart';
+
+final api = SanayaApiClient().getDefaultApi();
+final V1ProvidersMeVerificationPresignPostRequest v1ProvidersMeVerificationPresignPostRequest = ; // V1ProvidersMeVerificationPresignPostRequest | 
+
+try {
+    final response = api.v1ProvidersMeVerificationPresignPost(v1ProvidersMeVerificationPresignPostRequest);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling DefaultApi->v1ProvidersMeVerificationPresignPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **v1ProvidersMeVerificationPresignPostRequest** | [**V1ProvidersMeVerificationPresignPostRequest**](V1ProvidersMeVerificationPresignPostRequest.md)|  | 
+
+### Return type
+
+[**V1ProvidersMeVerificationPresignPost200Response**](V1ProvidersMeVerificationPresignPost200Response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **v1ProvidersMeVerificationSubmitPost**
+> V1ProvidersMeVerificationSubmitPost200Response v1ProvidersMeVerificationSubmitPost(v1ProvidersMeVerificationSubmitPostRequest)
+
+
+
+Soumet une demande de vérification d’identité. Hache la CIN en SHA-256 salé et la chiffre en AES-256-GCM avant enregistrement (INPDP). Passe le profil à `PENDING`.
+
+### Example
+```dart
+import 'package:sanaya_api_client/api.dart';
+
+final api = SanayaApiClient().getDefaultApi();
+final V1ProvidersMeVerificationSubmitPostRequest v1ProvidersMeVerificationSubmitPostRequest = ; // V1ProvidersMeVerificationSubmitPostRequest | 
+
+try {
+    final response = api.v1ProvidersMeVerificationSubmitPost(v1ProvidersMeVerificationSubmitPostRequest);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling DefaultApi->v1ProvidersMeVerificationSubmitPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **v1ProvidersMeVerificationSubmitPostRequest** | [**V1ProvidersMeVerificationSubmitPostRequest**](V1ProvidersMeVerificationSubmitPostRequest.md)|  | 
+
+### Return type
+
+[**V1ProvidersMeVerificationSubmitPost200Response**](V1ProvidersMeVerificationSubmitPost200Response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

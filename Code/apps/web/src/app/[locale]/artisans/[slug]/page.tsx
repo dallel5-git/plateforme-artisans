@@ -39,12 +39,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return { title: 'Artisan introuvable | Sanaya' };
   }
 
-  const categoryName = isAr
-    ? provider.primaryCategoryNameAr
-    : provider.primaryCategoryNameFr;
-  const governorateName = isAr
-    ? provider.baseGovernorateNameAr
-    : provider.baseGovernorateNameFr;
+  const categoryName = isAr ? provider.primaryCategoryNameAr : provider.primaryCategoryNameFr;
+  const governorateName = isAr ? provider.baseGovernorateNameAr : provider.baseGovernorateNameFr;
 
   const title = isAr
     ? `${provider.businessName} - ${categoryName} à ${governorateName} | صَنَايعِيّة`
@@ -87,9 +83,7 @@ export default async function ArtisanProfilePage({ params }: PageProps) {
     notFound();
   }
 
-  const categoryName = isAr
-    ? provider.primaryCategoryNameAr
-    : provider.primaryCategoryNameFr;
+  const categoryName = isAr ? provider.primaryCategoryNameAr : provider.primaryCategoryNameFr;
 
   // Structured Data Schema.org
   const jsonLd = {
