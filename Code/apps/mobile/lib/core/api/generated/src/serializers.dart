@@ -21,6 +21,19 @@ import 'package:sanaya/core/api/generated/src/model/category_tree_node.dart';
 import 'package:sanaya/core/api/generated/src/model/category_tree_node_input.dart';
 import 'package:sanaya/core/api/generated/src/model/contact_event_response.dart';
 import 'package:sanaya/core/api/generated/src/model/contact_event_response_input.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_admin_verifications_get200_response.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_admin_verifications_get200_response_items_inner.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_admin_verifications_get200_response_items_inner_documents_inner.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_admin_verifications_get200_response_items_inner_provider.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_admin_verifications_get200_response_items_inner_reviewed_by.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_admin_verifications_id_get200_response.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_admin_verifications_id_get200_response_documents_inner.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_admin_verifications_id_get200_response_provider.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_admin_verifications_id_get200_response_provider_user.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_admin_verifications_id_get200_response_reviewed_by.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_admin_verifications_id_review_post200_response.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_admin_verifications_id_review_post_request.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_admin_verifications_purge_expired_post200_response.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_auth_logout_post200_response.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_auth_me_get200_response.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_auth_otp_request_post200_response.dart';
@@ -94,6 +107,18 @@ import 'package:sanaya/core/api/generated/src/model/v1_providers_slug_get200_res
 import 'package:sanaya/core/api/generated/src/model/v1_providers_slug_get200_response_review_aggregate_breakdown.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_slug_reviews_get200_response.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_slug_reviews_get200_response_items_inner.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_users_me_delete200_response.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_users_me_delete_request.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_users_me_export_get200_response.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_users_me_export_get200_response_contact_events_inner.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_users_me_export_get200_response_favorites_inner.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_users_me_export_get200_response_provider_profile.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_users_me_export_get200_response_provider_profile_categories_inner.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_users_me_export_get200_response_provider_profile_coverage_areas_inner.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_users_me_export_get200_response_provider_profile_offerings_inner.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_users_me_export_get200_response_reviews_written_inner.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_users_me_export_get200_response_user.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_users_me_export_get200_response_verification_requests_inner.dart';
 
 part 'serializers.g.dart';
 
@@ -104,6 +129,19 @@ part 'serializers.g.dart';
   CategoryTreeNodeInput,
   ContactEventResponse,
   ContactEventResponseInput,
+  V1AdminVerificationsGet200Response,
+  V1AdminVerificationsGet200ResponseItemsInner,
+  V1AdminVerificationsGet200ResponseItemsInnerDocumentsInner,
+  V1AdminVerificationsGet200ResponseItemsInnerProvider,
+  V1AdminVerificationsGet200ResponseItemsInnerReviewedBy,
+  V1AdminVerificationsIdGet200Response,
+  V1AdminVerificationsIdGet200ResponseDocumentsInner,
+  V1AdminVerificationsIdGet200ResponseProvider,
+  V1AdminVerificationsIdGet200ResponseProviderUser,
+  V1AdminVerificationsIdGet200ResponseReviewedBy,
+  V1AdminVerificationsIdReviewPost200Response,
+  V1AdminVerificationsIdReviewPostRequest,
+  V1AdminVerificationsPurgeExpiredPost200Response,
   V1AuthLogoutPost200Response,
   V1AuthMeGet200Response,
   V1AuthOtpRequestPost200Response,
@@ -177,6 +215,18 @@ part 'serializers.g.dart';
   V1ProvidersSlugGet200ResponseReviewAggregateBreakdown,
   V1ProvidersSlugReviewsGet200Response,
   V1ProvidersSlugReviewsGet200ResponseItemsInner,
+  V1UsersMeDelete200Response,
+  V1UsersMeDeleteRequest,
+  V1UsersMeExportGet200Response,
+  V1UsersMeExportGet200ResponseContactEventsInner,
+  V1UsersMeExportGet200ResponseFavoritesInner,
+  V1UsersMeExportGet200ResponseProviderProfile,
+  V1UsersMeExportGet200ResponseProviderProfileCategoriesInner,
+  V1UsersMeExportGet200ResponseProviderProfileCoverageAreasInner,
+  V1UsersMeExportGet200ResponseProviderProfileOfferingsInner,
+  V1UsersMeExportGet200ResponseReviewsWrittenInner,
+  V1UsersMeExportGet200ResponseUser,
+  V1UsersMeExportGet200ResponseVerificationRequestsInner,
 ])
 Serializers serializers = (_$serializers.toBuilder()
       ..add(const OneOfSerializer())

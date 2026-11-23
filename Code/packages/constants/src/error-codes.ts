@@ -37,8 +37,17 @@ export const PROVIDER_CONTACT_CHANNEL_UNAVAILABLE = 'PROVIDER_CONTACT_CHANNEL_UN
 // utilisé par un avis existant — y compris la variante course entre deux requêtes quasi-simultanées).
 export const REVIEW_REQUIRES_CONTACT = 'REVIEW_REQUIRES_CONTACT';
 
-// BE-30 : vérification d'identité (KYC).
+// BE-30 / BE-31 : vérification d'identité (KYC).
 export const KYC_ALREADY_VERIFIED = 'KYC_ALREADY_VERIFIED';
 export const KYC_REQUEST_ALREADY_PENDING = 'KYC_REQUEST_ALREADY_PENDING';
 export const KYC_INVALID_CIN = 'KYC_INVALID_CIN';
 export const KYC_DOCUMENT_NOT_FOUND = 'KYC_DOCUMENT_NOT_FOUND';
+export const KYC_REQUEST_NOT_FOUND = 'KYC_REQUEST_NOT_FOUND';
+export const KYC_REASON_REQUIRED = 'KYC_REASON_REQUIRED';
+export const KYC_INVALID_STATUS_TRANSITION = 'KYC_INVALID_STATUS_TRANSITION';
+export const KYC_DOCUMENT_ALREADY_PURGED = 'KYC_DOCUMENT_ALREADY_PURGED';
+
+// BE-41 : protection des données personnelles & suppression de compte (US-C-13 / INPDP).
+export const ACCOUNT_ALREADY_DELETED = 'ACCOUNT_ALREADY_DELETED';
+export const ACCOUNT_DELETION_CONFIRMATION_REQUIRED = 'ACCOUNT_DELETION_CONFIRMATION_REQUIRED';
+export const CANNOT_DELETE_LAST_ADMIN = 'CANNOT_DELETE_LAST_ADMIN';

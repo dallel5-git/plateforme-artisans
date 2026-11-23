@@ -162,3 +162,21 @@ export type {
 } from './analytics/index.js';
 
 export { decryptCin, encryptCin, hashCin, isValidCin } from './security/kyc-crypto.js';
+
+export { purgeExpiredKycMedia } from './security/kyc-purge.js';
+export type {
+  PurgeExpiredKycMediaOptions,
+  PurgeKycErrorItem,
+  PurgeKycResult,
+} from './security/kyc-purge.js';
+
+export {
+  buildUserDataExport,
+  deleteUserAccount,
+  INPDP_LEGAL_NOTICE,
+} from './privacy/account-privacy.js';
+export type {
+  DeleteUserAccountOptions,
+  DeleteUserAccountResult,
+  UserExportDataResult,
+} from './privacy/account-privacy.js';
