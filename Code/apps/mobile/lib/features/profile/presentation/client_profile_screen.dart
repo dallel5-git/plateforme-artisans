@@ -46,6 +46,15 @@ class ClientProfileScreen extends ConsumerWidget {
             guestSubtitle: t.profile.guestSubtitle,
             isAuthenticated: isAuthenticated,
           ),
+          if (isAuthenticated && !isProvider) ...[
+            const SizedBox(height: AppSpacing.lg),
+            _BecomeProBanner(
+              title: t.profile.becomeProTitle,
+              subtitle: t.profile.becomeProSubtitle,
+              buttonLabel: t.profile.becomeProButton,
+              onPressed: () => context.push('/pro/onboarding'),
+            ),
+          ],
           const SizedBox(height: AppSpacing.lg),
           AccountSettingsSection(
             onOpenLegal: () {
@@ -261,6 +270,88 @@ class _IdentityHeaderSkeleton extends StatelessWidget {
         SizedBox(height: AppSpacing.xxs),
         AppSkeleton(width: 100, height: 14),
       ],
+    );
+  }
+}
+
+class _BecomeProBanner extends StatelessWidget {
+  const _BecomeProBanner({
+    required this.title,
+    required this.subtitle,
+    required this.buttonLabel,
+    required this.onPressed,
+  });
+
+  final String title;
+  final String subtitle;
+  final String buttonLabel;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final locale = Localizations.localeOf(context);
+
+    return Container(
+      padding: const EdgeInsets.all(AppSpacing.lg),
+      decoration: BoxDecoration(
+        color: colors.accentSubtle,
+        borderRadius: const BorderRadius.all(AppRadius.lg),
+        border: Border.all(
+          color: colors.accent.withValues(alpha: 0.25),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: colors.accent.withValues(alpha: 0.15),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.storefront_rounded,
+                  color: colors.accent,
+                  size: AppIconSize.md,
+                ),
+              ),
+              const SizedBox(width: AppSpacing.md),
+              Expanded(
+                child: Text(
+                  title,
+                  style: AppText.h3(locale).copyWith(
+                    color: colors.textPrimary,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          Text(
+            subtitle,
+            style: AppText.body(locale).copyWith(
+              color: colors.textSecondary,
+            ),
+          ),
+          const SizedBox(height: AppSpacing.md),
+          SizedBox(
+            width: double.infinity,
+            child: AppButton(
+              label: buttonLabel,
+              icon: const Icon(
+                Icons.arrow_forward_rounded,
+                size: AppIconSize.md,
+              ),
+              onPressed: onPressed,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

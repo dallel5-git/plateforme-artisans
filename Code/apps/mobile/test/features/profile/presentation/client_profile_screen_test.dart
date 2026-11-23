@@ -180,6 +180,7 @@ void main() {
     testWidgets('changer le thème met à jour themeModeProvider', (
       tester,
     ) async {
+      useTallViewport(tester);
       final container = ProviderContainer(
         overrides: [
           authRepositoryProvider.overrideWithValue(authRepository),
@@ -297,6 +298,7 @@ void main() {
     testWidgets('le lien Mentions légales navigue vers /client/profile/legal', (
       tester,
     ) async {
+      useTallViewport(tester);
       final container = ProviderContainer(
         overrides: [
           authRepositoryProvider.overrideWithValue(authRepository),
@@ -350,6 +352,112 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('LEGAL_PLACEHOLDER'), findsOneWidget);
+    });
+
+    group('MOB-018 — Bannière Devenir artisan', () {
+      testWidgets(
+        'affiche la bannière Devenir artisan pour un client régulier',
+        (tester) async {
+          useTallViewport(tester);
+          await tester.pumpWidget(
+            buildScreen(),
+          );
+          await tester.pumpAndSettle();
+
+          expect(find.text('Devenir artisan sur Sanaya'), findsOneWidget);
+          expect(find.text('Créer mon profil artisan'), findsOneWidget);
+        },
+      );
+
+      testWidgets(
+        'ne pas afficher la bannière Devenir artisan pour un profil Pro',
+        (tester) async {
+          useTallViewport(tester);
+          await tester.pumpWidget(
+            buildScreen(
+              authStatus: const AuthStatus.authenticated(isProvider: true),
+            ),
+          );
+          await tester.pumpAndSettle();
+
+          expect(find.text('Devenir artisan sur Sanaya'), findsNothing);
+          expect(find.text('Créer mon profil artisan'), findsNothing);
+        },
+      );
+
+      testWidgets(
+        'ne pas afficher la bannière Devenir artisan pour un invité',
+        (tester) async {
+          useTallViewport(tester);
+          await tester.pumpWidget(
+            buildScreen(
+              authStatus: const AuthStatus.unauthenticated(),
+            ),
+          );
+          await tester.pumpAndSettle();
+
+          expect(find.text('Devenir artisan sur Sanaya'), findsNothing);
+          expect(find.text('Créer mon profil artisan'), findsNothing);
+        },
+      );
+
+      testWidgets(
+        'le bouton Créer mon profil artisan navigue vers /pro/onboarding',
+        (tester) async {
+          useTallViewport(tester);
+          final container = ProviderContainer(
+            overrides: [
+              authRepositoryProvider.overrideWithValue(authRepository),
+              authStateProvider.overrideWith(
+                () => _FixedAuthStateNotifier(
+                  const AuthStatus.authenticated(isProvider: false),
+                ),
+              ),
+            ],
+          );
+          addTearDown(container.dispose);
+
+          final testRouter = GoRouter(
+            initialLocation: '/client/profile',
+            routes: [
+              GoRoute(
+                path: '/client/profile',
+                builder: (_, _) => const ClientProfileScreen(),
+              ),
+              GoRoute(
+                path: '/pro/onboarding',
+                builder: (_, _) => const Text('ONBOARDING_PLACEHOLDER'),
+              ),
+            ],
+          );
+
+          await tester.pumpWidget(
+            UncontrolledProviderScope(
+              container: container,
+              child: MaterialApp.router(
+                theme: buildTheme(
+                  brightness: Brightness.light,
+                  locale: const Locale('fr'),
+                ),
+                locale: const Locale('fr'),
+                supportedLocales: const [Locale('fr'), Locale('ar')],
+                localizationsDelegates: const [
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                routerConfig: testRouter,
+              ),
+            ),
+          );
+          await tester.pumpAndSettle();
+
+          await tester.tap(find.text('Créer mon profil artisan'));
+          await tester.pumpAndSettle();
+
+          expect(find.text('ONBOARDING_PLACEHOLDER'), findsOneWidget);
+        },
+      );
     });
 
     testWidgets(

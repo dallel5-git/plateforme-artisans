@@ -428,6 +428,9 @@ class Translations$profile$ar extends Translations$profile$fr {
 	@override String get guestName => 'زائر';
 	@override String get guestSubtitle => 'غير متصل';
 	@override String get loginCta => 'تسجيل الدخول أو إنشاء حساب';
+	@override String get becomeProTitle => 'انضم كحرفي على صنايعية';
+	@override String get becomeProSubtitle => 'هل أنت حرفي أو مهني؟ قدم خدماتك واستقبل طلبات الحرفاء مباشرة.';
+	@override String get becomeProButton => 'إنشاء حساب حرفي';
 }
 
 // Path: provider
@@ -1096,6 +1099,9 @@ extension on TranslationsAr {
 			'profile.guestName' => 'زائر',
 			'profile.guestSubtitle' => 'غير متصل',
 			'profile.loginCta' => 'تسجيل الدخول أو إنشاء حساب',
+			'profile.becomeProTitle' => 'انضم كحرفي على صنايعية',
+			'profile.becomeProSubtitle' => 'هل أنت حرفي أو مهني؟ قدم خدماتك واستقبل طلبات الحرفاء مباشرة.',
+			'profile.becomeProButton' => 'إنشاء حساب حرفي',
 			'provider.profile.callButton' => 'اتصال',
 			'provider.profile.whatsappButton' => 'واتساب',
 			'provider.profile.reviewsTitle' => 'التقييمات',

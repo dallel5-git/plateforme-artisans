@@ -4,5 +4,8 @@
   "switchToProSpace": "التبديل إلى مساحة المحترفين",
   "guestName": "زائر",
   "guestSubtitle": "غير متصل",
-  "loginCta": "تسجيل الدخول أو إنشاء حساب"
+  "loginCta": "تسجيل الدخول أو إنشاء حساب",
+  "becomeProTitle": "انضم كحرفي على صنايعية",
+  "becomeProSubtitle": "هل أنت حرفي أو مهني؟ قدم خدماتك واستقبل طلبات الحرفاء مباشرة.",
+  "becomeProButton": "إنشاء حساب حرفي"
 }
