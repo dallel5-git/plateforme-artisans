@@ -363,6 +363,15 @@ class Translations$onboarding$ar extends Translations$onboarding$fr {
 	@override String get clientChooseGovernorate => 'ولايتك المفضلة للبحث :';
 	@override String get clientStartExploring => 'ابدأ البحث الآن';
 	@override String get clientSkip => 'تخطي المقدمة';
+	@override String get celebrationTitle => 'مبروك! ملفك المهني أصبح متوفراً الآن';
+	@override String get celebrationSubtitle => 'ملفك أصبح مرئياً لجميع الحرفاء في مناطق تدخلك. يمكنك الآن استقبال طلبات التواصل.';
+	@override String get celebrationKycCardTitle => 'ضاعف فرص تواصل الحرفاء معك 3 مرات بالحصول على الشارة الموثقة';
+	@override String get celebrationKycCardDescription => 'الحرفيون الذين تم تأكيد هويتهم ببطاقة التعريف الوطنية يحظون بثقة أكبر ويظهرون في المراتب الأولى لنتائج البحث. العملية مجانية تماماً وتستغرق أقل من دقيقتين.';
+	@override String get celebrationKycBenefitBadge => 'شارة رسمية «حرفي موثق» على ملفك المهني';
+	@override String get celebrationKycBenefitRank => 'أولوية الظهور في صدارة نتائج البحث';
+	@override String get celebrationKycBenefitFast => 'تأكيد ومراجعة سريعة خلال 24 ساعة عمل';
+	@override String get celebrationCtaVerify => 'توثيق هويتي الآن';
+	@override String get celebrationCtaDashboard => 'الانتقال إلى لوحة التحكم';
 }
 
 // Path: proProfile
@@ -974,6 +983,15 @@ extension on TranslationsAr {
 			'onboarding.clientChooseGovernorate' => 'ولايتك المفضلة للبحث :',
 			'onboarding.clientStartExploring' => 'ابدأ البحث الآن',
 			'onboarding.clientSkip' => 'تخطي المقدمة',
+			'onboarding.celebrationTitle' => 'مبروك! ملفك المهني أصبح متوفراً الآن',
+			'onboarding.celebrationSubtitle' => 'ملفك أصبح مرئياً لجميع الحرفاء في مناطق تدخلك. يمكنك الآن استقبال طلبات التواصل.',
+			'onboarding.celebrationKycCardTitle' => 'ضاعف فرص تواصل الحرفاء معك 3 مرات بالحصول على الشارة الموثقة',
+			'onboarding.celebrationKycCardDescription' => 'الحرفيون الذين تم تأكيد هويتهم ببطاقة التعريف الوطنية يحظون بثقة أكبر ويظهرون في المراتب الأولى لنتائج البحث. العملية مجانية تماماً وتستغرق أقل من دقيقتين.',
+			'onboarding.celebrationKycBenefitBadge' => 'شارة رسمية «حرفي موثق» على ملفك المهني',
+			'onboarding.celebrationKycBenefitRank' => 'أولوية الظهور في صدارة نتائج البحث',
+			'onboarding.celebrationKycBenefitFast' => 'تأكيد ومراجعة سريعة خلال 24 ساعة عمل',
+			'onboarding.celebrationCtaVerify' => 'توثيق هويتي الآن',
+			'onboarding.celebrationCtaDashboard' => 'الانتقال إلى لوحة التحكم',
 			'proProfile.title' => 'الملف الشخصي',
 			'proProfile.emptyTitle' => 'الملف غير موجود',
 			'proProfile.emptyMessage' => 'لا يوجد ملف حرفي مرتبط بهذا الحساب.',

@@ -16,6 +16,7 @@ import 'package:sanaya/features/favorites/presentation/favorites_screen.dart';
 import 'package:sanaya/features/history/presentation/client_history_screen.dart';
 import 'package:sanaya/features/onboarding/application/onboarding_providers.dart';
 import 'package:sanaya/features/onboarding/presentation/client_onboarding_screen.dart';
+import 'package:sanaya/features/onboarding/presentation/onboarding_celebration_screen.dart';
 import 'package:sanaya/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:sanaya/features/pro_profile/presentation/pro_profile_screen.dart';
 import 'package:sanaya/features/profile/presentation/client_profile_screen.dart';
@@ -26,6 +27,7 @@ import 'package:sanaya/features/search/data/search_filters.dart';
 import 'package:sanaya/features/search/presentation/search_home_screen.dart';
 import 'package:sanaya/features/search/presentation/search_results_screen.dart';
 import 'package:sanaya/features/settings/presentation/legal_notice_screen.dart';
+import 'package:sanaya/features/verification/presentation/screens/kyc_submission_screen.dart';
 
 /// Fait réévaluer `redirect:` quand `authStateProvider` change en dehors
 /// d'une navigation (ex. restauration de session résolue en tâche de fond,
@@ -226,6 +228,16 @@ final router = GoRouter(
       path: '/pro/onboarding',
       name: 'pro-onboarding',
       builder: (_, _) => const OnboardingScreen(),
+    ),
+    GoRoute(
+      path: '/pro/celebration',
+      name: 'pro-celebration',
+      builder: (_, _) => const OnboardingCelebrationScreen(),
+    ),
+    GoRoute(
+      path: '/pro/verification',
+      name: 'pro-verification',
+      builder: (_, _) => const KycSubmissionScreen(),
     ),
     StatefulShellRoute.indexedStack(
       builder: (_, _, navigationShell) =>
