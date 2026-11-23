@@ -48,7 +48,6 @@ Serializers _$serializers = (Serializers().toBuilder()
       ..add(V1AuthOtpRequestPostRequest.serializer)
       ..add(V1AuthOtpVerifyPost200Response.serializer)
       ..add(V1AuthOtpVerifyPost200ResponseUser.serializer)
-      ..add(V1AuthOtpVerifyPost200ResponseUserRolesEnum.serializer)
       ..add(V1AuthOtpVerifyPost200ResponseUserStatusEnum.serializer)
       ..add(V1AuthOtpVerifyPostRequest.serializer)
       ..add(V1AuthRefreshPostRequest.serializer)
@@ -161,6 +160,25 @@ Serializers _$serializers = (Serializers().toBuilder()
       ..add(V1ProvidersSlugGet200ResponseReviewAggregateBreakdown.serializer)
       ..add(V1ProvidersSlugReviewsGet200Response.serializer)
       ..add(V1ProvidersSlugReviewsGet200ResponseItemsInner.serializer)
+      ..add(V1UsersMeDelete200Response.serializer)
+      ..add(V1UsersMeDelete200ResponseStatusEnum.serializer)
+      ..add(V1UsersMeDeleteRequest.serializer)
+      ..add(V1UsersMeDeleteRequestConfirmationEnum.serializer)
+      ..add(V1UsersMeExportGet200Response.serializer)
+      ..add(V1UsersMeExportGet200ResponseContactEventsInner.serializer)
+      ..add(V1UsersMeExportGet200ResponseFavoritesInner.serializer)
+      ..add(V1UsersMeExportGet200ResponseProviderProfile.serializer)
+      ..add(V1UsersMeExportGet200ResponseProviderProfileCategoriesInner
+          .serializer)
+      ..add(V1UsersMeExportGet200ResponseProviderProfileCoverageAreasInner
+          .serializer)
+      ..add(
+          V1UsersMeExportGet200ResponseProviderProfileOfferingsInner.serializer)
+      ..add(V1UsersMeExportGet200ResponseReviewsWrittenInner.serializer)
+      ..add(V1UsersMeExportGet200ResponseUser.serializer)
+      ..add(V1UsersMeExportGet200ResponseUserRolesEnum.serializer)
+      ..add(V1UsersMeExportGet200ResponseUserStatusEnum.serializer)
+      ..add(V1UsersMeExportGet200ResponseVerificationRequestsInner.serializer)
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(CategoryTreeNode)]),
           () => ListBuilder<CategoryTreeNode>())
@@ -171,6 +189,33 @@ Serializers _$serializers = (Serializers().toBuilder()
           const FullType(
               BuiltList, const [const FullType(CategoryTreeNodeInput)]),
           () => ListBuilder<CategoryTreeNodeInput>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(
+                V1UsersMeExportGet200ResponseProviderProfileCategoriesInner)
+          ]),
+          () => ListBuilder<
+              V1UsersMeExportGet200ResponseProviderProfileCategoriesInner>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(
+                V1UsersMeExportGet200ResponseProviderProfileOfferingsInner)
+          ]),
+          () => ListBuilder<
+              V1UsersMeExportGet200ResponseProviderProfileOfferingsInner>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(
+                V1UsersMeExportGet200ResponseProviderProfileCoverageAreasInner)
+          ]),
+          () => ListBuilder<
+              V1UsersMeExportGet200ResponseProviderProfileCoverageAreasInner>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [
             const FullType(V1AdminVerificationsGet200ResponseItemsInner)
@@ -189,16 +234,6 @@ Serializers _$serializers = (Serializers().toBuilder()
           ]),
           () =>
               ListBuilder<V1AdminVerificationsIdGet200ResponseDocumentsInner>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [
-            const FullType(V1AuthOtpVerifyPost200ResponseUserRolesEnum)
-          ]),
-          () => ListBuilder<V1AuthOtpVerifyPost200ResponseUserRolesEnum>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [
-            const FullType(V1AuthOtpVerifyPost200ResponseUserRolesEnum)
-          ]),
-          () => ListBuilder<V1AuthOtpVerifyPost200ResponseUserRolesEnum>())
       ..addBuilderFactory(
           const FullType(BuiltList,
               const [const FullType(V1ContactEventsGet200ResponseItemsInner)]),
@@ -325,6 +360,43 @@ Serializers _$serializers = (Serializers().toBuilder()
             const FullType(V1ProvidersSlugReviewsGet200ResponseItemsInner)
           ]),
           () => ListBuilder<V1ProvidersSlugReviewsGet200ResponseItemsInner>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(V1UsersMeExportGet200ResponseReviewsWrittenInner)
+          ]),
+          () => ListBuilder<V1UsersMeExportGet200ResponseReviewsWrittenInner>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(V1UsersMeExportGet200ResponseFavoritesInner)
+          ]),
+          () => ListBuilder<V1UsersMeExportGet200ResponseFavoritesInner>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(V1UsersMeExportGet200ResponseContactEventsInner)
+          ]),
+          () => ListBuilder<V1UsersMeExportGet200ResponseContactEventsInner>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(
+                V1UsersMeExportGet200ResponseVerificationRequestsInner)
+          ]),
+          () => ListBuilder<
+              V1UsersMeExportGet200ResponseVerificationRequestsInner>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(V1UsersMeExportGet200ResponseUserRolesEnum)
+          ]),
+          () => ListBuilder<V1UsersMeExportGet200ResponseUserRolesEnum>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(V1UsersMeExportGet200ResponseUserRolesEnum)
+          ]),
+          () => ListBuilder<V1UsersMeExportGet200ResponseUserRolesEnum>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(V1UsersMeExportGet200ResponseUserRolesEnum)
+          ]),
+          () => ListBuilder<V1UsersMeExportGet200ResponseUserRolesEnum>())
       ..addBuilderFactory(
           const FullType(BuiltMap, const [
             const FullType(String),

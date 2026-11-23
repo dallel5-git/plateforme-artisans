@@ -107,6 +107,18 @@ import 'package:sanaya/core/api/generated/src/model/v1_providers_slug_get200_res
 import 'package:sanaya/core/api/generated/src/model/v1_providers_slug_get200_response_review_aggregate_breakdown.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_slug_reviews_get200_response.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_slug_reviews_get200_response_items_inner.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_users_me_delete200_response.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_users_me_delete_request.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_users_me_export_get200_response.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_users_me_export_get200_response_contact_events_inner.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_users_me_export_get200_response_favorites_inner.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_users_me_export_get200_response_provider_profile.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_users_me_export_get200_response_provider_profile_categories_inner.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_users_me_export_get200_response_provider_profile_coverage_areas_inner.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_users_me_export_get200_response_provider_profile_offerings_inner.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_users_me_export_get200_response_reviews_written_inner.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_users_me_export_get200_response_user.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_users_me_export_get200_response_verification_requests_inner.dart';
 
 part 'serializers.g.dart';
 
@@ -203,6 +215,18 @@ part 'serializers.g.dart';
   V1ProvidersSlugGet200ResponseReviewAggregateBreakdown,
   V1ProvidersSlugReviewsGet200Response,
   V1ProvidersSlugReviewsGet200ResponseItemsInner,
+  V1UsersMeDelete200Response,
+  V1UsersMeDeleteRequest,
+  V1UsersMeExportGet200Response,
+  V1UsersMeExportGet200ResponseContactEventsInner,
+  V1UsersMeExportGet200ResponseFavoritesInner,
+  V1UsersMeExportGet200ResponseProviderProfile,
+  V1UsersMeExportGet200ResponseProviderProfileCategoriesInner,
+  V1UsersMeExportGet200ResponseProviderProfileCoverageAreasInner,
+  V1UsersMeExportGet200ResponseProviderProfileOfferingsInner,
+  V1UsersMeExportGet200ResponseReviewsWrittenInner,
+  V1UsersMeExportGet200ResponseUser,
+  V1UsersMeExportGet200ResponseVerificationRequestsInner,
 ])
 Serializers serializers = (_$serializers.toBuilder()
       ..add(const OneOfSerializer())
