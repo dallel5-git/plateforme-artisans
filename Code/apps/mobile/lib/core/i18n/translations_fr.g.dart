@@ -51,6 +51,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$reviews$fr reviews = Translations$reviews$fr.internal(_root);
 	late final Translations$search$fr search = Translations$search$fr.internal(_root);
 	late final Translations$settings$fr settings = Translations$settings$fr.internal(_root);
+	late final Translations$verification$fr verification = Translations$verification$fr.internal(_root);
 }
 
 // Path: auth
@@ -1103,6 +1104,186 @@ class Translations$settings$fr {
 	String get testOnboardingClientDesc => 'Lancer le parcours interactif de découverte pour les clients';
 }
 
+// Path: verification
+class Translations$verification$fr {
+	Translations$verification$fr.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// fr: 'Vérification d'identité'
+	String get screenTitle => 'Vérification d\'identité';
+
+	/// fr: 'Obtenez le badge Artisan Vérifié'
+	String get headerTitle => 'Obtenez le badge Artisan Vérifié';
+
+	/// fr: 'Renforcez la confiance de vos clients en faisant certifier votre compte par votre Carte d'Identité Nationale (CIN).'
+	String get headerSubtitle => 'Renforcez la confiance de vos clients en faisant certifier votre compte par votre Carte d\'Identité Nationale (CIN).';
+
+	/// fr: 'Badge officiel affiché sur votre profil et dans la recherche'
+	String get badgeAdvantage1 => 'Badge officiel affiché sur votre profil et dans la recherche';
+
+	/// fr: 'Priorité dans les résultats de recherche'
+	String get badgeAdvantage2 => 'Priorité dans les résultats de recherche';
+
+	/// fr: 'Informations d'identité'
+	String get identitySectionTitle => 'Informations d\'identité';
+
+	/// fr: 'Nom et prénom (sur la CIN)'
+	String get fullNameLabel => 'Nom et prénom (sur la CIN)';
+
+	/// fr: 'ex. Ahmed Ben Salah'
+	String get fullNameHint => 'ex. Ahmed Ben Salah';
+
+	/// fr: 'Veuillez saisir votre nom et prénom (au moins 3 caractères)'
+	String get fullNameError => 'Veuillez saisir votre nom et prénom (au moins 3 caractères)';
+
+	/// fr: 'Numéro de carte d'identité (CIN)'
+	String get cinNumberLabel => 'Numéro de carte d\'identité (CIN)';
+
+	/// fr: '8 chiffres (ex. 08123456)'
+	String get cinNumberHint => '8 chiffres (ex. 08123456)';
+
+	/// fr: 'Le numéro de CIN doit comporter exactement 8 chiffres'
+	String get cinNumberError => 'Le numéro de CIN doit comporter exactement 8 chiffres';
+
+	/// fr: 'Face avant (Recto)'
+	String get cinFrontTitle => 'Face avant (Recto)';
+
+	/// fr: 'Photo nette de la face avant de votre CIN'
+	String get cinFrontSubtitle => 'Photo nette de la face avant de votre CIN';
+
+	/// fr: 'Face arrière (Verso)'
+	String get cinBackTitle => 'Face arrière (Verso)';
+
+	/// fr: 'Photo nette de la face arrière de votre CIN'
+	String get cinBackSubtitle => 'Photo nette de la face arrière de votre CIN';
+
+	/// fr: 'Prendre une photo'
+	String get takePhoto => 'Prendre une photo';
+
+	/// fr: 'Choisir depuis la galerie'
+	String get chooseFromGallery => 'Choisir depuis la galerie';
+
+	/// fr: 'Changer'
+	String get changePhoto => 'Changer';
+
+	/// fr: 'Supprimer'
+	String get deletePhoto => 'Supprimer';
+
+	/// fr: 'Envoi en cours ({progress}%)...'
+	String get uploading => 'Envoi en cours ({progress}%)...';
+
+	/// fr: 'Échec de l'envoi de l'image. Touchez pour réessayer.'
+	String get uploadError => 'Échec de l\'envoi de l\'image. Touchez pour réessayer.';
+
+	/// fr: 'Je consens au traitement de ma pièce d'identité conformément à la loi n° 2004-63 relative à la protection des données personnelles.'
+	String get inpdpConsentLabel => 'Je consens au traitement de ma pièce d\'identité conformément à la loi n° 2004-63 relative à la protection des données personnelles.';
+
+	/// fr: 'En savoir plus sur la protection de vos données'
+	String get inpdpConsentLink => 'En savoir plus sur la protection de vos données';
+
+	/// fr: 'Protection de vos données personnelles'
+	String get inpdpDialogTitle => 'Protection de vos données personnelles';
+
+	/// fr: 'Vos documents d'identité sont stockés dans un coffre-fort numérique hautement sécurisé, chiffrés au repos (AES-256-GCM) et protégés par chiffrement serveur. Ils ne sont jamais partagés publiquement et servent exclusivement à l'authentification de votre profil par notre équipe de modération.'
+	String get inpdpDialogBody => 'Vos documents d\'identité sont stockés dans un coffre-fort numérique hautement sécurisé, chiffrés au repos (AES-256-GCM) et protégés par chiffrement serveur. Ils ne sont jamais partagés publiquement et servent exclusivement à l\'authentification de votre profil par notre équipe de modération.';
+
+	/// fr: 'Compris'
+	String get inpdpDialogClose => 'Compris';
+
+	/// fr: 'Envoyer pour vérification'
+	String get submitButton => 'Envoyer pour vérification';
+
+	/// fr: 'Envoi de la demande...'
+	String get submitting => 'Envoi de la demande...';
+
+	/// fr: 'Demande envoyée avec succès !'
+	String get submitSuccessTitle => 'Demande envoyée avec succès !';
+
+	/// fr: 'Notre équipe examine votre pièce d'identité sous 24 heures ouvrées. Vous serez notifié dès validation.'
+	String get submitSuccessMessage => 'Notre équipe examine votre pièce d\'identité sous 24 heures ouvrées. Vous serez notifié dès validation.';
+
+	/// fr: 'Retour au tableau de bord'
+	String get backToDashboard => 'Retour au tableau de bord';
+
+	/// fr: 'Vérification en cours'
+	String get statusPending => 'Vérification en cours';
+
+	/// fr: 'Artisan Vérifié'
+	String get statusApproved => 'Artisan Vérifié';
+
+	/// fr: 'Vérification refusée'
+	String get statusRejected => 'Vérification refusée';
+
+	/// fr: 'Complément d'information requis'
+	String get statusMoreInfo => 'Complément d\'information requis';
+
+	/// fr: 'Non vérifié'
+	String get statusNotSubmitted => 'Non vérifié';
+
+	/// fr: 'Une demande de vérification est déjà en cours de traitement.'
+	String get alreadyPending => 'Une demande de vérification est déjà en cours de traitement.';
+
+	/// fr: 'Votre profil est déjà vérifié.'
+	String get alreadyVerified => 'Votre profil est déjà vérifié.';
+
+	/// fr: 'Veuillez fournir les deux faces de votre CIN.'
+	String get missingDocuments => 'Veuillez fournir les deux faces de votre CIN.';
+
+	/// fr: 'Veuillez accepter les conditions de traitement des données.'
+	String get consentRequired => 'Veuillez accepter les conditions de traitement des données.';
+
+	/// fr: 'Une erreur est survenue lors de la soumission. Veuillez réessayer.'
+	String get generalError => 'Une erreur est survenue lors de la soumission. Veuillez réessayer.';
+
+	/// fr: 'Faites vérifier votre profil'
+	String get bannerNotSubmittedTitle => 'Faites vérifier votre profil';
+
+	/// fr: 'Obtenez le badge officiel Artisan Vérifié pour renforcer la confiance et être prioritaire dans la recherche.'
+	String get bannerNotSubmittedBody => 'Obtenez le badge officiel Artisan Vérifié pour renforcer la confiance et être prioritaire dans la recherche.';
+
+	/// fr: 'Faire vérifier mon compte'
+	String get bannerNotSubmittedCta => 'Faire vérifier mon compte';
+
+	/// fr: 'Vérification en cours'
+	String get bannerPendingTitle => 'Vérification en cours';
+
+	/// fr: 'Votre pièce d'identité est en cours d'examen sous 24h ouvrées. Vous recevrez une notification dès validation.'
+	String get bannerPendingBody => 'Votre pièce d\'identité est en cours d\'examen sous 24h ouvrées. Vous recevrez une notification dès validation.';
+
+	/// fr: 'Profil Vérifié'
+	String get bannerApprovedTitle => 'Profil Vérifié';
+
+	/// fr: 'Votre identité a été certifiée. Votre badge officiel est visible sur votre vitrine et dans la recherche.'
+	String get bannerApprovedBody => 'Votre identité a été certifiée. Votre badge officiel est visible sur votre vitrine et dans la recherche.';
+
+	/// fr: 'Vérification non validée'
+	String get bannerRejectedTitle => 'Vérification non validée';
+
+	/// fr: 'Votre demande n'a pas pu être validée. Motif : {reason}'
+	String get bannerRejectedBody => 'Votre demande n\'a pas pu être validée. Motif : {reason}';
+
+	/// fr: 'Document illisible ou non conforme.'
+	String get bannerRejectedDefaultReason => 'Document illisible ou non conforme.';
+
+	/// fr: 'Soumettre à nouveau'
+	String get bannerRejectedCta => 'Soumettre à nouveau';
+
+	/// fr: 'Complément requis'
+	String get bannerMoreInfoTitle => 'Complément requis';
+
+	/// fr: 'Un complément d'information est nécessaire pour finaliser votre vérification : {reason}'
+	String get bannerMoreInfoBody => 'Un complément d\'information est nécessaire pour finaliser votre vérification : {reason}';
+
+	/// fr: 'Mettre à jour le dossier'
+	String get bannerMoreInfoCta => 'Mettre à jour le dossier';
+
+	/// fr: 'Vérification d'identité'
+	String get profileTileTitle => 'Vérification d\'identité';
+}
+
 // Path: common.home
 class Translations$common$home$fr {
 	Translations$common$home$fr.internal(this._root);
@@ -1912,6 +2093,63 @@ extension on Translations {
 			'settings.testOnboardingProDesc' => 'Lancer l\'assistant 5 étapes (profil, métiers, zones, photos, récap)',
 			'settings.testOnboardingClient' => 'Tester l\'onboarding Particulier',
 			'settings.testOnboardingClientDesc' => 'Lancer le parcours interactif de découverte pour les clients',
+			'verification.screenTitle' => 'Vérification d\'identité',
+			'verification.headerTitle' => 'Obtenez le badge Artisan Vérifié',
+			'verification.headerSubtitle' => 'Renforcez la confiance de vos clients en faisant certifier votre compte par votre Carte d\'Identité Nationale (CIN).',
+			'verification.badgeAdvantage1' => 'Badge officiel affiché sur votre profil et dans la recherche',
+			'verification.badgeAdvantage2' => 'Priorité dans les résultats de recherche',
+			'verification.identitySectionTitle' => 'Informations d\'identité',
+			'verification.fullNameLabel' => 'Nom et prénom (sur la CIN)',
+			'verification.fullNameHint' => 'ex. Ahmed Ben Salah',
+			'verification.fullNameError' => 'Veuillez saisir votre nom et prénom (au moins 3 caractères)',
+			'verification.cinNumberLabel' => 'Numéro de carte d\'identité (CIN)',
+			'verification.cinNumberHint' => '8 chiffres (ex. 08123456)',
+			'verification.cinNumberError' => 'Le numéro de CIN doit comporter exactement 8 chiffres',
+			'verification.cinFrontTitle' => 'Face avant (Recto)',
+			'verification.cinFrontSubtitle' => 'Photo nette de la face avant de votre CIN',
+			'verification.cinBackTitle' => 'Face arrière (Verso)',
+			'verification.cinBackSubtitle' => 'Photo nette de la face arrière de votre CIN',
+			'verification.takePhoto' => 'Prendre une photo',
+			'verification.chooseFromGallery' => 'Choisir depuis la galerie',
+			'verification.changePhoto' => 'Changer',
+			'verification.deletePhoto' => 'Supprimer',
+			'verification.uploading' => 'Envoi en cours ({progress}%)...',
+			'verification.uploadError' => 'Échec de l\'envoi de l\'image. Touchez pour réessayer.',
+			'verification.inpdpConsentLabel' => 'Je consens au traitement de ma pièce d\'identité conformément à la loi n° 2004-63 relative à la protection des données personnelles.',
+			'verification.inpdpConsentLink' => 'En savoir plus sur la protection de vos données',
+			'verification.inpdpDialogTitle' => 'Protection de vos données personnelles',
+			'verification.inpdpDialogBody' => 'Vos documents d\'identité sont stockés dans un coffre-fort numérique hautement sécurisé, chiffrés au repos (AES-256-GCM) et protégés par chiffrement serveur. Ils ne sont jamais partagés publiquement et servent exclusivement à l\'authentification de votre profil par notre équipe de modération.',
+			'verification.inpdpDialogClose' => 'Compris',
+			'verification.submitButton' => 'Envoyer pour vérification',
+			'verification.submitting' => 'Envoi de la demande...',
+			'verification.submitSuccessTitle' => 'Demande envoyée avec succès !',
+			'verification.submitSuccessMessage' => 'Notre équipe examine votre pièce d\'identité sous 24 heures ouvrées. Vous serez notifié dès validation.',
+			'verification.backToDashboard' => 'Retour au tableau de bord',
+			'verification.statusPending' => 'Vérification en cours',
+			'verification.statusApproved' => 'Artisan Vérifié',
+			'verification.statusRejected' => 'Vérification refusée',
+			'verification.statusMoreInfo' => 'Complément d\'information requis',
+			'verification.statusNotSubmitted' => 'Non vérifié',
+			'verification.alreadyPending' => 'Une demande de vérification est déjà en cours de traitement.',
+			'verification.alreadyVerified' => 'Votre profil est déjà vérifié.',
+			'verification.missingDocuments' => 'Veuillez fournir les deux faces de votre CIN.',
+			'verification.consentRequired' => 'Veuillez accepter les conditions de traitement des données.',
+			'verification.generalError' => 'Une erreur est survenue lors de la soumission. Veuillez réessayer.',
+			'verification.bannerNotSubmittedTitle' => 'Faites vérifier votre profil',
+			'verification.bannerNotSubmittedBody' => 'Obtenez le badge officiel Artisan Vérifié pour renforcer la confiance et être prioritaire dans la recherche.',
+			'verification.bannerNotSubmittedCta' => 'Faire vérifier mon compte',
+			'verification.bannerPendingTitle' => 'Vérification en cours',
+			'verification.bannerPendingBody' => 'Votre pièce d\'identité est en cours d\'examen sous 24h ouvrées. Vous recevrez une notification dès validation.',
+			'verification.bannerApprovedTitle' => 'Profil Vérifié',
+			'verification.bannerApprovedBody' => 'Votre identité a été certifiée. Votre badge officiel est visible sur votre vitrine et dans la recherche.',
+			'verification.bannerRejectedTitle' => 'Vérification non validée',
+			'verification.bannerRejectedBody' => 'Votre demande n\'a pas pu être validée. Motif : {reason}',
+			'verification.bannerRejectedDefaultReason' => 'Document illisible ou non conforme.',
+			'verification.bannerRejectedCta' => 'Soumettre à nouveau',
+			'verification.bannerMoreInfoTitle' => 'Complément requis',
+			'verification.bannerMoreInfoBody' => 'Un complément d\'information est nécessaire pour finaliser votre vérification : {reason}',
+			'verification.bannerMoreInfoCta' => 'Mettre à jour le dossier',
+			'verification.profileTileTitle' => 'Vérification d\'identité',
 			_ => null,
 		};
 	}

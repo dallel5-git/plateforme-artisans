@@ -21,6 +21,8 @@ import 'package:sanaya/features/pro_profile/application/pro_profile_providers.da
 import 'package:sanaya/features/pro_profile/presentation/widgets/availability_selector.dart';
 import 'package:sanaya/features/reviews/application/pro_reviews_providers.dart';
 import 'package:sanaya/features/settings/presentation/account_settings_section.dart';
+import 'package:sanaya/features/verification/application/kyc_providers.dart';
+import 'package:sanaya/features/verification/presentation/widgets/verification_status_card.dart';
 
 /// Onglet Profil pro (`/pro/profile`, FM-38, issue #235) : espace complet
 /// et valorisant pour l'artisan.
@@ -190,11 +192,25 @@ class _ProProfileContent extends ConsumerWidget {
     final colors = context.colors;
     final locale = Localizations.localeOf(context);
     final isDemo = ref.watch(demoModeProvider);
+    final kycStatus = ref.watch(kycStatusProvider).valueOrNull;
+    final effectiveStatus =
+        kycStatus?.verificationStatus ??
+        (profile.isVerified
+            ? V1ProvidersMeVerificationGet200ResponseVerificationStatusEnum
+                  .APPROVED
+            : V1ProvidersMeVerificationGet200ResponseVerificationStatusEnum
+                  .NOT_SUBMITTED);
 
     return ListView(
       padding: const EdgeInsets.all(AppSpacing.md),
       children: [
         _ProIdentityHeader(profile: profile),
+        const SizedBox(height: AppSpacing.md),
+        VerificationStatusCard(
+          status: effectiveStatus,
+          rejectionReason: kycStatus?.currentRequest.rejectionReason,
+          isCompact: true,
+        ),
         const SizedBox(height: AppSpacing.md),
         _ProCompletionCard(profile: profile),
         const SizedBox(height: AppSpacing.md),

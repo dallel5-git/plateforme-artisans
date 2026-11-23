@@ -148,8 +148,9 @@ class _SearchResultsScreenState extends ConsumerState<SearchResultsScreen> {
                       if (index == state.items.length) {
                         return const Center(
                           child: Padding(
-                            padding:
-                                EdgeInsets.symmetric(vertical: AppSpacing.md),
+                            padding: EdgeInsets.symmetric(
+                              vertical: AppSpacing.md,
+                            ),
                             child: CircularProgressIndicator.adaptive(),
                           ),
                         );
@@ -217,8 +218,8 @@ class _SearchResultCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final categoryLabel = item.categories.isNotEmpty
         ? (locale.languageCode == 'ar'
-            ? item.categories.first.nameAr
-            : item.categories.first.nameFr)
+              ? item.categories.first.nameAr
+              : item.categories.first.nameFr)
         : '';
 
     return ProviderCard(

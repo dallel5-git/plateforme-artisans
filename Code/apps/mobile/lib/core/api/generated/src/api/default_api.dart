@@ -36,6 +36,11 @@ import 'package:sanaya/core/api/generated/src/model/v1_providers_me_portfolio_po
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_post200_response.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_post_request.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_stats_get200_response.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_providers_me_verification_get200_response.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_providers_me_verification_presign_post200_response.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_providers_me_verification_presign_post_request.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_providers_me_verification_submit_post200_response.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_providers_me_verification_submit_post_request.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_search_get200_response.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_slug_get200_response.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_slug_reviews_get200_response.dart';
@@ -1843,6 +1848,382 @@ class DefaultApi {
     }
 
     return Response<V1ProvidersMeStatsGet200Response>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// v1ProvidersMeVerificationGet
+  /// Récupère l’état de vérification actuel du profil artisan et les métadonnées de la dernière demande (sans révéler le numéro CIN ni les URL privées).
+  ///
+  /// Parameters:
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future] containing a [Response] with a [V1ProvidersMeVerificationGet200Response] as data
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<V1ProvidersMeVerificationGet200Response>>
+      v1ProvidersMeVerificationGet({
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path = r'/v1/providers/me/verification';
+    final _options = Options(
+      method: r'GET',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+    );
+
+    final _response = await _dio.request<Object>(
+      _path,
+      options: _options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    V1ProvidersMeVerificationGet200Response? _responseData;
+
+    try {
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType:
+                  const FullType(V1ProvidersMeVerificationGet200Response),
+            ) as V1ProvidersMeVerificationGet200Response;
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<V1ProvidersMeVerificationGet200Response>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// v1ProvidersMeVerificationPost
+  /// Alias de soumission KYC sur &#x60;/providers/me/verification&#x60;.
+  ///
+  /// Parameters:
+  /// * [v1ProvidersMeVerificationSubmitPostRequest]
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future] containing a [Response] with a [V1ProvidersMeVerificationSubmitPost200Response] as data
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<V1ProvidersMeVerificationSubmitPost200Response>>
+      v1ProvidersMeVerificationPost({
+    required V1ProvidersMeVerificationSubmitPostRequest
+        v1ProvidersMeVerificationSubmitPostRequest,
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path = r'/v1/providers/me/verification';
+    final _options = Options(
+      method: r'POST',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[],
+        ...?extra,
+      },
+      contentType: 'application/json',
+      validateStatus: validateStatus,
+    );
+
+    dynamic _bodyData;
+
+    try {
+      const _type = FullType(V1ProvidersMeVerificationSubmitPostRequest);
+      _bodyData = _serializers.serialize(
+          v1ProvidersMeVerificationSubmitPostRequest,
+          specifiedType: _type);
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _options.compose(
+          _dio.options,
+          _path,
+        ),
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    final _response = await _dio.request<Object>(
+      _path,
+      data: _bodyData,
+      options: _options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    V1ProvidersMeVerificationSubmitPost200Response? _responseData;
+
+    try {
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(
+                  V1ProvidersMeVerificationSubmitPost200Response),
+            ) as V1ProvidersMeVerificationSubmitPost200Response;
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<V1ProvidersMeVerificationSubmitPost200Response>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// v1ProvidersMeVerificationPresignPost
+  /// Génère une URL PUT pré-signée (~10 min) vers le bucket hermétique &#x60;private-kyc&#x60; avec chiffrement au repos forcé SSE-S3 AES-256 pour téléverser une pièce d’identité.
+  ///
+  /// Parameters:
+  /// * [v1ProvidersMeVerificationPresignPostRequest]
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future] containing a [Response] with a [V1ProvidersMeVerificationPresignPost200Response] as data
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<V1ProvidersMeVerificationPresignPost200Response>>
+      v1ProvidersMeVerificationPresignPost({
+    required V1ProvidersMeVerificationPresignPostRequest
+        v1ProvidersMeVerificationPresignPostRequest,
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path = r'/v1/providers/me/verification/presign';
+    final _options = Options(
+      method: r'POST',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[],
+        ...?extra,
+      },
+      contentType: 'application/json',
+      validateStatus: validateStatus,
+    );
+
+    dynamic _bodyData;
+
+    try {
+      const _type = FullType(V1ProvidersMeVerificationPresignPostRequest);
+      _bodyData = _serializers.serialize(
+          v1ProvidersMeVerificationPresignPostRequest,
+          specifiedType: _type);
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _options.compose(
+          _dio.options,
+          _path,
+        ),
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    final _response = await _dio.request<Object>(
+      _path,
+      data: _bodyData,
+      options: _options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    V1ProvidersMeVerificationPresignPost200Response? _responseData;
+
+    try {
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(
+                  V1ProvidersMeVerificationPresignPost200Response),
+            ) as V1ProvidersMeVerificationPresignPost200Response;
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<V1ProvidersMeVerificationPresignPost200Response>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// v1ProvidersMeVerificationSubmitPost
+  /// Soumet une demande de vérification d’identité. Hache la CIN en SHA-256 salé et la chiffre en AES-256-GCM avant enregistrement (INPDP). Passe le profil à &#x60;PENDING&#x60;.
+  ///
+  /// Parameters:
+  /// * [v1ProvidersMeVerificationSubmitPostRequest]
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future] containing a [Response] with a [V1ProvidersMeVerificationSubmitPost200Response] as data
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<V1ProvidersMeVerificationSubmitPost200Response>>
+      v1ProvidersMeVerificationSubmitPost({
+    required V1ProvidersMeVerificationSubmitPostRequest
+        v1ProvidersMeVerificationSubmitPostRequest,
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path = r'/v1/providers/me/verification/submit';
+    final _options = Options(
+      method: r'POST',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[],
+        ...?extra,
+      },
+      contentType: 'application/json',
+      validateStatus: validateStatus,
+    );
+
+    dynamic _bodyData;
+
+    try {
+      const _type = FullType(V1ProvidersMeVerificationSubmitPostRequest);
+      _bodyData = _serializers.serialize(
+          v1ProvidersMeVerificationSubmitPostRequest,
+          specifiedType: _type);
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _options.compose(
+          _dio.options,
+          _path,
+        ),
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    final _response = await _dio.request<Object>(
+      _path,
+      data: _bodyData,
+      options: _options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    V1ProvidersMeVerificationSubmitPost200Response? _responseData;
+
+    try {
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(
+                  V1ProvidersMeVerificationSubmitPost200Response),
+            ) as V1ProvidersMeVerificationSubmitPost200Response;
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<V1ProvidersMeVerificationSubmitPost200Response>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
