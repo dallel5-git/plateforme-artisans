@@ -12,17 +12,16 @@ Widget _wrap(
   Widget child, {
   Locale locale = const Locale('fr'),
   Brightness brightness = Brightness.light,
-}) =>
-    ProviderScope(
-      overrides: [
-        localeProvider.overrideWith((ref) => locale),
-      ],
-      child: MaterialApp(
-        theme: buildTheme(brightness: brightness, locale: locale),
-        locale: locale,
-        home: child,
-      ),
-    );
+}) => ProviderScope(
+  overrides: [
+    localeProvider.overrideWith((ref) => locale),
+  ],
+  child: MaterialApp(
+    theme: buildTheme(brightness: brightness, locale: locale),
+    locale: locale,
+    home: child,
+  ),
+);
 
 void main() {
   final tFr = AppLocale.fr.buildSync();
