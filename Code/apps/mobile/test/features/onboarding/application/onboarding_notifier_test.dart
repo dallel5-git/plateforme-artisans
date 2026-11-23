@@ -639,6 +639,34 @@ void main() {
   });
 
   // ---------------------------------------------------------------------------
+  // goToStep (MOB-028)
+  // ---------------------------------------------------------------------------
+
+  group('goToStep (MOB-028)', () {
+    test(
+      "change directement currentStep vers l'étape cible et efface l'erreur",
+      () {
+        container
+            .read(onboardingProvider.notifier)
+            .goToStep(OnboardingStep.categories);
+        expect(
+          container.read(onboardingProvider).currentStep,
+          OnboardingStep.categories,
+        );
+
+        container
+            .read(onboardingProvider.notifier)
+            .goToStep(OnboardingStep.profile);
+        expect(
+          container.read(onboardingProvider).currentStep,
+          OnboardingStep.profile,
+        );
+        expect(container.read(onboardingProvider).errorCode, isNull);
+      },
+    );
+  });
+
+  // ---------------------------------------------------------------------------
   // resumeSession & determineResumeStep (MOB-027)
   // ---------------------------------------------------------------------------
 
@@ -749,7 +777,10 @@ void main() {
         coverageAreas: [_covItem('cov1', 'tunis')],
         portfolio: [],
       );
-      expect(OnboardingNotifier.determineResumeStep(p3), OnboardingStep.photos);
+      expect(
+        OnboardingNotifier.determineResumeStep(p3),
+        OnboardingStep.photos,
+      );
 
       final p4 = _makeProviderMe(
         65,
@@ -757,7 +788,10 @@ void main() {
         coverageAreas: [_covItem('cov1', 'tunis')],
         portfolio: [],
       );
-      expect(OnboardingNotifier.determineResumeStep(p4), OnboardingStep.summary);
+      expect(
+        OnboardingNotifier.determineResumeStep(p4),
+        OnboardingStep.summary,
+      );
 
       final p5 = _makeProviderMe(
         80,
@@ -765,7 +799,10 @@ void main() {
         coverageAreas: [_covItem('cov1', 'tunis')],
         portfolio: [_portfolioItem('photo1')],
       );
-      expect(OnboardingNotifier.determineResumeStep(p5), OnboardingStep.summary);
+      expect(
+        OnboardingNotifier.determineResumeStep(p5),
+        OnboardingStep.summary,
+      );
     });
   });
 }

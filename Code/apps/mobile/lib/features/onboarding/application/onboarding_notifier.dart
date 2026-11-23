@@ -254,6 +254,18 @@ class OnboardingNotifier extends AutoDisposeNotifier<OnboardingState> {
   // previousStep
   // ---------------------------------------------------------------------------
 
+  // ---------------------------------------------------------------------------
+  // goToStep (navigation directe — MOB-028)
+  // ---------------------------------------------------------------------------
+
+  /// Navigue directement vers l'étape cible sans appel réseau.
+  void goToStep(OnboardingStep step) {
+    state = state.copyWith(
+      currentStep: step,
+      clearError: true,
+    );
+  }
+
   void previousStep() {
     if (state.isFirstStep) return;
     final idx = state.currentStepIndex - 1;
