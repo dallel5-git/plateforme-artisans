@@ -11,10 +11,33 @@ export const localeSchema = z.enum(['FR', 'AR', 'EN']);
 // états de modération, jamais posés par une route `/me` (voir `packages/core/src/policies`).
 export const providerPublicationStatusSchema = z.enum(['DRAFT', 'PUBLISHED']);
 
+export const providerCategoryResponseSchema = z.object({
+  categoryId: z.uuid(),
+  isPrimary: z.boolean(),
+  yearsExperience: z.number().int().nullable(),
+});
+
+export const providerCoverageAreaResponseSchema = z.object({
+  id: z.uuid(),
+  governorateId: z.uuid(),
+  delegationId: z.uuid().nullable(),
+  travelFee: z.number().nullable(),
+});
+
+export const portfolioItemResponseSchema = z.object({
+  id: z.uuid(),
+  mediaId: z.uuid(),
+  categoryId: z.uuid().nullable(),
+  caption: z.string().nullable(),
+  sortOrder: z.number().int(),
+});
+
 // Vue privée du propriétaire sur son propre profil — inclut `whatsappPhone`/`publicPhone`
 // (contrairement à toute réponse publique, P8) puisqu'elle n'est jamais exposée à un tiers :
 // gardée par `requireAuth`/`requireRole('PROVIDER')` et toujours résolue via `request.user.sub`,
 // jamais via un `:id` fourni par le client.
+// BE-44b : enrichi avec `categories`, `coverageAreas` et `portfolio` pour permettre la reprise
+// complète de session sans perte de saisie.
 export const providerMeSchema = z.object({
   id: z.uuid(),
   slug: z.string(),
@@ -45,6 +68,9 @@ export const providerMeSchema = z.object({
   lastActiveAt: z.date().nullable(),
   createdAt: z.date(),
   updatedAt: z.date(),
+  categories: z.array(providerCategoryResponseSchema),
+  coverageAreas: z.array(providerCoverageAreaResponseSchema),
+  portfolio: z.array(portfolioItemResponseSchema),
 });
 
 export const createProviderMeSchema = z.object({
@@ -99,12 +125,6 @@ export const putProviderCategoriesSchema = z
   });
 export type PutProviderCategoriesInput = z.infer<typeof putProviderCategoriesSchema>;
 
-export const providerCategoryResponseSchema = z.object({
-  categoryId: z.uuid(),
-  isPrimary: z.boolean(),
-  yearsExperience: z.number().int().nullable(),
-});
-
 export const putProviderCategoriesResponseSchema = z.object({
   categories: z.array(providerCategoryResponseSchema),
   completionScore: z.number().int(),
@@ -122,13 +142,6 @@ export const putProviderCoverageAreasSchema = z.object({
 });
 export type PutProviderCoverageAreasInput = z.infer<typeof putProviderCoverageAreasSchema>;
 
-export const providerCoverageAreaResponseSchema = z.object({
-  id: z.uuid(),
-  governorateId: z.uuid(),
-  delegationId: z.uuid().nullable(),
-  travelFee: z.number().nullable(),
-});
-
 export const putProviderCoverageAreasResponseSchema = z.object({
   coverageAreas: z.array(providerCoverageAreaResponseSchema),
   completionScore: z.number().int(),
@@ -144,14 +157,6 @@ export const attachPortfolioItemSchema = z.object({
   caption: z.string().max(300).optional(),
 });
 export type AttachPortfolioItemInput = z.infer<typeof attachPortfolioItemSchema>;
-
-export const portfolioItemResponseSchema = z.object({
-  id: z.uuid(),
-  mediaId: z.uuid(),
-  categoryId: z.uuid().nullable(),
-  caption: z.string().nullable(),
-  sortOrder: z.number().int(),
-});
 
 export const portfolioItemIdParamsSchema = z.object({
   id: z.uuid(),

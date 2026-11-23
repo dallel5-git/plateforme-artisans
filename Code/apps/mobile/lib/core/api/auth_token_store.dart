@@ -102,11 +102,15 @@ class AuthTokenStore {
       );
       return tokens.accessToken;
     } on DioException catch (e) {
-      // Rejeu détecté (REFRESH_TOKEN_REUSED, vol probable) ou tout autre
-      // échec : la session est morte dans les deux cas — purge totale
-      // plutôt qu'une nouvelle tentative, pour ne jamais boucler sur un
-      // refresh token définitivement invalide.
-      await clear();
+      // MOB-002 — purge conditionnelle : seules les réponses HTTP 401/403
+      // indiquent un token définitivement invalide (rejeu, révocation,
+      // expiration). Toute autre DioException (connectionError, timeout,
+      // mode avion, 3G instable) ne touche pas au token pour permettre
+      // la reconnexion automatique dès que le réseau revient.
+      final status = e.response?.statusCode;
+      if (status == 401 || status == 403) {
+        await clear();
+      }
       throw mapDioExceptionToApiException(e);
     }
   }

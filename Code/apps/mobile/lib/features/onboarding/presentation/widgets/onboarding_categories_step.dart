@@ -41,6 +41,13 @@ class _OnboardingCategoriesStepState
   void initState() {
     super.initState();
     _selection = Map.of(widget.initialSelection);
+    _ensureSinglePrimary();
+  }
+
+  void _ensureSinglePrimary() {
+    if (_selection.isNotEmpty && !_selection.values.contains(true)) {
+      _selection[_selection.keys.first] = true;
+    }
   }
 
   void _toggle(String categoryId) {
@@ -49,9 +56,8 @@ class _OnboardingCategoriesStepState
         final wasPrimary = _selection[categoryId] == true;
         _selection.remove(categoryId);
         // MOB-005 : si la catégorie retirée était principale et qu'il reste
-        // d'autres catégories cochées, la première restante hérite
-        // automatiquement du statut isPrimary = true pour respecter
-        // l'exigence Fastify (exactement une isPrimary: true, sinon 422).
+        // d'autres catégories sélectionnées, promouvoir automatiquement la
+        // première.
         if (wasPrimary && _selection.isNotEmpty) {
           final firstRemainingKey = _selection.keys.first;
           _selection[firstRemainingKey] = true;

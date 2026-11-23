@@ -11,4 +11,8 @@ try {
   // Pas de fichier .env local — attendu en CI.
 }
 
-export default defineConfig({});
+export default defineConfig({
+  test: {
+    fileParallelism: false,
+  },
+});

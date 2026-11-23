@@ -13,8 +13,9 @@ void main() {
   }) {
     return ProviderScope(
       overrides: [
-        demoModeProvider
-            .overrideWith((ref) => DemoModeNotifier(initial: isDemo)),
+        demoModeProvider.overrideWith(
+          (ref) => DemoModeNotifier(initial: isDemo),
+        ),
         demoRoleProvider.overrideWith((ref) => DemoRoleNotifier(role)),
       ],
       child: themedApp(
@@ -26,8 +27,9 @@ void main() {
   }
 
   group('DemoBanner widget test', () {
-    testWidgets('renders empty shrink widget when demoMode is false',
-        (tester) async {
+    testWidgets('renders empty shrink widget when demoMode is false', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         buildBanner(isDemo: false, role: DemoRole.client),
       );

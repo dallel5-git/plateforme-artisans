@@ -47,14 +47,14 @@ Please follow the [installation procedure](#installation--usage) and then run th
 import 'package:sanaya_api_client/sanaya_api_client.dart';
 
 
-final api = SanayaApiClient().getAuthApi();
-final V1AuthRefreshPostRequest v1AuthRefreshPostRequest = ; // V1AuthRefreshPostRequest | 
+final api = SanayaApiClient().getAccountApi();
+final V1UsersMeDeleteRequest v1UsersMeDeleteRequest = ; // V1UsersMeDeleteRequest | 
 
 try {
-    final response = await api.v1AuthLogoutPost(v1AuthRefreshPostRequest);
+    final response = await api.v1UsersMeDelete(v1UsersMeDeleteRequest);
     print(response);
 } catch on DioException (e) {
-    print("Exception when calling AuthApi->v1AuthLogoutPost: $e\n");
+    print("Exception when calling AccountApi->v1UsersMeDelete: $e\n");
 }
 
 ```
@@ -65,6 +65,12 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+[*AccountApi*](doc/AccountApi.md) | [**v1UsersMeDelete**](doc/AccountApi.md#v1usersmedelete) | **DELETE** /v1/users/me | 
+[*AccountApi*](doc/AccountApi.md) | [**v1UsersMeExportGet**](doc/AccountApi.md#v1usersmeexportget) | **GET** /v1/users/me/export | 
+[*AdminVerificationsApi*](doc/AdminVerificationsApi.md) | [**v1AdminVerificationsGet**](doc/AdminVerificationsApi.md#v1adminverificationsget) | **GET** /v1/admin/verifications | 
+[*AdminVerificationsApi*](doc/AdminVerificationsApi.md) | [**v1AdminVerificationsIdGet**](doc/AdminVerificationsApi.md#v1adminverificationsidget) | **GET** /v1/admin/verifications/{id} | 
+[*AdminVerificationsApi*](doc/AdminVerificationsApi.md) | [**v1AdminVerificationsIdReviewPost**](doc/AdminVerificationsApi.md#v1adminverificationsidreviewpost) | **POST** /v1/admin/verifications/{id}/review | 
+[*AdminVerificationsApi*](doc/AdminVerificationsApi.md) | [**v1AdminVerificationsPurgeExpiredPost**](doc/AdminVerificationsApi.md#v1adminverificationspurgeexpiredpost) | **POST** /v1/admin/verifications/purge-expired | 
 [*AuthApi*](doc/AuthApi.md) | [**v1AuthLogoutPost**](doc/AuthApi.md#v1authlogoutpost) | **POST** /v1/auth/logout | 
 [*AuthApi*](doc/AuthApi.md) | [**v1AuthMeGet**](doc/AuthApi.md#v1authmeget) | **GET** /v1/auth/me | 
 [*AuthApi*](doc/AuthApi.md) | [**v1AuthOtpRequestPost**](doc/AuthApi.md#v1authotprequestpost) | **POST** /v1/auth/otp/request | 
@@ -94,6 +100,10 @@ Class | Method | HTTP request | Description
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMePortfolioPost**](doc/DefaultApi.md#v1providersmeportfoliopost) | **POST** /v1/providers/me/portfolio | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMePost**](doc/DefaultApi.md#v1providersmepost) | **POST** /v1/providers/me | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMeStatsGet**](doc/DefaultApi.md#v1providersmestatsget) | **GET** /v1/providers/me/stats | 
+[*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMeVerificationGet**](doc/DefaultApi.md#v1providersmeverificationget) | **GET** /v1/providers/me/verification | 
+[*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMeVerificationPost**](doc/DefaultApi.md#v1providersmeverificationpost) | **POST** /v1/providers/me/verification | 
+[*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMeVerificationPresignPost**](doc/DefaultApi.md#v1providersmeverificationpresignpost) | **POST** /v1/providers/me/verification/presign | 
+[*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMeVerificationSubmitPost**](doc/DefaultApi.md#v1providersmeverificationsubmitpost) | **POST** /v1/providers/me/verification/submit | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersSearchGet**](doc/DefaultApi.md#v1providerssearchget) | **GET** /v1/providers/search | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersSlugGet**](doc/DefaultApi.md#v1providersslugget) | **GET** /v1/providers/{slug} | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersSlugReviewsGet**](doc/DefaultApi.md#v1providersslugreviewsget) | **GET** /v1/providers/{slug}/reviews | 
@@ -107,6 +117,19 @@ Class | Method | HTTP request | Description
  - [CategoryTreeNodeInput](doc/CategoryTreeNodeInput.md)
  - [ContactEventResponse](doc/ContactEventResponse.md)
  - [ContactEventResponseInput](doc/ContactEventResponseInput.md)
+ - [V1AdminVerificationsGet200Response](doc/V1AdminVerificationsGet200Response.md)
+ - [V1AdminVerificationsGet200ResponseItemsInner](doc/V1AdminVerificationsGet200ResponseItemsInner.md)
+ - [V1AdminVerificationsGet200ResponseItemsInnerDocumentsInner](doc/V1AdminVerificationsGet200ResponseItemsInnerDocumentsInner.md)
+ - [V1AdminVerificationsGet200ResponseItemsInnerProvider](doc/V1AdminVerificationsGet200ResponseItemsInnerProvider.md)
+ - [V1AdminVerificationsGet200ResponseItemsInnerReviewedBy](doc/V1AdminVerificationsGet200ResponseItemsInnerReviewedBy.md)
+ - [V1AdminVerificationsIdGet200Response](doc/V1AdminVerificationsIdGet200Response.md)
+ - [V1AdminVerificationsIdGet200ResponseDocumentsInner](doc/V1AdminVerificationsIdGet200ResponseDocumentsInner.md)
+ - [V1AdminVerificationsIdGet200ResponseProvider](doc/V1AdminVerificationsIdGet200ResponseProvider.md)
+ - [V1AdminVerificationsIdGet200ResponseProviderUser](doc/V1AdminVerificationsIdGet200ResponseProviderUser.md)
+ - [V1AdminVerificationsIdGet200ResponseReviewedBy](doc/V1AdminVerificationsIdGet200ResponseReviewedBy.md)
+ - [V1AdminVerificationsIdReviewPost200Response](doc/V1AdminVerificationsIdReviewPost200Response.md)
+ - [V1AdminVerificationsIdReviewPostRequest](doc/V1AdminVerificationsIdReviewPostRequest.md)
+ - [V1AdminVerificationsPurgeExpiredPost200Response](doc/V1AdminVerificationsPurgeExpiredPost200Response.md)
  - [V1AuthLogoutPost200Response](doc/V1AuthLogoutPost200Response.md)
  - [V1AuthMeGet200Response](doc/V1AuthMeGet200Response.md)
  - [V1AuthOtpRequestPost200Response](doc/V1AuthOtpRequestPost200Response.md)
@@ -135,14 +158,15 @@ Class | Method | HTTP request | Description
  - [V1ProvidersIdReviewsPost200Response](doc/V1ProvidersIdReviewsPost200Response.md)
  - [V1ProvidersIdReviewsPostRequest](doc/V1ProvidersIdReviewsPostRequest.md)
  - [V1ProvidersMeCategoriesPut200Response](doc/V1ProvidersMeCategoriesPut200Response.md)
- - [V1ProvidersMeCategoriesPut200ResponseCategoriesInner](doc/V1ProvidersMeCategoriesPut200ResponseCategoriesInner.md)
  - [V1ProvidersMeCategoriesPutRequest](doc/V1ProvidersMeCategoriesPutRequest.md)
  - [V1ProvidersMeCategoriesPutRequestCategoriesInner](doc/V1ProvidersMeCategoriesPutRequestCategoriesInner.md)
  - [V1ProvidersMeCoverageAreasPut200Response](doc/V1ProvidersMeCoverageAreasPut200Response.md)
- - [V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner](doc/V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner.md)
  - [V1ProvidersMeCoverageAreasPutRequest](doc/V1ProvidersMeCoverageAreasPutRequest.md)
  - [V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner](doc/V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner.md)
  - [V1ProvidersMeGet200Response](doc/V1ProvidersMeGet200Response.md)
+ - [V1ProvidersMeGet200ResponseCategoriesInner](doc/V1ProvidersMeGet200ResponseCategoriesInner.md)
+ - [V1ProvidersMeGet200ResponseCoverageAreasInner](doc/V1ProvidersMeGet200ResponseCoverageAreasInner.md)
+ - [V1ProvidersMeGet200ResponsePortfolioInner](doc/V1ProvidersMeGet200ResponsePortfolioInner.md)
  - [V1ProvidersMeOfferingsIdPatchRequest](doc/V1ProvidersMeOfferingsIdPatchRequest.md)
  - [V1ProvidersMeOfferingsPost200Response](doc/V1ProvidersMeOfferingsPost200Response.md)
  - [V1ProvidersMeOfferingsPostRequest](doc/V1ProvidersMeOfferingsPostRequest.md)
@@ -151,11 +175,21 @@ Class | Method | HTTP request | Description
  - [V1ProvidersMePortfolioPostRequest](doc/V1ProvidersMePortfolioPostRequest.md)
  - [V1ProvidersMePost200Response](doc/V1ProvidersMePost200Response.md)
  - [V1ProvidersMePost200ResponseProvider](doc/V1ProvidersMePost200ResponseProvider.md)
+ - [V1ProvidersMePost200ResponseProviderCategoriesInner](doc/V1ProvidersMePost200ResponseProviderCategoriesInner.md)
+ - [V1ProvidersMePost200ResponseProviderCoverageAreasInner](doc/V1ProvidersMePost200ResponseProviderCoverageAreasInner.md)
+ - [V1ProvidersMePost200ResponseProviderPortfolioInner](doc/V1ProvidersMePost200ResponseProviderPortfolioInner.md)
  - [V1ProvidersMePostRequest](doc/V1ProvidersMePostRequest.md)
  - [V1ProvidersMeStatsGet200Response](doc/V1ProvidersMeStatsGet200Response.md)
  - [V1ProvidersMeStatsGet200ResponseSeriesInner](doc/V1ProvidersMeStatsGet200ResponseSeriesInner.md)
  - [V1ProvidersMeStatsGet200ResponseTotals](doc/V1ProvidersMeStatsGet200ResponseTotals.md)
  - [V1ProvidersMeStatsGet200ResponseTotalsContactsByChannel](doc/V1ProvidersMeStatsGet200ResponseTotalsContactsByChannel.md)
+ - [V1ProvidersMeVerificationGet200Response](doc/V1ProvidersMeVerificationGet200Response.md)
+ - [V1ProvidersMeVerificationGet200ResponseCurrentRequest](doc/V1ProvidersMeVerificationGet200ResponseCurrentRequest.md)
+ - [V1ProvidersMeVerificationGet200ResponseCurrentRequestDocumentsInner](doc/V1ProvidersMeVerificationGet200ResponseCurrentRequestDocumentsInner.md)
+ - [V1ProvidersMeVerificationPresignPost200Response](doc/V1ProvidersMeVerificationPresignPost200Response.md)
+ - [V1ProvidersMeVerificationPresignPostRequest](doc/V1ProvidersMeVerificationPresignPostRequest.md)
+ - [V1ProvidersMeVerificationSubmitPost200Response](doc/V1ProvidersMeVerificationSubmitPost200Response.md)
+ - [V1ProvidersMeVerificationSubmitPostRequest](doc/V1ProvidersMeVerificationSubmitPostRequest.md)
  - [V1ProvidersSearchGet200Response](doc/V1ProvidersSearchGet200Response.md)
  - [V1ProvidersSearchGet200ResponseItemsInner](doc/V1ProvidersSearchGet200ResponseItemsInner.md)
  - [V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner](doc/V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner.md)
@@ -173,6 +207,18 @@ Class | Method | HTTP request | Description
  - [V1ProvidersSlugGet200ResponseReviewAggregateBreakdown](doc/V1ProvidersSlugGet200ResponseReviewAggregateBreakdown.md)
  - [V1ProvidersSlugReviewsGet200Response](doc/V1ProvidersSlugReviewsGet200Response.md)
  - [V1ProvidersSlugReviewsGet200ResponseItemsInner](doc/V1ProvidersSlugReviewsGet200ResponseItemsInner.md)
+ - [V1UsersMeDelete200Response](doc/V1UsersMeDelete200Response.md)
+ - [V1UsersMeDeleteRequest](doc/V1UsersMeDeleteRequest.md)
+ - [V1UsersMeExportGet200Response](doc/V1UsersMeExportGet200Response.md)
+ - [V1UsersMeExportGet200ResponseContactEventsInner](doc/V1UsersMeExportGet200ResponseContactEventsInner.md)
+ - [V1UsersMeExportGet200ResponseFavoritesInner](doc/V1UsersMeExportGet200ResponseFavoritesInner.md)
+ - [V1UsersMeExportGet200ResponseProviderProfile](doc/V1UsersMeExportGet200ResponseProviderProfile.md)
+ - [V1UsersMeExportGet200ResponseProviderProfileCategoriesInner](doc/V1UsersMeExportGet200ResponseProviderProfileCategoriesInner.md)
+ - [V1UsersMeExportGet200ResponseProviderProfileCoverageAreasInner](doc/V1UsersMeExportGet200ResponseProviderProfileCoverageAreasInner.md)
+ - [V1UsersMeExportGet200ResponseProviderProfileOfferingsInner](doc/V1UsersMeExportGet200ResponseProviderProfileOfferingsInner.md)
+ - [V1UsersMeExportGet200ResponseReviewsWrittenInner](doc/V1UsersMeExportGet200ResponseReviewsWrittenInner.md)
+ - [V1UsersMeExportGet200ResponseUser](doc/V1UsersMeExportGet200ResponseUser.md)
+ - [V1UsersMeExportGet200ResponseVerificationRequestsInner](doc/V1UsersMeExportGet200ResponseVerificationRequestsInner.md)
 
 
 ## Documentation For Authorization

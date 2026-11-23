@@ -4,7 +4,7 @@
 
 // ignore_for_file: unused_element
 import 'package:built_collection/built_collection.dart';
-import 'package:sanaya/core/api/generated/src/model/v1_providers_me_coverage_areas_put200_response_coverage_areas_inner.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_providers_me_post200_response_provider_coverage_areas_inner.dart';
 import 'package:built_value/json_object.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -22,7 +22,7 @@ abstract class V1ProvidersMeCoverageAreasPut200Response
         Built<V1ProvidersMeCoverageAreasPut200Response,
             V1ProvidersMeCoverageAreasPut200ResponseBuilder> {
   @BuiltValueField(wireName: r'coverageAreas')
-  BuiltList<V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner>
+  BuiltList<V1ProvidersMePost200ResponseProviderCoverageAreasInner>
       get coverageAreas;
 
   @BuiltValueField(wireName: r'completionScore')
@@ -61,9 +61,8 @@ class _$V1ProvidersMeCoverageAreasPut200ResponseSerializer
     yield r'coverageAreas';
     yield serializers.serialize(
       object.coverageAreas,
-      specifiedType: const FullType(BuiltList, [
-        FullType(V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner)
-      ]),
+      specifiedType: const FullType(BuiltList,
+          [FullType(V1ProvidersMePost200ResponseProviderCoverageAreasInner)]),
     );
     yield r'completionScore';
     yield serializers.serialize(
@@ -99,11 +98,10 @@ class _$V1ProvidersMeCoverageAreasPut200ResponseSerializer
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(BuiltList, [
-              FullType(
-                  V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner)
+              FullType(V1ProvidersMePost200ResponseProviderCoverageAreasInner)
             ]),
           ) as BuiltList<
-              V1ProvidersMeCoverageAreasPut200ResponseCoverageAreasInner>;
+              V1ProvidersMePost200ResponseProviderCoverageAreasInner>;
           result.coverageAreas.replace(valueDes);
           break;
         case r'completionScore':

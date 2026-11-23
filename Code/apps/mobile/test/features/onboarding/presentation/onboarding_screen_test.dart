@@ -1,11 +1,15 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:sanaya/app/theme.dart';
+import 'package:sanaya/core/api/api_client_provider.dart';
+import 'package:sanaya/core/api/auth_token_store.dart';
 import 'package:sanaya/core/api/generated/api.dart';
 import 'package:sanaya/core/i18n/translations.g.dart';
+import 'package:sanaya/core/widgets/app_button.dart';
 import 'package:sanaya/core/widgets/app_text_field.dart';
 import 'package:sanaya/features/onboarding/application/onboarding_providers.dart';
 import 'package:sanaya/features/onboarding/data/onboarding_repository.dart';
@@ -14,6 +18,8 @@ import 'package:sanaya/features/search/application/catalog_providers.dart';
 import 'package:sanaya/features/search/data/catalog_repository.dart';
 
 class MockOnboardingRepository extends Mock implements OnboardingRepository {}
+
+class MockAuthTokenStore extends Mock implements AuthTokenStore {}
 
 class _FakePostRequest extends Fake implements V1ProvidersMePostRequest {}
 
@@ -80,6 +86,73 @@ Governorate _governorate(String id, String nameFr) => Governorate(
     ..sortOrder = 1,
 );
 
+CategoryTreeNode _category(String id, String nameFr) => CategoryTreeNode(
+  (b) => b
+    ..id = id
+    ..slug = id
+    ..nameFr = nameFr
+    ..nameAr = nameFr
+    ..descriptionFr = ''
+    ..descriptionAr = ''
+    ..iconKey = id
+    ..colorHex = '#3B6FE0'
+    ..sortOrder = 1,
+);
+
+V1ProvidersMePost200ResponseProviderCategoriesInner _catItem(
+  String id, {
+  bool isPrimary = true,
+  int yearsExperience = 0,
+}) => V1ProvidersMePost200ResponseProviderCategoriesInner(
+  (b) => b
+    ..categoryId = id
+    ..isPrimary = isPrimary
+    ..yearsExperience = yearsExperience,
+);
+
+V1ProvidersMePost200ResponseProviderCoverageAreasInner _covItem(
+  String id,
+  String govId, {
+  String delegationId = '',
+  num travelFee = 0,
+}) => V1ProvidersMePost200ResponseProviderCoverageAreasInner(
+  (b) => b
+    ..id = id
+    ..governorateId = govId
+    ..delegationId = delegationId
+    ..travelFee = travelFee,
+);
+
+V1ProvidersMePost200ResponseProviderPortfolioInner _portfolioItem(
+  String id, {
+  String mediaId = 'media-1',
+  String categoryId = '',
+  String caption = '',
+  int sortOrder = 0,
+}) => V1ProvidersMePost200ResponseProviderPortfolioInner(
+  (b) => b
+    ..id = id
+    ..mediaId = mediaId
+    ..categoryId = categoryId
+    ..caption = caption
+    ..sortOrder = sortOrder,
+);
+
+void _stubProviderLists(
+  MockProviderMe mock, {
+  Iterable<V1ProvidersMePost200ResponseProviderCategoriesInner> categories =
+      const [],
+  Iterable<V1ProvidersMePost200ResponseProviderCoverageAreasInner>
+      coverageAreas =
+      const [],
+  Iterable<V1ProvidersMePost200ResponseProviderPortfolioInner> portfolio =
+      const [],
+}) {
+  when(() => mock.categories).thenReturn(BuiltList(categories));
+  when(() => mock.coverageAreas).thenReturn(BuiltList(coverageAreas));
+  when(() => mock.portfolio).thenReturn(BuiltList(portfolio));
+}
+
 Future<void> _pumpTall(WidgetTester tester, Widget widget) async {
   tester.view.physicalSize = const Size(400, 2400);
   tester.view.devicePixelRatio = 1.0;
@@ -135,10 +208,20 @@ void main() {
       // (mauvais provider, mauvais callback) ne serait détectée par aucun
       // des tests unitaires de plus bas niveau (notifier seul, widgets seuls).
       final mockRepo = MockOnboardingRepository();
+      final mockAuthTokenStore = MockAuthTokenStore();
+      when(
+        () => mockAuthTokenStore.saveSession(
+          accessToken: any(named: 'accessToken'),
+          refreshToken: any(named: 'refreshToken'),
+        ),
+      ).thenAnswer((_) async {});
       final providerMock = MockProviderMe();
       when(() => providerMock.completionScore).thenReturn(36);
+      _stubProviderLists(providerMock);
       final responseMock = MockCreateResponse();
       when(() => responseMock.provider).thenReturn(providerMock);
+      when(() => responseMock.accessToken).thenReturn('mock-token');
+      when(() => responseMock.refreshToken).thenReturn('mock-refresh');
       when(
         () => mockRepo.createProfile(any()),
       ).thenAnswer((_) async => responseMock);
@@ -150,6 +233,7 @@ void main() {
         ProviderScope(
           overrides: [
             onboardingRepositoryProvider.overrideWithValue(mockRepo),
+            authTokenStoreProvider.overrideWithValue(mockAuthTokenStore),
             categoriesProvider.overrideWith((ref) async => []),
             governoratesProvider.overrideWith(
               (ref) async => [_governorate('sousse', 'Sousse')],
@@ -192,12 +276,14 @@ void main() {
   );
 
   testWidgets(
-    'FM-24a — publier avec succès marque hasPublishedProfileProvider et '
-    'navigue vers /pro/dashboard',
+    'FM-24a / MOB-029 — publier avec succès marque hasPublishedProfileProvider et '
+    'navigue vers /pro/celebration',
     (tester) async {
       final mockRepo = MockOnboardingRepository();
+      when(mockRepo.getMyProfile).thenAnswer((_) async => null);
       final providerMock = MockProviderMe();
       when(() => providerMock.completionScore).thenReturn(80);
+      _stubProviderLists(providerMock);
       when(() => providerMock.publicationStatus).thenReturn(
         V1ProvidersMePost200ResponseProviderPublicationStatusEnum.PUBLISHED,
       );
@@ -232,6 +318,10 @@ void main() {
             builder: (_, _) => const OnboardingScreen(),
           ),
           GoRoute(
+            path: '/pro/celebration',
+            builder: (_, _) => const Text('CELEBRATION_PLACEHOLDER'),
+          ),
+          GoRoute(
             path: '/pro/dashboard',
             builder: (_, _) => const Text('DASHBOARD_PLACEHOLDER'),
           ),
@@ -263,7 +353,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(container.read(hasPublishedProfileProvider), isTrue);
-      expect(find.text('DASHBOARD_PLACEHOLDER'), findsOneWidget);
+      expect(find.text('CELEBRATION_PLACEHOLDER'), findsOneWidget);
     },
   );
 
@@ -272,8 +362,10 @@ void main() {
     'photo mène directement au récapitulatif',
     (tester) async {
       final mockRepo = MockOnboardingRepository();
+      when(mockRepo.getMyProfile).thenAnswer((_) async => null);
       final providerMock = MockProviderMe();
       when(() => providerMock.completionScore).thenReturn(40);
+      _stubProviderLists(providerMock);
       // computeMissingKeys() (onboarding_summary_step.dart) les lit
       // inconditionnellement dès que le récapitulatif est atteint.
       when(() => providerMock.bio).thenReturn('');
@@ -347,6 +439,7 @@ void main() {
       final mockRepo = MockOnboardingRepository();
       final providerMock = MockProviderMe();
       when(() => providerMock.completionScore).thenReturn(45);
+      _stubProviderLists(providerMock);
       when(() => providerMock.businessName).thenReturn('Sami Élec');
       when(() => providerMock.baseGovernorateId).thenReturn('sousse');
       when(() => providerMock.headline).thenReturn('');
@@ -419,6 +512,193 @@ void main() {
 
       expect(find.text(t.onboarding.stepProfile), findsOneWidget);
       expect(find.text(t.onboarding.profileBusinessName), findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    'MOB-027 — reprise avec profil et catégories renseignées : '
+    'atterrit directement aux zones (étape 3) et le retour arrière '
+    'conserve la sélection des catégories',
+    (tester) async {
+      final mockRepo = MockOnboardingRepository();
+      final providerMock = MockProviderMe();
+      when(() => providerMock.completionScore).thenReturn(40);
+      when(() => providerMock.businessName).thenReturn('Sami Élec');
+      when(() => providerMock.baseGovernorateId).thenReturn('sousse');
+      when(() => providerMock.headline).thenReturn('');
+      when(() => providerMock.bio).thenReturn('');
+      when(() => providerMock.yearsExperience).thenReturn(0);
+      when(() => providerMock.whatsappPhone).thenReturn('');
+      when(() => providerMock.publicPhone).thenReturn('');
+      _stubProviderLists(
+        providerMock,
+        categories: [_catItem('cat-elec')],
+      );
+      when(mockRepo.getMyProfile).thenAnswer((_) async => providerMock);
+
+      await _pumpTall(
+        tester,
+        ProviderScope(
+          overrides: [
+            onboardingRepositoryProvider.overrideWithValue(mockRepo),
+            categoriesProvider.overrideWith(
+              (ref) async => [_category('cat-elec', 'Électricité')],
+            ),
+            governoratesProvider.overrideWith(
+              (ref) async => [_governorate('sousse', 'Sousse')],
+            ),
+          ],
+          child: MaterialApp(
+            theme: buildTheme(
+              brightness: Brightness.light,
+              locale: const Locale('fr'),
+            ),
+            locale: const Locale('fr'),
+            home: const OnboardingScreen(),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      verify(mockRepo.getMyProfile).called(1);
+      // Doit atterrir à l'étape 3 : Zones
+      expect(find.text(t.onboarding.zonesTitle), findsOneWidget);
+      expect(find.text('Étape 3 sur 5'), findsOneWidget);
+
+      // Clic retour arrière vers l'étape 2 : Catégories
+      await tester.tap(find.byIcon(Icons.arrow_back));
+      await tester.pumpAndSettle();
+
+      expect(find.text(t.onboarding.categoriesTitle), findsOneWidget);
+      expect(find.text('Étape 2 sur 5'), findsOneWidget);
+      // La sélection 'Électricité' est préservée
+      expect(find.text('Électricité'), findsOneWidget);
+      expect(find.text(t.onboarding.categoriesPrimaryHint), findsOneWidget);
+      expect(find.text(t.onboarding.categoriesEmpty), findsNothing);
+      final nextButton = tester.widget<AppButton>(
+        find.widgetWithText(AppButton, t.onboarding.next),
+      );
+      expect(nextButton.onPressed, isNotNull);
+    },
+  );
+
+  testWidgets(
+    'MOB-027 — reprise avec catégories et zones renseignées : '
+    'atterrit directement aux photos (étape 4) et le retour arrière '
+    'conserve la sélection des zones',
+    (tester) async {
+      final mockRepo = MockOnboardingRepository();
+      final providerMock = MockProviderMe();
+      when(() => providerMock.completionScore).thenReturn(50);
+      when(() => providerMock.businessName).thenReturn('Sami Élec');
+      when(() => providerMock.baseGovernorateId).thenReturn('sousse');
+      when(() => providerMock.headline).thenReturn('');
+      when(() => providerMock.bio).thenReturn('');
+      when(() => providerMock.yearsExperience).thenReturn(0);
+      when(() => providerMock.whatsappPhone).thenReturn('');
+      when(() => providerMock.publicPhone).thenReturn('');
+      _stubProviderLists(
+        providerMock,
+        categories: [_catItem('cat-elec')],
+        coverageAreas: [_covItem('cov-1', 'sousse')],
+      );
+      when(mockRepo.getMyProfile).thenAnswer((_) async => providerMock);
+
+      await _pumpTall(
+        tester,
+        ProviderScope(
+          overrides: [
+            onboardingRepositoryProvider.overrideWithValue(mockRepo),
+            categoriesProvider.overrideWith(
+              (ref) async => [_category('cat-elec', 'Électricité')],
+            ),
+            governoratesProvider.overrideWith(
+              (ref) async => [_governorate('sousse', 'Sousse')],
+            ),
+          ],
+          child: MaterialApp(
+            theme: buildTheme(
+              brightness: Brightness.light,
+              locale: const Locale('fr'),
+            ),
+            locale: const Locale('fr'),
+            home: const OnboardingScreen(),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      verify(mockRepo.getMyProfile).called(1);
+      // Doit atterrir à l'étape 4 : Photos
+      expect(find.text(t.onboarding.photosTitle), findsOneWidget);
+      expect(find.text('Étape 4 sur 5'), findsOneWidget);
+
+      // Clic retour arrière vers l'étape 3 : Zones
+      await tester.tap(find.byIcon(Icons.arrow_back));
+      await tester.pumpAndSettle();
+
+      expect(find.text(t.onboarding.zonesTitle), findsOneWidget);
+      expect(find.text('Étape 3 sur 5'), findsOneWidget);
+      // La zone 'Sousse' est bien préservée et sélectionnée
+      expect(find.text('Sousse'), findsOneWidget);
+      final nextButton = tester.widget<AppButton>(
+        find.widgetWithText(AppButton, t.onboarding.next),
+      );
+      expect(nextButton.onPressed, isNotNull);
+    },
+  );
+
+  testWidgets(
+    'MOB-027 — reprise avec profil prêt à être publié (score >= 60%) : '
+    'atterrit directement au récapitulatif (étape 5) avec publication activée',
+    (tester) async {
+      final mockRepo = MockOnboardingRepository();
+      final providerMock = MockProviderMe();
+      when(() => providerMock.completionScore).thenReturn(75);
+      when(() => providerMock.businessName).thenReturn('Sami Élec');
+      when(() => providerMock.baseGovernorateId).thenReturn('sousse');
+      when(() => providerMock.headline).thenReturn('Électricien Pro');
+      when(() => providerMock.bio).thenReturn('Bio complète');
+      when(() => providerMock.yearsExperience).thenReturn(5);
+      when(() => providerMock.whatsappPhone).thenReturn('+21622123456');
+      when(() => providerMock.publicPhone).thenReturn('');
+      _stubProviderLists(
+        providerMock,
+        categories: [_catItem('cat-elec')],
+        coverageAreas: [_covItem('cov-1', 'sousse')],
+        portfolio: [_portfolioItem('photo-1')],
+      );
+      when(mockRepo.getMyProfile).thenAnswer((_) async => providerMock);
+
+      await _pumpTall(
+        tester,
+        ProviderScope(
+          overrides: [
+            onboardingRepositoryProvider.overrideWithValue(mockRepo),
+            categoriesProvider.overrideWith(
+              (ref) async => [_category('cat-elec', 'Électricité')],
+            ),
+            governoratesProvider.overrideWith(
+              (ref) async => [_governorate('sousse', 'Sousse')],
+            ),
+          ],
+          child: MaterialApp(
+            theme: buildTheme(
+              brightness: Brightness.light,
+              locale: const Locale('fr'),
+            ),
+            locale: const Locale('fr'),
+            home: const OnboardingScreen(),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      verify(mockRepo.getMyProfile).called(1);
+      // Doit atterrir directement à l'étape 5 : Récapitulatif
+      expect(find.text(t.onboarding.summaryTitle), findsWidgets);
+      expect(find.text('Étape 5 sur 5'), findsOneWidget);
+      expect(find.text(t.onboarding.summaryPublish), findsOneWidget);
     },
   );
 }

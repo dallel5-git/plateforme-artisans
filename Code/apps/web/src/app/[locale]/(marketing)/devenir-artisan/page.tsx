@@ -28,29 +28,34 @@ export default async function BecomeProPage({ params }: PageProps) {
     {
       titleFr: '0% de commission sur vos devis',
       titleAr: '0 مليم عمولة على مداخيلك',
-      descFr: 'Vous fixez librement vos prix et encaissez la totalité du montant convenu avec vos clients.',
+      descFr:
+        'Vous fixez librement vos prix et encaissez la totalité du montant convenu avec vos clients.',
       descAr: 'أنت من يحدد أسعاره بحرية تامة وتستلم مستحقاتك كاملة مباشرة من الحريف دون وساطة.',
       icon: DollarSign,
     },
     {
       titleFr: 'Appels & WhatsApp en direct',
       titleAr: 'اتصالات مباشرة وهاتف مفتوح',
-      descFr: 'Les particuliers vous contactent directement sur votre téléphone mobile personnel dès leur recherche.',
+      descFr:
+        'Les particuliers vous contactent directement sur votre téléphone mobile personnel dès leur recherche.',
       descAr: 'يتصل بك الزبائن مباشرة على هاتفك أو عبر تطبيق واتساب لطلب تدخل فوري أو أخذ موعد.',
       icon: Phone,
     },
     {
       titleFr: 'Badge de confiance Vérifié',
       titleAr: 'شارة الحرفي الموثوق',
-      descFr: 'Un gage de sérieux qui rassure les familles et multiplie par 3 votre taux de transformation.',
+      descFr:
+        'Un gage de sérieux qui rassure les familles et multiplie par 3 votre taux de transformation.',
       descAr: 'علامة ثقة تمنح الأمان للحرفاء وترفع نسبة اختيارك مقارنة بالحرفيين غير المعتمدين.',
       icon: ShieldCheck,
     },
     {
       titleFr: 'Visibilité Google locale n°1',
       titleAr: 'ظهور متميز في مدينتك',
-      descFr: 'Vos pages sont optimisées pour ressortir en tête sur Google lorsque quelqu’un cherche un artisan au Sahel.',
-      descAr: 'صفحات مهيأة للظهور في المراتب الأولى على محركات البحث لكل من يبحث عن خدماتك في منطقتك.',
+      descFr:
+        'Vos pages sont optimisées pour ressortir en tête sur Google lorsque quelqu’un cherche un artisan au Sahel.',
+      descAr:
+        'صفحات مهيأة للظهور في المراتب الأولى على محركات البحث لكل من يبحث عن خدماتك في منطقتك.',
       icon: TrendingUp,
     },
   ];
@@ -108,7 +113,9 @@ export default async function BecomeProPage({ params }: PageProps) {
       <section className="space-y-8">
         <div className="text-center max-w-2xl mx-auto space-y-2">
           <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white">
-            {isAr ? 'لماذا يفضل الحرفيون صَنَايعِيّة ؟' : 'Pourquoi les artisans choisissent Sanaya ?'}
+            {isAr
+              ? 'لماذا يفضل الحرفيون صَنَايعِيّة ؟'
+              : 'Pourquoi les artisans choisissent Sanaya ?'}
           </h2>
           <p className="text-xs md:text-sm text-slate-500">
             {isAr

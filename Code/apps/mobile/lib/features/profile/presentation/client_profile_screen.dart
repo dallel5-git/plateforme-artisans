@@ -12,7 +12,6 @@ import 'package:sanaya/core/utils/phone_mask.dart';
 import 'package:sanaya/core/widgets/app_button.dart';
 import 'package:sanaya/core/widgets/app_card.dart';
 import 'package:sanaya/core/widgets/app_skeleton.dart';
-import 'package:sanaya/core/widgets/provider_avatar.dart';
 import 'package:sanaya/features/auth/application/auth_state_provider.dart';
 import 'package:sanaya/features/auth/application/current_user_provider.dart';
 import 'package:sanaya/features/settings/presentation/account_settings_section.dart';
@@ -60,6 +59,10 @@ class ClientProfileScreen extends ConsumerWidget {
                     AppButton(
                       label: t.profile.switchToProSpace,
                       variant: AppButtonVariant.secondary,
+                      icon: const Icon(
+                        Icons.storefront_rounded,
+                        size: AppIconSize.md,
+                      ),
                       onPressed: () => context.go('/pro'),
                     ),
                   ]
@@ -94,18 +97,21 @@ class _IdentityHeader extends StatelessWidget {
 
     final String displayName;
     final String? subtitle;
+    final String? initials;
     if (!isAuthenticated) {
       displayName = guestName;
       subtitle = guestSubtitle;
+      initials = null;
     } else {
       displayName = _displayName(user, fallbackName);
       subtitle = user != null ? maskPhone(user.phone) : null;
+      initials = _initials(user);
     }
 
     return AppCard(
       child: Row(
         children: [
-          const ProviderAvatar(url: null, size: 56),
+          _buildAvatar(colors, locale, initials),
           const SizedBox(width: AppSpacing.md),
           Expanded(
             child: currentUser.isLoading && user == null && isAuthenticated
@@ -113,19 +119,63 @@ class _IdentityHeader extends StatelessWidget {
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        displayName,
-                        style: AppText.h3(
-                          locale,
-                        ).copyWith(color: colors.textPrimary),
+                      Row(
+                        children: [
+                          Flexible(
+                            child: Text(
+                              displayName,
+                              style:
+                                  AppText.h3(
+                                    locale,
+                                  ).copyWith(
+                                    color: colors.textPrimary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          if (isAuthenticated) ...[
+                            const SizedBox(width: AppSpacing.xs),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: AppSpacing.xs,
+                                vertical: 2,
+                              ),
+                              decoration: BoxDecoration(
+                                color: colors.verifiedSubtle,
+                                borderRadius: const BorderRadius.all(
+                                  AppRadius.sm,
+                                ),
+                              ),
+                              child: Icon(
+                                Icons.verified_rounded,
+                                size: AppIconSize.xs,
+                                color: colors.verified,
+                              ),
+                            ),
+                          ],
+                        ],
                       ),
                       if (subtitle != null) ...[
                         const SizedBox(height: AppSpacing.xxs),
-                        Text(
-                          subtitle,
-                          style: AppText.body(
-                            locale,
-                          ).copyWith(color: colors.textSecondary),
+                        Row(
+                          children: [
+                            if (isAuthenticated) ...[
+                              Icon(
+                                Icons.phone_iphone_rounded,
+                                size: AppIconSize.xs,
+                                color: colors.textSecondary,
+                              ),
+                              const SizedBox(width: AppSpacing.xxs),
+                            ],
+                            Text(
+                              subtitle,
+                              style: AppText.body(
+                                locale,
+                              ).copyWith(color: colors.textSecondary),
+                            ),
+                          ],
                         ),
                       ],
                     ],
@@ -136,10 +186,66 @@ class _IdentityHeader extends StatelessWidget {
     );
   }
 
+  Widget _buildAvatar(AppColors colors, Locale locale, String? initials) {
+    if (initials != null && initials.isNotEmpty) {
+      return Container(
+        width: 48,
+        height: 48,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: colors.accentSubtle,
+          border: Border.all(
+            color: colors.accent.withValues(alpha: 0.25),
+            width: 2,
+          ),
+        ),
+        child: Center(
+          child: Text(
+            initials,
+            style: AppText.h3(locale).copyWith(
+              color: colors.accent,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      );
+    }
+    return Container(
+      width: 48,
+      height: 48,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: colors.surfaceSunken,
+        border: Border.all(
+          color: colors.border,
+          width: 2,
+        ),
+      ),
+      child: Center(
+        child: Icon(
+          Icons.person_rounded,
+          color: colors.textMuted,
+          size: AppIconSize.lg,
+        ),
+      ),
+    );
+  }
+
   String _displayName(V1AuthMeGet200Response? user, String fallback) {
     if (user == null) return fallback;
     final name = '${user.firstName} ${user.lastName}'.trim();
     return name.isEmpty ? fallback : name;
+  }
+
+  String? _initials(V1AuthMeGet200Response? user) {
+    if (user == null) return null;
+    final f = user.firstName.trim();
+    final l = user.lastName.trim();
+    final buffer = StringBuffer();
+    if (f.isNotEmpty) buffer.write(f[0]);
+    if (l.isNotEmpty) buffer.write(l[0]);
+    final s = buffer.toString().toUpperCase();
+    return s.isEmpty ? null : s;
   }
 }
 

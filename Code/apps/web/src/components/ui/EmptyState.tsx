@@ -25,12 +25,8 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
       <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 mb-4">
         {icon || <SearchX className="w-6 h-6" />}
       </div>
-      <h3 className="text-base font-semibold text-slate-900 dark:text-white mb-1">
-        {title}
-      </h3>
-      <p className="text-sm text-slate-500 dark:text-slate-400 max-w-sm mb-5">
-        {description}
-      </p>
+      <h3 className="text-base font-semibold text-slate-900 dark:text-white mb-1">{title}</h3>
+      <p className="text-sm text-slate-500 dark:text-slate-400 max-w-sm mb-5">{description}</p>
       {actionLabel && actionHref && (
         <Link href={actionHref}>
           <Button variant="outline" size="sm">

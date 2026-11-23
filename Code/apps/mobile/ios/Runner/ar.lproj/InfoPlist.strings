@@ -1,0 +1,3 @@
+/* Arabic translations for Info.plist permissions (MOB-004) */
+"NSCameraUsageDescription" = "يحتاج صنايعية إلى الوصول إلى الكاميرا للسماح لك بالتقاط صور لأعمالك وإضافتها إلى معرض أعمالك.";
+"NSPhotoLibraryUsageDescription" = "يحتاج صنايعية إلى الوصول إلى معرض الصور للسماح لك باختيار صور لأعمالك وإضافتها إلى معرض أعمالك.";

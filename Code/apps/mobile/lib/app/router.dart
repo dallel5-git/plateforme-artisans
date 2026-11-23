@@ -15,6 +15,8 @@ import 'package:sanaya/features/dashboard/presentation/screens/dashboard_screen.
 import 'package:sanaya/features/favorites/presentation/favorites_screen.dart';
 import 'package:sanaya/features/history/presentation/client_history_screen.dart';
 import 'package:sanaya/features/onboarding/application/onboarding_providers.dart';
+import 'package:sanaya/features/onboarding/presentation/client_onboarding_screen.dart';
+import 'package:sanaya/features/onboarding/presentation/onboarding_celebration_screen.dart';
 import 'package:sanaya/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:sanaya/features/pro_profile/presentation/pro_profile_screen.dart';
 import 'package:sanaya/features/profile/presentation/client_profile_screen.dart';
@@ -25,6 +27,7 @@ import 'package:sanaya/features/search/data/search_filters.dart';
 import 'package:sanaya/features/search/presentation/search_home_screen.dart';
 import 'package:sanaya/features/search/presentation/search_results_screen.dart';
 import 'package:sanaya/features/settings/presentation/legal_notice_screen.dart';
+import 'package:sanaya/features/verification/presentation/screens/kyc_submission_screen.dart';
 
 /// Fait réévaluer `redirect:` quand `authStateProvider` change en dehors
 /// d'une navigation (ex. restauration de session résolue en tâche de fond,
@@ -68,16 +71,18 @@ final router = GoRouter(
     final isProviderSession =
         status != null && status.isAuthenticated && status.isProvider;
 
-    // FM-24 : /pro/* exige une session PROVIDER — jamais de 401 brut.
-    // Anonyme → /auth ("devenir prestataire" : décision validée avec
-    // Oussama de réutiliser l'écran de sélection de rôle existant plutôt
-    // que construire un nouvel écran, hors budget de l'issue). CLIENT déjà
-    // authentifié → /client (pas /auth : la règle `onEntryRoute` ci-dessous
-    // fait déjà rebondir tout utilisateur authentifié hors de /auth, donc y
-    // renvoyer un CLIENT créerait une boucle silencieuse vers /client de
-    // toute façon — autant y aller directement, sans repasser par un écran
-    // de ré-authentification trompeur pour un compte déjà connecté).
+    // FM-24 / MOB-001 : /pro/* exige une session PROVIDER — sauf /pro/onboarding
+    // qui est accessible à tout utilisateur authentifié (ex. un compte CLIENT
+    // souhaitant créer son profil artisan).
+    // Anonyme sur /pro/* (y compris /pro/onboarding) → /auth.
+    // CLIENT sur /pro/onboarding → accès autorisé (null).
+    // CLIENT sur toute autre route /pro/* → /client.
     if (onProSubtree && !isProviderSession) {
+      if (loc == '/pro/onboarding' &&
+          status != null &&
+          status.isAuthenticated) {
+        return null;
+      }
       return status != null && status.isAuthenticated ? '/client' : '/auth';
     }
 
@@ -95,7 +100,9 @@ final router = GoRouter(
       // documenté tant que `GET /v1/providers/me` (BE-44) n'existe pas.
       final published = container.read(hasPublishedProfileProvider);
       if (!published) {
-        return loc == '/pro/onboarding' ? null : '/pro/onboarding';
+        return (loc == '/pro/onboarding' || loc == '/pro/verification')
+            ? null
+            : '/pro/onboarding';
       }
       if (loc == '/pro' || loc == '/pro/onboarding') return '/pro/dashboard';
     }
@@ -115,6 +122,11 @@ final router = GoRouter(
       path: '/auth',
       name: 'auth',
       builder: (_, _) => const AuthScreen(),
+    ),
+    GoRoute(
+      path: '/client/onboarding',
+      name: 'client-onboarding',
+      builder: (_, _) => const ClientOnboardingScreen(),
     ),
     StatefulShellRoute.indexedStack(
       builder: (_, _, navigationShell) =>
@@ -137,11 +149,12 @@ final router = GoRouter(
                   path: 'results',
                   name: 'client-results',
                   builder: (context, state) {
-                    final filters = state.extra as SearchFilters? ??
+                    final filters =
+                        state.extra as SearchFilters? ??
                         SearchFilters(
                           governorateId:
                               state.uri.queryParameters['governorate'] ??
-                                  'sousse',
+                              'sousse',
                           categorySlug: state.uri.queryParameters['category'],
                         );
                     return SearchResultsScreen(initialFilters: filters);
@@ -220,6 +233,16 @@ final router = GoRouter(
       path: '/pro/onboarding',
       name: 'pro-onboarding',
       builder: (_, _) => const OnboardingScreen(),
+    ),
+    GoRoute(
+      path: '/pro/celebration',
+      name: 'pro-celebration',
+      builder: (_, _) => const OnboardingCelebrationScreen(),
+    ),
+    GoRoute(
+      path: '/pro/verification',
+      name: 'pro-verification',
+      builder: (_, _) => const KycSubmissionScreen(),
     ),
     StatefulShellRoute.indexedStack(
       builder: (_, _, navigationShell) =>

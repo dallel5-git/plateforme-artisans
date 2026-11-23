@@ -33,6 +33,9 @@ class SearchRepository {
       minRating: filters.minRating,
       cursor: cursor,
       limit: limit,
+      extra: filters.query != null && filters.query!.trim().isNotEmpty
+          ? <String, dynamic>{'query': filters.query!.trim()}
+          : null,
     );
     return response.data!;
   }

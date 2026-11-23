@@ -257,8 +257,8 @@ void main() {
   );
 
   testWidgets(
-    'MOB-005 — désélectionner la catégorie principale réassigne '
-    'isPrimary: true à la première catégorie restante // régression #MOB-005',
+    'MOB-005 — déselectionner la catégorie principale '
+    'promeut automatiquement la première restante',
     (tester) async {
       Map<String, bool>? submitted;
       await _pumpTall(
@@ -283,31 +283,32 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      // Sélectionner Plomberie (devient principale par défaut)
+      // Sélectionner Plomberie (devient principale), Électricité et Peinture
       await tester.tap(find.text('Plomberie'));
       await tester.pumpAndSettle();
-
-      // Sélectionner Électricité et Peinture (secondaires)
       await tester.tap(find.text('Électricité'));
       await tester.pumpAndSettle();
       await tester.tap(find.text('Peinture'));
       await tester.pumpAndSettle();
 
-      // Désélectionner Plomberie (qui était principale)
+      // Désélectionner Plomberie (qui était la catégorie principale)
       await tester.tap(find.text('Plomberie'));
       await tester.pumpAndSettle();
 
+      // Soumettre : Électricité doit être devenue automatiquement principale
       await tester.tap(find.text(t.onboarding.next));
       await tester.pump();
 
-      // La première restante (Électricité) hérite de isPrimary: true
-      expect(submitted, {'electricite': true, 'peinture': false});
+      expect(submitted, {
+        'electricite': true,
+        'peinture': false,
+      });
     },
   );
 
   testWidgets(
-    'MOB-005 — désélectionner une catégorie secondaire conserve la principale '
-    '// régression #MOB-005',
+    'MOB-005 — déselectionner une catégorie secondaire '
+    'ne change pas la catégorie principale',
     (tester) async {
       Map<String, bool>? submitted;
       await _pumpTall(
@@ -331,19 +332,99 @@ void main() {
       );
       await tester.pumpAndSettle();
 
+      // Plomberie (principale) + Électricité (secondaire)
       await tester.tap(find.text('Plomberie'));
       await tester.pumpAndSettle();
       await tester.tap(find.text('Électricité'));
       await tester.pumpAndSettle();
 
-      // Désélectionner Électricité (qui était secondaire)
+      // Désélectionner Électricité (secondaire)
       await tester.tap(find.text('Électricité'));
+      await tester.pumpAndSettle();
+
+      // Soumettre : Plomberie reste principale
+      await tester.tap(find.text(t.onboarding.next));
+      await tester.pump();
+
+      expect(submitted, {
+        'plomberie': true,
+      });
+    },
+  );
+
+  testWidgets(
+    'MOB-005 — déselectionner toutes les catégories '
+    'désactive le bouton Suivant',
+    (tester) async {
+      var submitted = false;
+      await _pumpTall(
+        tester,
+        _wrap(
+          OnboardingCategoriesStep(
+            initialSelection: const {},
+            isSaving: false,
+            errorMessage: null,
+            onSubmit: (_) => submitted = true,
+          ),
+          overrides: [
+            categoriesProvider.overrideWith(
+              (ref) async => [
+                _category('plomberie', 'Plomberie'),
+              ],
+            ),
+          ],
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Sélectionner puis désélectionner
+      await tester.tap(find.text('Plomberie'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Plomberie'));
+      await tester.pumpAndSettle();
+
+      // Le bouton Suivant doit être inactif (onPressed == null)
+      expect(find.text(t.onboarding.categoriesEmpty), findsOneWidget);
+      await tester.tap(find.text(t.onboarding.next));
+      await tester.pump();
+
+      expect(submitted, isFalse);
+    },
+  );
+
+  testWidgets(
+    'MOB-005 — initialSelection sans catégorie principale '
+    'promeut automatiquement la première',
+    (tester) async {
+      Map<String, bool>? submitted;
+      await _pumpTall(
+        tester,
+        _wrap(
+          OnboardingCategoriesStep(
+            initialSelection: const {'plomberie': false, 'electricite': false},
+            isSaving: false,
+            errorMessage: null,
+            onSubmit: (s) => submitted = s,
+          ),
+          overrides: [
+            categoriesProvider.overrideWith(
+              (ref) async => [
+                _category('plomberie', 'Plomberie'),
+                _category('electricite', 'Électricité'),
+              ],
+            ),
+          ],
+        ),
+      );
       await tester.pumpAndSettle();
 
       await tester.tap(find.text(t.onboarding.next));
       await tester.pump();
 
-      expect(submitted, {'plomberie': true});
+      expect(submitted, {
+        'plomberie': true,
+        'electricite': false,
+      });
     },
   );
 }

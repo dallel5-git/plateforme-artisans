@@ -5,6 +5,7 @@ import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/widgets/app_button.dart';
 import 'package:sanaya/features/contact/application/contact_providers.dart';
 import 'package:sanaya/features/contact/domain/contact_channel.dart';
+import 'package:sanaya/features/history/application/contact_history_providers.dart';
 
 /// Boutons « Appeler » / « WhatsApp » d'une fiche prestataire. Déclenche
 /// `ContactService.contact()` au tap — poste le `ContactEvent` (P9) avant
@@ -35,14 +36,20 @@ class ContactButtons extends ConsumerWidget {
     final locale = Localizations.localeOf(context).languageCode;
     final service = ref.read(contactServiceProvider);
 
-    Future<void> contact(ContactChannel channel) => service.contact(
-      providerId: providerId,
-      channel: channel,
-      categoryId: categoryId,
-      sourceScreen: sourceScreen,
-      locale: locale,
-      fallbackPhone: fallbackPhone,
-    );
+    Future<void> contact(ContactChannel channel) async {
+      try {
+        await service.contact(
+          providerId: providerId,
+          channel: channel,
+          categoryId: categoryId,
+          sourceScreen: sourceScreen,
+          locale: locale,
+          fallbackPhone: fallbackPhone,
+        );
+      } finally {
+        ref.invalidate(contactHistoryProvider);
+      }
+    }
 
     return Row(
       children: [

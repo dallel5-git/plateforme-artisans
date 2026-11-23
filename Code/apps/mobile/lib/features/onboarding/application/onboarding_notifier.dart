@@ -1,5 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sanaya/core/api/api_client_provider.dart';
 import 'package:sanaya/core/api/generated/api.dart';
+import 'package:sanaya/features/auth/application/auth_state_provider.dart';
 import 'package:sanaya/features/onboarding/application/onboarding_repository_provider.dart';
 import 'package:sanaya/features/onboarding/application/onboarding_state.dart';
 import 'package:sanaya/features/onboarding/data/onboarding_repository.dart';
@@ -30,12 +32,15 @@ class OnboardingNotifier extends AutoDisposeNotifier<OnboardingState> {
   // ---------------------------------------------------------------------------
 
   /// Pré-remplit l'étape profil depuis le profil existant, s'il y en a un,
-  /// et reprend à l'étape catégories — la seule frontière déterminable à
-  /// partir de `GET /providers/me` (BE-44), dont la réponse ne renvoie pas
-  /// les catégories/zones déjà choisies (`providerMeSchema`, pas de champ
-  /// `categories`/`coverageAreas` : voir `packages/validators/src/provider.ts`).
-  /// L'artisan resaisit donc catégories et zones dans ce cas ; limite
-  /// documentée, voir `BE-44b` (backlog non planifié).
+  /// Reprise de session au montage du wizard (FM-36, BE-44b, MOB-027) :
+  /// interroge `GET /v1/providers/me` pour restaurer les données existantes
+  /// (profil, catégories, zones, portfolio) et positionne intelligemment
+  /// `currentStep` sur la première étape incomplète :
+  /// - aucun profil créé -> profile (étape 1)
+  /// - profil créé mais sans catégorie -> categories (étape 2)
+  /// - catégories renseignées mais sans zone -> zones (étape 3)
+  /// - zones renseignées mais portfolio vide et score < 60% -> photos (étape 4)
+  /// - prêt à publier (score >= 60%) -> summary (étape 5)
   ///
   /// Aucun profil existant (404) ou erreur réseau : reste à l'état initial,
   /// étape 1 — échec silencieux, ne bloque jamais l'ouverture de l'écran.
@@ -47,11 +52,28 @@ class OnboardingNotifier extends AutoDisposeNotifier<OnboardingState> {
       return;
     }
     if (profile == null) return;
+
+    final targetStep = determineResumeStep(profile);
+
     state = state.copyWith(
       profile: profile,
       completionScore: profile.completionScore,
-      currentStep: OnboardingStep.categories,
+      currentStep: targetStep,
     );
+  }
+
+  /// Détermine intelligemment l'étape de reprise selon la complétude du profil
+  /// (MOB-027).
+  static OnboardingStep determineResumeStep(ProviderMe profile) {
+    if (profile.categories.isEmpty) return OnboardingStep.categories;
+    if (profile.coverageAreas.isEmpty) return OnboardingStep.zones;
+    if (profile.portfolio.isEmpty && profile.completionScore < 60) {
+      return OnboardingStep.photos;
+    }
+    if (profile.completionScore >= 60) {
+      return OnboardingStep.summary;
+    }
+    return OnboardingStep.photos;
   }
 
   // ---------------------------------------------------------------------------
@@ -66,6 +88,21 @@ class OnboardingNotifier extends AutoDisposeNotifier<OnboardingState> {
       if (state.profile == null) {
         final result = await _repo.createProfile(body);
         updated = result.provider;
+        // MOB-003 : l'API POST /v1/providers/me promeut l'artisan au rôle
+        // PROVIDER et émet de nouveaux jetons (accessToken / refreshToken).
+        // On persiste ces jetons dans AuthTokenStore et on propage le nouveau
+        // rôle à authStateProvider pour que les appels subséquents
+        // (ex. PUT /v1/providers/me/categories à l'étape 2) ne reçoivent pas
+        // un 403 Forbidden.
+        await ref
+            .read(authTokenStoreProvider)
+            .saveSession(
+              accessToken: result.accessToken,
+              refreshToken: result.refreshToken,
+            );
+        ref.read(authStateProvider.notifier).setAuthenticated([
+          V1AuthOtpVerifyPost200ResponseUserRolesEnum.PROVIDER,
+        ]);
       } else {
         // FM-11c : la version d'origine ne recopiait que `businessName` —
         // un retour à l'étape profil pour corriger bio/headline/etc.
@@ -216,6 +253,18 @@ class OnboardingNotifier extends AutoDisposeNotifier<OnboardingState> {
   // ---------------------------------------------------------------------------
   // previousStep
   // ---------------------------------------------------------------------------
+
+  // ---------------------------------------------------------------------------
+  // goToStep (navigation directe — MOB-028)
+  // ---------------------------------------------------------------------------
+
+  /// Navigue directement vers l'étape cible sans appel réseau.
+  void goToStep(OnboardingStep step) {
+    state = state.copyWith(
+      currentStep: step,
+      clearError: true,
+    );
+  }
 
   void previousStep() {
     if (state.isFirstStep) return;

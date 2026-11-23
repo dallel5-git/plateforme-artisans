@@ -22,6 +22,9 @@ import { healthRoutes } from './routes/health.js';
 import { mediaRoutes } from './routes/media.js';
 import { profileViewsRoutes } from './routes/profile-views.js';
 import { providersRoutes } from './routes/providers.js';
+import { adminVerificationRoutes } from './routes/admin-verifications.js';
+import { verificationRoutes } from './routes/verification.js';
+import { accountRoutes } from './routes/account.js';
 
 export async function buildServer() {
   const app = Fastify({
@@ -71,6 +74,9 @@ export async function buildServer() {
   await app.register(contactsRoutes, { prefix: '/v1' });
   await app.register(favoritesRoutes, { prefix: '/v1' });
   await app.register(profileViewsRoutes, { prefix: '/v1' });
+  await app.register(verificationRoutes, { prefix: '/v1' });
+  await app.register(adminVerificationRoutes, { prefix: '/v1' });
+  await app.register(accountRoutes, { prefix: '/v1' });
 
   return app;
 }

@@ -1,29 +1,40 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/core/api/generated/api.dart';
+import 'package:sanaya/core/demo/demo_mode_provider.dart';
 import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/theme/app_text.dart';
 import 'package:sanaya/core/widgets/app_button.dart';
+import 'package:sanaya/core/widgets/app_card.dart';
 import 'package:sanaya/core/widgets/app_skeleton.dart';
 import 'package:sanaya/core/widgets/empty_state.dart';
 import 'package:sanaya/core/widgets/error_state.dart';
+import 'package:sanaya/features/onboarding/application/onboarding_providers.dart';
 import 'package:sanaya/features/onboarding/data/onboarding_repository.dart';
 import 'package:sanaya/features/onboarding/presentation/widgets/onboarding_profile_step.dart';
 import 'package:sanaya/features/pro_profile/application/pro_profile_providers.dart';
 import 'package:sanaya/features/pro_profile/presentation/widgets/availability_selector.dart';
 import 'package:sanaya/features/reviews/application/pro_reviews_providers.dart';
 import 'package:sanaya/features/settings/presentation/account_settings_section.dart';
+import 'package:sanaya/features/verification/application/kyc_providers.dart';
+import 'package:sanaya/features/verification/presentation/widgets/verification_status_card.dart';
 
-/// Onglet Profil pro (`/pro/profile`, FM-38, issue #235) : édition post-
-/// onboarding (bio, téléphones…, `OnboardingProfileStep` réutilisé tel quel
-/// — FM-38b lui a ajouté `submitLabel`/`shrinkWrap` pour ce cas), badge de
-/// disponibilité commutable, bascule « Accepte les urgences » (alimente le
-/// chip Urgence de la recherche, FM-28), lien vers sa propre fiche publique,
-/// réglages (`AccountSettingsSection`, FM-38a). Remplace
-/// `ProProfilePlaceholderScreen`.
+/// Onglet Profil pro (`/pro/profile`, FM-38, issue #235) : espace complet
+/// et valorisant pour l'artisan.
+/// Comprend :
+/// - Carte d'identité pro avec initiales, badge vérifié, note et expérience
+/// - Barre et score de complétude avec raccourci vers le parcours complet
+/// - Statistiques clés d'impact (vues, contacts, note moyenne)
+/// - Disponibilité et bascule urgences 24/7
+/// - Accès rapide à la fiche publique
+/// - Raccourcis de test d'onboarding (Pro / Particulier)
+/// - Édition des informations de profil
+/// - Réglages généraux du compte
 class ProProfileScreen extends ConsumerStatefulWidget {
   const ProProfileScreen({super.key});
 
@@ -42,9 +53,6 @@ class _ProProfileScreenState extends ConsumerState<ProProfileScreen> {
       _errorMessage = null;
     });
 
-    // `baseGovernorateId` n'est pas envoyé : `updateProviderMeSchema` ne
-    // l'accepte pas en PATCH (voir `OnboardingProfileStep.showGovernorate`,
-    // FM-38c) — le champ n'est de toute façon pas affiché dans ce contexte.
     final body = V1ProvidersMePatchRequest(
       (b) => b
         ..businessName = values.businessName
@@ -141,16 +149,19 @@ class _ProProfileSkeleton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
+    return const SingleChildScrollView(
+      physics: NeverScrollableScrollPhysics(),
       padding: EdgeInsets.all(AppSpacing.md),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          AppSkeleton(height: 72),
-          SizedBox(height: AppSpacing.lg),
-          AppSkeleton(height: 56),
+          AppSkeleton(height: 120),
           SizedBox(height: AppSpacing.md),
-          AppSkeleton(height: 320),
+          AppSkeleton(height: 70),
+          SizedBox(height: AppSpacing.md),
+          AppSkeleton(height: 72),
+          SizedBox(height: AppSpacing.md),
+          AppSkeleton(height: 280),
         ],
       ),
     );
@@ -180,40 +191,60 @@ class _ProProfileContent extends ConsumerWidget {
     final t = ref.watch(translationsProvider);
     final colors = context.colors;
     final locale = Localizations.localeOf(context);
+    final isDemo = ref.watch(demoModeProvider);
+    final kycStatus = ref.watch(kycStatusProvider).valueOrNull;
+    final effectiveStatus =
+        kycStatus?.verificationStatus ??
+        (profile.isVerified
+            ? V1ProvidersMeVerificationGet200ResponseVerificationStatusEnum
+                  .APPROVED
+            : V1ProvidersMeVerificationGet200ResponseVerificationStatusEnum
+                  .NOT_SUBMITTED);
 
     return ListView(
       padding: const EdgeInsets.all(AppSpacing.md),
       children: [
-        AvailabilitySelector(
+        _ProIdentityHeader(profile: profile),
+        const SizedBox(height: AppSpacing.md),
+        VerificationStatusCard(
+          status: effectiveStatus,
+          rejectionReason: kycStatus?.currentRequest.rejectionReason,
+          isCompact: true,
+        ),
+        const SizedBox(height: AppSpacing.md),
+        _ProCompletionCard(profile: profile),
+        const SizedBox(height: AppSpacing.md),
+        _ProQuickStatsRow(profile: profile),
+        const SizedBox(height: AppSpacing.md),
+        _ProAvailabilityCard(
           status: profile.availabilityStatus,
-          onSelect: onSelectAvailability,
+          acceptsEmergency: profile.acceptsEmergency,
+          onSelectAvailability: onSelectAvailability,
+          onToggleAcceptsEmergency: onToggleAcceptsEmergency,
         ),
         const SizedBox(height: AppSpacing.md),
-        _AcceptsEmergencyTile(
-          value: profile.acceptsEmergency,
-          onChanged: onToggleAcceptsEmergency,
-        ),
-        const SizedBox(height: AppSpacing.md),
-        AppButton(
-          label: t.proProfile.viewMyListing,
-          variant: AppButtonVariant.secondary,
-          onPressed: () => context.push('/providers/${profile.slug}'),
-        ),
+        _ProPublicListingCard(slug: profile.slug),
+        if (isDemo) ...[
+          const SizedBox(height: AppSpacing.md),
+          const _ProTestShortcutsCard(),
+        ],
         const SizedBox(height: AppSpacing.xl),
         Text(
           t.proProfile.editSection,
           style: AppText.h3(locale).copyWith(color: colors.textPrimary),
         ),
         const SizedBox(height: AppSpacing.md),
-        OnboardingProfileStep(
-          initialProfile: profile,
-          isSaving: isSaving,
-          errorMessage: errorMessage,
-          onSubmit: onSubmitProfile,
-          submitLabel: t.proProfile.save,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          showGovernorate: false,
+        AppCard(
+          child: OnboardingProfileStep(
+            initialProfile: profile,
+            isSaving: isSaving,
+            errorMessage: errorMessage,
+            onSubmit: onSubmitProfile,
+            submitLabel: t.proProfile.save,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            showGovernorate: false,
+          ),
         ),
         const SizedBox(height: AppSpacing.xl),
         AccountSettingsSection(
@@ -222,11 +253,635 @@ class _ProProfileContent extends ConsumerWidget {
             AppButton(
               label: t.proProfile.switchToClientSpace,
               variant: AppButtonVariant.secondary,
+              icon: const Icon(Icons.swap_horiz_rounded, size: AppIconSize.md),
               onPressed: () => context.go('/client'),
             ),
           ],
         ),
       ],
+    );
+  }
+}
+
+class _ProIdentityHeader extends StatelessWidget {
+  const _ProIdentityHeader({required this.profile});
+
+  final ProviderMe profile;
+
+  String _initials(String name) {
+    final trimmed = name.trim();
+    if (trimmed.isEmpty) return 'P';
+    final parts = trimmed.split(RegExp(r'\s+'));
+    if (parts.length >= 2) {
+      return '${parts[0][0]}${parts[1][0]}'.toUpperCase();
+    }
+    return trimmed.substring(0, trimmed.length >= 2 ? 2 : 1).toUpperCase();
+  }
+
+  bool get _isVerified {
+    try {
+      return profile.isVerified;
+    } on Object catch (_) {
+      return false;
+    }
+  }
+
+  num get _ratingAvg {
+    try {
+      return profile.ratingAvg;
+    } on Object catch (_) {
+      return 0.0;
+    }
+  }
+
+  int get _ratingCount {
+    try {
+      return profile.ratingCount;
+    } on Object catch (_) {
+      return 0;
+    }
+  }
+
+  int get _yearsExp {
+    try {
+      return profile.yearsExperience;
+    } on Object catch (_) {
+      return 0;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final locale = Localizations.localeOf(context);
+
+    return AppCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 56,
+                height: 56,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: colors.accentSubtle,
+                  border: Border.all(
+                    color: colors.accent.withValues(alpha: 0.3),
+                    width: 2,
+                  ),
+                ),
+                child: Center(
+                  child: Text(
+                    _initials(profile.businessName),
+                    style: AppText.h3(locale).copyWith(
+                      color: colors.accent,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: AppSpacing.md),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Flexible(
+                          child: Text(
+                            profile.businessName,
+                            style: AppText.h3(locale).copyWith(
+                              color: colors.textPrimary,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        if (_isVerified) ...[
+                          const SizedBox(width: AppSpacing.xs),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: AppSpacing.xs,
+                              vertical: 2,
+                            ),
+                            decoration: BoxDecoration(
+                              color: colors.verifiedSubtle,
+                              borderRadius: const BorderRadius.all(
+                                AppRadius.sm,
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  Icons.verified_rounded,
+                                  size: AppIconSize.xs,
+                                  color: colors.verified,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                    if (profile.headline.isNotEmpty) ...[
+                      const SizedBox(height: AppSpacing.xxs),
+                      Text(
+                        profile.headline,
+                        style: AppText.body(locale).copyWith(
+                          color: colors.textSecondary,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.md),
+          Wrap(
+            spacing: AppSpacing.xs,
+            runSpacing: AppSpacing.xs,
+            children: [
+              _ProBadgePill(
+                icon: Icons.star_rounded,
+                iconColor: colors.amber,
+                label:
+                    '${_ratingAvg.toStringAsFixed(1)} '
+                    '($_ratingCount)',
+              ),
+              _ProBadgePill(
+                icon: Icons.work_history_rounded,
+                iconColor: colors.accent,
+                label: "$_yearsExp ans d'exp.",
+              ),
+              if (profile.baseGovernorateId.isNotEmpty)
+                _ProBadgePill(
+                  icon: Icons.location_on_rounded,
+                  iconColor: colors.textSecondary,
+                  label: profile.baseGovernorateId.toUpperCase(),
+                ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ProBadgePill extends StatelessWidget {
+  const _ProBadgePill({
+    required this.icon,
+    required this.iconColor,
+    required this.label,
+  });
+
+  final IconData icon;
+  final Color iconColor;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final locale = Localizations.localeOf(context);
+
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.sm,
+        vertical: 4,
+      ),
+      decoration: BoxDecoration(
+        color: colors.surfaceSunken,
+        borderRadius: const BorderRadius.all(AppRadius.pill),
+        border: Border.all(color: colors.border),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: AppIconSize.xs, color: iconColor),
+          const SizedBox(width: AppSpacing.xxs),
+          Text(
+            label,
+            style: AppText.caption(locale).copyWith(
+              color: colors.textPrimary,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ProCompletionCard extends ConsumerWidget {
+  const _ProCompletionCard({required this.profile});
+
+  final ProviderMe profile;
+
+  int get _score {
+    try {
+      return profile.completionScore.clamp(0, 100);
+    } on Object catch (_) {
+      return 0;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(translationsProvider);
+    final colors = context.colors;
+    final locale = Localizations.localeOf(context);
+    final score = _score;
+
+    return AppCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.trending_up_rounded,
+                      color: colors.accent,
+                      size: AppIconSize.md,
+                    ),
+                    const SizedBox(width: AppSpacing.xs),
+                    Expanded(
+                      child: Text(
+                        t.proProfile.completionTitle,
+                        style: AppText.bodyStrong(locale).copyWith(
+                          color: colors.textPrimary,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: AppSpacing.xs),
+              Text(
+                '$score %',
+                style: AppText.bodyStrong(locale).copyWith(
+                  color: colors.accent,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          ClipRRect(
+            borderRadius: const BorderRadius.all(AppRadius.pill),
+            child: LinearProgressIndicator(
+              value: score / 100.0,
+              minHeight: 8,
+              color: colors.accent,
+              backgroundColor: colors.surfaceSunken,
+            ),
+          ),
+          const SizedBox(height: AppSpacing.xs),
+          Text(
+            t.proProfile.completionTip,
+            style: AppText.caption(locale).copyWith(
+              color: colors.textSecondary,
+            ),
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          InkWell(
+            onTap: () {
+              ref.read(hasPublishedProfileProvider.notifier).state = false;
+              ref.invalidate(onboardingProvider);
+              context.go('/pro/onboarding');
+            },
+            borderRadius: const BorderRadius.all(AppRadius.md),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Flexible(
+                    child: Text(
+                      t.proProfile.relaunchOnboarding,
+                      style: AppText.caption(locale).copyWith(
+                        color: colors.accent,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  const SizedBox(width: AppSpacing.xxs),
+                  Icon(
+                    Icons.arrow_forward_rounded,
+                    size: AppIconSize.xs,
+                    color: colors.accent,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ProQuickStatsRow extends ConsumerWidget {
+  const _ProQuickStatsRow({required this.profile});
+
+  final ProviderMe profile;
+
+  int get _views {
+    try {
+      return profile.totalProfileViews;
+    } on Object catch (_) {
+      return 0;
+    }
+  }
+
+  int get _contacts {
+    try {
+      return profile.totalContacts;
+    } on Object catch (_) {
+      return 0;
+    }
+  }
+
+  num get _ratingAvg {
+    try {
+      return profile.ratingAvg;
+    } on Object catch (_) {
+      return 0.0;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(translationsProvider);
+    final colors = context.colors;
+
+    return Row(
+      children: [
+        Expanded(
+          child: _StatTile(
+            value: '$_views',
+            label: t.proProfile.statsViews,
+            icon: Icons.remove_red_eye_outlined,
+            iconColor: colors.accent,
+          ),
+        ),
+        const SizedBox(width: AppSpacing.sm),
+        Expanded(
+          child: _StatTile(
+            value: '$_contacts',
+            label: t.proProfile.statsContacts,
+            icon: Icons.call_outlined,
+            iconColor: colors.whatsapp,
+          ),
+        ),
+        const SizedBox(width: AppSpacing.sm),
+        Expanded(
+          child: _StatTile(
+            value: _ratingAvg.toStringAsFixed(1),
+            label: t.proProfile.statsRating,
+            icon: Icons.star_outline_rounded,
+            iconColor: colors.amber,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _StatTile extends StatelessWidget {
+  const _StatTile({
+    required this.value,
+    required this.label,
+    required this.icon,
+    required this.iconColor,
+  });
+
+  final String value;
+  final String label;
+  final IconData icon;
+  final Color iconColor;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final locale = Localizations.localeOf(context);
+
+    return AppCard(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.sm,
+        vertical: AppSpacing.md,
+      ),
+      child: Column(
+        children: [
+          Icon(icon, color: iconColor, size: AppIconSize.md),
+          const SizedBox(height: AppSpacing.xs),
+          Text(
+            value,
+            style: AppText.h3(locale).copyWith(
+              color: colors.textPrimary,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 2),
+          Text(
+            label,
+            style: AppText.caption(locale).copyWith(
+              color: colors.textSecondary,
+            ),
+            textAlign: TextAlign.center,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ProAvailabilityCard extends StatelessWidget {
+  const _ProAvailabilityCard({
+    required this.status,
+    required this.acceptsEmergency,
+    required this.onSelectAvailability,
+    required this.onToggleAcceptsEmergency,
+  });
+
+  final V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum status;
+  final bool acceptsEmergency;
+  final ValueChanged<V1ProvidersMePatchRequestAvailabilityStatusEnum>
+  onSelectAvailability;
+  final ValueChanged<bool> onToggleAcceptsEmergency;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        AvailabilitySelector(
+          status: status,
+          onSelect: onSelectAvailability,
+        ),
+        const SizedBox(height: AppSpacing.sm),
+        _AcceptsEmergencyTile(
+          value: acceptsEmergency,
+          onChanged: onToggleAcceptsEmergency,
+        ),
+      ],
+    );
+  }
+}
+
+class _ProPublicListingCard extends ConsumerWidget {
+  const _ProPublicListingCard({required this.slug});
+
+  final String slug;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(translationsProvider);
+    final colors = context.colors;
+    final locale = Localizations.localeOf(context);
+
+    return AppCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  color: colors.accentSubtle,
+                  borderRadius: const BorderRadius.all(AppRadius.md),
+                ),
+                child: Icon(
+                  Icons.storefront_rounded,
+                  color: colors.accent,
+                  size: AppIconSize.md,
+                ),
+              ),
+              const SizedBox(width: AppSpacing.md),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      t.proProfile.publicPreviewTitle,
+                      style: AppText.bodyStrong(locale).copyWith(
+                        color: colors.textPrimary,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      t.proProfile.publicPreviewSubtitle,
+                      style: AppText.caption(locale).copyWith(
+                        color: colors.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.md),
+          AppButton(
+            label: t.proProfile.viewMyListing,
+            variant: AppButtonVariant.secondary,
+            icon: const Icon(Icons.visibility_rounded, size: AppIconSize.sm),
+            onPressed: () => unawaited(context.push('/providers/$slug')),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ProTestShortcutsCard extends ConsumerWidget {
+  const _ProTestShortcutsCard();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colors = context.colors;
+    final locale = Localizations.localeOf(context);
+    final t = ref.watch(translationsProvider);
+
+    return AppCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                Icons.science_rounded,
+                color: colors.amber,
+                size: AppIconSize.md,
+              ),
+              const SizedBox(width: AppSpacing.xs),
+              Text(
+                t.settings.testToolsSection,
+                style: AppText.bodyStrong(locale).copyWith(
+                  color: colors.textPrimary,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.md),
+          Row(
+            children: [
+              Expanded(
+                child: AppButton(
+                  label: t.proProfile.testOnboardingPro,
+                  variant: AppButtonVariant.secondary,
+                  icon: const Icon(
+                    Icons.handyman_rounded,
+                    size: AppIconSize.sm,
+                  ),
+                  onPressed: () async {
+                    await ref
+                        .read(demoModeProvider.notifier)
+                        .setEnabled(enabled: true);
+                    await ref
+                        .read(demoRoleProvider.notifier)
+                        .setRole(DemoRole.provider);
+                    ref.read(hasPublishedProfileProvider.notifier).state =
+                        false;
+                    ref.invalidate(onboardingProvider);
+                    if (context.mounted) {
+                      context.go('/pro/onboarding');
+                    }
+                  },
+                ),
+              ),
+              const SizedBox(width: AppSpacing.sm),
+              Expanded(
+                child: AppButton(
+                  label: t.proProfile.testOnboardingClient,
+                  variant: AppButtonVariant.ghost,
+                  icon: const Icon(
+                    Icons.person_search_rounded,
+                    size: AppIconSize.sm,
+                  ),
+                  onPressed: () =>
+                      unawaited(context.push('/client/onboarding')),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

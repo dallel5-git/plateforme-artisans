@@ -18,7 +18,7 @@ class FavoritesListNotifier extends AsyncNotifier<List<FavoriteItem>> {
 
   /// Recharge manuellement la liste (utilisé par RefreshIndicator).
   Future<void> refresh() async {
-    state = const AsyncValue.loading();
+    state = const AsyncLoading<List<FavoriteItem>>().copyWithPrevious(state);
     state = await AsyncValue.guard(() async {
       final repository = ref.read(favoritesRepositoryProvider);
       final response = await repository.fetchFavorites();
@@ -63,9 +63,7 @@ final favoritesListProvider =
 /// Indique si un prestataire donné est actuellement dans les favoris chargés.
 final ProviderFamily<bool, String> isFavoriteProvider =
     Provider.family<bool, String>((ref, providerId) {
-      final favoritesAsync = ref.watch(favoritesListProvider);
-      return favoritesAsync.maybeWhen(
-        data: (items) => items.any((item) => item.providerId == providerId),
-        orElse: () => false,
-      );
+      final items = ref.watch(favoritesListProvider).valueOrNull;
+      if (items == null) return false;
+      return items.any((item) => item.providerId == providerId);
     });

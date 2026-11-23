@@ -190,5 +190,104 @@ void main() {
         expect(adapter.callCount, 0);
       },
     );
+
+    // ── MOB-002 ────────────────────────────────────────────────────────────
+    test(
+      'MOB-002 — erreur réseau (connectionError) : clear() NON appelé, '
+      'token conservé // régression #MOB-002',
+      () async {
+        // Adaptateur qui simule une panne réseau
+        // (DioExceptionType.connectionError) sans aucune réponse HTTP.
+        final networkAdapter = _CountingAdapter((_) {
+          throw DioException(
+            requestOptions: RequestOptions(path: '/v1/auth/refresh'),
+            type: DioExceptionType.connectionError,
+          );
+        });
+        final refreshDio = Dio()..httpClientAdapter = networkAdapter;
+        final networkStore = AuthTokenStore(
+          secureStorage: secureStorage,
+          refreshDio: refreshDio,
+        );
+
+        await expectLater(
+          networkStore.refresh(),
+          throwsA(isA<Exception>()),
+        );
+
+        // Le token doit rester intact — delete() ne doit PAS être appelé.
+        verifyNever(() => secureStorage.delete(key: any(named: 'key')));
+      },
+    );
+
+    test(
+      'MOB-002 — timeout (receiveTimeout) : clear() NON appelé, '
+      'token conservé // régression #MOB-002',
+      () async {
+        final timeoutAdapter = _CountingAdapter((_) {
+          throw DioException(
+            requestOptions: RequestOptions(path: '/v1/auth/refresh'),
+            type: DioExceptionType.receiveTimeout,
+          );
+        });
+        final refreshDio = Dio()..httpClientAdapter = timeoutAdapter;
+        final timeoutStore = AuthTokenStore(
+          secureStorage: secureStorage,
+          refreshDio: refreshDio,
+        );
+
+        await expectLater(
+          timeoutStore.refresh(),
+          throwsA(isA<Exception>()),
+        );
+
+        verifyNever(() => secureStorage.delete(key: any(named: 'key')));
+      },
+    );
+
+    test(
+      'MOB-002 — HTTP 401 : clear() appelé (session invalide, comportement '
+      'inchangé) // régression #MOB-002',
+      () async {
+        store = buildStore(
+          (_) => _jsonResponse(401, {
+            'error': {
+              'code': 'REFRESH_TOKEN_INVALID',
+              'message': 'Token expiré',
+            },
+          }),
+        );
+
+        await expectLater(
+          store.refresh(),
+          throwsA(isA<UnauthorizedException>()),
+        );
+
+        verify(() => secureStorage.delete(key: any(named: 'key'))).called(1);
+      },
+    );
+
+    test(
+      'MOB-002 — HTTP 403 : clear() appelé (accès refusé) '
+      '// régression #MOB-002',
+      () async {
+        store = buildStore(
+          (_) => _jsonResponse(403, {
+            'error': {
+              'code': 'FORBIDDEN',
+              'message': 'Accès refusé',
+            },
+          }),
+        );
+
+        await expectLater(
+          store.refresh(),
+          throwsA(isA<Exception>()),
+        );
+
+        verify(() => secureStorage.delete(key: any(named: 'key'))).called(1);
+      },
+    );
+    // ── fin MOB-002 ────────────────────────────────────────────────────────
   });
 }

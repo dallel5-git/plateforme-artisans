@@ -24,5 +24,10 @@
   "demoRoleGuest": "Visiteur (non connecté)",
   "demoRoleClient": "Mode Client",
   "demoRolePro": "Mode Artisan Pro",
-  "demoBanner": "Mode Démo actif"
+  "demoBanner": "Mode Démo actif",
+  "testToolsSection": "Outils de Test Onboarding",
+  "testOnboardingPro": "Tester l'onboarding Pro",
+  "testOnboardingProDesc": "Lancer l'assistant 5 étapes (profil, métiers, zones, photos, récap)",
+  "testOnboardingClient": "Tester l'onboarding Particulier",
+  "testOnboardingClientDesc": "Lancer le parcours interactif de découverte pour les clients"
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sanaya/app/providers.dart';
+import 'package:sanaya/core/api/generated/api.dart';
 import 'package:sanaya/core/i18n/format.dart';
 import 'package:sanaya/core/i18n/translations.g.dart';
 import 'package:sanaya/core/theme/app_colors.dart';
@@ -13,21 +14,20 @@ import 'package:sanaya/core/widgets/error_state.dart';
 import 'package:sanaya/features/dashboard/application/dashboard_comparison.dart';
 import 'package:sanaya/features/dashboard/application/dashboard_providers.dart';
 import 'package:sanaya/features/dashboard/data/dashboard_repository.dart';
+import 'package:sanaya/features/dashboard/presentation/widgets/dashboard_contact_channels_card.dart';
 import 'package:sanaya/features/dashboard/presentation/widgets/dashboard_header.dart';
 import 'package:sanaya/features/dashboard/presentation/widgets/dashboard_kpi_card.dart';
+import 'package:sanaya/features/dashboard/presentation/widgets/dashboard_pro_tips_card.dart';
+import 'package:sanaya/features/dashboard/presentation/widgets/dashboard_quick_actions.dart';
+import 'package:sanaya/features/dashboard/presentation/widgets/dashboard_recent_activity_card.dart';
+import 'package:sanaya/features/dashboard/presentation/widgets/dashboard_reputation_card.dart';
+import 'package:sanaya/features/reviews/application/pro_reviews_providers.dart';
+import 'package:sanaya/features/verification/application/kyc_providers.dart';
+import 'package:sanaya/features/verification/presentation/widgets/verification_status_card.dart';
 
 /// Tableau de bord de l'Espace Pro (FM-12, issue #41) : vues, contacts,
-/// ratio vue→contact et histogramme 7 jours de l'artisan authentifié.
-/// `dashboardStatsProvider` (FM-12a) est l'unique source des chiffres —
-/// aucun calcul métier ici (P3), seule la comparaison mois-1 est dérivée
-/// côté client de cette même réponse (`deriveMonthOverMonth`, FM-12b, voir
-/// sa doc : pas de second appel API, pas de champ dédié côté backend).
-///
-/// FM-37a : DashboardHeader salue l'artisan (« Bonjour, firstName ») et
-/// affiche le badge de disponibilité.
-/// FM-37b : DashboardKpiCard regroupe Vues/Contacts/Ratio sur fond accent.
-/// FM-37c : AppBarChart affiche l'histogramme 7 jours (avec état vide
-/// EmptyState).
+/// ratio vue→contact, histogramme 7 jours, actions rapides, répartition par
+/// canal, activité récente, avis/réputation, bannière boost et conseils pro.
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
 
@@ -57,21 +57,32 @@ class DashboardScreen extends ConsumerWidget {
               ),
             ],
           ),
-          data: (stats) => _DashboardContent(stats: stats, t: t),
+          data: (stats) => RefreshIndicator(
+            onRefresh: () async {
+              ref
+                ..invalidate(dashboardStatsProvider)
+                ..invalidate(myProviderProfileProvider)
+                ..invalidate(kycStatusProvider);
+            },
+            child: _DashboardContent(stats: stats, t: t),
+          ),
         ),
       ),
     );
   }
 }
 
-class _DashboardContent extends StatelessWidget {
-  const _DashboardContent({required this.stats, required this.t});
+class _DashboardContent extends ConsumerWidget {
+  const _DashboardContent({
+    required this.stats,
+    required this.t,
+  });
 
   final ProviderStats stats;
   final Translations t;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final locale = Localizations.localeOf(context);
     final colors = context.colors;
     final totals = stats.totals;
@@ -82,11 +93,24 @@ class _DashboardContent extends StatelessWidget {
     );
     final ratioLabel = '$ratioPercent%';
 
+    final profile = ref.watch(myProviderProfileProvider).valueOrNull;
+    final kycStatus = ref.watch(kycStatusProvider).valueOrNull;
+    final availability = switch (profile?.availabilityStatus) {
+      V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum.AVAILABLE =>
+        V1ProvidersSlugGet200ResponseAvailabilityStatusEnum.AVAILABLE,
+      V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum.BUSY =>
+        V1ProvidersSlugGet200ResponseAvailabilityStatusEnum.BUSY,
+      V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum.ON_HOLIDAY =>
+        V1ProvidersSlugGet200ResponseAvailabilityStatusEnum.ON_HOLIDAY,
+      _ => null,
+    };
+
     return SingleChildScrollView(
+      physics: const AlwaysScrollableScrollPhysics(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const DashboardHeader(),
+          DashboardHeader(availabilityStatus: availability),
           Padding(
             padding: const EdgeInsets.fromLTRB(
               AppSpacing.lg,
@@ -97,6 +121,14 @@ class _DashboardContent extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Bannière de statut KYC (MOB-031)
+                if (kycStatus != null) ...[
+                  VerificationStatusCard(
+                    status: kycStatus.verificationStatus,
+                    rejectionReason: kycStatus.currentRequest.rejectionReason,
+                  ),
+                  const SizedBox(height: AppSpacing.lg),
+                ],
                 // FM-37b : carte KPI bleue (Vues / Contacts / Ratio) sur fond accent.
                 DashboardKpiCard(
                   viewsLabel: t.dashboard.statViews,
@@ -111,8 +143,10 @@ class _DashboardContent extends StatelessWidget {
                   comparisonPeriodLabel: t.dashboard.comparisonPreviousPeriod,
                 ),
                 const SizedBox(height: AppSpacing.xl),
-                // FM-37c : histogramme 7 barres (derniers 7 jours de la série
-                // 30 jours) + état vide si profileViews totaux == 0.
+                // Actions Rapides
+                DashboardQuickActions(t: t, profile: profile),
+                const SizedBox(height: AppSpacing.xl),
+                // FM-37c : histogramme 7 barres
                 if (totals.profileViews == 0) ...[
                   EmptyState(
                     icon: '📈',
@@ -129,6 +163,18 @@ class _DashboardContent extends StatelessWidget {
                   const SizedBox(height: AppSpacing.md),
                   _DashboardBarChart(series: stats.series.toList()),
                 ],
+                const SizedBox(height: AppSpacing.xl),
+                // Répartition des contacts (Appels vs WhatsApp)
+                DashboardContactChannelsCard(totals: totals, t: t),
+                const SizedBox(height: AppSpacing.xl),
+                // Activité récente & demandes
+                DashboardRecentActivityCard(t: t),
+                const SizedBox(height: AppSpacing.xl),
+                // Synthèse Avis & Réputation
+                DashboardReputationCard(t: t, profile: profile),
+                const SizedBox(height: AppSpacing.xl),
+                // Bannière Boost & Conseils Pro
+                DashboardProTipsCard(t: t),
               ],
             ),
           ),

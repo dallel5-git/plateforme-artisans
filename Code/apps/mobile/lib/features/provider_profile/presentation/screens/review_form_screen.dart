@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -34,6 +36,7 @@ class ReviewFormScreen extends ConsumerStatefulWidget {
 
 class _ReviewFormScreenState extends ConsumerState<ReviewFormScreen> {
   int _rating = 0;
+  bool _showRatingError = false;
   final _commentController = TextEditingController();
 
   @override
@@ -114,8 +117,20 @@ class _ReviewFormScreenState extends ConsumerState<ReviewFormScreen> {
             const SizedBox(height: AppSpacing.sm),
             RatingStarsInput(
               value: _rating,
-              onChanged: (value) => setState(() => _rating = value),
+              onChanged: (value) => setState(() {
+                _rating = value;
+                _showRatingError = false;
+              }),
             ),
+            if (_showRatingError) ...[
+              const SizedBox(height: AppSpacing.xs),
+              Text(
+                t.provider.profile.ratingRequired,
+                style: AppText.small(
+                  locale,
+                ).copyWith(color: colors.destructive),
+              ),
+            ],
             const SizedBox(height: AppSpacing.lg),
             AppTextField(
               label: t.provider.profile.commentLabel,
@@ -138,9 +153,15 @@ class _ReviewFormScreenState extends ConsumerState<ReviewFormScreen> {
               label: isLoading
                   ? t.provider.profile.submittingReview
                   : t.provider.profile.submitReview,
-              onPressed: (_rating == 0 || isLoading || providerId == null)
+              onPressed: (isLoading || providerId == null)
                   ? null
-                  : () => _submit(providerId),
+                  : () {
+                      if (_rating == 0) {
+                        setState(() => _showRatingError = true);
+                        return;
+                      }
+                      unawaited(_submit(providerId));
+                    },
             ),
           ],
         ),

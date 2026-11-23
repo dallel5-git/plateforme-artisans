@@ -91,22 +91,14 @@ export default async function HomePage({ params }: PageProps) {
 
           {/* Formulaire de recherche Hero */}
           <div className="max-w-3xl mx-auto mb-8">
-            <HomeSearchForm
-              locale={locale}
-              categories={categories}
-              governorates={governorates}
-            />
+            <HomeSearchForm locale={locale} categories={categories} governorates={governorates} />
           </div>
 
           {/* Statistiques rapides */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto pt-4 text-center">
             <div className="p-3">
-              <p className="text-2xl font-black text-slate-900 dark:text-white">
-                500+
-              </p>
-              <p className="text-xs text-slate-500">
-                {isAr ? 'حرفي مسجل' : 'Artisans référencés'}
-              </p>
+              <p className="text-2xl font-black text-slate-900 dark:text-white">500+</p>
+              <p className="text-xs text-slate-500">{isAr ? 'حرفي مسجل' : 'Artisans référencés'}</p>
             </div>
             <div className="p-3">
               <p className="text-2xl font-black text-emerald-600">100%</p>
@@ -185,9 +177,7 @@ export default async function HomePage({ params }: PageProps) {
                 <span>{isAr ? 'حرفيون تم التحقق منهم' : 'Profils certifiés'}</span>
               </div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
-                {isAr
-                  ? 'أفضل الحرفيين المتاحين الآن بالساحل'
-                  : 'Artisans recommandés au Sahel'}
+                {isAr ? 'أفضل الحرفيين المتاحين الآن بالساحل' : 'Artisans recommandés au Sahel'}
               </h2>
             </div>
             <Link
@@ -201,11 +191,7 @@ export default async function HomePage({ params }: PageProps) {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {featuredProviders.slice(0, 6).map((provider) => (
-              <ProviderCard
-                key={provider.id}
-                provider={provider}
-                locale={locale}
-              />
+              <ProviderCard key={provider.id} provider={provider} locale={locale} />
             ))}
           </div>
         </div>

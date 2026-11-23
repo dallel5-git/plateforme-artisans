@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:sanaya/core/demo/demo_data.dart';
 import 'package:sanaya/core/demo/demo_mock_interceptor.dart';
 import 'package:sanaya/core/demo/demo_mode_provider.dart';
 
@@ -29,6 +30,8 @@ class _PassthroughAdapter implements HttpClientAdapter {
 }
 
 void main() {
+  setUp(DemoData.reset);
+
   group('DemoMockInterceptor', () {
     test('passes through to network adapter when demoMode is false', () async {
       final dio = Dio();
@@ -112,6 +115,19 @@ void main() {
         data: {'rating': 5, 'comment': 'Top !'},
       );
       expect(postReview.statusCode, 201);
+      expect(postReview.data?['comment'], 'Top !');
+
+      final reviewsAfter = await dio.get<Map<String, dynamic>>(
+        '/v1/providers/sami-mansour-electricite/reviews',
+      );
+      final reviewItems =
+          (reviewsAfter.data?['items'] as List<dynamic>?)
+              ?.cast<Map<String, dynamic>>() ??
+          [];
+      expect(
+        reviewItems.any((r) => r['comment'] == 'Top !' && r['rating'] == 5),
+        isTrue,
+      );
     });
 
     test('intercepts /v1/auth/me for client, provider, and guest', () async {
@@ -123,8 +139,9 @@ void main() {
             getDemoRole: () => DemoRole.client,
           ),
         );
-      final clientRes =
-          await clientDio.get<Map<String, dynamic>>('/v1/auth/me');
+      final clientRes = await clientDio.get<Map<String, dynamic>>(
+        '/v1/auth/me',
+      );
       expect(clientRes.statusCode, 200);
       expect(clientRes.data?['role'], 'CLIENT');
 
@@ -173,22 +190,54 @@ void main() {
       expect(favs.statusCode, 200);
       expect(favs.data?['items'], isA<List<dynamic>>());
 
-      final addFav = await dio.post<Map<String, dynamic>>(
-        '/v1/favorites',
-        data: {'providerId': 'prov-1'},
+      // PUT /v1/favorites/:providerId (contrat OpenAPI v1FavoritesProviderIdPut)
+      final putFav = await dio.put<Map<String, dynamic>>(
+        '/v1/favorites/prov-29',
       );
-      expect(addFav.statusCode, 201);
+      expect(putFav.statusCode, 200);
 
+      final favsAfterPut = await dio.get<Map<String, dynamic>>('/v1/favorites');
+      final itemsAfterPut =
+          (favsAfterPut.data?['items'] as List<dynamic>?)
+              ?.cast<Map<String, dynamic>>() ??
+          [];
+      expect(
+        itemsAfterPut.any((item) => item['providerId'] == 'prov-29'),
+        isTrue,
+      );
+
+      // DELETE /v1/favorites/:providerId
       final delFav = await dio.delete<Map<String, dynamic>>(
-        '/v1/favorites/prov-1',
+        '/v1/favorites/prov-29',
       );
       expect(delFav.statusCode, 200);
 
+      final favsAfterDel = await dio.get<Map<String, dynamic>>('/v1/favorites');
+      final itemsAfterDel =
+          (favsAfterDel.data?['items'] as List<dynamic>?)
+              ?.cast<Map<String, dynamic>>() ??
+          [];
+      expect(
+        itemsAfterDel.any((item) => item['providerId'] == 'prov-29'),
+        isFalse,
+      );
+
       final contact = await dio.post<Map<String, dynamic>>(
-        '/v1/providers/sami-mansour-electricite/contact-events',
-        data: {'channel': 'PHONE'},
+        '/v1/contact-events',
+        data: {'providerId': 'prov-10', 'channel': 'PHONE'},
       );
       expect(contact.statusCode, 201);
+      expect(contact.data?['providerId'], 'prov-10');
+
+      final eventsRes = await dio.get<Map<String, dynamic>>(
+        '/v1/contact-events',
+      );
+      expect(eventsRes.statusCode, 200);
+      final events = eventsRes.data?['items'] as List<dynamic>;
+      final first = events.first as Map<String, dynamic>;
+      expect(first['providerId'], 'prov-10');
+      expect(first['businessName'], 'Chokri Ghrab');
+      expect(first['channel'], 'PHONE');
     });
 
     test('intercepts /v1/providers/me/stats', () async {
@@ -200,8 +249,9 @@ void main() {
           ),
         );
 
-      final stats =
-          await dio.get<Map<String, dynamic>>('/v1/providers/me/stats');
+      final stats = await dio.get<Map<String, dynamic>>(
+        '/v1/providers/me/stats',
+      );
       expect(stats.statusCode, 200);
       expect(stats.data?['totals'], isNotNull);
       expect(stats.data?['series'], isA<List<dynamic>>());

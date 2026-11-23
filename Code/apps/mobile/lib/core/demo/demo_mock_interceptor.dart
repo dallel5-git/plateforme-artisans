@@ -38,10 +38,13 @@ class DemoMockInterceptor extends Interceptor {
       final govId = segments.length >= 2 ? segments[segments.length - 2] : '';
       final govs =
           DemoData.governorates['governorates'] as List<dynamic>? ?? [];
-      final match = govs.firstWhere(
-        (g) => (g as Map)['id'] == govId,
-        orElse: () => govs.isNotEmpty ? govs.first : <String, dynamic>{},
-      ) as Map<String, dynamic>;
+      final match =
+          govs.firstWhere(
+                (g) => (g as Map)['id'] == govId,
+                orElse: () =>
+                    govs.isNotEmpty ? govs.first : <String, dynamic>{},
+              )
+              as Map<String, dynamic>;
       final delegations = match['delegations'] as List<dynamic>? ?? [];
       handler.resolve(_ok(options, {'delegations': delegations}));
       return;
@@ -59,12 +62,16 @@ class DemoMockInterceptor extends Interceptor {
       final minRating = options.queryParameters['minRating'] != null
           ? num.tryParse(options.queryParameters['minRating'].toString())
           : null;
+      final query =
+          (options.queryParameters['query'] ?? options.extra['query'])
+              as String?;
 
       final data = DemoData.searchResponse(
         category: category,
         governorate: governorate,
         verified: verified ? true : null,
         minRating: minRating,
+        query: query,
       );
       handler.resolve(_ok(options, data));
       return;
@@ -82,17 +89,19 @@ class DemoMockInterceptor extends Interceptor {
       final reqData = options.data is Map<String, dynamic>
           ? options.data as Map<String, dynamic>
           : <String, dynamic>{};
+      final providerIdOrSlug = _extractSlug(path);
+      final rating = (reqData['rating'] as num?)?.toInt() ?? 5;
+      final comment = reqData['comment'] as String?;
+      final createdReview = DemoData.addReview(
+        providerIdOrSlug,
+        rating: rating,
+        comment: comment,
+      );
       handler.resolve(
         Response(
           requestOptions: options,
           statusCode: 201,
-          data: {
-            'id': 'rev-new-${DateTime.now().millisecondsSinceEpoch}',
-            'rating': reqData['rating'] ?? 5,
-            'comment': reqData['comment'] ?? 'Avis publié en mode démo',
-            'isVerifiedContact': true,
-            'createdAt': DateTime.now().toIso8601String(),
-          },
+          data: createdReview,
         ),
       );
       return;
@@ -118,7 +127,15 @@ class DemoMockInterceptor extends Interceptor {
     if (path.contains('/v1/favorites') &&
         (method == 'POST' || method == 'PUT')) {
       final segments = options.uri.pathSegments;
-      final providerId = segments.isNotEmpty ? segments.last : 'prov-1';
+      var providerId = '';
+      if (segments.isNotEmpty && segments.last != 'favorites') {
+        providerId = segments.last;
+      } else if (options.data is Map &&
+          (options.data as Map)['providerId'] != null) {
+        providerId = (options.data as Map)['providerId'].toString();
+      }
+      if (providerId.isEmpty) providerId = 'prov-1';
+      DemoData.addFavorite(providerId);
       handler.resolve(
         Response(
           requestOptions: options,
@@ -132,6 +149,11 @@ class DemoMockInterceptor extends Interceptor {
       return;
     }
     if (path.contains('/v1/favorites') && method == 'DELETE') {
+      final segments = options.uri.pathSegments;
+      final providerId = segments.isNotEmpty ? segments.last : '';
+      if (providerId.isNotEmpty && providerId != 'favorites') {
+        DemoData.removeFavorite(providerId);
+      }
       handler.resolve(Response(requestOptions: options, statusCode: 200));
       return;
     }
@@ -142,20 +164,43 @@ class DemoMockInterceptor extends Interceptor {
       return;
     }
     if (path.contains('contact-events') && method == 'POST') {
-      final reqMap = options.data is Map<String, dynamic>
-          ? options.data as Map<String, dynamic>
-          : <String, dynamic>{};
-      final providerId = (reqMap['providerId'] as String?) ?? 'prov-1';
-      final channel = (reqMap['channel'] as String?) ?? 'PHONE';
+      String? providerId;
+      String? channel;
+      if (options.data is Map) {
+        final map = options.data as Map;
+        providerId = map['providerId']?.toString();
+        channel = map['channel']?.toString();
+      } else if (options.data is List) {
+        final list = options.data as List;
+        for (var i = 0; i < list.length - 1; i++) {
+          if (list[i] == 'providerId') {
+            providerId = list[i + 1]?.toString();
+          } else if (list[i] == 'channel') {
+            channel = list[i + 1]?.toString();
+          }
+        }
+      }
+      if (providerId == null || providerId.isEmpty) {
+        if (path.contains('/providers/')) {
+          providerId = _extractSlug(path);
+        }
+      }
+      providerId ??= 'prov-1';
+      channel ??= 'PHONE';
+
+      final created = DemoData.addContactEvent(
+        providerIdOrSlug: providerId,
+        channel: channel,
+      );
+
       handler.resolve(
         Response(
           requestOptions: options,
           statusCode: 201,
           data: {
-            'contactEventId':
-                'evt-new-${DateTime.now().millisecondsSinceEpoch}',
-            'providerId': providerId,
-            'channel': channel,
+            'contactEventId': created['id'],
+            'providerId': created['providerId'],
+            'channel': created['channel'],
             'phone': '+21698123456',
             'whatsappMessage': 'Bonjour, je vous contacte via Sanaya.',
             'deduplicated': false,

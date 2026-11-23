@@ -11,6 +11,7 @@ class SearchFilters {
     this.delegationId,
     this.isVerified,
     this.minRating,
+    this.query,
   });
 
   final String governorateId;
@@ -18,6 +19,7 @@ class SearchFilters {
   final String? delegationId;
   final bool? isVerified;
   final num? minRating;
+  final String? query;
 
   /// Clé stable et déterministe (paires triées alphabétiquement, un champ
   /// absent est simplement omis) — sert à la fois de clé de cache disque
@@ -29,6 +31,8 @@ class SearchFilters {
       if (delegationId != null) 'delegation=$delegationId',
       if (isVerified != null) 'verified=$isVerified',
       if (minRating != null) 'minRating=$minRating',
+      if (query != null && query!.trim().isNotEmpty)
+        'query=${query!.trim().toLowerCase()}',
     ]..sort();
     return parts.join('&');
   }
@@ -49,19 +53,22 @@ class SearchFilters {
     String? delegationId,
     bool? isVerified,
     num? minRating,
+    String? query,
     bool clearCategory = false,
     bool clearDelegation = false,
     bool clearVerified = false,
     bool clearMinRating = false,
+    bool clearQuery = false,
   }) {
     return SearchFilters(
       governorateId: governorateId ?? this.governorateId,
-      categorySlug:
-          clearCategory ? null : (categorySlug ?? this.categorySlug),
-      delegationId:
-          clearDelegation ? null : (delegationId ?? this.delegationId),
+      categorySlug: clearCategory ? null : (categorySlug ?? this.categorySlug),
+      delegationId: clearDelegation
+          ? null
+          : (delegationId ?? this.delegationId),
       isVerified: clearVerified ? null : (isVerified ?? this.isVerified),
       minRating: clearMinRating ? null : (minRating ?? this.minRating),
+      query: clearQuery ? null : (query ?? this.query),
     );
   }
 

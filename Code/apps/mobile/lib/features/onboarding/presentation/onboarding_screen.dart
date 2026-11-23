@@ -10,6 +10,7 @@ import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/widgets/app_skeleton.dart';
 import 'package:sanaya/features/onboarding/application/onboarding_providers.dart';
+import 'package:sanaya/features/onboarding/domain/portfolio_upload_task.dart';
 import 'package:sanaya/features/onboarding/presentation/widgets/onboarding_categories_step.dart';
 import 'package:sanaya/features/onboarding/presentation/widgets/onboarding_photos_step.dart';
 import 'package:sanaya/features/onboarding/presentation/widgets/onboarding_profile_step.dart';
@@ -40,6 +41,7 @@ class OnboardingScreen extends ConsumerStatefulWidget {
 class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   Map<String, bool> _categorySelection = const {};
   Set<String> _zoneSelection = const {};
+  List<PortfolioUploadTask> _initialPortfolioTasks = const [];
   bool _published = false;
   bool _resuming = true;
 
@@ -51,7 +53,36 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
   Future<void> _resume() async {
     await ref.read(onboardingProvider.notifier).resumeSession();
-    if (mounted) setState(() => _resuming = false);
+    if (mounted) {
+      final state = ref.read(onboardingProvider);
+      final profile = state.profile;
+      if (profile != null) {
+        final catMap = {
+          for (final c in profile.categories) c.categoryId: c.isPrimary,
+        };
+        if (catMap.isNotEmpty && !catMap.containsValue(true)) {
+          catMap[catMap.keys.first] = true;
+        }
+        setState(() {
+          _categorySelection = catMap;
+          _zoneSelection = {
+            for (final a in profile.coverageAreas) a.governorateId,
+          };
+          _initialPortfolioTasks = [
+            for (final item in profile.portfolio)
+              PortfolioUploadTask(
+                localId: item.id,
+                phase: PortfolioUploadPhase.done,
+                portfolioItemId: item.id,
+                mediaId: item.mediaId,
+              ),
+          ];
+          _resuming = false;
+        });
+      } else {
+        setState(() => _resuming = false);
+      }
+    }
   }
 
   String? _errorMessage(
@@ -153,10 +184,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   .PUBLISHED) {
         setState(() => _published = true);
         // FM-24 : rend le shell pro (dashboard + onglets) atteignable dans le
-        // parcours normal — sans ça, seul un relancement de l'app (garde
-        // `/pro` de router.dart) y mènerait.
+        // parcours normal.
         ref.read(hasPublishedProfileProvider.notifier).state = true;
-        context.go('/pro/dashboard');
+        // MOB-029 : écran de célébration chaleureux et passerelle KYC (ADR-002)
+        // plutôt que redirection abrupte vers le dashboard.
+        context.go('/pro/celebration');
       }
     } on Object {
       // Idem — géré via `state.errorCode`.
@@ -225,6 +257,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                       onSubmit: _submitZones,
                     ),
                     OnboardingStep.photos => OnboardingPhotosStep(
+                      initialItems: _initialPortfolioTasks,
                       isSaving: state.isSaving,
                       errorMessage: errorMessage,
                       onSubmit: () => ref
@@ -239,6 +272,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                       errorMessage: errorMessage,
                       published: _published,
                       onPublish: _publish,
+                      onNavigateToStep: (step) =>
+                          ref.read(onboardingProvider.notifier).goToStep(step),
                     ),
                   },
                 ),

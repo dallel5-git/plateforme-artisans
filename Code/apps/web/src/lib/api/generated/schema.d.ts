@@ -922,6 +922,29 @@ export interface paths {
                             createdAt: string;
                             /** Format: date-time */
                             updatedAt: string;
+                            categories: {
+                                /** Format: uuid */
+                                categoryId: string;
+                                isPrimary: boolean;
+                                yearsExperience: number | null;
+                            }[];
+                            coverageAreas: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                governorateId: string;
+                                delegationId: string | null;
+                                travelFee: number | null;
+                            }[];
+                            portfolio: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                mediaId: string;
+                                categoryId: string | null;
+                                caption: string | null;
+                                sortOrder: number;
+                            }[];
                         };
                     };
                 };
@@ -999,6 +1022,29 @@ export interface paths {
                                 createdAt: string;
                                 /** Format: date-time */
                                 updatedAt: string;
+                                categories: {
+                                    /** Format: uuid */
+                                    categoryId: string;
+                                    isPrimary: boolean;
+                                    yearsExperience: number | null;
+                                }[];
+                                coverageAreas: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** Format: uuid */
+                                    governorateId: string;
+                                    delegationId: string | null;
+                                    travelFee: number | null;
+                                }[];
+                                portfolio: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** Format: uuid */
+                                    mediaId: string;
+                                    categoryId: string | null;
+                                    caption: string | null;
+                                    sortOrder: number;
+                                }[];
                             };
                         };
                     };
@@ -1078,6 +1124,29 @@ export interface paths {
                             createdAt: string;
                             /** Format: date-time */
                             updatedAt: string;
+                            categories: {
+                                /** Format: uuid */
+                                categoryId: string;
+                                isPrimary: boolean;
+                                yearsExperience: number | null;
+                            }[];
+                            coverageAreas: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                governorateId: string;
+                                delegationId: string | null;
+                                travelFee: number | null;
+                            }[];
+                            portfolio: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                mediaId: string;
+                                categoryId: string | null;
+                                caption: string | null;
+                                sortOrder: number;
+                            }[];
                         };
                     };
                 };
@@ -1742,6 +1811,675 @@ export interface paths {
             };
         };
         delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/providers/me/verification/presign": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Génère une URL PUT pré-signée (~10 min) vers le bucket hermétique `private-kyc` avec chiffrement au repos forcé SSE-S3 AES-256 pour téléverser une pièce d’identité. */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        documentType: "CIN_FRONT" | "CIN_BACK" | "SELFIE_WITH_ID" | "PATENTE" | "DIPLOMA" | "INSURANCE" | "OTHER";
+                        /** @enum {string} */
+                        mimeType: "image/jpeg" | "image/png";
+                        sizeBytes: number;
+                    };
+                };
+            };
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            mediaId: string;
+                            /** Format: uri */
+                            uploadUrl: string;
+                            /** Format: date-time */
+                            expiresAt: string;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/providers/me/verification/submit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Soumet une demande de vérification d’identité. Hache la CIN en SHA-256 salé et la chiffre en AES-256-GCM avant enregistrement (INPDP). Passe le profil à `PENDING`. */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        cinNumber: string;
+                        fullNameOnId: string;
+                        /** Format: uuid */
+                        cinFrontMediaId: string;
+                        /** Format: uuid */
+                        cinBackMediaId: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            requestId: string;
+                            /** @enum {string} */
+                            status: "NOT_SUBMITTED" | "PENDING" | "MORE_INFO_REQUIRED" | "APPROVED" | "REJECTED";
+                            /** Format: date-time */
+                            submittedAt: string;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/providers/me/verification": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Récupère l’état de vérification actuel du profil artisan et les métadonnées de la dernière demande (sans révéler le numéro CIN ni les URL privées). */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @enum {string} */
+                            verificationStatus: "NOT_SUBMITTED" | "PENDING" | "MORE_INFO_REQUIRED" | "APPROVED" | "REJECTED";
+                            isVerified: boolean;
+                            currentRequest: {
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                status: "NOT_SUBMITTED" | "PENDING" | "MORE_INFO_REQUIRED" | "APPROVED" | "REJECTED";
+                                fullNameOnId: string | null;
+                                /** Format: date-time */
+                                submittedAt: string;
+                                reviewedAt: string | null;
+                                rejectionReason: string | null;
+                                documents: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** Format: uuid */
+                                    mediaId: string;
+                                    /** @enum {string} */
+                                    type: "CIN_FRONT" | "CIN_BACK" | "SELFIE_WITH_ID" | "PATENTE" | "DIPLOMA" | "INSURANCE" | "OTHER";
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                            } | null;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        /** @description Alias de soumission KYC sur `/providers/me/verification`. */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        cinNumber: string;
+                        fullNameOnId: string;
+                        /** Format: uuid */
+                        cinFrontMediaId: string;
+                        /** Format: uuid */
+                        cinBackMediaId: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            requestId: string;
+                            /** @enum {string} */
+                            status: "NOT_SUBMITTED" | "PENDING" | "MORE_INFO_REQUIRED" | "APPROVED" | "REJECTED";
+                            /** Format: date-time */
+                            submittedAt: string;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/verifications": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description File des demandes de vérification d’identité KYC pour le back-office. Tri par ancienneté (ascendant par défaut), filtre par statut optionnel, pagination par curseur. */
+        get: {
+            parameters: {
+                query?: {
+                    status?: "NOT_SUBMITTED" | "PENDING" | "MORE_INFO_REQUIRED" | "APPROVED" | "REJECTED";
+                    limit?: number;
+                    cursor?: string;
+                    orderBy?: "asc" | "desc";
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            items: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                providerId: string;
+                                provider: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    businessName: string;
+                                    slug: string;
+                                    baseGovernorateId: string;
+                                    isVerified: boolean;
+                                };
+                                fullNameOnId: string | null;
+                                /** @enum {string} */
+                                status: "NOT_SUBMITTED" | "PENDING" | "MORE_INFO_REQUIRED" | "APPROVED" | "REJECTED";
+                                /** Format: date-time */
+                                submittedAt: string;
+                                reviewedAt: string | null;
+                                reviewedBy: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    phone: string;
+                                } | null;
+                                documentsCount: number;
+                                documents: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    type: "CIN_FRONT" | "CIN_BACK" | "SELFIE_WITH_ID" | "PATENTE" | "DIPLOMA" | "INSURANCE" | "OTHER";
+                                }[];
+                            }[];
+                            nextCursor: string | null;
+                            totalPending: number;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/verifications/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Récupère le détail complet d’une demande KYC pour examen modérateur. Génère des URL signées R2 temporaires (TTL <= 5 min) pour chaque document et consigne la consultation dans AuditLog (P8/P9). */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            providerId: string;
+                            provider: {
+                                /** Format: uuid */
+                                id: string;
+                                businessName: string;
+                                slug: string;
+                                headline: string | null;
+                                baseGovernorateId: string;
+                                isVerified: boolean;
+                                /** @enum {string} */
+                                verificationStatus: "NOT_SUBMITTED" | "PENDING" | "MORE_INFO_REQUIRED" | "APPROVED" | "REJECTED";
+                                user: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    phone: string;
+                                };
+                            };
+                            fullNameOnId: string | null;
+                            /** @enum {string} */
+                            status: "NOT_SUBMITTED" | "PENDING" | "MORE_INFO_REQUIRED" | "APPROVED" | "REJECTED";
+                            /** Format: date-time */
+                            submittedAt: string;
+                            reviewedAt: string | null;
+                            reviewedBy: {
+                                /** Format: uuid */
+                                id: string;
+                                phone: string;
+                            } | null;
+                            rejectionReason: string | null;
+                            internalNote: string | null;
+                            expiresAt?: string | null;
+                            documents: {
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                type: "CIN_FRONT" | "CIN_BACK" | "SELFIE_WITH_ID" | "PATENTE" | "DIPLOMA" | "INSURANCE" | "OTHER";
+                                /** Format: uuid */
+                                mediaId: string;
+                                downloadUrl: string | null;
+                                expiresAt: string | null;
+                                /** @default false */
+                                isPurged: boolean;
+                            }[];
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/verifications/{id}/review": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Applique une décision de modération sur une demande KYC (APPROVED, REJECTED, MORE_INFO_REQUIRED). Enregistre le statut de vérification sur le profil artisan, met à jour le badge `isVerified` (ADR-002) et journalise la décision dans AuditLog. */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        status: "APPROVED" | "REJECTED" | "MORE_INFO_REQUIRED";
+                        rejectionReason?: string;
+                        internalNote?: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            /** @enum {string} */
+                            status: "NOT_SUBMITTED" | "PENDING" | "MORE_INFO_REQUIRED" | "APPROVED" | "REJECTED";
+                            /** Format: date-time */
+                            reviewedAt: string;
+                            /** Format: uuid */
+                            reviewedById: string;
+                            isVerified: boolean;
+                            rejectionReason: string | null;
+                            internalNote: string | null;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/verifications/purge-expired": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Déclenche la purge des images KYC (CIN) dont la durée de rétention est échue (norme INPDP). Supprime physiquement les fichiers dans Cloudflare R2, neutralise les enregistrements DB et consigne la traçabilité dans AuditLog. */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            totalProcessed: number;
+                            purgedCount: number;
+                            skippedCount: number;
+                            errorsCount: number;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/users/me/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Exporte l ensemble des données personnelles associées au compte utilisateur au format JSON conformément à la loi tunisienne n° 2004-63 (INPDP) et à l US-C-13. */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            legalNotice: string;
+                            /** Format: date-time */
+                            exportedAt: string;
+                            user: {
+                                /** Format: uuid */
+                                id: string;
+                                phone: string;
+                                phoneVerifiedAt: string | null;
+                                email: string | null;
+                                emailVerifiedAt: string | null;
+                                firstName: string | null;
+                                lastName: string | null;
+                                avatarMediaId: string | null;
+                                roles: ("CLIENT" | "PROVIDER" | "MODERATOR" | "SUPPORT" | "SALES" | "FINANCE" | "ADMIN" | "SUPER_ADMIN")[];
+                                /** @enum {string} */
+                                status: "PENDING_VERIFICATION" | "ACTIVE" | "SUSPENDED" | "DELETED";
+                                locale: string;
+                                lastLoginAt: string | null;
+                                marketingOptIn: boolean;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: date-time */
+                                updatedAt: string;
+                                acceptedTermsVersion: string | null;
+                                acceptedTermsAt: string | null;
+                            };
+                            providerProfile: {
+                                /** Format: uuid */
+                                id: string;
+                                slug: string;
+                                businessName: string;
+                                headline: string | null;
+                                bio: string | null;
+                                yearsExperience: number | null;
+                                whatsappPhone: string | null;
+                                publicPhone: string | null;
+                                spokenLanguages: string[];
+                                baseGovernorate: string;
+                                baseDelegation: string | null;
+                                publicationStatus: string;
+                                availabilityStatus: string;
+                                isVerified: boolean;
+                                verifiedAt: string | null;
+                                ratingAvg: number;
+                                ratingCount: number;
+                                categories: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    nameFr: string;
+                                    nameAr: string;
+                                    isPrimary: boolean;
+                                }[];
+                                offerings: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    titleFr: string;
+                                    titleAr: string | null;
+                                    priceMin: number | null;
+                                    priceMax: number | null;
+                                    priceUnit: string;
+                                }[];
+                                coverageAreas: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    governorateNameFr: string;
+                                    governorateNameAr: string;
+                                    delegationNameFr: string | null;
+                                    delegationNameAr: string | null;
+                                }[];
+                                portfolioCount: number;
+                            } | null;
+                            reviewsWritten: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                providerId: string;
+                                providerBusinessName: string;
+                                rating: number;
+                                ratingPunctuality: number | null;
+                                ratingQuality: number | null;
+                                ratingValue: number | null;
+                                comment: string | null;
+                                status: string;
+                                isVerifiedContact: boolean;
+                                /** Format: date-time */
+                                createdAt: string;
+                            }[];
+                            favorites: {
+                                /** Format: uuid */
+                                providerId: string;
+                                providerBusinessName: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                            }[];
+                            contactEvents: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                providerId: string;
+                                providerBusinessName: string;
+                                channel: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                            }[];
+                            verificationRequests: {
+                                /** Format: uuid */
+                                id: string;
+                                status: string;
+                                /** Format: date-time */
+                                submittedAt: string;
+                                reviewedAt: string | null;
+                                rejectionReason: string | null;
+                                documentTypes: string[];
+                            }[];
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/users/me": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** @description Supprime et anonymise le compte utilisateur conformément aux exigences INPDP (US-C-13 / CLAUDE.md §3.2). Exige une confirmation explicite ("SUPPRIMER" ou "DELETE"). Révoque immédiatement toutes les sessions actives. */
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        confirmation: "SUPPRIMER" | "DELETE";
+                        reason?: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            success: boolean;
+                            /** @enum {string} */
+                            status: "DELETED";
+                            message: string;
+                            /** Format: date-time */
+                            deletedAt: string;
+                        };
+                    };
+                };
+            };
+        };
         options?: never;
         head?: never;
         patch?: never;

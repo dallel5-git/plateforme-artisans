@@ -82,27 +82,20 @@ export const sanayaApi = {
     if (params.categorySlug) {
       filtered = filtered.filter(
         (p) =>
-          p.primaryCategorySlug.toLowerCase() ===
-            params.categorySlug!.toLowerCase() ||
-          p.categories.some(
-            (c) => c.slug.toLowerCase() === params.categorySlug!.toLowerCase(),
-          ),
+          p.primaryCategorySlug.toLowerCase() === params.categorySlug!.toLowerCase() ||
+          p.categories.some((c) => c.slug.toLowerCase() === params.categorySlug!.toLowerCase()),
       );
     }
 
     if (params.governorateSlug) {
       filtered = filtered.filter(
-        (p) =>
-          p.baseGovernorateSlug.toLowerCase() ===
-          params.governorateSlug!.toLowerCase(),
+        (p) => p.baseGovernorateSlug.toLowerCase() === params.governorateSlug!.toLowerCase(),
       );
     }
 
     if (params.delegationSlug) {
       filtered = filtered.filter((p) =>
-        p.baseDelegationNameFr
-          .toLowerCase()
-          .includes(params.delegationSlug!.toLowerCase()),
+        p.baseDelegationNameFr.toLowerCase().includes(params.delegationSlug!.toLowerCase()),
       );
     }
 
@@ -148,9 +141,7 @@ export const sanayaApi = {
       // repli démo
     }
 
-    const found = DEMO_PROVIDERS.find(
-      (p) => p.slug.toLowerCase() === slug.toLowerCase(),
-    );
+    const found = DEMO_PROVIDERS.find((p) => p.slug.toLowerCase() === slug.toLowerCase());
     return found || null;
   },
 
@@ -218,10 +209,7 @@ export const sanayaApi = {
       prov.reviews = [newRev, ...prov.reviews];
       prov.ratingCount += 1;
       prov.ratingAvg = Number(
-        (
-          prov.reviews.reduce((acc, r) => acc + r.rating, 0) /
-          prov.reviews.length
-        ).toFixed(1),
+        (prov.reviews.reduce((acc, r) => acc + r.rating, 0) / prov.reviews.length).toFixed(1),
       );
     }
 

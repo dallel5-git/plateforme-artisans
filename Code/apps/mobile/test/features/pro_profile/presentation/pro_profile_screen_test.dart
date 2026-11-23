@@ -13,6 +13,9 @@ import 'package:sanaya/features/pro_profile/presentation/pro_profile_screen.dart
 import 'package:sanaya/features/provider_profile/application/provider_profile_providers.dart';
 import 'package:sanaya/features/provider_profile/data/provider_profile_repository.dart';
 import 'package:sanaya/features/reviews/application/pro_reviews_providers.dart';
+import 'package:sanaya/features/verification/application/kyc_providers.dart';
+import 'package:sanaya/features/verification/data/kyc_repository.dart';
+import 'package:sanaya/features/verification/presentation/widgets/verification_status_card.dart';
 
 class _MockOnboardingRepository extends Mock implements OnboardingRepository {}
 
@@ -47,6 +50,12 @@ _MockProviderMe _profile({
   when(() => mock.baseGovernorateId).thenReturn('sousse');
   when(() => mock.availabilityStatus).thenReturn(status);
   when(() => mock.acceptsEmergency).thenReturn(acceptsEmergency);
+  when(() => mock.isVerified).thenReturn(false);
+  when(() => mock.ratingAvg).thenReturn(4.5);
+  when(() => mock.ratingCount).thenReturn(12);
+  when(() => mock.totalProfileViews).thenReturn(120);
+  when(() => mock.totalContacts).thenReturn(15);
+  when(() => mock.completionScore).thenReturn(85);
   return mock;
 }
 
@@ -180,7 +189,7 @@ void main() {
         );
         await tester.pumpAndSettle();
 
-        expect(find.text('Ahmed Plomberie'), findsOneWidget);
+        expect(find.text('Ahmed Plomberie'), findsNWidgets(2));
         expect(find.text('Disponible'), findsOneWidget);
         expect(find.text('Accepte les urgences'), findsOneWidget);
         expect(find.text('Enregistrer'), findsOneWidget);
@@ -348,11 +357,8 @@ void main() {
         );
         await tester.pumpAndSettle();
 
-        await tester.dragUntilVisible(
-          find.text('Mentions légales'),
-          find.byType(ListView).first,
-          const Offset(0, -200),
-        );
+        await tester.ensureVisible(find.text('Mentions légales'));
+        await tester.pumpAndSettle();
         await tester.tap(find.text('Mentions légales'));
         await tester.pumpAndSettle();
 
@@ -378,11 +384,8 @@ void main() {
         );
         await tester.pumpAndSettle();
 
-        await tester.dragUntilVisible(
-          find.text("Retour à l'espace Client"),
-          find.byType(ListView).first,
-          const Offset(0, -200),
-        );
+        await tester.ensureVisible(find.text("Retour à l'espace Client"));
+        await tester.pumpAndSettle();
         await tester.tap(find.text("Retour à l'espace Client"));
         await tester.pumpAndSettle();
 
@@ -408,5 +411,44 @@ void main() {
       await tester.pumpAndSettle();
       expect(tester.takeException(), isNull);
     });
+
+    // MOB-031 — Tuile de suivi KYC compacte sur le profil
+    testWidgets(
+      'affiche la tuile de vérification compacte sur le profil',
+      (tester) async {
+        final kyc = KycStatusResponse(
+          (b) => b
+            ..verificationStatus =
+                V1ProvidersMeVerificationGet200ResponseVerificationStatusEnum
+                    .APPROVED
+            ..isVerified = true
+            ..currentRequest.id = 'req-1'
+            ..currentRequest.status =
+                V1ProvidersMeVerificationGet200ResponseCurrentRequestStatusEnum
+                    .APPROVED
+            ..currentRequest.submittedAt = DateTime.utc(2026, 9, 7)
+            ..currentRequest.reviewedAt = DateTime.utc(2026, 9, 7)
+            ..currentRequest.rejectionReason = ''
+            ..currentRequest.fullNameOnId = 'Ahmed Plomberie'
+            ..currentRequest.documents.replace([]),
+        );
+
+        await tester.pumpWidget(
+          buildScreen(
+            overrides: [
+              myProviderProfileProvider.overrideWith(
+                (ref) async => _profile(),
+              ),
+              kycStatusProvider.overrideWith((ref) async => kyc),
+            ],
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        expect(find.byType(VerificationStatusCard), findsOneWidget);
+        expect(find.text("Vérification d'identité"), findsOneWidget);
+        expect(find.text('Artisan Vérifié'), findsOneWidget);
+      },
+    );
   });
 }

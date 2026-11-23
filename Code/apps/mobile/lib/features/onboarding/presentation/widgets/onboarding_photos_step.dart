@@ -33,6 +33,7 @@ class OnboardingPhotosStep extends ConsumerStatefulWidget {
     required this.isSaving,
     required this.errorMessage,
     required this.onSubmit,
+    this.initialItems = const [],
     this.pickImage,
     this.compressImage,
     super.key,
@@ -41,6 +42,7 @@ class OnboardingPhotosStep extends ConsumerStatefulWidget {
   final bool isSaving;
   final String? errorMessage;
   final VoidCallback onSubmit;
+  final List<PortfolioUploadTask> initialItems;
 
   /// Injectable pour les tests (canal de plateforme sinon impossible à
   /// simuler en `flutter test`). `null` → `ImagePicker().pickImage(...)`.
@@ -57,6 +59,20 @@ class OnboardingPhotosStep extends ConsumerStatefulWidget {
 class _OnboardingPhotosStepState extends ConsumerState<OnboardingPhotosStep> {
   final Map<String, File> _files = {};
   List<PortfolioUploadTask> _tasks = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _tasks = List.of(widget.initialItems);
+  }
+
+  @override
+  void didUpdateWidget(OnboardingPhotosStep oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (_tasks.isEmpty && widget.initialItems.isNotEmpty) {
+      _tasks = List.of(widget.initialItems);
+    }
+  }
 
   bool get _isAtCap =>
       _tasks.where((t) => !t.isError).length >= freePlanMaxPortfolioItems;

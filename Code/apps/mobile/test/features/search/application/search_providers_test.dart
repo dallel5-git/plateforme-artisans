@@ -169,5 +169,23 @@ void main() {
       expect(state.hasMore, isFalse);
       verify(() => repository.search(_filters)).called(2);
     });
+
+    test('filtre les résultats selon filters.query', () async {
+      const queryFilters = SearchFilters(
+        governorateId: 'sousse',
+        query: 'Artisan 1',
+      );
+      when(
+        () => repository.search(queryFilters),
+      ).thenAnswer((_) async => _page(['1', '2']));
+
+      final container = createContainer();
+      final state = await container.read(
+        searchResultsProvider(queryFilters).future,
+      );
+
+      expect(state.items.length, 1);
+      expect(state.items.first.id, '1');
+    });
   });
 }
