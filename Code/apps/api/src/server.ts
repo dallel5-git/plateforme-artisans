@@ -24,7 +24,6 @@ import { profileViewsRoutes } from './routes/profile-views.js';
 import { providersRoutes } from './routes/providers.js';
 import { verificationRoutes } from './routes/verification.js';
 
-
 export async function buildServer() {
   const app = Fastify({
     genReqId: () => randomUUID(),
@@ -77,4 +76,3 @@ export async function buildServer() {
 
   return app;
 }
-

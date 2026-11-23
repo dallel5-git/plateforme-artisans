@@ -64,10 +64,7 @@ export default async function LegalPage({ params }: PageProps) {
   return (
     <div className="container mx-auto px-4 py-12 max-w-4xl space-y-8">
       {/* Breadcrumb */}
-      <nav
-        aria-label="Breadcrumb"
-        className="flex items-center gap-2 text-xs text-slate-500"
-      >
+      <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-slate-500">
         <Link href={`/${locale}`} className="hover:text-blue-600">
           {isAr ? 'الرئيسية' : 'Accueil'}
         </Link>
@@ -173,7 +170,9 @@ export default async function LegalPage({ params }: PageProps) {
             </div>
 
             <h2 className="text-lg font-bold text-slate-900 dark:text-white">
-              {isAr ? '1. حماية أرقام الهواتف من الجمع الآلي (Anti-Scraping)' : '1. Protection des Numéros de Téléphone (Anti-Scraping)'}
+              {isAr
+                ? '1. حماية أرقام الهواتف من الجمع الآلي (Anti-Scraping)'
+                : '1. Protection des Numéros de Téléphone (Anti-Scraping)'}
             </h2>
             <p>
               {isAr
@@ -198,16 +197,20 @@ export default async function LegalPage({ params }: PageProps) {
               {isAr ? 'الإشعارات القانونية والناشر' : 'Mentions Légales'}
             </h1>
             <p>
-              <strong>{isAr ? 'اسم المنصة :' : 'Éditeur de la plateforme :'}</strong> Sanaya Technologies TN
+              <strong>{isAr ? 'اسم المنصة :' : 'Éditeur de la plateforme :'}</strong> Sanaya
+              Technologies TN
             </p>
             <p>
-              <strong>{isAr ? 'المقر الاجتماعي :' : 'Siège social :'}</strong> Sousse Sahel, République Tunisienne
+              <strong>{isAr ? 'المقر الاجتماعي :' : 'Siège social :'}</strong> Sousse Sahel,
+              République Tunisienne
             </p>
             <p>
-              <strong>{isAr ? 'الاتصال :' : 'Contact :'}</strong> contact@sanaya.tn • +216 73 000 000
+              <strong>{isAr ? 'الاتصال :' : 'Contact :'}</strong> contact@sanaya.tn • +216 73 000
+              000
             </p>
             <p>
-              <strong>{isAr ? 'الاستضافة :' : 'Hébergement :'}</strong> Infrastructure Cloud sécurisée avec chiffrement des données de bout en bout.
+              <strong>{isAr ? 'الاستضافة :' : 'Hébergement :'}</strong> Infrastructure Cloud
+              sécurisée avec chiffrement des données de bout en bout.
             </p>
           </div>
         )}

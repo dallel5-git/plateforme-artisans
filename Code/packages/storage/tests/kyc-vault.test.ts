@@ -34,7 +34,6 @@ vi.mock('@aws-sdk/s3-request-presigner', () => ({
   getSignedUrl: vi.fn(),
 }));
 
-
 describe('BE-30a — Coffre-fort numérique Cloudflare R2 privé (kyc-vault)', () => {
   const originalEnv = { ...process.env };
   const mockSend = vi.fn();

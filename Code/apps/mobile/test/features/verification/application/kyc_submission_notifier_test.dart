@@ -64,18 +64,19 @@ void main() {
 
     test('setConsent met à jour le consentement légal', () {
       expect(notifier.state.consentGiven, isFalse);
-      notifier.setConsent(true);
+      notifier.setConsent(consent: true);
       expect(notifier.state.consentGiven, isTrue);
-      notifier.setConsent(false);
+      notifier.setConsent(consent: false);
       expect(notifier.state.consentGiven, isFalse);
     });
 
     test('canSubmit vérifie la conjonction des 5 conditions', () {
       expect(notifier.state.canSubmit, isFalse);
 
-      notifier.setFullName('Sami Mansour');
-      notifier.setCinNumber('12345678');
-      notifier.setConsent(true);
+      notifier
+        ..setFullName('Sami Mansour')
+        ..setCinNumber('12345678')
+        ..setConsent(consent: true);
       // Toujours faux car les pièces jointes ne sont pas encore téléversées
       expect(notifier.state.canSubmit, isFalse);
     });
@@ -221,9 +222,10 @@ void main() {
         ),
       ).thenAnswer((_) async => fakeSubmitResponse);
 
-      notifier.setFullName('Ahmed Mansour');
-      notifier.setCinNumber('12345678');
-      notifier.setConsent(true);
+      notifier
+        ..setFullName('Ahmed Mansour')
+        ..setCinNumber('12345678')
+        ..setConsent(consent: true);
 
       await notifier.processAndUploadFile(
         isFront: true,

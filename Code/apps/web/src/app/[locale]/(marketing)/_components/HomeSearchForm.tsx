@@ -62,9 +62,7 @@ export const HomeSearchForm: React.FC<HomeSearchFormProps> = ({
           onChange={(e) => setCategory(e.target.value)}
           className="w-full bg-slate-50 dark:bg-slate-800/80 text-slate-900 dark:text-white ps-10 pe-8 py-3 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 border-0 appearance-none cursor-pointer"
         >
-          <option value="">
-            {isAr ? 'جميع الاختصاصات' : 'Toutes les catégories'}
-          </option>
+          <option value="">{isAr ? 'جميع الاختصاصات' : 'Toutes les catégories'}</option>
           {categories.map((c) => (
             <option key={c.id} value={c.slug}>
               {isAr ? c.nameAr : c.nameFr}

@@ -449,4 +449,3 @@ describe('BE-30b — Routes de vérification KYC (/v1/providers/me/verification/
     });
   });
 });
-

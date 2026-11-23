@@ -22,7 +22,11 @@ export const verificationStatusSchema = z.enum([
 export const presignKycSchema = z.object({
   documentType: verificationDocumentTypeSchema,
   mimeType: z.enum(['image/jpeg', 'image/png']),
-  sizeBytes: z.number().int().min(1).max(10 * 1024 * 1024), // 10 Mo
+  sizeBytes: z
+    .number()
+    .int()
+    .min(1)
+    .max(10 * 1024 * 1024), // 10 Mo
 });
 export type PresignKycInput = z.infer<typeof presignKycSchema>;
 

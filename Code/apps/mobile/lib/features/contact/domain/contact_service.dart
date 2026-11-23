@@ -103,8 +103,9 @@ class ContactService {
           _ => null,
         };
         if (screenName != null) {
-          b.sourceScreen =
-              V1ContactEventsPostRequestSourceScreenEnum.valueOf(screenName);
+          b.sourceScreen = V1ContactEventsPostRequestSourceScreenEnum.valueOf(
+            screenName,
+          );
         }
       }
     });

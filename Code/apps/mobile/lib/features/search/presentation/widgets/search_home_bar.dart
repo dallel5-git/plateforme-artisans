@@ -52,8 +52,9 @@ class _SearchHomeBarState extends State<SearchHomeBar> {
   void didUpdateWidget(SearchHomeBar oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.controller != widget.controller) {
-      (oldWidget.controller ?? _internalController)
-          ?.removeListener(_handleTextChange);
+      (oldWidget.controller ?? _internalController)?.removeListener(
+        _handleTextChange,
+      );
       _effectiveController.addListener(_handleTextChange);
     }
   }

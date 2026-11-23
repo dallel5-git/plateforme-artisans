@@ -153,10 +153,10 @@ void main() {
         await tester.pumpAndSettle();
 
         // Simule les données complètes via le notifier
-        final notifier = container.read(kycSubmissionNotifierProvider.notifier);
-        notifier.setFullName('Kamel Trabelsi');
-        notifier.setCinNumber('09876543');
-        notifier.setConsent(true);
+        container.read(kycSubmissionNotifierProvider.notifier)
+          ..setFullName('Kamel Trabelsi')
+          ..setCinNumber('09876543')
+          ..setConsent(consent: true);
 
         // Injecte deux fichiers simulés
         container.read(kycSubmissionNotifierProvider.notifier).state = container
