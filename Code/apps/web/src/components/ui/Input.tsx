@@ -2,8 +2,7 @@ import React, { forwardRef } from 'react';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
-export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
   helperText?: string;
@@ -12,10 +11,7 @@ export interface InputProps
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  (
-    { className, label, error, helperText, leftIcon, rightIcon, id, ...props },
-    ref,
-  ) => {
+  ({ className, label, error, helperText, leftIcon, rightIcon, id, ...props }, ref) => {
     const inputId = id || (label ? label.toLowerCase().replace(/\s+/g, '-') : undefined);
 
     return (
@@ -59,9 +55,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {error ? (
           <p className="mt-1 text-xs text-red-500">{error}</p>
         ) : helperText ? (
-          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-            {helperText}
-          </p>
+          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{helperText}</p>
         ) : null}
       </div>
     );

@@ -22,6 +22,8 @@ import 'package:sanaya/features/dashboard/presentation/widgets/dashboard_quick_a
 import 'package:sanaya/features/dashboard/presentation/widgets/dashboard_recent_activity_card.dart';
 import 'package:sanaya/features/dashboard/presentation/widgets/dashboard_reputation_card.dart';
 import 'package:sanaya/features/reviews/application/pro_reviews_providers.dart';
+import 'package:sanaya/features/verification/application/kyc_providers.dart';
+import 'package:sanaya/features/verification/presentation/widgets/verification_status_card.dart';
 
 /// Tableau de bord de l'Espace Pro (FM-12, issue #41) : vues, contacts,
 /// ratio vue→contact, histogramme 7 jours, actions rapides, répartition par
@@ -59,7 +61,8 @@ class DashboardScreen extends ConsumerWidget {
             onRefresh: () async {
               ref
                 ..invalidate(dashboardStatsProvider)
-                ..invalidate(myProviderProfileProvider);
+                ..invalidate(myProviderProfileProvider)
+                ..invalidate(kycStatusProvider);
             },
             child: _DashboardContent(stats: stats, t: t),
           ),
@@ -91,6 +94,7 @@ class _DashboardContent extends ConsumerWidget {
     final ratioLabel = '$ratioPercent%';
 
     final profile = ref.watch(myProviderProfileProvider).valueOrNull;
+    final kycStatus = ref.watch(kycStatusProvider).valueOrNull;
     final availability = switch (profile?.availabilityStatus) {
       V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum.AVAILABLE =>
         V1ProvidersSlugGet200ResponseAvailabilityStatusEnum.AVAILABLE,
@@ -117,6 +121,14 @@ class _DashboardContent extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Bannière de statut KYC (MOB-031)
+                if (kycStatus != null) ...[
+                  VerificationStatusCard(
+                    status: kycStatus.verificationStatus,
+                    rejectionReason: kycStatus.currentRequest.rejectionReason,
+                  ),
+                  const SizedBox(height: AppSpacing.lg),
+                ],
                 // FM-37b : carte KPI bleue (Vues / Contacts / Ratio) sur fond accent.
                 DashboardKpiCard(
                   viewsLabel: t.dashboard.statViews,

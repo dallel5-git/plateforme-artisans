@@ -164,7 +164,9 @@ export function ReviewFormClient({ provider, locale }: ReviewFormClientProps) {
                 })}
               </div>
               <div className="text-sm font-bold text-slate-800 dark:text-slate-200">
-                {isAr ? starLabelsAr[currentDisplayRating - 1] : starLabelsFr[currentDisplayRating - 1]}
+                {isAr
+                  ? starLabelsAr[currentDisplayRating - 1]
+                  : starLabelsFr[currentDisplayRating - 1]}
               </div>
             </div>
 
@@ -184,7 +186,9 @@ export function ReviewFormClient({ provider, locale }: ReviewFormClientProps) {
             {/* Phone verification input */}
             <div className="space-y-1">
               <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center justify-between">
-                <span>{isAr ? 'رقم الهاتف (للتحقق فقط)' : 'Numéro de téléphone (pour vérification)'}</span>
+                <span>
+                  {isAr ? 'رقم الهاتف (للتحقق فقط)' : 'Numéro de téléphone (pour vérification)'}
+                </span>
                 <span className="text-[10px] text-slate-400 font-normal">
                   {isAr ? 'لن ينشر للعموم' : 'Ne sera jamais affiché publiquement'}
                 </span>
@@ -200,7 +204,9 @@ export function ReviewFormClient({ provider, locale }: ReviewFormClientProps) {
             {/* Comment Area */}
             <div className="space-y-1">
               <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
-                {isAr ? 'تفاصيل تجربتك ورأيك' : 'Détaillez votre expérience et la qualité du travail'}
+                {isAr
+                  ? 'تفاصيل تجربتك ورأيك'
+                  : 'Détaillez votre expérience et la qualité du travail'}
               </label>
               <textarea
                 rows={4}
@@ -237,8 +243,12 @@ export function ReviewFormClient({ provider, locale }: ReviewFormClientProps) {
               className="w-full font-bold"
             >
               {isSubmitting
-                ? (isAr ? 'جاري الإرسال...' : 'Publication en cours...')
-                : (isAr ? 'نشر التقييم' : 'Publier mon avis')}
+                ? isAr
+                  ? 'جاري الإرسال...'
+                  : 'Publication en cours...'
+                : isAr
+                  ? 'نشر التقييم'
+                  : 'Publier mon avis'}
             </Button>
           </form>
         )}

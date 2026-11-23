@@ -272,9 +272,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                       errorMessage: errorMessage,
                       published: _published,
                       onPublish: _publish,
-                      onNavigateToStep: (step) => ref
-                          .read(onboardingProvider.notifier)
-                          .goToStep(step),
+                      onNavigateToStep: (step) =>
+                          ref.read(onboardingProvider.notifier).goToStep(step),
                     ),
                   },
                 ),

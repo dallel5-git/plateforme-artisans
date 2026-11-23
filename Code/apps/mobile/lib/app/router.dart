@@ -78,7 +78,9 @@ final router = GoRouter(
     // CLIENT sur /pro/onboarding → accès autorisé (null).
     // CLIENT sur toute autre route /pro/* → /client.
     if (onProSubtree && !isProviderSession) {
-      if (loc == '/pro/onboarding' && status != null && status.isAuthenticated) {
+      if (loc == '/pro/onboarding' &&
+          status != null &&
+          status.isAuthenticated) {
         return null;
       }
       return status != null && status.isAuthenticated ? '/client' : '/auth';
@@ -98,7 +100,9 @@ final router = GoRouter(
       // documenté tant que `GET /v1/providers/me` (BE-44) n'existe pas.
       final published = container.read(hasPublishedProfileProvider);
       if (!published) {
-        return loc == '/pro/onboarding' ? null : '/pro/onboarding';
+        return (loc == '/pro/onboarding' || loc == '/pro/verification')
+            ? null
+            : '/pro/onboarding';
       }
       if (loc == '/pro' || loc == '/pro/onboarding') return '/pro/dashboard';
     }
@@ -145,11 +149,12 @@ final router = GoRouter(
                   path: 'results',
                   name: 'client-results',
                   builder: (context, state) {
-                    final filters = state.extra as SearchFilters? ??
+                    final filters =
+                        state.extra as SearchFilters? ??
                         SearchFilters(
                           governorateId:
                               state.uri.queryParameters['governorate'] ??
-                                  'sousse',
+                              'sousse',
                           categorySlug: state.uri.queryParameters['category'],
                         );
                     return SearchResultsScreen(initialFilters: filters);

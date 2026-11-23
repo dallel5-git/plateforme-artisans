@@ -9,10 +9,7 @@ export const Skeleton: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   return (
     <div
       className={twMerge(
-        clsx(
-          'animate-pulse rounded-md bg-slate-200 dark:bg-slate-800',
-          className,
-        ),
+        clsx('animate-pulse rounded-md bg-slate-200 dark:bg-slate-800', className),
       )}
       {...props}
     />

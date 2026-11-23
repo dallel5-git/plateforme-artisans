@@ -114,7 +114,8 @@ MockProviderMe _makeProviderMe(
   Iterable<V1ProvidersMePost200ResponseProviderCategoriesInner> categories =
       const [],
   Iterable<V1ProvidersMePost200ResponseProviderCoverageAreasInner>
-      coverageAreas = const [],
+      coverageAreas =
+      const [],
   Iterable<V1ProvidersMePost200ResponseProviderPortfolioInner> portfolio =
       const [],
 }) {
@@ -130,27 +131,25 @@ V1ProvidersMePost200ResponseProviderCategoriesInner _catItem(
   String id, {
   bool isPrimary = true,
   int yearsExperience = 0,
-}) =>
-    V1ProvidersMePost200ResponseProviderCategoriesInner(
-      (b) => b
-        ..categoryId = id
-        ..isPrimary = isPrimary
-        ..yearsExperience = yearsExperience,
-    );
+}) => V1ProvidersMePost200ResponseProviderCategoriesInner(
+  (b) => b
+    ..categoryId = id
+    ..isPrimary = isPrimary
+    ..yearsExperience = yearsExperience,
+);
 
 V1ProvidersMePost200ResponseProviderCoverageAreasInner _covItem(
   String id,
   String govId, {
   String delegationId = '',
   num travelFee = 0,
-}) =>
-    V1ProvidersMePost200ResponseProviderCoverageAreasInner(
-      (b) => b
-        ..id = id
-        ..governorateId = govId
-        ..delegationId = delegationId
-        ..travelFee = travelFee,
-    );
+}) => V1ProvidersMePost200ResponseProviderCoverageAreasInner(
+  (b) => b
+    ..id = id
+    ..governorateId = govId
+    ..delegationId = delegationId
+    ..travelFee = travelFee,
+);
 
 V1ProvidersMePost200ResponseProviderPortfolioInner _portfolioItem(
   String id, {
@@ -158,15 +157,14 @@ V1ProvidersMePost200ResponseProviderPortfolioInner _portfolioItem(
   String categoryId = '',
   String caption = '',
   int sortOrder = 0,
-}) =>
-    V1ProvidersMePost200ResponseProviderPortfolioInner(
-      (b) => b
-        ..id = id
-        ..mediaId = mediaId
-        ..categoryId = categoryId
-        ..caption = caption
-        ..sortOrder = sortOrder,
-    );
+}) => V1ProvidersMePost200ResponseProviderPortfolioInner(
+  (b) => b
+    ..id = id
+    ..mediaId = mediaId
+    ..categoryId = categoryId
+    ..caption = caption
+    ..sortOrder = sortOrder,
+);
 
 MockCategoriesResult _makeCatResult(int score) {
   final mock = MockCategoriesResult();

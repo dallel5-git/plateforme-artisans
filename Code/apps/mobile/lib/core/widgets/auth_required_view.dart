@@ -64,7 +64,8 @@ class AuthRequiredView extends StatelessWidget {
             const SizedBox(height: AppSpacing.xl),
             AppButton(
               label: ctaLabel,
-              onPressed: onLogin ??
+              onPressed:
+                  onLogin ??
                   () {
                     unawaited(context.push('/auth'));
                   },

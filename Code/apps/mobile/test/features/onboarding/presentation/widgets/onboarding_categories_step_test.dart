@@ -257,7 +257,8 @@ void main() {
   );
 
   testWidgets(
-    'MOB-005 — déselectionner la catégorie principale promeut automatiquement la première restante',
+    'MOB-005 — déselectionner la catégorie principale '
+    'promeut automatiquement la première restante',
     (tester) async {
       Map<String, bool>? submitted;
       await _pumpTall(
@@ -306,7 +307,8 @@ void main() {
   );
 
   testWidgets(
-    'MOB-005 — déselectionner une catégorie secondaire ne change pas la catégorie principale',
+    'MOB-005 — déselectionner une catégorie secondaire '
+    'ne change pas la catégorie principale',
     (tester) async {
       Map<String, bool>? submitted;
       await _pumpTall(
@@ -351,7 +353,8 @@ void main() {
   );
 
   testWidgets(
-    'MOB-005 — déselectionner toutes les catégories désactive le bouton Suivant',
+    'MOB-005 — déselectionner toutes les catégories '
+    'désactive le bouton Suivant',
     (tester) async {
       var submitted = false;
       await _pumpTall(
@@ -390,7 +393,8 @@ void main() {
   );
 
   testWidgets(
-    'MOB-005 — initialSelection sans catégorie principale promeut automatiquement la première',
+    'MOB-005 — initialSelection sans catégorie principale '
+    'promeut automatiquement la première',
     (tester) async {
       Map<String, bool>? submitted;
       await _pumpTall(
