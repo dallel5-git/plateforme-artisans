@@ -15,20 +15,17 @@ export const Badge: React.FC<BadgeProps> = ({
   children,
   ...props
 }) => {
-  const base =
-    'inline-flex items-center font-medium rounded-full shrink-0 select-none';
+  const base = 'inline-flex items-center font-medium rounded-full shrink-0 select-none';
 
   const variants = {
-    default:
-      'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300',
+    default: 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300',
     verified:
       'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800',
     emergency:
       'bg-amber-50 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800',
     warning:
       'bg-orange-50 dark:bg-orange-950/60 text-orange-700 dark:text-orange-300 border border-orange-200',
-    outline:
-      'border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400',
+    outline: 'border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400',
   };
 
   const sizes = {
@@ -37,10 +34,7 @@ export const Badge: React.FC<BadgeProps> = ({
   };
 
   return (
-    <span
-      className={twMerge(clsx(base, variants[variant], sizes[size], className))}
-      {...props}
-    >
+    <span className={twMerge(clsx(base, variants[variant], sizes[size], className))} {...props}>
       {children}
     </span>
   );

@@ -100,18 +100,12 @@ export const Footer: React.FC<FooterProps> = ({ locale }) => {
                 </Link>
               </li>
               <li>
-                <Link
-                  href={`/${locale}/tarifs`}
-                  className="hover:text-white transition-colors"
-                >
+                <Link href={`/${locale}/tarifs`} className="hover:text-white transition-colors">
                   {isAr ? 'الأسعار والاشتراكات' : 'Tarifs & Packs'}
                 </Link>
               </li>
               <li>
-                <Link
-                  href={`/${locale}/legal/cgu`}
-                  className="hover:text-white transition-colors"
-                >
+                <Link href={`/${locale}/legal/cgu`} className="hover:text-white transition-colors">
                   {isAr ? 'شروط الاستخدام' : 'Conditions Générales'}
                 </Link>
               </li>

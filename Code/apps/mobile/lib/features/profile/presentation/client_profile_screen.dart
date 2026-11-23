@@ -124,12 +124,13 @@ class _IdentityHeader extends StatelessWidget {
                           Flexible(
                             child: Text(
                               displayName,
-                              style: AppText.h3(
-                                locale,
-                              ).copyWith(
-                                color: colors.textPrimary,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style:
+                                  AppText.h3(
+                                    locale,
+                                  ).copyWith(
+                                    color: colors.textPrimary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),

@@ -44,6 +44,7 @@ function buildProfile(overrides: Partial<ProviderProfile> = {}): ProviderProfile
     acceptsEmergency: false,
     workingHours: null,
     isVerified: true,
+    verificationStatus: 'APPROVED',
     verifiedAt: null,
     ratingAvg: 4.5,
     ratingCount: 12,

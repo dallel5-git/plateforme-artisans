@@ -3,17 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import {
-  Wrench,
-  Search,
-  Globe,
-  Sun,
-  Moon,
-  Menu,
-  X,
-  Briefcase,
-  User,
-} from 'lucide-react';
+import { Wrench, Search, Globe, Sun, Moon, Menu, X, Briefcase, User } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 
 export interface NavbarProps {

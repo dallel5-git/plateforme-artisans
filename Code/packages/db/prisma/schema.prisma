@@ -69,6 +69,17 @@ enum VerificationStatus {
   REJECTED
 }
 
+enum VerificationDocumentType {
+  CIN_FRONT
+  CIN_BACK
+  SELFIE_WITH_ID
+  PATENTE
+  DIPLOMA
+  INSURANCE
+  OTHER
+}
+
+
 enum MediaType {
   IMAGE
   VIDEO
@@ -149,8 +160,10 @@ model User {
   uploadedMedia   MediaAsset[]     @relation("MediaUploader")
 
   // --- Relations d'administration (acteur = compte interne) ---
-  auditLogs        AuditLog[] @relation("AuditActor")
-  reviewsModerated Review[]   @relation("ReviewModerator")
+  auditLogs             AuditLog[]            @relation("AuditActor")
+  reviewsModerated      Review[]              @relation("ReviewModerator")
+  verificationsReviewed VerificationRequest[] @relation("VerificationReviewer")
+
 
   @@index([status])
   @@index([createdAt])
@@ -325,6 +338,8 @@ model ProviderProfile {
   profileViews  ProfileView[]
   dailyStats    DailyProviderStat[]
   favoritedBy   Favorite[]
+  verifications VerificationRequest[]
+
 
   @@index([publicationStatus, verificationStatus])
   @@index([baseGovernorateId, publicationStatus])
@@ -412,9 +427,11 @@ model MediaAsset {
   purgeAfter       DateTime? // rétention automatique (CIN)
   createdAt        DateTime         @default(now())
 
-  uploadedBy     User?           @relation("MediaUploader", fields: [uploadedById], references: [id], onDelete: SetNull)
-  userAvatars    User[]          @relation("UserAvatar")
-  portfolioItems PortfolioItem[]
+  uploadedBy            User?                  @relation("MediaUploader", fields: [uploadedById], references: [id], onDelete: SetNull)
+  userAvatars           User[]                 @relation("UserAvatar")
+  portfolioItems        PortfolioItem[]
+  verificationDocuments VerificationDocument[]
+
 
   @@index([moderationStatus])
   @@index([purgeAfter])
@@ -438,6 +455,48 @@ model PortfolioItem {
   @@index([providerId, status, sortOrder])
   @@map("portfolio_items")
 }
+
+// =====================================================================
+//  VÉRIFICATION D'IDENTITÉ (KYC)
+// =====================================================================
+
+model VerificationRequest {
+  id              String             @id @default(uuid()) @db.Uuid
+  providerId      String             @db.Uuid
+  status          VerificationStatus @default(PENDING)
+  cinNumberHash   String?            @db.VarChar(64) // SHA-256 salé, jamais en clair
+  cinNumberCipher String?            @db.Text // chiffré AES-256-GCM si conservation requise
+  fullNameOnId    String?            @db.VarChar(160)
+  submittedAt     DateTime           @default(now())
+  reviewedAt      DateTime?
+  reviewedById    String?            @db.Uuid
+  rejectionReason String?            @db.VarChar(400)
+  internalNote    String?            @db.Text
+  expiresAt       DateTime?
+
+  provider   ProviderProfile        @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  reviewedBy User?                  @relation("VerificationReviewer", fields: [reviewedById], references: [id], onDelete: SetNull)
+  documents  VerificationDocument[]
+
+  @@index([status, submittedAt])
+  @@index([providerId, status])
+  @@map("verification_requests")
+}
+
+model VerificationDocument {
+  id        String                   @id @default(uuid()) @db.Uuid
+  requestId String                   @db.Uuid
+  mediaId   String                   @db.Uuid
+  type      VerificationDocumentType
+  createdAt DateTime                 @default(now())
+
+  request VerificationRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  media   MediaAsset          @relation(fields: [mediaId], references: [id], onDelete: Restrict)
+
+  @@unique([requestId, type])
+  @@map("verification_documents")
+}
+
 
 // =====================================================================
 //  MISE EN RELATION & TRAÇABILITÉ
