@@ -14,6 +14,7 @@ export type {
   ProviderPublicationStatus,
   AvailabilityStatus,
   VerificationStatus,
+  VerificationDocumentType,
   PriceUnit,
   MediaType,
   ModerationStatus,
