@@ -25,7 +25,7 @@ Ce backlog recense de manière exhaustive toutes les tâches requises pour :
 | **BE-44b** | Backend | Onboarding Pro | Enrichissement de `GET /v1/providers/me` (catégories, zones, portfolio) | 🔴 P0 | 3 h | BE-44 | ✅ Fait |
 | **MOB-005** | Mobile | Onboarding Pro | Réassignation automatique de la catégorie principale en dé-sélection | 🔴 P0 | 2 SP | — | À faire |
 | **MOB-027** | Mobile | Onboarding Pro | Reprise intégrale de session d'onboarding sans perte de saisie | 🔴 P0 | 3 SP | BE-44b |
-| **MOB-028** | Mobile | Onboarding Pro | Guidage interactif vers les 60 % (liens directs champs manquants) | 🟠 P1 | 3 SP | — |
+| **MOB-028** | Mobile | Onboarding Pro | Guidage interactif vers les 60 % (liens directs champs manquants) | 🟠 P1 | 3 SP | — | ✅ Fait |
 | **MOB-029** | Mobile | Onboarding Pro | Écran de célébration post-publication & passerelle vers la vérification | 🟠 P1 | 2 SP | — |
 | **BE-30a** | Backend/Infra | Vérification & KYC | Coffre-fort numérique Cloudflare R2 privé chiffré (`kyc-vault.ts`) | 🔴 P0 | 4 h | BE-20a |
 | **BE-30b** | Backend | Vérification & KYC | Routes API de soumission KYC (`presign`, `submit`, `status`) | 🔴 P0 | 5 h | BE-30a |
@@ -128,6 +128,7 @@ Ce backlog recense de manière exhaustive toutes les tâches requises pour :
   1. Chaque champ manquant affiche une tuile d'action claire ("Ajouter une description de 50 caractères min", "Indiquer vos années d'expérience").
   2. Un tap sur la tuile navigue directement à l'étape correspondante (`OnboardingStep.profile`, etc.).
   3. Une jauge visuelle dynamique (code couleur : rouge < 40 %, orange 40-59 %, vert ≥ 60 %) illustre la progression.
+* **Statut :** ✅ **Fait** — Tuiles d'action interactives avec navigation directe vers chaque étape cible manquante (`goToStep`), jauge de score dynamique trichrome (< 40 % `destructive`, 40-59 % `amber`, ≥ 60 % `verified`) avec statut textuel explicatif. Clés i18n FR/AR complètes et tests 100 % validés (14/14 widget, 31/31 notifier).
 
 ---
 

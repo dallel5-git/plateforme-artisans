@@ -703,17 +703,38 @@ class Translations$onboarding$fr {
 	/// fr: 'Profil publié !'
 	String get summaryPublished => 'Profil publié !';
 
-	/// fr: 'Une présentation d'au moins 50 caractères'
-	String get missingBio => 'Une présentation d\'au moins 50 caractères';
+	/// fr: 'Ajouter une description de 50 caractères min'
+	String get missingBio => 'Ajouter une description de 50 caractères min';
 
-	/// fr: 'Un titre'
-	String get missingHeadline => 'Un titre';
+	/// fr: 'Ajouter un titre professionnel'
+	String get missingHeadline => 'Ajouter un titre professionnel';
 
-	/// fr: 'Vos années d'expérience'
-	String get missingYearsExperience => 'Vos années d\'expérience';
+	/// fr: 'Indiquer vos années d'expérience'
+	String get missingYearsExperience => 'Indiquer vos années d\'expérience';
 
-	/// fr: 'Un numéro WhatsApp ou public'
-	String get missingContactPhone => 'Un numéro WhatsApp ou public';
+	/// fr: 'Ajouter un numéro WhatsApp ou public'
+	String get missingContactPhone => 'Ajouter un numéro WhatsApp ou public';
+
+	/// fr: 'Sélectionner au moins une catégorie'
+	String get missingCategories => 'Sélectionner au moins une catégorie';
+
+	/// fr: 'Sélectionner au moins un gouvernorat'
+	String get missingCoverageAreas => 'Sélectionner au moins un gouvernorat';
+
+	/// fr: 'Ajouter des photos de vos réalisations'
+	String get missingPhotos => 'Ajouter des photos de vos réalisations';
+
+	/// fr: 'Modifier dans l'étape {step}'
+	String get missingActionHint => 'Modifier dans l\'étape {step}';
+
+	/// fr: 'Profil incomplet — publication impossible (< 40 %)'
+	String get summaryScoreCritical => 'Profil incomplet — publication impossible (< 40 %)';
+
+	/// fr: 'Encore un effort pour atteindre le seuil de publication (60 %)'
+	String get summaryScoreWarning => 'Encore un effort pour atteindre le seuil de publication (60 %)';
+
+	/// fr: 'Seuil de publication atteint (≥ 60 %)'
+	String get summaryScoreSuccess => 'Seuil de publication atteint (≥ 60 %)';
 
 	/// fr: 'Bienvenue sur Sanaya'
 	String get clientWelcomeTitle => 'Bienvenue sur Sanaya';
@@ -1941,10 +1962,17 @@ extension on Translations {
 			'onboarding.summaryPublish' => 'Publier mon profil',
 			'onboarding.summaryPublishError' => 'Publication impossible. Réessayez.',
 			'onboarding.summaryPublished' => 'Profil publié !',
-			'onboarding.missingBio' => 'Une présentation d\'au moins 50 caractères',
-			'onboarding.missingHeadline' => 'Un titre',
-			'onboarding.missingYearsExperience' => 'Vos années d\'expérience',
-			'onboarding.missingContactPhone' => 'Un numéro WhatsApp ou public',
+			'onboarding.missingBio' => 'Ajouter une description de 50 caractères min',
+			'onboarding.missingHeadline' => 'Ajouter un titre professionnel',
+			'onboarding.missingYearsExperience' => 'Indiquer vos années d\'expérience',
+			'onboarding.missingContactPhone' => 'Ajouter un numéro WhatsApp ou public',
+			'onboarding.missingCategories' => 'Sélectionner au moins une catégorie',
+			'onboarding.missingCoverageAreas' => 'Sélectionner au moins un gouvernorat',
+			'onboarding.missingPhotos' => 'Ajouter des photos de vos réalisations',
+			'onboarding.missingActionHint' => 'Modifier dans l\'étape {step}',
+			'onboarding.summaryScoreCritical' => 'Profil incomplet — publication impossible (< 40 %)',
+			'onboarding.summaryScoreWarning' => 'Encore un effort pour atteindre le seuil de publication (60 %)',
+			'onboarding.summaryScoreSuccess' => 'Seuil de publication atteint (≥ 60 %)',
 			'onboarding.clientWelcomeTitle' => 'Bienvenue sur Sanaya',
 			'onboarding.clientWelcomeSubtitle' => 'Trouvez les meilleurs artisans au Sahel tunisien en toute confiance.',
 			'onboarding.clientStep1Title' => 'Trouvez l\'artisan idéal',

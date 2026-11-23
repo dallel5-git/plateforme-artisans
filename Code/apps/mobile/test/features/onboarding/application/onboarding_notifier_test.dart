@@ -637,6 +637,34 @@ void main() {
   });
 
   // ---------------------------------------------------------------------------
+  // goToStep (MOB-028)
+  // ---------------------------------------------------------------------------
+
+  group('goToStep (MOB-028)', () {
+    test(
+      "change directement currentStep vers l'étape cible et efface l'erreur",
+      () {
+        container
+            .read(onboardingProvider.notifier)
+            .goToStep(OnboardingStep.categories);
+        expect(
+          container.read(onboardingProvider).currentStep,
+          OnboardingStep.categories,
+        );
+
+        container
+            .read(onboardingProvider.notifier)
+            .goToStep(OnboardingStep.profile);
+        expect(
+          container.read(onboardingProvider).currentStep,
+          OnboardingStep.profile,
+        );
+        expect(container.read(onboardingProvider).errorCode, isNull);
+      },
+    );
+  });
+
+  // ---------------------------------------------------------------------------
   // resumeSession & determineResumeStep (MOB-027)
   // ---------------------------------------------------------------------------
 
