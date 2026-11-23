@@ -1953,6 +1953,225 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/admin/verifications": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description File des demandes de vérification d’identité KYC pour le back-office. Tri par ancienneté (ascendant par défaut), filtre par statut optionnel, pagination par curseur. */
+        get: {
+            parameters: {
+                query?: {
+                    status?: "NOT_SUBMITTED" | "PENDING" | "MORE_INFO_REQUIRED" | "APPROVED" | "REJECTED";
+                    limit?: number;
+                    cursor?: string;
+                    orderBy?: "asc" | "desc";
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            items: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                providerId: string;
+                                provider: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    businessName: string;
+                                    slug: string;
+                                    baseGovernorateId: string;
+                                    isVerified: boolean;
+                                };
+                                fullNameOnId: string | null;
+                                /** @enum {string} */
+                                status: "NOT_SUBMITTED" | "PENDING" | "MORE_INFO_REQUIRED" | "APPROVED" | "REJECTED";
+                                /** Format: date-time */
+                                submittedAt: string;
+                                reviewedAt: string | null;
+                                reviewedBy: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    phone: string;
+                                } | null;
+                                documentsCount: number;
+                                documents: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    type: "CIN_FRONT" | "CIN_BACK" | "SELFIE_WITH_ID" | "PATENTE" | "DIPLOMA" | "INSURANCE" | "OTHER";
+                                }[];
+                            }[];
+                            nextCursor: string | null;
+                            totalPending: number;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/verifications/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Récupère le détail complet d’une demande KYC pour examen modérateur. Génère des URL signées R2 temporaires (TTL <= 5 min) pour chaque document et consigne la consultation dans AuditLog (P8/P9). */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            providerId: string;
+                            provider: {
+                                /** Format: uuid */
+                                id: string;
+                                businessName: string;
+                                slug: string;
+                                headline: string | null;
+                                baseGovernorateId: string;
+                                isVerified: boolean;
+                                /** @enum {string} */
+                                verificationStatus: "NOT_SUBMITTED" | "PENDING" | "MORE_INFO_REQUIRED" | "APPROVED" | "REJECTED";
+                                user: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    phone: string;
+                                };
+                            };
+                            fullNameOnId: string | null;
+                            /** @enum {string} */
+                            status: "NOT_SUBMITTED" | "PENDING" | "MORE_INFO_REQUIRED" | "APPROVED" | "REJECTED";
+                            /** Format: date-time */
+                            submittedAt: string;
+                            reviewedAt: string | null;
+                            reviewedBy: {
+                                /** Format: uuid */
+                                id: string;
+                                phone: string;
+                            } | null;
+                            rejectionReason: string | null;
+                            internalNote: string | null;
+                            documents: {
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                type: "CIN_FRONT" | "CIN_BACK" | "SELFIE_WITH_ID" | "PATENTE" | "DIPLOMA" | "INSURANCE" | "OTHER";
+                                /** Format: uuid */
+                                mediaId: string;
+                                /** Format: uri */
+                                downloadUrl: string;
+                                /** Format: date-time */
+                                expiresAt: string;
+                            }[];
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/verifications/{id}/review": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Applique une décision de modération sur une demande KYC (APPROVED, REJECTED, MORE_INFO_REQUIRED). Enregistre le statut de vérification sur le profil artisan, met à jour le badge `isVerified` (ADR-002) et journalise la décision dans AuditLog. */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        status: "APPROVED" | "REJECTED" | "MORE_INFO_REQUIRED";
+                        rejectionReason?: string;
+                        internalNote?: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            /** @enum {string} */
+                            status: "NOT_SUBMITTED" | "PENDING" | "MORE_INFO_REQUIRED" | "APPROVED" | "REJECTED";
+                            /** Format: date-time */
+                            reviewedAt: string;
+                            /** Format: uuid */
+                            reviewedById: string;
+                            isVerified: boolean;
+                            rejectionReason: string | null;
+                            internalNote: string | null;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {

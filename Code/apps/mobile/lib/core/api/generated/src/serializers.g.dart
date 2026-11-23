@@ -15,6 +15,29 @@ Serializers _$serializers = (Serializers().toBuilder()
       ..add(ContactEventResponseChannelEnum.serializer)
       ..add(ContactEventResponseInput.serializer)
       ..add(ContactEventResponseInputChannelEnum.serializer)
+      ..add(V1AdminVerificationsGet200Response.serializer)
+      ..add(V1AdminVerificationsGet200ResponseItemsInner.serializer)
+      ..add(
+          V1AdminVerificationsGet200ResponseItemsInnerDocumentsInner.serializer)
+      ..add(V1AdminVerificationsGet200ResponseItemsInnerDocumentsInnerTypeEnum
+          .serializer)
+      ..add(V1AdminVerificationsGet200ResponseItemsInnerProvider.serializer)
+      ..add(V1AdminVerificationsGet200ResponseItemsInnerReviewedBy.serializer)
+      ..add(V1AdminVerificationsGet200ResponseItemsInnerStatusEnum.serializer)
+      ..add(V1AdminVerificationsIdGet200Response.serializer)
+      ..add(V1AdminVerificationsIdGet200ResponseDocumentsInner.serializer)
+      ..add(
+          V1AdminVerificationsIdGet200ResponseDocumentsInnerTypeEnum.serializer)
+      ..add(V1AdminVerificationsIdGet200ResponseProvider.serializer)
+      ..add(V1AdminVerificationsIdGet200ResponseProviderUser.serializer)
+      ..add(V1AdminVerificationsIdGet200ResponseProviderVerificationStatusEnum
+          .serializer)
+      ..add(V1AdminVerificationsIdGet200ResponseReviewedBy.serializer)
+      ..add(V1AdminVerificationsIdGet200ResponseStatusEnum.serializer)
+      ..add(V1AdminVerificationsIdReviewPost200Response.serializer)
+      ..add(V1AdminVerificationsIdReviewPost200ResponseStatusEnum.serializer)
+      ..add(V1AdminVerificationsIdReviewPostRequest.serializer)
+      ..add(V1AdminVerificationsIdReviewPostRequestStatusEnum.serializer)
       ..add(V1AuthLogoutPost200Response.serializer)
       ..add(V1AuthLogoutPost200ResponseStatusEnum.serializer)
       ..add(V1AuthMeGet200Response.serializer)
@@ -147,6 +170,24 @@ Serializers _$serializers = (Serializers().toBuilder()
           const FullType(
               BuiltList, const [const FullType(CategoryTreeNodeInput)]),
           () => ListBuilder<CategoryTreeNodeInput>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(V1AdminVerificationsGet200ResponseItemsInner)
+          ]),
+          () => ListBuilder<V1AdminVerificationsGet200ResponseItemsInner>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(
+                V1AdminVerificationsGet200ResponseItemsInnerDocumentsInner)
+          ]),
+          () => ListBuilder<
+              V1AdminVerificationsGet200ResponseItemsInnerDocumentsInner>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(V1AdminVerificationsIdGet200ResponseDocumentsInner)
+          ]),
+          () =>
+              ListBuilder<V1AdminVerificationsIdGet200ResponseDocumentsInner>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [
             const FullType(V1AuthOtpVerifyPost200ResponseUserRolesEnum)

@@ -47,14 +47,17 @@ Please follow the [installation procedure](#installation--usage) and then run th
 import 'package:sanaya_api_client/sanaya_api_client.dart';
 
 
-final api = SanayaApiClient().getAuthApi();
-final V1AuthRefreshPostRequest v1AuthRefreshPostRequest = ; // V1AuthRefreshPostRequest | 
+final api = SanayaApiClient().getAdminVerificationsApi();
+final String status = status_example; // String | 
+final int limit = 56; // int | 
+final String cursor = cursor_example; // String | 
+final String orderBy = orderBy_example; // String | 
 
 try {
-    final response = await api.v1AuthLogoutPost(v1AuthRefreshPostRequest);
+    final response = await api.v1AdminVerificationsGet(status, limit, cursor, orderBy);
     print(response);
 } catch on DioException (e) {
-    print("Exception when calling AuthApi->v1AuthLogoutPost: $e\n");
+    print("Exception when calling AdminVerificationsApi->v1AdminVerificationsGet: $e\n");
 }
 
 ```
@@ -65,6 +68,9 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+[*AdminVerificationsApi*](doc/AdminVerificationsApi.md) | [**v1AdminVerificationsGet**](doc/AdminVerificationsApi.md#v1adminverificationsget) | **GET** /v1/admin/verifications | 
+[*AdminVerificationsApi*](doc/AdminVerificationsApi.md) | [**v1AdminVerificationsIdGet**](doc/AdminVerificationsApi.md#v1adminverificationsidget) | **GET** /v1/admin/verifications/{id} | 
+[*AdminVerificationsApi*](doc/AdminVerificationsApi.md) | [**v1AdminVerificationsIdReviewPost**](doc/AdminVerificationsApi.md#v1adminverificationsidreviewpost) | **POST** /v1/admin/verifications/{id}/review | 
 [*AuthApi*](doc/AuthApi.md) | [**v1AuthLogoutPost**](doc/AuthApi.md#v1authlogoutpost) | **POST** /v1/auth/logout | 
 [*AuthApi*](doc/AuthApi.md) | [**v1AuthMeGet**](doc/AuthApi.md#v1authmeget) | **GET** /v1/auth/me | 
 [*AuthApi*](doc/AuthApi.md) | [**v1AuthOtpRequestPost**](doc/AuthApi.md#v1authotprequestpost) | **POST** /v1/auth/otp/request | 
@@ -111,6 +117,18 @@ Class | Method | HTTP request | Description
  - [CategoryTreeNodeInput](doc/CategoryTreeNodeInput.md)
  - [ContactEventResponse](doc/ContactEventResponse.md)
  - [ContactEventResponseInput](doc/ContactEventResponseInput.md)
+ - [V1AdminVerificationsGet200Response](doc/V1AdminVerificationsGet200Response.md)
+ - [V1AdminVerificationsGet200ResponseItemsInner](doc/V1AdminVerificationsGet200ResponseItemsInner.md)
+ - [V1AdminVerificationsGet200ResponseItemsInnerDocumentsInner](doc/V1AdminVerificationsGet200ResponseItemsInnerDocumentsInner.md)
+ - [V1AdminVerificationsGet200ResponseItemsInnerProvider](doc/V1AdminVerificationsGet200ResponseItemsInnerProvider.md)
+ - [V1AdminVerificationsGet200ResponseItemsInnerReviewedBy](doc/V1AdminVerificationsGet200ResponseItemsInnerReviewedBy.md)
+ - [V1AdminVerificationsIdGet200Response](doc/V1AdminVerificationsIdGet200Response.md)
+ - [V1AdminVerificationsIdGet200ResponseDocumentsInner](doc/V1AdminVerificationsIdGet200ResponseDocumentsInner.md)
+ - [V1AdminVerificationsIdGet200ResponseProvider](doc/V1AdminVerificationsIdGet200ResponseProvider.md)
+ - [V1AdminVerificationsIdGet200ResponseProviderUser](doc/V1AdminVerificationsIdGet200ResponseProviderUser.md)
+ - [V1AdminVerificationsIdGet200ResponseReviewedBy](doc/V1AdminVerificationsIdGet200ResponseReviewedBy.md)
+ - [V1AdminVerificationsIdReviewPost200Response](doc/V1AdminVerificationsIdReviewPost200Response.md)
+ - [V1AdminVerificationsIdReviewPostRequest](doc/V1AdminVerificationsIdReviewPostRequest.md)
  - [V1AuthLogoutPost200Response](doc/V1AuthLogoutPost200Response.md)
  - [V1AuthMeGet200Response](doc/V1AuthMeGet200Response.md)
  - [V1AuthOtpRequestPost200Response](doc/V1AuthOtpRequestPost200Response.md)
