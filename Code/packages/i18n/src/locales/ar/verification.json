@@ -40,5 +40,20 @@
   "alreadyVerified": "ملفك الشخصي معتمد بالفعل.",
   "missingDocuments": "الرجاء توفير الوجهين الأمامي والخلفي لبطاقة التعريف.",
   "consentRequired": "الرجاء الموافقة على شروط معالجة المعطيات.",
-  "generalError": "حدث خطأ أثناء الإرسال. الرجاء المحاولة مرة أخرى."
+  "generalError": "حدث خطأ أثناء الإرسال. الرجاء المحاولة مرة أخرى.",
+  "bannerNotSubmittedTitle": "وثّق حسابك المهني",
+  "bannerNotSubmittedBody": "احصل على شارة الحرفي المعتمد لتعزيز ثقة الحرفاء والأولوية في نتائج البحث.",
+  "bannerNotSubmittedCta": "توثيق حسابي الآن",
+  "bannerPendingTitle": "التحقق قيد المراجعة",
+  "bannerPendingBody": "وثيقة هويتك قيد المراجعة من قبل فريقنا خلال 24 ساعة عمل. سيتم إشعارك فور الاعتماد.",
+  "bannerApprovedTitle": "حساب موثق ومعتمد",
+  "bannerApprovedBody": "تم التحقق من هويتك بنجاح. شارتك الرسمية ظاهرة الآن في ملفك الشخصي والبحث.",
+  "bannerRejectedTitle": "لم يتم قبول التحقق",
+  "bannerRejectedBody": "تعذر قبول طلب التحقق. السبب: {reason}",
+  "bannerRejectedDefaultReason": "الوثيقة غير واضحة أو غير مطابقة.",
+  "bannerRejectedCta": "إعادة إرسال الوثائق",
+  "bannerMoreInfoTitle": "مطلوب معلومات إضافية",
+  "bannerMoreInfoBody": "يلزم تقديم معلومات إضافية لاستكمال التحقق من حسابك: {reason}",
+  "bannerMoreInfoCta": "تحديث الملف",
+  "profileTileTitle": "التحقق من الهوية"
 }

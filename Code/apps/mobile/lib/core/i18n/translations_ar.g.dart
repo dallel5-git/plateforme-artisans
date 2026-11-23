@@ -563,6 +563,21 @@ class Translations$verification$ar extends Translations$verification$fr {
 	@override String get missingDocuments => 'الرجاء توفير الوجهين الأمامي والخلفي لبطاقة التعريف.';
 	@override String get consentRequired => 'الرجاء الموافقة على شروط معالجة المعطيات.';
 	@override String get generalError => 'حدث خطأ أثناء الإرسال. الرجاء المحاولة مرة أخرى.';
+	@override String get bannerNotSubmittedTitle => 'وثّق حسابك المهني';
+	@override String get bannerNotSubmittedBody => 'احصل على شارة الحرفي المعتمد لتعزيز ثقة الحرفاء والأولوية في نتائج البحث.';
+	@override String get bannerNotSubmittedCta => 'توثيق حسابي الآن';
+	@override String get bannerPendingTitle => 'التحقق قيد المراجعة';
+	@override String get bannerPendingBody => 'وثيقة هويتك قيد المراجعة من قبل فريقنا خلال 24 ساعة عمل. سيتم إشعارك فور الاعتماد.';
+	@override String get bannerApprovedTitle => 'حساب موثق ومعتمد';
+	@override String get bannerApprovedBody => 'تم التحقق من هويتك بنجاح. شارتك الرسمية ظاهرة الآن في ملفك الشخصي والبحث.';
+	@override String get bannerRejectedTitle => 'لم يتم قبول التحقق';
+	@override String get bannerRejectedBody => 'تعذر قبول طلب التحقق. السبب: {reason}';
+	@override String get bannerRejectedDefaultReason => 'الوثيقة غير واضحة أو غير مطابقة.';
+	@override String get bannerRejectedCta => 'إعادة إرسال الوثائق';
+	@override String get bannerMoreInfoTitle => 'مطلوب معلومات إضافية';
+	@override String get bannerMoreInfoBody => 'يلزم تقديم معلومات إضافية لاستكمال التحقق من حسابك: {reason}';
+	@override String get bannerMoreInfoCta => 'تحديث الملف';
+	@override String get profileTileTitle => 'التحقق من الهوية';
 }
 
 // Path: common.home
@@ -1191,6 +1206,21 @@ extension on TranslationsAr {
 			'verification.missingDocuments' => 'الرجاء توفير الوجهين الأمامي والخلفي لبطاقة التعريف.',
 			'verification.consentRequired' => 'الرجاء الموافقة على شروط معالجة المعطيات.',
 			'verification.generalError' => 'حدث خطأ أثناء الإرسال. الرجاء المحاولة مرة أخرى.',
+			'verification.bannerNotSubmittedTitle' => 'وثّق حسابك المهني',
+			'verification.bannerNotSubmittedBody' => 'احصل على شارة الحرفي المعتمد لتعزيز ثقة الحرفاء والأولوية في نتائج البحث.',
+			'verification.bannerNotSubmittedCta' => 'توثيق حسابي الآن',
+			'verification.bannerPendingTitle' => 'التحقق قيد المراجعة',
+			'verification.bannerPendingBody' => 'وثيقة هويتك قيد المراجعة من قبل فريقنا خلال 24 ساعة عمل. سيتم إشعارك فور الاعتماد.',
+			'verification.bannerApprovedTitle' => 'حساب موثق ومعتمد',
+			'verification.bannerApprovedBody' => 'تم التحقق من هويتك بنجاح. شارتك الرسمية ظاهرة الآن في ملفك الشخصي والبحث.',
+			'verification.bannerRejectedTitle' => 'لم يتم قبول التحقق',
+			'verification.bannerRejectedBody' => 'تعذر قبول طلب التحقق. السبب: {reason}',
+			'verification.bannerRejectedDefaultReason' => 'الوثيقة غير واضحة أو غير مطابقة.',
+			'verification.bannerRejectedCta' => 'إعادة إرسال الوثائق',
+			'verification.bannerMoreInfoTitle' => 'مطلوب معلومات إضافية',
+			'verification.bannerMoreInfoBody' => 'يلزم تقديم معلومات إضافية لاستكمال التحقق من حسابك: {reason}',
+			'verification.bannerMoreInfoCta' => 'تحديث الملف',
+			'verification.profileTileTitle' => 'التحقق من الهوية',
 			_ => null,
 		};
 	}

@@ -40,5 +40,20 @@
   "alreadyVerified": "Votre profil est déjà vérifié.",
   "missingDocuments": "Veuillez fournir les deux faces de votre CIN.",
   "consentRequired": "Veuillez accepter les conditions de traitement des données.",
-  "generalError": "Une erreur est survenue lors de la soumission. Veuillez réessayer."
+  "generalError": "Une erreur est survenue lors de la soumission. Veuillez réessayer.",
+  "bannerNotSubmittedTitle": "Faites vérifier votre profil",
+  "bannerNotSubmittedBody": "Obtenez le badge officiel Artisan Vérifié pour renforcer la confiance et être prioritaire dans la recherche.",
+  "bannerNotSubmittedCta": "Faire vérifier mon compte",
+  "bannerPendingTitle": "Vérification en cours",
+  "bannerPendingBody": "Votre pièce d'identité est en cours d'examen sous 24h ouvrées. Vous recevrez une notification dès validation.",
+  "bannerApprovedTitle": "Profil Vérifié",
+  "bannerApprovedBody": "Votre identité a été certifiée. Votre badge officiel est visible sur votre vitrine et dans la recherche.",
+  "bannerRejectedTitle": "Vérification non validée",
+  "bannerRejectedBody": "Votre demande n'a pas pu être validée. Motif : {reason}",
+  "bannerRejectedDefaultReason": "Document illisible ou non conforme.",
+  "bannerRejectedCta": "Soumettre à nouveau",
+  "bannerMoreInfoTitle": "Complément requis",
+  "bannerMoreInfoBody": "Un complément d'information est nécessaire pour finaliser votre vérification : {reason}",
+  "bannerMoreInfoCta": "Mettre à jour le dossier",
+  "profileTileTitle": "Vérification d'identité"
 }

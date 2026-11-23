@@ -1237,6 +1237,51 @@ class Translations$verification$fr {
 
 	/// fr: 'Une erreur est survenue lors de la soumission. Veuillez réessayer.'
 	String get generalError => 'Une erreur est survenue lors de la soumission. Veuillez réessayer.';
+
+	/// fr: 'Faites vérifier votre profil'
+	String get bannerNotSubmittedTitle => 'Faites vérifier votre profil';
+
+	/// fr: 'Obtenez le badge officiel Artisan Vérifié pour renforcer la confiance et être prioritaire dans la recherche.'
+	String get bannerNotSubmittedBody => 'Obtenez le badge officiel Artisan Vérifié pour renforcer la confiance et être prioritaire dans la recherche.';
+
+	/// fr: 'Faire vérifier mon compte'
+	String get bannerNotSubmittedCta => 'Faire vérifier mon compte';
+
+	/// fr: 'Vérification en cours'
+	String get bannerPendingTitle => 'Vérification en cours';
+
+	/// fr: 'Votre pièce d'identité est en cours d'examen sous 24h ouvrées. Vous recevrez une notification dès validation.'
+	String get bannerPendingBody => 'Votre pièce d\'identité est en cours d\'examen sous 24h ouvrées. Vous recevrez une notification dès validation.';
+
+	/// fr: 'Profil Vérifié'
+	String get bannerApprovedTitle => 'Profil Vérifié';
+
+	/// fr: 'Votre identité a été certifiée. Votre badge officiel est visible sur votre vitrine et dans la recherche.'
+	String get bannerApprovedBody => 'Votre identité a été certifiée. Votre badge officiel est visible sur votre vitrine et dans la recherche.';
+
+	/// fr: 'Vérification non validée'
+	String get bannerRejectedTitle => 'Vérification non validée';
+
+	/// fr: 'Votre demande n'a pas pu être validée. Motif : {reason}'
+	String get bannerRejectedBody => 'Votre demande n\'a pas pu être validée. Motif : {reason}';
+
+	/// fr: 'Document illisible ou non conforme.'
+	String get bannerRejectedDefaultReason => 'Document illisible ou non conforme.';
+
+	/// fr: 'Soumettre à nouveau'
+	String get bannerRejectedCta => 'Soumettre à nouveau';
+
+	/// fr: 'Complément requis'
+	String get bannerMoreInfoTitle => 'Complément requis';
+
+	/// fr: 'Un complément d'information est nécessaire pour finaliser votre vérification : {reason}'
+	String get bannerMoreInfoBody => 'Un complément d\'information est nécessaire pour finaliser votre vérification : {reason}';
+
+	/// fr: 'Mettre à jour le dossier'
+	String get bannerMoreInfoCta => 'Mettre à jour le dossier';
+
+	/// fr: 'Vérification d'identité'
+	String get profileTileTitle => 'Vérification d\'identité';
 }
 
 // Path: common.home
@@ -2090,6 +2135,21 @@ extension on Translations {
 			'verification.missingDocuments' => 'Veuillez fournir les deux faces de votre CIN.',
 			'verification.consentRequired' => 'Veuillez accepter les conditions de traitement des données.',
 			'verification.generalError' => 'Une erreur est survenue lors de la soumission. Veuillez réessayer.',
+			'verification.bannerNotSubmittedTitle' => 'Faites vérifier votre profil',
+			'verification.bannerNotSubmittedBody' => 'Obtenez le badge officiel Artisan Vérifié pour renforcer la confiance et être prioritaire dans la recherche.',
+			'verification.bannerNotSubmittedCta' => 'Faire vérifier mon compte',
+			'verification.bannerPendingTitle' => 'Vérification en cours',
+			'verification.bannerPendingBody' => 'Votre pièce d\'identité est en cours d\'examen sous 24h ouvrées. Vous recevrez une notification dès validation.',
+			'verification.bannerApprovedTitle' => 'Profil Vérifié',
+			'verification.bannerApprovedBody' => 'Votre identité a été certifiée. Votre badge officiel est visible sur votre vitrine et dans la recherche.',
+			'verification.bannerRejectedTitle' => 'Vérification non validée',
+			'verification.bannerRejectedBody' => 'Votre demande n\'a pas pu être validée. Motif : {reason}',
+			'verification.bannerRejectedDefaultReason' => 'Document illisible ou non conforme.',
+			'verification.bannerRejectedCta' => 'Soumettre à nouveau',
+			'verification.bannerMoreInfoTitle' => 'Complément requis',
+			'verification.bannerMoreInfoBody' => 'Un complément d\'information est nécessaire pour finaliser votre vérification : {reason}',
+			'verification.bannerMoreInfoCta' => 'Mettre à jour le dossier',
+			'verification.profileTileTitle' => 'Vérification d\'identité',
 			_ => null,
 		};
 	}
