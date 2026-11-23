@@ -31,8 +31,8 @@ Ce backlog recense de manière exhaustive toutes les tâches requises pour :
 | **BE-30b** | Backend | Vérification & KYC | Routes API de soumission KYC (`presign`, `submit`, `status`) | 🔴 P0 | 5 h | BE-30a | ✅ Fait |
 | **MOB-030** | Mobile | Vérification & KYC | Tunnel de capture & soumission CIN (recto/verso, n° CIN, accord INPDP) | 🔴 P0 | 5 SP | BE-30b | ✅ Fait |
 | **MOB-031** | Mobile | Vérification & KYC | Module & tuiles de suivi du statut de vérification (Dashboard & Profil) | 🔴 P0 | 3 SP | MOB-030 | ✅ Fait |
-| **FW-20a** | Admin Web | Modération | File d'attente back-office des vérifications CIN (`apps/admin`) | 🔴 P0 | 5 SP | BE-30b |
-| **FW-20b** | Admin Web | Modération | Interface d'instruction CIN (visualiseur sécurisé, validation / rejet motivé) | 🔴 P0 | 5 SP | FW-20a |
+| **FW-20a** | Admin Web | Modération | File d'attente back-office des vérifications CIN (`apps/admin`) | 🔴 P0 | 5 SP | BE-30b | ✅ Fait |
+| **FW-20b** | Admin Web | Modération | Interface d'instruction CIN (visualiseur sécurisé, validation / rejet motivé) | 🔴 P0 | 5 SP | FW-20a | ✅ Fait |
 | **BE-31a** | Backend | Modération | Traitement de la décision admin, mise à jour `isVerified` & recalcul ranking | 🔴 P0 | 3 h | BE-30b | ✅ Fait |
 | **BE-30c** | Backend/Worker | Sécurité & Légal | Worker de purge automatique des documents sensibles post-décision | 🟠 P1 | 3 h | BE-30a | ✅ Fait |
 | **DOC-01** | Conformité | Sécurité & Légal | Dossier de conformité INPDP (déclaration de traitement données sensibles) | 🔴 P0 | 8 h | — |
@@ -302,6 +302,7 @@ Ce backlog recense de manière exhaustive toutes les tâches requises pour :
 * **Critères d'acceptation :**
   1. Affichage fluide avec Skeleton loading et pagination serveur.
   2. Tri par défaut anti-chronologique (demandes les plus anciennes en premier pour respecter l'ordre FIFO).
+* **Statut :** ✅ **Fait** — Tableau de bord complet de la file d'attente KYC (`apps/admin/src/app/(dashboard)/verifications/page.tsx`), filtres réactifs (statut, gouvernorat, recherche textuelle), badge d'alerte FIFO retard > 48h, pagination par curseur keyset et Skeletons de chargement.
 
 ---
 
@@ -325,6 +326,7 @@ Ce backlog recense de manière exhaustive toutes les tâches requises pour :
   1. Toute consultation d'image déclenche une écriture d'audit côté serveur.
   2. L'interface interdit la validation sans avoir visualisé les deux faces.
   3. Retour visuel immédiat (toast) et redirection vers la file d'attente.
+* **Statut :** ✅ **Fait** — Poste d'instruction haute résolution (`apps/admin/src/app/(dashboard)/verifications/[id]/page.tsx`), visualiseur zoom (+, -, reset) et rotation (90°), verrouillage de validation tant que les 2 faces ne sont pas examinées, panneau comparatif d'identité et checklist, 3 modales de décision avec modèles prédéfinis conformes Zod et toast de confirmation.
 
 ---
 

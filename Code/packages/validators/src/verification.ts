@@ -18,6 +18,8 @@ export const verificationStatusSchema = z.enum([
   'APPROVED',
   'REJECTED',
 ]);
+export type VerificationDocumentType = z.infer<typeof verificationDocumentTypeSchema>;
+export type VerificationStatus = z.infer<typeof verificationStatusSchema>;
 
 export const presignKycSchema = z.object({
   documentType: verificationDocumentTypeSchema,
