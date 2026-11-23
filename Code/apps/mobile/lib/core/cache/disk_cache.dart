@@ -23,7 +23,11 @@ class DiskCache {
     final raw = (await _box()).get(key);
     if (raw == null) return null;
     try {
-      return jsonDecode(raw) as Map<String, dynamic>;
+      final decoded = jsonDecode(raw);
+      if (decoded is Map<String, dynamic>) {
+        return decoded;
+      }
+      return null;
     } on FormatException {
       return null;
     }

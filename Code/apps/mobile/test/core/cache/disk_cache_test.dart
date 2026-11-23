@@ -50,4 +50,23 @@ void main() {
       expect(await cache.read('k'), isNull);
     },
   );
+
+  test(
+    'MOB-008 — une valeur JSON de type divergent (ex: List ou primitif) '
+    'renvoie null sans lever TypeError // régression #MOB-008',
+    () async {
+      final cache = DiskCache('test_box');
+      final box = await Hive.openBox<String>('test_box');
+
+      await box.put('list_key', '[1, 2, 3]');
+      await box.put('primitive_key', '"chaîne simple"');
+      await box.put('number_key', '42');
+      await box.put('bool_key', 'true');
+
+      expect(await cache.read('list_key'), isNull);
+      expect(await cache.read('primitive_key'), isNull);
+      expect(await cache.read('number_key'), isNull);
+      expect(await cache.read('bool_key'), isNull);
+    },
+  );
 }
