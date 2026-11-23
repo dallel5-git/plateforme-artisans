@@ -2215,7 +2215,7 @@ class DemoData {
   static Map<String, dynamic> providerReviews(String slug) {
     final list = _getReviewsForProvider(slug);
     return {
-      'items': list.map((r) => Map<String, dynamic>.from(r)).toList(),
+      'items': list.map(Map<String, dynamic>.from).toList(),
       'nextCursor': '',
     };
   }
@@ -2299,11 +2299,11 @@ class DemoData {
   ];
 
   static List<Map<String, dynamic>> _demoFavorites =
-      _initialFavorites.map((e) => Map<String, dynamic>.from(e)).toList();
+      _initialFavorites.map(Map<String, dynamic>.from).toList();
 
   static Map<String, dynamic> get favorites => {
         'items':
-            _demoFavorites.map((e) => Map<String, dynamic>.from(e)).toList(),
+            _demoFavorites.map(Map<String, dynamic>.from).toList(),
         'nextCursor': '',
       };
 
@@ -2388,11 +2388,11 @@ class DemoData {
   ];
 
   static List<Map<String, dynamic>> _demoContactEvents =
-      _initialContactEvents.map((e) => Map<String, dynamic>.from(e)).toList();
+      _initialContactEvents.map(Map<String, dynamic>.from).toList();
 
   static Map<String, dynamic> get contactEvents => {
         'items': _demoContactEvents
-            .map((e) => Map<String, dynamic>.from(e))
+            .map(Map<String, dynamic>.from)
             .toList(),
         'nextCursor': '',
       };
@@ -2443,10 +2443,10 @@ class DemoData {
 
   static void reset() {
     _demoFavorites =
-        _initialFavorites.map((e) => Map<String, dynamic>.from(e)).toList();
+        _initialFavorites.map(Map<String, dynamic>.from).toList();
     _providerReviews.clear();
     _demoContactEvents =
-        _initialContactEvents.map((e) => Map<String, dynamic>.from(e)).toList();
+        _initialContactEvents.map(Map<String, dynamic>.from).toList();
   }
 
   static const userClient = <String, dynamic>{

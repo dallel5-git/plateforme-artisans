@@ -39,7 +39,8 @@ void main() {
 
   group('KycRepository — presignUpload', () {
     test(
-      'appelle v1ProvidersMeVerificationPresignPost avec documentType et mimeType',
+      'appelle v1ProvidersMeVerificationPresignPost avec documentType et '
+      'mimeType',
       () async {
         final responseData = V1ProvidersMeVerificationPresignPost200Response(
           (b) => b
@@ -93,7 +94,8 @@ void main() {
 
   group('KycRepository — uploadToPresignedUrl', () {
     test(
-      'PUT les octets directement vers uploadUrl avec contentType et contentLength',
+      'PUT les octets directement vers uploadUrl avec contentType et '
+      'contentLength',
       () async {
         when(
           () => mockUploadDio.put<void>(

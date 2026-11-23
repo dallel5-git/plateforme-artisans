@@ -13,6 +13,8 @@ import 'package:sanaya/core/widgets/app_button.dart';
 import 'package:sanaya/core/widgets/auth_required_view.dart';
 import 'package:sanaya/features/auth/application/auth_state_provider.dart';
 import 'package:sanaya/features/auth/application/auth_status.dart';
+import 'package:sanaya/features/history/application/contact_history_providers.dart';
+import 'package:sanaya/features/history/data/contact_history_repository.dart';
 import 'package:sanaya/features/provider_profile/application/provider_profile_providers.dart';
 import 'package:sanaya/features/provider_profile/application/review_submission_notifier.dart';
 import 'package:sanaya/features/provider_profile/data/provider_profile_repository.dart';
@@ -24,6 +26,9 @@ class _ProfileMock extends Mock implements ProviderProfile {}
 class _ProfileRepoMock extends Mock implements ProviderProfileRepository {}
 
 class _ReviewsRepoMock extends Mock implements ReviewsRepository {}
+
+class _ContactHistoryRepoMock extends Mock
+    implements ContactHistoryRepository {}
 
 class _FixedAuthStateNotifier extends AuthStateNotifier {
   _FixedAuthStateNotifier(this._status);
@@ -42,9 +47,28 @@ class _FixedAuthStateNotifier extends AuthStateNotifier {
 ({Widget widget, GoRouter router}) _wrap({
   required ProviderProfileRepository profileRepository,
   required ReviewsRepository reviewsRepository,
+  ContactHistoryRepository? contactHistoryRepository,
   String slug = 'sami-plombier',
   AuthStatus authStatus = const AuthStatus.authenticated(isProvider: false),
 }) {
+  final effectiveContactHistoryRepo = contactHistoryRepository ??
+      () {
+        final mock = _ContactHistoryRepoMock();
+        when(
+          () => mock.fetchHistory(
+            cursor: any(named: 'cursor'),
+            limit: any(named: 'limit'),
+          ),
+        ).thenAnswer(
+          (_) async => V1ContactEventsGet200Response(
+            (b) => b
+              ..items.replace([])
+              ..nextCursor = '',
+          ),
+        );
+        return mock;
+      }();
+
   final router = GoRouter(
     initialLocation: '/',
     routes: [
@@ -60,6 +84,9 @@ class _FixedAuthStateNotifier extends AuthStateNotifier {
     overrides: [
       providerProfileRepositoryProvider.overrideWithValue(profileRepository),
       reviewsRepositoryProvider.overrideWithValue(reviewsRepository),
+      contactHistoryRepositoryProvider.overrideWithValue(
+        effectiveContactHistoryRepo,
+      ),
       authStateProvider.overrideWith(() => _FixedAuthStateNotifier(authStatus)),
     ],
     child: MaterialApp.router(

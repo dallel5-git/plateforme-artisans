@@ -25,7 +25,7 @@ class KycSubmissionNotifier extends StateNotifier<KycSubmissionState> {
     state = state.copyWith(cinNumber: cin, clearSubmitError: true);
   }
 
-  void setConsent(bool consent) {
+  void setConsent({required bool consent}) {
     state = state.copyWith(consentGiven: consent, clearSubmitError: true);
   }
 
@@ -43,7 +43,8 @@ class KycSubmissionNotifier extends StateNotifier<KycSubmissionState> {
     }
   }
 
-  /// Traite l'image sélectionnée : compression locale puis upload direct vers R2 privé.
+  /// Traite l'image sélectionnée : compression locale puis upload direct vers
+  /// R2 privé.
   Future<void> processAndUploadFile({
     required bool isFront,
     required File file,
@@ -101,7 +102,7 @@ class KycSubmissionNotifier extends StateNotifier<KycSubmissionState> {
       state = isFront
           ? state.copyWith(front: uploadedDoc)
           : state.copyWith(back: uploadedDoc);
-    } catch (err) {
+    } on Object catch (err) {
       final errorDoc = KycDocumentState(
         file: file,
         errorMessage: err.toString(),
@@ -146,7 +147,7 @@ class KycSubmissionNotifier extends StateNotifier<KycSubmissionState> {
 
       state = state.copyWith(isSubmitting: false, isSuccess: true);
       return true;
-    } catch (err) {
+    } on Object catch (err) {
       state = state.copyWith(
         isSubmitting: false,
         submitError: err.toString(),

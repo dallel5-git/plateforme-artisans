@@ -30,9 +30,7 @@ class _PassthroughAdapter implements HttpClientAdapter {
 }
 
 void main() {
-  setUp(() {
-    DemoData.reset();
-  });
+  setUp(DemoData.reset);
 
   group('DemoMockInterceptor', () {
     test('passes through to network adapter when demoMode is false', () async {
@@ -122,7 +120,10 @@ void main() {
       final reviewsAfter = await dio.get<Map<String, dynamic>>(
         '/v1/providers/sami-mansour-electricite/reviews',
       );
-      final reviewItems = reviewsAfter.data?['items'] as List<dynamic>;
+      final reviewItems =
+          (reviewsAfter.data?['items'] as List<dynamic>?)
+              ?.cast<Map<String, dynamic>>() ??
+          [];
       expect(
         reviewItems.any((r) => r['comment'] == 'Top !' && r['rating'] == 5),
         isTrue,
@@ -195,7 +196,10 @@ void main() {
       expect(putFav.statusCode, 200);
 
       final favsAfterPut = await dio.get<Map<String, dynamic>>('/v1/favorites');
-      final itemsAfterPut = favsAfterPut.data?['items'] as List<dynamic>;
+      final itemsAfterPut =
+          (favsAfterPut.data?['items'] as List<dynamic>?)
+              ?.cast<Map<String, dynamic>>() ??
+          [];
       expect(
         itemsAfterPut.any((item) => item['providerId'] == 'prov-29'),
         isTrue,
@@ -208,7 +212,10 @@ void main() {
       expect(delFav.statusCode, 200);
 
       final favsAfterDel = await dio.get<Map<String, dynamic>>('/v1/favorites');
-      final itemsAfterDel = favsAfterDel.data?['items'] as List<dynamic>;
+      final itemsAfterDel =
+          (favsAfterDel.data?['items'] as List<dynamic>?)
+              ?.cast<Map<String, dynamic>>() ??
+          [];
       expect(
         itemsAfterDel.any((item) => item['providerId'] == 'prov-29'),
         isFalse,

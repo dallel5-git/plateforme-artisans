@@ -4,7 +4,8 @@ import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/theme/app_text.dart';
 import 'package:sanaya/features/verification/domain/kyc_submission_state.dart';
 
-/// Carte visuelle de capture au ratio carte d'identité (format CIN 85.6 × 53.98 mm).
+/// Carte visuelle de capture au ratio carte d'identité (format CIN 85.6 ×
+/// 53.98 mm).
 class CinCaptureCard extends StatelessWidget {
   const CinCaptureCard({
     required this.title,

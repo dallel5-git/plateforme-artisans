@@ -314,7 +314,7 @@ class _KycSubmissionScreenState extends ConsumerState<KycSubmissionScreen> {
                 t: t,
                 onChanged: (val) => ref
                     .read(kycSubmissionNotifierProvider.notifier)
-                    .setConsent(val),
+                    .setConsent(consent: val),
               ),
               const SizedBox(height: AppSpacing.md),
 

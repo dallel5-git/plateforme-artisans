@@ -1,10 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:sanaya/core/i18n/translations.g.dart';
 import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/theme/app_text.dart';
 
-/// Case à cocher de consentement légal explicite (loi tunisienne n° 2004-63 / INPDP).
+/// Case à cocher de consentement légal explicite (loi tunisienne n° 2004-63 /
+/// INPDP).
 class InpdpConsentCheckbox extends StatelessWidget {
   const InpdpConsentCheckbox({
     required this.value,
@@ -23,9 +26,10 @@ class InpdpConsentCheckbox extends StatelessWidget {
     final colors = context.colors;
     final locale = Localizations.localeOf(context);
     final tr = _resolveTranslations();
-    showDialog<void>(
-      context: context,
-      builder: (dialogCtx) => AlertDialog(
+    unawaited(
+      showDialog<void>(
+        context: context,
+        builder: (dialogCtx) => AlertDialog(
         backgroundColor: colors.surface,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(AppRadius.lg),
@@ -65,7 +69,8 @@ class InpdpConsentCheckbox extends StatelessWidget {
           ),
         ],
       ),
-    );
+    ),
+  );
   }
 
   @override
