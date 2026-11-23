@@ -111,6 +111,7 @@ Ce backlog recense de manière exhaustive toutes les tâches requises pour :
   1. Pré-remplissage immédiat de `_categorySelection` et `_zoneSelection` avec les identifiants distants.
   2. Aucun formulaire vide affiché si l'artisan a déjà saisi des informations.
   3. Navigation fluide avec `AppSkeleton` pendant le chargement initial.
+* **Statut :** ✅ **Fait** — Reprise intelligente avec `determineResumeStep()` et réhydratation automatique des sélections de catégories, zones et tâches de portfolio existantes. Préservation de l'état local au retour arrière. Tests unitaires (30/30) et d'intégration écran (9/9) validés.
 
 ---
 
