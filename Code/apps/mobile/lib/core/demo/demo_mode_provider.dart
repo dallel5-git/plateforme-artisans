@@ -78,7 +78,8 @@ final demoModeProvider = StateNotifierProvider<DemoModeNotifier, bool>((ref) {
 });
 
 /// Provider du rôle simulé en Mode Démo.
-final demoRoleProvider =
-    StateNotifierProvider<DemoRoleNotifier, DemoRole>((ref) {
+final demoRoleProvider = StateNotifierProvider<DemoRoleNotifier, DemoRole>((
+  ref,
+) {
   return DemoRoleNotifier();
 });

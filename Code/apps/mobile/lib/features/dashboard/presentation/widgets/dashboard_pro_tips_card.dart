@@ -49,8 +49,11 @@ class DashboardProTipsCard extends StatelessWidget {
                       color: colors.onAccent.withValues(alpha: 0.2),
                       shape: BoxShape.circle,
                     ),
-                    child: Icon(Icons.bolt_rounded,
-                        size: 20, color: colors.onAccent),
+                    child: Icon(
+                      Icons.bolt_rounded,
+                      size: 20,
+                      color: colors.onAccent,
+                    ),
                   ),
                   const SizedBox(width: AppSpacing.sm),
                   Expanded(
@@ -88,8 +91,11 @@ class DashboardProTipsCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const Icon(Icons.lightbulb_outline_rounded,
-                      size: 20, color: Colors.amber),
+                  Icon(
+                    Icons.lightbulb_outline_rounded,
+                    size: 20,
+                    color: colors.amber,
+                  ),
                   const SizedBox(width: AppSpacing.xs),
                   Expanded(
                     child: Text(

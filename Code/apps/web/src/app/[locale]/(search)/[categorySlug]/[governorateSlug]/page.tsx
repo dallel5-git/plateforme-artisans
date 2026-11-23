@@ -255,9 +255,7 @@ export default async function CategoryGovPage({ params }: PageProps) {
                   ? 'يمكنك الاطلاع على الحرفيين في الولايات المجاورة مثل سوسة أو المنستير، أو تسجيل نشاطك إذا كنت حرفياً.'
                   : 'Consultez les professionnels des gouvernorats voisins du Sahel ou devenez le premier artisan recommandé dans cette zone.'
               }
-              actionLabel={
-                isAr ? 'تصفح كل حرفيي الساحل' : 'Voir tous les artisans du Sahel'
-              }
+              actionLabel={isAr ? 'تصفح كل حرفيي الساحل' : 'Voir tous les artisans du Sahel'}
               actionHref={`/${locale}/recherche?categorie=${categorySlug}`}
             />
           )}

@@ -52,8 +52,7 @@ export default async function HowItWorksPage({ params }: PageProps) {
       titleAr: 'تواصل مباشرة عبر الهاتف أو الواتساب',
       descFr:
         'Un clic révèle le numéro direct de l’artisan. Aucune commission n’est prélevée sur votre devis ou vos travaux.',
-      descAr:
-        'ضغطة واحدة تكشف رقم الهاتف المباشر. لا نقتطع أي مليم كعمولة أو وساطة على تدخلك.',
+      descAr: 'ضغطة واحدة تكشف رقم الهاتف المباشر. لا نقتطع أي مليم كعمولة أو وساطة على تدخلك.',
       icon: Phone,
     },
   ];
@@ -65,8 +64,7 @@ export default async function HowItWorksPage({ params }: PageProps) {
       titleAr: 'أنشئ صفحتك المهنية مجاناً',
       descFr:
         'Présentez vos spécialités, vos zones d’intervention au Sahel et publiez vos photos de chantiers terminés.',
-      descAr:
-        'اعرض تخصصاتك، مناطق تنقلك في الساحل، وأضف صوراً لأبرز أعمالك المتقنة.',
+      descAr: 'اعرض تخصصاتك، مناطق تنقلك في الساحل، وأضف صوراً لأبرز أعمالك المتقنة.',
       icon: Users,
     },
     {
@@ -75,8 +73,7 @@ export default async function HowItWorksPage({ params }: PageProps) {
       titleAr: 'استقبل مكالمات مباشرة من حرفاء منطقتك',
       descFr:
         'Les particuliers proches de chez vous vous appellent ou vous écrivent sur WhatsApp dès qu’ils ont un besoin urgent.',
-      descAr:
-        'يتصل بك الحرفاء القريبون منك مباشرة دون وسيط بمجرد احتياجهم لتدخل أو صيانة.',
+      descAr: 'يتصل بك الحرفاء القريبون منك مباشرة دون وسيط بمجرد احتياجهم لتدخل أو صيانة.',
       icon: Zap,
     },
     {
@@ -85,8 +82,7 @@ export default async function HowItWorksPage({ params }: PageProps) {
       titleAr: 'طوّر سمعتك واحتفظ بـ 100% من مداخيلك',
       descFr:
         'Chaque client satisfait peut laisser un avis vérifié. Vous encaissez l’intégralité de votre prix sans commission.',
-      descAr:
-        'كل حريف يترك تقييماً إيجابياً يعزز ثقة الآخرين بك، وأرباحك كاملة لك 100%.',
+      descAr: 'كل حريف يترك تقييماً إيجابياً يعزز ثقة الآخرين بك، وأرباحك كاملة لك 100%.',
       icon: ShieldCheck,
     },
   ];
@@ -119,7 +115,9 @@ export default async function HowItWorksPage({ params }: PageProps) {
               {isAr ? 'لأصحاب المنازل والشركات (الحرفاء)' : 'Pour les Particuliers & Entreprises'}
             </h2>
             <p className="text-xs text-slate-500">
-              {isAr ? 'ابحث عن حل لأعطالك في 3 خطوات بسيطة' : 'Trouvez un dépanneur en 3 étapes claires'}
+              {isAr
+                ? 'ابحث عن حل لأعطالك في 3 خطوات بسيطة'
+                : 'Trouvez un dépanneur en 3 étapes claires'}
             </p>
           </div>
         </div>
@@ -170,7 +168,9 @@ export default async function HowItWorksPage({ params }: PageProps) {
               {isAr ? 'للحرفيين والمهنيين' : 'Pour les Artisans & Professionnels'}
             </h2>
             <p className="text-xs text-slate-500">
-              {isAr ? 'عزز دخلك وحقق استقلاليتك المهنية' : 'Développez votre clientèle sans payer de commissions'}
+              {isAr
+                ? 'عزز دخلك وحقق استقلاليتك المهنية'
+                : 'Développez votre clientèle sans payer de commissions'}
             </p>
           </div>
         </div>

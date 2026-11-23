@@ -55,7 +55,9 @@ export function ProRegistrationForm({ locale }: ProRegistrationFormProps) {
                 {isAr ? 'سجّل نشاطك المهني الآن' : 'Inscrivez votre activité pro'}
               </h3>
               <p className="text-xs text-slate-500">
-                {isAr ? 'مجاني وبدون التزام لمدة 14 يوماً' : '100% sans commission • Activation rapide'}
+                {isAr
+                  ? 'مجاني وبدون التزام لمدة 14 يوماً'
+                  : '100% sans commission • Activation rapide'}
               </p>
             </div>
           </div>
@@ -131,8 +133,12 @@ export function ProRegistrationForm({ locale }: ProRegistrationFormProps) {
               className="w-full font-bold bg-emerald-600 hover:bg-emerald-700 border-none text-white shadow-md shadow-emerald-500/20"
             >
               {isSubmitting
-                ? (isAr ? 'جاري الإرسال...' : 'Envoi en cours...')
-                : (isAr ? 'إنشاء ملفي المهني مجاناً' : 'Créer ma vitrine artisan')}
+                ? isAr
+                  ? 'جاري الإرسال...'
+                  : 'Envoi en cours...'
+                : isAr
+                  ? 'إنشاء ملفي المهني مجاناً'
+                  : 'Créer ma vitrine artisan'}
             </Button>
           </div>
 

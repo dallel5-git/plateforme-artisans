@@ -29,7 +29,9 @@ export default function AccountSettingsPage({ params }: PageProps) {
   const handleLogout = () => {
     try {
       localStorage.removeItem('sanaya_session');
-    } catch {}
+    } catch {
+      // Ignore if localStorage is unavailable
+    }
     router.push(`/${locale}`);
   };
 
@@ -84,7 +86,9 @@ export default function AccountSettingsPage({ params }: PageProps) {
         {isSaved && (
           <div className="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 text-xs flex items-center gap-2 font-medium">
             <CheckCircle2 className="w-4 h-4 shrink-0" />
-            <span>{isAr ? 'تم حفظ التعديلات بنجاح !' : 'Modifications enregistrées avec succès !'}</span>
+            <span>
+              {isAr ? 'تم حفظ التعديلات بنجاح !' : 'Modifications enregistrées avec succès !'}
+            </span>
           </div>
         )}
 
@@ -93,22 +97,14 @@ export default function AccountSettingsPage({ params }: PageProps) {
             <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
               {isAr ? 'الاسم الكامل' : 'Nom complet'}
             </label>
-            <Input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
+            <Input type="text" value={name} onChange={(e) => setName(e.target.value)} />
           </div>
 
           <div className="space-y-1">
             <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
               {isAr ? 'رقم الهاتف' : 'Numéro de téléphone'}
             </label>
-            <Input
-              type="tel"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-            />
+            <Input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} />
           </div>
 
           {/* Langue */}

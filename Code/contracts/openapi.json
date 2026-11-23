@@ -4447,6 +4447,396 @@
           }
         }
       }
+    },
+    "/v1/providers/me/verification/presign": {
+      "post": {
+        "description": "Génère une URL PUT pré-signée (~10 min) vers le bucket hermétique `private-kyc` avec chiffrement au repos forcé SSE-S3 AES-256 pour téléverser une pièce d’identité.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "documentType": {
+                    "type": "string",
+                    "enum": [
+                      "CIN_FRONT",
+                      "CIN_BACK",
+                      "SELFIE_WITH_ID",
+                      "PATENTE",
+                      "DIPLOMA",
+                      "INSURANCE",
+                      "OTHER"
+                    ]
+                  },
+                  "mimeType": {
+                    "type": "string",
+                    "enum": [
+                      "image/jpeg",
+                      "image/png"
+                    ]
+                  },
+                  "sizeBytes": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 10485760
+                  }
+                },
+                "required": [
+                  "documentType",
+                  "mimeType",
+                  "sizeBytes"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mediaId": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "uploadUrl": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "expiresAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "mediaId",
+                    "uploadUrl",
+                    "expiresAt"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/providers/me/verification/submit": {
+      "post": {
+        "description": "Soumet une demande de vérification d’identité. Hache la CIN en SHA-256 salé et la chiffre en AES-256-GCM avant enregistrement (INPDP). Passe le profil à `PENDING`.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cinNumber": {
+                    "type": "string",
+                    "pattern": "^\\d{8}$"
+                  },
+                  "fullNameOnId": {
+                    "type": "string",
+                    "minLength": 2,
+                    "maxLength": 160
+                  },
+                  "cinFrontMediaId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "cinBackMediaId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  }
+                },
+                "required": [
+                  "cinNumber",
+                  "fullNameOnId",
+                  "cinFrontMediaId",
+                  "cinBackMediaId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "requestId": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_SUBMITTED",
+                        "PENDING",
+                        "MORE_INFO_REQUIRED",
+                        "APPROVED",
+                        "REJECTED"
+                      ]
+                    },
+                    "submittedAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "requestId",
+                    "status",
+                    "submittedAt"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/providers/me/verification": {
+      "post": {
+        "description": "Alias de soumission KYC sur `/providers/me/verification`.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cinNumber": {
+                    "type": "string",
+                    "pattern": "^\\d{8}$"
+                  },
+                  "fullNameOnId": {
+                    "type": "string",
+                    "minLength": 2,
+                    "maxLength": 160
+                  },
+                  "cinFrontMediaId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "cinBackMediaId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  }
+                },
+                "required": [
+                  "cinNumber",
+                  "fullNameOnId",
+                  "cinFrontMediaId",
+                  "cinBackMediaId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "requestId": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_SUBMITTED",
+                        "PENDING",
+                        "MORE_INFO_REQUIRED",
+                        "APPROVED",
+                        "REJECTED"
+                      ]
+                    },
+                    "submittedAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "requestId",
+                    "status",
+                    "submittedAt"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "description": "Récupère l’état de vérification actuel du profil artisan et les métadonnées de la dernière demande (sans révéler le numéro CIN ni les URL privées).",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "verificationStatus": {
+                      "type": "string",
+                      "enum": [
+                        "NOT_SUBMITTED",
+                        "PENDING",
+                        "MORE_INFO_REQUIRED",
+                        "APPROVED",
+                        "REJECTED"
+                      ]
+                    },
+                    "isVerified": {
+                      "type": "boolean"
+                    },
+                    "currentRequest": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "format": "uuid",
+                              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                            },
+                            "status": {
+                              "type": "string",
+                              "enum": [
+                                "NOT_SUBMITTED",
+                                "PENDING",
+                                "MORE_INFO_REQUIRED",
+                                "APPROVED",
+                                "REJECTED"
+                              ]
+                            },
+                            "fullNameOnId": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "submittedAt": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "reviewedAt": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "format": "date-time"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "rejectionReason": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "documents": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string",
+                                    "format": "uuid",
+                                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                                  },
+                                  "mediaId": {
+                                    "type": "string",
+                                    "format": "uuid",
+                                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                                  },
+                                  "type": {
+                                    "type": "string",
+                                    "enum": [
+                                      "CIN_FRONT",
+                                      "CIN_BACK",
+                                      "SELFIE_WITH_ID",
+                                      "PATENTE",
+                                      "DIPLOMA",
+                                      "INSURANCE",
+                                      "OTHER"
+                                    ]
+                                  },
+                                  "createdAt": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                  }
+                                },
+                                "required": [
+                                  "id",
+                                  "mediaId",
+                                  "type",
+                                  "createdAt"
+                                ],
+                                "additionalProperties": false
+                              }
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "status",
+                            "fullNameOnId",
+                            "submittedAt",
+                            "reviewedAt",
+                            "rejectionReason",
+                            "documents"
+                          ],
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "verificationStatus",
+                    "isVerified",
+                    "currentRequest"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

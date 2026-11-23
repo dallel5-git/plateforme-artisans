@@ -115,9 +115,7 @@ export function ArtisanProfileClient({ provider, locale }: ArtisanProfileClientP
               type="button"
               onClick={toggleFavorite}
               className={`p-2.5 rounded-full backdrop-blur-md transition-colors ${
-                isFavorite
-                  ? 'bg-rose-500 text-white'
-                  : 'bg-white/20 text-white hover:bg-white/30'
+                isFavorite ? 'bg-rose-500 text-white' : 'bg-white/20 text-white hover:bg-white/30'
               }`}
               title={isAr ? 'حفظ في المفضلة' : 'Ajouter aux favoris'}
             >
@@ -285,7 +283,9 @@ export function ArtisanProfileClient({ provider, locale }: ArtisanProfileClientP
               </div>
               <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                <span>{isAr ? 'التزام بالمواعيد المحددة' : 'Ponctualité et respect des délais'}</span>
+                <span>
+                  {isAr ? 'التزام بالمواعيد المحددة' : 'Ponctualité et respect des délais'}
+                </span>
               </div>
             </div>
           </section>
@@ -317,7 +317,9 @@ export function ArtisanProfileClient({ provider, locale }: ArtisanProfileClientP
                     </div>
                     <div className="text-end shrink-0">
                       <div className="font-extrabold text-blue-600 dark:text-blue-400 text-sm">
-                        {isAr ? `ابتداءً من ${off.priceStartingAt / 1000} د.ت` : `À partir de ${off.priceStartingAt / 1000} DT`}
+                        {isAr
+                          ? `ابتداءً من ${off.priceStartingAt / 1000} د.ت`
+                          : `À partir de ${off.priceStartingAt / 1000} DT`}
                       </div>
                       <div className="text-[11px] text-slate-400">
                         {isAr ? 'بدون قطع الغيار' : 'Hors fournitures'}
@@ -412,11 +414,14 @@ export function ArtisanProfileClient({ provider, locale }: ArtisanProfileClientP
                             )}
                           </div>
                           <div className="text-[10px] text-slate-400">
-                            {new Date(rev.createdAt).toLocaleDateString(locale === 'ar' ? 'ar-TN' : 'fr-FR', {
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric',
-                            })}
+                            {new Date(rev.createdAt).toLocaleDateString(
+                              locale === 'ar' ? 'ar-TN' : 'fr-FR',
+                              {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric',
+                              },
+                            )}
                           </div>
                         </div>
                       </div>
@@ -473,19 +478,31 @@ export function ArtisanProfileClient({ provider, locale }: ArtisanProfileClientP
             <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-300">
               <li className="flex items-start gap-2">
                 <span className="text-blue-600 font-bold">•</span>
-                <span>{isAr ? 'رقم هاتف مباشر دون وسطاء' : 'Numéro direct et sans intermédiaire'}</span>
+                <span>
+                  {isAr ? 'رقم هاتف مباشر دون وسطاء' : 'Numéro direct et sans intermédiaire'}
+                </span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-blue-600 font-bold">•</span>
-                <span>{isAr ? 'حماية بياناتكم الشخصية وفق قانون INPDP' : 'Protection des données conforme INPDP'}</span>
+                <span>
+                  {isAr
+                    ? 'حماية بياناتكم الشخصية وفق قانون INPDP'
+                    : 'Protection des données conforme INPDP'}
+                </span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-blue-600 font-bold">•</span>
-                <span>{isAr ? 'تقييمات موثقة من حرفاء حقيقيين' : 'Avis vérifiés par code de traçabilité'}</span>
+                <span>
+                  {isAr
+                    ? 'تقييمات موثقة من حرفاء حقيقيين'
+                    : 'Avis vérifiés par code de traçabilité'}
+                </span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-blue-600 font-bold">•</span>
-                <span>{isAr ? '0 مليم رسوم أو اقتطاعات' : 'Aucune commission sur votre facture'}</span>
+                <span>
+                  {isAr ? '0 مليم رسوم أو اقتطاعات' : 'Aucune commission sur votre facture'}
+                </span>
               </li>
             </ul>
           </div>

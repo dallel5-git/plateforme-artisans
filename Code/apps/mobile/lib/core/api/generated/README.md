@@ -94,6 +94,10 @@ Class | Method | HTTP request | Description
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMePortfolioPost**](doc/DefaultApi.md#v1providersmeportfoliopost) | **POST** /v1/providers/me/portfolio | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMePost**](doc/DefaultApi.md#v1providersmepost) | **POST** /v1/providers/me | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMeStatsGet**](doc/DefaultApi.md#v1providersmestatsget) | **GET** /v1/providers/me/stats | 
+[*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMeVerificationGet**](doc/DefaultApi.md#v1providersmeverificationget) | **GET** /v1/providers/me/verification | 
+[*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMeVerificationPost**](doc/DefaultApi.md#v1providersmeverificationpost) | **POST** /v1/providers/me/verification | 
+[*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMeVerificationPresignPost**](doc/DefaultApi.md#v1providersmeverificationpresignpost) | **POST** /v1/providers/me/verification/presign | 
+[*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMeVerificationSubmitPost**](doc/DefaultApi.md#v1providersmeverificationsubmitpost) | **POST** /v1/providers/me/verification/submit | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersSearchGet**](doc/DefaultApi.md#v1providerssearchget) | **GET** /v1/providers/search | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersSlugGet**](doc/DefaultApi.md#v1providersslugget) | **GET** /v1/providers/{slug} | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersSlugReviewsGet**](doc/DefaultApi.md#v1providersslugreviewsget) | **GET** /v1/providers/{slug}/reviews | 
@@ -156,6 +160,13 @@ Class | Method | HTTP request | Description
  - [V1ProvidersMeStatsGet200ResponseSeriesInner](doc/V1ProvidersMeStatsGet200ResponseSeriesInner.md)
  - [V1ProvidersMeStatsGet200ResponseTotals](doc/V1ProvidersMeStatsGet200ResponseTotals.md)
  - [V1ProvidersMeStatsGet200ResponseTotalsContactsByChannel](doc/V1ProvidersMeStatsGet200ResponseTotalsContactsByChannel.md)
+ - [V1ProvidersMeVerificationGet200Response](doc/V1ProvidersMeVerificationGet200Response.md)
+ - [V1ProvidersMeVerificationGet200ResponseCurrentRequest](doc/V1ProvidersMeVerificationGet200ResponseCurrentRequest.md)
+ - [V1ProvidersMeVerificationGet200ResponseCurrentRequestDocumentsInner](doc/V1ProvidersMeVerificationGet200ResponseCurrentRequestDocumentsInner.md)
+ - [V1ProvidersMeVerificationPresignPost200Response](doc/V1ProvidersMeVerificationPresignPost200Response.md)
+ - [V1ProvidersMeVerificationPresignPostRequest](doc/V1ProvidersMeVerificationPresignPostRequest.md)
+ - [V1ProvidersMeVerificationSubmitPost200Response](doc/V1ProvidersMeVerificationSubmitPost200Response.md)
+ - [V1ProvidersMeVerificationSubmitPostRequest](doc/V1ProvidersMeVerificationSubmitPostRequest.md)
  - [V1ProvidersSearchGet200Response](doc/V1ProvidersSearchGet200Response.md)
  - [V1ProvidersSearchGet200ResponseItemsInner](doc/V1ProvidersSearchGet200ResponseItemsInner.md)
  - [V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner](doc/V1ProvidersSearchGet200ResponseItemsInnerCategoriesInner.md)

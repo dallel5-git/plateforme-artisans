@@ -4,6 +4,7 @@ node_modules
 .next
 dist
 coverage
+.claude
 
 # Lockfile — jamais reformaté à la main (cf. .gitattributes)
 pnpm-lock.yaml

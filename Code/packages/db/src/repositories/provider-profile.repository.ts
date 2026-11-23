@@ -37,6 +37,7 @@ const profileSelect = {
   latitude: true,
   longitude: true,
   publicationStatus: true,
+  verificationStatus: true,
   availabilityStatus: true,
   availableAgainAt: true,
   acceptsEmergency: true,
@@ -74,6 +75,7 @@ export interface ProviderProfile {
   latitude: number | null;
   longitude: number | null;
   publicationStatus: ProviderPublicationStatus;
+  verificationStatus: VerificationStatus;
   availabilityStatus: AvailabilityStatus;
   availableAgainAt: Date | null;
   acceptsEmergency: boolean;

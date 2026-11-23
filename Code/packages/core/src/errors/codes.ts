@@ -26,4 +26,8 @@ export const ERROR_HTTP_STATUS: Record<ErrorCode, number> = {
   [errorCodes.MEDIA_NOT_FOUND]: 404,
   [errorCodes.PROVIDER_CONTACT_CHANNEL_UNAVAILABLE]: 422,
   [errorCodes.REVIEW_REQUIRES_CONTACT]: 403,
+  [errorCodes.KYC_ALREADY_VERIFIED]: 400,
+  [errorCodes.KYC_REQUEST_ALREADY_PENDING]: 409,
+  [errorCodes.KYC_INVALID_CIN]: 400,
+  [errorCodes.KYC_DOCUMENT_NOT_FOUND]: 404,
 };

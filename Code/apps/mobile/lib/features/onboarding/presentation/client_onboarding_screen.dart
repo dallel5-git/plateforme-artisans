@@ -217,7 +217,7 @@ class _GovernorateQuickSelector extends ConsumerWidget {
       (id: 'sousse', label: locale.languageCode == 'ar' ? 'سوسة' : 'Sousse'),
       (
         id: 'monastir',
-        label: locale.languageCode == 'ar' ? 'المنستير' : 'Monastir'
+        label: locale.languageCode == 'ar' ? 'المنستير' : 'Monastir',
       ),
       (id: 'mahdia', label: locale.languageCode == 'ar' ? 'المهدية' : 'Mahdia'),
     ];

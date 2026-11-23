@@ -96,6 +96,25 @@ Serializers _$serializers = (Serializers().toBuilder()
       ..add(V1ProvidersMeStatsGet200ResponseSeriesInner.serializer)
       ..add(V1ProvidersMeStatsGet200ResponseTotals.serializer)
       ..add(V1ProvidersMeStatsGet200ResponseTotalsContactsByChannel.serializer)
+      ..add(V1ProvidersMeVerificationGet200Response.serializer)
+      ..add(V1ProvidersMeVerificationGet200ResponseCurrentRequest.serializer)
+      ..add(V1ProvidersMeVerificationGet200ResponseCurrentRequestDocumentsInner
+          .serializer)
+      ..add(
+          V1ProvidersMeVerificationGet200ResponseCurrentRequestDocumentsInnerTypeEnum
+              .serializer)
+      ..add(V1ProvidersMeVerificationGet200ResponseCurrentRequestStatusEnum
+          .serializer)
+      ..add(V1ProvidersMeVerificationGet200ResponseVerificationStatusEnum
+          .serializer)
+      ..add(V1ProvidersMeVerificationPresignPost200Response.serializer)
+      ..add(V1ProvidersMeVerificationPresignPostRequest.serializer)
+      ..add(V1ProvidersMeVerificationPresignPostRequestDocumentTypeEnum
+          .serializer)
+      ..add(V1ProvidersMeVerificationPresignPostRequestMimeTypeEnum.serializer)
+      ..add(V1ProvidersMeVerificationSubmitPost200Response.serializer)
+      ..add(V1ProvidersMeVerificationSubmitPost200ResponseStatusEnum.serializer)
+      ..add(V1ProvidersMeVerificationSubmitPostRequest.serializer)
       ..add(V1ProvidersSearchGet200Response.serializer)
       ..add(V1ProvidersSearchGet200ResponseItemsInner.serializer)
       ..add(V1ProvidersSearchGet200ResponseItemsInnerAvailabilityStatusEnum
@@ -240,6 +259,13 @@ Serializers _$serializers = (Serializers().toBuilder()
             const FullType(V1ProvidersMeStatsGet200ResponseSeriesInner)
           ]),
           () => ListBuilder<V1ProvidersMeStatsGet200ResponseSeriesInner>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(
+                V1ProvidersMeVerificationGet200ResponseCurrentRequestDocumentsInner)
+          ]),
+          () => ListBuilder<
+              V1ProvidersMeVerificationGet200ResponseCurrentRequestDocumentsInner>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [
             const FullType(V1ProvidersSearchGet200ResponseItemsInner)
