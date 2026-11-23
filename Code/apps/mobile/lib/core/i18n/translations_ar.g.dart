@@ -56,6 +56,7 @@ class TranslationsAr extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final Translations$reviews$ar reviews = Translations$reviews$ar._(_root);
 	@override late final Translations$search$ar search = Translations$search$ar._(_root);
 	@override late final Translations$settings$ar settings = Translations$settings$ar._(_root);
+	@override late final Translations$verification$ar verification = Translations$verification$ar._(_root);
 }
 
 // Path: auth
@@ -511,6 +512,57 @@ class Translations$settings$ar extends Translations$settings$fr {
 	@override String get testOnboardingProDesc => 'بدء معالج التسجيل بـ 5 مراحل (الملف، المهن، المناطق، الصور، الملخص)';
 	@override String get testOnboardingClient => 'تجربة ترحيب الحريف';
 	@override String get testOnboardingClientDesc => 'بدء مسار الاكتشاف التفاعلي المخصص للحرفاء';
+}
+
+// Path: verification
+class Translations$verification$ar extends Translations$verification$fr {
+	Translations$verification$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get screenTitle => 'التحقق من الهوية';
+	@override String get headerTitle => 'احصل على شارة الحرفي المعتمد';
+	@override String get headerSubtitle => 'عزز ثقة حرفائك من خلال توثيق حسابك ببطاقة التعريف الوطنية التونسية.';
+	@override String get badgeAdvantage1 => 'شارة رسمية تظهر في ملفك الشخصي ونتائج البحث';
+	@override String get badgeAdvantage2 => 'أولوية الظهور والترتيب في نتائج البحث';
+	@override String get identitySectionTitle => 'معلومات الهوية';
+	@override String get fullNameLabel => 'الاسم واللقب (كما في بطاقة التعريف)';
+	@override String get fullNameHint => 'مثال: أحمد بن صالح';
+	@override String get fullNameError => 'الرجاء إدخال الاسم واللقب (3 أحرف على الأقل)';
+	@override String get cinNumberLabel => 'رقم بطاقة التعريف الوطنية (CIN)';
+	@override String get cinNumberHint => '8 أرقام (مثال: 08123456)';
+	@override String get cinNumberError => 'يجب أن يتكون رقم بطاقة التعريف من 8 أرقام بالضبط';
+	@override String get cinFrontTitle => 'الوجه الأمامي (Recto)';
+	@override String get cinFrontSubtitle => 'صورة واضحة للوجه الأمامي لبطاقة التعريف';
+	@override String get cinBackTitle => 'الوجه الخلفي (Verso)';
+	@override String get cinBackSubtitle => 'صورة واضحة للوجه الخلفي لبطاقة التعريف';
+	@override String get takePhoto => 'التقاط صورة';
+	@override String get chooseFromGallery => 'اختيار من المعرض';
+	@override String get changePhoto => 'تغيير';
+	@override String get deletePhoto => 'حذف';
+	@override String get uploading => 'جارٍ التحميل ({progress}%)...';
+	@override String get uploadError => 'فشل في تحميل الصورة. انقر للمحاولة مرة أخرى.';
+	@override String get inpdpConsentLabel => 'أوافق على معالجة وثيقة هويتي طبقاً للقانون عدد 63 لسنة 2004 المتعلق بحماية المعطيات الشخصية.';
+	@override String get inpdpConsentLink => 'مزيد من المعلومات حول حماية معطياتك الشخصية';
+	@override String get inpdpDialogTitle => 'حماية معطياتك الشخصية';
+	@override String get inpdpDialogBody => 'يتم تخزين وثائق هويتك في خزانة رقمية مشفرة وعالية الأمان (AES-256-GCM). لا يتم نشرها أو مشاركتها علناً أبداً، وتُستخدم حصرياً للتحقق من حسابك من قبل فريق الإشراف.';
+	@override String get inpdpDialogClose => 'فهمت';
+	@override String get submitButton => 'إرسال للتحقق';
+	@override String get submitting => 'جارٍ إرسال الطلب...';
+	@override String get submitSuccessTitle => 'تم إرسال الطلب بنجاح !';
+	@override String get submitSuccessMessage => 'يقوم فريقنا بمراجعة وثيقتك خلال 24 ساعة عمل. سيتم إشعارك فور الاعتماد.';
+	@override String get backToDashboard => 'العودة إلى لوحة القيادة';
+	@override String get statusPending => 'التحقق قيد المراجعة';
+	@override String get statusApproved => 'حرفي معتمد';
+	@override String get statusRejected => 'تم رفض التحقق';
+	@override String get statusMoreInfo => 'مطلوب معلومات إضافية';
+	@override String get statusNotSubmitted => 'غير موثق';
+	@override String get alreadyPending => 'لديك طلب تحقق قيد المراجعة حالياً.';
+	@override String get alreadyVerified => 'ملفك الشخصي معتمد بالفعل.';
+	@override String get missingDocuments => 'الرجاء توفير الوجهين الأمامي والخلفي لبطاقة التعريف.';
+	@override String get consentRequired => 'الرجاء الموافقة على شروط معالجة المعطيات.';
+	@override String get generalError => 'حدث خطأ أثناء الإرسال. الرجاء المحاولة مرة أخرى.';
 }
 
 // Path: common.home
@@ -1097,6 +1149,48 @@ extension on TranslationsAr {
 			'settings.testOnboardingProDesc' => 'بدء معالج التسجيل بـ 5 مراحل (الملف، المهن، المناطق، الصور، الملخص)',
 			'settings.testOnboardingClient' => 'تجربة ترحيب الحريف',
 			'settings.testOnboardingClientDesc' => 'بدء مسار الاكتشاف التفاعلي المخصص للحرفاء',
+			'verification.screenTitle' => 'التحقق من الهوية',
+			'verification.headerTitle' => 'احصل على شارة الحرفي المعتمد',
+			'verification.headerSubtitle' => 'عزز ثقة حرفائك من خلال توثيق حسابك ببطاقة التعريف الوطنية التونسية.',
+			'verification.badgeAdvantage1' => 'شارة رسمية تظهر في ملفك الشخصي ونتائج البحث',
+			'verification.badgeAdvantage2' => 'أولوية الظهور والترتيب في نتائج البحث',
+			'verification.identitySectionTitle' => 'معلومات الهوية',
+			'verification.fullNameLabel' => 'الاسم واللقب (كما في بطاقة التعريف)',
+			'verification.fullNameHint' => 'مثال: أحمد بن صالح',
+			'verification.fullNameError' => 'الرجاء إدخال الاسم واللقب (3 أحرف على الأقل)',
+			'verification.cinNumberLabel' => 'رقم بطاقة التعريف الوطنية (CIN)',
+			'verification.cinNumberHint' => '8 أرقام (مثال: 08123456)',
+			'verification.cinNumberError' => 'يجب أن يتكون رقم بطاقة التعريف من 8 أرقام بالضبط',
+			'verification.cinFrontTitle' => 'الوجه الأمامي (Recto)',
+			'verification.cinFrontSubtitle' => 'صورة واضحة للوجه الأمامي لبطاقة التعريف',
+			'verification.cinBackTitle' => 'الوجه الخلفي (Verso)',
+			'verification.cinBackSubtitle' => 'صورة واضحة للوجه الخلفي لبطاقة التعريف',
+			'verification.takePhoto' => 'التقاط صورة',
+			'verification.chooseFromGallery' => 'اختيار من المعرض',
+			'verification.changePhoto' => 'تغيير',
+			'verification.deletePhoto' => 'حذف',
+			'verification.uploading' => 'جارٍ التحميل ({progress}%)...',
+			'verification.uploadError' => 'فشل في تحميل الصورة. انقر للمحاولة مرة أخرى.',
+			'verification.inpdpConsentLabel' => 'أوافق على معالجة وثيقة هويتي طبقاً للقانون عدد 63 لسنة 2004 المتعلق بحماية المعطيات الشخصية.',
+			'verification.inpdpConsentLink' => 'مزيد من المعلومات حول حماية معطياتك الشخصية',
+			'verification.inpdpDialogTitle' => 'حماية معطياتك الشخصية',
+			'verification.inpdpDialogBody' => 'يتم تخزين وثائق هويتك في خزانة رقمية مشفرة وعالية الأمان (AES-256-GCM). لا يتم نشرها أو مشاركتها علناً أبداً، وتُستخدم حصرياً للتحقق من حسابك من قبل فريق الإشراف.',
+			'verification.inpdpDialogClose' => 'فهمت',
+			'verification.submitButton' => 'إرسال للتحقق',
+			'verification.submitting' => 'جارٍ إرسال الطلب...',
+			'verification.submitSuccessTitle' => 'تم إرسال الطلب بنجاح !',
+			'verification.submitSuccessMessage' => 'يقوم فريقنا بمراجعة وثيقتك خلال 24 ساعة عمل. سيتم إشعارك فور الاعتماد.',
+			'verification.backToDashboard' => 'العودة إلى لوحة القيادة',
+			'verification.statusPending' => 'التحقق قيد المراجعة',
+			'verification.statusApproved' => 'حرفي معتمد',
+			'verification.statusRejected' => 'تم رفض التحقق',
+			'verification.statusMoreInfo' => 'مطلوب معلومات إضافية',
+			'verification.statusNotSubmitted' => 'غير موثق',
+			'verification.alreadyPending' => 'لديك طلب تحقق قيد المراجعة حالياً.',
+			'verification.alreadyVerified' => 'ملفك الشخصي معتمد بالفعل.',
+			'verification.missingDocuments' => 'الرجاء توفير الوجهين الأمامي والخلفي لبطاقة التعريف.',
+			'verification.consentRequired' => 'الرجاء الموافقة على شروط معالجة المعطيات.',
+			'verification.generalError' => 'حدث خطأ أثناء الإرسال. الرجاء المحاولة مرة أخرى.',
 			_ => null,
 		};
 	}

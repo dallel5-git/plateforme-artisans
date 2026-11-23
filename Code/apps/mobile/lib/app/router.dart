@@ -26,6 +26,7 @@ import 'package:sanaya/features/search/data/search_filters.dart';
 import 'package:sanaya/features/search/presentation/search_home_screen.dart';
 import 'package:sanaya/features/search/presentation/search_results_screen.dart';
 import 'package:sanaya/features/settings/presentation/legal_notice_screen.dart';
+import 'package:sanaya/features/verification/presentation/screens/kyc_submission_screen.dart';
 
 /// Fait réévaluer `redirect:` quand `authStateProvider` change en dehors
 /// d'une navigation (ex. restauration de session résolue en tâche de fond,
@@ -96,7 +97,9 @@ final router = GoRouter(
       // documenté tant que `GET /v1/providers/me` (BE-44) n'existe pas.
       final published = container.read(hasPublishedProfileProvider);
       if (!published) {
-        return loc == '/pro/onboarding' ? null : '/pro/onboarding';
+        return (loc == '/pro/onboarding' || loc == '/pro/verification')
+            ? null
+            : '/pro/onboarding';
       }
       if (loc == '/pro' || loc == '/pro/onboarding') return '/pro/dashboard';
     }
@@ -226,6 +229,11 @@ final router = GoRouter(
       path: '/pro/onboarding',
       name: 'pro-onboarding',
       builder: (_, _) => const OnboardingScreen(),
+    ),
+    GoRoute(
+      path: '/pro/verification',
+      name: 'pro-verification',
+      builder: (_, _) => const KycSubmissionScreen(),
     ),
     StatefulShellRoute.indexedStack(
       builder: (_, _, navigationShell) =>
