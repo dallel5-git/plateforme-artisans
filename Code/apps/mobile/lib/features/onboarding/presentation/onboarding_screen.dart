@@ -184,10 +184,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   .PUBLISHED) {
         setState(() => _published = true);
         // FM-24 : rend le shell pro (dashboard + onglets) atteignable dans le
-        // parcours normal — sans ça, seul un relancement de l'app (garde
-        // `/pro` de router.dart) y mènerait.
+        // parcours normal.
         ref.read(hasPublishedProfileProvider.notifier).state = true;
-        context.go('/pro/dashboard');
+        // MOB-029 : écran de célébration chaleureux et passerelle KYC (ADR-002)
+        // plutôt que redirection abrupte vers le dashboard.
+        context.go('/pro/celebration');
       }
     } on Object {
       // Idem — géré via `state.errorCode`.

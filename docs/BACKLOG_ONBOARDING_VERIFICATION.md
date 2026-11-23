@@ -26,7 +26,7 @@ Ce backlog recense de manière exhaustive toutes les tâches requises pour :
 | **MOB-005** | Mobile | Onboarding Pro | Réassignation automatique de la catégorie principale en dé-sélection | 🔴 P0 | 2 SP | — | À faire |
 | **MOB-027** | Mobile | Onboarding Pro | Reprise intégrale de session d'onboarding sans perte de saisie | 🔴 P0 | 3 SP | BE-44b |
 | **MOB-028** | Mobile | Onboarding Pro | Guidage interactif vers les 60 % (liens directs champs manquants) | 🟠 P1 | 3 SP | — | ✅ Fait |
-| **MOB-029** | Mobile | Onboarding Pro | Écran de célébration post-publication & passerelle vers la vérification | 🟠 P1 | 2 SP | — |
+| **MOB-029** | Mobile | Onboarding Pro | Écran de célébration post-publication & passerelle vers la vérification | 🟠 P1 | 2 SP | — | ✅ Fait |
 | **BE-30a** | Backend/Infra | Vérification & KYC | Coffre-fort numérique Cloudflare R2 privé chiffré (`kyc-vault.ts`) | 🔴 P0 | 4 h | BE-20a |
 | **BE-30b** | Backend | Vérification & KYC | Routes API de soumission KYC (`presign`, `submit`, `status`) | 🔴 P0 | 5 h | BE-30a |
 | **MOB-030** | Mobile | Vérification & KYC | Tunnel de capture & soumission CIN (recto/verso, n° CIN, accord INPDP) | 🔴 P0 | 5 SP | BE-30b |
@@ -145,6 +145,7 @@ Ce backlog recense de manière exhaustive toutes les tâches requises pour :
   2. CTA principal : "Faire vérifier mon identité maintenant" (ouvre le flux KYC `MOB-030`).
   3. CTA secondaire : "Accéder à mon tableau de bord" (`/pro/dashboard`).
   4. Localisation parfaite en Arabe tunisien et Français.
+* **Statut :** ✅ **Fait** — Écran de célébration scrollable et chaleureux (`OnboardingCelebrationScreen`), carte des bénéfices du Badge Vérifié (`VerifiedBadge`, 3 avantages concrets), routes `/pro/celebration` et `/pro/verification` (coquille préparatoire `KycSubmissionScreen`), boutons d'action testés avec navigation GoRouter, i18n FR/AR complète et 128 tests verts.
 
 ---
 

@@ -16,6 +16,7 @@ import 'package:sanaya/features/favorites/presentation/favorites_screen.dart';
 import 'package:sanaya/features/history/presentation/client_history_screen.dart';
 import 'package:sanaya/features/onboarding/application/onboarding_providers.dart';
 import 'package:sanaya/features/onboarding/presentation/client_onboarding_screen.dart';
+import 'package:sanaya/features/onboarding/presentation/onboarding_celebration_screen.dart';
 import 'package:sanaya/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:sanaya/features/pro_profile/presentation/pro_profile_screen.dart';
 import 'package:sanaya/features/profile/presentation/client_profile_screen.dart';
@@ -232,6 +233,11 @@ final router = GoRouter(
       path: '/pro/onboarding',
       name: 'pro-onboarding',
       builder: (_, _) => const OnboardingScreen(),
+    ),
+    GoRoute(
+      path: '/pro/celebration',
+      name: 'pro-celebration',
+      builder: (_, _) => const OnboardingCelebrationScreen(),
     ),
     GoRoute(
       path: '/pro/verification',

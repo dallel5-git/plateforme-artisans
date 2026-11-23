@@ -64,5 +64,14 @@
   "clientStep3Desc": "Appel ou WhatsApp direct sans commission ni intermédiaire. Vous convenez du chantier directement avec l'artisan.",
   "clientChooseGovernorate": "Votre gouvernorat de recherche :",
   "clientStartExploring": "Commencer à chercher",
-  "clientSkip": "Passer l'introduction"
+  "clientSkip": "Passer l'introduction",
+  "celebrationTitle": "Mabrouk ! Votre profil est en ligne",
+  "celebrationSubtitle": "Votre profil est désormais visible par tous les clients de votre région de couverture. Vous pouvez commencer à recevoir des demandes de contact.",
+  "celebrationKycCardTitle": "Multipliez par 3 vos contacts grâce au Badge Vérifié",
+  "celebrationKycCardDescription": "Les artisans dont l'identité est confirmée par leur carte d'identité (CIN) inspirent davantage confiance et apparaissent en tête des résultats de recherche. La démarche est 100 % gratuite et prend moins de 2 minutes.",
+  "celebrationKycBenefitBadge": "Badge officiel « Artisan Vérifié » sur votre profil",
+  "celebrationKycBenefitRank": "Priorité d'affichage dans les résultats de recherche",
+  "celebrationKycBenefitFast": "Validation sous 24 h ouvrées",
+  "celebrationCtaVerify": "Faire vérifier mon identité maintenant",
+  "celebrationCtaDashboard": "Accéder à mon tableau de bord"
 }

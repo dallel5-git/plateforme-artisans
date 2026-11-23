@@ -276,8 +276,8 @@ void main() {
   );
 
   testWidgets(
-    'FM-24a — publier avec succès marque hasPublishedProfileProvider et '
-    'navigue vers /pro/dashboard',
+    'FM-24a / MOB-029 — publier avec succès marque hasPublishedProfileProvider et '
+    'navigue vers /pro/celebration',
     (tester) async {
       final mockRepo = MockOnboardingRepository();
       when(mockRepo.getMyProfile).thenAnswer((_) async => null);
@@ -318,6 +318,10 @@ void main() {
             builder: (_, _) => const OnboardingScreen(),
           ),
           GoRoute(
+            path: '/pro/celebration',
+            builder: (_, _) => const Text('CELEBRATION_PLACEHOLDER'),
+          ),
+          GoRoute(
             path: '/pro/dashboard',
             builder: (_, _) => const Text('DASHBOARD_PLACEHOLDER'),
           ),
@@ -349,7 +353,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(container.read(hasPublishedProfileProvider), isTrue);
-      expect(find.text('DASHBOARD_PLACEHOLDER'), findsOneWidget);
+      expect(find.text('CELEBRATION_PLACEHOLDER'), findsOneWidget);
     },
   );
 

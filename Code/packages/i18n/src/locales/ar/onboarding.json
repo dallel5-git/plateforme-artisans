@@ -64,5 +64,14 @@
   "clientStep3Desc": "اتصال أو واتساب مباشر دون عمولة وبلا وسيط. اتفق على تفاصيل العمل مباشرة مع الحرفي.",
   "clientChooseGovernorate": "ولايتك المفضلة للبحث :",
   "clientStartExploring": "ابدأ البحث الآن",
-  "clientSkip": "تخطي المقدمة"
+  "clientSkip": "تخطي المقدمة",
+  "celebrationTitle": "مبروك! ملفك المهني أصبح متوفراً الآن",
+  "celebrationSubtitle": "ملفك أصبح مرئياً لجميع الحرفاء في مناطق تدخلك. يمكنك الآن استقبال طلبات التواصل.",
+  "celebrationKycCardTitle": "ضاعف فرص تواصل الحرفاء معك 3 مرات بالحصول على الشارة الموثقة",
+  "celebrationKycCardDescription": "الحرفيون الذين تم تأكيد هويتهم ببطاقة التعريف الوطنية يحظون بثقة أكبر ويظهرون في المراتب الأولى لنتائج البحث. العملية مجانية تماماً وتستغرق أقل من دقيقتين.",
+  "celebrationKycBenefitBadge": "شارة رسمية «حرفي موثق» على ملفك المهني",
+  "celebrationKycBenefitRank": "أولوية الظهور في صدارة نتائج البحث",
+  "celebrationKycBenefitFast": "تأكيد ومراجعة سريعة خلال 24 ساعة عمل",
+  "celebrationCtaVerify": "توثيق هويتي الآن",
+  "celebrationCtaDashboard": "الانتقال إلى لوحة التحكم"
 }

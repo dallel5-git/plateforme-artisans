@@ -768,6 +768,33 @@ class Translations$onboarding$fr {
 
 	/// fr: 'Passer l'introduction'
 	String get clientSkip => 'Passer l\'introduction';
+
+	/// fr: 'Mabrouk ! Votre profil est en ligne'
+	String get celebrationTitle => 'Mabrouk ! Votre profil est en ligne';
+
+	/// fr: 'Votre profil est désormais visible par tous les clients de votre région de couverture. Vous pouvez commencer à recevoir des demandes de contact.'
+	String get celebrationSubtitle => 'Votre profil est désormais visible par tous les clients de votre région de couverture. Vous pouvez commencer à recevoir des demandes de contact.';
+
+	/// fr: 'Multipliez par 3 vos contacts grâce au Badge Vérifié'
+	String get celebrationKycCardTitle => 'Multipliez par 3 vos contacts grâce au Badge Vérifié';
+
+	/// fr: 'Les artisans dont l'identité est confirmée par leur carte d'identité (CIN) inspirent davantage confiance et apparaissent en tête des résultats de recherche. La démarche est 100 % gratuite et prend moins de 2 minutes.'
+	String get celebrationKycCardDescription => 'Les artisans dont l\'identité est confirmée par leur carte d\'identité (CIN) inspirent davantage confiance et apparaissent en tête des résultats de recherche. La démarche est 100 % gratuite et prend moins de 2 minutes.';
+
+	/// fr: 'Badge officiel « Artisan Vérifié » sur votre profil'
+	String get celebrationKycBenefitBadge => 'Badge officiel « Artisan Vérifié » sur votre profil';
+
+	/// fr: 'Priorité d'affichage dans les résultats de recherche'
+	String get celebrationKycBenefitRank => 'Priorité d\'affichage dans les résultats de recherche';
+
+	/// fr: 'Validation sous 24 h ouvrées'
+	String get celebrationKycBenefitFast => 'Validation sous 24 h ouvrées';
+
+	/// fr: 'Faire vérifier mon identité maintenant'
+	String get celebrationCtaVerify => 'Faire vérifier mon identité maintenant';
+
+	/// fr: 'Accéder à mon tableau de bord'
+	String get celebrationCtaDashboard => 'Accéder à mon tableau de bord';
 }
 
 // Path: proProfile
@@ -1984,6 +2011,15 @@ extension on Translations {
 			'onboarding.clientChooseGovernorate' => 'Votre gouvernorat de recherche :',
 			'onboarding.clientStartExploring' => 'Commencer à chercher',
 			'onboarding.clientSkip' => 'Passer l\'introduction',
+			'onboarding.celebrationTitle' => 'Mabrouk ! Votre profil est en ligne',
+			'onboarding.celebrationSubtitle' => 'Votre profil est désormais visible par tous les clients de votre région de couverture. Vous pouvez commencer à recevoir des demandes de contact.',
+			'onboarding.celebrationKycCardTitle' => 'Multipliez par 3 vos contacts grâce au Badge Vérifié',
+			'onboarding.celebrationKycCardDescription' => 'Les artisans dont l\'identité est confirmée par leur carte d\'identité (CIN) inspirent davantage confiance et apparaissent en tête des résultats de recherche. La démarche est 100 % gratuite et prend moins de 2 minutes.',
+			'onboarding.celebrationKycBenefitBadge' => 'Badge officiel « Artisan Vérifié » sur votre profil',
+			'onboarding.celebrationKycBenefitRank' => 'Priorité d\'affichage dans les résultats de recherche',
+			'onboarding.celebrationKycBenefitFast' => 'Validation sous 24 h ouvrées',
+			'onboarding.celebrationCtaVerify' => 'Faire vérifier mon identité maintenant',
+			'onboarding.celebrationCtaDashboard' => 'Accéder à mon tableau de bord',
 			'proProfile.title' => 'Profil',
 			'proProfile.emptyTitle' => 'Profil introuvable',
 			'proProfile.emptyMessage' => 'Aucun profil artisan n\'est associé à ce compte.',
