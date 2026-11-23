@@ -46,8 +46,10 @@ String missingKeyLabel(Translations t, String key) => switch (key) {
 };
 
 OnboardingStep missingKeyStep(String key) => switch (key) {
-  'bio' || 'headline' || 'yearsExperience' || 'contactPhone' =>
-    OnboardingStep.profile,
+  'bio' ||
+  'headline' ||
+  'yearsExperience' ||
+  'contactPhone' => OnboardingStep.profile,
   'categories' => OnboardingStep.categories,
   'coverageAreas' => OnboardingStep.zones,
   'photos' => OnboardingStep.photos,
@@ -55,8 +57,10 @@ OnboardingStep missingKeyStep(String key) => switch (key) {
 };
 
 String missingKeyStepName(Translations t, String key) => switch (key) {
-  'bio' || 'headline' || 'yearsExperience' || 'contactPhone' =>
-    t.onboarding.stepProfile,
+  'bio' ||
+  'headline' ||
+  'yearsExperience' ||
+  'contactPhone' => t.onboarding.stepProfile,
   'categories' => t.onboarding.stepCategories,
   'coverageAreas' => t.onboarding.stepZones,
   'photos' => t.onboarding.stepPhotos,
