@@ -161,10 +161,4 @@ export type {
   ProviderStatsTotals,
 } from './analytics/index.js';
 
-export {
-  decryptCin,
-  encryptCin,
-  hashCin,
-  isValidCin,
-} from './security/kyc-crypto.js';
-
+export { decryptCin, encryptCin, hashCin, isValidCin } from './security/kyc-crypto.js';

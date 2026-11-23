@@ -67,8 +67,7 @@ class DemoData {
         'slug': 'climatisation',
         'nameFr': 'Climatisation',
         'nameAr': 'مكيفات',
-        'descriptionFr':
-            'Installation, recharge gaz, entretien et nettoyage',
+        'descriptionFr': 'Installation, recharge gaz, entretien et nettoyage',
         'descriptionAr': 'تركيب وشحن غاز وصيانة وتنظيف مكيفات',
         'iconKey': 'ac_unit',
         'colorHex': '#06B6D4',
@@ -1970,7 +1969,8 @@ class DemoData {
         final covAreas =
             (p['coverageAreas'] as List<dynamic>?) ?? const <dynamic>[];
 
-        final matchesBase = govId == governorate ||
+        final matchesBase =
+            govId == governorate ||
             govId.contains(governorate) ||
             governorate.contains(govId.replaceFirst('gov-', ''));
 
@@ -1983,10 +1983,12 @@ class DemoData {
         });
 
         // Régions urbaines interconnectées (Grand Tunis & Sahel)
-        final isGrandTunisTarget = governorate.contains('tunis') ||
+        final isGrandTunisTarget =
+            governorate.contains('tunis') ||
             governorate.contains('ariana') ||
             governorate.contains('ben-arous');
-        final isGrandTunisProvider = govId.contains('tunis') ||
+        final isGrandTunisProvider =
+            govId.contains('tunis') ||
             govId.contains('ariana') ||
             govId.contains('ben-arous');
 
@@ -1995,7 +1997,8 @@ class DemoData {
         final isSahelProvider =
             govId.contains('sousse') || govId.contains('monastir');
 
-        final matchesRegion = (isGrandTunisTarget && isGrandTunisProvider) ||
+        final matchesRegion =
+            (isGrandTunisTarget && isGrandTunisProvider) ||
             (isSahelTarget && isSahelProvider);
 
         if (!matchesBase && !matchesCoverage && !matchesRegion) return false;
@@ -2121,7 +2124,8 @@ class DemoData {
         final imgMap = img as Map<String, dynamic>;
         return {
           'id': imgMap['id'] ?? 'img-1',
-          'url': imgMap['url'] ??
+          'url':
+              imgMap['url'] ??
               'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80',
           'width': 800,
           'height': 600,
@@ -2174,34 +2178,33 @@ class DemoData {
   static final Map<String, List<Map<String, dynamic>>> _providerReviews = {};
 
   static List<Map<String, dynamic>> _defaultReviews() => [
-        {
-          'id': 'rev-1',
-          'authorDisplayName': 'Karim M.',
-          'rating': 5,
-          'comment':
-              'Excellent travail ! Très ponctuel, travail soigné et tarif honnête.',
-          'isVerifiedContact': true,
-          'createdAt': '2026-09-01T10:30:00.000Z',
-        },
-        {
-          'id': 'rev-2',
-          'authorDisplayName': 'Fatma B.',
-          'rating': 5,
-          'comment':
-              'Intervention rapide un dimanche matin pour un dépannage urgent.',
-          'isVerifiedContact': true,
-          'createdAt': '2026-08-28T14:15:00.000Z',
-        },
-        {
-          'id': 'rev-3',
-          'authorDisplayName': 'Moncef T.',
-          'rating': 4,
-          'comment':
-              'Bon travail dans l’ensemble. Matériel de qualité installé.',
-          'isVerifiedContact': true,
-          'createdAt': '2026-08-15T09:00:00.000Z',
-        },
-      ];
+    {
+      'id': 'rev-1',
+      'authorDisplayName': 'Karim M.',
+      'rating': 5,
+      'comment':
+          'Excellent travail ! Très ponctuel, travail soigné et tarif honnête.',
+      'isVerifiedContact': true,
+      'createdAt': '2026-09-01T10:30:00.000Z',
+    },
+    {
+      'id': 'rev-2',
+      'authorDisplayName': 'Fatma B.',
+      'rating': 5,
+      'comment':
+          'Intervention rapide un dimanche matin pour un dépannage urgent.',
+      'isVerifiedContact': true,
+      'createdAt': '2026-08-28T14:15:00.000Z',
+    },
+    {
+      'id': 'rev-3',
+      'authorDisplayName': 'Moncef T.',
+      'rating': 4,
+      'comment': 'Bon travail dans l’ensemble. Matériel de qualité installé.',
+      'isVerifiedContact': true,
+      'createdAt': '2026-08-15T09:00:00.000Z',
+    },
+  ];
 
   static List<Map<String, dynamic>> _getReviewsForProvider(String idOrSlug) {
     final provider = providersList.firstWhere(
@@ -2298,14 +2301,14 @@ class DemoData {
     },
   ];
 
-  static List<Map<String, dynamic>> _demoFavorites =
-      _initialFavorites.map(Map<String, dynamic>.from).toList();
+  static List<Map<String, dynamic>> _demoFavorites = _initialFavorites
+      .map(Map<String, dynamic>.from)
+      .toList();
 
   static Map<String, dynamic> get favorites => {
-        'items':
-            _demoFavorites.map(Map<String, dynamic>.from).toList(),
-        'nextCursor': '',
-      };
+    'items': _demoFavorites.map(Map<String, dynamic>.from).toList(),
+    'nextCursor': '',
+  };
 
   static void addFavorite(String providerIdOrSlug) {
     if (_demoFavorites.any(
@@ -2387,15 +2390,14 @@ class DemoData {
     },
   ];
 
-  static List<Map<String, dynamic>> _demoContactEvents =
-      _initialContactEvents.map(Map<String, dynamic>.from).toList();
+  static List<Map<String, dynamic>> _demoContactEvents = _initialContactEvents
+      .map(Map<String, dynamic>.from)
+      .toList();
 
   static Map<String, dynamic> get contactEvents => {
-        'items': _demoContactEvents
-            .map(Map<String, dynamic>.from)
-            .toList(),
-        'nextCursor': '',
-      };
+    'items': _demoContactEvents.map(Map<String, dynamic>.from).toList(),
+    'nextCursor': '',
+  };
 
   static Map<String, dynamic> addContactEvent({
     required String providerIdOrSlug,
@@ -2437,16 +2439,14 @@ class DemoData {
       ..insert(0, newEvent);
 
     return newEvent;
-
   }
 
-
   static void reset() {
-    _demoFavorites =
-        _initialFavorites.map(Map<String, dynamic>.from).toList();
+    _demoFavorites = _initialFavorites.map(Map<String, dynamic>.from).toList();
     _providerReviews.clear();
-    _demoContactEvents =
-        _initialContactEvents.map(Map<String, dynamic>.from).toList();
+    _demoContactEvents = _initialContactEvents
+        .map(Map<String, dynamic>.from)
+        .toList();
   }
 
   static const userClient = <String, dynamic>{

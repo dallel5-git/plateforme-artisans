@@ -42,15 +42,9 @@ export function SearchFilterClient({
   const [selectedDelegation, setSelectedDelegation] = useState(
     searchParams.get('delegation') || '',
   );
-  const [verifiedOnly, setVerifiedOnly] = useState(
-    searchParams.get('verifie') === '1',
-  );
-  const [emergencyOnly, setEmergencyOnly] = useState(
-    searchParams.get('urgence') === '1',
-  );
-  const [minRating, setMinRating] = useState<number>(
-    Number(searchParams.get('note')) || 0,
-  );
+  const [verifiedOnly, setVerifiedOnly] = useState(searchParams.get('verifie') === '1');
+  const [emergencyOnly, setEmergencyOnly] = useState(searchParams.get('urgence') === '1');
+  const [minRating, setMinRating] = useState<number>(Number(searchParams.get('note')) || 0);
   const [sortBy, setSortBy] = useState<'relevance' | 'rating' | 'reviews'>('relevance');
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
 
@@ -401,8 +395,12 @@ export function SearchFilterClient({
               </h1>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                 {selectedGovernorate
-                  ? (isAr ? `في ولاية ${currentGovernorate?.nameAr || ''}` : `dans le gouvernorat de ${currentGovernorate?.nameFr || ''}`)
-                  : (isAr ? 'في منطقة الساحل (سوسة، المنستير، المهدية)' : 'dans la région du Sahel (Sousse, Monastir, Mahdia)')}
+                  ? isAr
+                    ? `في ولاية ${currentGovernorate?.nameAr || ''}`
+                    : `dans le gouvernorat de ${currentGovernorate?.nameFr || ''}`
+                  : isAr
+                    ? 'في منطقة الساحل (سوسة، المنستير، المهدية)'
+                    : 'dans la région du Sahel (Sousse, Monastir, Mahdia)'}
               </p>
             </div>
 
@@ -413,7 +411,7 @@ export function SearchFilterClient({
               </span>
               <select
                 value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as any)}
+                onChange={(e) => setSortBy(e.target.value as 'relevance' | 'rating' | 'reviews')}
                 className="px-3 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-blue-500"
               >
                 <option value="relevance">{isAr ? 'الأكثر ملائمة' : 'Pertinence'}</option>
@@ -432,7 +430,11 @@ export function SearchFilterClient({
             </div>
           ) : (
             <EmptyState
-              title={isAr ? 'لا يوجد حرفيون يطابقون بحثك' : 'Aucun artisan ne correspond à votre recherche'}
+              title={
+                isAr
+                  ? 'لا يوجد حرفيون يطابقون بحثك'
+                  : 'Aucun artisan ne correspond à votre recherche'
+              }
               description={
                 isAr
                   ? 'جرب تعديل الكلمات المفتاحية أو إزالة بعض شروط التصفية للعثور على حرفيين في منطقتك.'
@@ -562,7 +564,9 @@ export function SearchFilterClient({
                 className="flex-1"
                 onClick={() => setIsMobileFilterOpen(false)}
               >
-                {isAr ? `عرض ${filteredProviders.length} نتيجة` : `Voir ${filteredProviders.length} résultat${filteredProviders.length > 1 ? 's' : ''}`}
+                {isAr
+                  ? `عرض ${filteredProviders.length} نتيجة`
+                  : `Voir ${filteredProviders.length} résultat${filteredProviders.length > 1 ? 's' : ''}`}
               </Button>
             </div>
           </div>

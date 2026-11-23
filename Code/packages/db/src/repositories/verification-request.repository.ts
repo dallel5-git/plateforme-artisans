@@ -1,11 +1,7 @@
 // BE-30b : Référentiel pour les demandes de vérification d'identité (KYC).
 // Gère la persistance de `VerificationRequest` et `VerificationDocument` sous Prisma.
 import { prisma } from '../client.js';
-import type {
-  DbClient,
-  VerificationDocumentType,
-  VerificationStatus,
-} from '../types.js';
+import type { DbClient, VerificationDocumentType, VerificationStatus } from '../types.js';
 
 export interface VerificationDocumentRecord {
   id: string;

@@ -416,8 +416,9 @@ class _SettingsOptionTile<T> extends StatelessWidget {
                 width: 32,
                 height: 32,
                 decoration: BoxDecoration(
-                  color:
-                      isSelected ? colors.accentSubtle : colors.surfaceSunken,
+                  color: isSelected
+                      ? colors.accentSubtle
+                      : colors.surfaceSunken,
                   borderRadius: const BorderRadius.all(AppRadius.md),
                 ),
                 child: Icon(

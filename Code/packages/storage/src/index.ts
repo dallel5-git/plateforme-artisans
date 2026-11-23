@@ -33,4 +33,3 @@ export {
   requireKycBucketName,
 } from './kyc-vault.js';
 export type { PresignedDownload } from './kyc-vault.js';
-

@@ -51,7 +51,6 @@ class ContactButtons extends ConsumerWidget {
       }
     }
 
-
     return Row(
       children: [
         Expanded(

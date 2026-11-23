@@ -139,8 +139,9 @@ void main() {
             getDemoRole: () => DemoRole.client,
           ),
         );
-      final clientRes =
-          await clientDio.get<Map<String, dynamic>>('/v1/auth/me');
+      final clientRes = await clientDio.get<Map<String, dynamic>>(
+        '/v1/auth/me',
+      );
       expect(clientRes.statusCode, 200);
       expect(clientRes.data?['role'], 'CLIENT');
 
@@ -228,8 +229,9 @@ void main() {
       expect(contact.statusCode, 201);
       expect(contact.data?['providerId'], 'prov-10');
 
-      final eventsRes =
-          await dio.get<Map<String, dynamic>>('/v1/contact-events');
+      final eventsRes = await dio.get<Map<String, dynamic>>(
+        '/v1/contact-events',
+      );
       expect(eventsRes.statusCode, 200);
       final events = eventsRes.data?['items'] as List<dynamic>;
       final first = events.first as Map<String, dynamic>;
@@ -237,8 +239,6 @@ void main() {
       expect(first['businessName'], 'Chokri Ghrab');
       expect(first['channel'], 'PHONE');
     });
-
-
 
     test('intercepts /v1/providers/me/stats', () async {
       final dio = Dio()
@@ -249,8 +249,9 @@ void main() {
           ),
         );
 
-      final stats =
-          await dio.get<Map<String, dynamic>>('/v1/providers/me/stats');
+      final stats = await dio.get<Map<String, dynamic>>(
+        '/v1/providers/me/stats',
+      );
       expect(stats.statusCode, 200);
       expect(stats.data?['totals'], isNotNull);
       expect(stats.data?['series'], isA<List<dynamic>>());

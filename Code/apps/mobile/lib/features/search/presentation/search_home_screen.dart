@@ -143,8 +143,7 @@ class _SearchHomeScreenState extends ConsumerState<SearchHomeScreen> {
                     : CategoryGrid(
                         categories: categoriesList,
                         onTap: (category) {
-                          final govId =
-                              ref.read(selectedGovernorateIdProvider);
+                          final govId = ref.read(selectedGovernorateIdProvider);
                           unawaited(
                             context.pushNamed(
                               'client-results',

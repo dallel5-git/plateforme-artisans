@@ -30,47 +30,47 @@ class InpdpConsentCheckbox extends StatelessWidget {
       showDialog<void>(
         context: context,
         builder: (dialogCtx) => AlertDialog(
-        backgroundColor: colors.surface,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(AppRadius.lg),
-        ),
-        title: Row(
-          children: [
-            Icon(Icons.shield_outlined, color: colors.accent, size: 24),
-            const SizedBox(width: AppSpacing.sm),
-            Expanded(
+          backgroundColor: colors.surface,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(AppRadius.lg),
+          ),
+          title: Row(
+            children: [
+              Icon(Icons.shield_outlined, color: colors.accent, size: 24),
+              const SizedBox(width: AppSpacing.sm),
+              Expanded(
+                child: Text(
+                  tr.verification.inpdpDialogTitle,
+                  style: AppText.subtitle(locale).copyWith(
+                    color: colors.textPrimary,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          content: Text(
+            tr.verification.inpdpDialogBody,
+            style: AppText.body(locale).copyWith(
+              color: colors.textSecondary,
+              height: 1.5,
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(dialogCtx).pop(),
               child: Text(
-                tr.verification.inpdpDialogTitle,
+                tr.verification.inpdpDialogClose,
                 style: AppText.subtitle(locale).copyWith(
-                  color: colors.textPrimary,
-                  fontWeight: FontWeight.bold,
+                  color: colors.accent,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
           ],
         ),
-        content: Text(
-          tr.verification.inpdpDialogBody,
-          style: AppText.body(locale).copyWith(
-            color: colors.textSecondary,
-            height: 1.5,
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(dialogCtx).pop(),
-            child: Text(
-              tr.verification.inpdpDialogClose,
-              style: AppText.subtitle(locale).copyWith(
-                color: colors.accent,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-        ],
       ),
-    ),
-  );
+    );
   }
 
   @override

@@ -57,7 +57,11 @@ export default function OtpVerificationPage({ params }: PageProps) {
     e.preventDefault();
     const fullCode = otp.join('');
     if (fullCode.length < 6) {
-      setErrorMsg(isAr ? 'يرجى إدخال رمز التحقق كاملاً (6 أرقام)' : 'Veuillez saisir les 6 chiffres du code reçu');
+      setErrorMsg(
+        isAr
+          ? 'يرجى إدخال رمز التحقق كاملاً (6 أرقام)'
+          : 'Veuillez saisir les 6 chiffres du code reçu',
+      );
       return;
     }
 
@@ -137,8 +141,12 @@ export default function OtpVerificationPage({ params }: PageProps) {
             className="w-full font-bold justify-center"
           >
             {isVerifying
-              ? (isAr ? 'جاري التحقق...' : 'Vérification en cours...')
-              : (isAr ? 'تأكيد ودخول' : 'Confirmer et continuer')}
+              ? isAr
+                ? 'جاري التحقق...'
+                : 'Vérification en cours...'
+              : isAr
+                ? 'تأكيد ودخول'
+                : 'Confirmer et continuer'}
           </Button>
 
           {/* Resend code */}

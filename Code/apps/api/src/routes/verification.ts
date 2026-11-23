@@ -27,11 +27,7 @@ import {
   updateProviderVerificationStatus,
   withTransaction,
 } from '@repo/db';
-import {
-  buildKycStorageKey,
-  presignKycUpload,
-  requireKycBucketName,
-} from '@repo/storage';
+import { buildKycStorageKey, presignKycUpload, requireKycBucketName } from '@repo/storage';
 import {
   kycStatusResponseSchema,
   presignKycResponseSchema,
@@ -115,7 +111,6 @@ export async function verificationRoutes(app: FastifyInstance): Promise<void> {
 
   // Helper de soumission partagé entre /submit et la racine /verification
   const handleSubmitKyc = async (request: { user?: { sub: string }; body: SubmitKycInput }) => {
-
     if (!request.user) {
       throw new DomainError(UNAUTHORIZED, 'Non authentifié');
     }

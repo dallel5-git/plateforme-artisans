@@ -51,7 +51,8 @@ class _FixedAuthStateNotifier extends AuthStateNotifier {
   String slug = 'sami-plombier',
   AuthStatus authStatus = const AuthStatus.authenticated(isProvider: false),
 }) {
-  final effectiveContactHistoryRepo = contactHistoryRepository ??
+  final effectiveContactHistoryRepo =
+      contactHistoryRepository ??
       () {
         final mock = _ContactHistoryRepoMock();
         when(

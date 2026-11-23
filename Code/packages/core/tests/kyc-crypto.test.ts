@@ -8,12 +8,7 @@
  */
 import { afterEach, describe, expect, it } from 'vitest';
 
-import {
-  decryptCin,
-  encryptCin,
-  hashCin,
-  isValidCin,
-} from '../src/security/kyc-crypto.js';
+import { decryptCin, encryptCin, hashCin, isValidCin } from '../src/security/kyc-crypto.js';
 
 describe('BE-30b — Cryptographie KYC (CIN tunisienne)', () => {
   const originalEnv = { ...process.env };
