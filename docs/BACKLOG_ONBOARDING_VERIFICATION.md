@@ -40,7 +40,7 @@ Ce backlog recense de manière exhaustive toutes les tâches requises pour :
 | **MOB-021** | Mobile | Espace Pro | Gestion autonome du portfolio dans le profil pro (ajout/suppression) | 🟡 P2 | 5 SP | MOB-020 | |
 | **MOB-022** | Mobile | Espace Pro | Module de consultation et édition des prestations & tarifs indicatifs | 🟡 P2 | 5 SP | BE-47 | |
 | **MOB-019** | Mobile | Espace Pro | Pull-to-refresh et sélecteur de disponibilité sur le Dashboard Pro | 🟡 P2 | 2 SP | — | ✅ Fait |
-| **QA-04** | QA / Test | Recette | Scénarios de tests E2E : Inscription → Onboarding → KYC → Validation admin | 🔴 P0 | 4 h | Toutes |
+| **QA-04** | QA / Test | Recette | Scénarios de tests E2E : Inscription → Onboarding → KYC → Validation admin | 🔴 P0 | 4 h | Toutes | ✅ Fait |
 
 ---
 
@@ -425,6 +425,9 @@ Ce backlog recense de manière exhaustive toutes les tâches requises pour :
 * **Critères d'acceptation :**
   - Les 8 étapes du scénario sont validées sans régression ni erreur 4xx/5xx.
   - Le script de recette automatique consigne les métriques de succès.
+* **Statut :** ✅ **Fait** — Couverture complète et doublement outillée :
+  1. Suite de tests d'intégration Vitest (`qa-04-onboarding-verification.integration.test.ts`) simulant de bout en bout l'ensemble des 8 étapes avec base PostgreSQL réelle.
+  2. Script de recette automatisée autonome (`tooling/scripts/qa04-recette.sh` / `pnpm recette:qa04`) rejouant les requêtes HTTP, avec vérification des statuts, calcul de la durée et métriques de complétude et modération.
 
 ---
 
