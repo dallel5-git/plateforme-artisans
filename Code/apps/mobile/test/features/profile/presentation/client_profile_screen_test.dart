@@ -14,6 +14,7 @@ import 'package:sanaya/features/auth/application/auth_state_provider.dart';
 import 'package:sanaya/features/auth/application/auth_status.dart';
 import 'package:sanaya/features/auth/data/auth_repository.dart';
 import 'package:sanaya/features/profile/presentation/client_profile_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/widgets/widget_test_helpers.dart';
 
@@ -58,6 +59,7 @@ V1AuthMeGet200Response _user({
 }
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   late _AuthRepositoryMock authRepository;
 
   setUpAll(() {
@@ -65,6 +67,7 @@ void main() {
   });
 
   setUp(() {
+    SharedPreferences.setMockInitialValues({});
     authRepository = _AuthRepositoryMock();
     when(authRepository.getCurrentUser).thenAnswer((_) async => _user());
   });
