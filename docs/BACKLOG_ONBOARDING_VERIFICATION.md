@@ -36,10 +36,10 @@ Ce backlog recense de manière exhaustive toutes les tâches requises pour :
 | **BE-31a** | Backend | Modération | Traitement de la décision admin, mise à jour `isVerified` & recalcul ranking | 🔴 P0 | 3 h | BE-30b | ✅ Fait |
 | **DOC-01** | Conformité | Sécurité & Légal | Dossier de conformité INPDP (déclaration de traitement données sensibles) | 🔴 P0 | 8 h | — | ✅ Fait |
 | **MOB-018** | Mobile | Espace Pro | Entrée visible "Devenir artisan" dans le profil client | 🟠 P1 | 2 SP | MOB-001 | ✅ Fait |
-| **MOB-020** | Mobile | Espace Pro | Interface d'édition post-onboarding des catégories et zones pro | 🟡 P2 | 5 SP | BE-44b | |
+| **MOB-020** | Mobile | Espace Pro | Interface d'édition post-onboarding des catégories et zones pro | 🟡 P2 | 5 SP | BE-44b | ✅ Fait |
 | **MOB-021** | Mobile | Espace Pro | Gestion autonome du portfolio dans le profil pro (ajout/suppression) | 🟡 P2 | 5 SP | MOB-020 | |
 | **MOB-022** | Mobile | Espace Pro | Module de consultation et édition des prestations & tarifs indicatifs | 🟡 P2 | 5 SP | BE-47 | |
-| **MOB-019** | Mobile | Espace Pro | Pull-to-refresh et sélecteur de disponibilité sur le Dashboard Pro | 🟡 P2 | 2 SP | — | |
+| **MOB-019** | Mobile | Espace Pro | Pull-to-refresh et sélecteur de disponibilité sur le Dashboard Pro | 🟡 P2 | 2 SP | — | ✅ Fait |
 | **QA-04** | QA / Test | Recette | Scénarios de tests E2E : Inscription → Onboarding → KYC → Validation admin | 🔴 P0 | 4 h | Toutes |
 
 ---

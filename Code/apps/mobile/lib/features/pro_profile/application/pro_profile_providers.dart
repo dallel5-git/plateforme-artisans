@@ -27,6 +27,34 @@ class ProProfileUpdater {
       ..invalidate(providerProfileProvider(updated.slug));
     return updated;
   }
+
+  Future<CategoriesResult> saveCategories(
+    V1ProvidersMeCategoriesPutRequest body, {
+    String? slug,
+  }) async {
+    final result = await _ref
+        .read(onboardingRepositoryProvider)
+        .setCategories(body);
+    _ref.invalidate(myProviderProfileProvider);
+    if (slug != null) {
+      _ref.invalidate(providerProfileProvider(slug));
+    }
+    return result;
+  }
+
+  Future<CoverageAreasResult> saveCoverageAreas(
+    V1ProvidersMeCoverageAreasPutRequest body, {
+    String? slug,
+  }) async {
+    final result = await _ref
+        .read(onboardingRepositoryProvider)
+        .setCoverageAreas(body);
+    _ref.invalidate(myProviderProfileProvider);
+    if (slug != null) {
+      _ref.invalidate(providerProfileProvider(slug));
+    }
+    return result;
+  }
 }
 
 final Provider<ProProfileUpdater> proProfileUpdaterProvider =
