@@ -38,7 +38,7 @@ class ContactButtons extends ConsumerWidget {
 
     Future<void> contact(ContactChannel channel) async {
       try {
-        await service.contact(
+        final launched = await service.contact(
           providerId: providerId,
           channel: channel,
           categoryId: categoryId,
@@ -46,6 +46,13 @@ class ContactButtons extends ConsumerWidget {
           locale: locale,
           fallbackPhone: fallbackPhone,
         );
+        if (!launched && context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(t.contact.offlineUnavailable),
+            ),
+          );
+        }
       } finally {
         ref.invalidate(contactHistoryProvider);
       }
