@@ -229,7 +229,7 @@ JSON
 RESP=$(req POST /providers/me/verification/submit "$SUBMIT_PAYLOAD" "$PROVIDER_TOKEN")
 split_status "$RESP"
 expect_status "$STATUS" 200 "6. submit verification"
-VERIFICATION_ID=$(jq -r '.id' <<<"$BODY")
+VERIFICATION_ID=$(jq -r '.requestId // .id' <<<"$BODY")
 VERIFICATION_STATUS=$(jq -r '.status' <<<"$BODY")
 [[ "$VERIFICATION_STATUS" == "PENDING" ]] || fail "Statut de vérification inattendu ($VERIFICATION_STATUS)"
 ok "Demande KYC soumise avec succès (ID: $VERIFICATION_ID, statut: PENDING, CIN chiffrée AES-256)"

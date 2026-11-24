@@ -58,9 +58,12 @@ vi.mock('@repo/storage', async (importOriginal) => {
 const TEST_SECRET = 'secret-de-test-suffisamment-long-pour-jwt-32-chars';
 
 async function buildTestApp() {
-  const app = Fastify().withTypeProvider<ZodTypeProvider>();
+  const app = Fastify({ logger: false }).withTypeProvider<ZodTypeProvider>();
   app.setValidatorCompiler(validatorCompiler);
   app.setSerializerCompiler(serializerCompiler);
+  app.addHook('onError', async (_request, _reply, error) => {
+    console.error('FASTIFY_TEST_ERROR:', error);
+  });
   registerErrorHandler(app);
   registerRequireAuth(app);
   registerRequireRole(app);
@@ -187,9 +190,7 @@ describe('QA-04 — Recette & Tests E2E : Cycle complet Onboarding & Vérificati
       url: '/v1/providers/me/coverage-areas',
       headers: { authorization: `Bearer ${providerToken}` },
       payload: {
-        coverageAreas: [
-          { governorateId: governorate.id },
-        ],
+        coverageAreas: [{ governorateId: governorate.id }],
       },
     });
     expect(updateZonesRes.statusCode).toBe(200);
@@ -282,25 +283,35 @@ describe('QA-04 — Recette & Tests E2E : Cycle complet Onboarding & Vérificati
     // -------------------------------------------------------------------------
     // 6. Soumission de la CIN recto/verso avec consentement INPDP
     // -------------------------------------------------------------------------
-    const cinFrontMedia = await createMediaAsset({
-      uploadedById: clientUserId,
-      bucket: 'private-kyc',
-      storageKey: `kyc/${providerId}/${randomUUID()}/recto.jpg`,
-      type: 'IMAGE',
-      mimeType: 'image/jpeg',
-      sizeBytes: 850000,
-      isPrivate: true,
+    // A. Pré-signature R2 pour le recto
+    const presignFrontRes = await app.inject({
+      method: 'POST',
+      url: '/v1/providers/me/verification/presign',
+      headers: { authorization: `Bearer ${providerToken}` },
+      payload: {
+        documentType: 'CIN_FRONT',
+        mimeType: 'image/jpeg',
+        sizeBytes: 850000,
+      },
     });
-    const cinBackMedia = await createMediaAsset({
-      uploadedById: clientUserId,
-      bucket: 'private-kyc',
-      storageKey: `kyc/${providerId}/${randomUUID()}/verso.jpg`,
-      type: 'IMAGE',
-      mimeType: 'image/jpeg',
-      sizeBytes: 900000,
-      isPrivate: true,
-    });
+    expect(presignFrontRes.statusCode).toBe(200);
+    const frontMediaId = presignFrontRes.json().mediaId;
 
+    // B. Pré-signature R2 pour le verso
+    const presignBackRes = await app.inject({
+      method: 'POST',
+      url: '/v1/providers/me/verification/presign',
+      headers: { authorization: `Bearer ${providerToken}` },
+      payload: {
+        documentType: 'CIN_BACK',
+        mimeType: 'image/jpeg',
+        sizeBytes: 900000,
+      },
+    });
+    expect(presignBackRes.statusCode).toBe(200);
+    const backMediaId = presignBackRes.json().mediaId;
+
+    // C. Soumission de la demande
     const submitKycRes = await app.inject({
       method: 'POST',
       url: '/v1/providers/me/verification/submit',
@@ -308,14 +319,17 @@ describe('QA-04 — Recette & Tests E2E : Cycle complet Onboarding & Vérificati
       payload: {
         cinNumber: '08123456',
         fullNameOnId: 'Oussama Dallel',
-        cinFrontMediaId: cinFrontMedia.id,
-        cinBackMediaId: cinBackMedia.id,
+        cinFrontMediaId: frontMediaId,
+        cinBackMediaId: backMediaId,
       },
     });
+    if (submitKycRes.statusCode !== 200) {
+      console.error('submitKycRes error body:', submitKycRes.body);
+    }
     expect(submitKycRes.statusCode).toBe(200);
     const kycResult = submitKycRes.json();
     expect(kycResult.status).toBe('PENDING');
-    const verificationRequestId = kycResult.id;
+    const verificationRequestId = kycResult.requestId ?? kycResult.id;
 
     // -------------------------------------------------------------------------
     // 7. Connexion sur apps/admin, instruction et approbation
