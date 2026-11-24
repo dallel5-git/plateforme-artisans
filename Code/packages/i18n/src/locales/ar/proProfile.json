@@ -28,6 +28,17 @@
   "portfolioSection": "معرض الأعمال والإنجازات",
   "portfolioDesc": "صور لمشاريعك وتدخلاتك السابقة",
   "categoriesAndZones": "المهن ومناطق التدخل",
+  "categoriesSection": "مهنتي وتخصصاتي",
+  "categoriesDesc": "إدارة المهن التي تمارسها والمهنة الرئيسية",
+  "categoriesUpdated": "تم تحديث المهن بنجاح",
+  "categoriesEmpty": "لم يتم تحديد أي مهنة",
+  "zonesSection": "مناطق التدخل",
+  "zonesDesc": "الولايات التي تغطيها خدماتك",
+  "zonesUpdated": "تم تحديث مناطق التدخل بنجاح",
+  "zonesEmpty": "لم يتم تحديد أي ولاية",
+  "editCategories": "تعديل المهن",
+  "editZones": "تعديل المناطق",
+  "availabilityUpdated": "تم تحديث الحالة بنجاح",
   "testOnboardingPro": "تجربة تسجيل الحرفي",
   "testOnboardingClient": "تجربة تسجيل الحريف"
 }

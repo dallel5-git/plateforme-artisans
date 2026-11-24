@@ -13,6 +13,8 @@ import 'package:sanaya/app/theme.dart';
 import 'package:sanaya/core/api/generated/api.dart';
 import 'package:sanaya/core/widgets/app_skeleton.dart';
 import 'package:sanaya/core/widgets/verified_badge.dart';
+import 'package:sanaya/features/auth/application/auth_state_provider.dart';
+import 'package:sanaya/features/auth/application/auth_status.dart';
 import 'package:sanaya/features/contact/application/contact_providers.dart';
 import 'package:sanaya/features/contact/domain/contact_channel.dart';
 import 'package:sanaya/features/contact/domain/contact_service.dart';
@@ -25,6 +27,15 @@ import 'package:sanaya/features/provider_profile/presentation/screens/provider_p
 class _ContactServiceMock extends Mock implements ContactService {}
 
 class _FavoritesRepositoryMock extends Mock implements FavoritesRepository {}
+
+class _FixedAuthStateNotifier extends AuthStateNotifier {
+  _FixedAuthStateNotifier(this._status);
+
+  final AuthStatus _status;
+
+  @override
+  Future<AuthStatus> build() async => _status;
+}
 
 ProviderProfile _fakeProfile({
   required String slug,
@@ -175,6 +186,7 @@ Widget _wrap(
   Locale locale = const Locale('fr'),
   ContactService? contactService,
   FavoritesRepository? favoritesRepository,
+  AuthStatus authStatus = const AuthStatus.authenticated(isProvider: false),
 }) {
   return ProviderScope(
     overrides: [
@@ -184,6 +196,9 @@ Widget _wrap(
         contactServiceProvider.overrideWithValue(contactService),
       if (favoritesRepository != null)
         favoritesRepositoryProvider.overrideWithValue(favoritesRepository),
+      authStateProvider.overrideWith(
+        () => _FixedAuthStateNotifier(authStatus),
+      ),
     ],
     child: MaterialApp(
       locale: locale,

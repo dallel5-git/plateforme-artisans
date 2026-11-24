@@ -5,6 +5,8 @@ import 'package:mocktail/mocktail.dart';
 import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/core/api/generated/api.dart';
 import 'package:sanaya/core/widgets/verified_badge.dart';
+import 'package:sanaya/features/auth/application/auth_state_provider.dart';
+import 'package:sanaya/features/auth/application/auth_status.dart';
 import 'package:sanaya/features/favorites/application/favorites_providers.dart';
 import 'package:sanaya/features/favorites/data/favorites_repository.dart';
 import 'package:sanaya/features/favorites/presentation/widgets/favorite_card.dart';
@@ -12,6 +14,15 @@ import 'package:sanaya/features/favorites/presentation/widgets/favorite_card.dar
 import '../../../../core/widgets/widget_test_helpers.dart';
 
 class _FavoritesRepositoryMock extends Mock implements FavoritesRepository {}
+
+class _FixedAuthStateNotifier extends AuthStateNotifier {
+  _FixedAuthStateNotifier(this._status);
+
+  final AuthStatus _status;
+
+  @override
+  Future<AuthStatus> build() async => _status;
+}
 
 void main() {
   late _FavoritesRepositoryMock repository;
@@ -38,11 +49,15 @@ void main() {
     required FavoriteItem item,
     Locale locale = const Locale('fr'),
     VoidCallback? onTap,
+    AuthStatus authStatus = const AuthStatus.authenticated(isProvider: false),
   }) {
     return ProviderScope(
       overrides: [
         localeProvider.overrideWith((ref) => locale),
         favoritesRepositoryProvider.overrideWithValue(repository),
+        authStateProvider.overrideWith(
+          () => _FixedAuthStateNotifier(authStatus),
+        ),
       ],
       child: themedApp(
         Scaffold(

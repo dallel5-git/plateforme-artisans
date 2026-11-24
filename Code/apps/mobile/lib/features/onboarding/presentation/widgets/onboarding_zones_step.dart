@@ -22,6 +22,9 @@ class OnboardingZonesStep extends ConsumerStatefulWidget {
     required this.isSaving,
     required this.errorMessage,
     required this.onSubmit,
+    this.submitLabel,
+    this.shrinkWrap = false,
+    this.physics,
     super.key,
   });
 
@@ -29,6 +32,9 @@ class OnboardingZonesStep extends ConsumerStatefulWidget {
   final bool isSaving;
   final String? errorMessage;
   final ValueChanged<Set<String>> onSubmit;
+  final String? submitLabel;
+  final bool shrinkWrap;
+  final ScrollPhysics? physics;
 
   @override
   ConsumerState<OnboardingZonesStep> createState() =>
@@ -94,6 +100,8 @@ class _OnboardingZonesStepState extends ConsumerState<OnboardingZonesStep> {
         onAction: () => ref.invalidate(governoratesProvider),
       ),
       data: (governorates) => ListView(
+        shrinkWrap: widget.shrinkWrap,
+        physics: widget.physics,
         padding: const EdgeInsets.all(AppSpacing.lg),
         children: [
           Text(t.onboarding.zonesTitle, style: AppText.h3(locale)),
@@ -133,7 +141,7 @@ class _OnboardingZonesStepState extends ConsumerState<OnboardingZonesStep> {
           ],
           const SizedBox(height: AppSpacing.xl),
           AppButton(
-            label: t.onboarding.next,
+            label: widget.submitLabel ?? t.onboarding.next,
             onPressed: canSubmit ? () => widget.onSubmit(_selection) : null,
           ),
         ],

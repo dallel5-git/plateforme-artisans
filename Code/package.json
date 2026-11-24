@@ -32,7 +32,8 @@
     "mobile:client": "node tooling/scripts/mobile-client.mjs",
     "mobile:client:check": "node tooling/scripts/mobile-client.mjs --check",
     "web:client": "node tooling/scripts/web-client.mjs",
-    "web:client:check": "node tooling/scripts/web-client.mjs --check"
+    "web:client:check": "node tooling/scripts/web-client.mjs --check",
+    "recette:qa04": "bash tooling/scripts/qa04-recette.sh"
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "2.40.1",

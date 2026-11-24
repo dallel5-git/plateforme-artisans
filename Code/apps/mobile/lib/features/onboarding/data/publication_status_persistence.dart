@@ -21,3 +21,10 @@ Future<void> persistPublicationStatus({
   final prefs = await SharedPreferences.getInstance();
   await prefs.setBool(_hasPublishedProfileKey, hasPublishedProfile);
 }
+
+/// Supprime le statut de publication persisté — appelé lors de la
+/// déconnexion (`signOut`, MOB-006).
+Future<void> clearPublicationStatus() async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.remove(_hasPublishedProfileKey);
+}

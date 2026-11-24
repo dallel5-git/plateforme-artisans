@@ -8,7 +8,10 @@ import 'package:sanaya/core/api/generated/api.dart';
 import 'package:sanaya/features/auth/application/auth_providers.dart';
 import 'package:sanaya/features/auth/application/auth_state_provider.dart';
 import 'package:sanaya/features/auth/application/auth_status.dart';
+import 'package:sanaya/features/auth/application/current_user_provider.dart';
 import 'package:sanaya/features/auth/data/auth_repository.dart';
+import 'package:sanaya/features/onboarding/application/onboarding_providers.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class _MockAuthRepository extends Mock implements AuthRepository {}
 
@@ -31,11 +34,14 @@ ProviderContainer _makeContainer({
 );
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   late _MockAuthRepository authRepository;
   late _MockAuthTokenStore authTokenStore;
   late ProviderContainer container;
 
   setUp(() {
+    SharedPreferences.setMockInitialValues({});
     authRepository = _MockAuthRepository();
     authTokenStore = _MockAuthTokenStore();
     container = _makeContainer(
@@ -111,4 +117,45 @@ void main() {
     ).called(1);
     verify(() => authTokenStore.clear()).called(1);
   });
+
+  test(
+    'MOB-006 — signOut() réinitialise hasPublishedProfileProvider et purge '
+    'SharedPreferences // régression #MOB-006',
+    () async {
+      SharedPreferences.setMockInitialValues({
+        'sanaya.has_published_profile': true,
+      });
+      when(
+        () => authTokenStore.restoreSession(),
+      ).thenAnswer((_) async => false);
+      when(
+        () => authTokenStore.peekRefreshToken(),
+      ).thenAnswer((_) async => 'session-id.token-id');
+      when(
+        () => authRepository.logout(refreshToken: any(named: 'refreshToken')),
+      ).thenAnswer((_) async {});
+      when(() => authTokenStore.clear()).thenAnswer((_) async {});
+
+      await container.read(authStateProvider.future);
+      container.read(authStateProvider.notifier).setAuthenticated([
+        V1AuthOtpVerifyPost200ResponseUserRolesEnum.PROVIDER,
+      ]);
+      container.read(hasPublishedProfileProvider.notifier).state = true;
+
+      expect(container.read(hasPublishedProfileProvider), isTrue);
+
+      await container.read(authStateProvider.notifier).signOut();
+
+      // hasPublishedProfileProvider doit être repassé à false
+      expect(container.read(hasPublishedProfileProvider), isFalse);
+
+      // SharedPreferences ne doit plus contenir la clé
+      final prefs = await SharedPreferences.getInstance();
+      expect(prefs.getBool('sanaya.has_published_profile'), isNull);
+
+      // currentUserProvider repasse à null dès déconnexion
+      final currentUser = await container.read(currentUserProvider.future);
+      expect(currentUser, isNull);
+    },
+  );
 }

@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sanaya/core/api/api_client_provider.dart';
+import 'package:sanaya/features/auth/application/auth_state_provider.dart';
 import 'package:sanaya/features/favorites/data/favorites_repository.dart';
 
 final favoritesRepositoryProvider = Provider<FavoritesRepository>(
@@ -11,6 +12,13 @@ final favoritesRepositoryProvider = Provider<FavoritesRepository>(
 class FavoritesListNotifier extends AsyncNotifier<List<FavoriteItem>> {
   @override
   Future<List<FavoriteItem>> build() async {
+    // MOB-007 : renvoie une liste vide immédiate si la session est non
+    // authentifiée, évitant tout appel réseau 401 intempestif.
+    final authStatus = await ref.watch(authStateProvider.future);
+    if (!authStatus.isAuthenticated) {
+      return const [];
+    }
+
     final repository = ref.watch(favoritesRepositoryProvider);
     final response = await repository.fetchFavorites();
     return response.items.toList();
@@ -18,6 +26,12 @@ class FavoritesListNotifier extends AsyncNotifier<List<FavoriteItem>> {
 
   /// Recharge manuellement la liste (utilisé par RefreshIndicator).
   Future<void> refresh() async {
+    final authStatus = await ref.read(authStateProvider.future);
+    if (!authStatus.isAuthenticated) {
+      state = const AsyncData([]);
+      return;
+    }
+
     state = const AsyncLoading<List<FavoriteItem>>().copyWithPrevious(state);
     state = await AsyncValue.guard(() async {
       final repository = ref.read(favoritesRepositoryProvider);
@@ -28,6 +42,9 @@ class FavoritesListNotifier extends AsyncNotifier<List<FavoriteItem>> {
 
   /// Retire un favori de manière optimiste puis synchronise avec le serveur.
   Future<void> removeFavorite(String providerId) async {
+    final authStatus = await ref.read(authStateProvider.future);
+    if (!authStatus.isAuthenticated) return;
+
     final previousState = state;
     final currentList = state.valueOrNull ?? [];
 
@@ -49,6 +66,9 @@ class FavoritesListNotifier extends AsyncNotifier<List<FavoriteItem>> {
 
   /// Ajoute un favori puis rafraîchit la liste.
   Future<void> addFavorite(String providerId) async {
+    final authStatus = await ref.read(authStateProvider.future);
+    if (!authStatus.isAuthenticated) return;
+
     final repository = ref.read(favoritesRepositoryProvider);
     await repository.addFavorite(providerId);
     await refresh();
