@@ -138,7 +138,7 @@ describe('QA-04 — Recette & Tests E2E : Cycle complet Onboarding & Vérificati
         headline: 'Plombier chauffagiste certifié et dépannage urgent 24/7',
         bio: 'Artisan plombier expérimenté avec plus de 10 ans de pratique dans le gouvernorat de Sousse et ses environs.',
         yearsExperience: 10,
-        spokenLanguages: ['ar', 'fr'],
+        spokenLanguages: ['AR', 'FR'],
         baseGovernorateId: governorate.id,
         baseDelegationId: delegation.id,
         whatsappPhone: clientPhone,
@@ -172,8 +172,10 @@ describe('QA-04 — Recette & Tests E2E : Cycle complet Onboarding & Vérificati
       url: '/v1/providers/me/categories',
       headers: { authorization: `Bearer ${providerToken}` },
       payload: {
-        categoryIds: [categoryPlomberie.id, categoryElectricite.id],
-        primaryCategoryId: categoryPlomberie.id,
+        categories: [
+          { categoryId: categoryPlomberie.id, isPrimary: true },
+          { categoryId: categoryElectricite.id, isPrimary: false },
+        ],
       },
     });
     expect(updateCategoriesRes.statusCode).toBe(200);
@@ -185,7 +187,9 @@ describe('QA-04 — Recette & Tests E2E : Cycle complet Onboarding & Vérificati
       url: '/v1/providers/me/coverage-areas',
       headers: { authorization: `Bearer ${providerToken}` },
       payload: {
-        governorateIds: [governorate.id],
+        coverageAreas: [
+          { governorateId: governorate.id },
+        ],
       },
     });
     expect(updateZonesRes.statusCode).toBe(200);

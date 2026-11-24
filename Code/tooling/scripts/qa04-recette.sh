@@ -126,7 +126,7 @@ CREATE_PROFILE_PAYLOAD=$(cat <<JSON
   "headline": "Artisan qualifié en plomberie et électricité générale",
   "bio": "Professionnel artisan avec plus de 10 ans de savoir-faire rigoureux, disponible pour interventions d'urgence et chantiers complets.",
   "yearsExperience": 10,
-  "spokenLanguages": ["ar", "fr"],
+  "spokenLanguages": ["AR", "FR"],
   "baseGovernorateId": "$GOVERNORATE_ID",
   "baseDelegationId": "$DELEGATION_ID",
   "whatsappPhone": "$PHONE",
@@ -158,13 +158,15 @@ CAT_1_SLUG=$(jq -r '.categories[0].slug' <<<"$BODY")
 CAT_2_ID=$(jq -r '.categories[1].id // .categories[0].id' <<<"$BODY")
 
 # Mise à jour des catégories
-RESP=$(req PUT /providers/me/categories "{\"categoryIds\":[\"$CAT_1_ID\",\"$CAT_2_ID\"],\"primaryCategoryId\":\"$CAT_1_ID\"}" "$PROVIDER_TOKEN")
+CATEGORIES_PAYLOAD="{\"categories\":[{\"categoryId\":\"$CAT_1_ID\",\"isPrimary\":true},{\"categoryId\":\"$CAT_2_ID\",\"isPrimary\":false}]}"
+RESP=$(req PUT /providers/me/categories "$CATEGORIES_PAYLOAD" "$PROVIDER_TOKEN")
 split_status "$RESP"
 expect_status "$STATUS" 200 "3. categories"
 ok "2 métiers configurés (primaire: $CAT_1_SLUG)"
 
 # Mise à jour des zones d'intervention
-RESP=$(req PUT /providers/me/coverage-areas "{\"governorateIds\":[\"$GOVERNORATE_ID\"]}" "$PROVIDER_TOKEN")
+ZONES_PAYLOAD="{\"coverageAreas\":[{\"governorateId\":\"$GOVERNORATE_ID\"}]}"
+RESP=$(req PUT /providers/me/coverage-areas "$ZONES_PAYLOAD" "$PROVIDER_TOKEN")
 split_status "$RESP"
 expect_status "$STATUS" 200 "3. coverage-areas"
 ok "Zone d'intervention configurée ($GOVERNORATE_SLUG)"
