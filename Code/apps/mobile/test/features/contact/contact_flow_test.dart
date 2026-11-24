@@ -229,6 +229,31 @@ void main() {
       },
     );
 
+    test(
+      'MOB-009 — contact hors-ligne sans numéro préalable retourne false et '
+      'place en file d’attente sans ouvrir de lien // régression #MOB-009',
+      () async {
+        when(
+          () => api.v1ContactEventsPost(
+            v1ContactEventsPostRequest: any(
+              named: 'v1ContactEventsPostRequest',
+            ),
+            headers: any(named: 'headers'),
+          ),
+        ).thenThrow(NetworkException('hors ligne'));
+        when(() => queue.enqueue(any())).thenAnswer((_) async {});
+
+        final result = await service.contact(
+          providerId: 'p1',
+          channel: ContactChannel.phone,
+        );
+
+        expect(result, isFalse);
+        verify(() => queue.enqueue(any())).called(1);
+        verifyNever(() => launcher.launch(any()));
+      },
+    );
+
     test("🔒 l'événement échoué part en file locale", () async {
       // 🔒 NON-RÉGRESSION — P9 : sans la file, on perd le lead pour de bon.
       when(

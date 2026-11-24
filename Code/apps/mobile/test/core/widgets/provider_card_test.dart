@@ -1,16 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mocktail/mocktail.dart';
 
+import 'package:sanaya/app/theme.dart';
 import 'package:sanaya/core/api/generated/api.dart';
 import 'package:sanaya/core/widgets/provider_card.dart';
+import 'package:sanaya/features/auth/application/auth_state_provider.dart';
+import 'package:sanaya/features/auth/application/auth_status.dart';
 import 'package:sanaya/features/favorites/application/favorites_providers.dart';
 import 'package:sanaya/features/favorites/data/favorites_repository.dart';
 
 import 'widget_test_helpers.dart';
 
 class _FavoritesRepositoryMock extends Mock implements FavoritesRepository {}
+
+class _FixedAuthStateNotifier extends AuthStateNotifier {
+  _FixedAuthStateNotifier(this._status);
+
+  final AuthStatus _status;
+
+  @override
+  Future<AuthStatus> build() async => _status;
+}
 
 void main() {
   late _FavoritesRepositoryMock repository;
@@ -22,8 +35,16 @@ void main() {
     ).thenAnswer((_) async => FavoritesResponse((b) => b..nextCursor = ''));
   });
 
-  Widget wrap(Widget child) => ProviderScope(
-    overrides: [favoritesRepositoryProvider.overrideWithValue(repository)],
+  Widget wrap(
+    Widget child, {
+    AuthStatus authStatus = const AuthStatus.authenticated(isProvider: false),
+  }) => ProviderScope(
+    overrides: [
+      favoritesRepositoryProvider.overrideWithValue(repository),
+      authStateProvider.overrideWith(
+        () => _FixedAuthStateNotifier(authStatus),
+      ),
+    ],
     child: themedApp(Scaffold(body: child)),
   );
 
@@ -239,5 +260,73 @@ void main() {
 
       verify(() => repository.removeFavorite('provider-1')).called(1);
     });
+
+    testWidgets(
+      'MOB-007 — tap sur le bouton favori en mode visiteur affiche une '
+      'SnackBar avec action Se connecter ouvrant /auth // régression #MOB-007',
+      (tester) async {
+        final testRouter = GoRouter(
+          initialLocation: '/',
+          routes: [
+            GoRoute(
+              path: '/',
+              builder: (_, _) => const Scaffold(
+                body: ProviderCard(
+                  providerId: 'provider-1',
+                  name: 'Karim Ben Salah',
+                  categoryLabel: 'Plomberie',
+                  locationLabel: 'Sousse',
+                  rating: 4.8,
+                ),
+              ),
+            ),
+            GoRoute(
+              path: '/auth',
+              builder: (_, _) => const Scaffold(body: Text('AUTH_SCREEN')),
+            ),
+          ],
+        );
+
+        await tester.pumpWidget(
+          ProviderScope(
+            overrides: [
+              favoritesRepositoryProvider.overrideWithValue(repository),
+              authStateProvider.overrideWith(
+                () => _FixedAuthStateNotifier(
+                  const AuthStatus.unauthenticated(),
+                ),
+              ),
+            ],
+            child: MaterialApp.router(
+              theme: buildTheme(
+                brightness: Brightness.light,
+                locale: const Locale('fr'),
+              ),
+              locale: const Locale('fr'),
+              routerConfig: testRouter,
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        expect(find.byIcon(Icons.favorite_border), findsOneWidget);
+
+        await tester.tap(find.byIcon(Icons.favorite_border));
+        await tester.pumpAndSettle();
+
+        // Le repository ne doit pas être appelé
+        verifyNever(() => repository.addFavorite(any()));
+
+        // Doit afficher la SnackBar d'invitation à se connecter
+        expect(find.byType(SnackBar), findsOneWidget);
+        expect(find.text('Se connecter'), findsOneWidget);
+
+        // Cliquer sur le bouton d'action doit ouvrir la route /auth
+        await tester.tap(find.text('Se connecter'));
+        await tester.pumpAndSettle();
+
+        expect(find.text('AUTH_SCREEN'), findsOneWidget);
+      },
+    );
   });
 }

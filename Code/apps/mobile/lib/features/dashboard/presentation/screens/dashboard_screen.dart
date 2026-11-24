@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sanaya/app/providers.dart';
@@ -21,6 +23,8 @@ import 'package:sanaya/features/dashboard/presentation/widgets/dashboard_pro_tip
 import 'package:sanaya/features/dashboard/presentation/widgets/dashboard_quick_actions.dart';
 import 'package:sanaya/features/dashboard/presentation/widgets/dashboard_recent_activity_card.dart';
 import 'package:sanaya/features/dashboard/presentation/widgets/dashboard_reputation_card.dart';
+import 'package:sanaya/features/pro_profile/application/pro_profile_providers.dart';
+import 'package:sanaya/features/pro_profile/presentation/widgets/availability_selector.dart';
 import 'package:sanaya/features/reviews/application/pro_reviews_providers.dart';
 import 'package:sanaya/features/verification/application/kyc_providers.dart';
 import 'package:sanaya/features/verification/presentation/widgets/verification_status_card.dart';
@@ -110,7 +114,44 @@ class _DashboardContent extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          DashboardHeader(availabilityStatus: availability),
+          DashboardHeader(
+            availabilityStatus: availability,
+            onAvailabilityTap: profile != null
+                ? () {
+                    unawaited(
+                      showAvailabilityBottomSheet(
+                        context,
+                        currentStatusName: profile.availabilityStatus.name,
+                        onSelect: (newStatus) async {
+                          try {
+                            await ref
+                                .read(proProfileUpdaterProvider)
+                                .save(
+                                  V1ProvidersMePatchRequest(
+                                    (b) => b..availabilityStatus = newStatus,
+                                  ),
+                                );
+                            if (!context.mounted) return;
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(t.proProfile.availabilityUpdated),
+                              ),
+                            );
+                          } on Object {
+                            if (!context.mounted) return;
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(t.dashboard.errorMessage),
+                              ),
+                            );
+                          }
+                        },
+                        t: t,
+                      ),
+                    );
+                  }
+                : null,
+          ),
           Padding(
             padding: const EdgeInsets.fromLTRB(
               AppSpacing.lg,

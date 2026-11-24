@@ -4,6 +4,12 @@ import 'package:sanaya/core/api/generated/api.dart';
 import 'package:sanaya/core/demo/demo_mode_provider.dart';
 import 'package:sanaya/features/auth/application/auth_providers.dart';
 import 'package:sanaya/features/auth/application/auth_status.dart';
+import 'package:sanaya/features/dashboard/application/dashboard_providers.dart';
+import 'package:sanaya/features/favorites/application/favorites_providers.dart';
+import 'package:sanaya/features/history/application/contact_history_providers.dart';
+import 'package:sanaya/features/onboarding/application/onboarding_providers.dart';
+import 'package:sanaya/features/onboarding/data/publication_status_persistence.dart';
+import 'package:sanaya/features/reviews/application/pro_reviews_providers.dart';
 
 bool _hasProviderRole(
   Iterable<V1AuthOtpVerifyPost200ResponseUserRolesEnum> roles,
@@ -48,15 +54,30 @@ class AuthStateNotifier extends AsyncNotifier<AuthStatus> {
   }
 
   /// Déconnexion : révoque la session serveur, purge le stockage local,
-  /// puis repasse l'état à non-authentifié. Aucun écran n'appelle encore
-  /// cette méthode (pas de bouton de déconnexion dans le périmètre FM-05,
-  /// voir `auth_repository.dart` — prévu pour FM-13) ; elle est prête pour
-  /// quand ce sera le cas.
+  /// réinitialise le statut de publication et les préférences locales, puis
+  /// invalide l'ensemble des caches et états privés pour garantir l'étanchéité
+  /// absolue entre sessions (MOB-006).
   Future<void> signOut() async {
     final tokenStore = ref.read(authTokenStoreProvider);
     final refreshToken = await tokenStore.peekRefreshToken();
     await ref.read(logoutProvider)(refreshToken: refreshToken);
     await tokenStore.clear();
+
+    // MOB-006 : réinitialiser hasPublishedProfileProvider et purger
+    // SharedPreferences
+    ref.read(hasPublishedProfileProvider.notifier).state = false;
+    await clearPublicationStatus();
+
+    // MOB-006 : invalidation explicite des états et caches privés
+    // Note : currentUserProvider écoute déjà authStateProvider.future
+    // (ref.watch) et se recalcule donc automatiquement vers null lors du
+    // changement d'état.
+    ref
+      ..invalidate(favoritesListProvider)
+      ..invalidate(contactHistoryProvider)
+      ..invalidate(dashboardStatsProvider)
+      ..invalidate(myProviderProfileProvider);
+
     state = const AsyncData(AuthStatus.unauthenticated());
   }
 }

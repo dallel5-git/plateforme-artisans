@@ -20,6 +20,9 @@ class OnboardingCategoriesStep extends ConsumerStatefulWidget {
     required this.isSaving,
     required this.errorMessage,
     required this.onSubmit,
+    this.submitLabel,
+    this.shrinkWrap = false,
+    this.physics,
     super.key,
   });
 
@@ -27,6 +30,9 @@ class OnboardingCategoriesStep extends ConsumerStatefulWidget {
   final bool isSaving;
   final String? errorMessage;
   final ValueChanged<Map<String, bool>> onSubmit;
+  final String? submitLabel;
+  final bool shrinkWrap;
+  final ScrollPhysics? physics;
 
   @override
   ConsumerState<OnboardingCategoriesStep> createState() =>
@@ -109,6 +115,8 @@ class _OnboardingCategoriesStepState
         onAction: () => ref.invalidate(categoriesProvider),
       ),
       data: (categories) => ListView(
+        shrinkWrap: widget.shrinkWrap,
+        physics: widget.physics,
         padding: const EdgeInsets.all(AppSpacing.lg),
         children: [
           Text(t.onboarding.categoriesTitle, style: AppText.h3(locale)),
@@ -151,7 +159,7 @@ class _OnboardingCategoriesStepState
           ],
           const SizedBox(height: AppSpacing.xl),
           AppButton(
-            label: t.onboarding.next,
+            label: widget.submitLabel ?? t.onboarding.next,
             onPressed: canSubmit ? () => widget.onSubmit(_selection) : null,
           ),
         ],

@@ -1,3 +1,4 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,6 +10,8 @@ import 'package:sanaya/core/api/generated/api.dart';
 import 'package:sanaya/core/widgets/error_state.dart';
 import 'package:sanaya/features/onboarding/application/onboarding_repository_provider.dart';
 import 'package:sanaya/features/onboarding/data/onboarding_repository.dart';
+import 'package:sanaya/features/onboarding/presentation/widgets/onboarding_categories_step.dart';
+import 'package:sanaya/features/onboarding/presentation/widgets/onboarding_zones_step.dart';
 import 'package:sanaya/features/pro_profile/presentation/pro_profile_screen.dart';
 import 'package:sanaya/features/provider_profile/application/provider_profile_providers.dart';
 import 'package:sanaya/features/provider_profile/data/provider_profile_repository.dart';
@@ -32,12 +35,21 @@ class _MockProviderMe extends Mock
 
 class _FakePatchRequest extends Fake implements V1ProvidersMePatchRequest {}
 
+class _FakeCategoriesPutRequest extends Fake
+    implements V1ProvidersMeCategoriesPutRequest {}
+
+class _FakeCoverageAreasPutRequest extends Fake
+    implements V1ProvidersMeCoverageAreasPutRequest {}
+
 _MockProviderMe _profile({
   String slug = 'ahmed-plomberie-sousse',
   String businessName = 'Ahmed Plomberie',
   bool acceptsEmergency = false,
   V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum status =
       V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum.AVAILABLE,
+  BuiltList<V1ProvidersMePost200ResponseProviderCategoriesInner>? categories,
+  BuiltList<V1ProvidersMePost200ResponseProviderCoverageAreasInner>?
+  coverageAreas,
 }) {
   final mock = _MockProviderMe();
   when(() => mock.slug).thenReturn(slug);
@@ -56,6 +68,8 @@ _MockProviderMe _profile({
   when(() => mock.totalProfileViews).thenReturn(120);
   when(() => mock.totalContacts).thenReturn(15);
   when(() => mock.completionScore).thenReturn(85);
+  when(() => mock.categories).thenReturn(categories ?? BuiltList());
+  when(() => mock.coverageAreas).thenReturn(coverageAreas ?? BuiltList());
   return mock;
 }
 
@@ -66,6 +80,8 @@ void main() {
 
   setUpAll(() {
     registerFallbackValue(_FakePatchRequest());
+    registerFallbackValue(_FakeCategoriesPutRequest());
+    registerFallbackValue(_FakeCoverageAreasPutRequest());
   });
 
   setUp(() {
@@ -448,6 +464,122 @@ void main() {
         expect(find.byType(VerificationStatusCard), findsOneWidget);
         expect(find.text("Vérification d'identité"), findsOneWidget);
         expect(find.text('Artisan Vérifié'), findsOneWidget);
+      },
+    );
+
+    // MOB-020 — Édition post-onboarding des métiers et zones
+    testWidgets(
+      'affiche les sections et badges de métiers et zones',
+      (tester) async {
+        tester.view.physicalSize = const Size(400, 3000);
+        tester.view.devicePixelRatio = 1.0;
+        addTearDown(tester.view.reset);
+
+        final cat = V1ProvidersMePost200ResponseProviderCategoriesInner(
+          (b) => b
+            ..categoryId = 'plumbing'
+            ..isPrimary = true
+            ..yearsExperience = 5,
+        );
+        final zone = V1ProvidersMePost200ResponseProviderCoverageAreasInner(
+          (b) => b
+            ..id = 'zone-1'
+            ..governorateId = 'tunis'
+            ..delegationId = ''
+            ..travelFee = 0,
+        );
+
+        await tester.pumpWidget(
+          buildScreen(
+            overrides: [
+              myProviderProfileProvider.overrideWith(
+                (ref) async => _profile(
+                  categories: BuiltList([cat]),
+                  coverageAreas: BuiltList([zone]),
+                ),
+              ),
+            ],
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        expect(find.text('Mes Métiers & Spécialités'), findsOneWidget);
+        expect(find.text("Zones d'intervention"), findsOneWidget);
+        expect(find.text('Modifier mes métiers'), findsOneWidget);
+        expect(find.text('Modifier mes zones'), findsOneWidget);
+        expect(find.text('TUNIS'), findsOneWidget);
+      },
+    );
+
+    testWidgets(
+      'taper sur « Modifier mes métiers » ouvre le bottom-sheet',
+      (tester) async {
+        when(
+          () => repo.setCategories(any()),
+        ).thenAnswer(
+          (_) async => CategoriesResult(
+            (b) => b
+              ..completionScore = 90
+              ..categories.replace([]),
+          ),
+        );
+
+        await tester.pumpWidget(
+          buildScreen(
+            overrides: [
+              onboardingRepositoryProvider.overrideWithValue(repo),
+              myProviderProfileProvider.overrideWith(
+                (ref) async => _profile(),
+              ),
+            ],
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        await tester.scrollUntilVisible(
+          find.text('Modifier mes métiers'),
+          200,
+        );
+        await tester.tap(find.text('Modifier mes métiers'));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(OnboardingCategoriesStep), findsOneWidget);
+      },
+    );
+
+    testWidgets(
+      'taper sur « Modifier mes zones » ouvre le bottom-sheet',
+      (tester) async {
+        when(
+          () => repo.setCoverageAreas(any()),
+        ).thenAnswer(
+          (_) async => CoverageAreasResult(
+            (b) => b
+              ..completionScore = 90
+              ..coverageAreas.replace([]),
+          ),
+        );
+
+        await tester.pumpWidget(
+          buildScreen(
+            overrides: [
+              onboardingRepositoryProvider.overrideWithValue(repo),
+              myProviderProfileProvider.overrideWith(
+                (ref) async => _profile(),
+              ),
+            ],
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        await tester.scrollUntilVisible(
+          find.text('Modifier mes zones'),
+          200,
+        );
+        await tester.tap(find.text('Modifier mes zones'));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(OnboardingZonesStep), findsOneWidget);
       },
     );
   });

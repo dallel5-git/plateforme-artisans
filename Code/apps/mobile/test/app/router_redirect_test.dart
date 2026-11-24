@@ -16,6 +16,7 @@ import 'package:sanaya/features/auth/data/auth_repository.dart';
 import 'package:sanaya/features/onboarding/application/onboarding_providers.dart';
 import 'package:sanaya/features/search/application/catalog_providers.dart';
 import 'package:sanaya/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class _MockAuthRepository extends Mock implements AuthRepository {}
 
@@ -42,9 +43,13 @@ Future<void> pumpPastSplash(WidgetTester tester) async {
 /// plutôt que de flasher un écran intermédiaire (critère d'acceptation
 /// FM-23).
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   final t = AppLocale.fr.buildSync();
 
-  setUp(() => router.go('/'));
+  setUp(() {
+    SharedPreferences.setMockInitialValues({});
+    router.go('/');
+  });
 
   testWidgets(
     'session restaurée (rôle CLIENT) : le splash redirige vers le shell '

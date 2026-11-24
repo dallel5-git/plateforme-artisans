@@ -28,6 +28,17 @@
   "portfolioSection": "Galerie & Réalisations",
   "portfolioDesc": "Photos de vos réalisations et chantiers",
   "categoriesAndZones": "Métiers & Zones d'intervention",
+  "categoriesSection": "Mes Métiers & Spécialités",
+  "categoriesDesc": "Gérez vos corps de métier et votre spécialité principale",
+  "categoriesUpdated": "Métiers mis à jour avec succès",
+  "categoriesEmpty": "Aucun métier configuré",
+  "zonesSection": "Zones d'intervention",
+  "zonesDesc": "Gouvernorats couverts par vos déplacements",
+  "zonesUpdated": "Zones d'intervention mises à jour avec succès",
+  "zonesEmpty": "Aucune zone configurée",
+  "editCategories": "Modifier mes métiers",
+  "editZones": "Modifier mes zones",
+  "availabilityUpdated": "Disponibilité mise à jour",
   "testOnboardingPro": "Tester l'onboarding Pro",
   "testOnboardingClient": "Tester l'onboarding Particulier"
 }

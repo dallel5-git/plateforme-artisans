@@ -14,9 +14,14 @@ import 'package:sanaya/features/provider_profile/presentation/widgets/availabili
 /// - Badge de disponibilité commutable (en lecture seule ici, cf. FM-38 pour
 ///   l'écriture avec BE-44).
 class DashboardHeader extends ConsumerWidget {
-  const DashboardHeader({this.availabilityStatus, super.key});
+  const DashboardHeader({
+    this.availabilityStatus,
+    this.onAvailabilityTap,
+    super.key,
+  });
 
   final V1ProvidersSlugGet200ResponseAvailabilityStatusEnum? availabilityStatus;
+  final VoidCallback? onAvailabilityTap;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -58,7 +63,25 @@ class DashboardHeader extends ConsumerWidget {
           ),
           if (availabilityStatus != null) ...[
             const SizedBox(width: AppSpacing.sm),
-            AvailabilityChip(status: availabilityStatus!),
+            if (onAvailabilityTap != null)
+              InkWell(
+                onTap: onAvailabilityTap,
+                borderRadius: const BorderRadius.all(AppRadius.pill),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    AvailabilityChip(status: availabilityStatus!),
+                    const SizedBox(width: AppSpacing.xxs),
+                    Icon(
+                      Icons.expand_more_rounded,
+                      size: AppIconSize.sm,
+                      color: colors.textSecondary,
+                    ),
+                  ],
+                ),
+              )
+            else
+              AvailabilityChip(status: availabilityStatus!),
           ],
         ],
       ),

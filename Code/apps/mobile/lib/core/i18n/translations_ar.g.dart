@@ -149,6 +149,7 @@ class Translations$contact$ar extends Translations$contact$fr {
 	// Translations
 	@override String get call => 'اتصال';
 	@override String get whatsapp => 'واتساب';
+	@override String get offlineUnavailable => 'الاتصال بالإنترنت مطلوب لأول تواصل مع هذا الحرفي.';
 }
 
 // Path: dashboard
@@ -411,6 +412,17 @@ class Translations$proProfile$ar extends Translations$proProfile$fr {
 	@override String get portfolioSection => 'معرض الأعمال والإنجازات';
 	@override String get portfolioDesc => 'صور لمشاريعك وتدخلاتك السابقة';
 	@override String get categoriesAndZones => 'المهن ومناطق التدخل';
+	@override String get categoriesSection => 'مهنتي وتخصصاتي';
+	@override String get categoriesDesc => 'إدارة المهن التي تمارسها والمهنة الرئيسية';
+	@override String get categoriesUpdated => 'تم تحديث المهن بنجاح';
+	@override String get categoriesEmpty => 'لم يتم تحديد أي مهنة';
+	@override String get zonesSection => 'مناطق التدخل';
+	@override String get zonesDesc => 'الولايات التي تغطيها خدماتك';
+	@override String get zonesUpdated => 'تم تحديث مناطق التدخل بنجاح';
+	@override String get zonesEmpty => 'لم يتم تحديد أي ولاية';
+	@override String get editCategories => 'تعديل المهن';
+	@override String get editZones => 'تعديل المناطق';
+	@override String get availabilityUpdated => 'تم تحديث الحالة بنجاح';
 	@override String get testOnboardingPro => 'تجربة تسجيل الحرفي';
 	@override String get testOnboardingClient => 'تجربة تسجيل الحريف';
 }
@@ -892,6 +904,7 @@ extension on TranslationsAr {
 			'common.devPreview.statNewLabel' => 'جديد',
 			'contact.call' => 'اتصال',
 			'contact.whatsapp' => 'واتساب',
+			'contact.offlineUnavailable' => 'الاتصال بالإنترنت مطلوب لأول تواصل مع هذا الحرفي.',
 			'dashboard.title' => 'لوحة التحكم',
 			'dashboard.greeting' => ({required Object name}) => 'مرحباً، ${name}',
 			'dashboard.statViews' => 'مشاهدات الملف الشخصي',
@@ -1091,6 +1104,17 @@ extension on TranslationsAr {
 			'proProfile.portfolioSection' => 'معرض الأعمال والإنجازات',
 			'proProfile.portfolioDesc' => 'صور لمشاريعك وتدخلاتك السابقة',
 			'proProfile.categoriesAndZones' => 'المهن ومناطق التدخل',
+			'proProfile.categoriesSection' => 'مهنتي وتخصصاتي',
+			'proProfile.categoriesDesc' => 'إدارة المهن التي تمارسها والمهنة الرئيسية',
+			'proProfile.categoriesUpdated' => 'تم تحديث المهن بنجاح',
+			'proProfile.categoriesEmpty' => 'لم يتم تحديد أي مهنة',
+			'proProfile.zonesSection' => 'مناطق التدخل',
+			'proProfile.zonesDesc' => 'الولايات التي تغطيها خدماتك',
+			'proProfile.zonesUpdated' => 'تم تحديث مناطق التدخل بنجاح',
+			'proProfile.zonesEmpty' => 'لم يتم تحديد أي ولاية',
+			'proProfile.editCategories' => 'تعديل المهن',
+			'proProfile.editZones' => 'تعديل المناطق',
+			'proProfile.availabilityUpdated' => 'تم تحديث الحالة بنجاح',
 			'proProfile.testOnboardingPro' => 'تجربة تسجيل الحرفي',
 			'proProfile.testOnboardingClient' => 'تجربة تسجيل الحريف',
 			'profile.title' => 'الملف الشخصي',

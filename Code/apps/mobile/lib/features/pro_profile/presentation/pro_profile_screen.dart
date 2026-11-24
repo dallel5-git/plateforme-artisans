@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -9,6 +10,7 @@ import 'package:sanaya/core/demo/demo_mode_provider.dart';
 import 'package:sanaya/core/theme/app_colors.dart';
 import 'package:sanaya/core/theme/app_spacing.dart';
 import 'package:sanaya/core/theme/app_text.dart';
+import 'package:sanaya/core/widgets/app_badge.dart';
 import 'package:sanaya/core/widgets/app_button.dart';
 import 'package:sanaya/core/widgets/app_card.dart';
 import 'package:sanaya/core/widgets/app_skeleton.dart';
@@ -16,10 +18,14 @@ import 'package:sanaya/core/widgets/empty_state.dart';
 import 'package:sanaya/core/widgets/error_state.dart';
 import 'package:sanaya/features/onboarding/application/onboarding_providers.dart';
 import 'package:sanaya/features/onboarding/data/onboarding_repository.dart';
+import 'package:sanaya/features/onboarding/presentation/widgets/onboarding_categories_step.dart';
 import 'package:sanaya/features/onboarding/presentation/widgets/onboarding_profile_step.dart';
+import 'package:sanaya/features/onboarding/presentation/widgets/onboarding_zones_step.dart';
 import 'package:sanaya/features/pro_profile/application/pro_profile_providers.dart';
 import 'package:sanaya/features/pro_profile/presentation/widgets/availability_selector.dart';
 import 'package:sanaya/features/reviews/application/pro_reviews_providers.dart';
+import 'package:sanaya/features/search/application/catalog_providers.dart';
+import 'package:sanaya/features/search/data/catalog_repository.dart';
 import 'package:sanaya/features/settings/presentation/account_settings_section.dart';
 import 'package:sanaya/features/verification/application/kyc_providers.dart';
 import 'package:sanaya/features/verification/presentation/widgets/verification_status_card.dart';
@@ -77,6 +83,155 @@ class _ProProfileScreenState extends ConsumerState<ProProfileScreen> {
         _errorMessage = t.onboarding.profileSaveError;
       });
     }
+  }
+
+  Future<void> _submitCategories(
+    Map<String, bool> selection,
+    BuildContext sheetContext,
+  ) async {
+    final t = ref.read(translationsProvider);
+    final body = V1ProvidersMeCategoriesPutRequest(
+      (b) => b.categories.addAll(
+        selection.entries.map(
+          (entry) => V1ProvidersMeCategoriesPutRequestCategoriesInner(
+            (cb) => cb
+              ..categoryId = entry.key
+              ..isPrimary = entry.value,
+          ),
+        ),
+      ),
+    );
+    try {
+      await ref.read(proProfileUpdaterProvider).saveCategories(body);
+      if (!mounted) return;
+      if (sheetContext.mounted) {
+        Navigator.of(sheetContext).pop();
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(t.proProfile.categoriesUpdated)),
+      );
+    } on Object {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(t.onboarding.categoriesSaveError)),
+      );
+    }
+  }
+
+  Future<void> _submitCoverageAreas(
+    Set<String> selection,
+    BuildContext sheetContext,
+  ) async {
+    final t = ref.read(translationsProvider);
+    final body = V1ProvidersMeCoverageAreasPutRequest(
+      (b) => b.coverageAreas.addAll(
+        selection.map(
+          (governorateId) =>
+              V1ProvidersMeCoverageAreasPutRequestCoverageAreasInner(
+                (cb) => cb.governorateId = governorateId,
+              ),
+        ),
+      ),
+    );
+    try {
+      await ref.read(proProfileUpdaterProvider).saveCoverageAreas(body);
+      if (!mounted) return;
+      if (sheetContext.mounted) {
+        Navigator.of(sheetContext).pop();
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(t.proProfile.zonesUpdated)),
+      );
+    } on Object {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(t.onboarding.zonesErrorMessage)),
+      );
+    }
+  }
+
+  void _openEditCategories(BuildContext context, ProviderMe profile) {
+    final t = ref.read(translationsProvider);
+    final colors = context.colors;
+    final initialSelection = {
+      for (final c in profile.categories) c.categoryId: c.isPrimary,
+    };
+    unawaited(
+      showModalBottomSheet<void>(
+        context: context,
+        isScrollControlled: true,
+        useSafeArea: true,
+        builder: (sheetContext) => SizedBox(
+          height: MediaQuery.sizeOf(sheetContext).height * 0.85,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
+                child: Container(
+                  width: 36,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: colors.border,
+                    borderRadius: const BorderRadius.all(AppRadius.pill),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: OnboardingCategoriesStep(
+                  initialSelection: initialSelection,
+                  isSaving: _isSaving,
+                  errorMessage: null,
+                  submitLabel: t.proProfile.save,
+                  onSubmit: (sel) => _submitCategories(sel, sheetContext),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _openEditZones(BuildContext context, ProviderMe profile) {
+    final t = ref.read(translationsProvider);
+    final colors = context.colors;
+    final initialSelection = profile.coverageAreas
+        .map((a) => a.governorateId)
+        .toSet();
+    unawaited(
+      showModalBottomSheet<void>(
+        context: context,
+        isScrollControlled: true,
+        useSafeArea: true,
+        builder: (sheetContext) => SizedBox(
+          height: MediaQuery.sizeOf(sheetContext).height * 0.85,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
+                child: Container(
+                  width: 36,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: colors.border,
+                    borderRadius: const BorderRadius.all(AppRadius.pill),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: OnboardingZonesStep(
+                  initialSelection: initialSelection,
+                  isSaving: _isSaving,
+                  errorMessage: null,
+                  submitLabel: t.proProfile.save,
+                  onSubmit: (sel) => _submitCoverageAreas(sel, sheetContext),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   Future<void> _updateAvailability(
@@ -138,6 +293,8 @@ class _ProProfileScreenState extends ConsumerState<ProProfileScreen> {
                 onSubmitProfile: _submitProfile,
                 onSelectAvailability: _updateAvailability,
                 onToggleAcceptsEmergency: _updateAcceptsEmergency,
+                onEditCategories: () => _openEditCategories(context, profile),
+                onEditZones: () => _openEditZones(context, profile),
               ),
       ),
     );
@@ -176,6 +333,8 @@ class _ProProfileContent extends ConsumerWidget {
     required this.onSubmitProfile,
     required this.onSelectAvailability,
     required this.onToggleAcceptsEmergency,
+    required this.onEditCategories,
+    required this.onEditZones,
   });
 
   final ProviderMe profile;
@@ -185,6 +344,8 @@ class _ProProfileContent extends ConsumerWidget {
   final ValueChanged<V1ProvidersMePatchRequestAvailabilityStatusEnum>
   onSelectAvailability;
   final ValueChanged<bool> onToggleAcceptsEmergency;
+  final VoidCallback onEditCategories;
+  final VoidCallback onEditZones;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -221,6 +382,16 @@ class _ProProfileContent extends ConsumerWidget {
           acceptsEmergency: profile.acceptsEmergency,
           onSelectAvailability: onSelectAvailability,
           onToggleAcceptsEmergency: onToggleAcceptsEmergency,
+        ),
+        const SizedBox(height: AppSpacing.md),
+        _ProCategoriesCard(
+          profile: profile,
+          onEdit: onEditCategories,
+        ),
+        const SizedBox(height: AppSpacing.md),
+        _ProZonesCard(
+          profile: profile,
+          onEdit: onEditZones,
         ),
         const SizedBox(height: AppSpacing.md),
         _ProPublicListingCard(slug: profile.slug),
@@ -915,6 +1086,282 @@ class _AcceptsEmergencyTile extends ConsumerWidget {
         t.proProfile.acceptsEmergencyDescription,
         style: AppText.small(locale).copyWith(color: colors.textSecondary),
       ),
+    );
+  }
+}
+
+class _ProCategoriesCard extends ConsumerWidget {
+  const _ProCategoriesCard({
+    required this.profile,
+    required this.onEdit,
+  });
+
+  final ProviderMe profile;
+  final VoidCallback onEdit;
+
+  BuiltList<V1ProvidersMePost200ResponseProviderCategoriesInner>
+  get _categories {
+    try {
+      return profile.categories;
+    } on Object catch (_) {
+      return BuiltList();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(translationsProvider);
+    final colors = context.colors;
+    final locale = Localizations.localeOf(context);
+    final categoriesAsync = ref.watch(categoriesProvider);
+    final categories = _categories;
+
+    return AppCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  color: colors.accentSubtle,
+                  borderRadius: const BorderRadius.all(AppRadius.md),
+                ),
+                child: Icon(
+                  Icons.handyman_rounded,
+                  color: colors.accent,
+                  size: AppIconSize.md,
+                ),
+              ),
+              const SizedBox(width: AppSpacing.md),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      t.proProfile.categoriesSection,
+                      style: AppText.bodyStrong(locale).copyWith(
+                        color: colors.textPrimary,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      t.proProfile.categoriesDesc,
+                      style: AppText.caption(locale).copyWith(
+                        color: colors.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.md),
+          if (categories.isEmpty)
+            Text(
+              t.proProfile.categoriesEmpty,
+              style: AppText.body(locale).copyWith(
+                color: colors.textSecondary,
+              ),
+            )
+          else
+            Wrap(
+              spacing: AppSpacing.xs,
+              runSpacing: AppSpacing.xs,
+              children: [
+                for (final item in categories)
+                  _CategoryBadge(
+                    item: item,
+                    categoriesCatalog: categoriesAsync.valueOrNull,
+                    locale: locale,
+                  ),
+              ],
+            ),
+          const SizedBox(height: AppSpacing.md),
+          AppButton(
+            label: t.proProfile.editCategories,
+            variant: AppButtonVariant.secondary,
+            icon: const Icon(Icons.edit_rounded, size: AppIconSize.sm),
+            onPressed: onEdit,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _CategoryBadge extends StatelessWidget {
+  const _CategoryBadge({
+    required this.item,
+    required this.categoriesCatalog,
+    required this.locale,
+  });
+
+  final V1ProvidersMePost200ResponseProviderCategoriesInner item;
+  final List<CategoryTreeNode>? categoriesCatalog;
+  final Locale locale;
+
+  @override
+  Widget build(BuildContext context) {
+    var label = item.categoryId;
+    if (categoriesCatalog != null) {
+      final match = categoriesCatalog!.where(
+        (c) => c.id == item.categoryId,
+      );
+      if (match.isNotEmpty) {
+        label = locale.languageCode == 'ar'
+            ? match.first.nameAr
+            : match.first.nameFr;
+      }
+    }
+
+    return AppBadge(
+      label: label,
+      variant: item.isPrimary
+          ? AppBadgeVariant.verified
+          : AppBadgeVariant.neutral,
+      icon: item.isPrimary ? Icons.star_rounded : null,
+      bordered: !item.isPrimary,
+    );
+  }
+}
+
+class _ProZonesCard extends ConsumerWidget {
+  const _ProZonesCard({
+    required this.profile,
+    required this.onEdit,
+  });
+
+  final ProviderMe profile;
+  final VoidCallback onEdit;
+
+  BuiltList<V1ProvidersMePost200ResponseProviderCoverageAreasInner> get _zones {
+    try {
+      return profile.coverageAreas;
+    } on Object catch (_) {
+      return BuiltList();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = ref.watch(translationsProvider);
+    final colors = context.colors;
+    final locale = Localizations.localeOf(context);
+    final governoratesAsync = ref.watch(governoratesProvider);
+    final zones = _zones;
+
+    return AppCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  color: colors.accentSubtle,
+                  borderRadius: const BorderRadius.all(AppRadius.md),
+                ),
+                child: Icon(
+                  Icons.map_rounded,
+                  color: colors.accent,
+                  size: AppIconSize.md,
+                ),
+              ),
+              const SizedBox(width: AppSpacing.md),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      t.proProfile.zonesSection,
+                      style: AppText.bodyStrong(locale).copyWith(
+                        color: colors.textPrimary,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      t.proProfile.zonesDesc,
+                      style: AppText.caption(locale).copyWith(
+                        color: colors.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.md),
+          if (zones.isEmpty)
+            Text(
+              t.proProfile.zonesEmpty,
+              style: AppText.body(locale).copyWith(
+                color: colors.textSecondary,
+              ),
+            )
+          else
+            Wrap(
+              spacing: AppSpacing.xs,
+              runSpacing: AppSpacing.xs,
+              children: [
+                for (final item in zones)
+                  _GovernorateBadge(
+                    governorateId: item.governorateId,
+                    governoratesCatalog: governoratesAsync.valueOrNull,
+                    locale: locale,
+                  ),
+              ],
+            ),
+          const SizedBox(height: AppSpacing.md),
+          AppButton(
+            label: t.proProfile.editZones,
+            variant: AppButtonVariant.secondary,
+            icon: const Icon(
+              Icons.edit_location_rounded,
+              size: AppIconSize.sm,
+            ),
+            onPressed: onEdit,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _GovernorateBadge extends StatelessWidget {
+  const _GovernorateBadge({
+    required this.governorateId,
+    required this.governoratesCatalog,
+    required this.locale,
+  });
+
+  final String governorateId;
+  final List<Governorate>? governoratesCatalog;
+  final Locale locale;
+
+  @override
+  Widget build(BuildContext context) {
+    var label = governorateId.toUpperCase();
+    if (governoratesCatalog != null) {
+      final match = governoratesCatalog!.where(
+        (g) => g.id == governorateId,
+      );
+      if (match.isNotEmpty) {
+        label = locale.languageCode == 'ar'
+            ? match.first.nameAr
+            : match.first.nameFr;
+      }
+    }
+
+    return AppBadge(
+      label: label,
+      variant: AppBadgeVariant.neutral,
+      icon: Icons.location_on_outlined,
+      bordered: true,
     );
   }
 }

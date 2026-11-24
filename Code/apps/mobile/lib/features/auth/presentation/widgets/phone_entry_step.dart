@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:sanaya/core/i18n/translations.g.dart';
@@ -48,8 +50,10 @@ class _PhoneEntryStepState extends State<PhoneEntryStep> {
   }
 
   void _openLegalNotice() {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(builder: (_) => const LegalNoticeScreen()),
+    unawaited(
+      Navigator.of(context).push(
+        MaterialPageRoute<void>(builder: (_) => const LegalNoticeScreen()),
+      ),
     );
   }
 

@@ -34,14 +34,13 @@ Ce backlog recense de manière exhaustive toutes les tâches requises pour :
 | **FW-20a** | Admin Web | Modération | File d'attente back-office des vérifications CIN (`apps/admin`) | 🔴 P0 | 5 SP | BE-30b | ✅ Fait |
 | **FW-20b** | Admin Web | Modération | Interface d'instruction CIN (visualiseur sécurisé, validation / rejet motivé) | 🔴 P0 | 5 SP | FW-20a | ✅ Fait |
 | **BE-31a** | Backend | Modération | Traitement de la décision admin, mise à jour `isVerified` & recalcul ranking | 🔴 P0 | 3 h | BE-30b | ✅ Fait |
-| **BE-30c** | Backend/Worker | Sécurité & Légal | Worker de purge automatique des documents sensibles post-décision | 🟠 P1 | 3 h | BE-30a | ✅ Fait |
-| **DOC-01** | Conformité | Sécurité & Légal | Dossier de conformité INPDP (déclaration de traitement données sensibles) | 🔴 P0 | 8 h | — | |
+| **DOC-01** | Conformité | Sécurité & Légal | Dossier de conformité INPDP (déclaration de traitement données sensibles) | 🔴 P0 | 8 h | — | ✅ Fait |
 | **MOB-018** | Mobile | Espace Pro | Entrée visible "Devenir artisan" dans le profil client | 🟠 P1 | 2 SP | MOB-001 | ✅ Fait |
-| **MOB-020** | Mobile | Espace Pro | Interface d'édition post-onboarding des catégories et zones pro | 🟡 P2 | 5 SP | BE-44b | |
+| **MOB-020** | Mobile | Espace Pro | Interface d'édition post-onboarding des catégories et zones pro | 🟡 P2 | 5 SP | BE-44b | ✅ Fait |
 | **MOB-021** | Mobile | Espace Pro | Gestion autonome du portfolio dans le profil pro (ajout/suppression) | 🟡 P2 | 5 SP | MOB-020 | |
 | **MOB-022** | Mobile | Espace Pro | Module de consultation et édition des prestations & tarifs indicatifs | 🟡 P2 | 5 SP | BE-47 | |
-| **MOB-019** | Mobile | Espace Pro | Pull-to-refresh et sélecteur de disponibilité sur le Dashboard Pro | 🟡 P2 | 2 SP | — | |
-| **QA-04** | QA / Test | Recette | Scénarios de tests E2E : Inscription → Onboarding → KYC → Validation admin | 🔴 P0 | 4 h | Toutes |
+| **MOB-019** | Mobile | Espace Pro | Pull-to-refresh et sélecteur de disponibilité sur le Dashboard Pro | 🟡 P2 | 2 SP | — | ✅ Fait |
+| **QA-04** | QA / Test | Recette | Scénarios de tests E2E : Inscription → Onboarding → KYC → Validation admin | 🔴 P0 | 4 h | Toutes | ✅ Fait |
 
 ---
 
@@ -344,6 +343,7 @@ Ce backlog recense de manière exhaustive toutes les tâches requises pour :
 * **Critères d'acceptation :**
   1. Visible uniquement si l'utilisateur connecté ne possède pas encore le rôle `PROVIDER`.
   2. Redirection fluide vers l'assistant d'onboarding sans erreur de garde.
+* **Statut :** ✅ **Fait** — Composant `_BecomeProBanner` dans `client_profile_screen.dart`, conditionné sur utilisateur connecté non artisan (`isAuthenticated && !isProvider`), navigation GoRouter vers `/pro/onboarding`, localisation FR/AR complète et suite de tests unitaires/widgets validée (3/3).
 
 ---
 
@@ -360,6 +360,7 @@ Ce backlog recense de manière exhaustive toutes les tâches requises pour :
   1. Les choix actuels sont pré-cochés à l'ouverture de la vue d'édition.
   2. Sauvegarde via `PUT /v1/providers/me/categories` et `PUT /v1/providers/me/coverage-areas`.
   3. Prise en compte immédiate sur la fiche publique de l'artisan.
+* **Statut :** ✅ **Fait** — Sections « Mes Métiers & Spécialités » et « Zones d'intervention » sur `ProProfileScreen`, boutons d'action ouvrant les bottom-sheets de réédition `OnboardingCategoriesStep` et `OnboardingZonesStep`, persistance via `setCategories` et `setCoverageAreas`, et tests widgets validés (14/14).
 
 ---
 
@@ -404,6 +405,7 @@ Ce backlog recense de manière exhaustive toutes les tâches requises pour :
 * **Critères d'acceptation :**
   1. Documentation validée et prête pour le dépôt administratif.
   2. Conformité vérifiée avec les articles de la loi n° 2004-63.
+* **Statut :** ✅ **Fait** — Dossier formel complet rédigé dans `docs/conformite/INPDP_DECLARATION_TRAITEMENT.md` couvrant les 8 sections réglementaires (identification DPO, finalités exclusives, base légale Art. 7, registre des catégories de données sensibles, mesures de sécurité et chiffrement AES-256 Cloudflare R2, politique de rétention J+30 et purge automatique BE-30c, exercice des droits Art. 32-37, engagement et déclaration sur l'honneur).
 
 ---
 
@@ -426,6 +428,9 @@ Ce backlog recense de manière exhaustive toutes les tâches requises pour :
 * **Critères d'acceptation :**
   - Les 8 étapes du scénario sont validées sans régression ni erreur 4xx/5xx.
   - Le script de recette automatique consigne les métriques de succès.
+* **Statut :** ✅ **Fait** — Couverture complète et doublement outillée :
+  1. Suite de tests d'intégration Vitest (`qa-04-onboarding-verification.integration.test.ts`) simulant de bout en bout l'ensemble des 8 étapes avec base PostgreSQL réelle.
+  2. Script de recette automatisée autonome (`tooling/scripts/qa04-recette.sh` / `pnpm recette:qa04`) rejouant les requêtes HTTP, avec vérification des statuts, calcul de la durée et métriques de complétude et modération.
 
 ---
 

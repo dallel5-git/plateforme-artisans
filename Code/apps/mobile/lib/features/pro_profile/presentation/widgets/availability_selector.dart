@@ -79,32 +79,48 @@ class AvailabilitySelector extends ConsumerWidget {
   }
 
   Future<void> _openPicker(BuildContext context, Translations t) {
-    return showModalBottomSheet<void>(
-      context: context,
-      builder: (sheetContext) {
-        final colors = sheetContext.colors;
-        return SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              for (final option
-                  in V1ProvidersMePatchRequestAvailabilityStatusEnum.values)
-                ListTile(
-                  title: Text(_presentation(option.name, t, colors).$3),
-                  trailing: option.name == status.name
-                      ? Icon(Icons.check, color: colors.accent)
-                      : null,
-                  onTap: () {
-                    Navigator.of(sheetContext).pop();
-                    if (option.name != status.name) onSelect(option);
-                  },
-                ),
-            ],
-          ),
-        );
-      },
+    return showAvailabilityBottomSheet(
+      context,
+      currentStatusName: status.name,
+      onSelect: onSelect,
+      t: t,
     );
   }
+}
+
+/// Ouvre la feuille modale de sélection de disponibilité (FM-38 / MOB-019).
+Future<void> showAvailabilityBottomSheet(
+  BuildContext context, {
+  required String currentStatusName,
+  required ValueChanged<V1ProvidersMePatchRequestAvailabilityStatusEnum>
+  onSelect,
+  required Translations t,
+}) {
+  return showModalBottomSheet<void>(
+    context: context,
+    builder: (sheetContext) {
+      final colors = sheetContext.colors;
+      return SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            for (final option
+                in V1ProvidersMePatchRequestAvailabilityStatusEnum.values)
+              ListTile(
+                title: Text(_presentation(option.name, t, colors).$3),
+                trailing: option.name == currentStatusName
+                    ? Icon(Icons.check, color: colors.accent)
+                    : null,
+                onTap: () {
+                  Navigator.of(sheetContext).pop();
+                  if (option.name != currentStatusName) onSelect(option);
+                },
+              ),
+          ],
+        ),
+      );
+    },
+  );
 }
 
 /// `(textColor, bgColor, label)` partagés entre l'affichage et la feuille de

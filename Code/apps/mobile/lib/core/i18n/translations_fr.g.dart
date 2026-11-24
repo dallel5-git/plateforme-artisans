@@ -231,6 +231,9 @@ class Translations$contact$fr {
 
 	/// fr: 'WhatsApp'
 	String get whatsapp => 'WhatsApp';
+
+	/// fr: 'Une connexion Internet est requise pour contacter ce nouvel artisan.'
+	String get offlineUnavailable => 'Une connexion Internet est requise pour contacter ce nouvel artisan.';
 }
 
 // Path: dashboard
@@ -891,6 +894,39 @@ class Translations$proProfile$fr {
 
 	/// fr: 'Métiers & Zones d'intervention'
 	String get categoriesAndZones => 'Métiers & Zones d\'intervention';
+
+	/// fr: 'Mes Métiers & Spécialités'
+	String get categoriesSection => 'Mes Métiers & Spécialités';
+
+	/// fr: 'Gérez vos corps de métier et votre spécialité principale'
+	String get categoriesDesc => 'Gérez vos corps de métier et votre spécialité principale';
+
+	/// fr: 'Métiers mis à jour avec succès'
+	String get categoriesUpdated => 'Métiers mis à jour avec succès';
+
+	/// fr: 'Aucun métier configuré'
+	String get categoriesEmpty => 'Aucun métier configuré';
+
+	/// fr: 'Zones d'intervention'
+	String get zonesSection => 'Zones d\'intervention';
+
+	/// fr: 'Gouvernorats couverts par vos déplacements'
+	String get zonesDesc => 'Gouvernorats couverts par vos déplacements';
+
+	/// fr: 'Zones d'intervention mises à jour avec succès'
+	String get zonesUpdated => 'Zones d\'intervention mises à jour avec succès';
+
+	/// fr: 'Aucune zone configurée'
+	String get zonesEmpty => 'Aucune zone configurée';
+
+	/// fr: 'Modifier mes métiers'
+	String get editCategories => 'Modifier mes métiers';
+
+	/// fr: 'Modifier mes zones'
+	String get editZones => 'Modifier mes zones';
+
+	/// fr: 'Disponibilité mise à jour'
+	String get availabilityUpdated => 'Disponibilité mise à jour';
 
 	/// fr: 'Tester l'onboarding Pro'
 	String get testOnboardingPro => 'Tester l\'onboarding Pro';
@@ -1859,6 +1895,7 @@ extension on Translations {
 			'common.devPreview.statNewLabel' => 'Nouveau',
 			'contact.call' => 'Appeler',
 			'contact.whatsapp' => 'WhatsApp',
+			'contact.offlineUnavailable' => 'Une connexion Internet est requise pour contacter ce nouvel artisan.',
 			'dashboard.title' => 'Tableau de bord',
 			'dashboard.greeting' => ({required Object name}) => 'Bonjour, ${name}',
 			'dashboard.statViews' => 'Vues du profil',
@@ -2058,6 +2095,17 @@ extension on Translations {
 			'proProfile.portfolioSection' => 'Galerie & Réalisations',
 			'proProfile.portfolioDesc' => 'Photos de vos réalisations et chantiers',
 			'proProfile.categoriesAndZones' => 'Métiers & Zones d\'intervention',
+			'proProfile.categoriesSection' => 'Mes Métiers & Spécialités',
+			'proProfile.categoriesDesc' => 'Gérez vos corps de métier et votre spécialité principale',
+			'proProfile.categoriesUpdated' => 'Métiers mis à jour avec succès',
+			'proProfile.categoriesEmpty' => 'Aucun métier configuré',
+			'proProfile.zonesSection' => 'Zones d\'intervention',
+			'proProfile.zonesDesc' => 'Gouvernorats couverts par vos déplacements',
+			'proProfile.zonesUpdated' => 'Zones d\'intervention mises à jour avec succès',
+			'proProfile.zonesEmpty' => 'Aucune zone configurée',
+			'proProfile.editCategories' => 'Modifier mes métiers',
+			'proProfile.editZones' => 'Modifier mes zones',
+			'proProfile.availabilityUpdated' => 'Disponibilité mise à jour',
 			'proProfile.testOnboardingPro' => 'Tester l\'onboarding Pro',
 			'proProfile.testOnboardingClient' => 'Tester l\'onboarding Particulier',
 			'profile.title' => 'Profil',

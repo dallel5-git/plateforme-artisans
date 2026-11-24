@@ -15,12 +15,27 @@ import 'package:sanaya/features/dashboard/application/dashboard_providers.dart';
 import 'package:sanaya/features/dashboard/data/dashboard_repository.dart';
 import 'package:sanaya/features/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:sanaya/features/dashboard/presentation/widgets/dashboard_kpi_card.dart';
+import 'package:sanaya/features/onboarding/application/onboarding_repository_provider.dart';
+import 'package:sanaya/features/onboarding/data/onboarding_repository.dart';
+import 'package:sanaya/features/provider_profile/application/provider_profile_providers.dart';
+import 'package:sanaya/features/provider_profile/data/provider_profile_repository.dart';
+import 'package:sanaya/features/provider_profile/presentation/widgets/availability_chip.dart';
 import 'package:sanaya/features/reviews/application/pro_reviews_providers.dart';
 import 'package:sanaya/features/verification/application/kyc_providers.dart';
 import 'package:sanaya/features/verification/data/kyc_repository.dart';
 import 'package:sanaya/features/verification/presentation/widgets/verification_status_card.dart';
 
 class _DashboardRepositoryMock extends Mock implements DashboardRepository {}
+
+class _MockOnboardingRepository extends Mock implements OnboardingRepository {}
+
+class _MockProviderProfileRepository extends Mock
+    implements ProviderProfileRepository {}
+
+class _MockProviderMe extends Mock
+    implements V1ProvidersMePost200ResponseProvider {}
+
+class _FakePatchRequest extends Fake implements V1ProvidersMePatchRequest {}
 
 // 30 points chronologiques (le plus ancien en premier, cf.
 // dashboard_comparison.dart) : 15 premiers à 10 vues/2 contacts, 15 derniers
@@ -79,14 +94,23 @@ Widget _wrap({
   required DashboardRepository repository,
   Locale locale = const Locale('fr'),
   KycStatusResponse? kycStatus,
+  ProviderMe? profile,
+  OnboardingRepository? onboardingRepo,
+  ProviderProfileRepository? providerProfileRepo,
 }) {
   return ProviderScope(
     overrides: [
       localeProvider.overrideWith((ref) => locale),
       dashboardRepositoryProvider.overrideWithValue(repository),
-      myProviderProfileProvider.overrideWith((ref) async => null),
+      myProviderProfileProvider.overrideWith((ref) async => profile),
       if (kycStatus != null)
         kycStatusProvider.overrideWith((ref) async => kycStatus),
+      if (onboardingRepo != null)
+        onboardingRepositoryProvider.overrideWithValue(onboardingRepo),
+      if (providerProfileRepo != null)
+        providerProfileRepositoryProvider.overrideWithValue(
+          providerProfileRepo,
+        ),
     ],
     child: MaterialApp(
       locale: locale,
@@ -107,7 +131,39 @@ Widget _wrap({
   );
 }
 
+_MockProviderMe _buildProfile({
+  String slug = 'ahmed-plomberie',
+  String businessName = 'Ahmed Plomberie',
+  V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum status =
+      V1ProvidersMePost200ResponseProviderAvailabilityStatusEnum.AVAILABLE,
+}) {
+  final mock = _MockProviderMe();
+  when(() => mock.slug).thenReturn(slug);
+  when(() => mock.businessName).thenReturn(businessName);
+  when(() => mock.headline).thenReturn('');
+  when(() => mock.bio).thenReturn('');
+  when(() => mock.yearsExperience).thenReturn(5);
+  when(() => mock.whatsappPhone).thenReturn('');
+  when(() => mock.publicPhone).thenReturn('');
+  when(() => mock.baseGovernorateId).thenReturn('sousse');
+  when(() => mock.availabilityStatus).thenReturn(status);
+  when(() => mock.acceptsEmergency).thenReturn(false);
+  when(() => mock.isVerified).thenReturn(false);
+  when(() => mock.ratingAvg).thenReturn(4.5);
+  when(() => mock.ratingCount).thenReturn(12);
+  when(() => mock.totalProfileViews).thenReturn(120);
+  when(() => mock.totalContacts).thenReturn(15);
+  when(() => mock.completionScore).thenReturn(85);
+  when(() => mock.categories).thenReturn(BuiltList());
+  when(() => mock.coverageAreas).thenReturn(BuiltList());
+  return mock;
+}
+
 void main() {
+  setUpAll(() {
+    registerFallbackValue(_FakePatchRequest());
+  });
+
   group('DashboardScreen — FM-37b & FM-37c', () {
     testWidgets('affiche le skeleton pendant le chargement', (tester) async {
       final repo = _DashboardRepositoryMock();
@@ -392,6 +448,51 @@ void main() {
 
         expect(find.byType(VerificationStatusCard), findsOneWidget);
         expect(find.text('Vérification en cours'), findsOneWidget);
+      },
+    );
+
+    // MOB-019 — Sélecteur interactif de disponibilité sur le Dashboard
+    testWidgets(
+      'taper sur la puce de disponibilité ouvre la bottom-sheet '
+      'et persiste le nouveau statut',
+      (tester) async {
+        final repo = _DashboardRepositoryMock();
+        when(repo.fetchStats).thenAnswer((_) async => _buildStats());
+
+        final onboardingRepo = _MockOnboardingRepository();
+        final providerProfileRepo = _MockProviderProfileRepository();
+        when(
+          () => providerProfileRepo.fetchProfile(any()),
+        ).thenThrow(Exception('non simulé'));
+
+        final profile = _buildProfile();
+        when(
+          () => onboardingRepo.updateProfile(any()),
+        ).thenAnswer((_) async => profile);
+
+        await tester.pumpWidget(
+          _wrap(
+            repository: repo,
+            profile: profile,
+            onboardingRepo: onboardingRepo,
+            providerProfileRepo: providerProfileRepo,
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        expect(find.byType(AvailabilityChip), findsOneWidget);
+        expect(find.text('Disponible'), findsOneWidget);
+
+        await tester.tap(find.byType(AvailabilityChip));
+        await tester.pumpAndSettle();
+
+        expect(find.text('Occupé'), findsOneWidget);
+
+        await tester.tap(find.text('Occupé'));
+        await tester.pumpAndSettle();
+
+        verify(() => onboardingRepo.updateProfile(any())).called(1);
+        expect(find.text('Disponibilité mise à jour'), findsOneWidget);
       },
     );
   });
