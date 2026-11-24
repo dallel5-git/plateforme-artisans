@@ -343,6 +343,7 @@ Ce backlog recense de manière exhaustive toutes les tâches requises pour :
 * **Critères d'acceptation :**
   1. Visible uniquement si l'utilisateur connecté ne possède pas encore le rôle `PROVIDER`.
   2. Redirection fluide vers l'assistant d'onboarding sans erreur de garde.
+* **Statut :** ✅ **Fait** — Composant `_BecomeProBanner` dans `client_profile_screen.dart`, conditionné sur utilisateur connecté non artisan (`isAuthenticated && !isProvider`), navigation GoRouter vers `/pro/onboarding`, localisation FR/AR complète et suite de tests unitaires/widgets validée (3/3).
 
 ---
 
@@ -359,6 +360,7 @@ Ce backlog recense de manière exhaustive toutes les tâches requises pour :
   1. Les choix actuels sont pré-cochés à l'ouverture de la vue d'édition.
   2. Sauvegarde via `PUT /v1/providers/me/categories` et `PUT /v1/providers/me/coverage-areas`.
   3. Prise en compte immédiate sur la fiche publique de l'artisan.
+* **Statut :** ✅ **Fait** — Sections « Mes Métiers & Spécialités » et « Zones d'intervention » sur `ProProfileScreen`, boutons d'action ouvrant les bottom-sheets de réédition `OnboardingCategoriesStep` et `OnboardingZonesStep`, persistance via `setCategories` et `setCoverageAreas`, et tests widgets validés (14/14).
 
 ---
 
@@ -403,6 +405,7 @@ Ce backlog recense de manière exhaustive toutes les tâches requises pour :
 * **Critères d'acceptation :**
   1. Documentation validée et prête pour le dépôt administratif.
   2. Conformité vérifiée avec les articles de la loi n° 2004-63.
+* **Statut :** ✅ **Fait** — Dossier formel complet rédigé dans `docs/conformite/INPDP_DECLARATION_TRAITEMENT.md` couvrant les 8 sections réglementaires (identification DPO, finalités exclusives, base légale Art. 7, registre des catégories de données sensibles, mesures de sécurité et chiffrement AES-256 Cloudflare R2, politique de rétention J+30 et purge automatique BE-30c, exercice des droits Art. 32-37, engagement et déclaration sur l'honneur).
 
 ---
 
