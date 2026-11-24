@@ -9,9 +9,9 @@ import 'package:built_value/json_object.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'v1_providers_me_offerings_post200_response.g.dart';
+part 'v1_providers_me_offerings_get200_response_inner.g.dart';
 
-/// V1ProvidersMeOfferingsPost200Response
+/// V1ProvidersMeOfferingsGet200ResponseInner
 ///
 /// Properties:
 /// * [id]
@@ -25,10 +25,10 @@ part 'v1_providers_me_offerings_post200_response.g.dart';
 /// * [isNegotiable]
 /// * [displayPrice]
 @BuiltValue()
-abstract class V1ProvidersMeOfferingsPost200Response
+abstract class V1ProvidersMeOfferingsGet200ResponseInner
     implements
-        Built<V1ProvidersMeOfferingsPost200Response,
-            V1ProvidersMeOfferingsPost200ResponseBuilder> {
+        Built<V1ProvidersMeOfferingsGet200ResponseInner,
+            V1ProvidersMeOfferingsGet200ResponseInnerBuilder> {
   @BuiltValueField(wireName: r'id')
   String get id;
 
@@ -51,7 +51,7 @@ abstract class V1ProvidersMeOfferingsPost200Response
   num get priceMax;
 
   @BuiltValueField(wireName: r'priceUnit')
-  V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum get priceUnit;
+  V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum get priceUnit;
   // enum priceUnitEnum {  FIXED,  HOUR,  DAY,  SQUARE_METER,  LINEAR_METER,  ON_QUOTE,  };
 
   @BuiltValueField(wireName: r'isNegotiable')
@@ -60,34 +60,35 @@ abstract class V1ProvidersMeOfferingsPost200Response
   @BuiltValueField(wireName: r'displayPrice')
   String get displayPrice;
 
-  V1ProvidersMeOfferingsPost200Response._();
+  V1ProvidersMeOfferingsGet200ResponseInner._();
 
-  factory V1ProvidersMeOfferingsPost200Response(
-          [void updates(V1ProvidersMeOfferingsPost200ResponseBuilder b)]) =
-      _$V1ProvidersMeOfferingsPost200Response;
+  factory V1ProvidersMeOfferingsGet200ResponseInner(
+          [void updates(V1ProvidersMeOfferingsGet200ResponseInnerBuilder b)]) =
+      _$V1ProvidersMeOfferingsGet200ResponseInner;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(V1ProvidersMeOfferingsPost200ResponseBuilder b) => b;
+  static void _defaults(V1ProvidersMeOfferingsGet200ResponseInnerBuilder b) =>
+      b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<V1ProvidersMeOfferingsPost200Response> get serializer =>
-      _$V1ProvidersMeOfferingsPost200ResponseSerializer();
+  static Serializer<V1ProvidersMeOfferingsGet200ResponseInner> get serializer =>
+      _$V1ProvidersMeOfferingsGet200ResponseInnerSerializer();
 }
 
-class _$V1ProvidersMeOfferingsPost200ResponseSerializer
-    implements PrimitiveSerializer<V1ProvidersMeOfferingsPost200Response> {
+class _$V1ProvidersMeOfferingsGet200ResponseInnerSerializer
+    implements PrimitiveSerializer<V1ProvidersMeOfferingsGet200ResponseInner> {
   @override
   final Iterable<Type> types = const [
-    V1ProvidersMeOfferingsPost200Response,
-    _$V1ProvidersMeOfferingsPost200Response
+    V1ProvidersMeOfferingsGet200ResponseInner,
+    _$V1ProvidersMeOfferingsGet200ResponseInner
   ];
 
   @override
-  final String wireName = r'V1ProvidersMeOfferingsPost200Response';
+  final String wireName = r'V1ProvidersMeOfferingsGet200ResponseInner';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    V1ProvidersMeOfferingsPost200Response object, {
+    V1ProvidersMeOfferingsGet200ResponseInner object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'id';
@@ -129,8 +130,8 @@ class _$V1ProvidersMeOfferingsPost200ResponseSerializer
     yield r'priceUnit';
     yield serializers.serialize(
       object.priceUnit,
-      specifiedType:
-          const FullType(V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum),
+      specifiedType: const FullType(
+          V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum),
     );
     yield r'isNegotiable';
     yield serializers.serialize(
@@ -147,7 +148,7 @@ class _$V1ProvidersMeOfferingsPost200ResponseSerializer
   @override
   Object serialize(
     Serializers serializers,
-    V1ProvidersMeOfferingsPost200Response object, {
+    V1ProvidersMeOfferingsGet200ResponseInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object,
@@ -160,7 +161,7 @@ class _$V1ProvidersMeOfferingsPost200ResponseSerializer
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required V1ProvidersMeOfferingsPost200ResponseBuilder result,
+    required V1ProvidersMeOfferingsGet200ResponseInnerBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -221,8 +222,8 @@ class _$V1ProvidersMeOfferingsPost200ResponseSerializer
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(
-                V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum),
-          ) as V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum;
+                V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum),
+          ) as V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum;
           result.priceUnit = valueDes;
           break;
         case r'isNegotiable':
@@ -248,12 +249,12 @@ class _$V1ProvidersMeOfferingsPost200ResponseSerializer
   }
 
   @override
-  V1ProvidersMeOfferingsPost200Response deserialize(
+  V1ProvidersMeOfferingsGet200ResponseInner deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = V1ProvidersMeOfferingsPost200ResponseBuilder();
+    final result = V1ProvidersMeOfferingsGet200ResponseInnerBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(
@@ -268,36 +269,39 @@ class _$V1ProvidersMeOfferingsPost200ResponseSerializer
   }
 }
 
-class V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum extends EnumClass {
+class V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum extends EnumClass {
   @BuiltValueEnumConst(wireName: r'FIXED')
-  static const V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum FIXED =
-      _$v1ProvidersMeOfferingsPost200ResponsePriceUnitEnum_FIXED;
+  static const V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum FIXED =
+      _$v1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum_FIXED;
   @BuiltValueEnumConst(wireName: r'HOUR')
-  static const V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum HOUR =
-      _$v1ProvidersMeOfferingsPost200ResponsePriceUnitEnum_HOUR;
+  static const V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum HOUR =
+      _$v1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum_HOUR;
   @BuiltValueEnumConst(wireName: r'DAY')
-  static const V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum DAY =
-      _$v1ProvidersMeOfferingsPost200ResponsePriceUnitEnum_DAY;
+  static const V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum DAY =
+      _$v1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum_DAY;
   @BuiltValueEnumConst(wireName: r'SQUARE_METER')
-  static const V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum SQUARE_METER =
-      _$v1ProvidersMeOfferingsPost200ResponsePriceUnitEnum_SQUARE_METER;
+  static const V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum
+      SQUARE_METER =
+      _$v1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum_SQUARE_METER;
   @BuiltValueEnumConst(wireName: r'LINEAR_METER')
-  static const V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum LINEAR_METER =
-      _$v1ProvidersMeOfferingsPost200ResponsePriceUnitEnum_LINEAR_METER;
+  static const V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum
+      LINEAR_METER =
+      _$v1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum_LINEAR_METER;
   @BuiltValueEnumConst(wireName: r'ON_QUOTE')
-  static const V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum ON_QUOTE =
-      _$v1ProvidersMeOfferingsPost200ResponsePriceUnitEnum_ON_QUOTE;
+  static const V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum ON_QUOTE =
+      _$v1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum_ON_QUOTE;
 
-  static Serializer<V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum>
+  static Serializer<V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum>
       get serializer =>
-          _$v1ProvidersMeOfferingsPost200ResponsePriceUnitEnumSerializer;
+          _$v1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnumSerializer;
 
-  const V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum._(String name)
+  const V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum._(String name)
       : super(name);
 
-  static BuiltSet<V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum>
-      get values => _$v1ProvidersMeOfferingsPost200ResponsePriceUnitEnumValues;
-  static V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum valueOf(
+  static BuiltSet<V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum>
+      get values =>
+          _$v1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnumValues;
+  static V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum valueOf(
           String name) =>
-      _$v1ProvidersMeOfferingsPost200ResponsePriceUnitEnumValueOf(name);
+      _$v1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnumValueOf(name);
 }

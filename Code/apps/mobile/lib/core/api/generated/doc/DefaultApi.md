@@ -23,6 +23,7 @@ Method | HTTP request | Description
 [**v1ProvidersMeCategoriesPut**](DefaultApi.md#v1providersmecategoriesput) | **PUT** /v1/providers/me/categories | 
 [**v1ProvidersMeCoverageAreasPut**](DefaultApi.md#v1providersmecoverageareasput) | **PUT** /v1/providers/me/coverage-areas | 
 [**v1ProvidersMeGet**](DefaultApi.md#v1providersmeget) | **GET** /v1/providers/me | 
+[**v1ProvidersMeOfferingsGet**](DefaultApi.md#v1providersmeofferingsget) | **GET** /v1/providers/me/offerings | 
 [**v1ProvidersMeOfferingsIdDelete**](DefaultApi.md#v1providersmeofferingsiddelete) | **DELETE** /v1/providers/me/offerings/{id} | 
 [**v1ProvidersMeOfferingsIdPatch**](DefaultApi.md#v1providersmeofferingsidpatch) | **PATCH** /v1/providers/me/offerings/{id} | 
 [**v1ProvidersMeOfferingsPost**](DefaultApi.md#v1providersmeofferingspost) | **POST** /v1/providers/me/offerings | 
@@ -628,6 +629,45 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **v1ProvidersMeOfferingsGet**
+> BuiltList<V1ProvidersMeOfferingsGet200ResponseInner> v1ProvidersMeOfferingsGet()
+
+
+
+Liste les offres (tarifs) actives du profil de l'artisan authentifié.
+
+### Example
+```dart
+import 'package:sanaya_api_client/api.dart';
+
+final api = SanayaApiClient().getDefaultApi();
+
+try {
+    final response = api.v1ProvidersMeOfferingsGet();
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling DefaultApi->v1ProvidersMeOfferingsGet: $e\n');
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**BuiltList&lt;V1ProvidersMeOfferingsGet200ResponseInner&gt;**](V1ProvidersMeOfferingsGet200ResponseInner.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **v1ProvidersMeOfferingsIdDelete**
 > v1ProvidersMeOfferingsIdDelete(id)
 
@@ -671,7 +711,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v1ProvidersMeOfferingsIdPatch**
-> V1ProvidersMeOfferingsPost200Response v1ProvidersMeOfferingsIdPatch(id, v1ProvidersMeOfferingsIdPatchRequest)
+> V1ProvidersMeOfferingsGet200ResponseInner v1ProvidersMeOfferingsIdPatch(id, v1ProvidersMeOfferingsIdPatchRequest)
 
 
 
@@ -702,7 +742,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**V1ProvidersMeOfferingsPost200Response**](V1ProvidersMeOfferingsPost200Response.md)
+[**V1ProvidersMeOfferingsGet200ResponseInner**](V1ProvidersMeOfferingsGet200ResponseInner.md)
 
 ### Authorization
 
@@ -716,7 +756,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v1ProvidersMeOfferingsPost**
-> V1ProvidersMeOfferingsPost200Response v1ProvidersMeOfferingsPost(v1ProvidersMeOfferingsPostRequest)
+> V1ProvidersMeOfferingsGet200ResponseInner v1ProvidersMeOfferingsPost(v1ProvidersMeOfferingsPostRequest)
 
 
 
@@ -745,7 +785,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**V1ProvidersMeOfferingsPost200Response**](V1ProvidersMeOfferingsPost200Response.md)
+[**V1ProvidersMeOfferingsGet200ResponseInner**](V1ProvidersMeOfferingsGet200ResponseInner.md)
 
 ### Authorization
 

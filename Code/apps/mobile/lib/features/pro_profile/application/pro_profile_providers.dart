@@ -1,7 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sanaya/core/api/api_client_provider.dart';
 import 'package:sanaya/core/api/generated/api.dart';
 import 'package:sanaya/features/onboarding/application/onboarding_repository_provider.dart';
 import 'package:sanaya/features/onboarding/data/onboarding_repository.dart';
+import 'package:sanaya/features/pro_profile/data/offerings_repository.dart';
 import 'package:sanaya/features/provider_profile/application/provider_profile_providers.dart';
 import 'package:sanaya/features/reviews/application/pro_reviews_providers.dart';
 
@@ -59,3 +61,13 @@ class ProProfileUpdater {
 
 final Provider<ProProfileUpdater> proProfileUpdaterProvider =
     Provider<ProProfileUpdater>(ProProfileUpdater.new);
+
+final Provider<OfferingsRepository> offeringsRepositoryProvider =
+    Provider<OfferingsRepository>(
+      (ref) => OfferingsRepository(ref.watch(defaultApiProvider)),
+    );
+
+final AutoDisposeFutureProvider<List<MyOffering>> myOfferingsProvider =
+    FutureProvider.autoDispose<List<MyOffering>>((ref) async {
+      return ref.watch(offeringsRepositoryProvider).fetchMyOfferings();
+    });

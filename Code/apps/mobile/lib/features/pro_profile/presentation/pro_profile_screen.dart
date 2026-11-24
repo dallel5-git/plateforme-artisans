@@ -18,11 +18,17 @@ import 'package:sanaya/core/widgets/empty_state.dart';
 import 'package:sanaya/core/widgets/error_state.dart';
 import 'package:sanaya/features/onboarding/application/onboarding_providers.dart';
 import 'package:sanaya/features/onboarding/data/onboarding_repository.dart';
+import 'package:sanaya/features/onboarding/domain/portfolio_upload_task.dart';
 import 'package:sanaya/features/onboarding/presentation/widgets/onboarding_categories_step.dart';
+import 'package:sanaya/features/onboarding/presentation/widgets/onboarding_photos_step.dart';
 import 'package:sanaya/features/onboarding/presentation/widgets/onboarding_profile_step.dart';
 import 'package:sanaya/features/onboarding/presentation/widgets/onboarding_zones_step.dart';
 import 'package:sanaya/features/pro_profile/application/pro_profile_providers.dart';
+import 'package:sanaya/features/pro_profile/data/offerings_repository.dart';
 import 'package:sanaya/features/pro_profile/presentation/widgets/availability_selector.dart';
+import 'package:sanaya/features/pro_profile/presentation/widgets/offering_edit_bottom_sheet.dart';
+import 'package:sanaya/features/pro_profile/presentation/widgets/pro_offerings_card.dart';
+import 'package:sanaya/features/pro_profile/presentation/widgets/pro_portfolio_card.dart';
 import 'package:sanaya/features/reviews/application/pro_reviews_providers.dart';
 import 'package:sanaya/features/search/application/catalog_providers.dart';
 import 'package:sanaya/features/search/data/catalog_repository.dart';
@@ -234,6 +240,135 @@ class _ProProfileScreenState extends ConsumerState<ProProfileScreen> {
     );
   }
 
+  Future<void> _openManagePortfolio(
+    BuildContext context,
+    ProviderMe profile,
+  ) async {
+    final t = ref.read(translationsProvider);
+    final colors = context.colors;
+    final initialItems = profile.portfolio
+        .map(
+          (p) => PortfolioUploadTask(
+            localId: p.id,
+            phase: PortfolioUploadPhase.done,
+            portfolioItemId: p.id,
+            mediaId: p.mediaId,
+          ),
+        )
+        .toList();
+
+    await showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      builder: (sheetContext) => SizedBox(
+        height: MediaQuery.sizeOf(sheetContext).height * 0.85,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
+              child: Container(
+                width: 36,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: colors.border,
+                  borderRadius: const BorderRadius.all(AppRadius.pill),
+                ),
+              ),
+            ),
+            Expanded(
+              child: OnboardingPhotosStep(
+                confirmBeforeDelete: true,
+                submitLabel: t.proProfile.save,
+                isSaving: false,
+                errorMessage: null,
+                initialItems: initialItems,
+                onSubmit: () {
+                  Navigator.of(sheetContext).pop();
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+    ref.invalidate(myProviderProfileProvider);
+  }
+
+  void _openAddOffering(BuildContext context, ProviderMe profile) {
+    unawaited(
+      showModalBottomSheet<void>(
+        context: context,
+        isScrollControlled: true,
+        useSafeArea: true,
+        builder: (sheetContext) => OfferingEditBottomSheet(profile: profile),
+      ),
+    );
+  }
+
+  void _openEditOffering(
+    BuildContext context,
+    ProviderMe profile,
+    MyOffering offering,
+  ) {
+    unawaited(
+      showModalBottomSheet<void>(
+        context: context,
+        isScrollControlled: true,
+        useSafeArea: true,
+        builder: (sheetContext) => OfferingEditBottomSheet(
+          profile: profile,
+          initialOffering: offering,
+        ),
+      ),
+    );
+  }
+
+  Future<void> _deleteOffering(
+    BuildContext context,
+    MyOffering offering,
+  ) async {
+    final t = ref.read(translationsProvider);
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(t.proProfile.offeringsDeleteTitle),
+        content: Text(t.proProfile.offeringsDeleteMessage),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(false),
+            child: Text(t.proProfile.portfolioCancel),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(true),
+            child: Text(
+              t.proProfile.offeringsDeleteConfirm,
+              style: TextStyle(
+                color: Theme.of(dialogContext).colorScheme.error,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true) return;
+
+    try {
+      await ref.read(offeringsRepositoryProvider).deleteOffering(offering.id);
+      ref.invalidate(myOfferingsProvider);
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(t.proProfile.offeringsDeleted)),
+      );
+    } on Object {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(t.proProfile.errorMessage)),
+      );
+    }
+  }
+
   Future<void> _updateAvailability(
     V1ProvidersMePatchRequestAvailabilityStatusEnum status,
   ) async {
@@ -295,6 +430,12 @@ class _ProProfileScreenState extends ConsumerState<ProProfileScreen> {
                 onToggleAcceptsEmergency: _updateAcceptsEmergency,
                 onEditCategories: () => _openEditCategories(context, profile),
                 onEditZones: () => _openEditZones(context, profile),
+                onManagePortfolio: () => _openManagePortfolio(context, profile),
+                onAddOffering: () => _openAddOffering(context, profile),
+                onEditOffering: (offering) =>
+                    _openEditOffering(context, profile, offering),
+                onDeleteOffering: (offering) =>
+                    _deleteOffering(context, offering),
               ),
       ),
     );
@@ -335,6 +476,10 @@ class _ProProfileContent extends ConsumerWidget {
     required this.onToggleAcceptsEmergency,
     required this.onEditCategories,
     required this.onEditZones,
+    required this.onManagePortfolio,
+    required this.onAddOffering,
+    required this.onEditOffering,
+    required this.onDeleteOffering,
   });
 
   final ProviderMe profile;
@@ -346,6 +491,10 @@ class _ProProfileContent extends ConsumerWidget {
   final ValueChanged<bool> onToggleAcceptsEmergency;
   final VoidCallback onEditCategories;
   final VoidCallback onEditZones;
+  final VoidCallback onManagePortfolio;
+  final VoidCallback onAddOffering;
+  final ValueChanged<MyOffering> onEditOffering;
+  final ValueChanged<MyOffering> onDeleteOffering;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -392,6 +541,18 @@ class _ProProfileContent extends ConsumerWidget {
         _ProZonesCard(
           profile: profile,
           onEdit: onEditZones,
+        ),
+        const SizedBox(height: AppSpacing.md),
+        ProPortfolioCard(
+          profile: profile,
+          onManagePortfolio: onManagePortfolio,
+        ),
+        const SizedBox(height: AppSpacing.md),
+        ProOfferingsCard(
+          profile: profile,
+          onAddOffering: onAddOffering,
+          onEditOffering: onEditOffering,
+          onDeleteOffering: onDeleteOffering,
         ),
         const SizedBox(height: AppSpacing.md),
         _ProPublicListingCard(slug: profile.slug),

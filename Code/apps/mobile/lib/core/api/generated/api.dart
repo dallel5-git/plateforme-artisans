@@ -73,8 +73,8 @@ export 'package:sanaya/core/api/generated/src/model/v1_providers_me_get200_respo
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_get200_response_categories_inner.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_get200_response_coverage_areas_inner.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_get200_response_portfolio_inner.dart';
+export 'package:sanaya/core/api/generated/src/model/v1_providers_me_offerings_get200_response_inner.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_offerings_id_patch_request.dart';
-export 'package:sanaya/core/api/generated/src/model/v1_providers_me_offerings_post200_response.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_offerings_post_request.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_patch_request.dart';
 export 'package:sanaya/core/api/generated/src/model/v1_providers_me_portfolio_post200_response.dart';

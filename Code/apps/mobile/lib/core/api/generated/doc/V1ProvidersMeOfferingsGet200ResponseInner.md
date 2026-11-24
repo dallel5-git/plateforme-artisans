@@ -1,4 +1,4 @@
-# sanaya_api_client.model.V1ProvidersMeOfferingsPost200Response
+# sanaya_api_client.model.V1ProvidersMeOfferingsGet200ResponseInner
 
 ## Load the model package
 ```dart

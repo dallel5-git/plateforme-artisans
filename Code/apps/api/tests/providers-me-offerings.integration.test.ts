@@ -60,6 +60,18 @@ describe('BE-47c — offerings (Postgres réel)', () => {
     expect(createdBody.category.slug).toBe(category.slug);
     expect(createdBody.displayPrice).toBe('30 - 60 DT');
 
+    const listRes = await app.inject({
+      method: 'GET',
+      url: '/v1/providers/me/offerings',
+      headers,
+    });
+    expect(listRes.statusCode).toBe(200);
+    const listBody = listRes.json();
+    expect(listBody).toHaveLength(1);
+    expect(listBody[0].id).toBe(createdBody.id);
+    expect(listBody[0].titleFr).toBe('Débouchage évier');
+    expect(listBody[0].displayPrice).toBe('30 - 60 DT');
+
     const updated = await app.inject({
       method: 'PATCH',
       url: `/v1/providers/me/offerings/${createdBody.id}`,

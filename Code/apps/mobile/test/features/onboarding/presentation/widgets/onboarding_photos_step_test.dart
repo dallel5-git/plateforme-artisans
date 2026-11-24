@@ -317,6 +317,51 @@ void main() {
   );
 
   testWidgets(
+    'confirmBeforeDelete: true affiche une boîte de dialogue avant suppression',
+    (tester) async {
+      final repo = MockPortfolioRepository();
+      _stubHappyPath(repo, mediaId: 'media-1', itemId: 'item-1');
+      when(
+        () => repo.deletePortfolioItem('item-1'),
+      ).thenAnswer((_) async {});
+
+      await tester.pumpWidget(
+        _wrap(
+          OnboardingPhotosStep(
+            isSaving: false,
+            errorMessage: null,
+            onSubmit: () {},
+            pickImage: onePick,
+            compressImage: fakeCompress,
+            confirmBeforeDelete: true,
+          ),
+          repository: repo,
+        ),
+      );
+
+      await tester.tap(find.byIcon(Icons.add_a_photo_outlined));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byIcon(Icons.close));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Supprimer cette réalisation ?'), findsOneWidget);
+      expect(
+        find.text(
+          'Cette photo sera retirée définitivement de votre vitrine publique.',
+        ),
+        findsOneWidget,
+      );
+
+      await tester.tap(find.widgetWithText(TextButton, 'Supprimer'));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(PortfolioPhotoTile), findsNothing);
+      verify(() => repo.deletePortfolioItem('item-1')).called(1);
+    },
+  );
+
+  testWidgets(
     'le plafond FREE (5 photos) masque le bouton d’ajout',
     (tester) async {
       final repo = MockPortfolioRepository();

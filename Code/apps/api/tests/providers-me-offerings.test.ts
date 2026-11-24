@@ -156,3 +156,34 @@ describe('BE-47c — DELETE /v1/providers/me/offerings/:id', () => {
     expect(response.json().error.code).toBe('FORBIDDEN');
   });
 });
+
+describe('BE-47c — GET /v1/providers/me/offerings', () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  it('refuse une requête sans token (401 ACCESS_TOKEN_INVALID)', async () => {
+    const app = await buildTestApp();
+    const response = await app.inject({
+      method: 'GET',
+      url: '/v1/providers/me/offerings',
+    });
+
+    expect(response.statusCode).toBe(401);
+    expect(response.json().error.code).toBe('ACCESS_TOKEN_INVALID');
+  });
+
+  it('refuse un rôle CLIENT (403 FORBIDDEN)', async () => {
+    vi.stubEnv('JWT_ACCESS_SECRET', 'secret-de-test-suffisamment-long');
+    const app = await buildTestApp();
+    const token = await signAccessToken({ sub: 'u1', role: 'CLIENT' });
+    const response = await app.inject({
+      method: 'GET',
+      url: '/v1/providers/me/offerings',
+      headers: { authorization: `Bearer ${token}` },
+    });
+
+    expect(response.statusCode).toBe(403);
+    expect(response.json().error.code).toBe('FORBIDDEN');
+  });
+});

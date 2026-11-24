@@ -11,8 +11,14 @@ import 'package:sanaya/core/widgets/error_state.dart';
 import 'package:sanaya/features/onboarding/application/onboarding_repository_provider.dart';
 import 'package:sanaya/features/onboarding/data/onboarding_repository.dart';
 import 'package:sanaya/features/onboarding/presentation/widgets/onboarding_categories_step.dart';
+import 'package:sanaya/features/onboarding/presentation/widgets/onboarding_photos_step.dart';
 import 'package:sanaya/features/onboarding/presentation/widgets/onboarding_zones_step.dart';
+import 'package:sanaya/features/pro_profile/application/pro_profile_providers.dart';
+import 'package:sanaya/features/pro_profile/data/offerings_repository.dart';
 import 'package:sanaya/features/pro_profile/presentation/pro_profile_screen.dart';
+import 'package:sanaya/features/pro_profile/presentation/widgets/offering_edit_bottom_sheet.dart';
+import 'package:sanaya/features/pro_profile/presentation/widgets/pro_offerings_card.dart';
+import 'package:sanaya/features/pro_profile/presentation/widgets/pro_portfolio_card.dart';
 import 'package:sanaya/features/provider_profile/application/provider_profile_providers.dart';
 import 'package:sanaya/features/provider_profile/data/provider_profile_repository.dart';
 import 'package:sanaya/features/reviews/application/pro_reviews_providers.dart';
@@ -21,6 +27,8 @@ import 'package:sanaya/features/verification/data/kyc_repository.dart';
 import 'package:sanaya/features/verification/presentation/widgets/verification_status_card.dart';
 
 class _MockOnboardingRepository extends Mock implements OnboardingRepository {}
+
+class _MockOfferingsRepository extends Mock implements OfferingsRepository {}
 
 /// `ProProfileUpdater.save()` invalide `providerProfileProvider(slug)`
 /// (fiche publique) après chaque écriture — sans ce mock, Riverpod construit
@@ -50,6 +58,7 @@ _MockProviderMe _profile({
   BuiltList<V1ProvidersMePost200ResponseProviderCategoriesInner>? categories,
   BuiltList<V1ProvidersMePost200ResponseProviderCoverageAreasInner>?
   coverageAreas,
+  BuiltList<V1ProvidersMePost200ResponseProviderPortfolioInner>? portfolio,
 }) {
   final mock = _MockProviderMe();
   when(() => mock.slug).thenReturn(slug);
@@ -70,6 +79,7 @@ _MockProviderMe _profile({
   when(() => mock.completionScore).thenReturn(85);
   when(() => mock.categories).thenReturn(categories ?? BuiltList());
   when(() => mock.coverageAreas).thenReturn(coverageAreas ?? BuiltList());
+  when(() => mock.portfolio).thenReturn(portfolio ?? BuiltList());
   return mock;
 }
 
@@ -124,6 +134,7 @@ void main() {
         providerProfileRepositoryProvider.overrideWithValue(
           providerProfileRepo,
         ),
+        myOfferingsProvider.overrideWith((ref) => Future.value(<MyOffering>[])),
         ...overrides,
       ],
       child: MaterialApp.router(
@@ -580,6 +591,174 @@ void main() {
         await tester.pumpAndSettle();
 
         expect(find.byType(OnboardingZonesStep), findsOneWidget);
+      },
+    );
+
+    testWidgets(
+      'MOB-021: portfolio card affiche la section, le quota '
+      'et ouvre le gestionnaire',
+      (tester) async {
+        tester.view.physicalSize = const Size(400, 3000);
+        tester.view.devicePixelRatio = 1.0;
+        addTearDown(tester.view.reset);
+
+        final item = V1ProvidersMePost200ResponseProviderPortfolioInner(
+          (b) => b
+            ..id = 'p-1'
+            ..mediaId = 'm-1'
+            ..categoryId = 'c-1'
+            ..caption = 'Photo 1'
+            ..sortOrder = 0,
+        );
+
+        await tester.pumpWidget(
+          buildScreen(
+            overrides: [
+              myProviderProfileProvider.overrideWith(
+                (ref) async => _profile(
+                  portfolio: BuiltList([item]),
+                ),
+              ),
+            ],
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        expect(find.byType(ProPortfolioCard), findsOneWidget);
+        expect(find.text('Galerie & Réalisations'), findsOneWidget);
+        expect(find.text('1 / 5 photos'), findsOneWidget);
+
+        await tester.tap(find.text('Ajouter une réalisation'));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(OnboardingPhotosStep), findsOneWidget);
+      },
+    );
+
+    testWidgets(
+      'MOB-022: offerings card affiche les prestations et '
+      'le bouton ajouter ouvre la bottom sheet',
+      (tester) async {
+        tester.view.physicalSize = const Size(400, 3000);
+        tester.view.devicePixelRatio = 1.0;
+        addTearDown(tester.view.reset);
+
+        final offering = V1ProvidersMeOfferingsGet200ResponseInner(
+          (b) => b
+            ..id = 'off-1'
+            ..titleFr = 'Installation chauffe-eau'
+            ..titleAr = 'تركيب سخان ماء'
+            ..description = 'Pose complète'
+            ..priceMin = 80
+            ..priceMax = 120
+            ..priceUnit =
+                V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum.FIXED
+            ..isNegotiable = true
+            ..displayPrice = '80 - 120 DT'
+            ..category.replace(
+              V1ProvidersSlugGet200ResponseOfferingsInnerCategory(
+                (cb) => cb
+                  ..slug = 'plomberie'
+                  ..nameFr = 'Plomberie'
+                  ..nameAr = 'سباكة',
+              ),
+            ),
+        );
+
+        await tester.pumpWidget(
+          buildScreen(
+            overrides: [
+              myProviderProfileProvider.overrideWith(
+                (ref) async => _profile(),
+              ),
+              myOfferingsProvider.overrideWith(
+                (ref) async => [offering],
+              ),
+            ],
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        expect(find.byType(ProOfferingsCard), findsOneWidget);
+        expect(
+          find.text('Mes Prestations & Tarifs indicatifs'),
+          findsOneWidget,
+        );
+        expect(find.text('Installation chauffe-eau'), findsOneWidget);
+        expect(find.text('80 - 120 DT'), findsOneWidget);
+        expect(find.text('Négociable'), findsOneWidget);
+
+        await tester.tap(find.text('Ajouter une prestation'));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(OfferingEditBottomSheet), findsOneWidget);
+      },
+    );
+
+    testWidgets(
+      'MOB-022: supprimer une prestation affiche le dialogue de confirmation',
+      (tester) async {
+        tester.view.physicalSize = const Size(400, 3000);
+        tester.view.devicePixelRatio = 1.0;
+        addTearDown(tester.view.reset);
+
+        final mockOfferingsRepo = _MockOfferingsRepository();
+        when(
+          () => mockOfferingsRepo.deleteOffering(any()),
+        ).thenAnswer((_) async {});
+
+        final offering = V1ProvidersMeOfferingsGet200ResponseInner(
+          (b) => b
+            ..id = 'off-1'
+            ..titleFr = 'Installation chauffe-eau'
+            ..titleAr = ''
+            ..description = ''
+            ..priceMin = 80
+            ..priceMax = 80
+            ..priceUnit =
+                V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum.FIXED
+            ..isNegotiable = false
+            ..displayPrice = '80 DT'
+            ..category.replace(
+              V1ProvidersSlugGet200ResponseOfferingsInnerCategory(
+                (cb) => cb
+                  ..slug = 'plomberie'
+                  ..nameFr = 'Plomberie'
+                  ..nameAr = 'سباكة',
+              ),
+            ),
+        );
+
+        await tester.pumpWidget(
+          buildScreen(
+            overrides: [
+              offeringsRepositoryProvider.overrideWithValue(mockOfferingsRepo),
+              myProviderProfileProvider.overrideWith(
+                (ref) async => _profile(),
+              ),
+              myOfferingsProvider.overrideWith(
+                (ref) async => [offering],
+              ),
+            ],
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.byIcon(Icons.delete_outline_rounded));
+        await tester.pumpAndSettle();
+
+        expect(find.text('Supprimer cette prestation ?'), findsOneWidget);
+        expect(
+          find.text(
+            'Cette offre ne sera plus visible sur votre fiche artisan.',
+          ),
+          findsOneWidget,
+        );
+
+        await tester.tap(find.widgetWithText(TextButton, 'Supprimer'));
+        await tester.pumpAndSettle();
+
+        verify(() => mockOfferingsRepo.deleteOffering('off-1')).called(1);
       },
     );
   });

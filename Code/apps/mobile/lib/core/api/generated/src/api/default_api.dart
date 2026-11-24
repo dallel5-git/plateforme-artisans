@@ -8,6 +8,7 @@ import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
+import 'package:built_collection/built_collection.dart';
 import 'package:sanaya/core/api/generated/src/api_util.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_categories_get200_response.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_favorites_get200_response.dart';
@@ -27,8 +28,8 @@ import 'package:sanaya/core/api/generated/src/model/v1_providers_me_categories_p
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_coverage_areas_put200_response.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_coverage_areas_put_request.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_get200_response.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_providers_me_offerings_get200_response_inner.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_offerings_id_patch_request.dart';
-import 'package:sanaya/core/api/generated/src/model/v1_providers_me_offerings_post200_response.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_offerings_post_request.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_patch_request.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_portfolio_post200_response.dart';
@@ -1191,6 +1192,82 @@ class DefaultApi {
     );
   }
 
+  /// v1ProvidersMeOfferingsGet
+  /// Liste les offres (tarifs) actives du profil de l&#39;artisan authentifié.
+  ///
+  /// Parameters:
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future] containing a [Response] with a [BuiltList<V1ProvidersMeOfferingsGet200ResponseInner>] as data
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<BuiltList<V1ProvidersMeOfferingsGet200ResponseInner>>>
+      v1ProvidersMeOfferingsGet({
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path = r'/v1/providers/me/offerings';
+    final _options = Options(
+      method: r'GET',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+    );
+
+    final _response = await _dio.request<Object>(
+      _path,
+      options: _options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    BuiltList<V1ProvidersMeOfferingsGet200ResponseInner>? _responseData;
+
+    try {
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(BuiltList,
+                  [FullType(V1ProvidersMeOfferingsGet200ResponseInner)]),
+            ) as BuiltList<V1ProvidersMeOfferingsGet200ResponseInner>;
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<BuiltList<V1ProvidersMeOfferingsGet200ResponseInner>>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
   /// v1ProvidersMeOfferingsIdDelete
   /// Retire une offre de l&#39;artisan authentifié (désactivation, pas de suppression physique).
   ///
@@ -1254,9 +1331,9 @@ class DefaultApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [V1ProvidersMeOfferingsPost200Response] as data
+  /// Returns a [Future] containing a [Response] with a [V1ProvidersMeOfferingsGet200ResponseInner] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<V1ProvidersMeOfferingsPost200Response>>
+  Future<Response<V1ProvidersMeOfferingsGet200ResponseInner>>
       v1ProvidersMeOfferingsIdPatch({
     required String id,
     required V1ProvidersMeOfferingsIdPatchRequest
@@ -1312,7 +1389,7 @@ class DefaultApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    V1ProvidersMeOfferingsPost200Response? _responseData;
+    V1ProvidersMeOfferingsGet200ResponseInner? _responseData;
 
     try {
       final rawResponse = _response.data;
@@ -1321,8 +1398,8 @@ class DefaultApi {
           : _serializers.deserialize(
               rawResponse,
               specifiedType:
-                  const FullType(V1ProvidersMeOfferingsPost200Response),
-            ) as V1ProvidersMeOfferingsPost200Response;
+                  const FullType(V1ProvidersMeOfferingsGet200ResponseInner),
+            ) as V1ProvidersMeOfferingsGet200ResponseInner;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -1333,7 +1410,7 @@ class DefaultApi {
       );
     }
 
-    return Response<V1ProvidersMeOfferingsPost200Response>(
+    return Response<V1ProvidersMeOfferingsGet200ResponseInner>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -1357,9 +1434,9 @@ class DefaultApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [V1ProvidersMeOfferingsPost200Response] as data
+  /// Returns a [Future] containing a [Response] with a [V1ProvidersMeOfferingsGet200ResponseInner] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<V1ProvidersMeOfferingsPost200Response>>
+  Future<Response<V1ProvidersMeOfferingsGet200ResponseInner>>
       v1ProvidersMeOfferingsPost({
     required V1ProvidersMeOfferingsPostRequest
         v1ProvidersMeOfferingsPostRequest,
@@ -1411,7 +1488,7 @@ class DefaultApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    V1ProvidersMeOfferingsPost200Response? _responseData;
+    V1ProvidersMeOfferingsGet200ResponseInner? _responseData;
 
     try {
       final rawResponse = _response.data;
@@ -1420,8 +1497,8 @@ class DefaultApi {
           : _serializers.deserialize(
               rawResponse,
               specifiedType:
-                  const FullType(V1ProvidersMeOfferingsPost200Response),
-            ) as V1ProvidersMeOfferingsPost200Response;
+                  const FullType(V1ProvidersMeOfferingsGet200ResponseInner),
+            ) as V1ProvidersMeOfferingsGet200ResponseInner;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -1432,7 +1509,7 @@ class DefaultApi {
       );
     }
 
-    return Response<V1ProvidersMeOfferingsPost200Response>(
+    return Response<V1ProvidersMeOfferingsGet200ResponseInner>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
