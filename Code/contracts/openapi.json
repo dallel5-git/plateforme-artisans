@@ -3953,6 +3953,124 @@
       }
     },
     "/v1/providers/me/offerings": {
+      "get": {
+        "description": "Liste les offres (tarifs) actives du profil de l'artisan authentifié.",
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      "category": {
+                        "type": "object",
+                        "properties": {
+                          "slug": {
+                            "type": "string"
+                          },
+                          "nameFr": {
+                            "type": "string"
+                          },
+                          "nameAr": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "slug",
+                          "nameFr",
+                          "nameAr"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "titleFr": {
+                        "type": "string"
+                      },
+                      "titleAr": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "description": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "priceMin": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "priceMax": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "priceUnit": {
+                        "type": "string",
+                        "enum": [
+                          "FIXED",
+                          "HOUR",
+                          "DAY",
+                          "SQUARE_METER",
+                          "LINEAR_METER",
+                          "ON_QUOTE"
+                        ]
+                      },
+                      "isNegotiable": {
+                        "type": "boolean"
+                      },
+                      "displayPrice": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "category",
+                      "titleFr",
+                      "titleAr",
+                      "description",
+                      "priceMin",
+                      "priceMax",
+                      "priceUnit",
+                      "isNegotiable",
+                      "displayPrice"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "post": {
         "description": "Ajoute une offre (tarif) au profil de l'artisan authentifié.",
         "requestBody": {

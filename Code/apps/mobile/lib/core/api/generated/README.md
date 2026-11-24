@@ -92,6 +92,7 @@ Class | Method | HTTP request | Description
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMeCategoriesPut**](doc/DefaultApi.md#v1providersmecategoriesput) | **PUT** /v1/providers/me/categories | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMeCoverageAreasPut**](doc/DefaultApi.md#v1providersmecoverageareasput) | **PUT** /v1/providers/me/coverage-areas | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMeGet**](doc/DefaultApi.md#v1providersmeget) | **GET** /v1/providers/me | 
+[*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMeOfferingsGet**](doc/DefaultApi.md#v1providersmeofferingsget) | **GET** /v1/providers/me/offerings | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMeOfferingsIdDelete**](doc/DefaultApi.md#v1providersmeofferingsiddelete) | **DELETE** /v1/providers/me/offerings/{id} | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMeOfferingsIdPatch**](doc/DefaultApi.md#v1providersmeofferingsidpatch) | **PATCH** /v1/providers/me/offerings/{id} | 
 [*DefaultApi*](doc/DefaultApi.md) | [**v1ProvidersMeOfferingsPost**](doc/DefaultApi.md#v1providersmeofferingspost) | **POST** /v1/providers/me/offerings | 
@@ -167,8 +168,8 @@ Class | Method | HTTP request | Description
  - [V1ProvidersMeGet200ResponseCategoriesInner](doc/V1ProvidersMeGet200ResponseCategoriesInner.md)
  - [V1ProvidersMeGet200ResponseCoverageAreasInner](doc/V1ProvidersMeGet200ResponseCoverageAreasInner.md)
  - [V1ProvidersMeGet200ResponsePortfolioInner](doc/V1ProvidersMeGet200ResponsePortfolioInner.md)
+ - [V1ProvidersMeOfferingsGet200ResponseInner](doc/V1ProvidersMeOfferingsGet200ResponseInner.md)
  - [V1ProvidersMeOfferingsIdPatchRequest](doc/V1ProvidersMeOfferingsIdPatchRequest.md)
- - [V1ProvidersMeOfferingsPost200Response](doc/V1ProvidersMeOfferingsPost200Response.md)
  - [V1ProvidersMeOfferingsPostRequest](doc/V1ProvidersMeOfferingsPostRequest.md)
  - [V1ProvidersMePatchRequest](doc/V1ProvidersMePatchRequest.md)
  - [V1ProvidersMePortfolioPost200Response](doc/V1ProvidersMePortfolioPost200Response.md)

@@ -36,6 +36,8 @@ class OnboardingPhotosStep extends ConsumerStatefulWidget {
     this.initialItems = const [],
     this.pickImage,
     this.compressImage,
+    this.confirmBeforeDelete = false,
+    this.submitLabel,
     super.key,
   });
 
@@ -43,6 +45,8 @@ class OnboardingPhotosStep extends ConsumerStatefulWidget {
   final String? errorMessage;
   final VoidCallback onSubmit;
   final List<PortfolioUploadTask> initialItems;
+  final bool confirmBeforeDelete;
+  final String? submitLabel;
 
   /// Injectable pour les tests (canal de plateforme sinon impossible à
   /// simuler en `flutter test`). `null` → `ImagePicker().pickImage(...)`.
@@ -117,6 +121,37 @@ class _OnboardingPhotosStepState extends ConsumerState<OnboardingPhotosStep> {
       ),
     );
     await _runPipeline(localId, file);
+  }
+
+  Future<void> _handleRemove(String localId) async {
+    final task = _tasks.firstWhere((t) => t.localId == localId);
+    if (widget.confirmBeforeDelete && task.portfolioItemId != null) {
+      final t = ref.read(translationsProvider);
+      final confirmed = await showDialog<bool>(
+        context: context,
+        builder: (dialogContext) => AlertDialog(
+          title: Text(t.proProfile.portfolioDeleteTitle),
+          content: Text(t.proProfile.portfolioDeleteMessage),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop(false),
+              child: Text(t.proProfile.portfolioCancel),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop(true),
+              child: Text(
+                t.proProfile.portfolioDeleteConfirm,
+                style: TextStyle(
+                  color: Theme.of(dialogContext).colorScheme.error,
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+      if (confirmed != true) return;
+    }
+    await _remove(localId);
   }
 
   Future<void> _remove(String localId) async {
@@ -249,7 +284,7 @@ class _OnboardingPhotosStepState extends ConsumerState<OnboardingPhotosStep> {
                   PortfolioPhotoTile(
                     task: task,
                     onRetry: () => _retry(task.localId),
-                    onRemove: () => _remove(task.localId),
+                    onRemove: () => _handleRemove(task.localId),
                     retryLabel: t.onboarding.retry,
                     removeLabel: t.onboarding.photosDelete,
                     failedLabel: t.onboarding.photosUploadFailed,
@@ -271,7 +306,7 @@ class _OnboardingPhotosStepState extends ConsumerState<OnboardingPhotosStep> {
           ],
           const SizedBox(height: AppSpacing.xl),
           AppButton(
-            label: t.onboarding.next,
+            label: widget.submitLabel ?? t.onboarding.next,
             onPressed: _canSubmit ? widget.onSubmit : null,
           ),
         ],

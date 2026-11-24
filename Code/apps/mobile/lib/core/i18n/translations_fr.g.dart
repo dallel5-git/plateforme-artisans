@@ -933,6 +933,120 @@ class Translations$proProfile$fr {
 
 	/// fr: 'Tester l'onboarding Particulier'
 	String get testOnboardingClient => 'Tester l\'onboarding Particulier';
+
+	/// fr: '{count} / {max} photos'
+	String get portfolioQuota => '{count} / {max} photos';
+
+	/// fr: 'Ajouter une réalisation'
+	String get portfolioAddPhoto => 'Ajouter une réalisation';
+
+	/// fr: 'Aucune photo de réalisation pour le moment'
+	String get portfolioEmpty => 'Aucune photo de réalisation pour le moment';
+
+	/// fr: 'Supprimer cette réalisation ?'
+	String get portfolioDeleteTitle => 'Supprimer cette réalisation ?';
+
+	/// fr: 'Cette photo sera retirée définitivement de votre vitrine publique.'
+	String get portfolioDeleteMessage => 'Cette photo sera retirée définitivement de votre vitrine publique.';
+
+	/// fr: 'Supprimer'
+	String get portfolioDeleteConfirm => 'Supprimer';
+
+	/// fr: 'Annuler'
+	String get portfolioCancel => 'Annuler';
+
+	/// fr: 'Photo retirée du portfolio'
+	String get portfolioDeleted => 'Photo retirée du portfolio';
+
+	/// fr: 'Photo ajoutée à vos réalisations'
+	String get portfolioAdded => 'Photo ajoutée à vos réalisations';
+
+	/// fr: 'Échec du téléversement de la photo'
+	String get portfolioUploadError => 'Échec du téléversement de la photo';
+
+	/// fr: 'Légende (optionnel)'
+	String get portfolioCaptionLabel => 'Légende (optionnel)';
+
+	/// fr: 'Métier associé (optionnel)'
+	String get portfolioCategoryLabel => 'Métier associé (optionnel)';
+
+	/// fr: 'Limite de {max} photos atteinte (offre gratuite)'
+	String get portfolioMaxReached => 'Limite de {max} photos atteinte (offre gratuite)';
+
+	/// fr: 'Mes Prestations & Tarifs indicatifs'
+	String get offeringsSection => 'Mes Prestations & Tarifs indicatifs';
+
+	/// fr: 'Présentez vos forfaits types pour donner des repères à vos futurs clients'
+	String get offeringsDesc => 'Présentez vos forfaits types pour donner des repères à vos futurs clients';
+
+	/// fr: 'Ajouter une prestation'
+	String get offeringsAdd => 'Ajouter une prestation';
+
+	/// fr: 'Aucune prestation renseignée. Ajoutez vos tarifs types !'
+	String get offeringsEmpty => 'Aucune prestation renseignée. Ajoutez vos tarifs types !';
+
+	/// fr: 'Négociable'
+	String get offeringsNegotiable => 'Négociable';
+
+	/// fr: 'Modifier'
+	String get offeringsEdit => 'Modifier';
+
+	/// fr: 'Supprimer'
+	String get offeringsDelete => 'Supprimer';
+
+	/// fr: 'Supprimer cette prestation ?'
+	String get offeringsDeleteTitle => 'Supprimer cette prestation ?';
+
+	/// fr: 'Cette offre ne sera plus visible sur votre fiche artisan.'
+	String get offeringsDeleteMessage => 'Cette offre ne sera plus visible sur votre fiche artisan.';
+
+	/// fr: 'Supprimer'
+	String get offeringsDeleteConfirm => 'Supprimer';
+
+	/// fr: 'Prestation supprimée'
+	String get offeringsDeleted => 'Prestation supprimée';
+
+	/// fr: 'Prestation enregistrée avec succès'
+	String get offeringsSaved => 'Prestation enregistrée avec succès';
+
+	/// fr: 'Titre de la prestation (Français)'
+	String get offeringTitleFr => 'Titre de la prestation (Français)';
+
+	/// fr: 'Titre en Arabe (optionnel)'
+	String get offeringTitleAr => 'Titre en Arabe (optionnel)';
+
+	/// fr: 'Description détaillée (optionnel)'
+	String get offeringDescription => 'Description détaillée (optionnel)';
+
+	/// fr: 'Corps de métier'
+	String get offeringCategory => 'Corps de métier';
+
+	/// fr: 'Prix minimum (DT)'
+	String get offeringPriceMin => 'Prix minimum (DT)';
+
+	/// fr: 'Prix maximum (DT)'
+	String get offeringPriceMax => 'Prix maximum (DT)';
+
+	/// fr: 'Unité de tarification'
+	String get offeringPriceUnit => 'Unité de tarification';
+
+	/// fr: 'Au forfait'
+	String get unitFixed => 'Au forfait';
+
+	/// fr: 'Par heure'
+	String get unitHour => 'Par heure';
+
+	/// fr: 'Par jour'
+	String get unitDay => 'Par jour';
+
+	/// fr: 'Par m²'
+	String get unitSquareMeter => 'Par m²';
+
+	/// fr: 'Sur devis uniquement'
+	String get unitOnQuote => 'Sur devis uniquement';
+
+	/// fr: 'Tarif négociable selon le chantier'
+	String get offeringNegotiableSwitch => 'Tarif négociable selon le chantier';
 }
 
 // Path: profile
@@ -2108,6 +2222,44 @@ extension on Translations {
 			'proProfile.availabilityUpdated' => 'Disponibilité mise à jour',
 			'proProfile.testOnboardingPro' => 'Tester l\'onboarding Pro',
 			'proProfile.testOnboardingClient' => 'Tester l\'onboarding Particulier',
+			'proProfile.portfolioQuota' => '{count} / {max} photos',
+			'proProfile.portfolioAddPhoto' => 'Ajouter une réalisation',
+			'proProfile.portfolioEmpty' => 'Aucune photo de réalisation pour le moment',
+			'proProfile.portfolioDeleteTitle' => 'Supprimer cette réalisation ?',
+			'proProfile.portfolioDeleteMessage' => 'Cette photo sera retirée définitivement de votre vitrine publique.',
+			'proProfile.portfolioDeleteConfirm' => 'Supprimer',
+			'proProfile.portfolioCancel' => 'Annuler',
+			'proProfile.portfolioDeleted' => 'Photo retirée du portfolio',
+			'proProfile.portfolioAdded' => 'Photo ajoutée à vos réalisations',
+			'proProfile.portfolioUploadError' => 'Échec du téléversement de la photo',
+			'proProfile.portfolioCaptionLabel' => 'Légende (optionnel)',
+			'proProfile.portfolioCategoryLabel' => 'Métier associé (optionnel)',
+			'proProfile.portfolioMaxReached' => 'Limite de {max} photos atteinte (offre gratuite)',
+			'proProfile.offeringsSection' => 'Mes Prestations & Tarifs indicatifs',
+			'proProfile.offeringsDesc' => 'Présentez vos forfaits types pour donner des repères à vos futurs clients',
+			'proProfile.offeringsAdd' => 'Ajouter une prestation',
+			'proProfile.offeringsEmpty' => 'Aucune prestation renseignée. Ajoutez vos tarifs types !',
+			'proProfile.offeringsNegotiable' => 'Négociable',
+			'proProfile.offeringsEdit' => 'Modifier',
+			'proProfile.offeringsDelete' => 'Supprimer',
+			'proProfile.offeringsDeleteTitle' => 'Supprimer cette prestation ?',
+			'proProfile.offeringsDeleteMessage' => 'Cette offre ne sera plus visible sur votre fiche artisan.',
+			'proProfile.offeringsDeleteConfirm' => 'Supprimer',
+			'proProfile.offeringsDeleted' => 'Prestation supprimée',
+			'proProfile.offeringsSaved' => 'Prestation enregistrée avec succès',
+			'proProfile.offeringTitleFr' => 'Titre de la prestation (Français)',
+			'proProfile.offeringTitleAr' => 'Titre en Arabe (optionnel)',
+			'proProfile.offeringDescription' => 'Description détaillée (optionnel)',
+			'proProfile.offeringCategory' => 'Corps de métier',
+			'proProfile.offeringPriceMin' => 'Prix minimum (DT)',
+			'proProfile.offeringPriceMax' => 'Prix maximum (DT)',
+			'proProfile.offeringPriceUnit' => 'Unité de tarification',
+			'proProfile.unitFixed' => 'Au forfait',
+			'proProfile.unitHour' => 'Par heure',
+			'proProfile.unitDay' => 'Par jour',
+			'proProfile.unitSquareMeter' => 'Par m²',
+			'proProfile.unitOnQuote' => 'Sur devis uniquement',
+			'proProfile.offeringNegotiableSwitch' => 'Tarif négociable selon le chantier',
 			'profile.title' => 'Profil',
 			'profile.accountFallback' => 'Mon compte',
 			'profile.switchToProSpace' => 'Passer en espace Pro',
@@ -2251,6 +2403,8 @@ extension on Translations {
 			'verification.backToDashboard' => 'Retour au tableau de bord',
 			'verification.statusPending' => 'Vérification en cours',
 			'verification.statusApproved' => 'Artisan Vérifié',
+			_ => null,
+		} ?? switch (path) {
 			'verification.statusRejected' => 'Vérification refusée',
 			'verification.statusMoreInfo' => 'Complément d\'information requis',
 			'verification.statusNotSubmitted' => 'Non vérifié',

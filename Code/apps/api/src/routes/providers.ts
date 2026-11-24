@@ -98,6 +98,7 @@ import {
   portfolioItemResponseSchema,
   providerIdParamsSchema,
   providerMeSchema,
+  providerOfferingsListResponseSchema,
   providerPublicProfileSchema,
   providerReviewCreateResponseSchema,
   providerReviewListResponseSchema,
@@ -900,6 +901,34 @@ export async function providersRoutes(app: FastifyInstance): Promise<void> {
 
       await removePortfolioItem(item.id);
       reply.code(204);
+    },
+  );
+
+  typedApp.get(
+    '/providers/me/offerings',
+    {
+      preHandler: [app.requireRole('PROVIDER')],
+      schema: {
+        description: "Liste les offres (tarifs) actives du profil de l'artisan authentifié.",
+        response: { 200: providerOfferingsListResponseSchema },
+      },
+    },
+    async (request) => {
+      if (!request.user) {
+        throw new DomainError(UNAUTHORIZED, 'Non authentifié');
+      }
+
+      const current = await requireOwnProfile(request.user.sub);
+      const offerings = await listServiceOfferings(current.id);
+      if (offerings.length === 0) {
+        return [];
+      }
+
+      const categoryIds = [...new Set(offerings.map((o) => o.categoryId))];
+      const categories = await findCategoriesByIds(categoryIds);
+      const categoriesById = new Map(categories.map((c) => [c.id, c]));
+
+      return offerings.map((o) => toOfferingResponse(o, categoriesById.get(o.categoryId)!));
     },
   );
 

@@ -1,69 +1,72 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'v1_providers_me_offerings_post200_response.dart';
+part of 'v1_providers_me_offerings_get200_response_inner.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-const V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum
-    _$v1ProvidersMeOfferingsPost200ResponsePriceUnitEnum_FIXED =
-    const V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum._('FIXED');
-const V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum
-    _$v1ProvidersMeOfferingsPost200ResponsePriceUnitEnum_HOUR =
-    const V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum._('HOUR');
-const V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum
-    _$v1ProvidersMeOfferingsPost200ResponsePriceUnitEnum_DAY =
-    const V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum._('DAY');
-const V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum
-    _$v1ProvidersMeOfferingsPost200ResponsePriceUnitEnum_SQUARE_METER =
-    const V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum._('SQUARE_METER');
-const V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum
-    _$v1ProvidersMeOfferingsPost200ResponsePriceUnitEnum_LINEAR_METER =
-    const V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum._('LINEAR_METER');
-const V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum
-    _$v1ProvidersMeOfferingsPost200ResponsePriceUnitEnum_ON_QUOTE =
-    const V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum._('ON_QUOTE');
+const V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum
+    _$v1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum_FIXED =
+    const V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum._('FIXED');
+const V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum
+    _$v1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum_HOUR =
+    const V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum._('HOUR');
+const V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum
+    _$v1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum_DAY =
+    const V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum._('DAY');
+const V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum
+    _$v1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum_SQUARE_METER =
+    const V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum._(
+        'SQUARE_METER');
+const V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum
+    _$v1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum_LINEAR_METER =
+    const V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum._(
+        'LINEAR_METER');
+const V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum
+    _$v1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum_ON_QUOTE =
+    const V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum._('ON_QUOTE');
 
-V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum
-    _$v1ProvidersMeOfferingsPost200ResponsePriceUnitEnumValueOf(String name) {
+V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum
+    _$v1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnumValueOf(
+        String name) {
   switch (name) {
     case 'FIXED':
-      return _$v1ProvidersMeOfferingsPost200ResponsePriceUnitEnum_FIXED;
+      return _$v1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum_FIXED;
     case 'HOUR':
-      return _$v1ProvidersMeOfferingsPost200ResponsePriceUnitEnum_HOUR;
+      return _$v1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum_HOUR;
     case 'DAY':
-      return _$v1ProvidersMeOfferingsPost200ResponsePriceUnitEnum_DAY;
+      return _$v1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum_DAY;
     case 'SQUARE_METER':
-      return _$v1ProvidersMeOfferingsPost200ResponsePriceUnitEnum_SQUARE_METER;
+      return _$v1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum_SQUARE_METER;
     case 'LINEAR_METER':
-      return _$v1ProvidersMeOfferingsPost200ResponsePriceUnitEnum_LINEAR_METER;
+      return _$v1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum_LINEAR_METER;
     case 'ON_QUOTE':
-      return _$v1ProvidersMeOfferingsPost200ResponsePriceUnitEnum_ON_QUOTE;
+      return _$v1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum_ON_QUOTE;
     default:
       throw ArgumentError(name);
   }
 }
 
-final BuiltSet<V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum>
-    _$v1ProvidersMeOfferingsPost200ResponsePriceUnitEnumValues = BuiltSet<
-        V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum>(const <V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum>[
-  _$v1ProvidersMeOfferingsPost200ResponsePriceUnitEnum_FIXED,
-  _$v1ProvidersMeOfferingsPost200ResponsePriceUnitEnum_HOUR,
-  _$v1ProvidersMeOfferingsPost200ResponsePriceUnitEnum_DAY,
-  _$v1ProvidersMeOfferingsPost200ResponsePriceUnitEnum_SQUARE_METER,
-  _$v1ProvidersMeOfferingsPost200ResponsePriceUnitEnum_LINEAR_METER,
-  _$v1ProvidersMeOfferingsPost200ResponsePriceUnitEnum_ON_QUOTE,
+final BuiltSet<V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum>
+    _$v1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnumValues = BuiltSet<
+        V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum>(const <V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum>[
+  _$v1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum_FIXED,
+  _$v1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum_HOUR,
+  _$v1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum_DAY,
+  _$v1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum_SQUARE_METER,
+  _$v1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum_LINEAR_METER,
+  _$v1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum_ON_QUOTE,
 ]);
 
-Serializer<V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum>
-    _$v1ProvidersMeOfferingsPost200ResponsePriceUnitEnumSerializer =
-    _$V1ProvidersMeOfferingsPost200ResponsePriceUnitEnumSerializer();
+Serializer<V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum>
+    _$v1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnumSerializer =
+    _$V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnumSerializer();
 
-class _$V1ProvidersMeOfferingsPost200ResponsePriceUnitEnumSerializer
+class _$V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnumSerializer
     implements
         PrimitiveSerializer<
-            V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum> {
+            V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum> {
   static const Map<String, Object> _toWire = const <String, Object>{
     'FIXED': 'FIXED',
     'HOUR': 'HOUR',
@@ -83,27 +86,28 @@ class _$V1ProvidersMeOfferingsPost200ResponsePriceUnitEnumSerializer
 
   @override
   final Iterable<Type> types = const <Type>[
-    V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum
+    V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum
   ];
   @override
-  final String wireName = 'V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum';
+  final String wireName =
+      'V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum';
 
   @override
   Object serialize(Serializers serializers,
-          V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum object,
+          V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum object,
           {FullType specifiedType = FullType.unspecified}) =>
       _toWire[object.name] ?? object.name;
 
   @override
-  V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum deserialize(
+  V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum deserialize(
           Serializers serializers, Object serialized,
           {FullType specifiedType = FullType.unspecified}) =>
-      V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum.valueOf(
+      V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum.valueOf(
           _fromWire[serialized] ?? (serialized is String ? serialized : ''));
 }
 
-class _$V1ProvidersMeOfferingsPost200Response
-    extends V1ProvidersMeOfferingsPost200Response {
+class _$V1ProvidersMeOfferingsGet200ResponseInner
+    extends V1ProvidersMeOfferingsGet200ResponseInner {
   @override
   final String id;
   @override
@@ -119,19 +123,19 @@ class _$V1ProvidersMeOfferingsPost200Response
   @override
   final num priceMax;
   @override
-  final V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum priceUnit;
+  final V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum priceUnit;
   @override
   final bool isNegotiable;
   @override
   final String displayPrice;
 
-  factory _$V1ProvidersMeOfferingsPost200Response(
-          [void Function(V1ProvidersMeOfferingsPost200ResponseBuilder)?
+  factory _$V1ProvidersMeOfferingsGet200ResponseInner(
+          [void Function(V1ProvidersMeOfferingsGet200ResponseInnerBuilder)?
               updates]) =>
-      (V1ProvidersMeOfferingsPost200ResponseBuilder()..update(updates))
+      (V1ProvidersMeOfferingsGet200ResponseInnerBuilder()..update(updates))
           ._build();
 
-  _$V1ProvidersMeOfferingsPost200Response._(
+  _$V1ProvidersMeOfferingsGet200ResponseInner._(
       {required this.id,
       required this.category,
       required this.titleFr,
@@ -144,19 +148,19 @@ class _$V1ProvidersMeOfferingsPost200Response
       required this.displayPrice})
       : super._();
   @override
-  V1ProvidersMeOfferingsPost200Response rebuild(
-          void Function(V1ProvidersMeOfferingsPost200ResponseBuilder)
+  V1ProvidersMeOfferingsGet200ResponseInner rebuild(
+          void Function(V1ProvidersMeOfferingsGet200ResponseInnerBuilder)
               updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  V1ProvidersMeOfferingsPost200ResponseBuilder toBuilder() =>
-      V1ProvidersMeOfferingsPost200ResponseBuilder()..replace(this);
+  V1ProvidersMeOfferingsGet200ResponseInnerBuilder toBuilder() =>
+      V1ProvidersMeOfferingsGet200ResponseInnerBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is V1ProvidersMeOfferingsPost200Response &&
+    return other is V1ProvidersMeOfferingsGet200ResponseInner &&
         id == other.id &&
         category == other.category &&
         titleFr == other.titleFr &&
@@ -189,7 +193,7 @@ class _$V1ProvidersMeOfferingsPost200Response
   @override
   String toString() {
     return (newBuiltValueToStringHelper(
-            r'V1ProvidersMeOfferingsPost200Response')
+            r'V1ProvidersMeOfferingsGet200ResponseInner')
           ..add('id', id)
           ..add('category', category)
           ..add('titleFr', titleFr)
@@ -204,11 +208,11 @@ class _$V1ProvidersMeOfferingsPost200Response
   }
 }
 
-class V1ProvidersMeOfferingsPost200ResponseBuilder
+class V1ProvidersMeOfferingsGet200ResponseInnerBuilder
     implements
-        Builder<V1ProvidersMeOfferingsPost200Response,
-            V1ProvidersMeOfferingsPost200ResponseBuilder> {
-  _$V1ProvidersMeOfferingsPost200Response? _$v;
+        Builder<V1ProvidersMeOfferingsGet200ResponseInner,
+            V1ProvidersMeOfferingsGet200ResponseInnerBuilder> {
+  _$V1ProvidersMeOfferingsGet200ResponseInner? _$v;
 
   String? _id;
   String? get id => _$this._id;
@@ -243,11 +247,11 @@ class V1ProvidersMeOfferingsPost200ResponseBuilder
   num? get priceMax => _$this._priceMax;
   set priceMax(num? priceMax) => _$this._priceMax = priceMax;
 
-  V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum? _priceUnit;
-  V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum? get priceUnit =>
+  V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum? _priceUnit;
+  V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum? get priceUnit =>
       _$this._priceUnit;
   set priceUnit(
-          V1ProvidersMeOfferingsPost200ResponsePriceUnitEnum? priceUnit) =>
+          V1ProvidersMeOfferingsGet200ResponseInnerPriceUnitEnum? priceUnit) =>
       _$this._priceUnit = priceUnit;
 
   bool? _isNegotiable;
@@ -258,11 +262,11 @@ class V1ProvidersMeOfferingsPost200ResponseBuilder
   String? get displayPrice => _$this._displayPrice;
   set displayPrice(String? displayPrice) => _$this._displayPrice = displayPrice;
 
-  V1ProvidersMeOfferingsPost200ResponseBuilder() {
-    V1ProvidersMeOfferingsPost200Response._defaults(this);
+  V1ProvidersMeOfferingsGet200ResponseInnerBuilder() {
+    V1ProvidersMeOfferingsGet200ResponseInner._defaults(this);
   }
 
-  V1ProvidersMeOfferingsPost200ResponseBuilder get _$this {
+  V1ProvidersMeOfferingsGet200ResponseInnerBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _id = $v.id;
@@ -281,43 +285,44 @@ class V1ProvidersMeOfferingsPost200ResponseBuilder
   }
 
   @override
-  void replace(V1ProvidersMeOfferingsPost200Response other) {
-    _$v = other as _$V1ProvidersMeOfferingsPost200Response;
+  void replace(V1ProvidersMeOfferingsGet200ResponseInner other) {
+    _$v = other as _$V1ProvidersMeOfferingsGet200ResponseInner;
   }
 
   @override
   void update(
-      void Function(V1ProvidersMeOfferingsPost200ResponseBuilder)? updates) {
+      void Function(V1ProvidersMeOfferingsGet200ResponseInnerBuilder)?
+          updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  V1ProvidersMeOfferingsPost200Response build() => _build();
+  V1ProvidersMeOfferingsGet200ResponseInner build() => _build();
 
-  _$V1ProvidersMeOfferingsPost200Response _build() {
-    _$V1ProvidersMeOfferingsPost200Response _$result;
+  _$V1ProvidersMeOfferingsGet200ResponseInner _build() {
+    _$V1ProvidersMeOfferingsGet200ResponseInner _$result;
     try {
       _$result = _$v ??
-          _$V1ProvidersMeOfferingsPost200Response._(
+          _$V1ProvidersMeOfferingsGet200ResponseInner._(
             id: BuiltValueNullFieldError.checkNotNull(
-                id, r'V1ProvidersMeOfferingsPost200Response', 'id'),
+                id, r'V1ProvidersMeOfferingsGet200ResponseInner', 'id'),
             category: category.build(),
-            titleFr: BuiltValueNullFieldError.checkNotNull(
-                titleFr, r'V1ProvidersMeOfferingsPost200Response', 'titleFr'),
-            titleAr: BuiltValueNullFieldError.checkNotNull(
-                titleAr, r'V1ProvidersMeOfferingsPost200Response', 'titleAr'),
+            titleFr: BuiltValueNullFieldError.checkNotNull(titleFr,
+                r'V1ProvidersMeOfferingsGet200ResponseInner', 'titleFr'),
+            titleAr: BuiltValueNullFieldError.checkNotNull(titleAr,
+                r'V1ProvidersMeOfferingsGet200ResponseInner', 'titleAr'),
             description: BuiltValueNullFieldError.checkNotNull(description,
-                r'V1ProvidersMeOfferingsPost200Response', 'description'),
-            priceMin: BuiltValueNullFieldError.checkNotNull(
-                priceMin, r'V1ProvidersMeOfferingsPost200Response', 'priceMin'),
-            priceMax: BuiltValueNullFieldError.checkNotNull(
-                priceMax, r'V1ProvidersMeOfferingsPost200Response', 'priceMax'),
+                r'V1ProvidersMeOfferingsGet200ResponseInner', 'description'),
+            priceMin: BuiltValueNullFieldError.checkNotNull(priceMin,
+                r'V1ProvidersMeOfferingsGet200ResponseInner', 'priceMin'),
+            priceMax: BuiltValueNullFieldError.checkNotNull(priceMax,
+                r'V1ProvidersMeOfferingsGet200ResponseInner', 'priceMax'),
             priceUnit: BuiltValueNullFieldError.checkNotNull(priceUnit,
-                r'V1ProvidersMeOfferingsPost200Response', 'priceUnit'),
+                r'V1ProvidersMeOfferingsGet200ResponseInner', 'priceUnit'),
             isNegotiable: BuiltValueNullFieldError.checkNotNull(isNegotiable,
-                r'V1ProvidersMeOfferingsPost200Response', 'isNegotiable'),
+                r'V1ProvidersMeOfferingsGet200ResponseInner', 'isNegotiable'),
             displayPrice: BuiltValueNullFieldError.checkNotNull(displayPrice,
-                r'V1ProvidersMeOfferingsPost200Response', 'displayPrice'),
+                r'V1ProvidersMeOfferingsGet200ResponseInner', 'displayPrice'),
           );
     } catch (_) {
       late String _$failedField;
@@ -326,7 +331,7 @@ class V1ProvidersMeOfferingsPost200ResponseBuilder
         category.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
-            r'V1ProvidersMeOfferingsPost200Response',
+            r'V1ProvidersMeOfferingsGet200ResponseInner',
             _$failedField,
             e.toString());
       }

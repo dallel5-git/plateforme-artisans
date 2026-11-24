@@ -203,6 +203,9 @@ export const providerServiceOfferingSchema = z.object({
   displayPrice: z.string(),
 });
 
+export const providerOfferingsListResponseSchema = z.array(providerServiceOfferingSchema);
+export type ProviderOfferingsListResponse = z.infer<typeof providerOfferingsListResponseSchema>;
+
 // =====================================================================
 //  BE-47 : écriture des offerings (`POST`/`PATCH`/`DELETE /v1/providers/me/offerings`)
 // =====================================================================

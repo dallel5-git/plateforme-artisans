@@ -71,8 +71,8 @@ import 'package:sanaya/core/api/generated/src/model/v1_providers_me_get200_respo
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_get200_response_categories_inner.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_get200_response_coverage_areas_inner.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_get200_response_portfolio_inner.dart';
+import 'package:sanaya/core/api/generated/src/model/v1_providers_me_offerings_get200_response_inner.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_offerings_id_patch_request.dart';
-import 'package:sanaya/core/api/generated/src/model/v1_providers_me_offerings_post200_response.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_offerings_post_request.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_patch_request.dart';
 import 'package:sanaya/core/api/generated/src/model/v1_providers_me_portfolio_post200_response.dart';
@@ -183,8 +183,8 @@ part 'serializers.g.dart';
   V1ProvidersMeGet200ResponseCategoriesInner,
   V1ProvidersMeGet200ResponseCoverageAreasInner,
   V1ProvidersMeGet200ResponsePortfolioInner,
+  V1ProvidersMeOfferingsGet200ResponseInner,
   V1ProvidersMeOfferingsIdPatchRequest,
-  V1ProvidersMeOfferingsPost200Response,
   V1ProvidersMeOfferingsPostRequest,
   V1ProvidersMePatchRequest,
   V1ProvidersMePortfolioPost200Response,
@@ -237,6 +237,11 @@ part 'serializers.g.dart';
   V1UsersMeExportGet200ResponseVerificationRequestsInner,
 ])
 Serializers serializers = (_$serializers.toBuilder()
+      ..addBuilderFactory(
+        const FullType(
+            BuiltList, [FullType(V1ProvidersMeOfferingsGet200ResponseInner)]),
+        () => ListBuilder<V1ProvidersMeOfferingsGet200ResponseInner>(),
+      )
       ..add(const OneOfSerializer())
       ..add(const AnyOfSerializer())
       ..add(const DateSerializer())
