@@ -149,6 +149,7 @@ class Translations$contact$ar extends Translations$contact$fr {
 	// Translations
 	@override String get call => 'اتصال';
 	@override String get whatsapp => 'واتساب';
+	@override String get offlineUnavailable => 'الاتصال بالإنترنت مطلوب لأول تواصل مع هذا الحرفي.';
 }
 
 // Path: dashboard
@@ -903,6 +904,7 @@ extension on TranslationsAr {
 			'common.devPreview.statNewLabel' => 'جديد',
 			'contact.call' => 'اتصال',
 			'contact.whatsapp' => 'واتساب',
+			'contact.offlineUnavailable' => 'الاتصال بالإنترنت مطلوب لأول تواصل مع هذا الحرفي.',
 			'dashboard.title' => 'لوحة التحكم',
 			'dashboard.greeting' => ({required Object name}) => 'مرحباً، ${name}',
 			'dashboard.statViews' => 'مشاهدات الملف الشخصي',

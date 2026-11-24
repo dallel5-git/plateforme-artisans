@@ -50,7 +50,7 @@ void main() {
         locale: any(named: 'locale'),
         fallbackPhone: any(named: 'fallbackPhone'),
       ),
-    ).thenAnswer((_) async {});
+    ).thenAnswer((_) async => true);
   });
 
   testWidgets('affiche les boutons Appeler et WhatsApp', (tester) async {
@@ -132,6 +132,38 @@ void main() {
       final whatsappCenter = tester.getCenter(find.text('WhatsApp'));
 
       expect(callCenter.dx, greaterThan(whatsappCenter.dx));
+    },
+  );
+
+  testWidgets(
+    'MOB-009 — échec contact hors-ligne affiche une SnackBar informative // régression #MOB-009',
+    (tester) async {
+      when(
+        () => service.contact(
+          providerId: any(named: 'providerId'),
+          channel: any(named: 'channel'),
+          categoryId: any(named: 'categoryId'),
+          sourceScreen: any(named: 'sourceScreen'),
+          locale: any(named: 'locale'),
+          fallbackPhone: any(named: 'fallbackPhone'),
+        ),
+      ).thenAnswer((_) async => false);
+
+      await tester.pumpWidget(
+        _wrap(service, const ContactButtons(providerId: 'p1')),
+      );
+
+      await tester.tap(find.text('Appeler'));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(SnackBar), findsOneWidget);
+      expect(
+        find.text(
+          'Une connexion Internet est requise pour contacter ce nouvel '
+          'artisan.',
+        ),
+        findsOneWidget,
+      );
     },
   );
 }

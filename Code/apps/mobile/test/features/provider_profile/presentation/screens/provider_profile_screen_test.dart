@@ -460,7 +460,7 @@ void main() {
             locale: any(named: 'locale'),
             fallbackPhone: any(named: 'fallbackPhone'),
           ),
-        ).thenAnswer((_) async {});
+        ).thenAnswer((_) async => true);
 
         await tester.pumpWidget(
           _wrap(
@@ -528,7 +528,7 @@ void main() {
         );
         when(
           () => favoritesRepository.addFavorite('provider-1'),
-        ).thenAnswer((_) async {});
+        ).thenAnswer((_) async => true);
 
         await tester.pumpWidget(
           _wrap(
@@ -580,7 +580,7 @@ void main() {
         );
         when(
           () => favoritesRepository.removeFavorite('provider-1'),
-        ).thenAnswer((_) async {});
+        ).thenAnswer((_) async => true);
 
         await tester.pumpWidget(
           _wrap(

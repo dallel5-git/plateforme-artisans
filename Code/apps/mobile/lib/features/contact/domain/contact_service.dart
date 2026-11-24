@@ -26,7 +26,10 @@ class ContactService {
   final ContactQueue queue;
   final UrlLauncher launcher;
 
-  Future<void> contact({
+  /// Retourne `true` si le composeur natif a été ouvert (en ligne ou via
+  /// `fallbackPhone`), ou `false` si l'artisan n'a jamais été contacté
+  /// auparavant et qu'aucune connectivité réseau n'est disponible (MOB-009).
+  Future<bool> contact({
     required String providerId,
     required ContactChannel channel,
     String? categoryId,
@@ -58,11 +61,14 @@ class ContactService {
           whatsappMessage: body.whatsappMessage,
         ),
       );
+      return true;
     } on SanayaApiException {
       await queue.enqueue(pending);
       if (fallbackPhone != null) {
         await launcher.launch(_urlFor(channel: channel, phone: fallbackPhone));
+        return true;
       }
+      return false;
     }
   }
 
