@@ -195,8 +195,9 @@ class _ProProfileScreenState extends ConsumerState<ProProfileScreen> {
   void _openEditZones(BuildContext context, ProviderMe profile) {
     final t = ref.read(translationsProvider);
     final colors = context.colors;
-    final initialSelection =
-        profile.coverageAreas.map((a) => a.governorateId).toSet();
+    final initialSelection = profile.coverageAreas
+        .map((a) => a.governorateId)
+        .toSet();
     unawaited(
       showModalBottomSheet<void>(
         context: context,
@@ -1236,8 +1237,7 @@ class _ProZonesCard extends ConsumerWidget {
   final ProviderMe profile;
   final VoidCallback onEdit;
 
-  BuiltList<V1ProvidersMePost200ResponseProviderCoverageAreasInner>
-  get _zones {
+  BuiltList<V1ProvidersMePost200ResponseProviderCoverageAreasInner> get _zones {
     try {
       return profile.coverageAreas;
     } on Object catch (_) {

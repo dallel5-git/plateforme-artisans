@@ -108,8 +108,9 @@ Widget _wrap({
       if (onboardingRepo != null)
         onboardingRepositoryProvider.overrideWithValue(onboardingRepo),
       if (providerProfileRepo != null)
-        providerProfileRepositoryProvider
-            .overrideWithValue(providerProfileRepo),
+        providerProfileRepositoryProvider.overrideWithValue(
+          providerProfileRepo,
+        ),
     ],
     child: MaterialApp(
       locale: locale,
