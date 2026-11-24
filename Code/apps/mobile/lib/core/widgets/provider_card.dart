@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:sanaya/app/providers.dart';
 import 'package:sanaya/core/theme/app_colors.dart';
@@ -9,6 +10,7 @@ import 'package:sanaya/core/theme/app_text.dart';
 import 'package:sanaya/core/widgets/app_card.dart';
 import 'package:sanaya/core/widgets/rating_stars.dart';
 import 'package:sanaya/core/widgets/verified_badge.dart';
+import 'package:sanaya/features/auth/application/auth_state_provider.dart';
 import 'package:sanaya/features/favorites/application/favorites_providers.dart';
 
 /// Carte artisan (design-system.html §7) — le composant le plus vu du
@@ -224,6 +226,24 @@ class _FavoriteButton extends ConsumerWidget {
       ),
       tooltip: isFavorite ? t.favorites.removeTooltip : t.favorites.addTooltip,
       onPressed: () async {
+        final authStatus = ref.read(authStateProvider).valueOrNull;
+        if (authStatus == null || !authStatus.isAuthenticated) {
+          if (context.mounted) {
+            final isArabic =
+                Localizations.localeOf(context).languageCode == 'ar';
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(t.favorites.authRequiredSubtitle),
+                action: SnackBarAction(
+                  label: isArabic ? 'تسجيل الدخول' : 'Se connecter',
+                  onPressed: () => context.push('/auth'),
+                ),
+              ),
+            );
+          }
+          return;
+        }
+
         final notifier = ref.read(favoritesListProvider.notifier);
         try {
           if (isFavorite) {
