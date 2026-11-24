@@ -1,4 +1,5 @@
 {
   "call": "Appeler",
-  "whatsapp": "WhatsApp"
+  "whatsapp": "WhatsApp",
+  "offlineUnavailable": "Une connexion Internet est requise pour contacter ce nouvel artisan."
 }

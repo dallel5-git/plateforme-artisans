@@ -231,6 +231,9 @@ class Translations$contact$fr {
 
 	/// fr: 'WhatsApp'
 	String get whatsapp => 'WhatsApp';
+
+	/// fr: 'Une connexion Internet est requise pour contacter ce nouvel artisan.'
+	String get offlineUnavailable => 'Une connexion Internet est requise pour contacter ce nouvel artisan.';
 }
 
 // Path: dashboard
@@ -2006,6 +2009,7 @@ extension on Translations {
 			'common.devPreview.statNewLabel' => 'Nouveau',
 			'contact.call' => 'Appeler',
 			'contact.whatsapp' => 'WhatsApp',
+			'contact.offlineUnavailable' => 'Une connexion Internet est requise pour contacter ce nouvel artisan.',
 			'dashboard.title' => 'Tableau de bord',
 			'dashboard.greeting' => ({required Object name}) => 'Bonjour, ${name}',
 			'dashboard.statViews' => 'Vues du profil',
@@ -2399,9 +2403,9 @@ extension on Translations {
 			'verification.backToDashboard' => 'Retour au tableau de bord',
 			'verification.statusPending' => 'Vérification en cours',
 			'verification.statusApproved' => 'Artisan Vérifié',
-			'verification.statusRejected' => 'Vérification refusée',
 			_ => null,
 		} ?? switch (path) {
+			'verification.statusRejected' => 'Vérification refusée',
 			'verification.statusMoreInfo' => 'Complément d\'information requis',
 			'verification.statusNotSubmitted' => 'Non vérifié',
 			'verification.alreadyPending' => 'Une demande de vérification est déjà en cours de traitement.',

@@ -1364,7 +1364,44 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get?: never;
+        /** @description Liste les offres (tarifs) actives du profil de l'artisan authentifié. */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** Format: uuid */
+                            id: string;
+                            category: {
+                                slug: string;
+                                nameFr: string;
+                                nameAr: string;
+                            };
+                            titleFr: string;
+                            titleAr: string | null;
+                            description: string | null;
+                            priceMin: number | null;
+                            priceMax: number | null;
+                            /** @enum {string} */
+                            priceUnit: "FIXED" | "HOUR" | "DAY" | "SQUARE_METER" | "LINEAR_METER" | "ON_QUOTE";
+                            isNegotiable: boolean;
+                            displayPrice: string;
+                        }[];
+                    };
+                };
+            };
+        };
         put?: never;
         /** @description Ajoute une offre (tarif) au profil de l'artisan authentifié. */
         post: {
