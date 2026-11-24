@@ -100,6 +100,24 @@ describe('QA-04 — Recette & Tests E2E : Cycle complet Onboarding & Vérificati
     const categoryPlomberie = await createTestCategory();
     const categoryElectricite = await createTestCategory();
 
+    await testDbClient.appSetting.upsert({
+      where: { key: 'ranking.weights' },
+      create: {
+        key: 'ranking.weights',
+        value: {
+          w1Geo: 0.35,
+          w2Rating: 0.25,
+          w3Trust: 0.15,
+          w4Completion: 0.1,
+          w5Responsiveness: 0.05,
+          w6Plan: 0.1,
+          w7Penalty: 0.2,
+        },
+        description: 'Poids ranking',
+      },
+      update: {},
+    });
+
     // -------------------------------------------------------------------------
     // 1. Création d'un compte client par OTP (+216)
     // -------------------------------------------------------------------------
