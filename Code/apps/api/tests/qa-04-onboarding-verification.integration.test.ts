@@ -374,7 +374,7 @@ describe('QA-04 — Recette & Tests E2E : Cycle complet Onboarding & Vérificati
     // -------------------------------------------------------------------------
     // 8. Vérification que l'artisan affiche le badge isVerified et remonte dans la recherche
     // -------------------------------------------------------------------------
-    // A. Sur son profil propriétaire
+    // A. Sur son profil propriétaire (/v1/providers/me)
     const verifiedProfileMeRes = await app.inject({
       method: 'GET',
       url: '/v1/providers/me',
@@ -382,7 +382,17 @@ describe('QA-04 — Recette & Tests E2E : Cycle complet Onboarding & Vérificati
     });
     expect(verifiedProfileMeRes.statusCode).toBe(200);
     expect(verifiedProfileMeRes.json().isVerified).toBe(true);
-    expect(verifiedProfileMeRes.json().verificationStatus).toBe('APPROVED');
+    expect(verifiedProfileMeRes.json().verifiedAt).toBeDefined();
+
+    // A2. Sur son statut de vérification dédié (/v1/providers/me/verification)
+    const kycStatusMeRes = await app.inject({
+      method: 'GET',
+      url: '/v1/providers/me/verification',
+      headers: { authorization: `Bearer ${providerToken}` },
+    });
+    expect(kycStatusMeRes.statusCode).toBe(200);
+    expect(kycStatusMeRes.json().verificationStatus).toBe('APPROVED');
+    expect(kycStatusMeRes.json().isVerified).toBe(true);
 
     // B. Sur sa fiche publique
     const publicProfileRes = await app.inject({
