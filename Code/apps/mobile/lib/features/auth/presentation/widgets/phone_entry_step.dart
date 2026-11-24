@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 
 import 'package:sanaya/core/i18n/translations.g.dart';
@@ -50,10 +48,8 @@ class _PhoneEntryStepState extends State<PhoneEntryStep> {
   }
 
   void _openLegalNotice() {
-    unawaited(
-      Navigator.of(context).push(
-        MaterialPageRoute<void>(builder: (_) => const LegalNoticeScreen()),
-      ),
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(builder: (_) => const LegalNoticeScreen()),
     );
   }
 
@@ -63,55 +59,71 @@ class _PhoneEntryStepState extends State<PhoneEntryStep> {
     final colors = context.colors;
     final locale = Localizations.localeOf(context);
 
-    return Padding(
-      padding: const EdgeInsetsDirectional.all(AppSpacing.lg),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            t.auth.phoneTitle,
-            style: AppText.h3(locale).copyWith(color: colors.textPrimary),
-          ),
-          const SizedBox(height: AppSpacing.sm),
-          Text(
-            t.auth.phoneSubtitle,
-            style: AppText.body(locale).copyWith(color: colors.textSecondary),
-          ),
-          const SizedBox(height: AppSpacing.lg),
-          AppTextField(
-            hintText: t.auth.phoneHint,
-            controller: _controller,
-            keyboardType: TextInputType.phone,
-            errorText: widget.errorMessage,
-            onChanged: (_) => setState(() {}),
-            prefix: Text(
-              '+216',
-              style: AppText.bodyStrong(locale).copyWith(
-                color: colors.textPrimary,
-              ),
-            ),
-          ),
-          const SizedBox(height: AppSpacing.lg),
-          AppButton(
-            label: t.auth.phoneCta,
-            onPressed: _canSubmit ? _submit : null,
-          ),
-          const Spacer(),
-          Center(
-            child: GestureDetector(
-              onTap: _openLegalNotice,
-              child: Text(
-                t.auth.legalConsent,
-                textAlign: TextAlign.center,
-                style: AppText.small(locale).copyWith(
-                  color: colors.textSecondary,
-                  decoration: TextDecoration.underline,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minHeight: constraints.maxHeight),
+            child: IntrinsicHeight(
+              child: Padding(
+                padding: const EdgeInsetsDirectional.all(AppSpacing.lg),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      t.auth.phoneTitle,
+                      style: AppText.h3(
+                        locale,
+                      ).copyWith(color: colors.textPrimary),
+                    ),
+                    const SizedBox(height: AppSpacing.sm),
+                    Text(
+                      t.auth.phoneSubtitle,
+                      style: AppText.body(
+                        locale,
+                      ).copyWith(color: colors.textSecondary),
+                    ),
+                    const SizedBox(height: AppSpacing.lg),
+                    AppTextField(
+                      hintText: t.auth.phoneHint,
+                      controller: _controller,
+                      keyboardType: TextInputType.phone,
+                      errorText: widget.errorMessage,
+                      onChanged: (_) => setState(() {}),
+                      prefix: Text(
+                        '+216',
+                        style: AppText.bodyStrong(locale).copyWith(
+                          color: colors.textPrimary,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: AppSpacing.lg),
+                    AppButton(
+                      label: t.auth.phoneCta,
+                      onPressed: _canSubmit ? _submit : null,
+                    ),
+                    const Spacer(),
+                    const SizedBox(height: AppSpacing.md),
+                    Center(
+                      child: GestureDetector(
+                        onTap: _openLegalNotice,
+                        child: Text(
+                          t.auth.legalConsent,
+                          textAlign: TextAlign.center,
+                          style: AppText.small(locale).copyWith(
+                            color: colors.textSecondary,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
