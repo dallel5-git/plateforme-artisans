@@ -4,6 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:sanaya/app/theme.dart';
 import 'package:sanaya/features/auth/presentation/widgets/otp_code_field.dart';
 
+import '../../../../core/widgets/widget_test_helpers.dart';
+
 Future<void> _pump(WidgetTester tester, ValueChanged<String> onCompleted) =>
     tester.pumpWidget(
       ProviderScope(
@@ -128,6 +130,46 @@ void main() {
       expect(lastBox.label, 'Chiffre 6 sur 6');
 
       handle.dispose();
+    },
+  );
+
+  testWidgets(
+    'MOB-011 — en arabe (RTL), les cases OTP restent ordonnées de gauche à '
+    'droite (LTR) // régression #MOB-011',
+    (tester) async {
+      await tester.pumpWidget(
+        ProviderScope(
+          child: themedApp(
+            Scaffold(
+              body: OtpCodeField(length: 6, onCompleted: (_) {}),
+            ),
+            locale: const Locale('ar'),
+          ),
+        ),
+      );
+
+      final fields = find.byType(TextField);
+      final firstBox = tester.getTopLeft(fields.at(0));
+      final secondBox = tester.getTopLeft(fields.at(1));
+      final lastBox = tester.getTopLeft(fields.at(5));
+
+      expect(firstBox.dx, lessThan(secondBox.dx));
+      expect(secondBox.dx, lessThan(lastBox.dx));
+    },
+  );
+
+  testWidgets(
+    'MOB-011 — chaque case respecte la cible tactile minimale de 48dp (FM-43) '
+    '// régression #MOB-011',
+    (tester) async {
+      await _pump(tester, (_) {});
+
+      final fields = find.byType(TextField);
+      for (var i = 0; i < 6; i++) {
+        final size = tester.getSize(fields.at(i));
+        expect(size.width, greaterThanOrEqualTo(48.0));
+        expect(size.height, greaterThanOrEqualTo(48.0));
+      }
     },
   );
 }

@@ -118,57 +118,64 @@ class _OtpCodeFieldState extends ConsumerState<OtpCodeField> {
         ? colors.destructive
         : colors.borderStrong;
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: List.generate(widget.length, (index) {
-        // FM-43 : sans ça, un lecteur d'écran annonce 6 champs de texte vides
-        // identiques, sans indication de position — impossible de savoir
-        // lequel est déjà rempli ou lequel a le focus.
-        return Semantics(
-          label: t.auth.otpDigitLabel
-              .replaceAll('{n}', '${index + 1}')
-              .replaceAll('{total}', '${widget.length}'),
-          child: SizedBox(
-            width: 44,
-            child: TextField(
-              controller: _controllers[index],
-              focusNode: _focusNodes[index],
-              enabled: widget.enabled,
-              autofocus: widget.autofocus && index == 0,
-              textAlign: TextAlign.center,
-              keyboardType: TextInputType.number,
-              maxLength: widget.length,
-              style: AppText.bodyStrong(
-                locale,
-              ).copyWith(color: colors.textPrimary),
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              decoration: InputDecoration(
-                counterText: '',
-                filled: true,
-                fillColor: colors.surface,
-                contentPadding: const EdgeInsetsDirectional.symmetric(
-                  vertical: AppSpacing.md,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: const BorderRadius.all(AppRadius.md),
-                  borderSide: BorderSide(color: borderColor),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: const BorderRadius.all(AppRadius.md),
-                  borderSide: BorderSide(color: borderColor),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: const BorderRadius.all(AppRadius.md),
-                  borderSide: BorderSide(
-                    color: widget.hasError ? colors.destructive : colors.accent,
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: List.generate(widget.length, (index) {
+          // FM-43 : sans ça, un lecteur d'écran annonce 6 champs de texte vides
+          // identiques, sans indication de position — impossible de savoir
+          // lequel est déjà rempli ou lequel a le focus.
+          return Semantics(
+            label: t.auth.otpDigitLabel
+                .replaceAll('{n}', '${index + 1}')
+                .replaceAll('{total}', '${widget.length}'),
+            child: SizedBox(
+              width: AppLayout.touchTarget,
+              height: AppLayout.touchTarget,
+              child: TextField(
+                controller: _controllers[index],
+                focusNode: _focusNodes[index],
+                enabled: widget.enabled,
+                autofocus: widget.autofocus && index == 0,
+                textAlign: TextAlign.center,
+                keyboardType: TextInputType.number,
+                maxLength: widget.length,
+                style: AppText.bodyStrong(
+                  locale,
+                ).copyWith(color: colors.textPrimary),
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                decoration: InputDecoration(
+                  counterText: '',
+                  filled: true,
+                  fillColor: colors.surface,
+                  isDense: true,
+                  contentPadding: const EdgeInsets.symmetric(
+                    vertical: AppSpacing.md,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: const BorderRadius.all(AppRadius.md),
+                    borderSide: BorderSide(color: borderColor),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: const BorderRadius.all(AppRadius.md),
+                    borderSide: BorderSide(color: borderColor),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: const BorderRadius.all(AppRadius.md),
+                    borderSide: BorderSide(
+                      color: widget.hasError
+                          ? colors.destructive
+                          : colors.accent,
+                    ),
                   ),
                 ),
+                onChanged: (value) => _handleChanged(index, value),
               ),
-              onChanged: (value) => _handleChanged(index, value),
             ),
-          ),
-        );
-      }),
+          );
+        }),
+      ),
     );
   }
 }
